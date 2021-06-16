@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+
+<!-- Bootstrap　 jQuery Bootstrapの読み込み必要がある-->
+<!--　cssファイル タイムリーフでファイル読み込み　 -->
+<link th:href="@{/webjars/bootstrap/4.2.1/css/bootstrap.min.css}"
+	rel="stylesheet"></link>
+<!--　jQueryのjsファイル タイムリーフでファイル読み込み　 -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!--　Bootstrap のjsファイル（jQueryの後に読み込む） タイムリーフでファイル読み込み　 -->
+<script th:src="@{/webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
+
+
+<title>admin</title>
+</head>
+<body>
+<div th:fragment="productListLayout_contents">
+	<header>
+		<h1>商品追加</h1>
+	</header>
+	<form method="post" th:action="@{/admin}" th:object="${pcDataForm}">
+		<table class="table table-bordered table-hover">
+			<tr>
+				<th>会社名</th>
+				<td>
+					<div class="form-group">
+						<input type="text" class="form-control" th:field="*{company}">
+					</div>
+				</td>
+			</tr>
+
+			<tr>
+				<th>OS</th>
+				<td>
+					<div class="form-group">
+						<input type="text" class="form-control" th:field="*{os}">
+					</div>
+				</td>
+			</tr>
+
+			<tr>
+				<th>PcName</th>
+				<td>
+					<div class="form-group">
+						<input type="text" class="form-control" th:field="*{pcName}">
+					</div>
+				<td>
+			</tr>
+
+			<tr>
+				<th>画面サイズ</th>
+				<td>
+					<div class="form-group">
+						<input type="text" class="form-control" th:field="*{pcSize}">
+					</div>
+				</td>
+			</tr>
+
+			<tr>
+				<th>値段</th>
+				<td>
+					<div class="form-group">
+						<input type="text" class="form-control" th:field="*{price}">
+					</div>
+				</td>
+			</tr>
+
+			<tr>
+				<th>その他詳細欄</th>
+				<td>
+					<div class="form-group">
+						<input type="text" class="form-control" th:field="*{detail}">
+					</div>
+				</td>
+			</tr>
+
+			<tr>
+				<th>画像URL</th>
+				<td>
+					<div class="form-group">
+						<input type="text" class="form-control" th:field="*{pcImg}">
+					</div>
+				</td>
+			</tr>
+
+			<tr>
+				<th>画像URL2</th>
+				<td>
+					<div class="form-group">
+						<input type="text" class="form-control" th:field="*{pcImg2}">
+					</div>
+				</td>
+			</tr>
+
+			<tr>
+				<th>画像URL3</th>
+				<td>
+					<div class="form-group">
+						<input type="text" class="form-control" th:field="*{pcImg3}">
+					</div>
+				</td>
+			</tr>
+
+		</table>
+
+		<button class="btn btn-primary" type="submit">商品追加決定</button>
+	</form>
+	</div>
+</body>
+</html>

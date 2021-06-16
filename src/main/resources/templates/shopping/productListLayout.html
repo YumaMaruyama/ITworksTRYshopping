@@ -1,0 +1,64 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+
+<!-- Bootstrap　 jQuery Bootstrapの読み込み必要がある-->
+<!--　cssファイル タイムリーフでファイル読み込み　 -->
+<link th:href="@{/webjars/bootstrap/4.2.1/css/bootstrap.min.css}"
+	rel="stylesheet"></link>
+<!--　jQueryのjsファイル タイムリーフでファイル読み込み　 -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!--　Bootstrap のjsファイル（jQueryの後に読み込む） タイムリーフでファイル読み込み　 -->
+<script th:src="@{/webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
+
+<link th:href="@{/css/productListLayout.css}" rel="stylesheet"></link>
+<link th:href="@{/css/productList.css}" rel="stylesheet"></link>
+
+<title>loginLayout</title>
+</head>
+<body>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container-fluid headerDesign">
+			<div class="navbar-header col-sm-4">
+				<a class="navbar-brand" th:href="@{/login}"
+					title="アプリ名をクリックするとLogin画面に推移します"><i
+					class="fa fa-android fa-spin fa-colorLogin fa-size"></i><span
+					style="color: #a4f7cb !important;">PCショップYM</span></a>
+
+
+			</div>
+			<div class="col-sm-6">
+			<h3
+				style="color: #fff; padding: 0px 0px !important; margin: 14px 0px;font-size:20px;"></h3>
+			</div>
+
+			<div class="col-sm-2">
+				<h4 style="margin:15px 0px !important;"><a th:href="@{'/loginLayout'}"><span style="color:#ecff96 !important; font-size: 18px;">ログアウト</span></a></h4>
+			</div>
+		</div>
+	</nav>
+
+<div class="container-fluid">
+    <div class="row">
+    <div class="clearfix"></div>
+    <div class="col-sm-3 col-md-2 sidebar">
+        <ul class="nav nav-sidebar">
+            <li><a href="">購入用JCBカード登録</a></li>
+            <br>
+            <li><a href="">お問い合わせ</a></li>
+            <br>
+            <li><a href="">プライバシーポリシー</a></li>
+            <br>
+            <li><a href="">利用規約</a></li>
+        </ul>
+    </div>
+    <div class="col-sm-9">
+     	<div th:include="__${contents}__"></div>
+    </div>
+</div>
+</div>
+</body>
+</html>

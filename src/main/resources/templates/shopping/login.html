@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="UTF-8"></meta>
+
+<!-- Bootstrap　 jQuery Bootstrapの読み込み必要がある-->
+<!--　cssファイル タイムリーフでファイル読み込み　 -->
+<link th:href="@{/webjars/bootstrap/4.2.1/css/bootstrap.min.css}"
+	rel="stylesheet"></link>
+<!--　jQueryのjsファイル タイムリーフでファイル読み込み　 -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!--　Bootstrap のjsファイル（jQueryの後に読み込む） タイムリーフでファイル読み込み　 -->
+<script th:src="@{/webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
+
+
+<link th:href="@{/css/login.css}" rel="stylesheet"></link>
+
+<title>login</title>
+</head>
+<body>
+<div th:fragment="loginLayout_contents">
+
+	<div class="text-center  design">
+		<h1 class="h1">Login</h1>
+		<br>
+		<form method="post" th:action="@{/login}">
+			<!-- ログインエラーメッセージの表示 -->
+			<p th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']} !=null"
+				th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"
+				class="text-danger errorSize">ログインエラーメッセージ</p>
+
+
+			<div class="cp_iptxt">
+				<label class="ef"> <input type="text" name="user_id"
+					placeholder="UserId">
+				</label>
+			</div>
+			<!-- パスワード -->
+			<div class="cp_iptxt">
+				<label class="ef"> <input type="text" name="password"
+					placeholder="Password">
+				</label>
+			</div>
+			<!-- CSRF対策用トークン  hiddenでCSRF対策用のトークンをサーバーに送る CSRF多作をしている場合下記のコードを書かないとSpringが応答しなくなる-->
+			<input type="hidden" th:name="${_csrf.parameterName}"
+				th:value="${_csrf.token}" />
+
+
+			<!-- ログインボタン -->
+			<button class="btn-gradient-flat btn btn-primary" type="submit">ログイン</button>
+		</form>
+		<br />
+		<!-- ポイント2：th：href タイムリーフを使ってアンカータグを使う　コントローラークラスの＠GetMappingアノテーションの値を指定するだけ-->
+
+
+</div>
+</div>
+</body>
+</html>

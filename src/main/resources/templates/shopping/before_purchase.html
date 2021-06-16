@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+
+<!-- Bootstrap　 jQuery Bootstrapの読み込み必要がある-->
+<!--　cssファイル タイムリーフでファイル読み込み　 -->
+<link th:href="@{/webjars/bootstrap/4.2.1/css/bootstrap.min.css}"
+	rel="stylesheet"></link>
+<!--　jQueryのjsファイル タイムリーフでファイル読み込み　 -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!--　Bootstrap のjsファイル（jQueryの後に読み込む） タイムリーフでファイル読み込み　 -->
+<script th:src="@{/webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
+
+<title>before_purchase</title>
+</head>
+<body>
+	<div th:fragment="productListLayout_contents">
+		<header>
+			<h1>購入前決済画面</h1>
+		</header>
+
+		<form>
+			<table>
+				<tr>
+					<th></th>
+					<td></td>
+				</tr>
+				<!-- PC情報＆custom情報＆custom後値段表示 -->
+				<!-- 決済用フォームも作る　まだJCB登録まだの人のために -->
+			</table>
+		</form>
+	</div>
+</body>
+</html>

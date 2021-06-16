@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+.design {
+	font-size: 29px;
+}
+
+.h1 {
+	font-size: 69px;
+}
+
+.errorSize {
+	font-size: 20px !important;
+}
+
+.btn {
+	font-size:20px !important;
+}

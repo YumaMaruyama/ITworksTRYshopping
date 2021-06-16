@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+
+<!-- Bootstrap　 jQuery Bootstrapの読み込み必要がある-->
+<!--　cssファイル タイムリーフでファイル読み込み　 -->
+<link th:href="@{/webjars/bootstrap/4.2.1/css/bootstrap.min.css}"
+	rel="stylesheet"></link>
+<!--　jQueryのjsファイル タイムリーフでファイル読み込み　 -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!--　Bootstrap のjsファイル（jQueryの後に読み込む） タイムリーフでファイル読み込み　 -->
+<script th:src="@{/webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
+
+
+<title>productDetail</title>
+</head>
+<body>
+	<div th:fragment="productListLayout_contents">
+		<header>
+			<h1>商品詳細</h1>
+		</header>
+		<form method="post" th:action="@{/productDetail}"
+			th:object="${pcDetailDataForm}">
+			<table class="table table-bordered table-hover">
+				<tr th:each="pcdatadto : ${pcdatadtoOne}">
+					<th class="text-center">会社名</th>
+					<th class="text-center">OS</th>
+					<th class="text-center">商品名</th>
+					<th class="text-center">画面サイズ</th>
+					<th class="text-center">値段</th>
+				</tr>
+				<tr th:each="pcdatadto : ${pcdatadtoOne}">
+					<td class="text-center" th:text="${pcdatadto.company}"></td>
+					<td class="text-center" th:text="${pcdatadto.os}"></td>
+					<td class="text-center" th:text="${pcdatadto.pcName}"></td>
+					<td class="text-center" th:text="${pcdatadto.pcSize} + '型'"></td>
+					<td class="text-center" th:text="${pcdatadto.price} + '円'"></td>
+				</tr>
+			</table>
+
+			<table class="table table-bordered table-hover">
+				<tr>
+					<th class="text-center">PC詳細</th>
+				</tr>
+				<tr th:each="pcdatadto : ${pcdatadtoOne}">
+					<td class="text-center" th:text="${pcdatadto.detail}"></td>
+				</tr>
+			</table>
+
+			<!-- 画像はテーブルではなくてbootstrapのカードで表示させる -->
+
+			<div>
+				<h3>PCのカスタムが可能です。</h3>
+			</div>
+
+			<table class="table table-bordered table-hover">
+				<tr>
+					<th class="text-center">メモリ選択</th>
+					<td class="text-center"><select th:field="*{gb}">
+							<option value="4GB">4GB</option>
+							<option value="8GB">8GB(5000円UP)</option>
+							<option value="16GB">16GB(15000円UP)</option>
+							<option value="32GB">32GB(40000円UP)</option>
+					</select></td>
+				</tr>
+
+				<tr>
+					<th class="text-center">ハードディスク</th>
+					<td class="text-center"><select th:field="*{hardDisc}">
+							<option value="SSD">SSD</option>
+							<option value="HDD">HDD(1000円UP)</option>
+					</select></td>
+				</tr>
+				<tr>
+					<th class="text-center">CPU</th>
+					<td class="text-center"><select th:field="*{cpu}">
+							<option value="CORE3">CORE3</option>
+							<option value="CORE5">CORE5(20000円UP)</option>
+							<option value="CORE7">CORE7(40000円UP)</option>
+							<option value="CORE9">CORE9(70000円UP)</option>
+							<option value="Ryzen3">Ryzen3(10000円UP)</option>
+							<option value="Ryzen5">Ryzen5(50000円UP)</option>
+							<option value="Ryzen7">Ryzen7(70000円UP)</option>
+							<option value="Ryzen9">Ryzen9(100000円UP)</option>
+					</select></td>
+				</tr>
+			</table>
+			<div th:each="pcdatadto : ${pcdatadtoOne}">
+				<input type="hidden" th:value="${pcdatadto.price}"
+					th:field="*{price}">
+			</div>
+			<button class="btn btn-success" name="purchase">購入</button>
+
+		</form>
+	</div>
+</body>
+</html>

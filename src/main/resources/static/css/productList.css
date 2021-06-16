@@ -1,0 +1,30 @@
+@charset "UTF-8";
+
+.size {
+	width:150px !important;
+	height:150px !important;
+	margin-left:25px;
+}
+
+.a {
+	padding-left:49px;
+}
+
+.font {
+	font-size:10px important;
+}
+
+.flex {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  widht:30%;
+  hegth:20%;
+}
+
+.flex .item {
+	width:20%;
+}
+
+.fontdesign {
+	font-size:15px ;
+}
