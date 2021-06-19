@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+
+<!-- Bootstrap　 jQuery Bootstrapの読み込み必要がある-->
+<!--　cssファイル タイムリーフでファイル読み込み　 -->
+<link th:href="@{/webjars/bootstrap/4.2.1/css/bootstrap.min.css}"
+	rel="stylesheet"></link>
+<!--　jQueryのjsファイル タイムリーフでファイル読み込み　 -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!--　Bootstrap のjsファイル（jQueryの後に読み込む） タイムリーフでファイル読み込み　 -->
+<script th:src="@{/webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
+
+
+<title>clelaring</title>
+</head>
+<body>
+	<div th:fragment="productListLayout_contents">
+
+		<header>
+			<h1>決済画面</h1>
+		</header>
+
+
+		<form th:each="pcdatadto:${pcdatadtoOne}" th:action="@{/productReceiving} + '/' + ${pcdatadto.id}" th:object="${creditForm}">
+
+			<div>
+				<h3>JCBカード決済 ・登録しているカードの情報を入力してください。</h3>
+			</div>
+			<table class="table table-bordered table-hover">
+
+
+
+				<tr>
+					<th class="form-group">クレジット有効期限</th>
+					<td><input type="text" class="form-control"
+						th:field="*{expire_date}" placeholder="月年の4桁で入力してください"></td>
+				</tr>
+
+				<tr>
+					<th class="form-group">クレジット記載ネーム</th>
+					<td><input type="text" class="form-control"
+						th:field="*{cardName}" placeholder="ローマ字記載の名前を入力してください。"></td>
+				</tr>
+
+				<tr>
+					<th class="form-group">クレジット番号</th>
+					<td><input type="tel" class="form-control"
+						th:field="*{cardNumber}" placeholder="16桁の番号を入力してください。"></td>
+				</tr>
+
+				<tr>
+					<th class="form-group">引き落とし金額</th>
+					<td th:text="${customPrice} + '円'"></td>
+				</tr>
+
+			</table>
+
+			<div class="btn-wrapper">
+    <div class="check-box">
+        <label><input class="check" type="checkbox" name="check" autocomplete="off" id="agree"><span>この商品の詳細を確認して承知したうえで購入します。</span></label>
+    </div>
+    <button class="submit">購入する</button>
+</div>
+		</form>
+
+
+<script>
+$(function() {
+
+  $('.submit').attr('disabled', 'disabled');
+
+  $('#agree').on('click', function() {
+      if ($(this).prop('checked') == false) {
+        $('.submit').attr('disabled', 'disabled');
+      } else {
+        $('.submit').removeAttr('disabled');
+      }
+    });
+
+ });
+</script>
+
+
+	</div>
+</body>
+</html>

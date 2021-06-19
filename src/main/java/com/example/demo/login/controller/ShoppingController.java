@@ -15,10 +15,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.demo.login.domail.model.CreditDTO;
+import com.example.demo.login.domail.model.CreditForm;
 import com.example.demo.login.domail.model.PcDataDTO;
 import com.example.demo.login.domail.model.PcDataForm;
 import com.example.demo.login.domail.model.PcDetailDataForm;
 import com.example.demo.login.domail.model.UsersDTO;
+import com.example.demo.login.domail.service.CreditService;
 import com.example.demo.login.domail.service.PcDataService;
 import com.example.demo.login.domail.service.UsersService;
 
@@ -29,6 +32,8 @@ public class ShoppingController {
 	PcDataService pcdataService;
 	@Autowired
 	UsersService usersService;
+	@Autowired
+	CreditService creditService;
 
 	@Autowired //Sessionが使用できる
 	HttpSession session;
@@ -69,9 +74,7 @@ public class ShoppingController {
 
 		//@AutowiredがついてるのでUsersServiceのインスタンス（usersService）を使う
 				UsersDTO headerName = usersService.getUser_name(auth.getName());
-				System.out.println("headerName" + headerName);
-
-				session.setAttribute("getUser_name", headerName.getUser_name());
+				session.setAttribute("sessionGetUser_name", headerName.getUser_name());
 				System.out.println("getUser_name" + headerName.getUser_name());
 
 		System.out.println("productList" + productList);
@@ -98,84 +101,146 @@ public class ShoppingController {
 		return "shopping/productListLayout";
 	}
 
-	@PostMapping("/productDetail")
-	public String postProductDetailCustom(@ModelAttribute PcDetailDataForm form,PcDataForm pcdataform, Model model,@RequestParam("price") int price) {
+	@PostMapping("/productDetail/{id}")
+	public String postProductDetailCustom(@ModelAttribute PcDetailDataForm form,PcDataForm pcdataform, Model model,@RequestParam("price") int price,@PathVariable("id") int id) {
 
 		String gb = form.getGb();
 		String hardDisc = form.getHardDisc();
 		String cpu = form.getCpu();
 
+		PcDataDTO pcdatadtoOne = pcdataService.selectOne(id);
+		System.out.println("pcdatadtoOne" + pcdatadtoOne);
+		model.addAttribute("pcdatadtoOne",pcdatadtoOne);
 
-		if (gb.equals("4GB")) {
+		int getPrice = pcdatadtoOne.getPrice();
 
-		}
+
 
 		if (gb.equals("8GB")) {
-			price = price + 5000;
+			getPrice = getPrice + 5000;
 		}
 
 		if (gb.equals("16GB")) {
-			price = price + 15000;
+			getPrice = getPrice + 15000;
 		}
 
 		if (gb.equals("32GB")) {
-			price = price + 40000;
+			getPrice = getPrice + 40000;
 		}
 
-		if (hardDisc.equals("SSD")) {
 
-		}
 
 		if (hardDisc.equals("HDD")) {
-			price = price + 1000;
+			getPrice = getPrice + 1000;
 		}
 
-		if (cpu.equals("CORE3")) {
 
-		}
 
 		if (cpu.equals("CORE5")) {
-			price = price + 20000;
+			getPrice = getPrice + 20000;
 		}
 
 		if (cpu.equals("CORE7")) {
-			price = price + 40000;
+			getPrice = getPrice + 40000;
 		}
 
 		if (cpu.equals("CORE9")) {
-			price = price + 70000;
+			getPrice = getPrice + 70000;
 		}
 
 		if (cpu.equals("Ryzen3")) {
-			price = price + 10000;
+			getPrice = getPrice + 10000;
 		}
 
 		if (cpu.equals("Ryzen5")) {
-			price = price + 50000;
+			getPrice = getPrice + 50000;
 		}
 
 		if (cpu.equals("Ryzen7")) {
-			price = price + 70000;
+			getPrice = getPrice + 70000;
 		}
 
 		if (cpu.equals("Ryzen9")) {
-			price = price + 100000;
+			getPrice = getPrice + 100000;
 		}
 
+		model.addAttribute("customPrice",getPrice);
 
-		return getFefore_purchase(pcdataform,form,model,price);
+		return getFefore_purchase(pcdataform,form,model,getPrice,id);
 	}
 
 	@GetMapping("/before_purchase")
-	public String getFefore_purchase(@ModelAttribute PcDataForm pcdataform,PcDetailDataForm form, Model model,int price) {
+	public String getFefore_purchase(@ModelAttribute PcDataForm pcdataform,PcDetailDataForm form, Model model,int price,int id) {
 		model.addAttribute("contents", "shopping/before_purchase::productListLayout_contents");
+
 
 		return "shopping/productListLayout";
 	}
 
-	@GetMapping("test")
-	public String getTest(Model model) {
-		return "shopping/test";
+	@GetMapping("credit")
+	public String getCredit(@ModelAttribute CreditForm form,Model model) {
+		model.addAttribute("contents", "shopping/credit::productListLayout_contents");
+
+		return "shopping/productListLayout";
 	}
 
+	@PostMapping("credit")
+	public String postCredit(@ModelAttribute CreditForm form,PcDataForm pcdataform,Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	System.out.println("auth" + auth.getName());
+	String getName = auth.getName();
+
+	CreditDTO creditdto = new CreditDTO();
+
+	creditdto.setExpire_date(form.getExpire_date());
+	creditdto.setCardName(form.getCardName());
+	creditdto.setCardNumber(form.getCardNumber());
+
+	int result = creditService.insertOne(creditdto,getName);
+
+	return getProductList(pcdataform,model);
+
+	}
+
+	@GetMapping("/clearing/{id}")
+	public String getClearing(@ModelAttribute CreditForm form,Model model,@RequestParam("customPrice") int customPrice,@PathVariable("id") int id) {
+		model.addAttribute("contents", "shopping/clearing::productListLayout_contents");
+
+		System.out.println(id);//商品番号
+		System.out.println(customPrice);//決済金額
+		model.addAttribute("customPrice",customPrice);
+		return "shopping/productListLayout";
+	}
+
+	@PostMapping("/clearing/{id}")
+	public String postClearing(@ModelAttribute CreditForm form,Model model,@RequestParam("customPrice") int customPrice,@PathVariable("id") int id) {
+		model.addAttribute("contents", "shopping/productReceiving::productListLayout_contents");
+		CreditDTO creditdto = new CreditDTO();
+		//ユーザーが入力した決済番号
+		creditdto.setExpire_date(form.getExpire_date());
+		creditdto.setCardName(form.getCardName());
+		creditdto.setCardNumber(form.getCardNumber());
+
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println("auth" + auth.getName());
+		String getName = auth.getName();
+
+		//決済でカード内容入力したユーザーがクレジット登録をしているか確認　そのユーザのユーザIDのカード情報が取れていればその情報と入力した情報を比べる
+		CreditDTO getCredit = creditService.selectOne(getName);
+
+
+		return "shopping/productListLayout";
+
+	}
+	//clearingからproductReceiving
+
+
+	//ログアウト用メソッド
+			@GetMapping("logout")
+			public String getLogout() {
+
+				//ログイン画面にリダイレクト
+				return "redirect:/login";
+			}
 }

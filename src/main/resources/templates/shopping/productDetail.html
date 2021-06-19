@@ -22,7 +22,7 @@
 		<header>
 			<h1>商品詳細</h1>
 		</header>
-		<form method="post" th:action="@{/productDetail}"
+		<form th:each="pcdatadto : ${pcdatadtoOne}" method="post" th:action="@{/productDetail} + '/' + ${pcdatadto.id}"
 			th:object="${pcDetailDataForm}">
 			<table class="table table-bordered table-hover">
 				<tr th:each="pcdatadto : ${pcdatadtoOne}">
@@ -92,7 +92,8 @@
 				<input type="hidden" th:value="${pcdatadto.price}"
 					th:field="*{price}">
 			</div>
-			<button class="btn btn-success" name="purchase">購入</button>
+			<input type="hidden" th:value="id" th:field="${id}">
+			<button class="btn btn-success" name="purchase">購入前詳細画面</button>
 
 		</form>
 	</div>

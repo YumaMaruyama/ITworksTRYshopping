@@ -22,8 +22,9 @@ public class SignupController {
 
 	@GetMapping("/signup")
 	public String getSignup(@ModelAttribute SignupForm form,Model model) {
+		model.addAttribute("contents", "shopping/signup::loginLayout_contents");
 		System.out.println("getSignup到達");
-		return "shopping/signup";
+		return "shopping/loginLayout";
 	}
 
 	@PostMapping("/signup")

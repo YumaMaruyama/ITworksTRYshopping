@@ -19,19 +19,46 @@
 <body>
 	<div th:fragment="productListLayout_contents">
 		<header>
-			<h1>購入前決済画面</h1>
+			<h1>購入前詳細画面</h1>
 		</header>
 
-		<form>
-			<table>
-				<tr>
-					<th></th>
-					<td></td>
+		<form method="get" th:each="pcdatadto:${pcdatadtoOne}" th:action="@{/clearing} + '/' + ${pcdatadto.id}">
+			<table class="table table-bordered table-hover">
+				<tr th:each="pcdatadto:${pcdatadtoOne}">
+					<th class="text-center">会社名</th>
+					<th class="text-center">OS</th>
+					<th class="text-center">商品名</th>
+					<th class="text-center">画面サイズ</th>
+					<th class="text-center">カスタム前値段</th>
 				</tr>
-				<!-- PC情報＆custom情報＆custom後値段表示 -->
-				<!-- 決済用フォームも作る　まだJCB登録まだの人のために -->
+				<tr th:each="pcdatadto : ${pcdatadtoOne}">
+					<td class="text-center" th:text="${pcdatadto.company}"></td>
+					<td class="text-center" th:text="${pcdatadto.os}"></td>
+					<td class="text-center" th:text="${pcdatadto.pcName}"></td>
+					<td class="text-center" th:text="${pcdatadto.pcSize} + '型'"></td>
+					<td class="text-center" th:text="${pcdatadto.price} + '円'"></td>
+				</tr>
 			</table>
+			<table class="table table-bordered table-hover">
+				<tr>
+					<th class="text-center">PC詳細</th>
+				</tr>
+				<tr th:each="pcdatadto : ${pcdatadtoOne}">
+					<td class="text-center" th:text="${pcdatadto.detail}"></td>
+				</tr>
+			</table>
+
+			<table class="table table-bordered table-hover">
+				<tr>
+					<th>カスタム後値段</th>
+					<td th:text="${customPrice}"></td>
+				</tr>
+			</table>
+
+			<input type="hidden" th:value="${customPrice}" name="customPrice">
+			<button class="btn btn-primary">決済画面</button>
 		</form>
+
 	</div>
 </body>
 </html>

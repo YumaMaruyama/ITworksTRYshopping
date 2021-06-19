@@ -20,25 +20,28 @@
 <title>productList</title>
 </head>
 <body>
-<div th:fragment="productListLayout_contents">
-	<header>
-		<h1>商品一覧</h1>
-	</header>
-<div class="flex">
-	<div class="item"  th:each="pcdatadto : ${productList}">
-		<img class="size" th:src="${pcdatadto.pcImg}">
-		 <h4 class="card-title text-center fontdesign" th:text="'商品名：' + ${pcdatadto.pcName}"></h4>
-		 <p class="card-text text-center fontdesign" th:text="'会社名：' + ${pcdatadto.company}"></p>
-		 <p class="card-text text-center fontdesign" th:text="'OS：' + ${pcdatadto.os}"></p>
-		 <p class="card-text text-center fontdesign" th:text="'画面サイズ：' + ${pcdatadto.pcSize} + '型'"></p>
-		 <p class="card-text text-center fontdesign" th:text="'値段：' + ${pcdatadto.price} + '円'"></p>
-		 <a class="text-center a" th:href="@{/productDetail} + '/' + ${pcdatadto.id}">詳細画面に行く</a>
-		<div class="card-footer"></div>
+	<div th:fragment="productListLayout_contents">
+		<header>
+			<h1>商品一覧</h1>
+		</header>
+		<div class="flex">
+			<div class="item" th:each="pcdatadto : ${productList}">
+				<img class="size" th:src="${pcdatadto.pcImg}">
+				<h4 class="card-title text-center fontdesign"
+					th:text="'商品名：' + ${pcdatadto.pcName}"></h4>
+				<p class="card-text text-center fontdesign"
+					th:text="'会社名：' + ${pcdatadto.company}"></p>
+				<p class="card-text text-center fontdesign"
+					th:text="'OS：' + ${pcdatadto.os}"></p>
+				<p class="card-text text-center fontdesign"
+					th:text="'画面サイズ：' + ${pcdatadto.pcSize} + '型'"></p>
+				<p class="card-text text-center fontdesign"
+					th:text="'値段：' + ${pcdatadto.price} + '円'"></p>
+				<a class="text-center a"
+					th:href="@{/productDetail} + '/' + ${pcdatadto.id}">詳細画面に行く</a>
+				<div class="card-footer"></div>
+			</div>
+		</div>
 	</div>
-</div>
-
-
-	<a th:href="@{/admin}">管理者専用画面</a>
-</div>
 </body>
 </html>
