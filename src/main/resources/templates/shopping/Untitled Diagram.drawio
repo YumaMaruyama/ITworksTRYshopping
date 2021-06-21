@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-06-21T02:55:22.011Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.101 Safari/537.36 Edg/91.0.864.48" etag="ePdRsIcXIIf-AE8O-XH_" version="14.8.0" type="github" pages="12">
+<mxfile host="app.diagrams.net" modified="2021-06-21T02:56:35.602Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.101 Safari/537.36 Edg/91.0.864.48" etag="GACk6MwrUxnRZ37P5H70" version="14.8.0" type="github" pages="12">
   <diagram id="3dSM1hKOwx3oM_8oYQWr" name="ログイン画面">
     <mxGraphModel dx="1557" dy="643" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -256,8 +256,8 @@
         <mxCell id="HLVHqwPOguu38MWBbGEq-1" value="&lt;b&gt;サイドバー&lt;/b&gt;　&lt;span style=&quot;white-space: pre&quot;&gt; &lt;span style=&quot;white-space: pre&quot;&gt; &lt;/span&gt;「新規ユーザー登録&lt;/span&gt;」リンクをクリックすると新規ユーザー登録画面に推移する。" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="04y9C_qfE-yw2NYUlJ8l-1" vertex="1">
           <mxGeometry x="140" y="580" width="570" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="HLVHqwPOguu38MWBbGEq-2" value="&lt;b&gt;入力フォーム&lt;/b&gt;　&lt;span style=&quot;white-space: pre&quot;&gt; &lt;span style=&quot;white-space: pre&quot;&gt; &lt;/span&gt;自身の&lt;/span&gt;ユーザーID、パスワード、ユーザー名、生年月日、商品を受け取る住所を入力する。&lt;br&gt;ユーザーIDにはフォームに説明を入れておく。&lt;br&gt;生年月日は手打ちではなく日付を選べるようにする。" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="04y9C_qfE-yw2NYUlJ8l-1" vertex="1">
-          <mxGeometry x="160" y="640" width="570" height="70" as="geometry" />
+        <mxCell id="HLVHqwPOguu38MWBbGEq-2" value="&lt;b&gt;入力フォーム&lt;/b&gt;　&lt;span style=&quot;white-space: pre&quot;&gt; &lt;span style=&quot;white-space: pre&quot;&gt; 　　　　　&lt;/span&gt;自身の&lt;/span&gt;ユーザーID、パスワード、ユーザー名、生年月日、商品を受け取る住所を入力する。&lt;br&gt;ユーザーIDにはフォームに説明を入れておく。&lt;br&gt;生年月日は手打ちではなく日付を選べるようにする。" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="04y9C_qfE-yw2NYUlJ8l-1" vertex="1">
+          <mxGeometry x="150" y="640" width="690" height="70" as="geometry" />
         </mxCell>
         <mxCell id="ML7QEB41TT0QWDavu6Fd-0" value="入力フォーム" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;strokeColor=#66FF66;" parent="04y9C_qfE-yw2NYUlJ8l-1" vertex="1">
           <mxGeometry x="850" y="180" width="90" height="30" as="geometry" />
