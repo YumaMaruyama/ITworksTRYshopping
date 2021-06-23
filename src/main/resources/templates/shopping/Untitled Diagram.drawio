@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-06-23T04:24:28.976Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36 Edg/91.0.864.54" etag="2SjuD9SPO70deu3U788u" version="14.8.0" type="github" pages="15">
+<mxfile host="app.diagrams.net" modified="2021-06-23T04:44:00.193Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36 Edg/91.0.864.54" etag="pHxnITjthT3g6F-Hpjch" version="14.8.0" type="github" pages="15">
   <diagram id="3dSM1hKOwx3oM_8oYQWr" name="ログイン画面">
     <mxGraphModel dx="1268" dy="482" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -2882,7 +2882,7 @@
           <mxGeometry x="300" width="60" height="40" as="geometry" />
         </mxCell>
         <mxCell id="yiprIeVTXZ52ZSWIO-zq-84" value="" style="shape=table;startSize=0;container=1;collapsible=0;childLayout=tableLayout;" vertex="1" parent="yiprIeVTXZ52ZSWIO-zq-1">
-          <mxGeometry x="10" y="430" width="410" height="130" as="geometry" />
+          <mxGeometry x="10" y="430" width="410" height="170" as="geometry" />
         </mxCell>
         <mxCell id="yiprIeVTXZ52ZSWIO-zq-85" value="" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="yiprIeVTXZ52ZSWIO-zq-84">
           <mxGeometry width="410" height="50" as="geometry" />
@@ -2947,6 +2947,27 @@
         <mxCell id="yiprIeVTXZ52ZSWIO-zq-102" value="2021/6/23&lt;br&gt;10:12" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;" vertex="1" parent="yiprIeVTXZ52ZSWIO-zq-97">
           <mxGeometry x="353" width="57" height="40" as="geometry" />
         </mxCell>
+        <mxCell id="kea7gR2qUqFv6VW4dHq5-7" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="yiprIeVTXZ52ZSWIO-zq-84">
+          <mxGeometry y="130" width="410" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="kea7gR2qUqFv6VW4dHq5-8" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;" vertex="1" parent="kea7gR2qUqFv6VW4dHq5-7">
+          <mxGeometry width="68" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="kea7gR2qUqFv6VW4dHq5-9" value="52" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;" vertex="1" parent="kea7gR2qUqFv6VW4dHq5-7">
+          <mxGeometry x="68" width="69" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="kea7gR2qUqFv6VW4dHq5-10" value="1" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;" vertex="1" parent="kea7gR2qUqFv6VW4dHq5-7">
+          <mxGeometry x="137" width="68" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="kea7gR2qUqFv6VW4dHq5-11" value="2" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;" vertex="1" parent="kea7gR2qUqFv6VW4dHq5-7">
+          <mxGeometry x="205" width="68" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="kea7gR2qUqFv6VW4dHq5-12" value="1" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;" vertex="1" parent="kea7gR2qUqFv6VW4dHq5-7">
+          <mxGeometry x="273" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="kea7gR2qUqFv6VW4dHq5-13" value="2021/6/23&lt;br&gt;13:35" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;" vertex="1" parent="kea7gR2qUqFv6VW4dHq5-7">
+          <mxGeometry x="353" width="57" height="40" as="geometry" />
+        </mxCell>
         <mxCell id="yiprIeVTXZ52ZSWIO-zq-109" value="" style="shape=table;startSize=0;container=1;collapsible=0;childLayout=tableLayout;" vertex="1" parent="yiprIeVTXZ52ZSWIO-zq-1">
           <mxGeometry x="10" y="-40" width="550" height="120" as="geometry" />
         </mxCell>
@@ -3005,7 +3026,7 @@
           <mxGeometry x="441" width="109" height="40" as="geometry" />
         </mxCell>
         <mxCell id="d6T23x5Ql0usDcVXZjfu-0" value="usersテーブルから名前のuser_nameを取得する" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="yiprIeVTXZ52ZSWIO-zq-1">
-          <mxGeometry x="80" y="600" width="450" height="20" as="geometry" />
+          <mxGeometry x="90" y="610" width="450" height="20" as="geometry" />
         </mxCell>
         <mxCell id="d6T23x5Ql0usDcVXZjfu-1" value="usege_usersテーブルから配達住所のaddresを取得する" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="yiprIeVTXZ52ZSWIO-zq-1">
           <mxGeometry x="90" y="720" width="450" height="20" as="geometry" />
@@ -3085,14 +3106,17 @@
         <mxCell id="d6T23x5Ql0usDcVXZjfu-29" value="販売履歴　&lt;br&gt;select users.id, users.user_name, pc_data.pc_name,pc_data.company,pc_data.os,pc_date.price,detailed_after_purchase.product_cont,detailed_after_purchase.pruchase_date from users join usege_users on users.id = usege_users.user_id join detailed_after_purchase on pc_date.id = detailed_after_purchase.user_id join pc_data on&amp;nbsp;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="yiprIeVTXZ52ZSWIO-zq-1">
           <mxGeometry x="-20" y="1390" width="1600" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="d6T23x5Ql0usDcVXZjfu-30" value="商品一覧　select pc_data.id,pc_data.company,pc_data.os,pc_data.pc_name,pc_data.pc_size.pc_data.price,pc_data.pc_img,product_stock.remaining_count from pc_data JOIN product_stock ON pc_data.id = product_stock.product_user_id;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="yiprIeVTXZ52ZSWIO-zq-1">
+        <mxCell id="d6T23x5Ql0usDcVXZjfu-30" value="商品一覧　select pc_data.id,pc_data.company,pc_data.os,pc_data.pc_name,pc_data.pc_size.pc_data.price * pc_data.pc_img,product_stock.remaining_count from pc_data JOIN product_stock ON pc_data.id = product_stock.product_user_id;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="yiprIeVTXZ52ZSWIO-zq-1">
           <mxGeometry x="190" y="940" width="1320" height="20" as="geometry" />
         </mxCell>
         <mxCell id="d6T23x5Ql0usDcVXZjfu-31" value="販売履歴　&lt;br&gt;select users.id, users.user_name, pc_data.pc_name,pc_data.company,pc_data.os,pc_date.price,detailed_after_purchase.product_cont,detailed_after_purchase.pruchase_date,usege_users.adress from detailed_after_purchase JOIN&amp;nbsp; users ON detailed_after_purchase.&lt;br&gt;&amp;nbsp;user_id = users.id JOIN usege_users ON detailed_after_purchase.user_id = usege_users.id JOIN pc_data ON detailed_after_purchase.product_id = pc_data.id" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="yiprIeVTXZ52ZSWIO-zq-1">
-          <mxGeometry x="-60" y="1020" width="1600" height="20" as="geometry" />
+          <mxGeometry x="-60" y="1060" width="1600" height="20" as="geometry" />
         </mxCell>
         <mxCell id="kea7gR2qUqFv6VW4dHq5-1" value="商品詳細一覧　select pc_data.id,pc_data.company,pc_data.os,pc_data.pc_name,pc_data.pc_size.pc_data.price,pc_data.detail,pc_data.pc_img,pc_data.pc_img2,pc_data.pc_img3,&lt;br&gt;product_stock.remaining_count from pc_data JOIN product_stock ON pc_data.id = product_stock.product_user_id;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="yiprIeVTXZ52ZSWIO-zq-1">
-          <mxGeometry x="190" y="970" width="1320" height="20" as="geometry" />
+          <mxGeometry x="30" y="990" width="1320" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="kea7gR2qUqFv6VW4dHq5-14" value="商品が購入されると在庫の数が1つ減る　" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="yiprIeVTXZ52ZSWIO-zq-1">
+          <mxGeometry x="30" y="1160" width="1320" height="20" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
