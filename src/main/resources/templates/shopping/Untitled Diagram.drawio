@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-06-23T02:08:39.250Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36 Edg/91.0.864.54" etag="AIBzo7hS6nGkWKww3N7T" version="14.8.0" type="github" pages="15">
+<mxfile host="app.diagrams.net" modified="2021-06-23T04:24:28.976Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36 Edg/91.0.864.54" etag="2SjuD9SPO70deu3U788u" version="14.8.0" type="github" pages="15">
   <diagram id="3dSM1hKOwx3oM_8oYQWr" name="ログイン画面">
     <mxGraphModel dx="1268" dy="482" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -1614,7 +1614,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="8D_n71diJsg-9dAQ8Z95" name="決済画面">
-    <mxGraphModel dx="1976" dy="1812" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2147" dy="1651" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="u_YmjqOky5CkKcXDjzlY-0" />
         <mxCell id="u_YmjqOky5CkKcXDjzlY-1" parent="u_YmjqOky5CkKcXDjzlY-0" />
@@ -1732,41 +1732,41 @@
         <mxCell id="EcODPI2WPL1AXl1H3Q9U-15" value="&lt;b&gt;購入ボタン&lt;/b&gt;&lt;span style=&quot;white-space: pre&quot;&gt; &lt;span style=&quot;white-space: pre&quot;&gt; &lt;/span&gt;最終確認チェック&lt;/span&gt;が押されるまで押せないようにする。　&lt;br&gt;　　　　　　押せる状態でクリックすると購入後詳細画面に推移する。" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="u_YmjqOky5CkKcXDjzlY-1" vertex="1">
           <mxGeometry x="-23" y="800" width="740" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="HYVkD99vOfI9ooImcAbp-1" value="JCBカード登録&lt;br&gt;&lt;br&gt;&lt;br&gt;管理者専用画面" style="rounded=0;whiteSpace=wrap;html=1;direction=south;align=center;strokeWidth=2;strokeColor=#FF66B3;" vertex="1" parent="u_YmjqOky5CkKcXDjzlY-1">
+        <mxCell id="HYVkD99vOfI9ooImcAbp-1" value="JCBカード登録&lt;br&gt;&lt;br&gt;&lt;br&gt;管理者専用画面" style="rounded=0;whiteSpace=wrap;html=1;direction=south;align=center;strokeWidth=2;strokeColor=#FF66B3;" parent="u_YmjqOky5CkKcXDjzlY-1" vertex="1">
           <mxGeometry x="-10" y="60" width="100" height="430" as="geometry" />
         </mxCell>
-        <mxCell id="HYVkD99vOfI9ooImcAbp-2" value="サイドバー" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;strokeColor=#FF66B3;" vertex="1" parent="u_YmjqOky5CkKcXDjzlY-1">
+        <mxCell id="HYVkD99vOfI9ooImcAbp-2" value="サイドバー" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;strokeColor=#FF66B3;" parent="u_YmjqOky5CkKcXDjzlY-1" vertex="1">
           <mxGeometry x="-160" y="210" width="90" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="HYVkD99vOfI9ooImcAbp-3" value="" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#FF66B3;" edge="1" parent="u_YmjqOky5CkKcXDjzlY-1">
+        <mxCell id="HYVkD99vOfI9ooImcAbp-3" value="" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#FF66B3;" parent="u_YmjqOky5CkKcXDjzlY-1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="-70" y="250" as="sourcePoint" />
             <mxPoint x="-30" y="270" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="HYVkD99vOfI9ooImcAbp-4" value="ヘッダー" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;strokeColor=#3333FF;" vertex="1" parent="u_YmjqOky5CkKcXDjzlY-1">
+        <mxCell id="HYVkD99vOfI9ooImcAbp-4" value="ヘッダー" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;strokeColor=#3333FF;" parent="u_YmjqOky5CkKcXDjzlY-1" vertex="1">
           <mxGeometry x="-160" y="20" width="90" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="HYVkD99vOfI9ooImcAbp-5" value="" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#3333FF;" edge="1" parent="u_YmjqOky5CkKcXDjzlY-1">
+        <mxCell id="HYVkD99vOfI9ooImcAbp-5" value="" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#3333FF;" parent="u_YmjqOky5CkKcXDjzlY-1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="-60" y="40" as="sourcePoint" />
             <mxPoint x="-20" y="30" as="targetPoint" />
             <Array as="points" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="HYVkD99vOfI9ooImcAbp-6" value="PCショップYM　　　　　　　　　　　　　　　　　　　丸山佑馬さん、こんにちは　　　　　　　　　　　　　　　　　　　　　　　ログアウト" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;strokeColor=#3333FF;" vertex="1" parent="u_YmjqOky5CkKcXDjzlY-1">
+        <mxCell id="HYVkD99vOfI9ooImcAbp-6" value="PCショップYM　　　　　　　　　　　　　　　　　　　丸山佑馬さん、こんにちは　　　　　　　　　　　　　　　　　　　　　　　ログアウト" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;strokeColor=#3333FF;" parent="u_YmjqOky5CkKcXDjzlY-1" vertex="1">
           <mxGeometry x="-10" width="840" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="Ulvf304Ra9nZ3fVezxB1-0" value="&lt;font color=&quot;#000000&quot;&gt;エラーメッセージを表示&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontColor=#FFE6CC;strokeColor=#FF9999;strokeWidth=2;" vertex="1" parent="u_YmjqOky5CkKcXDjzlY-1">
+        <mxCell id="Ulvf304Ra9nZ3fVezxB1-0" value="&lt;font color=&quot;#000000&quot;&gt;エラーメッセージを表示&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontColor=#FFE6CC;strokeColor=#FF9999;strokeWidth=2;" parent="u_YmjqOky5CkKcXDjzlY-1" vertex="1">
           <mxGeometry x="970" y="50" width="340" height="50" as="geometry" />
         </mxCell>
-        <mxCell id="Ulvf304Ra9nZ3fVezxB1-1" value="" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#FF6666;" edge="1" parent="u_YmjqOky5CkKcXDjzlY-1">
+        <mxCell id="Ulvf304Ra9nZ3fVezxB1-1" value="" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#FF6666;" parent="u_YmjqOky5CkKcXDjzlY-1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="960" y="80" as="sourcePoint" />
             <mxPoint x="640" y="120" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="lojEM75wHsT8ERZ-PtDu-0" value="&lt;font color=&quot;#ff0000&quot;&gt;ご登録されているJCBカードと情報が違います。&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="u_YmjqOky5CkKcXDjzlY-1">
+        <mxCell id="lojEM75wHsT8ERZ-PtDu-0" value="&lt;font color=&quot;#ff0000&quot;&gt;ご登録されているJCBカードと情報が違います。&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="u_YmjqOky5CkKcXDjzlY-1" vertex="1">
           <mxGeometry x="292" y="110" width="300" height="20" as="geometry" />
         </mxCell>
       </root>
@@ -2754,7 +2754,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="mo3n5-xH7cwPrbk2fJvN" name="shopping DB test">
-    <mxGraphModel dx="868" dy="1651" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2147" dy="1651" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="yiprIeVTXZ52ZSWIO-zq-0" />
         <mxCell id="yiprIeVTXZ52ZSWIO-zq-1" parent="yiprIeVTXZ52ZSWIO-zq-0" />
@@ -3079,8 +3079,20 @@
         <mxCell id="d6T23x5Ql0usDcVXZjfu-23" value="大阪府大阪市中央区3-3-3" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;" vertex="1" parent="d6T23x5Ql0usDcVXZjfu-15">
           <mxGeometry x="587" width="73" height="55" as="geometry" />
         </mxCell>
-        <mxCell id="d6T23x5Ql0usDcVXZjfu-28" value="select users.id, users.user_name, pc_data.pc_name,pc_data.company,pc_data.os,pc_date.price,detailed_after_purchase.product_cont,detailed_after_purchase.pruchase_date from&amp;nbsp;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="yiprIeVTXZ52ZSWIO-zq-1">
-          <mxGeometry x="20" y="930" width="1600" height="20" as="geometry" />
+        <mxCell id="d6T23x5Ql0usDcVXZjfu-28" value="select users.id, users.user_name, pc_data.pc_name,pc_data.company,pc_data.os,pc_date.price,detailed_after_purchase.product_cont,detailed_after_purchase.pruchase_date from users inner join usege_users on users.id = usege_users.user_id inner join pd_date. on pc_date.id = detailed_after_purchase.user_id inner join detailed_after_purchase." style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="yiprIeVTXZ52ZSWIO-zq-1">
+          <mxGeometry x="50" y="1340" width="1600" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="d6T23x5Ql0usDcVXZjfu-29" value="販売履歴　&lt;br&gt;select users.id, users.user_name, pc_data.pc_name,pc_data.company,pc_data.os,pc_date.price,detailed_after_purchase.product_cont,detailed_after_purchase.pruchase_date from users join usege_users on users.id = usege_users.user_id join detailed_after_purchase on pc_date.id = detailed_after_purchase.user_id join pc_data on&amp;nbsp;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="yiprIeVTXZ52ZSWIO-zq-1">
+          <mxGeometry x="-20" y="1390" width="1600" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="d6T23x5Ql0usDcVXZjfu-30" value="商品一覧　select pc_data.id,pc_data.company,pc_data.os,pc_data.pc_name,pc_data.pc_size.pc_data.price,pc_data.pc_img,product_stock.remaining_count from pc_data JOIN product_stock ON pc_data.id = product_stock.product_user_id;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="yiprIeVTXZ52ZSWIO-zq-1">
+          <mxGeometry x="190" y="940" width="1320" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="d6T23x5Ql0usDcVXZjfu-31" value="販売履歴　&lt;br&gt;select users.id, users.user_name, pc_data.pc_name,pc_data.company,pc_data.os,pc_date.price,detailed_after_purchase.product_cont,detailed_after_purchase.pruchase_date,usege_users.adress from detailed_after_purchase JOIN&amp;nbsp; users ON detailed_after_purchase.&lt;br&gt;&amp;nbsp;user_id = users.id JOIN usege_users ON detailed_after_purchase.user_id = usege_users.id JOIN pc_data ON detailed_after_purchase.product_id = pc_data.id" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="yiprIeVTXZ52ZSWIO-zq-1">
+          <mxGeometry x="-60" y="1020" width="1600" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="kea7gR2qUqFv6VW4dHq5-1" value="商品詳細一覧　select pc_data.id,pc_data.company,pc_data.os,pc_data.pc_name,pc_data.pc_size.pc_data.price,pc_data.detail,pc_data.pc_img,pc_data.pc_img2,pc_data.pc_img3,&lt;br&gt;product_stock.remaining_count from pc_data JOIN product_stock ON pc_data.id = product_stock.product_user_id;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="yiprIeVTXZ52ZSWIO-zq-1">
+          <mxGeometry x="190" y="970" width="1320" height="20" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
