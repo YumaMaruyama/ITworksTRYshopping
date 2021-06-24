@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-06-24T01:19:49.843Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36 Edg/91.0.864.54" etag="aJBtmbL31WV4KGTXSq3A" version="14.8.0" type="github" pages="18">
+<mxfile host="app.diagrams.net" modified="2021-06-24T05:39:12.682Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36 Edg/91.0.864.54" etag="UL8cX4-1HWEtSeEnv7CQ" version="14.8.0" type="github" pages="18">
   <diagram id="3dSM1hKOwx3oM_8oYQWr" name="ログイン画面">
     <mxGraphModel dx="1268" dy="482" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -777,7 +777,7 @@
         <mxCell id="cZe_jcVTiNyuf7OOUgCE-22" value="" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="cZe_jcVTiNyuf7OOUgCE-21" vertex="1">
           <mxGeometry width="640" height="36" as="geometry" />
         </mxCell>
-        <mxCell id="cZe_jcVTiNyuf7OOUgCE-23" value="JCBカード期限日&lt;span style=&quot;white-space: pre&quot;&gt; &lt;/span&gt;" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;" parent="cZe_jcVTiNyuf7OOUgCE-22" vertex="1">
+        <mxCell id="cZe_jcVTiNyuf7OOUgCE-23" value="JCBカード三桁コード" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;" parent="cZe_jcVTiNyuf7OOUgCE-22" vertex="1">
           <mxGeometry width="168" height="36" as="geometry" />
         </mxCell>
         <mxCell id="cZe_jcVTiNyuf7OOUgCE-24" value="" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;" parent="cZe_jcVTiNyuf7OOUgCE-22" vertex="1">
@@ -786,7 +786,7 @@
         <mxCell id="cZe_jcVTiNyuf7OOUgCE-25" value="" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="cZe_jcVTiNyuf7OOUgCE-21" vertex="1">
           <mxGeometry y="36" width="640" height="38" as="geometry" />
         </mxCell>
-        <mxCell id="cZe_jcVTiNyuf7OOUgCE-26" value="JCBカード記載Name" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;" parent="cZe_jcVTiNyuf7OOUgCE-25" vertex="1">
+        <mxCell id="cZe_jcVTiNyuf7OOUgCE-26" value="JCBカード記載名義" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;" parent="cZe_jcVTiNyuf7OOUgCE-25" vertex="1">
           <mxGeometry width="168" height="38" as="geometry" />
         </mxCell>
         <mxCell id="cZe_jcVTiNyuf7OOUgCE-27" value="" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;" parent="cZe_jcVTiNyuf7OOUgCE-25" vertex="1">
