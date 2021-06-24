@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-06-24T05:39:12.682Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36 Edg/91.0.864.54" etag="UL8cX4-1HWEtSeEnv7CQ" version="14.8.0" type="github" pages="18">
+<mxfile host="app.diagrams.net" modified="2021-06-24T06:53:53.915Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36 Edg/91.0.864.54" etag="CVrF0Ele7Aod93kPbwc2" version="14.8.0" type="github" pages="18">
   <diagram id="3dSM1hKOwx3oM_8oYQWr" name="ログイン画面">
     <mxGraphModel dx="1268" dy="482" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -516,8 +516,8 @@
         <mxCell id="Y9U3YVimPycnnYGSvCrB-4" value="&lt;span style=&quot;color: rgb(33 , 37 , 41) ; background-color: rgba(0 , 0 , 0 , 0.075)&quot;&gt;&lt;font style=&quot;font-size: 9px&quot;&gt;『保障』：1年間センドバック保証、1年間制限国際旅行者保証 (ITW)・ 『付属品』：45W USB Type-C ACアダプター、ACコード (約1m)、セットアップガイド、保証書、修理依頼書、国際旅行者保証書・ 『寸法』:約290.0 x 18.8 x 206.0 mm・ 『重量』：約1.05kg・ 『電源』:45W USB Type-C ACアダプター (100V-240V、50/60Hz)　約15時間起動&lt;/font&gt;&lt;/span&gt;" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;" parent="Y9U3YVimPycnnYGSvCrB-3" vertex="1">
           <mxGeometry width="630" height="52" as="geometry" />
         </mxCell>
-        <mxCell id="Y9U3YVimPycnnYGSvCrB-21" value="カートに入れる" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#CCCC00;strokeWidth=2;" parent="rLezNqufWG3nxAGzAW-u-1" vertex="1">
-          <mxGeometry x="320" y="430" width="105" height="40" as="geometry" />
+        <mxCell id="Y9U3YVimPycnnYGSvCrB-21" value="カートに追加してカートを表示する" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#CCCC00;strokeWidth=2;" parent="rLezNqufWG3nxAGzAW-u-1" vertex="1">
+          <mxGeometry x="450" y="430" width="105" height="40" as="geometry" />
         </mxCell>
         <mxCell id="bDbD6AO4KAV58ug2OlVb-0" value="&lt;font style=&quot;font-size: 18px&quot;&gt;商品詳細&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="rLezNqufWG3nxAGzAW-u-1" vertex="1">
           <mxGeometry x="70" y="80" width="370" height="20" as="geometry" />
@@ -565,16 +565,16 @@
         <mxCell id="IKXfsdJ00Hs18KxKEPGh-10" value="&lt;b&gt;PC情報２&lt;/b&gt;　&lt;span style=&quot;white-space: pre&quot;&gt; &lt;span style=&quot;white-space: pre&quot;&gt; &lt;/span&gt;p&lt;/span&gt;cDateテーブルからPC詳細をselectしてくる" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="rLezNqufWG3nxAGzAW-u-1" vertex="1">
           <mxGeometry x="30" y="690" width="570" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="UH_87ZjlfJQY7dsMJcGq-4" value="カート追加ボタン" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;strokeColor=#CCCC00;" parent="rLezNqufWG3nxAGzAW-u-1" vertex="1">
-          <mxGeometry x="560" y="440" width="100" height="30" as="geometry" />
+        <mxCell id="UH_87ZjlfJQY7dsMJcGq-4" value="カートに追加して&lt;br&gt;カート画面に遷移" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;strokeColor=#CCCC00;" parent="rLezNqufWG3nxAGzAW-u-1" vertex="1">
+          <mxGeometry x="640" y="435" width="100" height="30" as="geometry" />
         </mxCell>
         <mxCell id="UH_87ZjlfJQY7dsMJcGq-6" value="" style="endArrow=classic;html=1;strokeColor=#CCCC00;strokeWidth=2;" parent="rLezNqufWG3nxAGzAW-u-1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="520" y="450" as="sourcePoint" />
-            <mxPoint x="460" y="450" as="targetPoint" />
+            <mxPoint x="630" y="449.5" as="sourcePoint" />
+            <mxPoint x="570" y="449.5" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="UH_87ZjlfJQY7dsMJcGq-9" value="&lt;b&gt;カート追加ボタン&lt;/b&gt;　&lt;span style=&quot;white-space: pre&quot;&gt; &lt;span style=&quot;white-space: pre&quot;&gt; クリックするとカートにその商品が追加され、カート一覧画面に遷移する&lt;/span&gt;&lt;/span&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="rLezNqufWG3nxAGzAW-u-1" vertex="1">
+        <mxCell id="UH_87ZjlfJQY7dsMJcGq-9" value="&lt;b&gt;カート追加ボタン&lt;/b&gt;　&lt;span style=&quot;white-space: pre&quot;&gt; &lt;span style=&quot;white-space: pre&quot;&gt; クリックするとカートにその商品が追加される(画面はこのまま)&lt;/span&gt;&lt;/span&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="rLezNqufWG3nxAGzAW-u-1" vertex="1">
           <mxGeometry x="131" y="770" width="570" height="40" as="geometry" />
         </mxCell>
         <mxCell id="cV5jPuZQ6huiceYxypqZ-0" value="" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#3333FF;" parent="rLezNqufWG3nxAGzAW-u-1" edge="1">
@@ -613,6 +613,21 @@
         </mxCell>
         <mxCell id="MvcwUM5ilDK4xb7L2h9l-1" value="&lt;b&gt;サイドバー&lt;/b&gt;　&lt;span style=&quot;white-space: pre&quot;&gt; &lt;span style=&quot;white-space: pre&quot;&gt; &lt;/span&gt;「&lt;/span&gt;JCBカード登録」リンクをクリックするとJCBカード登録画面に推移する。&lt;br&gt;　　　　　　　　　　　　　　　　「管理者専用画面」リンクは管理者のみ表示されて、クリックすると管理者専用画面に推移する。" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="rLezNqufWG3nxAGzAW-u-1" vertex="1">
           <mxGeometry x="-321" y="585" width="1470" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="fAOnRawmwKW-dUvohlkn-0" value="カートに入れる" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#CCCC00;strokeWidth=2;" vertex="1" parent="rLezNqufWG3nxAGzAW-u-1">
+          <mxGeometry x="262.5" y="430" width="105" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="fAOnRawmwKW-dUvohlkn-2" value="カート追加ボタン" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;strokeColor=#CCCC00;" vertex="1" parent="rLezNqufWG3nxAGzAW-u-1">
+          <mxGeometry x="100" y="435" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="fAOnRawmwKW-dUvohlkn-4" value="" style="endArrow=classic;html=1;strokeColor=#CCCC00;strokeWidth=2;" edge="1" parent="rLezNqufWG3nxAGzAW-u-1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="210" y="449.5" as="sourcePoint" />
+            <mxPoint x="250" y="449.5" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="220" y="449.5" />
+            </Array>
+          </mxGeometry>
         </mxCell>
       </root>
     </mxGraphModel>
