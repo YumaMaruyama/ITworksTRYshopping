@@ -3,29 +3,16 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <meta charset="UTF-8">
-
-<!-- Bootstrap　 jQuery Bootstrapの読み込み必要がある-->
-<!--　cssファイル タイムリーフでファイル読み込み　 -->
-<link th:href="@{/webjars/bootstrap/4.2.1/css/bootstrap.min.css}"
-	rel="stylesheet"></link>
-<!--　jQueryのjsファイル タイムリーフでファイル読み込み　 -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<!--　Bootstrap のjsファイル（jQueryの後に読み込む） タイムリーフでファイル読み込み　 -->
-<script th:src="@{/webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
-
-<link th:href="@{/css/productList.css}" rel="stylesheet"></link>
-
-
-<title>productList</title>
+<title>cart</title>
 </head>
 <body>
 	<div th:fragment="productListLayout_contents">
-		<header>
-			<h1>商品一覧</h1>
-		</header>
-		<div class="flex">
-			<div class="item" th:each="pcdatadto : ${productList}">
+	<header>
+	<h1>カート画面</h1>
+	</header>
+
+	<div class="flex">
+			<div class="item" th:each="pcdatadto : ${cartList}">
 				<img class="size" th:src="${pcdatadto.pcImg}">
 				<h4 class="card-title text-center fontdesign"
 					th:text="'商品名：' + ${pcdatadto.pc_name}"></h4>
@@ -41,9 +28,21 @@
 					th:text="'在庫数：' + ${pcdatadto.product_stock} + '個'"></p>
 				<a class="text-center a"
 					th:href="@{/productDetail} + '/' + ${pcdatadto.id}">詳細画面に行く</a>
+				<button>数を減らす</button>
+				<button>数を増やす</button>
+				<a>商品削除</a>
 				<div class="card-footer"></div>
 			</div>
 		</div>
+
+		<table>
+			<tr>
+				<th>カート合計金額</th>
+				<td class="card-text text-center fontdesign"
+					th:text="${totalPrice}"></td>
+			</tr>
+		</table>
+		<a th:href="@{/clearing}" class="btn btn-danger">決済画面へ</a>
 	</div>
 </body>
 </html>

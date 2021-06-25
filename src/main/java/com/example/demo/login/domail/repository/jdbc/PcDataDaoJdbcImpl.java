@@ -23,14 +23,15 @@ public class PcDataDaoJdbcImpl implements PcDataDao {
 		int rowNumber = jdbc.update("insert into pcdata (id,"
 				+ "company,"
 				+ "os,"
-				+ "pcName,"
-				+ "pcSize,"
+				+ "pc_name,"
+				+ "pc_size,"
 				+ "price,"
 				+ "detail,"
+				+ "product_stock,"
 				+ "pcImg,"
 				+ "pcImg2,"
 				+ "pcImg3)"
-				+ "value(?,?,?,?,?,?,?,?,?,?)",pcdatadto.getId(),pcdatadto.getCompany(),pcdatadto.getOs(),pcdatadto.getPcName(),pcdatadto.getPcSize(),pcdatadto.getPrice(),pcdatadto.getDetail(),pcdatadto.getPcImg(),pcdatadto.getPcImg2(),pcdatadto.getPcImg3());
+				+ "value(?,?,?,?,?,?,?,?,?,?,?)",pcdatadto.getId(),pcdatadto.getCompany(),pcdatadto.getOs(),pcdatadto.getPc_name(),pcdatadto.getPc_size(),pcdatadto.getPrice(),pcdatadto.getDetail(),pcdatadto.getProduct_stock(),pcdatadto.getPcImg(),pcdatadto.getPcImg2(),pcdatadto.getPcImg3());
 
 		return rowNumber;
 	}
@@ -47,10 +48,11 @@ public class PcDataDaoJdbcImpl implements PcDataDao {
 			pcdatadto.setId((int)map.get("id"));
 			pcdatadto.setCompany((String)map.get("company"));
 			pcdatadto.setOs((String)map.get("os"));
-			pcdatadto.setPcName((String)map.get("pcName"));
-			pcdatadto.setPcSize((int)map.get("pcSize"));
+			pcdatadto.setPc_name((String)map.get("pc_name"));
+			pcdatadto.setPc_size((int)map.get("pc_size"));
 			pcdatadto.setPrice((int)map.get("price"));
 			pcdatadto.setDetail((String)map.get("detail"));
+			pcdatadto.setProduct_stock((int)map.get("product_stock"));
 			pcdatadto.setPcImg((String)map.get("pcImg"));
 			pcdatadto.setPcImg2((String)map.get("pcImg2"));
 			pcdatadto.setPcImg3((String)map.get("pcImg3"));
@@ -71,13 +73,14 @@ public class PcDataDaoJdbcImpl implements PcDataDao {
 		pcdatadto.setId((int)map.get("id"));
 		pcdatadto.setCompany((String)map.get("company"));
 		pcdatadto.setOs((String)map.get("os"));
-		pcdatadto.setPcName((String)map.get("pcName"));
-		pcdatadto.setPcSize((int)map.get("pcSize"));
+		pcdatadto.setPc_name((String)map.get("pc_name"));
+		pcdatadto.setPc_size((int)map.get("pc_size"));
 		pcdatadto.setPrice((int)map.get("price"));
 		pcdatadto.setDetail((String)map.get("detail"));
-		pcdatadto.setPcImg((String)map.get("img"));
-		pcdatadto.setPcImg2((String)map.get("img2"));
-		pcdatadto.setPcImg3((String)map.get("Img3"));
+		pcdatadto.setProduct_stock((int)map.get("product_stock"));
+		pcdatadto.setPcImg((String)map.get("pcimg"));
+		pcdatadto.setPcImg2((String)map.get("pcimg2"));
+		pcdatadto.setPcImg3((String)map.get("pcImg3"));
 
 		return pcdatadto;
 	}

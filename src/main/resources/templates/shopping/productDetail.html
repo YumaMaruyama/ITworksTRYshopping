@@ -15,6 +15,7 @@
 <script th:src="@{/webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
 
 
+
 <title>productDetail</title>
 </head>
 <body>
@@ -22,8 +23,11 @@
 		<header>
 			<h1>商品詳細</h1>
 		</header>
-		<form th:each="pcdatadto : ${pcdatadtoOne}" method="post" th:action="@{/productDetail} + '/' + ${pcdatadto.id}"
+		<!--
+		<form th:each="pcdatadto : ${pcdatadtoOne}" method="post"
+			th:action="@{/productDetail} + '/' + ${pcdatadto.id}"
 			th:object="${pcDetailDataForm}">
+		-->
 			<table class="table table-bordered table-hover">
 				<tr th:each="pcdatadto : ${pcdatadtoOne}">
 					<th class="text-center">会社名</th>
@@ -31,13 +35,15 @@
 					<th class="text-center">商品名</th>
 					<th class="text-center">画面サイズ</th>
 					<th class="text-center">値段</th>
+					<th class="text-center">在庫数</th>
 				</tr>
 				<tr th:each="pcdatadto : ${pcdatadtoOne}">
 					<td class="text-center" th:text="${pcdatadto.company}"></td>
 					<td class="text-center" th:text="${pcdatadto.os}"></td>
-					<td class="text-center" th:text="${pcdatadto.pcName}"></td>
-					<td class="text-center" th:text="${pcdatadto.pcSize} + '型'"></td>
+					<td class="text-center" th:text="${pcdatadto.pc_name}"></td>
+					<td class="text-center" th:text="${pcdatadto.pc_size} + '型'"></td>
 					<td class="text-center" th:text="${pcdatadto.price} + '円'"></td>
+					<td class="text-center" th:text="${pcdatadto.product_stock} + '個'"></td>
 				</tr>
 			</table>
 
@@ -50,8 +56,21 @@
 				</tr>
 			</table>
 
+			<table class="table table-bordered table-hover">
+				<tr >
+					<td th:each="pcdatadto : ${pcdatadtoOne}">
+					<img class="imgSize"
+						th:src="${pcdatadto.pcImg}"> <img class="imgSize"
+						th:src="${pcdatadto.pcImg2}"> <img class="imgSize"
+						th:src="${pcdatadto.pcImg3}"></td>
+				</tr>
+			</table>
+			<div th:each="pcdatadto : ${pcdatadtoOne}">
+			<a th:href="@{/cart} + '/' + ${pcdatadto.id}" class="btn btn-primary">カートに追加する</a>
+			</div>
 			<!-- 画像はテーブルではなくてbootstrapのカードで表示させる -->
 
+<!--
 			<div>
 				<h3>PCのカスタムが可能です。</h3>
 			</div>
@@ -88,6 +107,7 @@
 					</select></td>
 				</tr>
 			</table>
+
 			<div th:each="pcdatadto : ${pcdatadtoOne}">
 				<input type="hidden" th:value="${pcdatadto.price}"
 					th:field="*{price}">
@@ -96,6 +116,8 @@
 			<button class="btn btn-success" name="purchase">購入前詳細画面</button>
 
 		</form>
+
+	-->
 	</div>
 </body>
 </html>

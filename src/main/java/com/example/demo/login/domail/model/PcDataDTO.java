@@ -11,13 +11,17 @@ public class PcDataDTO {
 
 	private String os;
 
-	private String pcName;
+	private String pc_name;
 
-	private int pcSize;
+	private int pc_size;
 
 	private int price;
 
+	private int totalPrice;
+
 	private String detail;
+
+	private int product_stock;
 
 	private String pcImg;
 

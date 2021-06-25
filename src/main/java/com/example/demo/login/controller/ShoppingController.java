@@ -9,18 +9,23 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.demo.login.domail.model.CartDTO;
+import com.example.demo.login.domail.model.CartForm;
 import com.example.demo.login.domail.model.CreditDTO;
 import com.example.demo.login.domail.model.CreditForm;
 import com.example.demo.login.domail.model.PcDataDTO;
 import com.example.demo.login.domail.model.PcDataForm;
 import com.example.demo.login.domail.model.PcDetailDataForm;
 import com.example.demo.login.domail.model.UsersDTO;
+import com.example.demo.login.domail.service.CartService;
 import com.example.demo.login.domail.service.CreditService;
 import com.example.demo.login.domail.service.PcDataService;
 import com.example.demo.login.domail.service.UsersService;
@@ -34,6 +39,8 @@ public class ShoppingController {
 	UsersService usersService;
 	@Autowired
 	CreditService creditService;
+	@Autowired
+	CartService cartService;
 
 	@Autowired //Sessionが使用できる
 	HttpSession session;
@@ -50,10 +57,11 @@ public class ShoppingController {
 		PcDataDTO pcdatadto = new PcDataDTO();
 		pcdatadto.setCompany(form.getCompany());
 		pcdatadto.setOs(form.getOs());
-		pcdatadto.setPcName(form.getPcName());
-		pcdatadto.setPcSize(form.getPcSize());
+		pcdatadto.setPc_name(form.getPc_name());
+		pcdatadto.setPc_size(form.getPc_size());
 		pcdatadto.setPrice(form.getPrice());
 		pcdatadto.setDetail(form.getDetail());
+		pcdatadto.setProduct_stock(form.getProduct_stock());
 		pcdatadto.setPcImg(form.getPcImg());
 		pcdatadto.setPcImg2(form.getPcImg2());
 		pcdatadto.setPcImg3(form.getPcImg3());
@@ -202,6 +210,39 @@ public class ShoppingController {
 
 	}
 
+	@GetMapping("/clearing")
+	public String getCardClearing(@ModelAttribute CreditForm form, Model model) {
+		model.addAttribute("contents", "shopping/clearing::productListLayout_contents");
+		List<PcDataDTO> cartList = cartService.cartDataSelectMany();
+		model.addAttribute("cartList",cartList);
+		PcDataDTO pcdatadto = new PcDataDTO();
+		int totalPrice = pcdatadto.getTotalPrice();
+		model.addAttribute("totalPrice",totalPrice);
+		return "shopping/productListLayout";
+	}
+
+	@PostMapping("/clearing")
+	public String getClearing(@ModelAttribute @Validated CreditForm form,BindingResult bindingResult,Model model) {
+		model.addAttribute("contents","shopping/clearing::productListLayout_contents");
+		if(bindingResult.hasErrors()) {
+			System.out.println("バリデーションエラー");
+			return getCardClearing(form,model);
+		}
+
+		return getAfter_purchase(model);
+	}
+
+	@GetMapping("/after_purchase")
+	public String getAfter_purchase(@ModelAttribute Model model) {
+		model.addAttribute("contents","shopping/after_purchase::productListLayout_contents");
+
+
+
+		return "shopping/productListLayout";
+
+
+	}
+
 	@GetMapping("/clearing/{id}")
 	public String getClearing(@ModelAttribute CreditForm form,Model model,@RequestParam("customPrice") int customPrice,@PathVariable("id") int id) {
 		model.addAttribute("contents", "shopping/clearing::productListLayout_contents");
@@ -233,7 +274,33 @@ public class ShoppingController {
 		return "shopping/productListLayout";
 
 	}
+
+	@GetMapping("/cart/{id}")
+	public String getCart(@ModelAttribute CartForm form,Model model,@PathVariable("id") int product_id) {
+		model.addAttribute("contents", "shopping/cart::productListLayout_contents");
+
+		CartDTO cartdto = new CartDTO();
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println("auth" + auth.getName());
+		String getName = auth.getName();
+
+		int result = cartService.insertOne(cartdto,product_id,getName);
+
+		List<PcDataDTO> cartList = cartService.selectMany(getName);
+		for(int i = 0; i < 1; i++) {
+			PcDataDTO pcdatadto = cartList.get(i);
+			int totalPrice = pcdatadto.getTotalPrice();
+			System.out.println("totalPrice" + totalPrice);
+			model.addAttribute("totalPrice",totalPrice);
+		}
+
+		System.out.println("cartList " + cartList);
+		model.addAttribute("cartList",cartList);
+		return "shopping/productListLayout";
+	}
 	//clearingからproductReceiving
+
 
 
 	//ログアウト用メソッド
