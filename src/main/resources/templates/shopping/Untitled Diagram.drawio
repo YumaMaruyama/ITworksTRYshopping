@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-06-29T01:36:38.356Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36 Edg/91.0.864.54" etag="V0Uevq2BlWtBY-gOBqMD" version="14.8.1" type="github" pages="20">
+<mxfile host="app.diagrams.net" modified="2021-06-29T01:45:22.562Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36 Edg/91.0.864.54" etag="lE9AsFdXdmVlifmjUOJ-" version="14.8.1" type="github" pages="20">
   <diagram id="3dSM1hKOwx3oM_8oYQWr" name="ログイン画面">
     <mxGraphModel dx="1268" dy="482" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -2936,11 +2936,6 @@
         <mxCell id="XFZEDlPw-AcrnkmRHigS-0" value="新規ユーザー登録" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#FF0000;strokeWidth=2;fillColor=none;gradientColor=none;" parent="ojHFKheA9-TPT79kkEcd-1" vertex="1">
           <mxGeometry x="-540" y="60" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="XFZEDlPw-AcrnkmRHigS-4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontColor=#FFE6CC;strokeColor=#FF0000;strokeWidth=2;" parent="ojHFKheA9-TPT79kkEcd-1" target="ojHFKheA9-TPT79kkEcd-2" edge="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="-135" y="-50" as="sourcePoint" />
-          </mxGeometry>
-        </mxCell>
         <mxCell id="bigiHsvVym3puEsoAqAU-1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontColor=#FFE6CC;strokeColor=#FF0000;strokeWidth=2;" parent="ojHFKheA9-TPT79kkEcd-1" source="bTyImsYb9hjZaGG7PdIU-1" target="bigiHsvVym3puEsoAqAU-0" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
@@ -3031,7 +3026,7 @@
           <mxGeometry y="1420" width="380" height="20" as="geometry" />
         </mxCell>
         <mxCell id="XAHRZG1qJ_Y3sOsSloF6-1" value="&lt;font style=&quot;font-size: 18px&quot;&gt;初めは/loginに遷移してログイン画面を表示する&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;fillColor=none;gradientColor=none;strokeColor=#FFFFFF;" parent="ojHFKheA9-TPT79kkEcd-1" vertex="1">
-          <mxGeometry x="-170" y="-120" width="162.5" height="60" as="geometry" />
+          <mxGeometry x="-154" y="-60" width="162.5" height="60" as="geometry" />
         </mxCell>
         <mxCell id="XAHRZG1qJ_Y3sOsSloF6-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="ojHFKheA9-TPT79kkEcd-1" edge="1">
           <mxGeometry relative="1" as="geometry">
@@ -3059,7 +3054,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="_0VK58jltGp-WIqLVPwF-2" value="&lt;font style=&quot;font-size: 36px&quot;&gt;１&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeWidth=2;strokeColor=#d79b00;" parent="ojHFKheA9-TPT79kkEcd-1" vertex="1">
-          <mxGeometry x="-135" y="-10" width="60" height="30" as="geometry" />
+          <mxGeometry x="-88" y="18" width="60" height="30" as="geometry" />
         </mxCell>
         <mxCell id="_0VK58jltGp-WIqLVPwF-4" value="&lt;span style=&quot;font-size: 36px&quot;&gt;3&lt;br&gt;&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="ojHFKheA9-TPT79kkEcd-1" vertex="1">
           <mxGeometry x="-396" y="70" width="60" height="30" as="geometry" />
@@ -3257,6 +3252,18 @@
         </mxCell>
         <mxCell id="dEo_j603FecezO78Vfau-1" value="&lt;span style=&quot;font-size: 36px&quot;&gt;15&lt;br&gt;&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontColor=#333333;strokeWidth=3;fillColor=none;strokeColor=#CCCCCC;" vertex="1" parent="ojHFKheA9-TPT79kkEcd-1">
           <mxGeometry x="634" y="58.5" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="drUoGA1LAZ1qGA3aJTEw-3" value="" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#FF0000;exitX=0.39;exitY=1.106;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="ojHFKheA9-TPT79kkEcd-1" source="XAHRZG1qJ_Y3sOsSloF6-1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-290" y="-30" as="sourcePoint" />
+            <mxPoint x="-91" y="60" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="drUoGA1LAZ1qGA3aJTEw-18" value="&lt;font style=&quot;font-size: 18px&quot;&gt;ログイン前ヘッダー&lt;br&gt;&lt;br&gt;&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#CCCCCC;strokeWidth=3;fillColor=none;" vertex="1" parent="ojHFKheA9-TPT79kkEcd-1">
+          <mxGeometry x="-280" y="-200" width="270" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="drUoGA1LAZ1qGA3aJTEw-19" value="&lt;span style=&quot;font-size: 18px&quot;&gt;ログイン前ヘッダー&lt;/span&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="ojHFKheA9-TPT79kkEcd-1">
+          <mxGeometry x="-270" y="-140" width="200" height="20" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
