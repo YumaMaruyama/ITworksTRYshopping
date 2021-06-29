@@ -193,7 +193,7 @@ public class ShoppingController {
 	}
 
 	@PostMapping("credit")
-	public String postCredit(@ModelAttribute CreditForm form,PcDataForm pcdataform,Model model) {
+	public String postCredit(@ModelAttribute CreditForm form,PcDataForm pcdataform,Model model,@PathVariable("totalPrice") int totalPrice) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	System.out.println("auth" + auth.getName());
 	String getName = auth.getName();

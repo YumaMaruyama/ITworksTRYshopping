@@ -35,6 +35,7 @@
 			</div>
 		</div>
 
+		<form th:action="@{/clearing}">
 		<table>
 			<tr>
 				<th>カート合計金額</th>
@@ -42,7 +43,9 @@
 					th:text="${totalPrice}"></td>
 			</tr>
 		</table>
-		<a th:href="@{/clearing}" class="btn btn-danger">決済画面へ</a>
+		<input type="hidden" th:value="totalPrice" th:field="${totalPrice}">
+		<button th:href="@{/clearing}" class="btn btn-danger">決済画面へ</button>
+		</form>
 	</div>
 </body>
 </html>
