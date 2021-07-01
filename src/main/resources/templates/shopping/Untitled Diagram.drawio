@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-07-01T06:52:15.385Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36 Edg/91.0.864.59" etag="1J__Lv3fQhmj-O-jx3sF" version="14.8.2" type="github" pages="21">
+<mxfile host="app.diagrams.net" modified="2021-07-01T06:52:49.599Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36 Edg/91.0.864.59" etag="oCslae9MrFkMr0Ac5grm" version="14.8.2" type="github" pages="21">
   <diagram id="3dSM1hKOwx3oM_8oYQWr" name="ログイン画面">
     <mxGraphModel dx="1268" dy="482" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -1169,9 +1169,6 @@
         </mxCell>
         <mxCell id="t-9Xt1vdvpm0fFVZ4JTU-1" value="&lt;span style=&quot;white-space: pre&quot;&gt;&lt;b&gt;購入する商品 &lt;/b&gt;&lt;span style=&quot;white-space: pre&quot;&gt;&lt;b&gt; &lt;/b&gt;カートのデータテーブルから全商品の情報を取得し、表示する&lt;/span&gt;&lt;/span&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="MB0VMl2NsJGC-O0lDvSe-1" vertex="1">
           <mxGeometry x="87" y="530" width="580" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="ca8BfdkVvygsRmt6TUOc-0" value="a" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="MB0VMl2NsJGC-O0lDvSe-1">
-          <mxGeometry x="125" y="-80" width="120" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
