@@ -23,6 +23,10 @@ public class UsersService {
 		return rowNumber;
 	}
 
+	public int select_id(String getName) {
+		return dao.select_id(getName);
+	}
+
 	public UsersDTO getUser_name(String personId) {
 		System.out.println("service");
 		return dao.getUser_name(personId);

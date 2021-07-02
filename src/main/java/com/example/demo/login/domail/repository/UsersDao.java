@@ -8,4 +8,6 @@ public interface UsersDao {
 	public int insertOne(UsersDTO usersdto);
 
 	public UsersDTO getUser_name(String personId);
+
+	public int select_id(String getName);
 }

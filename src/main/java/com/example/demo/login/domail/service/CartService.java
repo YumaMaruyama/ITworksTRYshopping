@@ -39,4 +39,15 @@ public class CartService {
 
 		return dao.cartDataSelectMany(getName);
 	}
+
+
+	public int deleteOne(int product_id,int getId) {
+
+		int result = dao.deleteOne(product_id,getId);
+
+		if(result > 0) {
+			System.out.println("delete成功");
+		}
+		return result;
+	}
 }

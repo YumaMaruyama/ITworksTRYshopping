@@ -12,4 +12,6 @@ public interface CartDao {
 	public List<PcDataDTO> selectMany(String getName);
 
 	public List<PcDataDTO> cartDataSelectMany(String user_id);
+
+	public int deleteOne(int product_id,int getId);
 }

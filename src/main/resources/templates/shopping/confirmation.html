@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div th:fragment="productListLayout_contents">
+
+	<header>
+			<h1>最終確認画面</h1>
+		</header>
+		<form method="post" th:action="@{confirmation}">
+		<div class="flex">
+			<div class="item" th:each="pcdatadto : ${cartList}">
+				<img class="size" th:src="${pcdatadto.pcImg}">
+				<h4 class="card-title text-center fontdesign"
+					th:text="'商品名：' + ${pcdatadto.pc_name}"></h4>
+				<p class="card-text text-center fontdesign"
+					th:text="'値段：' + ${pcdatadto.price} + '円'"></p>
+				<p class="card-text text-center fontdesign"
+					th:text="'購入数：' + ${pcdatadto.product_stock} + '個'"></p>
+				<div class="card-footer"></div>
+			</div>
+		</div>
+
+		<table>
+			<tr>
+			<th>お支払金額</th>
+			<td th:text="${totalPrice}"></td>
+			</tr>
+		</table>
+
+		<div class="btn-wrapper">
+    <div class="check-box">
+        <label class="text-danger"><input class="check" type="checkbox" name="check" autocomplete="off" id="agree"><span><a></a>カート内の全ての商品を確認し、商品内容に同意した上で購入します。</span></label>
+    </div>
+
+    <input class="submit" type="submit" id="submit" value="購入" />
+</div>
+</form>
+<script>
+$(function() {
+
+  $('.submit').attr('disabled', 'disabled');
+
+  $('#agree').on('click', function() {
+      if ($(this).prop('checked') == false) {
+        $('.submit').attr('disabled', 'disabled');
+      } else {
+        $('.submit').removeAttr('disabled');
+      }
+    });
+
+ });
+</script>
+
+</div>
+</body>
+</html>

@@ -21,6 +21,7 @@ import com.example.demo.login.domail.model.CartDTO;
 import com.example.demo.login.domail.model.CartForm;
 import com.example.demo.login.domail.model.CreditDTO;
 import com.example.demo.login.domail.model.CreditForm;
+import com.example.demo.login.domail.model.GroupOrder;
 import com.example.demo.login.domail.model.PcDataDTO;
 import com.example.demo.login.domail.model.PcDataForm;
 import com.example.demo.login.domail.model.PcDetailDataForm;
@@ -213,16 +214,30 @@ public class ShoppingController {
 	@GetMapping("/clearing")
 	public String getCardClearing(@ModelAttribute CreditForm form, Model model) {
 		model.addAttribute("contents", "shopping/clearing::productListLayout_contents");
-		List<PcDataDTO> cartList = cartService.cartDataSelectMany();
-		model.addAttribute("cartList",cartList);
-		PcDataDTO pcdatadto = new PcDataDTO();
-		int totalPrice = pcdatadto.getTotalPrice();
-		model.addAttribute("totalPrice",totalPrice);
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println("auth" + auth.getName());
+		String getName = auth.getName();
+		List<PcDataDTO> cartList = cartService.selectMany(getName);
+		for(int i = 0; i < 1; i++) {
+			PcDataDTO pcdatadto = cartList.get(i);
+			int totalPrice = pcdatadto.getTotalPrice();
+			System.out.println("totalPrice" + totalPrice);
+			model.addAttribute("totalPrice",totalPrice);
+		}
+
+
+
+//		List<PcDataDTO> cartList = cartService.cartDataSelectMany();
+//		model.addAttribute("cartList",cartList);
+//		PcDataDTO pcdatadto = new PcDataDTO();
+//		int totalPrice = pcdatadto.getTotalPrice();
+//		model.addAttribute("totalPrice",totalPrice);
 		return "shopping/productListLayout";
 	}
 
 	@PostMapping("/clearing")
-	public String getClearing(@ModelAttribute @Validated CreditForm form,BindingResult bindingResult,Model model) {
+	public String getClearing(@ModelAttribute @Validated(GroupOrder.class) CreditForm form,BindingResult bindingResult,Model model) {
 		model.addAttribute("contents","shopping/clearing::productListLayout_contents");
 		if(bindingResult.hasErrors()) {
 			System.out.println("バリデーションエラー");
@@ -299,9 +314,58 @@ public class ShoppingController {
 		model.addAttribute("cartList",cartList);
 		return "shopping/productListLayout";
 	}
+
+	@PostMapping(value = "/cart/{id}",params = "delete")
+	public String postCartDetail(@ModelAttribute CartForm form,Model model,@PathVariable("id") int product_id) {
+
+		model.addAttribute("contents", "shopping/cart::productListLayout_contents");
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println("auth" + auth.getName());
+		String getName = auth.getName();
+
+		int getId = usersService.select_id(getName);
+
+		int result = cartService.deleteOne(product_id,getId);
+		System.out.println("delete");
+		List<PcDataDTO> cartList = cartService.selectMany(getName);
+		for(int i = 0; i < 1; i++) {
+			PcDataDTO pcdatadto = cartList.get(i);
+			int totalPrice = pcdatadto.getTotalPrice();
+			System.out.println("totalPrice" + totalPrice);
+			model.addAttribute("totalPrice",totalPrice);
+			model.addAttribute("cartList",cartList);
+		}
+		return "shopping/productListLayout";
+	}
 	//clearingからproductReceiving
 
+	@GetMapping("/confirmation")
+	public String getConfirmation(@ModelAttribute PcDataForm from,Model model) {
+		model.addAttribute("contents", "shopping/confirmation::productListLayout_contents");
 
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println("auth" + auth.getName());
+		String getName = auth.getName();
+
+		List<PcDataDTO> cartList = cartService.selectMany(getName);
+		for(int i = 0; i < 1; i++) {
+			PcDataDTO pcdatadto = cartList.get(i);
+			int totalPrice = pcdatadto.getTotalPrice();
+			System.out.println("totalPrice" + totalPrice);
+			model.addAttribute("totalPrice",totalPrice);
+		}
+
+		System.out.println("cartList " + cartList);
+		model.addAttribute("cartList",cartList);
+
+		return "shopping/productListLayout";
+	}
+
+	@PostMapping("/confirmation")
+	public String postConfirmation(@ModelAttribute PcDataForm form,Model model) {
+
+		return getAfter_purchase(model);
+	}
 
 	//ログアウト用メソッド
 			@GetMapping("logout")

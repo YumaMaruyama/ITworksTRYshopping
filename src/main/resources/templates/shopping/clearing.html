@@ -13,7 +13,7 @@
 			<h1>決済画面</h1>
 		</header>
 
-<br><br>
+		<br> <br>
 		<form method="post" th:action="@{/clearing}" th:object="${creditForm}">
 
 			<div>
@@ -25,20 +25,37 @@
 
 				<tr>
 					<th class="form-group">クレジット三桁コード</th>
-					<td><input type="text" class="form-control"
-						th:field="*{digits_3_code}" placeholder="カードの3桁コードを入力してください"></td>
+					<td>
+						<div class="form-group"
+							th:classappend="${#fields.hasErrors('digits_3_code')} ? 'hasError'">
+							<input type="text" class="form-control"
+								th:field="*{digits_3_code}" placeholder="カードの3桁コードを入力してください">
+						</div>
+						<span class="text-danger" th:if="${#fields.hasErrors('digits_3_code')}" th:errors="*{digits_3_code}">digits_3_code error</span>
+					</td>
+
 				</tr>
 
 				<tr>
 					<th class="form-group">クレジット記載名義</th>
-					<td><input type="text" class="form-control"
-						th:field="*{cardName}" placeholder="ローマ字記載のカード名義を入力してください。"></td>
+					<td><div class="form-group"
+							th:classappend="${#fields.hasErrors('cardName')} ? 'hasError'">
+							<input type="text" class="form-control" th:field="*{cardName}"
+								placeholder="ローマ字記載のカード名義を入力してください。">
+						</div> <span class="text-danger"
+						th:if="${#fields.hasErrors('cardName')}" th:errors="*{cardName}">cardName
+							error</span></td>
 				</tr>
 
 				<tr>
 					<th class="form-group">クレジット番号</th>
-					<td><input type="tel" class="form-control"
-						th:field="*{cardNumber}" placeholder="16桁のカード番号を入力してください。"></td>
+					<td><div class="form-group"
+							th:classappend="${#fields.hasErrors('cardNumber')} ? 'hasError'">
+							<input type="tel" class="form-control" th:field="*{cardNumber}"
+								placeholder="16桁のカード番号を入力してください。">
+						</div> <span class="text-danger"
+						th:if="${#fields.hasErrors('cardNumber')}"
+						th:errors="*{cardNumber}">cardNumber error</span></td>
 				</tr>
 
 				<tr>
@@ -47,12 +64,15 @@
 				</tr>
 
 			</table>
+			<button class="btn btn-primary">最終確認画面へ</button>
+		</form>
 
+		<!--
 		<div class="btn-wrapper">
     <div class="check-box">
         <label class="text-danger"><input class="check" type="checkbox" name="check" autocomplete="off" id="agree"><span><a></a>カート内の全ての商品を確認し、商品内容に同意した上で購入します。</span></label>
     </div>
-    <input class="submit" type="submit" id="submit" value="送信" />
+    <input class="submit" type="submit" id="submit"  />
 </div>
 		</form>
 
@@ -71,7 +91,7 @@ $(function() {
 
  });
 </script>
-
+-->
 
 	</div>
 </body>

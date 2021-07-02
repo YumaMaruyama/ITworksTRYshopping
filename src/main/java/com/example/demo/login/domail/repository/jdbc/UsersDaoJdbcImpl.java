@@ -27,9 +27,8 @@ public class UsersDaoJdbcImpl implements UsersDao {
 				+ "user_id,"
 				+ "password,"
 				+ "user_name,"
-				+ "birthday,"
 				+ "role)"
-				+ "value(?,?,?,?,?,?)",usersdto.getId(),usersdto.getUser_id(),password,usersdto.getUser_name(),usersdto.getBirthday(),usersdto.getRole());
+				+ "value(?,?,?,?,?)",usersdto.getId(),usersdto.getUser_id(),password,usersdto.getUser_name(),usersdto.getRole());
 
 	return rowNumber;
 
@@ -43,6 +42,12 @@ public class UsersDaoJdbcImpl implements UsersDao {
 		usersdto.setUser_name((String)map.get("user_name"));
 		System.out.println("dto" + usersdto.getUser_name());
 		return usersdto;
+	}
+
+	public int select_id(String getName) {
+		int id = jdbc.queryForObject("select users.id from users where user_id = ?",Integer.class,getName);
+
+		return id;
 	}
 
 }

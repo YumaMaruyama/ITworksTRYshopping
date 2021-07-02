@@ -20,7 +20,7 @@
 </head>
 <body>
 	<div th:fragment="loginLayout_contents">
-	<div class="col-sm-5">
+	<div class="col-sm-10">
 		<div class="page-header">
 			<h1>ユーザー新規登録</h1>
 		</div>
@@ -64,6 +64,16 @@
 							<input type="date" class="form-control" th:field="*{birthday}">
 						</div>
 						<span class="text-danger" th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}">birthday error</span>
+					</td>
+				</tr>
+
+				<tr>
+					<th>商品受け取り住所</th>
+					<td>
+						<div class="form-group" th:classappend="${#fields.hasErrors('address')} ? 'hasError'">
+							<input type="text" class="form-control" th:field="*{address}">
+						</div>
+						<span class="text-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}">address error</span>
 					</td>
 				</tr>
 

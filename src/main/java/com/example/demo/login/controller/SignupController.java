@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.demo.login.domail.model.GroupOrder;
 import com.example.demo.login.domail.model.SignupForm;
+import com.example.demo.login.domail.model.Usege_usersDTO;
 import com.example.demo.login.domail.model.UsersDTO;
+import com.example.demo.login.domail.service.Usege_usersService;
 import com.example.demo.login.domail.service.UsersService;
 
 @Controller
@@ -19,6 +21,8 @@ public class SignupController {
 
 	@Autowired
 	UsersService usersService;
+	@Autowired
+	Usege_usersService usegeService;
 
 	@GetMapping("/signup")
 	public String getSignup(@ModelAttribute SignupForm form,Model model) {
@@ -30,6 +34,8 @@ public class SignupController {
 	@PostMapping("/signup")
 	public String postSignup(@ModelAttribute @Validated(GroupOrder.class) SignupForm form, BindingResult bindingResult,Model model) {
 		System.out.println("PostSignup到達");
+		model.addAttribute("contents", "shopping/login::loginLayout_contents");
+
 		if(bindingResult.hasErrors()) {
 			System.out.println("validated");
 			return getSignup(form,model);
@@ -40,13 +46,18 @@ public class SignupController {
 		usersdto.setUser_id(form.getUser_id());
 		usersdto.setPassword(form.getPassword());
 		usersdto.setUser_name(form.getUser_name());
-		usersdto.setBirthday(form.getBirthday());
 		usersdto.setRole("notAdmin");
 
 		int usersList = usersService.insertOne(usersdto);
 
+		Usege_usersDTO usegedto = new Usege_usersDTO();
+		usegedto.setUser_id(usersdto.getId());
+		usegedto.setBirthday(form.getBirthday());
+		usegedto.setAddress(form.getAddress());
 
-		return "shopping/login";
+		int usegeList = usegeService.insertOne(usegedto);
+
+		return "shopping/loginLayout";
 	}
 
 }

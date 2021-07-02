@@ -24,8 +24,9 @@ public class CartDaoJdbcImpl implements CartDao {
 
 		int result = jdbc.update("insert into cart (id,"
 				+ "user_id,"
-				+ "product_id)"
-				+ "value(?,?,?)", cartdto.getId(), getId, product_id);
+				+ "product_id,"
+				+ "product_count)"
+				+ " value(?,?,?,?)", cartdto.getId(), getId, product_id,1);
 
 		return result;
 	}
@@ -138,5 +139,17 @@ public class CartDaoJdbcImpl implements CartDao {
 
 		}
 		return pcdataList;
+	}
+
+
+
+
+	public int deleteOne(int product_id,int getId) {
+System.out.println("deleteOne文到達");
+		int result = jdbc.update("delete from cart where product_id = ? AND user_id = ?",product_id,getId);
+
+		return result;
+
+
 	}
 }

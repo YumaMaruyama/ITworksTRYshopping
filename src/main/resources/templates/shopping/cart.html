@@ -11,8 +11,10 @@
 	<h1>カート画面</h1>
 	</header>
 
+
 	<div class="flex">
 			<div class="item" th:each="pcdatadto : ${cartList}">
+			<form method="post" th:action="@{/cart} + '/' + ${pcdatadto.id}" th:object="${cartForm}">
 				<img class="size" th:src="${pcdatadto.pcImg}">
 				<h4 class="card-title text-center fontdesign"
 					th:text="'商品名：' + ${pcdatadto.pc_name}"></h4>
@@ -28,12 +30,15 @@
 					th:text="'在庫数：' + ${pcdatadto.product_stock} + '個'"></p>
 				<a class="text-center a"
 					th:href="@{/productDetail} + '/' + ${pcdatadto.id}">詳細画面に行く</a>
-				<button>数を減らす</button>
-				<button>数を増やす</button>
-				<a>商品削除</a>
+				<p>購入数<input type="text" class="form-control" ></p>
+				<button class="btn btn-danger" name="delete">商品削除</button>
+				</form>
 				<div class="card-footer"></div>
 			</div>
 		</div>
+
+		<button class="btn btn-primary">商品数更新</button>
+
 
 		<form th:action="@{/clearing}">
 		<table>

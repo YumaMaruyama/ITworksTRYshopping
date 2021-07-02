@@ -10,4 +10,6 @@ public class CartDTO {
 	private int user_id;
 
 	private int product_id;
+
+	private int product_count;
 }
