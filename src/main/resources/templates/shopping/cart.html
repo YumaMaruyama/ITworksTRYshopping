@@ -12,32 +12,32 @@
 	</header>
 
 
-	<div class="flex">
-			<div class="item" th:each="pcdatadto : ${cartList}">
-			<form method="post" th:action="@{/cart} + '/' + ${pcdatadto.id}" th:object="${cartForm}">
+	<div class="flex cartList">
+			<div class="item"  th:each="pcdatadto : ${cartList}">
+			<form method="post" th:action="@{/cart} + '/' + ${pcdatadto.cartId}" th:object="${cartForm}">
 				<img class="size" th:src="${pcdatadto.pcImg}">
-				<h4 class="card-title text-center fontdesign"
-					th:text="'商品名：' + ${pcdatadto.pc_name}"></h4>
-				<p class="card-text text-center fontdesign"
+				<h5 class="card-title text-center fontdesign"
+					th:text="'商品名：' + ${pcdatadto.pc_name}"></h5>
+				<p class="card-text text-center fontdesign"  style="margin-bottom:0px !important"
 					th:text="'会社名：' + ${pcdatadto.company}"></p>
-				<p class="card-text text-center fontdesign"
+				<p class="card-text text-center fontdesign" style="margin-bottom:0px !important"
 					th:text="'OS：' + ${pcdatadto.os}"></p>
-				<p class="card-text text-center fontdesign"
+				<p class="card-text text-center fontdesign" style="margin-bottom:0px !important"
 					th:text="'画面サイズ：' + ${pcdatadto.pc_size} + '型'"></p>
-				<p class="card-text text-center fontdesign"
+				<p class="card-text text-center fontdesign" style="margin-bottom:0px !important"
 					th:text="'値段：' + ${pcdatadto.price} + '円'"></p>
-				<p class="card-text text-center fontdesign"
+				<p class="card-text text-center fontdesign" style="margin-bottom:0px !important"
 					th:text="'在庫数：' + ${pcdatadto.product_stock} + '個'"></p>
-				<a class="text-center a"
-					th:href="@{/productDetail} + '/' + ${pcdatadto.id}">詳細画面に行く</a>
-				<p>購入数<input type="text" class="form-control" ></p>
-				<button class="btn btn-danger" name="delete">商品削除</button>
-				</form>
+				<a class="text-center a" style="margin-bottom:0px !important"
+					th:href="@{/productDetail} + '/' + ${pcdatadto.id}"><span class="font">詳細画面に行く</span></a>
+				<p style="margin-bottom:0px !important">購入数<input type="text" class="form-control formdesign" th:value="*{product_count}" th:field="*{product_count}" style="width:48%; margin-left: 51px;" ></p>
+				<button class="btn btn-danger deleteBtn center-block" name="delete">商品削除</button>
+
 				<div class="card-footer"></div>
 			</div>
 		</div>
-
-		<button class="btn btn-primary">商品数更新</button>
+		<button class="btn btn-primary" name="countUpdate">商品数更新</button>
+		</form>
 
 
 		<form th:action="@{/clearing}">

@@ -11,11 +11,11 @@ public class CreditDTO {
 
 	private Date registration_date;
 
-	private int expire_date;
+	private String digits_3_code;
 
 	private String cardName;
 
-	private int cardNumber;
+	private String cardNumber;
 
 	private String user_id;
 }

@@ -1,0 +1,25 @@
+@charset "UTF-8";
+
+.fontdesign {
+	font-size:11px;
+	margin-bottom:0px !importatn;
+}
+
+.font {
+	font-size:15px !important;
+}
+
+.formdesign {
+	margin-bottom:2px !important;
+}
+
+.deleteBtn {
+	margin-left:52px !important;
+}
+
+.cartList {
+	display: auto;
+	overflow-y: scroll;
+	height: 381px;
+}
+}

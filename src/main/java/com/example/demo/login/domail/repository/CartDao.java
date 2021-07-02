@@ -13,5 +13,7 @@ public interface CartDao {
 
 	public List<PcDataDTO> cartDataSelectMany(String user_id);
 
-	public int deleteOne(int product_id,int getId);
+	public int deleteOne(int id);
+
+	public int updateOne(int id,int newProductCount);
 }

@@ -26,7 +26,7 @@ public class CartDaoJdbcImpl implements CartDao {
 				+ "user_id,"
 				+ "product_id,"
 				+ "product_count)"
-				+ " value(?,?,?,?)", cartdto.getId(), getId, product_id,1);
+				+ " value(?,?,?,?)", cartdto.getId(), getId, product_id, 1);
 
 		return result;
 	}
@@ -35,23 +35,26 @@ public class CartDaoJdbcImpl implements CartDao {
 		//ログインユーザーのidを取得
 		int getId = jdbc.queryForObject("select users.id from users where user_id = ?", Integer.class, getName);
 		//ログインユーザーのidをもとに、カートに追加した商品をすべて取得
-		List<Map<String, Object>> cartList = jdbc.queryForList("select cart.product_id from cart where user_id = ?",getId);
+		List<Map<String, Object>> cartList = jdbc.queryForList("select cart.product_id from cart where user_id = ?",
+				getId);
 
-		    //商品IDのカラム名と値の入ったMapからproduct_idListに値だけを入れる
-			List<Integer> product_idList = new ArrayList<>();
-				for (Map<String, Object> map : cartList) {
-				int id = (int) map.get("product_id");
-				product_idList.add(id);
-				}
-				int sumPrice = 0;
-			//商品IDをもとに商品の情報を取り出す。
-			List<Map<String, Object>> user_productList = new ArrayList<>();
-				for (int i = 0; i < product_idList.size(); i++) {
-					int pcdatadtoOne = product_idList.get(i);
-					System.out.println("pcdatadtoOne" + pcdatadtoOne);
-			List<Map<String, Object>> productList = jdbc.queryForList("select * from pcdata where id = ?",pcdatadtoOne);
-				user_productList.addAll(productList);
-				System.out.println("productList" + productList);
+		//商品IDのカラム名と値の入ったMapからproduct_idListに値だけを入れる
+		List<Integer> product_idList = new ArrayList<>();
+		for (Map<String, Object> map : cartList) {
+			int id = (int) map.get("product_id");
+			product_idList.add(id);
+		}
+		int sumPrice = 0;
+		//商品IDをもとに商品の情報を取り出す。
+		List<Map<String, Object>> user_productList = new ArrayList<>();
+		for (int i = 0; i < product_idList.size(); i++) {
+			int pcdatadtoOne = product_idList.get(i);
+			System.out.println("pcdatadtoOne" + pcdatadtoOne);
+			List<Map<String, Object>> productList = jdbc.queryForList(
+					"select pcdata.id,pcdata.company,pcdata.os,pcdata.pc_name,pcdata.pc_size,pcdata.price,pcdata.detail,pcdata.product_stock,pcdata.pcimg,pcdata.pcimg2,pcdata.pcimg3,cart.id AS cartId,cart.product_count from pcdata JOIN cart ON pcdata.id = cart.product_id where pcdata.id = ?",
+					pcdatadtoOne);
+			user_productList.addAll(productList);
+			System.out.println("productList" + productList);
 
 			//カート内剛健値段を出すためにユーザーのカート内のpriceを全て足していく
 
@@ -61,9 +64,9 @@ public class CartDaoJdbcImpl implements CartDao {
 				sumPrice = sumPrice + getPrice;
 				System.out.println("sumPrice" + sumPrice);
 			}
-//			PcDataDTO pcdatadto = new PcDataDTO();
-//			pcdatadto.setTotalPrice(sumPrice);
-//			System.out.println("pcdatadto.totalPrice" + pcdatadto.getTotalPrice());
+			//			PcDataDTO pcdatadto = new PcDataDTO();
+			//			pcdatadto.setTotalPrice(sumPrice);
+			//			System.out.println("pcdatadto.totalPrice" + pcdatadto.getTotalPrice());
 
 		}
 		List<PcDataDTO> pcdataList = new ArrayList<>();
@@ -82,6 +85,8 @@ public class CartDaoJdbcImpl implements CartDao {
 			pcdatadto.setPcImg((String) map.get("pcImg"));
 			pcdatadto.setPcImg2((String) map.get("pcImg2"));
 			pcdatadto.setPcImg3((String) map.get("pcImg3"));
+			pcdatadto.setCartId((int) map.get("cartId"));
+			pcdatadto.setProduct_count((int) map.get("product_count"));
 			pcdatadto.setTotalPrice(sumPrice);
 			pcdataList.add(pcdatadto);
 
@@ -141,15 +146,16 @@ public class CartDaoJdbcImpl implements CartDao {
 		return pcdataList;
 	}
 
-
-
-
-	public int deleteOne(int product_id,int getId) {
-System.out.println("deleteOne文到達");
-		int result = jdbc.update("delete from cart where product_id = ? AND user_id = ?",product_id,getId);
+	public int deleteOne(int id) {
+		System.out.println("deleteOne文到達");
+		int result = jdbc.update("delete from cart where id = ?", id);
 
 		return result;
+	}
 
+	public int updateOne(int id,int newProductCount) {
 
+		int result = jdbc.update("update cart set product_count = ? where id = ?",newProductCount,id);
+		return result;
 	}
 }

@@ -41,12 +41,21 @@ public class CartService {
 	}
 
 
-	public int deleteOne(int product_id,int getId) {
+	public int deleteOne(int id) {
 
-		int result = dao.deleteOne(product_id,getId);
+		int result = dao.deleteOne(id);
 
 		if(result > 0) {
 			System.out.println("delete成功");
+		}
+		return result;
+	}
+
+	public int updateOne(int id,int newProductCount) {
+		int result = dao.updateOne(id,newProductCount);
+
+		if(result > 0) {
+			System.out.println("update成功");
 		}
 		return result;
 	}

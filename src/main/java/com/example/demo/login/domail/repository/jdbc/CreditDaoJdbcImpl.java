@@ -17,11 +17,11 @@ public class CreditDaoJdbcImpl implements CreditDao{
 	public int insertOne(CreditDTO creditdto,String getName) {
 		int rowNumber = jdbc.update("insert into credit (id,"
 				+ " registration_date,"
-				+ " expire_date,"
+				+ " digits_3_code,"
 				+ " cardName,"
 				+ " cardNumber,"
 				+ " user_id)"
-				+ " value(?,?,?,?,?,?)",creditdto.getId(),creditdto.getRegistration_date(),creditdto.getExpire_date(),creditdto.getCardName(),creditdto.getCardNumber(),getName);
+				+ " value(?,?,?,?,?,?)",creditdto.getId(),creditdto.getRegistration_date(),creditdto.getDigits_3_code(),creditdto.getCardName(),creditdto.getCardNumber(),getName);
 
 	return rowNumber;
 	}
@@ -30,9 +30,9 @@ public class CreditDaoJdbcImpl implements CreditDao{
 		Map<String,Object> map = jdbc.queryForMap("select * from credit where id = ?",getName);
 
 		CreditDTO creditdto = new CreditDTO();
-		creditdto.setExpire_date((int)map.get("expire_date"));
+		creditdto.setDigits_3_code((String)map.get("digits_3_code"));
 		creditdto.setCardName((String)map.get("cardName"));
-		creditdto.setCardNumber((int)map.get("cardNumber"));
+		creditdto.setCardNumber((String)map.get("cardNumber"));
 
 		return creditdto;
 

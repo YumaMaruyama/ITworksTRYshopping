@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.login.domail.model.CartDTO;
 import com.example.demo.login.domail.model.CartForm;
@@ -201,7 +202,7 @@ public class ShoppingController {
 
 	CreditDTO creditdto = new CreditDTO();
 
-	creditdto.setExpire_date(form.getExpire_date());
+	//creditdto.setExpire_date(form.getExpire_date());
 	creditdto.setCardName(form.getCardName());
 	creditdto.setCardNumber(form.getCardNumber());
 
@@ -273,7 +274,7 @@ public class ShoppingController {
 		model.addAttribute("contents", "shopping/productReceiving::productListLayout_contents");
 		CreditDTO creditdto = new CreditDTO();
 		//ユーザーが入力した決済番号
-		creditdto.setExpire_date(form.getExpire_date());
+		creditdto.setDigits_3_code(form.getDigits_3_code());
 		creditdto.setCardName(form.getCardName());
 		creditdto.setCardNumber(form.getCardNumber());
 
@@ -308,7 +309,10 @@ public class ShoppingController {
 			int totalPrice = pcdatadto.getTotalPrice();
 			System.out.println("totalPrice" + totalPrice);
 			model.addAttribute("totalPrice",totalPrice);
+
+		form.setProduct_count(pcdatadto.getProduct_count());
 		}
+
 
 		System.out.println("cartList " + cartList);
 		model.addAttribute("cartList",cartList);
@@ -316,7 +320,7 @@ public class ShoppingController {
 	}
 
 	@PostMapping(value = "/cart/{id}",params = "delete")
-	public String postCartDetail(@ModelAttribute CartForm form,Model model,@PathVariable("id") int product_id) {
+	public String postCartDetail(@ModelAttribute CartForm form,Model model,@PathVariable("id") int id) {
 
 		model.addAttribute("contents", "shopping/cart::productListLayout_contents");
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -325,7 +329,7 @@ public class ShoppingController {
 
 		int getId = usersService.select_id(getName);
 
-		int result = cartService.deleteOne(product_id,getId);
+		int result = cartService.deleteOne(id);
 		System.out.println("delete");
 		List<PcDataDTO> cartList = cartService.selectMany(getName);
 		for(int i = 0; i < 1; i++) {
@@ -339,6 +343,16 @@ public class ShoppingController {
 	}
 	//clearingからproductReceiving
 
+	@PostMapping(value = "/cart/{id}",params = "countUpdate")
+	public String postCartCountUpdate(@ModelAttribute CartForm form,Model model,RedirectAttributes redirectattributes,@PathVariable("id") int id) {
+		System.out.println("countUpdate到達");
+		int newProductCount = form.getProduct_count();
+		int result = cartService.updateOne(id,newProductCount);
+
+        return "redirect:/cart/{id}";
+
+
+	}
 	@GetMapping("/confirmation")
 	public String getConfirmation(@ModelAttribute PcDataForm from,Model model) {
 		model.addAttribute("contents", "shopping/confirmation::productListLayout_contents");

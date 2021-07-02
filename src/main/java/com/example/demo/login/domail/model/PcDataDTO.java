@@ -23,10 +23,14 @@ public class PcDataDTO {
 
 	private int product_stock;
 
+	private int product_count;
+
 	private String pcImg;
 
 	private String pcImg2;
 
 	private String pcImg3;
+
+	private int cartId;//modelで渡す
 
 }

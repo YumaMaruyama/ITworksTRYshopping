@@ -27,17 +27,17 @@
 		<div class="flex">
 			<div class="item" th:each="pcdatadto : ${productList}">
 				<img class="size" th:src="${pcdatadto.pcImg}">
-				<h4 class="card-title text-center fontdesign"
+				<h4 class="card-title text-center fontdesign" style="margin-bottom:0px !important"
 					th:text="'商品名：' + ${pcdatadto.pc_name}"></h4>
-				<p class="card-text text-center fontdesign"
+				<p class="card-text text-center fontdesign" style="margin-bottom:0px !important"
 					th:text="'会社名：' + ${pcdatadto.company}"></p>
-				<p class="card-text text-center fontdesign"
+				<p class="card-text text-center fontdesign" style="margin-bottom:0px !important"
 					th:text="'OS：' + ${pcdatadto.os}"></p>
-				<p class="card-text text-center fontdesign"
+				<p class="card-text text-center fontdesign" style="margin-bottom:0px !important"
 					th:text="'画面サイズ：' + ${pcdatadto.pc_size} + '型'"></p>
-				<p class="card-text text-center fontdesign"
+				<p class="card-text text-center fontdesign" style="margin-bottom:0px !important"
 					th:text="'値段：' + ${pcdatadto.price} + '円'"></p>
-				<p class="card-text text-center fontdesign"
+				<p class="card-text text-center fontdesign" style="margin-bottom:0px !important"
 					th:text="'在庫数：' + ${pcdatadto.product_stock} + '個'"></p>
 				<a class="text-center a"
 					th:href="@{/productDetail} + '/' + ${pcdatadto.id}">詳細画面に行く</a>
