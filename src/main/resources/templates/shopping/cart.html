@@ -14,7 +14,7 @@
 
 	<div class="flex cartList">
 			<div class="item"  th:each="pcdatadto : ${cartList}">
-			<form method="post" th:action="@{/cart} + '/' + ${pcdatadto.cartId}" th:object="${cartForm}">
+			<form method="post" th:action="@{/cart} + '/' + ${pcdatadto.id}" th:object="${cartForm}">
 				<img class="size" th:src="${pcdatadto.pcImg}">
 				<h5 class="card-title text-center fontdesign"
 					th:text="'商品名：' + ${pcdatadto.pc_name}"></h5>
@@ -30,13 +30,19 @@
 					th:text="'在庫数：' + ${pcdatadto.product_stock} + '個'"></p>
 				<a class="text-center a" style="margin-bottom:0px !important"
 					th:href="@{/productDetail} + '/' + ${pcdatadto.id}"><span class="font">詳細画面に行く</span></a>
-				<p style="margin-bottom:0px !important">購入数<input type="text" class="form-control formdesign" th:value="*{product_count}" th:field="*{product_count}" style="width:48%; margin-left: 51px;" ></p>
-				<button class="btn btn-danger deleteBtn center-block" name="delete">商品削除</button>
-
+				<p style="margin-bottom:0px !important">購入数<input type="text" class="form-control formdesign" th:value="${pcdatadto.product_count}" name="*{product_count}" style="width:48%; margin-left: 51px;" ></p>
+				<table>
+				<tr>
+				<th>
+				<button class="btn btn-danger deleteBtn center-block" name="delete">削除</button>
+				<button class="btn btn-primary" name="countUpdate">更新</button>
+				</th>
+				</tr>
+				</table>
 				<div class="card-footer"></div>
 			</div>
 		</div>
-		<button class="btn btn-primary" name="countUpdate">商品数更新</button>
+
 		</form>
 
 

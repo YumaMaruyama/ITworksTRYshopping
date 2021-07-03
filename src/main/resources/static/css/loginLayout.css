@@ -7,4 +7,5 @@
 .nav-sidebar {
 	height: 551px;
 	background:#e7f4ff;
+	display: list-item !important; /*flexが効いてるのでSidebarのアイテムが均等な幅になっている*/
 }

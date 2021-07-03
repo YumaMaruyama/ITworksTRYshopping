@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -18,15 +19,15 @@ public class CartDaoJdbcImpl implements CartDao {
 	@Autowired
 	JdbcTemplate jdbc;
 
-	public int insertOne(CartDTO cartdto, int product_id, String user_id) {
+	public int insertOne(CartDTO cartdto, int product_id, int select_id) {
 
-		int getId = jdbc.queryForObject("select users.id from users where user_id = ?", Integer.class, user_id);
+		//int getId = jdbc.queryForObject("select users.id from users where user_id = ?", Integer.class, select_id);
 
 		int result = jdbc.update("insert into cart (id,"
 				+ "user_id,"
 				+ "product_id,"
 				+ "product_count)"
-				+ " value(?,?,?,?)", cartdto.getId(), getId, product_id, 1);
+				+ " value(?,?,?,?)", cartdto.getId(), select_id, product_id, 1);
 
 		return result;
 	}
@@ -146,16 +147,30 @@ public class CartDaoJdbcImpl implements CartDao {
 		return pcdataList;
 	}
 
-	public int deleteOne(int id) {
+	public int selectOne(CartDTO cartdto, int product_id, int select_id) throws EmptyResultDataAccessException {
+
+		int result = 0;
+
+		try {
+			int select_result = jdbc.queryForObject("select cart.product_id from cart where product_id = ? and user_id = ?",
+					Integer.class, product_id, select_id);
+			result = 1;
+		} catch (EmptyResultDataAccessException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	public int deleteOne(int id,int getId) {
 		System.out.println("deleteOne文到達");
-		int result = jdbc.update("delete from cart where id = ?", id);
+		int result = jdbc.update("delete from cart where product_id = ? AND user_id = ?", id,getId);
 
 		return result;
 	}
 
-	public int updateOne(int id,int newProductCount) {
-
-		int result = jdbc.update("update cart set product_count = ? where id = ?",newProductCount,id);
+	public int updateOne(int productId, int newProductCount,int userId) {
+		System.out.println("daoUpdate到達");
+		int result = jdbc.update("update cart set product_count = ? where product_id = ? AND user_id = ?", newProductCount, productId,userId);
 		return result;
 	}
 }

@@ -28,8 +28,9 @@
 			th:action="@{/productDetail} + '/' + ${pcdatadto.id}"
 			th:object="${pcDetailDataForm}">
 		-->
+			<form  th:each="pcdatadto : ${pcdatadtoOne}" method="get" th:action="@{/cart} + '/' + ${pcdatadto.id}" >
 			<table class="table table-bordered table-hover">
-				<tr th:each="pcdatadto : ${pcdatadtoOne}">
+				<tr>
 					<th class="text-center">会社名</th>
 					<th class="text-center">OS</th>
 					<th class="text-center">商品名</th>
@@ -66,10 +67,10 @@
 				</tr>
 			</table>
 			<div th:each="pcdatadto : ${pcdatadtoOne}">
-			<a th:href="@{/cart} + '/' + ${pcdatadto.id}" class="btn btn-primary">カートに追加する</a>
+			<button class="btn btn-primary">カートに追加する</button>
 			</div>
 			<!-- 画像はテーブルではなくてbootstrapのカードで表示させる -->
-
+		</form>
 <!--
 			<div>
 				<h3>PCのカスタムが可能です。</h3>

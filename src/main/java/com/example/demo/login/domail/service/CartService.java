@@ -17,8 +17,8 @@ public class CartService {
 	@Autowired
 	CartDao dao;
 
-	public int insertOne(CartDTO cartdto,int product_id,String user_id ) {
-		int result = dao.insertOne(cartdto,product_id,user_id);
+	public int insertOne(CartDTO cartdto,int product_id,int select_id ) {
+		int result = dao.insertOne(cartdto,product_id,select_id);
 
 		if(result > 0) {
 			System.out.println("insert成功");
@@ -40,10 +40,18 @@ public class CartService {
 		return dao.cartDataSelectMany(getName);
 	}
 
+	public int selectOne(CartDTO cartdto,int product_id,int select_id) {
+		int result = dao.selectOne(cartdto,product_id,select_id);
 
-	public int deleteOne(int id) {
+		if(result > 0) {
+			System.out.println("select成功");
+		}
+		return result;
+	}
 
-		int result = dao.deleteOne(id);
+	public int deleteOne(int id,int getId) {
+
+		int result = dao.deleteOne(id,getId);
 
 		if(result > 0) {
 			System.out.println("delete成功");
@@ -51,11 +59,13 @@ public class CartService {
 		return result;
 	}
 
-	public int updateOne(int id,int newProductCount) {
-		int result = dao.updateOne(id,newProductCount);
+	public int updateOne(int productId,int newProductCount,int userId) {
+		int result = dao.updateOne(productId,newProductCount,userId);
 
 		if(result > 0) {
 			System.out.println("update成功");
+		}else {
+			System.out.println("update失敗");
 		}
 		return result;
 	}
