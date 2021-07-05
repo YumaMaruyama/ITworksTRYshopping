@@ -25,6 +25,12 @@
 	width:20%;
 }
 
+.productList {
+	display: auto;
+	overflow-y: scroll;
+	height: 500px;
+}
+
 .fontdesign {
 	font-size:15px ;
 }

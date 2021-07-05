@@ -37,4 +37,18 @@ public class CreditDaoJdbcImpl implements CreditDao{
 		return creditdto;
 
 	}
+
+	public int clearingInsertOne(CreditDTO creditdto,int select_id) {
+
+		int result = jdbc.update("insert into credit (id,"
+				+ " registration_date,"
+				+ " cardName,"
+				+ " cardNumber,"
+				+ " user_id,"
+				+ " digits_3_code)"
+				+ " value(?,?,?,?,?,?)",creditdto.getId(),creditdto.getRegistration_date(),creditdto.getCardName(),creditdto.getCardNumber(),select_id,creditdto.getDigits_3_code());
+
+		return result;
+
+	}
 }

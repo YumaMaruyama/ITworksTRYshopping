@@ -8,4 +8,6 @@ public interface CreditDao {
 	public int insertOne(CreditDTO creditdto,String getName);
 
 	public CreditDTO selectOne(String getName);
+
+	public int clearingInsertOne(CreditDTO creditdto,int select_id);
 }

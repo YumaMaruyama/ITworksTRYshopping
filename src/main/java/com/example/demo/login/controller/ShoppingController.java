@@ -68,9 +68,15 @@ public class ShoppingController {
 		pcdatadto.setPcImg2(form.getPcImg2());
 		pcdatadto.setPcImg3(form.getPcImg3());
 
-
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println("auth" + auth.getName());
+		String user_id = auth.getName();
+		int select_id = usersService.select_id(user_id);
+		int result = pcdataService.insertCheckSelectOne(pcdatadto);
+		if(result < 1) {
+			System.out.println("insert到達");
 		int pcData = pcdataService.insertOne(pcdatadto);
-
+		}
 		return getProductList(form,model);
 	}
 
@@ -223,14 +229,26 @@ public class ShoppingController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 		String getName = auth.getName();
+
+//		List<PcDataDTO> cartList = cartService.selectMany(getName);
+//		for(int i = 0; i < 1; i++) {
+//			PcDataDTO pcdatadto = cartList.get(i);
+//			int totalPrice = pcdatadto.getTotalPrice();
+//			System.out.println("totalPrice" + totalPrice);
+//			model.addAttribute("totalPrice",totalPrice);
+//		}
+
+
 		List<PcDataDTO> cartList = cartService.selectMany(getName);
 		for(int i = 0; i < 1; i++) {
-			PcDataDTO pcdatadto = cartList.get(i);
-			int totalPrice = pcdatadto.getTotalPrice();
-			System.out.println("totalPrice" + totalPrice);
-			model.addAttribute("totalPrice",totalPrice);
+				PcDataDTO pcdatadto = cartList.get(i);
+				int totalPrice = pcdatadto.getProduct_count() * pcdatadto.getTotalPrice();
+				System.out.println("totalPrice" + totalPrice);
+				model.addAttribute("totalPrice",totalPrice);
+				//model.addAttribute("product_count",pcdatadto.getProduct_count());
+			//form.setProduct_count(pcdatadto.getProduct_count());
+			System.out.println("form" + form);
 		}
-
 
 
 //		List<PcDataDTO> cartList = cartService.cartDataSelectMany();
@@ -242,14 +260,29 @@ public class ShoppingController {
 	}
 
 	@PostMapping("/clearing")
-	public String getClearing(@ModelAttribute @Validated(GroupOrder.class) CreditForm form,BindingResult bindingResult,Model model) {
-		model.addAttribute("contents","shopping/clearing::productListLayout_contents");
+	public String getClearing(@ModelAttribute @Validated(GroupOrder.class) CreditForm form,BindingResult bindingResult,RedirectAttributes redirectattributes,Model model) {
+		model.addAttribute("contents","shopping/confirmation::productListLayout_contents");
 		if(bindingResult.hasErrors()) {
 			System.out.println("バリデーションエラー");
 			return getCardClearing(form,model);
 		}
 
-		return getAfter_purchase(model);
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println("auth" + auth.getName());
+		String user_id = auth.getName();
+		//ログインユーザーのID取得
+		int select_id = usersService.select_id(user_id);
+
+		CreditDTO creditdto = new CreditDTO();
+
+		creditdto.setDigits_3_code(form.getDigits_3_code());
+		creditdto.setCardName(form.getCardName());
+		creditdto.setCardNumber(form.getCardNumber());
+
+		int result = creditService.clearingInsertOne(creditdto, select_id);
+
+
+		return "redirect:/confirmation";
 	}
 
 	@GetMapping("/after_purchase")
@@ -266,6 +299,7 @@ public class ShoppingController {
 	@GetMapping("/clearing/{id}")
 	public String getClearing(@ModelAttribute CreditForm form,Model model,@RequestParam("customPrice") int customPrice,@PathVariable("id") int id) {
 		model.addAttribute("contents", "shopping/clearing::productListLayout_contents");
+
 
 		System.out.println(id);//商品番号
 		System.out.println(customPrice);//決済金額
@@ -395,7 +429,7 @@ public class ShoppingController {
 		List<PcDataDTO> cartList = cartService.selectMany(getName);
 		for(int i = 0; i < 1; i++) {
 			PcDataDTO pcdatadto = cartList.get(i);
-			int totalPrice = pcdatadto.getTotalPrice();
+			int totalPrice = pcdatadto.getProduct_count() * pcdatadto.getTotalPrice();
 			System.out.println("totalPrice" + totalPrice);
 			model.addAttribute("totalPrice",totalPrice);
 		}

@@ -7,39 +7,55 @@
 </head>
 <body>
 	<div th:fragment="productListLayout_contents">
-	<header>
-	<h1>カート画面</h1>
-	</header>
+		<header>
+			<h1>カート画面</h1>
+		</header>
 
 
-	<div class="flex cartList">
-			<div class="item"  th:each="pcdatadto : ${cartList}">
-			<form method="post" th:action="@{/cart} + '/' + ${pcdatadto.id}" th:object="${cartForm}">
-				<img class="size" th:src="${pcdatadto.pcImg}">
-				<h5 class="card-title text-center fontdesign"
-					th:text="'商品名：' + ${pcdatadto.pc_name}"></h5>
-				<p class="card-text text-center fontdesign"  style="margin-bottom:0px !important"
-					th:text="'会社名：' + ${pcdatadto.company}"></p>
-				<p class="card-text text-center fontdesign" style="margin-bottom:0px !important"
-					th:text="'OS：' + ${pcdatadto.os}"></p>
-				<p class="card-text text-center fontdesign" style="margin-bottom:0px !important"
-					th:text="'画面サイズ：' + ${pcdatadto.pc_size} + '型'"></p>
-				<p class="card-text text-center fontdesign" style="margin-bottom:0px !important"
-					th:text="'値段：' + ${pcdatadto.price} + '円'"></p>
-				<p class="card-text text-center fontdesign" style="margin-bottom:0px !important"
-					th:text="'在庫数：' + ${pcdatadto.product_stock} + '個'"></p>
-				<a class="text-center a" style="margin-bottom:0px !important"
-					th:href="@{/productDetail} + '/' + ${pcdatadto.id}"><span class="font">詳細画面に行く</span></a>
-				<p style="margin-bottom:0px !important">購入数<input type="text" class="form-control formdesign" th:value="${pcdatadto.product_count}" name="*{product_count}" style="width:48%; margin-left: 51px;" ></p>
-				<table>
-				<tr>
-				<th>
-				<button class="btn btn-danger deleteBtn center-block" name="delete">削除</button>
-				<button class="btn btn-primary" name="countUpdate">更新</button>
-				</th>
-				</tr>
-				</table>
-				<div class="card-footer"></div>
+		<div class="flex cartList">
+			<div class="item" th:each="pcdatadto : ${cartList}">
+				<form method="post" th:action="@{/cart} + '/' + ${pcdatadto.id}"
+					th:object="${cartForm}">
+					<img class="size" th:src="${pcdatadto.pcImg}">
+					<h5 class="card-title text-center fontdesign"
+						th:text="'商品名：' + ${pcdatadto.pc_name}"></h5>
+					<p class="card-text text-center fontdesign"
+						style="margin-bottom: 0px !important"
+						th:text="'会社名：' + ${pcdatadto.company}"></p>
+					<p class="card-text text-center fontdesign"
+						style="margin-bottom: 0px !important"
+						th:text="'OS：' + ${pcdatadto.os}"></p>
+					<p class="card-text text-center fontdesign"
+						style="margin-bottom: 0px !important"
+						th:text="'画面サイズ：' + ${pcdatadto.pc_size} + '型'"></p>
+					<p class="card-text text-center fontdesign"
+						style="margin-bottom: 0px !important"
+						th:text="'値段：' + ${pcdatadto.price} + '円'"></p>
+					<p class="card-text text-center fontdesign"
+						style="margin-bottom: 0px !important"
+						th:text="'在庫数：' + ${pcdatadto.product_stock} + '個'"></p>
+					<a class="text-center a" style="margin-bottom: 0px !important"
+						th:href="@{/productDetail} + '/' + ${pcdatadto.id}"><span
+						class="font">詳細画面に行く</span></a>
+					<p style="margin-bottom: 0px !important">
+						購入数<input type="text" class="form-control formdesign"
+							th:value="${pcdatadto.product_count}" th:field="*{product_count}"
+							style="width: 48%; margin-left: 51px;">
+					</p>
+					<table>
+						<tr>
+							<th>
+								<div class="btn-radius-gradient-wrap">
+									<button class="btn btn-radius-gradient deleteBtn center-block"
+										name="delete">商品削除</button>
+								</div>
+								<div class="btn-radius-gradient-wrap">
+									<button class="btn btn-radius-gradient updateBtn"
+										name="countUpdate">数更新</button>
+								</div>
+							</th>
+						</tr>
+					</table>
 			</div>
 		</div>
 
@@ -47,15 +63,17 @@
 
 
 		<form th:action="@{/clearing}">
-		<table>
-			<tr>
-				<th>カート合計金額</th>
-				<td class="card-text text-center fontdesign"
-					th:text="${totalPrice}"></td>
-			</tr>
-		</table>
-		<input type="hidden" th:value="totalPrice" th:field="${totalPrice}">
-		<button th:href="@{/clearing}" class="btn btn-danger">決済画面へ</button>
+			<table class="col-sm-5 cartPrice table table-bordered table-hover">
+				<tr>
+					<th class="text-center">カート合計金額</th>
+					<td style="font-size: 20px;"
+						class="cartPrice2 card-text text-center fontdesign"
+						th:text="${totalPrice} + '円'"></td>
+				</tr>
+			</table>
+			<input type="hidden" th:value="totalPrice" th:field="${totalPrice}">
+			<button th:href="@{/clearing}"
+				class="btn btn--orange btn--cubic btn--shadow clearingBtn">決済画面へ</button>
 		</form>
 	</div>
 </body>

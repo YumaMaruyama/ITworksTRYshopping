@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -83,6 +84,21 @@ public class PcDataDaoJdbcImpl implements PcDataDao {
 		pcdatadto.setPcImg3((String)map.get("pcImg3"));
 
 		return pcdatadto;
+	}
+
+	public int insertCheckSelectOne(PcDataDTO pcdatadto) throws EmptyResultDataAccessException {
+
+		int selectResult = 0;
+
+		try {
+		int result = jdbc.queryForObject("select pcdata.id from pcdata where pc_name = ?",Integer.class,pcdatadto.getPc_name());
+		selectResult = 1;
+		}catch(EmptyResultDataAccessException e) {
+			e.printStackTrace();
+		}
+
+		System.out.println("selectResult" + selectResult);
+		return selectResult;
 	}
 
 

@@ -28,4 +28,8 @@ public class CreditService {
 		return dao.selectOne(getName);
 
 	}
+
+	public int clearingInsertOne(CreditDTO creditdto,int select_id) {
+		return dao.clearingInsertOne(creditdto,select_id);
+	}
 }

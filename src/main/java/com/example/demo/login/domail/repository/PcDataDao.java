@@ -11,4 +11,6 @@ public interface PcDataDao {
 	public List<PcDataDTO> selectMany();
 
 	public PcDataDTO selectOne(int id);
+
+	public int insertCheckSelectOne(PcDataDTO pcdatadto);
 }

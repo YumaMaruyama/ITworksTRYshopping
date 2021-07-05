@@ -35,5 +35,10 @@ public class PcDataService {
 
 	}
 
+	public int insertCheckSelectOne(PcDataDTO pcdatadto) {
+		return dao.insertCheckSelectOne(pcdatadto);
+
+	}
+
 
 }

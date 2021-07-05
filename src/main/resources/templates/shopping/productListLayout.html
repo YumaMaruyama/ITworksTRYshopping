@@ -39,13 +39,13 @@
 			</div>
 			<div class="col-sm-6">
 				<h3 th:text="${session.sessionGetUser_name} + 'さん、こんにちは'"
-					style="color: #fff; padding: 0px 0px !important; margin: 14px 0px; font-size: 20px;"></h3>
+					style="color: #fff; padding: 0px 0px !important; margin: 8px 0px 0px 70px; font-size: 20px;"></h3>
 			</div>
 
 			<div class="col-sm-2">
 				<h4 style="margin: 15px 0px !important;">
 					<a th:href="@{'/logout'}"><span
-						style="color: #ecff96 !important; font-size: 18px;">ログアウト</span></a>
+						style="color: #ecff96 !important; font-size: 20px;">ログアウト</span></a>
 				</h4>
 			</div>
 		</div>
@@ -56,11 +56,11 @@
 			<div class="clearfix"></div>
 			<div class="col-sm-3 col-md-2 sidebar">
 				<ul class="nav nav-sidebar">
-					<li><a class="height" th:href="@{/credit}">購入用JCBカード登録</a></li>
-					<li><a class="height" th:href="@{/admin}">管理者専用画面</a></li>
-					<li><a class="height" href="">お問い合わせ</a></li>
-					<li><a class="height" href="">プライバシーポリシー</a></li>
-					<li><a class="height" href="">利用規約</a></li>
+					<li class="flexDetail"><a class="btn btn-gradient cartBtn" th:href="@{/cart}"><span>カート</span></a></li>
+					<li><a class="btn btn-gradient adminBtn" th:href="@{/admin}"><span style="font-size:12px;">管理者専用画面</span></a></li>
+					<li><a class="btn btn-gradient inquiryBtn" href=""><span>お問い合わせ</span></a></li>
+					<li><a class="btn btn-gradient privacyBtn" href=""><span style="font-size:12px;">プライバシーポリシー</span></a></li>
+					<li><a class="btn btn-gradient termsBtn" href=""><span>利用規約</span></a></li>
 
 				</ul>
 			</div>
