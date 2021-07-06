@@ -173,4 +173,29 @@ public class CartDaoJdbcImpl implements CartDao {
 		int result = jdbc.update("update cart set product_count = ? where product_id = ? AND user_id = ?", newProductCount, productId,userId);
 		return result;
 	}
+
+	public List<CartDTO> selectProductCount(int select_id) {
+		List<Map<String, Object>> map = jdbc.queryForList("select * from cart where user_id = ?",select_id);
+
+
+		List<CartDTO> cartList = new ArrayList<>();
+		for (Map<String, Object> oneMap : map) {
+			CartDTO cartdto = new CartDTO();
+		cartdto.setProduct_id((int)oneMap.get("product_id"));
+		cartdto.setProduct_count((int)oneMap.get("product_count"));
+		cartList.add(cartdto);
+	}
+		return cartList;
+	}
+
+	public int productStockUpdate(int productId,int productCount) {
+		int result = jdbc.update("update pcdata set product_stock = product_stock - ? where id = ?",productCount,productId);
+		return result;
+	}
+
+	public int productStockCheck(int productId) {
+		int productStock = jdbc.queryForObject("select pcdata.product_stock from pcdata where id = ?",Integer.class,productId);
+
+		return productStock;
+	}
 }

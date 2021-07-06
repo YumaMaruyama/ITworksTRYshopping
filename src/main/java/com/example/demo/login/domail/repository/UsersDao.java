@@ -10,4 +10,8 @@ public interface UsersDao {
 	public UsersDTO getUser_name(String personId);
 
 	public int select_id(String getName);
+
+	public String selectId(String user_id);
+
+	public String check(String user_id);
 }

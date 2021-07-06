@@ -11,6 +11,8 @@
 			<h1>カート画面</h1>
 		</header>
 
+		<p class="cartDesign" th:text="${result}"></p>
+		<br><br>
 
 		<div class="flex cartList">
 			<div class="item" th:each="pcdatadto : ${cartList}">
@@ -39,13 +41,13 @@
 						class="font">詳細画面に行く</span></a>
 					<p style="margin-bottom: 0px !important">
 						購入数<input type="text" class="form-control formdesign"
-							th:value="${pcdatadto.product_count}" th:field="*{product_count}"
+							th:value="${pcdatadto.product_count}" name="product_count"
 							style="width: 48%; margin-left: 51px;">
 					</p>
 					<table>
 						<tr>
 							<th>
-								<div class="btn-radius-gradient-wrap">
+								<div class="btn-radius-gradient-wrap delteBtnMargin">
 									<button class="btn btn-radius-gradient deleteBtn center-block"
 										name="delete">商品削除</button>
 								</div>
@@ -55,11 +57,11 @@
 								</div>
 							</th>
 						</tr>
-					</table>
+					</table></form>
 			</div>
 		</div>
 
-		</form>
+
 
 
 		<form th:action="@{/clearing}">
@@ -71,9 +73,8 @@
 						th:text="${totalPrice} + '円'"></td>
 				</tr>
 			</table>
-			<input type="hidden" th:value="totalPrice" th:field="${totalPrice}">
-			<button th:href="@{/clearing}"
-				class="btn btn--orange btn--cubic btn--shadow clearingBtn">決済画面へ</button>
+			<button
+				class="btn btn2 btn--orange btn--cubic btn--shadow clearingBtn">決済画面へ</button>
 		</form>
 	</div>
 </body>

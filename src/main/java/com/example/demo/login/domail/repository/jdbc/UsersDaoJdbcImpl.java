@@ -3,6 +3,7 @@ package com.example.demo.login.domail.repository.jdbc;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
@@ -34,6 +35,14 @@ public class UsersDaoJdbcImpl implements UsersDao {
 
 	}
 
+	public String selectId(String user_id) {
+
+		String selectUser_id = jdbc.queryForObject("select users.id from users where user_id = ?",String.class,user_id);
+
+		return selectUser_id;
+	}
+
+
 	public UsersDTO getUser_name(String personId) {
 		System.out.println("dao到達");
 		Map<String,Object> map = jdbc.queryForMap("select * from users where user_id = ?",personId);
@@ -48,6 +57,19 @@ public class UsersDaoJdbcImpl implements UsersDao {
 		int id = jdbc.queryForObject("select users.id from users where user_id = ?",Integer.class,getName);
 
 		return id;
+	}
+
+	public String check(String user_id) throws EmptyResultDataAccessException {
+
+		String result = "0";
+		try {
+			String selectResult = jdbc.queryForObject("select users.user_id from users where user_id = ?",String.class,user_id);
+			result = "1";
+		}catch(EmptyResultDataAccessException e) {
+			e.printStackTrace();
+		}
+
+		return result;
 	}
 
 }

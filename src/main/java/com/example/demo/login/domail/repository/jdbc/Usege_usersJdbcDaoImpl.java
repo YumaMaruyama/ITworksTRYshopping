@@ -15,6 +15,8 @@ public class Usege_usersJdbcDaoImpl implements Usege_usersDao {
 
 	public int insertOne(Usege_usersDTO usegedto) {
 
+
+
 		int result = jdbc.update("insert into usege_users (id,"
 				+ "user_id,"
 				+ "birthday,"
@@ -23,4 +25,6 @@ public class Usege_usersJdbcDaoImpl implements Usege_usersDao {
 
 		return result;
 	}
+
+
 }

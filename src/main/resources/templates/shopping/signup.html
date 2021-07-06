@@ -24,6 +24,9 @@
 		<div class="page-header">
 			<h1>ユーザー新規登録</h1>
 		</div>
+
+		<p class="singupDesign" th:text="${result}"></p>
+
 		<form method="post" th:action="@{/signup}" th:object="${signupForm}">
 			<table class="table table-bordered table-hover">
 

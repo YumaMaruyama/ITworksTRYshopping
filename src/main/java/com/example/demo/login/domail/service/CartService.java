@@ -17,10 +17,10 @@ public class CartService {
 	@Autowired
 	CartDao dao;
 
-	public int insertOne(CartDTO cartdto,int product_id,int select_id ) {
-		int result = dao.insertOne(cartdto,product_id,select_id);
+	public int insertOne(CartDTO cartdto, int product_id, int select_id) {
+		int result = dao.insertOne(cartdto, product_id, select_id);
 
-		if(result > 0) {
+		if (result > 0) {
 			System.out.println("insert成功");
 		}
 
@@ -40,33 +40,73 @@ public class CartService {
 		return dao.cartDataSelectMany(getName);
 	}
 
-	public int selectOne(CartDTO cartdto,int product_id,int select_id) {
-		int result = dao.selectOne(cartdto,product_id,select_id);
+	public int selectOne(CartDTO cartdto, int product_id, int select_id) {
+		int result = dao.selectOne(cartdto, product_id, select_id);
 
-		if(result > 0) {
+		if (result > 0) {
 			System.out.println("select成功");
 		}
 		return result;
 	}
 
-	public int deleteOne(int id,int getId) {
+	public int deleteOne(int id, int getId) {
 
-		int result = dao.deleteOne(id,getId);
+		int result = dao.deleteOne(id, getId);
 
-		if(result > 0) {
+		if (result > 0) {
 			System.out.println("delete成功");
 		}
 		return result;
 	}
 
-	public int updateOne(int productId,int newProductCount,int userId) {
-		int result = dao.updateOne(productId,newProductCount,userId);
+	public int updateOne(int productId, int newProductCount, int userId) {
+		int result = dao.updateOne(productId, newProductCount, userId);
 
-		if(result > 0) {
+		if (result > 0) {
 			System.out.println("update成功");
-		}else {
+		} else {
 			System.out.println("update失敗");
 		}
 		return result;
+	}
+
+	public boolean selectProductCount(int select_id) {
+		//ログインユーザーの購入商品と購入数を取得
+		List<CartDTO> checkProductCountList = dao.selectProductCount(select_id);
+		System.out.println("productCountList " + checkProductCountList);
+		for (int i = 0; i < checkProductCountList.size(); i++) {
+			CartDTO cartdto = checkProductCountList.get(i);
+			int productId = cartdto.getProduct_id();
+			System.out.println("productId " + productId);
+			int productCount = cartdto.getProduct_count();
+			System.out.println("productCount " + productCount);
+
+			int productStock = dao.productStockCheck(productId);
+			int updateCheck = productStock - productCount;
+			System.out.println("test" + updateCheck +" " + productStock + " " +  productCount);
+			if(updateCheck < 0) {
+				return false;
+			}
+		}
+
+		List<CartDTO> productCountList = dao.selectProductCount(select_id);
+		System.out.println("productCountList " + productCountList);
+		for (int i = 0; i < productCountList.size(); i++) {
+			CartDTO cartdto = productCountList.get(i);
+			int productId = cartdto.getProduct_id();
+			System.out.println("productId " + productId);
+			int productCount = cartdto.getProduct_count();
+			System.out.println("productCount " + productCount);
+			//各商品ごとに、在庫数から購入数を引く
+			int result = dao.productStockUpdate(productId, productCount);
+			if (result > 0) {
+				System.out.println("update成功");
+			} else {
+				System.out.println("update失敗");
+			}
+		}
+
+		return true;
+
 	}
 }

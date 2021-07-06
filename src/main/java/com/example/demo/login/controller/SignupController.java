@@ -47,11 +47,22 @@ public class SignupController {
 		usersdto.setPassword(form.getPassword());
 		usersdto.setUser_name(form.getUser_name());
 		usersdto.setRole("notAdmin");
+		String user_id = usersdto.getUser_id();
+
+		String result = usersService.check(user_id);
+		if(result.equals("1")) {
+			model.addAttribute("result","入力されたユーザーIDはすでに使用されています。");
+			return getSignup(form,model);
+		}
 
 		int usersList = usersService.insertOne(usersdto);
+		System.out.println("user_id" + user_id);
+
+		String id = usersService.selectId(user_id);
+		int getId = Integer.parseInt(id);
 
 		Usege_usersDTO usegedto = new Usege_usersDTO();
-		usegedto.setUser_id(usersdto.getId());
+		usegedto.setUser_id(getId);
 		usegedto.setBirthday(form.getBirthday());
 		usegedto.setAddress(form.getAddress());
 

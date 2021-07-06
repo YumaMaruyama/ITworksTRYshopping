@@ -230,6 +230,7 @@ public class ShoppingController {
 		System.out.println("auth" + auth.getName());
 		String getName = auth.getName();
 
+
 //		List<PcDataDTO> cartList = cartService.selectMany(getName);
 //		for(int i = 0; i < 1; i++) {
 //			PcDataDTO pcdatadto = cartList.get(i);
@@ -240,9 +241,10 @@ public class ShoppingController {
 
 
 		List<PcDataDTO> cartList = cartService.selectMany(getName);
-		for(int i = 0; i < 1; i++) {
+		 int totalPrice = 0;
+		for(int i = 0; i < cartList.size(); i++) {
 				PcDataDTO pcdatadto = cartList.get(i);
-				int totalPrice = pcdatadto.getProduct_count() * pcdatadto.getTotalPrice();
+			 totalPrice = pcdatadto.getProduct_count() * pcdatadto.getPrice();
 				System.out.println("totalPrice" + totalPrice);
 				model.addAttribute("totalPrice",totalPrice);
 				//model.addAttribute("product_count",pcdatadto.getProduct_count());
@@ -301,6 +303,8 @@ public class ShoppingController {
 		model.addAttribute("contents", "shopping/clearing::productListLayout_contents");
 
 
+
+
 		System.out.println(id);//商品番号
 		System.out.println(customPrice);//決済金額
 		model.addAttribute("customPrice",customPrice);
@@ -341,14 +345,14 @@ public class ShoppingController {
 				if(cartList == null || cartList.size() == 0) {
 					model.addAttribute("totalPrice",0);
 				}else {
-					for(int i = 0; i < 1; i++) {
+					int totalPrice = 0;
+					for(int i = 0; i < cartList.size(); i++) {
 						PcDataDTO pcdatadto = cartList.get(i);
-						int totalPrice = pcdatadto.getProduct_count() * pcdatadto.getTotalPrice();
-						System.out.println("totalPrice" + totalPrice);
+						 totalPrice = totalPrice + pcdatadto.getProduct_count() * pcdatadto.getPrice();
+						System.out.println("テストtotalPrice" + totalPrice);
 						model.addAttribute("totalPrice",totalPrice);
 						//model.addAttribute("product_count",pcdatadto.getProduct_count());
 					//form.setProduct_count(pcdatadto.getProduct_count());
-					System.out.println("form" + form);
 					}
 				}
 
@@ -383,6 +387,7 @@ public class ShoppingController {
 	@PostMapping(value = "/cart/{id}",params = "delete")
 	public String postCartDetail(@ModelAttribute CartForm form,Model model,RedirectAttributes redirectattributes,@PathVariable("id") int id) {
 
+		System.out.println("product_id" + id);
 		model.addAttribute("contents", "shopping/cart::productListLayout_contents");
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
@@ -441,7 +446,20 @@ public class ShoppingController {
 	}
 
 	@PostMapping("/confirmation")
-	public String postConfirmation(@ModelAttribute PcDataForm form,Model model) {
+	public String postConfirmation(@ModelAttribute PcDataForm form,RedirectAttributes redirectattributes,Model model) {
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println("auth" + auth.getName());
+		String getName = auth.getName();
+
+		int select_id = usersService.select_id(getName);
+		//各商品のユーザーが購入した数を取得
+		boolean result = cartService.selectProductCount(select_id);
+
+		if(result == false) {
+			model.addAttribute("result","在庫が0の商品があります。在庫が0の商品を削除してください。");
+			return "redirect:/cart";
+		}
 
 		return getAfter_purchase(model);
 	}

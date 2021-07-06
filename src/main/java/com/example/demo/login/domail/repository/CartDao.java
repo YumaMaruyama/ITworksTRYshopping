@@ -20,4 +20,10 @@ public interface CartDao {
 	public int updateOne(int productId,int newProductCount,int userId);
 
 	public int selectOne(CartDTO cartdto,int product_id,int select_id) throws EmptyResultDataAccessException;
+
+	public List<CartDTO> selectProductCount(int select_id);
+
+	public int productStockUpdate(int productId,int productCount);
+
+	public int productStockCheck(int productId);
 }

@@ -14,7 +14,7 @@
 }
 
 .deleteBtn {
-	/*margin-left:24px !important;*/
+	/*margin-left:23px !important;*/
 	font-size:11px !important;
 }
 
@@ -42,6 +42,17 @@
 	font-size: 25px !important;
     margin-left: 415px;
 }
+
+.delteBtnMargin {
+	margin-left:21px !important;
+}
+
+.cartDesign {
+	color:red;
+	padding-left: 336px;
+	font-size:15px;
+}
+
 
 
 button.btn--orange {
@@ -78,7 +89,7 @@ html {
 }
 
 
-button.btn {
+button.btn2 {
   font-size: 1.6rem;
   font-weight: 700;
   line-height: 1.5;
@@ -95,7 +106,7 @@ button.btn {
   vertical-align: middle;
   text-decoration: none;
   letter-spacing: 0.1em;
-  color: #212529;
+  color: #cffe81;
   border-radius: 0.5rem;
 }
 
