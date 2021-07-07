@@ -1,12 +1,35 @@
 @charset "UTF-8";
 
+.confirmationPrice {
+	margin-left:284px !important;
+	font-size:11px;
+}
+
+.confirmationList {
+	display: auto;
+	overflow-y: scroll;
+	height: 269px;
+}
+
+.confirmation_statement {
+	font-size:12px;
+}
+
+.clearing {
+	font-size:14px !important;
+}
+
 .btn-wrapper {
-  padding: 20px;
+
   text-align: center;
 }
 
 .check-box {
-  margin-bottom: 20px;
+
+}
+
+.cardTable {
+	margin-bottom:0px !important;
 }
 
 .check {

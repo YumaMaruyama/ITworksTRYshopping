@@ -5,3 +5,27 @@ width: 178px !important;
     height: 136px !important;
     margin: 0px 137px 0px 0px;
 }
+
+.cartAddBtn {
+	  margin-left: 445px !important;
+}
+
+button.btn-gradient {
+  -webkit-transform: skew(-15deg);
+  transform: skew(-15deg);
+  color: #fff;
+  border-radius: 0;
+  background-image: -webkit-gradient(linear, left top, right top, from(#2af598), to(#009efd));
+  background-image: -webkit-linear-gradient(left, #2af598 0%, #009efd 100%);
+  background-image: linear-gradient(90deg, #2af598 0%, #009efd 100%);
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, .1);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, .1);
+}
+
+button.btn-gradient:hover {
+  -webkit-transform: skew(0);
+  transform: skew(0);
+  color: #fff;
+  -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, .1);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, .1);
+}

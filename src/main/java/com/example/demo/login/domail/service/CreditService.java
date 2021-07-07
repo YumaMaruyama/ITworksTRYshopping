@@ -30,6 +30,17 @@ public class CreditService {
 	}
 
 	public int clearingInsertOne(CreditDTO creditdto,int select_id) {
-		return dao.clearingInsertOne(creditdto,select_id);
+		int result =dao.clearingInsertOne(creditdto,select_id);
+
+		if(result > 0) {
+			System.out.println("insert成功");
+		}
+
+		return result;
+	}
+
+	public CreditDTO clearingSelectOne(int getId) {
+
+		 return  dao.clearingSelectOne(getId);
 	}
 }

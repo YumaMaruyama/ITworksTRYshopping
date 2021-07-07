@@ -65,16 +65,19 @@
 
 
 		<form th:action="@{/clearing}">
-			<table class="col-sm-5 cartPrice table table-bordered table-hover">
+			<table class="col-sm-9 cartPrice table table-bordered table-hover">
 				<tr>
-					<th class="text-center">カート合計金額</th>
-					<td style="font-size: 20px;"
-						class="cartPrice2 card-text text-center fontdesign"
+					<td style="width:214px;"><a th:href="@{/productList}"
+				class="btn btn2 btn--orange btn--cubic btn--shadow productListBtn">買い物を続ける</a></td>
+					<th class="text-center textDesign1">カート合計金額</th>
+					<td class="cartPrice2 card-text text-center fontdesign textDesign2"
 						th:text="${totalPrice} + '円'"></td>
+
+						<td><button
+				class="btn btn2 btn--orange btn--cubic btn--shadow clearingBtn">決済画面へ</button></td>
 				</tr>
 			</table>
-			<button
-				class="btn btn2 btn--orange btn--cubic btn--shadow clearingBtn">決済画面へ</button>
+
 		</form>
 	</div>
 </body>

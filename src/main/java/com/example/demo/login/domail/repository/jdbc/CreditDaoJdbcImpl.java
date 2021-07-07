@@ -51,4 +51,17 @@ public class CreditDaoJdbcImpl implements CreditDao{
 		return result;
 
 	}
+
+	public CreditDTO clearingSelectOne(int getId) {
+
+		Map<String,Object> map = jdbc.queryForMap("select * credit where user_id = ?",getId);
+
+		CreditDTO creditdto = new CreditDTO();
+		creditdto.setDigits_3_code((String)map.get("digits_3_code"));
+		creditdto.setCardName((String)map.get("cart_name"));
+		creditdto.setCardNumber((String)map.get("cart_number"));
+
+		return creditdto;
+
+	}
 }

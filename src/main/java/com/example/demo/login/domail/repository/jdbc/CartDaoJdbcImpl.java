@@ -198,4 +198,21 @@ public class CartDaoJdbcImpl implements CartDao {
 
 		return productStock;
 	}
+
+	public List<CartDTO> purchaseSelectMany(int select_id) {
+		List<Map<String,Object>> map = jdbc.queryForList("select * from cart where user_id = ?",select_id);
+
+		List<CartDTO> purchaseList = new ArrayList<>();
+		for(Map<String,Object> oneMap : map) {
+			CartDTO cartdto = new CartDTO();
+			cartdto.setUser_id((int)oneMap.get("user_id"));
+			cartdto.setProduct_id((int)oneMap.get("product_id"));
+			cartdto.setProduct_count((int)oneMap.get("product_count"));
+			purchaseList.add(cartdto);
+		}
+		return purchaseList;
+
+
+
+	}
 }

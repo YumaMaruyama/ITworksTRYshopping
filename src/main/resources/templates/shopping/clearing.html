@@ -19,16 +19,16 @@
 			<div>
 				<h4>JCBカードの情報を入力してください。</h4>
 			</div>
-			<table class="table table-bordered table-hover">
+			<table class="table table-bordered table-hover tableDesign">
 
 
 
 				<tr>
-					<th class="form-group">クレジット三桁コード</th>
+					<th class="form-group text-center thTitleDesign">クレジット三桁コード</th>
 					<td>
 						<div class="form-group"
 							th:classappend="${#fields.hasErrors('digits_3_code')} ? 'hasError'">
-							<input type="text" class="form-control"
+							<input type="text" class="form-control inputDesign"
 								th:field="*{digits_3_code}" placeholder="カードの3桁コードを入力してください">
 						</div>
 						<span class="text-danger" th:if="${#fields.hasErrors('digits_3_code')}" th:errors="*{digits_3_code}">digits_3_code error</span>
@@ -37,10 +37,10 @@
 				</tr>
 
 				<tr>
-					<th class="form-group">クレジット記載名義</th>
+					<th class="form-group text-center thTitleDesign">クレジット記載名義</th>
 					<td><div class="form-group"
 							th:classappend="${#fields.hasErrors('cardName')} ? 'hasError'">
-							<input type="text" class="form-control" th:field="*{cardName}"
+							<input type="text" class="form-control inputDesign" th:field="*{cardName}"
 								placeholder="ローマ字記載のカード名義を入力してください。">
 						</div> <span class="text-danger"
 						th:if="${#fields.hasErrors('cardName')}" th:errors="*{cardName}">cardName
@@ -48,10 +48,10 @@
 				</tr>
 
 				<tr>
-					<th class="form-group">クレジット番号</th>
+					<th class="form-group text-center thTitleDesign">クレジット番号</th>
 					<td><div class="form-group"
 							th:classappend="${#fields.hasErrors('cardNumber')} ? 'hasError'">
-							<input type="tel" class="form-control" th:field="*{cardNumber}"
+							<input type="tel" class="form-control inputDesign" th:field="*{cardNumber}"
 								placeholder="16桁のカード番号を入力してください。">
 						</div> <span class="text-danger"
 						th:if="${#fields.hasErrors('cardNumber')}"
@@ -59,12 +59,15 @@
 				</tr>
 
 				<tr>
-					<th class="form-group">引き落とし金額</th>
+					<th class="form-group text-center thTitleDesign">引き落とし金額</th>
 					<td th:text="${totalPrice} + '円'"></td>
 				</tr>
 
 			</table>
-			<button class="btn btn-primary">最終確認画面へ</button>
+
+			<!-- <input type="hidden" name="digits_3_code" th:value="${digits_3_code}">-->
+
+			<button class="btn btn-gradient confirmationBtn">最終確認画面へ</button>
 		</form>
 
 		<!--

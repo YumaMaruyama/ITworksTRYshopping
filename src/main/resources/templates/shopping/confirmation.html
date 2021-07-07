@@ -8,55 +8,72 @@
 <body>
 	<div th:fragment="productListLayout_contents">
 
-	<header>
+		<header>
 			<h1>最終確認画面</h1>
 		</header>
 		<form method="post" th:action="@{confirmation}">
-		<div class="flex">
-			<div class="item" th:each="pcdatadto : ${cartList}">
-				<img class="size" th:src="${pcdatadto.pcImg}">
-				<h4 class="card-title text-center fontdesign"
-					th:text="'商品名：' + ${pcdatadto.pc_name}"></h4>
-				<p class="card-text text-center fontdesign"
-					th:text="'値段：' + ${pcdatadto.price} + '円'"></p>
-				<p class="card-text text-center fontdesign"
-					th:text="'在庫数：' + ${pcdatadto.product_stock} + '個'"></p>
-				<p class="card-text text-center fontdesign"
-					th:text="'購入数：' + ${pcdatadto.product_count} + '個'"></p>
+			<div class="flex confirmationList">
+				<div class="item" th:each="pcdatadto : ${cartList}">
+					<img class="size" th:src="${pcdatadto.pcImg}">
+					<h4 class="card-title text-center fontdesign"
+						th:text="'商品名：' + ${pcdatadto.pc_name}"></h4>
+					<p class="card-text text-center fontdesign"
+						th:text="'値段：' + ${pcdatadto.price} + '円'"></p>
+					<p class="card-text text-center fontdesign"
+						th:text="'在庫数：' + ${pcdatadto.product_stock} + '個'"></p>
+					<p class="card-text text-center fontdesign"
+						th:text="'購入数：' + ${pcdatadto.product_count} + '個'"></p>
+				</div>
 			</div>
-		</div>
+			<br>
+			<table
+				class="col-sm-5 confirmationPrice table table-bordered table-hover cardTable">
+				<tr>
+					<th class="text-center">お支払いカード名義</th>
+					<td th:text="${cardName}"></td>
+				</tr>
+				<tr>
+					<th class="text-center">お支払い三桁コード</th>
+					<td th:text="${digits_3_code}"></td>
+				</tr>
+				<tr>
+					<th class="text-center">お支払い番号</th>
+					<td th:text="${cardNumber}"></td>
+				</tr>
+				<tr>
+					<th class="text-center">お支払い合計金額</th>
+					<td th:text="${totalPrice}"></td>
+				</tr>
+			</table>
 
-		<table>
-			<tr>
-			<th>お支払金額</th>
-			<td th:text="${totalPrice}"></td>
-			</tr>
-		</table>
+			<div class="btn-wrapper">
+				<div class="check-box">
+					<label class="text-danger"><input class="check"
+						type="checkbox" name="check" autocomplete="off" id="agree"><span class="confirmation_statement"><a></a>カート内の全ての商品を確認し、商品内容に同意した上で購入します。</span></label>
+				</div>
+				<input type="hidden" name="digits_3_code" th:value="${digits_3_code}">
+				<input type="hidden" name="cardName" th:value="${cardName}">
+				<input type="hidden" name="cardNumber" th:value="${cardNumber}">
+				<input type="hidden" name="totalPrice" th:value="${totalPrice}">
+				<input class="submit clearing" type="submit" id="submit" value="購入" />
+			</div>
+		</form>
+		<script>
+			$(function() {
 
-		<div class="btn-wrapper">
-    <div class="check-box">
-        <label class="text-danger"><input class="check" type="checkbox" name="check" autocomplete="off" id="agree"><span><a></a>カート内の全ての商品を確認し、商品内容に同意した上で購入します。</span></label>
-    </div>
+				$('.submit').attr('disabled', 'disabled');
 
-    <input class="submit" type="submit" id="submit" value="購入" />
-</div>
-</form>
-<script>
-$(function() {
+				$('#agree').on('click', function() {
+					if ($(this).prop('checked') == false) {
+						$('.submit').attr('disabled', 'disabled');
+					} else {
+						$('.submit').removeAttr('disabled');
+					}
+				});
 
-  $('.submit').attr('disabled', 'disabled');
+			});
+		</script>
 
-  $('#agree').on('click', function() {
-      if ($(this).prop('checked') == false) {
-        $('.submit').attr('disabled', 'disabled');
-      } else {
-        $('.submit').removeAttr('disabled');
-      }
-    });
-
- });
-</script>
-
-</div>
+	</div>
 </body>
 </html>

@@ -109,4 +109,8 @@ public class CartService {
 		return true;
 
 	}
+
+	public List<CartDTO> purchaseSelectMany(int select_id) {
+		return dao.purchaseSelectMany(select_id);
+	}
 }

@@ -26,4 +26,8 @@ public interface CartDao {
 	public int productStockUpdate(int productId,int productCount);
 
 	public int productStockCheck(int productId);
+
+	public List<CartDTO> purchaseSelectMany(int select_id);
+
+
 }

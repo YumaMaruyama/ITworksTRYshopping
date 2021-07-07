@@ -10,4 +10,6 @@ public interface CreditDao {
 	public CreditDTO selectOne(String getName);
 
 	public int clearingInsertOne(CreditDTO creditdto,int select_id);
+
+	public CreditDTO clearingSelectOne(int getId);
 }
