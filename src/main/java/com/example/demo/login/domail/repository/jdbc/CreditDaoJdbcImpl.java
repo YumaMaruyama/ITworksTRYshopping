@@ -38,15 +38,16 @@ public class CreditDaoJdbcImpl implements CreditDao{
 
 	}
 
-	public int clearingInsertOne(CreditDTO creditdto,int select_id) {
+	public int clearingInsertOne(CreditDTO creditdto,int select_id,int totalPrice) {
 
 		int result = jdbc.update("insert into credit (id,"
 				+ " registration_date,"
 				+ " cardName,"
 				+ " cardNumber,"
 				+ " user_id,"
-				+ " digits_3_code)"
-				+ " value(?,?,?,?,?,?)",creditdto.getId(),creditdto.getRegistration_date(),creditdto.getCardName(),creditdto.getCardNumber(),select_id,creditdto.getDigits_3_code());
+				+ " digits_3_code,"
+				+ " payment_price)"
+				+ " value(?,?,?,?,?,?,?)",creditdto.getId(),creditdto.getRegistration_date(),creditdto.getCardName(),creditdto.getCardNumber(),select_id,creditdto.getDigits_3_code(),totalPrice);
 
 		return result;
 
@@ -63,5 +64,11 @@ public class CreditDaoJdbcImpl implements CreditDao{
 
 		return creditdto;
 
+	}
+
+	public int selectMaxId() {
+		int selectMaxId = jdbc.queryForObject("select max(credit.id) from credit",Integer.class);
+
+		return selectMaxId;
 	}
 }

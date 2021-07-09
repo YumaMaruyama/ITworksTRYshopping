@@ -1,0 +1,21 @@
+package com.example.demo.login.domail.model;
+
+import java.util.Date;
+
+import lombok.Data;
+
+@Data
+public class PurchaseDTO {
+
+	private int id;
+
+	private int user_id;
+
+	private int product_id;
+
+	private int product_count;
+
+	private Date purchase_date;
+
+	private int purchaseCreditId;
+}

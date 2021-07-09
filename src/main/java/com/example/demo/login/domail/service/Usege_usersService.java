@@ -20,4 +20,8 @@ public class Usege_usersService {
 		}
 		return result;
 	}
+
+	public String selectAddress(int select_id) {
+		return dao.selectAddress(select_id);
+	}
 }

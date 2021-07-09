@@ -9,7 +9,9 @@ public interface CreditDao {
 
 	public CreditDTO selectOne(String getName);
 
-	public int clearingInsertOne(CreditDTO creditdto,int select_id);
+	public int clearingInsertOne(CreditDTO creditdto,int select_id,int totalPrice);
 
 	public CreditDTO clearingSelectOne(int getId);
+
+	public int selectMaxId();
 }

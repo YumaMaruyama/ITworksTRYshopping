@@ -29,8 +29,8 @@ public class CreditService {
 
 	}
 
-	public int clearingInsertOne(CreditDTO creditdto,int select_id) {
-		int result =dao.clearingInsertOne(creditdto,select_id);
+	public int clearingInsertOne(CreditDTO creditdto,int select_id,int totalPrice) {
+		int result =dao.clearingInsertOne(creditdto,select_id,totalPrice);
 
 		if(result > 0) {
 			System.out.println("insert成功");
@@ -43,4 +43,16 @@ public class CreditService {
 
 		 return  dao.clearingSelectOne(getId);
 	}
+
+	public int selectMaxId() {
+
+		int selectMaxId = dao.selectMaxId();
+
+		if(selectMaxId > 0) {
+			System.out.println("select成功");
+		}
+
+		return selectMaxId;
+	}
+
 }

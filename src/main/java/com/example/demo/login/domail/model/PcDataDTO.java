@@ -33,4 +33,8 @@ public class PcDataDTO {
 
 	private int cartId;//modelで渡す
 
+	private int creditId;
+
+	private int  productCount;
+
 }

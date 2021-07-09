@@ -1,5 +1,8 @@
 package com.example.demo.login.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,11 +31,13 @@ import com.example.demo.login.domail.model.GroupOrder;
 import com.example.demo.login.domail.model.PcDataDTO;
 import com.example.demo.login.domail.model.PcDataForm;
 import com.example.demo.login.domail.model.PcDetailDataForm;
+import com.example.demo.login.domail.model.PurchaseDTO;
 import com.example.demo.login.domail.model.UsersDTO;
 import com.example.demo.login.domail.service.CartService;
 import com.example.demo.login.domail.service.CreditService;
 import com.example.demo.login.domail.service.PcDataService;
 import com.example.demo.login.domail.service.PurchaseService;
+import com.example.demo.login.domail.service.Usege_usersService;
 import com.example.demo.login.domail.service.UsersService;
 
 @Controller
@@ -42,6 +47,8 @@ public class ShoppingController {
 	PcDataService pcdataService;
 	@Autowired
 	UsersService usersService;
+	@Autowired
+	Usege_usersService usegeService;
 	@Autowired
 	CreditService creditService;
 	@Autowired
@@ -296,6 +303,61 @@ public class ShoppingController {
 	public String getAfter_purchase(@ModelAttribute Model model) {
 		model.addAttribute("contents","shopping/after_purchase::productListLayout_contents");
 
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println("auth" + auth.getName());
+		String user_id = auth.getName();
+		//ログインユーザーのID取得
+		int select_id = usersService.select_id(user_id);
+
+		List<PcDataDTO> purchaseList = purchaseService.selectMany(select_id);
+
+		int totalPrice = 0;
+		PcDataDTO pcdatadto = new PcDataDTO();
+		for(int i = 0; purchaseList.size() > i; i++) {
+			pcdatadto = purchaseList.get(i);
+			totalPrice = totalPrice + pcdatadto.getPrice() * pcdatadto.getProduct_count();
+			model.addAttribute("totalPrice",totalPrice);
+		}
+		model.addAttribute("purchaseList",purchaseList);
+
+
+
+		String receivingAddress = usegeService.selectAddress(select_id);
+		System.out.println("address" + receivingAddress);
+		model.addAttribute("receivingAddress",receivingAddress);
+
+		//購入日取得
+		Date purchaseDate = purchaseService.selectPurchaseDate();
+
+		SimpleDateFormat sdfYear = new SimpleDateFormat("yyyy");
+		String purchaseStringDateYear = sdfYear.format(purchaseDate);
+		String yearTrim0 = purchaseStringDateYear.replaceFirst("^0+", "");
+		int year = Integer.parseInt(yearTrim0);
+
+		SimpleDateFormat sdfMonth = new SimpleDateFormat("MM");
+		String purchaseStringDateMonth = sdfMonth.format(purchaseDate);
+		String monthTrim0 = purchaseStringDateMonth.replaceFirst("^0+", "");
+		int month = Integer.parseInt(monthTrim0);
+
+		SimpleDateFormat sdfDay = new SimpleDateFormat("dd");
+		String purchaseStringDateDay = sdfDay.format(purchaseDate);
+		String dayTrim0 = purchaseStringDateDay.replaceFirst("^0+", "");
+		int day = Integer.parseInt(dayTrim0);
+
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Calendar.YEAR, year);
+		calendar.set(Calendar.MONTH, month + 1);
+		calendar.set(Calendar.DATE, day + 25);
+		int getYear = calendar.get(Calendar.YEAR);
+		int getMonth = calendar.get(Calendar.MONTH);
+		int getDay = calendar.get(Calendar.DATE);
+		System.out.println("testmonth" + getMonth);
+		System.out.println("testgetDay" + getDay);
+
+//-する
+
+
+
 
 
 		return "shopping/productListLayout";
@@ -483,27 +545,31 @@ public class ShoppingController {
 			return "redirect:/cart";
 		}
 
+
 		CreditDTO creditdto = new CreditDTO();
 		creditdto.setDigits_3_code(digits_3_code);
 		creditdto.setCardName(cardName);
 		creditdto.setCardNumber(cardNumber);
-		int insertResult = creditService.clearingInsertOne(creditdto, select_id);
+		int insertResult = creditService.clearingInsertOne(creditdto, select_id,totalPrice);
 
+		int purchaseCreditId = creditService.selectMaxId();
 
 
 		List<CartDTO> cartList = cartService.purchaseSelectMany(select_id);
 
-		int[] purchaseIdList;
+		PurchaseDTO purchasedto = new PurchaseDTO();
+
 		for(int i = 0; i < cartList.size(); i++) {
 			CartDTO cartdto = cartList.get(i);
 			int purchaseId = cartdto.getProduct_id();
 			int purchaseCount = cartdto.getProduct_count();
-		int purchaseInsertResult = purchaseService.insert(purchaseId,purchaseCount,totalPrice,select_id);
+		int purchaseInsertResult = purchaseService.insert(purchasedto,purchaseId,purchaseCount,select_id,purchaseCreditId);
 
 		}
 
 
-		return getAfter_purchase(model);
+		//return "redirect:/after_purchase";
+		 return getAfter_purchase(model);
 	}
 
 	//ログアウト用メソッド

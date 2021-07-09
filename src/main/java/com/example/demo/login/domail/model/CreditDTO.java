@@ -18,4 +18,6 @@ public class CreditDTO {
 	private String cardNumber;
 
 	private String user_id;
+
+	private int payment_price;
 }
