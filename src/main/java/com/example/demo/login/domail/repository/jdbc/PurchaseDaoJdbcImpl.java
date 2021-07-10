@@ -34,9 +34,9 @@ public class PurchaseDaoJdbcImpl implements PurchaseDao {
 
 	}
 
-	public List<PcDataDTO> selectMany(int select_id) {
+	public List<PcDataDTO> selectMany(int select_id,int purchaseNumber) {
 		List<Map<String, Object>> idList = jdbc
-				.queryForList("select purchase.product_id from purchase where user_id = ?", select_id);
+				.queryForList("select purchase.product_id from purchase where user_id = ? and credit_id = ?", select_id,purchaseNumber);
 
 		List<Integer> productIdList = new ArrayList<>();
 		for (Map<String, Object> map : idList) {
@@ -46,16 +46,18 @@ public class PurchaseDaoJdbcImpl implements PurchaseDao {
 
 		int sumPrins = 0;
 		List<Map<String, Object>> user_productIdList = new ArrayList<>();
-		for (int i = 0; productIdList.size() > i; i++) {
+		for (int i = 0; 1 > i; i++) {
 			int productIdOne = productIdList.get(i);
 			List<Map<String, Object>> purchaseList = jdbc.queryForList(
-					"select pcdata.id,pcdata.company,pcdata.os,pcdata.pc_name,pcdata.pc_size,pcdata.price,pcdata.detail,pcdata.product_stock,pcdata.pcimg,pcdata.pcimg2,pcdata.pcimg3,purchase.credit_id,purchase.product_count from pcdata JOIN purchase ON pcdata.id = purchase.product_id where pcdata.id = ?",idList);
+					"select pcdata.id,pcdata.company,pcdata.os,pcdata.pc_name,pcdata.pc_size,pcdata.price,pcdata.detail,pcdata.product_stock,pcdata.pcimg,pcdata.pcimg2,pcdata.pcimg3,purchase.credit_id,purchase.product_count from pcdata JOIN purchase ON pcdata.id = purchase.product_id and purchase.credit_id = ?",purchaseNumber);
 			user_productIdList.addAll(purchaseList);
+
 		}
 
 		List<PcDataDTO> purchasDataList = new ArrayList<>();
+		System.out.println("productIdList" + user_productIdList);
 		for (Map<String, Object> map : user_productIdList) {
-
+			System.out.println("map" + map);
 			PcDataDTO pcdatadto = new PcDataDTO();
 
 			pcdatadto.setId((int) map.get("id"));
@@ -69,7 +71,7 @@ public class PurchaseDaoJdbcImpl implements PurchaseDao {
 			pcdatadto.setPcImg((String) map.get("pcImg"));
 			pcdatadto.setPcImg2((String) map.get("pcImg2"));
 			pcdatadto.setPcImg3((String) map.get("pcImg3"));
-			pcdatadto.setCartId((int) map.get("cartId"));
+			//pcdatadto.setCartId((int) map.get("cartId"));
 			pcdatadto.setCreditId((int) map.get("credit_id"));
 			pcdatadto.setProduct_count((int) map.get("product_count"));
 
@@ -81,10 +83,16 @@ public class PurchaseDaoJdbcImpl implements PurchaseDao {
 
 	}
 
-	public Date selectPurchaseDate() {
-		Date purchaseDate = jdbc.queryForObject("select purchase.purchase_date from purchase where purchase_date = (select max(purchase_date) from purchase);",Date.class);
+	public Date selectPurchaseDate(int purchaseNumber) {
+		Date purchaseDate = jdbc.queryForObject("select purchase.purchase_date from purchase where purchase_date = (select max(purchase_date) from purchase) limit 1",Date.class);
 
 		return purchaseDate;
+	}
+
+	public int selectPurchaseNumber(int select_id) {
+		int purchaseNumber = jdbc.queryForObject("select purchase.credit_id from purchase where purchase.credit_id = (select max(credit_id) from purchase) and user_id = ? limit 1",Integer.class,select_id);
+
+		return purchaseNumber;
 	}
 
 

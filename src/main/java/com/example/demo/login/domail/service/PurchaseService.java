@@ -27,13 +27,24 @@ public class PurchaseService {
 
 	}
 
-	public List<PcDataDTO> selectMany(int select_id) {
-		return dao.selectMany(select_id);
+	public List<PcDataDTO> selectMany(int select_id,int purchaseNumber) {
+		return dao.selectMany(select_id,purchaseNumber);
 	}
 
 
-	public Date selectPurchaseDate() {
-		return dao.selectPurchaseDate();
+	public Date selectPurchaseDate(int purchaseNumber) {
+		return dao.selectPurchaseDate(purchaseNumber);
+
+	}
+
+	public int selectPurchaseNumber(int select_id) {
+		int result = dao.selectPurchaseNumber(select_id);
+
+		if(result > 0) {
+			System.out.println("selectPurchaseNumber insert成功");
+		}
+
+		return result;
 	}
 
 }

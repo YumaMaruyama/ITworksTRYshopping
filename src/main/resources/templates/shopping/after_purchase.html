@@ -9,18 +9,31 @@
 	<div th:fragment="productListLayout_contents">
 
 	<header>
-		<h3>購入後詳細画面</h3>
+		<h1>購入後詳細画面</h1>
 	</header>
 
-	<table class="tabel table-bordered table-hover" >
+	<table class="col-sm-10 tabel table-bordered table-hover after_purchaseTableDesign" >
 		<tr>
-			<th>商品お届け住所</th>
+			<th class="text-center">商品お届け住所</th>
 			<td th:text="${receivingAddress}"></td>
 		</tr>
 
 		<tr>
-			<th>商品発送予定日</th>
-			<td></td>
+			<th class="text-center">商品発送予定日</th>
+			<td th:text="${#dates.format(purchaseDate, 'yyyy/MM/dd') + ' ～ ' + #dates.format(purchaseDateNext, 'yyyy/MM/dd') + 'の間に発送予定になります。'}"></td>
+		</tr>
+	</table>
+
+	<table class="col-sm-10 table table-borderd table-hover after_purchaseTableDesign2">
+		<h2 class="h2">発送商品一覧</h2>
+		<tr>
+			<th class="text-center">商品名</th>
+			<th class="text-center">個数</th>
+		</tr>
+
+		<tr  th:each="pcdatadto : ${purchaseList}">
+			<td class="text-center" th:text=${pcdatadto.pc_name}></td>
+			<td class="text-center" th:text=${pcdatadto.product_count}></td>
 		</tr>
 	</table>
 

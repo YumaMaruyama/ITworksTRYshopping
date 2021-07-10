@@ -1,6 +1,5 @@
 package com.example.demo.login.controller;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -309,13 +308,18 @@ public class ShoppingController {
 		//ログインユーザーのID取得
 		int select_id = usersService.select_id(user_id);
 
-		List<PcDataDTO> purchaseList = purchaseService.selectMany(select_id);
+		int purchaseNumber = purchaseService.selectPurchaseNumber(select_id);
+
+		List<PcDataDTO> purchaseList = purchaseService.selectMany(select_id,purchaseNumber);
+		System.out.println("purchaseList" + purchaseList);
+		PcDataDTO pcdatadto = new PcDataDTO();
 
 		int totalPrice = 0;
-		PcDataDTO pcdatadto = new PcDataDTO();
+
 		for(int i = 0; purchaseList.size() > i; i++) {
 			pcdatadto = purchaseList.get(i);
 			totalPrice = totalPrice + pcdatadto.getPrice() * pcdatadto.getProduct_count();
+			System.out.println("totalPrice" + totalPrice);
 			model.addAttribute("totalPrice",totalPrice);
 		}
 		model.addAttribute("purchaseList",purchaseList);
@@ -327,32 +331,47 @@ public class ShoppingController {
 		model.addAttribute("receivingAddress",receivingAddress);
 
 		//購入日取得
-		Date purchaseDate = purchaseService.selectPurchaseDate();
+		Date purchaseDate = purchaseService.selectPurchaseDate(purchaseNumber);
 
-		SimpleDateFormat sdfYear = new SimpleDateFormat("yyyy");
-		String purchaseStringDateYear = sdfYear.format(purchaseDate);
-		String yearTrim0 = purchaseStringDateYear.replaceFirst("^0+", "");
-		int year = Integer.parseInt(yearTrim0);
-
-		SimpleDateFormat sdfMonth = new SimpleDateFormat("MM");
-		String purchaseStringDateMonth = sdfMonth.format(purchaseDate);
-		String monthTrim0 = purchaseStringDateMonth.replaceFirst("^0+", "");
-		int month = Integer.parseInt(monthTrim0);
-
-		SimpleDateFormat sdfDay = new SimpleDateFormat("dd");
-		String purchaseStringDateDay = sdfDay.format(purchaseDate);
-		String dayTrim0 = purchaseStringDateDay.replaceFirst("^0+", "");
-		int day = Integer.parseInt(dayTrim0);
+//		SimpleDateFormat sdfYear = new SimpleDateFormat("yyyy");
+//		String purchaseStringDateYear = sdfYear.format(purchaseDate);
+//		String yearTrim0 = purchaseStringDateYear.replaceFirst("^0+", "");
+//		int year = Integer.parseInt(yearTrim0);
+//
+//		SimpleDateFormat sdfMonth = new SimpleDateFormat("MM");
+//		String purchaseStringDateMonth = sdfMonth.format(purchaseDate);
+//		String monthTrim0 = purchaseStringDateMonth.replaceFirst("^0+", "");
+//		int month = Integer.parseInt(monthTrim0);
+//
+//		SimpleDateFormat sdfDay = new SimpleDateFormat("dd");
+//		String purchaseStringDateDay = sdfDay.format(purchaseDate);
+//		String dayTrim0 = purchaseStringDateDay.replaceFirst("^0+", "");
+//		int day = Integer.parseInt(dayTrim0);
 
 		Calendar calendar = Calendar.getInstance();
-		calendar.set(Calendar.YEAR, year);
-		calendar.set(Calendar.MONTH, month + 1);
-		calendar.set(Calendar.DATE, day + 25);
-		int getYear = calendar.get(Calendar.YEAR);
-		int getMonth = calendar.get(Calendar.MONTH);
-		int getDay = calendar.get(Calendar.DATE);
-		System.out.println("testmonth" + getMonth);
-		System.out.println("testgetDay" + getDay);
+		calendar.setTime(purchaseDate);
+		calendar.add(Calendar.DATE,3);
+		purchaseDate = calendar.getTime();
+		System.out.println("purchaseDate" + purchaseDate);
+
+		Date purchaseDateNext = purchaseDate;
+		calendar.setTime(purchaseDate);
+		calendar.add(Calendar.DATE,2);
+		purchaseDateNext = calendar.getTime();
+		System.out.println("purchaseDateNext" + purchaseDateNext);
+
+		model.addAttribute("purchaseDate",purchaseDate);
+		model.addAttribute("purchaseDateNext",purchaseDateNext);
+
+
+//		calendar.set(Calendar.YEAR, year);
+//		calendar.set(Calendar.MONTH, month - 1);
+//		calendar.set(Calendar.DATE, day + 5);
+//		int getYear = calendar.get(Calendar.YEAR);
+//		int getMonth = calendar.get(Calendar.MONTH);
+//		int getDay = calendar.get(Calendar.DATE);
+//		System.out.println("testmonth" + (getMonth + 1));
+//		System.out.println("testgetDay" + getDay);
 
 //-する
 

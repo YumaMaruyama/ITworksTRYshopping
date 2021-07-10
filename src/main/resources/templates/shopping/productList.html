@@ -39,8 +39,8 @@
 					th:text="'値段：' + ${pcdatadto.price} + '円'"></p>
 				<p class="card-text text-center fontdesign" style="margin-bottom:0px !important"
 					th:text="'在庫数：' + ${pcdatadto.product_stock} + '個'"></p>
-				<a class="text-center a"
-					th:href="@{/productDetail} + '/' + ${pcdatadto.id}">詳細画面に行く</a>
+				<a class="text-center productListGo"
+					th:href="@{/productDetail} + '/' + ${pcdatadto.id}"><span class="DetailRyncDesigin">詳細画面に行く</span></a>
 			</div>
 		</div>
 	</div>

@@ -23,6 +23,8 @@
 <link th:href="@{/css/productDetail.css}" rel="stylesheet"></link>
 <link th:href="@{/css/confirmation.css}" rel="stylesheet"></link>
 <link th:href="@{/css/cart.css}" rel="stylesheet"></link>
+<link th:href="@{/css/after_purchase.css}" rel="stylesheet"></link>
+<link th:href="@{/css/admin.css}" rel="stylesheet"></link>
 
 <title>loginLayout</title>
 </head>
@@ -33,13 +35,13 @@
 				<a class="navbar-brand" th:href="@{/productList}"
 					title="アプリ名をクリックするとLogin画面に推移します"><i
 					class="fa fa-android fa-spin fa-colorLogin fa-size"></i><span
-					style="color: #a4f7cb !important;">PCショップYM</span></a>
+					style="color: #a4f7cb !important; font-size:20px">PCショップYM</span></a>
 
 
 			</div>
 			<div class="col-sm-6">
 				<h3 th:text="${session.sessionGetUser_name} + 'さん、こんにちは'"
-					style="color: #fff; padding: 0px 0px !important; margin: 8px 0px 0px 70px; font-size: 20px;"></h3>
+					style="color: #fff; padding: 0px 0px !important; margin: 6px 0px 0px 70px; font-size: 20px;"></h3>
 			</div>
 
 			<div class="col-sm-2">
@@ -56,14 +58,18 @@
 			<div class="clearfix"></div>
 			<div class="col-sm-3 col-md-2 sidebar">
 				<ul class="nav nav-sidebar">
-					<li class="flexDetail"><a class="btn btn-gradient cartBtn" th:href="@{/cart}"><span>カート</span></a></li>
-					<li><a class="btn btn-gradient adminBtn" th:href="@{/admin}"><span style="font-size:12px;">管理者専用画面</span></a></li>
-					<li><a class="btn btn-gradient inquiryBtn" href=""><span>お問い合わせ</span></a></li>
-					<li><a class="btn btn-gradient privacyBtn" href=""><span style="font-size:12px;">プライバシーポリシー</span></a></li>
-					<li><a class="btn btn-gradient termsBtn" href=""><span>利用規約</span></a></li>
+					<li><a class="btn btn-gradient desiginBtn"th:href="@{/productList}"><span>商品一覧</span></a></li>
+					<li class="flexDetail"><a class="btn btn-gradient desiginBtn" th:href="@{/cart}"><span>カート一覧</span></a></li>
+					<li><a class="btn btn-gradient desiginBtn" href=""><span>お問い合わせ</span></a></li>
+					<li><a class="btn btn-gradient desiginBtn" href=""><span style="font-size:12px;">プライバシーポリシー</span></a></li>
+					<li><a class="btn btn-gradient desiginBtn" href=""><span>利用規約</span></a></li>
+					<li><a class="btn btn-gradient desiginBtn" href=""><span>商品購入履歴</span></a></li>
+					<li><a class="btn btn-gradient desiginBtn" href=""><span>お得な情報・クーポン</span></a></li>
+					<li><a class="btn btn-gradient desiginBtn" th:href="@{/admin}"><span style="font-size:12px;">管理者専用画面</span></a></li>
 
 				</ul>
 			</div>
+
 			<div class="col-sm-9">
 				<div th:include="__${contents}__"></div>
 			</div>

@@ -29,7 +29,7 @@
 			th:object="${pcDetailDataForm}">
 		-->
 			<form  th:each="pcdatadto : ${pcdatadtoOne}" method="get" th:action="@{/cart} + '/' + ${pcdatadto.id}" >
-			<table class="table table-bordered table-hover">
+			<table class="table table-bordered table-hover productDetailTableDesigin">
 				<tr>
 					<th class="text-center">会社名</th>
 					<th class="text-center">OS</th>
@@ -48,7 +48,7 @@
 				</tr>
 			</table>
 
-			<table class="table table-bordered table-hover">
+			<table class="table table-bordered table-hover productDetailTableDesigin">
 				<tr>
 					<th class="text-center">PC詳細</th>
 				</tr>

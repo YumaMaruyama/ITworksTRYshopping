@@ -6,12 +6,16 @@
 	margin-left:25px;
 }
 
-.a {
-	padding-left:63px;
+.productListGo {
+	padding-left:48px;
 }
 
 .font {
 	font-size:10px important;
+}
+
+.DetailRyncDesigin {
+	font-size:13px;
 }
 
 .flex {
@@ -28,7 +32,7 @@
 .productList {
 	display: auto;
 	overflow-y: scroll;
-	height: 500px;
+	height: 526px;
 }
 
 .fontdesign {
