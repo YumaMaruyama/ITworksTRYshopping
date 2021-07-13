@@ -25,10 +25,10 @@ public class PurchaseDaoJdbcImpl implements PurchaseDao {
 				+ " user_id,"
 				+ " product_id,"
 				+ " product_count,"
-				+ " purchase_date,"
+			//	+ " purchase_date,"
 				+ " credit_id)"
-				+ " value(?,?,?,?,?,?)", purchasedto.getId(), select_id, purchaseId, purchaseCount,
-				purchasedto.getPurchase_date(), purchaseCreditId);
+				+ " value(?,?,?,?,?)", purchasedto.getId(), select_id, purchaseId, purchaseCount,
+				purchaseCreditId);
 
 		return result;
 

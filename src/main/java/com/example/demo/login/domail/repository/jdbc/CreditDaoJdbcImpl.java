@@ -41,13 +41,13 @@ public class CreditDaoJdbcImpl implements CreditDao{
 	public int clearingInsertOne(CreditDTO creditdto,int select_id,int totalPrice) {
 
 		int result = jdbc.update("insert into credit (id,"
-				+ " registration_date,"
+				//+ " registration_date,"
 				+ " cardName,"
 				+ " cardNumber,"
 				+ " user_id,"
 				+ " digits_3_code,"
 				+ " payment_price)"
-				+ " value(?,?,?,?,?,?,?)",creditdto.getId(),creditdto.getRegistration_date(),creditdto.getCardName(),creditdto.getCardNumber(),select_id,creditdto.getDigits_3_code(),totalPrice);
+				+ " value(?,?,?,?,?,?)",creditdto.getId(),creditdto.getCardName(),creditdto.getCardNumber(),select_id,creditdto.getDigits_3_code(),totalPrice);
 
 		return result;
 
