@@ -55,7 +55,7 @@ public class ShoppingController {
 	@Autowired
 	PurchaseService purchaseService;
 
-	@Autowired //Sessionが使用できる
+	@Autowired // Sessionが使用できる
 	HttpSession session;
 
 	@GetMapping("/admin")
@@ -84,11 +84,11 @@ public class ShoppingController {
 		String user_id = auth.getName();
 		int select_id = usersService.select_id(user_id);
 		int result = pcdataService.insertCheckSelectOne(pcdatadto);
-		if(result < 1) {
+		if (result < 1) {
 			System.out.println("insert到達");
-		int pcData = pcdataService.insertOne(pcdatadto);
+			int pcData = pcdataService.insertOne(pcdatadto);
 		}
-		return getProductList(form,model);
+		return getProductList(form, model);
 	}
 
 	@GetMapping("/productList")
@@ -99,10 +99,10 @@ public class ShoppingController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 
-		//@AutowiredがついてるのでUsersServiceのインスタンス（usersService）を使う
-				UsersDTO headerName = usersService.getUser_name(auth.getName());
-				session.setAttribute("sessionGetUser_name", headerName.getUser_name());
-				System.out.println("getUser_name" + headerName.getUser_name());
+		// @AutowiredがついてるのでUsersServiceのインスタンス（usersService）を使う
+		UsersDTO headerName = usersService.getUser_name(auth.getName());
+		session.setAttribute("sessionGetUser_name", headerName.getUser_name());
+		System.out.println("getUser_name" + headerName.getUser_name());
 
 		System.out.println("productList" + productList);
 
@@ -111,27 +111,28 @@ public class ShoppingController {
 		return "shopping/productListLayout";
 	}
 
-	//	@PostMapping("/productList")
-	//	public String postProductList(@ModelAttribute Model model) {
+	// @PostMapping("/productList")
+	// public String postProductList(@ModelAttribute Model model) {
 	//
-	//	}
+	// }
 
 	@GetMapping("/productDetail/{id}")
-	public String getProductDetail(@ModelAttribute PcDetailDataForm form,PcDataForm pcdataform, Model model,@PathVariable("id") int id) {
+	public String getProductDetail(@ModelAttribute PcDetailDataForm form, PcDataForm pcdataform, Model model,
+			@PathVariable("id") int id) {
 		model.addAttribute("contents", "shopping/productDetail::productListLayout_contents");
 
 		PcDataDTO pcdatadtoOne = pcdataService.selectOne(id);
 		String pcName = pcdatadtoOne.getPc_name();
-		model.addAttribute("pcName",pcName);
+		model.addAttribute("pcName", pcName);
 		System.out.println("pcdatadtoOne" + pcdatadtoOne);
-		model.addAttribute("pcdatadtoOne",pcdatadtoOne);
-
+		model.addAttribute("pcdatadtoOne", pcdatadtoOne);
 
 		return "shopping/productListLayout";
 	}
 
 	@PostMapping("/productDetail/{id}")
-	public String postProductDetailCustom(@ModelAttribute PcDetailDataForm form,PcDataForm pcdataform, Model model,@RequestParam("price") int price,@PathVariable("id") int id) {
+	public String postProductDetailCustom(@ModelAttribute PcDetailDataForm form, PcDataForm pcdataform, Model model,
+			@RequestParam("price") int price, @PathVariable("id") int id) {
 
 		String gb = form.getGb();
 		String hardDisc = form.getHardDisc();
@@ -139,13 +140,9 @@ public class ShoppingController {
 
 		PcDataDTO pcdatadtoOne = pcdataService.selectOne(id);
 		System.out.println("pcdatadtoOne" + pcdatadtoOne);
-		model.addAttribute("pcdatadtoOne",pcdatadtoOne);
-
-
+		model.addAttribute("pcdatadtoOne", pcdatadtoOne);
 
 		int getPrice = pcdatadtoOne.getPrice();
-
-
 
 		if (gb.equals("8GB")) {
 			getPrice = getPrice + 5000;
@@ -159,13 +156,9 @@ public class ShoppingController {
 			getPrice = getPrice + 40000;
 		}
 
-
-
 		if (hardDisc.equals("HDD")) {
 			getPrice = getPrice + 1000;
 		}
-
-
 
 		if (cpu.equals("CORE5")) {
 			getPrice = getPrice + 20000;
@@ -195,41 +188,42 @@ public class ShoppingController {
 			getPrice = getPrice + 100000;
 		}
 
-		model.addAttribute("customPrice",getPrice);
+		model.addAttribute("customPrice", getPrice);
 
-		return getFefore_purchase(pcdataform,form,model,getPrice,id);
+		return getFefore_purchase(pcdataform, form, model, getPrice, id);
 	}
 
 	@GetMapping("/before_purchase")
-	public String getFefore_purchase(@ModelAttribute PcDataForm pcdataform,PcDetailDataForm form, Model model,int price,int id) {
+	public String getFefore_purchase(@ModelAttribute PcDataForm pcdataform, PcDetailDataForm form, Model model,
+			int price, int id) {
 		model.addAttribute("contents", "shopping/before_purchase::productListLayout_contents");
-
 
 		return "shopping/productListLayout";
 	}
 
 	@GetMapping("credit")
-	public String getCredit(@ModelAttribute CreditForm form,Model model) {
+	public String getCredit(@ModelAttribute CreditForm form, Model model) {
 		model.addAttribute("contents", "shopping/credit::productListLayout_contents");
 
 		return "shopping/productListLayout";
 	}
 
 	@PostMapping("credit")
-	public String postCredit(@ModelAttribute CreditForm form,PcDataForm pcdataform,Model model,@PathVariable("totalPrice") int totalPrice) {
+	public String postCredit(@ModelAttribute CreditForm form, PcDataForm pcdataform, Model model,
+			@PathVariable("totalPrice") int totalPrice) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	System.out.println("auth" + auth.getName());
-	String getName = auth.getName();
+		System.out.println("auth" + auth.getName());
+		String getName = auth.getName();
 
-	CreditDTO creditdto = new CreditDTO();
+		CreditDTO creditdto = new CreditDTO();
 
-	//creditdto.setExpire_date(form.getExpire_date());
-	creditdto.setCardName(form.getCardName());
-	creditdto.setCardNumber(form.getCardNumber());
+		// creditdto.setExpire_date(form.getExpire_date());
+		creditdto.setCardName(form.getCardName());
+		creditdto.setCardNumber(form.getCardNumber());
 
-	int result = creditService.insertOne(creditdto,getName);
+		int result = creditService.insertOne(creditdto, getName);
 
-	return getProductList(pcdataform,model);
+		return getProductList(pcdataform, model);
 
 	}
 
@@ -241,7 +235,6 @@ public class ShoppingController {
 		System.out.println("auth" + auth.getName());
 		String getName = auth.getName();
 
-
 //		List<PcDataDTO> cartList = cartService.selectMany(getName);
 //		for(int i = 0; i < 1; i++) {
 //			PcDataDTO pcdatadto = cartList.get(i);
@@ -250,19 +243,17 @@ public class ShoppingController {
 //			model.addAttribute("totalPrice",totalPrice);
 //		}
 
-
 		List<PcDataDTO> cartList = cartService.selectMany(getName);
-		 int totalPrice = 0;
-		for(int i = 0; i < cartList.size(); i++) {
-				PcDataDTO pcdatadto = cartList.get(i);
-			 totalPrice = totalPrice + pcdatadto.getProduct_count() * pcdatadto.getPrice();
-				System.out.println("totalPrice" + totalPrice);
-				model.addAttribute("totalPrice",totalPrice);
-				//model.addAttribute("product_count",pcdatadto.getProduct_count());
-			//form.setProduct_count(pcdatadto.getProduct_count());
+		int totalPrice = 0;
+		for (int i = 0; i < cartList.size(); i++) {
+			PcDataDTO pcdatadto = cartList.get(i);
+			totalPrice = totalPrice + pcdatadto.getProduct_count() * pcdatadto.getPrice();
+			System.out.println("totalPrice" + totalPrice);
+			model.addAttribute("totalPrice", totalPrice);
+			// model.addAttribute("product_count",pcdatadto.getProduct_count());
+			// form.setProduct_count(pcdatadto.getProduct_count());
 			System.out.println("form" + form);
 		}
-
 
 //		List<PcDataDTO> cartList = cartService.cartDataSelectMany();
 //		model.addAttribute("cartList",cartList);
@@ -273,64 +264,61 @@ public class ShoppingController {
 	}
 
 	@PostMapping("/clearing")
-	public String getClearing(@ModelAttribute @Validated(GroupOrder.class) CreditForm form,BindingResult bindingResult,RedirectAttributes redirectAttributes,@RequestParam("digits_3_code") String digits_3_code,@RequestParam("cardName") String cardName,@RequestParam("cardNumber") String cardNumber,HttpServletRequest request, HttpServletResponse response,Model model) {
-		model.addAttribute("contents","shopping/confirmation::productListLayout_contents");
-		if(bindingResult.hasErrors()) {
+	public String getClearing(@ModelAttribute @Validated(GroupOrder.class) CreditForm form, BindingResult bindingResult,
+			RedirectAttributes redirectAttributes, @RequestParam("digits_3_code") String digits_3_code,
+			@RequestParam("cardName") String cardName, @RequestParam("cardNumber") String cardNumber,
+			HttpServletRequest request, HttpServletResponse response, Model model) {
+		model.addAttribute("contents", "shopping/confirmation::productListLayout_contents");
+		if (bindingResult.hasErrors()) {
 			System.out.println("バリデーションエラー");
-			return getCardClearing(form,model);
+			return getCardClearing(form, model);
 		}
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 		String user_id = auth.getName();
-		//ログインユーザーのID取得
+		// ログインユーザーのID取得
 		int select_id = usersService.select_id(user_id);
-
 
 		HttpSession session = request.getSession();
 		session.setAttribute("digits_3_code", digits_3_code);
-		session.setAttribute("cardName",cardName);
-		session.setAttribute("cardNumber",cardNumber);
-
-
-
+		session.setAttribute("cardName", cardName);
+		session.setAttribute("cardNumber", cardNumber);
 
 		return "redirect:/confirmation";
 	}
 
 	@GetMapping("/after_purchase")
 	public String getAfter_purchase(@ModelAttribute Model model) {
-		model.addAttribute("contents","shopping/after_purchase::productListLayout_contents");
+		model.addAttribute("contents", "shopping/after_purchase::productListLayout_contents");
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 		String user_id = auth.getName();
-		//ログインユーザーのID取得
+		// ログインユーザーのID取得
 		int select_id = usersService.select_id(user_id);
 
 		int purchaseNumber = purchaseService.selectPurchaseNumber(select_id);
 
-		List<PcDataDTO> purchaseList = purchaseService.selectMany(select_id,purchaseNumber);
+		List<PcDataDTO> purchaseList = purchaseService.selectMany(select_id, purchaseNumber);
 		System.out.println("purchaseList" + purchaseList);
 		PcDataDTO pcdatadto = new PcDataDTO();
 
 		int totalPrice = 0;
 
-		for(int i = 0; purchaseList.size() > i; i++) {
+		for (int i = 0; purchaseList.size() > i; i++) {
 			pcdatadto = purchaseList.get(i);
 			totalPrice = totalPrice + pcdatadto.getPrice() * pcdatadto.getProduct_count();
 			System.out.println("totalPrice" + totalPrice);
-			model.addAttribute("totalPrice",totalPrice);
+			model.addAttribute("totalPrice", totalPrice);
 		}
-		model.addAttribute("purchaseList",purchaseList);
-
-
+		model.addAttribute("purchaseList", purchaseList);
 
 		String receivingAddress = usegeService.selectAddress(select_id);
 		System.out.println("address" + receivingAddress);
-		model.addAttribute("receivingAddress",receivingAddress);
+		model.addAttribute("receivingAddress", receivingAddress);
 
-		//購入日取得
+		// 購入日取得
 		Date purchaseDate = purchaseService.selectPurchaseDate(purchaseNumber);
 
 //		SimpleDateFormat sdfYear = new SimpleDateFormat("yyyy");
@@ -350,19 +338,18 @@ public class ShoppingController {
 
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(purchaseDate);
-		calendar.add(Calendar.DATE,3);
+		calendar.add(Calendar.DATE, 3);
 		purchaseDate = calendar.getTime();
 		System.out.println("purchaseDate" + purchaseDate);
 
 		Date purchaseDateNext = purchaseDate;
 		calendar.setTime(purchaseDate);
-		calendar.add(Calendar.DATE,2);
+		calendar.add(Calendar.DATE, 2);
 		purchaseDateNext = calendar.getTime();
 		System.out.println("purchaseDateNext" + purchaseDateNext);
 
-		model.addAttribute("purchaseDate",purchaseDate);
-		model.addAttribute("purchaseDateNext",purchaseDateNext);
-
+		model.addAttribute("purchaseDate", purchaseDate);
+		model.addAttribute("purchaseDateNext", purchaseDateNext);
 
 //		calendar.set(Calendar.YEAR, year);
 //		calendar.set(Calendar.MONTH, month - 1);
@@ -375,81 +362,75 @@ public class ShoppingController {
 
 //-する
 
-
-
-
-
 		return "shopping/productListLayout";
-
 
 	}
 
 	@GetMapping("/clearing/{id}")
-	public String getClearing(@ModelAttribute CreditForm form,Model model,@RequestParam("customPrice") int customPrice,@PathVariable("id") int id) {
+	public String getClearing(@ModelAttribute CreditForm form, Model model,
+			@RequestParam("customPrice") int customPrice, @PathVariable("id") int id) {
 		model.addAttribute("contents", "shopping/clearing::productListLayout_contents");
 
-
-
-
-		System.out.println(id);//商品番号
-		System.out.println(customPrice);//決済金額
-		model.addAttribute("customPrice",customPrice);
+		System.out.println(id);// 商品番号
+		System.out.println(customPrice);// 決済金額
+		model.addAttribute("customPrice", customPrice);
 		return "shopping/productListLayout";
 	}
 
 	@PostMapping("/clearing/{id}")
-	public String postClearing(@ModelAttribute CreditForm form,Model model,@RequestParam("customPrice") int customPrice,@PathVariable("id") int id) {
+	public String postClearing(@ModelAttribute CreditForm form, Model model,
+			@RequestParam("customPrice") int customPrice, @PathVariable("id") int id) {
 		model.addAttribute("contents", "shopping/productReceiving::productListLayout_contents");
 		CreditDTO creditdto = new CreditDTO();
-		//ユーザーが入力した決済番号
+		// ユーザーが入力した決済番号
 		creditdto.setDigits_3_code(form.getDigits_3_code());
 		creditdto.setCardName(form.getCardName());
 		creditdto.setCardNumber(form.getCardNumber());
-
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 		String getName = auth.getName();
 
-		//決済でカード内容入力したユーザーがクレジット登録をしているか確認　そのユーザのユーザIDのカード情報が取れていればその情報と入力した情報を比べる
+		// 決済でカード内容入力したユーザーがクレジット登録をしているか確認 そのユーザのユーザIDのカード情報が取れていればその情報と入力した情報を比べる
 		CreditDTO getCredit = creditService.selectOne(getName);
-
 
 		return "shopping/productListLayout";
 
 	}
+
 	@GetMapping("/cart")
-	public String cart(@ModelAttribute CartForm form,Model model) {
+	public String cart(@ModelAttribute CartForm form, Model model) {
 		System.out.println("cart________");
 		model.addAttribute("contents", "shopping/cart::productListLayout_contents");
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 		String user_id = auth.getName();
-		//ログインユーザーのみのカートの情報を取得
-				List<PcDataDTO> cartList = cartService.selectMany(user_id);
-				System.out.println("cartList" + cartList);
-				if(cartList == null || cartList.size() == 0) {
-					model.addAttribute("totalPrice",0);
-				}else {
-					int totalPrice = 0;
-					for(int i = 0; i < cartList.size(); i++) {
-						PcDataDTO pcdatadto = cartList.get(i);
-						 totalPrice = totalPrice + pcdatadto.getProduct_count() * pcdatadto.getPrice();
-						System.out.println("テストtotalPrice" + totalPrice);
-						model.addAttribute("totalPrice",totalPrice);
-						//model.addAttribute("product_count",pcdatadto.getProduct_count());
-					//form.setProduct_count(pcdatadto.getProduct_count());
-					}
-				}
+		// ログインユーザーのみのカートの情報を取得
+		List<PcDataDTO> cartList = cartService.selectMany(user_id);
+		System.out.println("cartList" + cartList);
+		if (cartList == null || cartList.size() == 0) {
+			model.addAttribute("totalPrice", 0);
+		} else {
+			int totalPrice = 0;
+			for (int i = 0; i < cartList.size(); i++) {
+				PcDataDTO pcdatadto = cartList.get(i);
+				totalPrice = totalPrice + pcdatadto.getProduct_count() * pcdatadto.getPrice();
+				System.out.println("テストtotalPrice" + totalPrice);
+				model.addAttribute("totalPrice", totalPrice);
+				// model.addAttribute("product_count",pcdatadto.getProduct_count());
+				// form.setProduct_count(pcdatadto.getProduct_count());
+			}
+		}
 
-				System.out.println("cartList " + cartList);
-				model.addAttribute("cartList",cartList);
+		System.out.println("cartList " + cartList);
+		model.addAttribute("cartList", cartList);
 
-			return "shopping/productListLayout";
+		return "shopping/productListLayout";
 	}
 
 	@GetMapping("/cart/{id}")
-	public String getCart(@ModelAttribute CartForm form,Model model,RedirectAttributes redirectattributes,@PathVariable("id") int product_id) {
+	public String getCart(@ModelAttribute CartForm form, Model model, RedirectAttributes redirectattributes,
+			@PathVariable("id") int product_id) {
 		model.addAttribute("contents", "shopping/cart::productListLayout_contents");
 
 		CartDTO cartdto = new CartDTO();
@@ -457,22 +438,43 @@ public class ShoppingController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 		String user_id = auth.getName();
-		//ログインユーザーのID取得
+		// ログインユーザーのID取得
 		int select_id = usersService.select_id(user_id);
-		//カートに追加する際の重複チェック
-		int selectResult = cartService.selectOne(cartdto,product_id,select_id);
+		// カートに追加する際の重複チェック
+		int selectResult = cartService.selectOne(cartdto, product_id, select_id);
 
-		//カートに入っていないデータを追加
-		if(selectResult < 1) {
+		// カートに入っていないデータを追加
+		if (selectResult < 1) {
 			System.out.println("カートにデータがない商品なのでインサート");
-			int insertResult = cartService.insertOne(cartdto,product_id,select_id);
+			int insertResult = cartService.insertOne(cartdto, product_id, select_id);
 		}
 
 		return "redirect:/cart";
 	}
 
-	@PostMapping(value = "/cart/{id}",params = "delete")
-	public String postCartDetail(@ModelAttribute CartForm form,Model model,RedirectAttributes redirectattributes,@PathVariable("id") int id) {
+	@PostMapping(value = "/cart/{id}", params = "delete")
+	public String postCartDetail(@ModelAttribute @Validated CartForm form, BindingResult bindingResult, Model model,
+			RedirectAttributes redirectattributes, @PathVariable("id") int id) {
+
+		if (bindingResult.hasErrors()) {
+			System.out.println("バリデーションエラー到達");
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+			System.out.println("auth" + auth.getName());
+			String getName = auth.getName();
+
+			int getId = usersService.select_id(getName);
+
+			int result = cartService.deleteOne(id, getId);
+			return cart(form, model);
+		}
+
+		System.out.println("test");
+		String getText = form.getProduct_count();
+		String getText2 = String.valueOf(getText);
+		System.out.println("getText2" + getText2);
+		if (getText2 == null) {
+
+		}
 
 		System.out.println("product_id" + id);
 		model.addAttribute("contents", "shopping/cart::productListLayout_contents");
@@ -482,16 +484,25 @@ public class ShoppingController {
 
 		int getId = usersService.select_id(getName);
 
-		int result = cartService.deleteOne(id,getId);
+		int result = cartService.deleteOne(id, getId);
 
 		return "redirect:/cart";
 	}
-	//clearingからproductReceiving
+	// clearingからproductReceiving
 
-	@PostMapping(value = "/cart/{id}",params = "countUpdate")
-	public String postCartCountUpdate(@ModelAttribute CartForm form,Model model,RedirectAttributes redirectattributes,@PathVariable("id") int productId) {
+	@PostMapping(value = "/cart/{id}", params = "countUpdate")
+	public String postCartCountUpdate(@ModelAttribute @Validated CartForm form, BindingResult bindingResult,
+			Model model, RedirectAttributes redirectattributes, @PathVariable("id") int productId) {
 		System.out.println("countUpdate到達");
-		int newProductCount = form.getProduct_count();
+
+		if (bindingResult.hasErrors()) {
+			System.out.println("バリデーションエラー到達");
+
+			return cart(form, model);
+		}
+
+		String productCount = form.getProduct_count();
+		int newProductCount = Integer.parseInt(productCount);
 		System.out.println("newProductCount" + newProductCount);
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
@@ -500,18 +511,15 @@ public class ShoppingController {
 		int userId = usersService.select_id(getName);
 		System.out.println("userId" + userId);
 		System.out.println("productId" + productId);
-		int result = cartService.updateOne(productId,newProductCount,userId);
+		int result = cartService.updateOne(productId, newProductCount, userId);
 
-
-        return "redirect:/cart";
-
+		return "redirect:/cart";
 
 	}
 
-
-
 	@GetMapping("/confirmation")
-	public String getConfirmation(@ModelAttribute PcDataForm from,CreditForm creditForm,HttpServletRequest request, HttpServletResponse response,Model model) {
+	public String getConfirmation(@ModelAttribute PcDataForm from, CreditForm creditForm, HttpServletRequest request,
+			HttpServletResponse response, Model model) {
 		model.addAttribute("contents", "shopping/confirmation::productListLayout_contents");
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -520,82 +528,82 @@ public class ShoppingController {
 
 		List<PcDataDTO> cartList = cartService.selectMany(getName);
 		int totalPrice = 0;
-		for(int i = 0; i < cartList.size(); i++) {
+		for (int i = 0; i < cartList.size(); i++) {
 			PcDataDTO pcdatadto = cartList.get(i);
 			totalPrice = totalPrice + pcdatadto.getProduct_count() * pcdatadto.getPrice();
 			System.out.println("totalPrice" + totalPrice);
-			model.addAttribute("totalPrice",totalPrice);
+			model.addAttribute("totalPrice", totalPrice);
 		}
-		//String cardNumber = (String) model.getAttribute("cardNumber");
-		//System.out.println("cardNumber " + cardNumber);
+		// String cardNumber = (String) model.getAttribute("cardNumber");
+		// System.out.println("cardNumber " + cardNumber);
 		int getId = usersService.select_id(getName);
 
 //		CreditDTO creditList = creditService.clearingSelectOne(getId);
 //		model.addAttribute("creditList",creditList);
 
 		System.out.println("cartList " + cartList);
-		model.addAttribute("cartList",cartList);
+		model.addAttribute("cartList", cartList);
 
 		HttpSession session = request.getSession();
 		String digits_3_code = (String) session.getAttribute("digits_3_code");
 		String cardName = (String) session.getAttribute("cardName");
 		String cardNumber = (String) session.getAttribute("cardNumber");
-		model.addAttribute("digits_3_code",digits_3_code);
-		model.addAttribute("cardName",cardName);
-		model.addAttribute("cardNumber",cardNumber);
-
+		model.addAttribute("digits_3_code", digits_3_code);
+		model.addAttribute("cardName", cardName);
+		model.addAttribute("cardNumber", cardNumber);
 
 		return "shopping/productListLayout";
 	}
 
 	@PostMapping("/confirmation")
-	public String postConfirmation(@ModelAttribute PcDataForm form,RedirectAttributes redirectattributes,@RequestParam("digits_3_code") String digits_3_code,@RequestParam("cardName") String cardName,@RequestParam("cardNumber") String cardNumber,@RequestParam("totalPrice") int totalPrice,HttpServletRequest request, HttpServletResponse response,Model model) {
+	public String postConfirmation(@ModelAttribute PcDataForm form, RedirectAttributes redirectattributes,
+			@RequestParam("digits_3_code") String digits_3_code, @RequestParam("cardName") String cardName,
+			@RequestParam("cardNumber") String cardNumber, @RequestParam("totalPrice") int totalPrice,
+			HttpServletRequest request, HttpServletResponse response, Model model) {
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 		String getName = auth.getName();
 
 		int select_id = usersService.select_id(getName);
-		//各商品のユーザーが購入した数を取得
+		// 各商品のユーザーが購入した数を取得
 		boolean result = cartService.selectProductCount(select_id);
 
-		if(result == false) {
-			redirectattributes.addFlashAttribute("result","在庫数が購入数より少ない商品、又は0の商品があります。再度ご確認の上決済画面へ進んでください。");
+		if (result == false) {
+			redirectattributes.addFlashAttribute("result", "在庫数が購入数より少ない商品、又は0の商品があります。再度ご確認の上決済画面へ進んでください。");
 			return "redirect:/cart";
 		}
-
 
 		CreditDTO creditdto = new CreditDTO();
 		creditdto.setDigits_3_code(digits_3_code);
 		creditdto.setCardName(cardName);
 		creditdto.setCardNumber(cardNumber);
-		int insertResult = creditService.clearingInsertOne(creditdto, select_id,totalPrice);
+		int insertResult = creditService.clearingInsertOne(creditdto, select_id, totalPrice);
 
 		int purchaseCreditId = creditService.selectMaxId();
-
 
 		List<CartDTO> cartList = cartService.purchaseSelectMany(select_id);
 
 		PurchaseDTO purchasedto = new PurchaseDTO();
 
-		for(int i = 0; i < cartList.size(); i++) {
+		for (int i = 0; i < cartList.size(); i++) {
 			CartDTO cartdto = cartList.get(i);
 			int purchaseId = cartdto.getProduct_id();
 			int purchaseCount = cartdto.getProduct_count();
-		int purchaseInsertResult = purchaseService.insert(purchasedto,purchaseId,purchaseCount,select_id,purchaseCreditId);
+			int purchaseInsertResult = purchaseService.insert(purchasedto, purchaseId, purchaseCount, select_id,
+					purchaseCreditId);
 
 		}
 
-
-		//return "redirect:/after_purchase";
-		 return getAfter_purchase(model);
+		// return "redirect:/after_purchase";
+		return getAfter_purchase(model);
 	}
 
-	//ログアウト用メソッド
-			@GetMapping("logout")
-			public String getLogout() {
+	// ログアウト用メソッド
+	@GetMapping("logout")
+	public String getLogout() {
 
-				//ログイン画面にリダイレクト
-				return "redirect:/login";
-			}
+		// ログイン画面にリダイレクト
+		return "redirect:/login";
+	}
 }
