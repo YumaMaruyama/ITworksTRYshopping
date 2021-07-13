@@ -65,8 +65,26 @@ public class ShoppingController {
 	}
 
 	@PostMapping("/admin")
-	public String postAdmin(@ModelAttribute PcDataForm form, Model model) {
+	public String postAdmin(@ModelAttribute @Validated(GroupOrder.class) PcDataForm form,BindingResult bindingResult, Model model) {
 
+		
+		if(bindingResult.hasErrors()) {
+			System.out.println("バリデーションエラー到達");
+			return getAdmin(form,model);
+		}
+		
+		String img1 = form.getPcImg();
+		String img2 = form.getPcImg2();
+		String img3 = form.getPcImg3();
+						
+		String imgCheck1 = img1.substring(img1.length() - 3);
+		String imgCheck2 = img2.substring(img2.length() - 3);
+		String imgCheck3 = img3.substring(img3.length() - 3);
+		if((imgCheck1 != "img") && (imgCheck2 != "img") && (imgCheck3 != "img")) {
+			model.addAttribute("result","img画像URLを入力してください");
+			return getAdmin(form,model);
+		}
+		
 		PcDataDTO pcdatadto = new PcDataDTO();
 		pcdatadto.setCompany(form.getCompany());
 		pcdatadto.setOs(form.getOs());
@@ -79,6 +97,7 @@ public class ShoppingController {
 		pcdatadto.setPcImg2(form.getPcImg2());
 		pcdatadto.setPcImg3(form.getPcImg3());
 
+		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 		String user_id = auth.getName();

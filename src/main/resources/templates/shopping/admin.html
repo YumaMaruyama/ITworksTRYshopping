@@ -18,105 +18,76 @@
 <title>admin</title>
 </head>
 <body>
-<div th:fragment="productListLayout_contents">
-	<header>
-		<h1>商品追加</h1>
-	</header>
-	<form method="post" th:action="@{/admin}" th:object="${pcDataForm}">
-		<table class="table table-bordered table-hover tablePadding">
-			<tr>
-				<th>会社名</th>
-				<td>
-					<div class="form-group">
-						<input type="text" class="form-control" th:field="*{company}">
-					</div>
-				</td>
-			</tr>
+	<div th:fragment="productListLayout_contents">
+		<header>
+			<h1>商品追加</h1>
+		</header>
+		<form method="post" th:action="@{/admin}" th:object="${pcDataForm}">
+			<table class="table table-bordered table-hover tablePadding">
+				<tr>
+					<th>会社名</th>
+					<td class="form-group"><input type="text" class="form-control"
+						th:field="*{company}"></td>
+				</tr>
 
-			<tr>
-				<th>OS</th>
-				<td>
-					<div class="form-group">
-						<input type="text" class="form-control" th:field="*{os}">
-					</div>
-				</td>
-			</tr>
+				<tr>
+					<th>OS</th>
+					<td class="form-group"><input type="text" class="form-control"
+						th:field="*{os}"></td>
+				</tr>
 
-			<tr>
-				<th>PcName</th>
-				<td>
-					<div class="form-group">
-						<input type="text" class="form-control" th:field="*{pc_name}">
-					</div>
-				<td>
-			</tr>
+				<tr>
+					<th>PcName</th>
+					<td class="form-group"><input type="text" class="form-control"
+						th:field="*{pc_name}">
+					<td>
+				</tr>
 
-			<tr>
-				<th>画面サイズ</th>
-				<td>
-					<div class="form-group">
-						<input type="text" class="form-control" th:field="*{pc_size}">
-					</div>
-				</td>
-			</tr>
+				<tr>
+					<th>画面サイズ</th>
+					<td class="form-group"><input type="text" class="form-control"
+						th:field="*{pc_size}"></td>
+				</tr>
 
-			<tr>
-				<th>値段</th>
-				<td>
-					<div class="form-group">
-						<input type="text" class="form-control" th:field="*{price}">
-					</div>
-				</td>
-			</tr>
+				<tr>
+					<th>値段</th>
+					<td class="form-group"><input type="text" class="form-control"
+						th:field="*{price}"></td>
+				</tr>
 
-			<tr>
-				<th>その他詳細欄</th>
-				<td>
-					<div class="form-group">
-						<input type="text" class="form-control" th:field="*{detail}">
-					</div>
-				</td>
-			</tr>
+				<tr>
+					<th>その他詳細欄</th>
+					<td class="form-group"><input type="text" class="form-control"
+						th:field="*{detail}"></td>
+				</tr>
 
-			<tr>
-				<th>在庫数</th>
-				<td>
-					<div class="form-group">
-						<input type="text" class="form-control" th:field="*{product_stock}">
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<th>画像URL</th>
-				<td>
-					<div class="form-group">
-						<input type="text" class="form-control" th:field="*{pcImg}">
-					</div>
-				</td>
-			</tr>
+				<tr>
+					<th>在庫数</th>
+					<td class="form-group"><input type="text" class="form-control"
+						th:field="*{product_stock}"></td>
+				</tr>
+				<tr>
+					<th>画像URL</th>
+					<td class="form-group"><input type="text" class="form-control"
+						th:field="*{pcImg}"></td>
+				</tr>
 
-			<tr>
-				<th>画像URL2</th>
-				<td>
-					<div class="form-group">
-						<input type="text" class="form-control" th:field="*{pcImg2}">
-					</div>
-				</td>
-			</tr>
+				<tr>
+					<th>画像URL2</th>
+					<td class="form-group"><input type="text" class="form-control"
+						th:field="*{pcImg2}"></td>
+				</tr>
 
-			<tr>
-				<th>画像URL3</th>
-				<td>
-					<div class="form-group">
-						<input type="text" class="form-control" th:field="*{pcImg3}">
-					</div>
-				</td>
-			</tr>
+				<tr>
+					<th>画像URL3</th>
+					<td class="form-group"><input type="text" class="form-control"
+						th:field="*{pcImg3}"></td>
+				</tr>
 
-		</table>
+			</table>
 
-		<button class="btn btn-primary" type="submit">商品追加決定</button>
-	</form>
+			<button class="btn btn-primary" type="submit">商品追加決定</button>
+		</form>
 	</div>
 </body>
 </html>
