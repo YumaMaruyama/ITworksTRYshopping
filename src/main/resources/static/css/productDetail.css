@@ -6,8 +6,21 @@ width: 178px !important;
     margin: 0px 137px 0px 0px;
 }
 
+.customAfterPriceDesign {
+	font-size:19px !important;
+}
+
+.customPriceDesign {
+	font-size: 19px !important;
+    width: 125px;
+}
+
 .productDetailTableDesigin {
 	font-size:11px !important;
+}
+
+.costomTableDesign {
+	 margin-left: 251px;
 }
 
 
@@ -33,4 +46,20 @@ button.btn-gradient:hover {
   color: #fff;
   -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, .1);
   box-shadow: 0 2px 3px rgba(0, 0, 0, .1);
+}
+
+
+/*_______________________________________________________________________________________________________*/
+
+button.btn--yellow {
+  color: #000;
+  background-color: #fff100;
+  border-bottom: 5px solid #ccc100;
+}
+
+button.btn--yellow:hover {
+  margin-top: 3px;
+  color: #000;
+  background: #fff20a;
+  border-bottom: 2px solid #ccc100;
 }

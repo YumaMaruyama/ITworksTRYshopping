@@ -164,7 +164,7 @@ public class ShoppingController {
 	public String postProductDetailCustom(@ModelAttribute PcDetailDataForm form, PcDataForm pcdataform, Model model,
 			@RequestParam("price") int price, @PathVariable("id") int id) {
 
-		String gb = form.getGb();
+		String memory = form.getMemory();
 		String hardDisc = form.getHardDisc();
 		String cpu = form.getCpu();
 
@@ -174,15 +174,15 @@ public class ShoppingController {
 
 		int getPrice = pcdatadtoOne.getPrice();
 
-		if (gb.equals("8GB")) {
+		if (memory.equals("8GB")) {
 			getPrice = getPrice + 5000;
 		}
 
-		if (gb.equals("16GB")) {
+		if (memory.equals("16GB")) {
 			getPrice = getPrice + 15000;
 		}
 
-		if (gb.equals("32GB")) {
+		if (memory.equals("32GB")) {
 			getPrice = getPrice + 40000;
 		}
 
@@ -218,6 +218,9 @@ public class ShoppingController {
 			getPrice = getPrice + 100000;
 		}
 
+		
+		
+		
 		model.addAttribute("customPrice", getPrice);
 
 		return getFefore_purchase(pcdataform, form, model, getPrice, id);
@@ -458,7 +461,7 @@ public class ShoppingController {
 		return "shopping/productListLayout";
 	}
 
-	@GetMapping("/cart/{id}")
+	@GetMapping(value = "/cart/{id}",params = "cartAdd")
 	public String getCart(@ModelAttribute CartForm form, Model model, RedirectAttributes redirectattributes,
 			@PathVariable("id") int product_id) {
 		model.addAttribute("contents", "shopping/cart::productListLayout_contents");

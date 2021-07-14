@@ -5,11 +5,11 @@ import lombok.Data;
 @Data
 public class PcDetailDataForm {
 
-	private String gb;
+	private String memory;
 
 	private String hardDisc;
 
 	private String cpu;
 
-	private int price;
+	private int customFee;
 }

@@ -28,8 +28,11 @@
 			th:action="@{/productDetail} + '/' + ${pcdatadto.id}"
 			th:object="${pcDetailDataForm}">
 		-->
-			<form  th:each="pcdatadto : ${pcdatadtoOne}" method="get" th:action="@{/cart} + '/' + ${pcdatadto.id}" >
-			<table class="table table-bordered table-hover productDetailTableDesigin">
+		<form th:each="pcdatadto : ${pcdatadtoOne}" method="get"
+			th:action="@{/cart} + '/' + ${pcdatadto.id}"
+			th:object="${pcDetailDataForm}">
+			<table
+				class="table table-bordered table-hover productDetailTableDesigin">
 				<tr>
 					<th class="text-center">会社名</th>
 					<th class="text-center">OS</th>
@@ -48,7 +51,8 @@
 				</tr>
 			</table>
 
-			<table class="table table-bordered table-hover productDetailTableDesigin">
+			<table
+				class="table table-bordered table-hover productDetailTableDesigin">
 				<tr>
 					<th class="text-center">PC詳細</th>
 				</tr>
@@ -58,20 +62,66 @@
 			</table>
 
 			<table class="table table-bordered table-hover">
-				<tr >
-					<td th:each="pcdatadto : ${pcdatadtoOne}">
-					<img class="imgSize"
+				<tr>
+					<td th:each="pcdatadto : ${pcdatadtoOne}"><img class="imgSize"
 						th:src="${pcdatadto.pcImg}"> <img class="imgSize"
 						th:src="${pcdatadto.pcImg2}"> <img class="imgSize"
 						th:src="${pcdatadto.pcImg3}"></td>
 				</tr>
 			</table>
-			<div th:each="pcdatadto : ${pcdatadtoOne}">
-			<button class="btn btn-gradient cartAddBtn"><span>カートに追加する</span></button>
+
+			<div>
+				<h3>PCのカスタムが可能です。</h3>
 			</div>
-			<!-- 画像はテーブルではなくてbootstrapのカードで表示させる -->
+
+			<table class="table table-bordered table-hover">
+				<tr>
+					<th class="text-center">メモリ選択</th>
+					<td class="text-center"><select th:field="*{memory}">
+							<option value="4GB">4GB</option>
+							<option value="8GB">8GB(5000円UP)</option>
+							<option value="16GB">16GB(15000円UP)</option>
+							<option value="32GB">32GB(40000円UP)</option>
+					</select></td>
+
+					<th class="text-center">ハードディスク</th>
+					<td class="text-center"><select th:field="*{hardDisc}">
+							<option value="SSD">SSD</option>
+							<option value="HDD">HDD(1000円UP)</option>
+					</select></td>
+
+					<th class="text-center">CPU</th>
+					<td class="text-center"><select th:field="*{cpu}">
+							<option value="CORE3">CORE3</option>
+							<option value="CORE5">CORE5(20000円UP)</option>
+							<option value="CORE7">CORE7(40000円UP)</option>
+							<option value="CORE9">CORE9(70000円UP)</option>
+							<option value="Ryzen3">Ryzen3(10000円UP)</option>
+							<option value="Ryzen5">Ryzen5(50000円UP)</option>
+							<option value="Ryzen7">Ryzen7(70000円UP)</option>
+							<option value="Ryzen9">Ryzen9(100000円UP)</option>
+					</select></td>
+				</tr>
+			</table>
+			
+			<table class="col-sm-6 table table-bordered table-hover costomTableDesign">
+			<tr>
+			<th style="width: 140px;">
+			<button class="btn btn--yellow btn--cubic" name="costomUpdate">カスタム更新</button>
+			<td class="text-right customAfterPriceDesign">カスタム後値段:</td>
+			<td class="text-left customPriceDesign" >100000</td>
+			</th>
+			</tr>
+			</table>
+
+			<div th:each="pcdatadto : ${pcdatadtoOne}">
+				<button class="btn btn-gradient cartAddBtn" name="cartAdd">
+					<span>カートに追加する</span>
+				</button>
+			</div>
+
 		</form>
-<!--
+		<!--
 			<div>
 				<h3>PCのカスタムが可能です。</h3>
 			</div>
