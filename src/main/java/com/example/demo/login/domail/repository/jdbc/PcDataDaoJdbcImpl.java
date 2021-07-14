@@ -39,7 +39,7 @@ public class PcDataDaoJdbcImpl implements PcDataDao {
 
 	public List<PcDataDTO> selectMany() {
 
-		List<Map<String,Object>> productList = jdbc.queryForList("select * from pcdata");
+		List<Map<String,Object>> productList = jdbc.queryForList("select * from pcdata where product_stock >= 1");
 
 		List<PcDataDTO> pcdatadtoList = new ArrayList<>();
 
