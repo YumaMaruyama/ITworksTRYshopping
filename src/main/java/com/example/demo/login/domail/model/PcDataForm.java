@@ -14,47 +14,50 @@ public class PcDataForm {
 	
 	private int id;
 
-	@NotBlank
-	@Length(min=1,max=15)
+	@NotBlank(groups = ValidGroup1.class)
+	@Length(min=1,max=15,groups = ValidGroup2.class)
 	private String company;
 
-	@NotBlank
-	@Length(min=3,max=9)
+	@NotBlank(groups = ValidGroup1.class)
+	@Length(min=3,max=9,groups = ValidGroup2.class)
 	private String os;
 
-	@NotBlank
-	@Length(min=1,max=30)
+	@NotBlank(groups = ValidGroup1.class)
+	@Length(min=1,max=30,groups = ValidGroup2.class)
 	private String pc_name;
 
-	@NotNull
-	@Min(1)
-	@Max(3) 
-	private int pc_size;
+	@NotNull(groups = ValidGroup1.class)
+	//@NumberFormat(pattern = "\\d{3}")
+	//@Size(min = 1,max = 3,groups = ValidGroup2.class)
+	//@Size(max = 3,groups = ValidGroup2.class)
+//	@Min(1)
+//	@Max(3) 
+	private Integer pc_size;
 	
-	@NotNull
+	@NotNull(groups = ValidGroup1.class)
 	@Min(4)
 	@Max(9) 
-	private int price;
+	private Integer price;
 
-	@NotBlank
-	@Length(min=10,max=240)
+	@NotBlank(groups = ValidGroup1.class)
+	@Length(min=10,max=240,groups = ValidGroup2.class)
 	private String detail;
 
-	@NotNull
+	@NotNull(groups = ValidGroup1.class)
 	@Min(1)
 	@Max(2) 
-	private int product_stock;
+	private Integer product_stock;
 
-	@NotBlank
-	@Length(min=30,max=200)
+	@NotBlank(groups = ValidGroup1.class)
+	@Length(min=30,max=200,groups = ValidGroup2.class)
 	private String pcImg;
 
-	@NotBlank
-	@Length(min=30,max=200)
+	@NotBlank(groups = ValidGroup1.class)
+	@Length(min=30,max=200,groups = ValidGroup2.class)
 	private String pcImg2;
 	
-	@NotBlank
-	@Length(min=30,max=200)
+	@NotBlank(groups = ValidGroup1.class)
+	@Length(min=30,max=200,groups = ValidGroup2.class)
 	private String pcImg3;
 
 }

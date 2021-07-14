@@ -77,11 +77,22 @@ public class ShoppingController {
 		String img2 = form.getPcImg2();
 		String img3 = form.getPcImg3();
 						
-		String imgCheck1 = img1.substring(img1.length() - 3);
-		String imgCheck2 = img2.substring(img2.length() - 3);
-		String imgCheck3 = img3.substring(img3.length() - 3);
-		if((imgCheck1 != "img") && (imgCheck2 != "img") && (imgCheck3 != "img")) {
-			model.addAttribute("result","img画像URLを入力してください");
+		String imgCheck1 = img1.substring(img1.length() - 4);
+		String imgCheck2 = img2.substring(img2.length() - 4);
+		String imgCheck3 = img3.substring(img3.length() - 4);
+		String jpg = ".jpg";
+		if(!imgCheck1.equals(jpg)) {
+	        model.addAttribute("imgResult1","商品画像1はJPEG形式（最後が「.jpg」のもの）で入力してください");
+			return getAdmin(form,model);
+		}
+		
+		if(!imgCheck2.equals(jpg)) {
+	        model.addAttribute("imgResult2","商品画像2はJPEG形式（最後が「.jpg」のもの）で入力してください");
+			return getAdmin(form,model);
+		}
+		
+		if(!imgCheck3.equals(jpg)) {
+	        model.addAttribute("imgResult3","商品画像3はJPEG形式（最後が「.jpg」のもの）で入力してください");
 			return getAdmin(form,model);
 		}
 		
