@@ -460,6 +460,16 @@ public class ShoppingController {
 
 		return "shopping/productListLayout";
 	}
+	
+	@GetMapping(value = "/cart/{id}",params = "customUpdate")
+	public String customUpdate(@ModelAttribute PcDetailDataForm form,RedirectAttributes redirectattributes,Model model) {
+		String memory = form.getMemory();
+		String hardDisc = form.getHardDisc();
+		String cpu = form.getCpu();
+		
+		
+		return "redirect:/getPurductDetali";
+	}
 
 	@GetMapping(value = "/cart/{id}",params = "cartAdd")
 	public String getCart(@ModelAttribute CartForm form, Model model, RedirectAttributes redirectattributes,
