@@ -107,9 +107,9 @@
 			<table class="col-sm-6 table table-bordered table-hover costomTableDesign">
 			<tr>
 			<th style="width: 140px;">
-			<button class="btn btn--yellow btn--cubic" name="costomUpdate">カスタム更新</button>
+			<button class="btn btn--yellow btn--cubic" name="customUpdate">カスタム更新</button>
 			<td class="text-right customAfterPriceDesign">カスタム後値段:</td>
-			<td class="text-left customPriceDesign" >100000</td>
+			<td class="text-left customPriceDesign" th:text="${afterCustom}"></td>
 			</th>
 			</tr>
 			</table>
@@ -121,54 +121,7 @@
 			</div>
 
 		</form>
-		<!--
-			<div>
-				<h3>PCのカスタムが可能です。</h3>
-			</div>
-
-			<table class="table table-bordered table-hover">
-				<tr>
-					<th class="text-center">メモリ選択</th>
-					<td class="text-center"><select th:field="*{gb}">
-							<option value="4GB">4GB</option>
-							<option value="8GB">8GB(5000円UP)</option>
-							<option value="16GB">16GB(15000円UP)</option>
-							<option value="32GB">32GB(40000円UP)</option>
-					</select></td>
-				</tr>
-
-				<tr>
-					<th class="text-center">ハードディスク</th>
-					<td class="text-center"><select th:field="*{hardDisc}">
-							<option value="SSD">SSD</option>
-							<option value="HDD">HDD(1000円UP)</option>
-					</select></td>
-				</tr>
-				<tr>
-					<th class="text-center">CPU</th>
-					<td class="text-center"><select th:field="*{cpu}">
-							<option value="CORE3">CORE3</option>
-							<option value="CORE5">CORE5(20000円UP)</option>
-							<option value="CORE7">CORE7(40000円UP)</option>
-							<option value="CORE9">CORE9(70000円UP)</option>
-							<option value="Ryzen3">Ryzen3(10000円UP)</option>
-							<option value="Ryzen5">Ryzen5(50000円UP)</option>
-							<option value="Ryzen7">Ryzen7(70000円UP)</option>
-							<option value="Ryzen9">Ryzen9(100000円UP)</option>
-					</select></td>
-				</tr>
-			</table>
-
-			<div th:each="pcdatadto : ${pcdatadtoOne}">
-				<input type="hidden" th:value="${pcdatadto.price}"
-					th:field="*{price}">
-			</div>
-			<input type="hidden" th:value="id" th:field="${id}">
-			<button class="btn btn-success" name="purchase">購入前詳細画面</button>
-
-		</form>
-
-	-->
+		
 	</div>
 </body>
 </html>

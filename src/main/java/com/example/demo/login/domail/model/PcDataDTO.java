@@ -36,5 +36,15 @@ public class PcDataDTO {
 	private int creditId;
 
 	private int  productCount;
+	
+    private int customId;
+	
+	private String memory;
+
+	private String hardDisc;
+
+	private String cpu;
+
+	private int customPrice;
 
 }

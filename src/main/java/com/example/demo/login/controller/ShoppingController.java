@@ -29,11 +29,13 @@ import com.example.demo.login.domail.model.CreditForm;
 import com.example.demo.login.domail.model.GroupOrder;
 import com.example.demo.login.domail.model.PcDataDTO;
 import com.example.demo.login.domail.model.PcDataForm;
+import com.example.demo.login.domail.model.PcDetailDataDTO;
 import com.example.demo.login.domail.model.PcDetailDataForm;
 import com.example.demo.login.domail.model.PurchaseDTO;
 import com.example.demo.login.domail.model.UsersDTO;
 import com.example.demo.login.domail.service.CartService;
 import com.example.demo.login.domail.service.CreditService;
+import com.example.demo.login.domail.service.CustomService;
 import com.example.demo.login.domail.service.PcDataService;
 import com.example.demo.login.domail.service.PurchaseService;
 import com.example.demo.login.domail.service.Usege_usersService;
@@ -54,6 +56,8 @@ public class ShoppingController {
 	CartService cartService;
 	@Autowired
 	PurchaseService purchaseService;
+	@Autowired
+	CustomService customService;
 
 	@Autowired // Sessionが使用できる
 	HttpSession session;
@@ -147,16 +151,23 @@ public class ShoppingController {
 	// }
 
 	@GetMapping("/productDetail/{id}")
-	public String getProductDetail(@ModelAttribute PcDetailDataForm form, PcDataForm pcdataform, Model model,
+	public String getProductDetail(@ModelAttribute PcDetailDataForm form, PcDataForm pcdataform,HttpServletRequest request,
+			 Model model,
 			@PathVariable("id") int id) {
 		model.addAttribute("contents", "shopping/productDetail::productListLayout_contents");
 
+		System.out.println("redirectcheck");
+		
 		PcDataDTO pcdatadtoOne = pcdataService.selectOne(id);
 		String pcName = pcdatadtoOne.getPc_name();
 		model.addAttribute("pcName", pcName);
 		System.out.println("pcdatadtoOne" + pcdatadtoOne);
 		model.addAttribute("pcdatadtoOne", pcdatadtoOne);
 
+		HttpSession session = request.getSession();
+		int afterCustom = ((int)session.getAttribute("afterCustom"));
+		model.addAttribute("afterCustom",afterCustom);
+		
 		return "shopping/productListLayout";
 	}
 
@@ -447,7 +458,7 @@ public class ShoppingController {
 			int totalPrice = 0;
 			for (int i = 0; i < cartList.size(); i++) {
 				PcDataDTO pcdatadto = cartList.get(i);
-				totalPrice = totalPrice + pcdatadto.getProduct_count() * pcdatadto.getPrice();
+				totalPrice = totalPrice + pcdatadto.getProduct_count() * (pcdatadto.getPrice() + pcdatadto.getCustomPrice());
 				System.out.println("テストtotalPrice" + totalPrice);
 				model.addAttribute("totalPrice", totalPrice);
 				// model.addAttribute("product_count",pcdatadto.getProduct_count());
@@ -462,13 +473,94 @@ public class ShoppingController {
 	}
 	
 	@GetMapping(value = "/cart/{id}",params = "customUpdate")
-	public String customUpdate(@ModelAttribute PcDetailDataForm form,RedirectAttributes redirectattributes,Model model) {
+	public String customUpdate(@ModelAttribute PcDetailDataForm form,RedirectAttributes redirectattributes,HttpServletRequest request, HttpServletResponse response,Model model,@PathVariable("id") int id) {
 		String memory = form.getMemory();
 		String hardDisc = form.getHardDisc();
 		String cpu = form.getCpu();
 		
+		PcDetailDataDTO pcdetaildatadto = new PcDetailDataDTO();
+		pcdetaildatadto.setMemory(form.getMemory());
+		pcdetaildatadto.setHardDisc(form.getHardDisc());
+		pcdetaildatadto.setMemory(form.getCpu());
 		
-		return "redirect:/getPurductDetali";
+		
+		PcDataDTO pcdatadto = pcdataService.selectOne(id);
+		int getPrice = pcdatadto.getPrice();
+		int priceSumCustom = pcdatadto.getPrice();
+		
+		int customPrice = 0;
+		
+		if (memory.equals("8GB")) {
+			getPrice = getPrice + 5000;
+			customPrice = customPrice + 5000;
+		}
+
+		if (memory.equals("16GB")) {
+			getPrice = getPrice + 15000;
+			customPrice = customPrice + 15000;
+		}
+
+		if (memory.equals("32GB")) {
+			getPrice = getPrice + 40000;
+			customPrice = customPrice + 40000;
+		}
+
+		if (hardDisc.equals("HDD")) {
+			getPrice = getPrice + 1000;
+			customPrice = customPrice + 1000;
+		}
+
+		if (cpu.equals("CORE5")) {
+			getPrice = getPrice + 20000;
+			customPrice = customPrice + 20000;
+		}
+
+		if (cpu.equals("CORE7")) {
+			getPrice = getPrice + 40000;
+			customPrice = customPrice + 40000;
+		}
+
+		if (cpu.equals("CORE9")) {
+			getPrice = getPrice + 70000;
+			customPrice = customPrice + 70000;
+		}
+
+		if (cpu.equals("Ryzen3")) {
+			getPrice = getPrice + 10000;
+			customPrice = customPrice + 10000;
+		}
+
+		if (cpu.equals("Ryzen5")) {
+			getPrice = getPrice + 50000;
+			customPrice = customPrice + 50000;
+		}
+
+		if (cpu.equals("Ryzen7")) {
+			getPrice = getPrice + 70000;
+			customPrice = customPrice + 70000;
+		}
+
+		if (cpu.equals("Ryzen9")) {
+			getPrice = getPrice + 100000;
+			customPrice = customPrice + 100000;
+		}
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println("auth" + auth.getName());
+		String user_id = auth.getName();
+		
+		// ログインユーザーのID取得
+		int select_id = usersService.select_id(user_id);
+		
+		int result = customService.insertOne(id,select_id,memory,hardDisc,cpu,customPrice);
+		
+		HttpSession session = request.getSession();
+		session.setAttribute("afterCustom",priceSumCustom + customPrice);
+		
+		model.addAttribute("afterCustom",priceSumCustom + customPrice);		
+		
+		//カスタム後に商品詳細画面にリダイレクト
+		return "redirect:/productDetail/{id}";
 	}
 
 	@GetMapping(value = "/cart/{id}",params = "cartAdd")

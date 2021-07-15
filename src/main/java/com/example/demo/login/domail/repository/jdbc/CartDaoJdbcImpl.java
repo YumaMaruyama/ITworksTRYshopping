@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.example.demo.login.domail.model.CartDTO;
 import com.example.demo.login.domail.model.PcDataDTO;
+import com.example.demo.login.domail.model.PcDetailDataDTO;
 import com.example.demo.login.domail.repository.CartDao;
 
 @Repository
@@ -52,8 +53,8 @@ public class CartDaoJdbcImpl implements CartDao {
 			int pcdatadtoOne = product_idList.get(i);
 			System.out.println("pcdatadtoOne" + pcdatadtoOne);
 			List<Map<String, Object>> productList = jdbc.queryForList(
-					"select pcdata.id,pcdata.company,pcdata.os,pcdata.pc_name,pcdata.pc_size,pcdata.price,pcdata.detail,pcdata.product_stock,pcdata.pcimg,pcdata.pcimg2,pcdata.pcimg3,cart.id AS cartId,cart.product_count from pcdata JOIN cart ON pcdata.id = cart.product_id where pcdata.id = ?",
-					pcdatadtoOne);
+					"select pcdata.id,pcdata.company,pcdata.os,pcdata.pc_name,pcdata.pc_size,pcdata.price,pcdata.detail,pcdata.product_stock,pcdata.pcimg,pcdata.pcimg2,pcdata.pcimg3,cart.id AS cartId,cart.product_count max(custom.id) AS customId,custom.memory,custom.hard_disc,custom.cpu,custom.custom_price from pcdata JOIN cart ON pcdata.id = cart.product_id JOIN custom ON pcdata.id = custom.product_id where pcdata.id = ? and custom.user_id = ?",
+					pcdatadtoOne,getId);
 			user_productList.addAll(productList);
 			System.out.println("productList" + productList);
 
@@ -74,7 +75,9 @@ public class CartDaoJdbcImpl implements CartDao {
 		for (Map<String, Object> map : user_productList) {
 
 			PcDataDTO pcdatadto = new PcDataDTO();
-
+			PcDetailDataDTO pcdetaildatadto = new PcDetailDataDTO();
+			
+			
 			pcdatadto.setId((int) map.get("id"));
 			pcdatadto.setCompany((String) map.get("company"));
 			pcdatadto.setOs((String) map.get("os"));
@@ -88,7 +91,14 @@ public class CartDaoJdbcImpl implements CartDao {
 			pcdatadto.setPcImg3((String) map.get("pcImg3"));
 			pcdatadto.setCartId((int) map.get("cartId"));
 			pcdatadto.setProduct_count((int) map.get("product_count"));
+			pcdatadto.setId((int)map.get("id"));
+			pcdatadto.setMemory((String)map.get("memory"));
+			pcdatadto.setHardDisc((String)map.get("hard_disc"));
+			pcdatadto.setCpu((String)map.get("cpu"));
+			pcdatadto.setCustomPrice((int)map.get("custom_price"));
 			pcdatadto.setTotalPrice(sumPrice);
+			
+			
 			pcdataList.add(pcdatadto);
 
 		}
