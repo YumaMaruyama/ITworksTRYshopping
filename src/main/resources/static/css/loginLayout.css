@@ -1,17 +1,17 @@
 @charset "UTF-8";
 
 .headerDesign {
-	background: #95b2cc;
+	background: #094479;
 }
 
 .nav-sidebar {
 	height: 551px;
-	background: #e7f4ff;
+	background: #73abda;
 	display: list-item !important; /*flexが効いてるのでSidebarのアイテムが均等な幅になっている*/
 }
 
 .desiginBtn {
-	margin-bottom: 15px;
+	margin-bottom: 40px;
 	width: 197px;
 }
 
