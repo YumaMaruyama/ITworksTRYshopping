@@ -19,16 +19,17 @@ public class PurchaseDaoJdbcImpl implements PurchaseDao {
 	@Autowired
 	JdbcTemplate jdbc;
 
-	public int insert(PurchaseDTO purchasedto, int purchaseId, int purchaseCount, int select_id, int purchaseCreditId) {
+	public int insert(PurchaseDTO purchasedto, int purchaseId, int purchaseCount, int select_id, int purchaseCreditId,int customId) {
 
 		int result = jdbc.update("insert into purchase (id,"
 				+ " user_id,"
 				+ " product_id,"
 				+ " product_count,"
 			//	+ " purchase_date,"
-				+ " credit_id)"
-				+ " value(?,?,?,?,?)", purchasedto.getId(), select_id, purchaseId, purchaseCount,
-				purchaseCreditId);
+				+ " credit_id,"
+				+ " custom_id)"
+				+ " value(?,?,?,?,?,?)", purchasedto.getId(), select_id, purchaseId, purchaseCount,
+				purchaseCreditId,customId);
 
 		return result;
 

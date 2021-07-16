@@ -1,9 +1,13 @@
 package com.example.demo.login.domail.repository.jdbc;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.example.demo.login.domail.model.PcDetailDataDTO;
 import com.example.demo.login.domail.repository.CustomDao;
 
 @Repository
@@ -12,7 +16,45 @@ public class CustomDaoJdbcImpl implements CustomDao{
 	@Autowired
 	JdbcTemplate jdbc;
 	
-	public int insertOne(int id,int select_id,String memory,String hardDisc,String cpu,int customPrice) {
+	public int UpdateOne(int id,int select_id,String memory,String hardDisc,String cpu,int customPrice) {
+		
+		int result = jdbc.update("update custom set memory = ? ,hard_disc = ? ,cpu = ? ,custom_price = ? where product_id = ? and user_id = ?",memory,hardDisc,cpu,customPrice,id,select_id);
+		
+		return result;
+	}
+	
+	public PcDetailDataDTO selectOne(int id,int select_id) {
+
+		Map<String,Object> map = jdbc.queryForMap("select * from custom where product_id = ? and user_id = ?",id,select_id);
+		
+		PcDetailDataDTO pcdetaildatadto = new PcDetailDataDTO();
+		pcdetaildatadto.setId((int)map.get("id"));
+		pcdetaildatadto.setPurduct_id((int)map.get("product_id"));
+		pcdetaildatadto.setUser_id((int)map.get("user_id"));
+		pcdetaildatadto.setMemory((String)map.get("memory"));
+		pcdetaildatadto.setHardDisc((String)map.get("hard_disc"));
+		pcdetaildatadto.setCpu((String)map.get("cpu"));
+		pcdetaildatadto.setCustomPrice((int)map.get("custom_price"));
+		
+		return pcdetaildatadto;
+	}
+	
+	public int selectCustomProduct_id(int id,int select_id) {
+		
+		int result = 0;
+		
+		try {
+		int product_id = jdbc.queryForObject("select custom.product_id from custom where product_id = ? and user_id = ?",Integer.class,id,select_id);
+		result = 1;
+		}catch(IncorrectResultSizeDataAccessException e) {
+			e.printStackTrace();
+			return result;
+		}
+		return result;
+	}
+	
+	public int insertCustomData(int id, int select_id, String defaultMemory, String defaultHardDisc,
+			String defaultCpu,int customPrice) {
 		
 		int result = jdbc.update("insert into custom (product_id,"
 				+ " user_id,"
@@ -20,8 +62,21 @@ public class CustomDaoJdbcImpl implements CustomDao{
 				+ " hard_disc,"
 				+ " cpu,"
 				+ " custom_price)"
-				+ " value(?,?,?,?,?,?)",id,select_id,memory,hardDisc,cpu,customPrice);
+				+ " value(?,?,?,?,?,?)",id,select_id,defaultMemory,defaultHardDisc,defaultCpu,customPrice);
 		
 		return result;
+	}
+	
+	public int deleteCustomOne(int id,int getId) {
+		
+		int result = jdbc.update("delete from custom where product_id = ? and user_id = ?",id,getId);
+		return result;
+	}
+	
+	public int selectCustomId(int purchaseId) {
+		int result = jdbc.queryForObject("select custom.id from custom where product_id = ?",Integer.class,purchaseId);
+		
+		return result;
+		
 	}
 }

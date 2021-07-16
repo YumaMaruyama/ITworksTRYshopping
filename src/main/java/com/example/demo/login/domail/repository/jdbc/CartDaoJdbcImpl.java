@@ -53,7 +53,7 @@ public class CartDaoJdbcImpl implements CartDao {
 			int pcdatadtoOne = product_idList.get(i);
 			System.out.println("pcdatadtoOne" + pcdatadtoOne);
 			List<Map<String, Object>> productList = jdbc.queryForList(
-					"select pcdata.id,pcdata.company,pcdata.os,pcdata.pc_name,pcdata.pc_size,pcdata.price,pcdata.detail,pcdata.product_stock,pcdata.pcimg,pcdata.pcimg2,pcdata.pcimg3,cart.id AS cartId,cart.product_count max(custom.id) AS customId,custom.memory,custom.hard_disc,custom.cpu,custom.custom_price from pcdata JOIN cart ON pcdata.id = cart.product_id JOIN custom ON pcdata.id = custom.product_id where pcdata.id = ? and custom.user_id = ?",
+					"select pcdata.id,pcdata.company,pcdata.os,pcdata.pc_name,pcdata.pc_size,pcdata.price,pcdata.detail,pcdata.product_stock,pcdata.pcimg,pcdata.pcimg2,pcdata.pcimg3,cart.id AS cartId,cart.product_count,custom.id AS customId,custom.memory,custom.hard_disc,custom.cpu,custom.custom_price from pcdata JOIN cart ON pcdata.id = cart.product_id JOIN custom ON pcdata.id = custom.product_id where pcdata.id = ? and custom.user_id = ?",
 					pcdatadtoOne,getId);
 			user_productList.addAll(productList);
 			System.out.println("productList" + productList);
@@ -96,6 +96,7 @@ public class CartDaoJdbcImpl implements CartDao {
 			pcdatadto.setHardDisc((String)map.get("hard_disc"));
 			pcdatadto.setCpu((String)map.get("cpu"));
 			pcdatadto.setCustomPrice((int)map.get("custom_price"));
+			pcdatadto.setAfterCustomPrice(pcdatadto.getPrice() + pcdatadto.getCustomPrice());
 			pcdatadto.setTotalPrice(sumPrice);
 			
 			
@@ -221,8 +222,9 @@ public class CartDaoJdbcImpl implements CartDao {
 			purchaseList.add(cartdto);
 		}
 		return purchaseList;
-
-
-
 	}
+	
+//	public int selectProductId(int cartId) {
+//		int result = 
+//	}
 }

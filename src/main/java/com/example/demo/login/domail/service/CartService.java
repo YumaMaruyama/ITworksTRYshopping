@@ -113,4 +113,8 @@ public class CartService {
 	public List<CartDTO> purchaseSelectMany(int select_id) {
 		return dao.purchaseSelectMany(select_id);
 	}
+	
+//	public int selectProductId(int cartId) {
+//		return dao.selectProductId(cartId);
+//	}
 }

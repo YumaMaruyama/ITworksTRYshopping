@@ -18,4 +18,6 @@ public class PurchaseDTO {
 	private Date purchase_date;
 
 	private int purchaseCreditId;
+	
+	private int custom_id;
 }

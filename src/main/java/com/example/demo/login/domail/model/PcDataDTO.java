@@ -46,5 +46,7 @@ public class PcDataDTO {
 	private String cpu;
 
 	private int customPrice;
+	
+	private int afterCustomPrice;
 
 }

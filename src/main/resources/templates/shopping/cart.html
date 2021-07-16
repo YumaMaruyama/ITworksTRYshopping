@@ -12,7 +12,8 @@
 		</header>
 
 		<p class="cartDesign" th:text="${result}"></p>
-		<br><br>
+		<br>
+		<br>
 
 		<div class="flex cartList">
 			<div class="item" th:each="pcdatadto : ${cartList}">
@@ -32,11 +33,21 @@
 						th:text="'画面サイズ：' + ${pcdatadto.pc_size} + '型'"></p>
 					<p class="card-text text-center fontdesign"
 						style="margin-bottom: 0px !important"
-						th:text="'値段：' + ${pcdatadto.price} + '円'"></p>
+						th:text="'メモリー：' + ${pcdatadto.memory}"></p>
+					<p class="card-text text-center fontdesign"
+						style="margin-bottom: 0px !important"
+						th:text="'ハードディスク：' + ${pcdatadto.hardDisc}"></p>
+					<p class="card-text text-center fontdesign"
+						style="margin-bottom: 0px !important"
+						th:text="'CPU：' + ${pcdatadto.cpu}"></p>
+					<p class="card-text text-center fontdesign"
+						style="margin-bottom: 0px !important"
+						th:text="'カスタム後値段：' + ${pcdatadto.afterCustomPrice} + '円'"></p>
 					<p class="card-text text-center fontdesign"
 						style="margin-bottom: 0px !important"
 						th:text="'在庫数：' + ${pcdatadto.product_stock} + '個'"></p>
-					<a class="text-center detailGoCart" style="margin-bottom: 0px !important"
+					<a class="text-center detailGoCart"
+						style="margin-bottom: 0px !important"
 						th:href="@{/productDetail} + '/' + ${pcdatadto.id}"><span
 						class="font">詳細画面に行く</span></a>
 					<p style="margin-bottom: 0px !important">
@@ -57,7 +68,8 @@
 								</div>
 							</th>
 						</tr>
-					</table></form>
+					</table>
+				</form>
 			</div>
 		</div>
 
@@ -67,14 +79,14 @@
 		<form th:action="@{/clearing}">
 			<table class="col-sm-9 cartPrice table table-bordered table-hover">
 				<tr>
-					<td style="width:214px;"><a th:href="@{/productList}"
-				class="btn btn2 btn--orange btn--cubic btn--shadow productListBtn">買い物を続ける</a></td>
+					<td style="width: 214px;"><a th:href="@{/productList}"
+						class="btn btn2 btn--orange btn--cubic btn--shadow productListBtn">買い物を続ける</a></td>
 					<th class="text-center textDesign1">カート合計金額</th>
 					<td class="cartPrice2 card-text text-center fontdesign textDesign2"
 						th:text="${totalPrice} + '円'"></td>
 
-						<td><button
-				class="btn btn2 btn--orange btn--cubic btn--shadow clearingBtn">決済画面へ</button></td>
+					<td><button
+							class="btn btn2 btn--orange btn--cubic btn--shadow clearingBtn">決済画面へ</button></td>
 				</tr>
 			</table>
 

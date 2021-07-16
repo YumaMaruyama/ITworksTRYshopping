@@ -69,37 +69,37 @@ public class ShoppingController {
 	}
 
 	@PostMapping("/admin")
-	public String postAdmin(@ModelAttribute @Validated(GroupOrder.class) PcDataForm form,BindingResult bindingResult, Model model) {
+	public String postAdmin(@ModelAttribute @Validated(GroupOrder.class) PcDataForm form, BindingResult bindingResult,
+			Model model) {
 
-		
-		if(bindingResult.hasErrors()) {
+		if (bindingResult.hasErrors()) {
 			System.out.println("バリデーションエラー到達");
-			return getAdmin(form,model);
+			return getAdmin(form, model);
 		}
-		
+
 		String img1 = form.getPcImg();
 		String img2 = form.getPcImg2();
 		String img3 = form.getPcImg3();
-						
+
 		String imgCheck1 = img1.substring(img1.length() - 4);
 		String imgCheck2 = img2.substring(img2.length() - 4);
 		String imgCheck3 = img3.substring(img3.length() - 4);
 		String jpg = ".jpg";
-		if(!imgCheck1.equals(jpg)) {
-	        model.addAttribute("imgResult1","商品画像1はJPEG形式（最後が「.jpg」のもの）で入力してください");
-			return getAdmin(form,model);
+		if (!imgCheck1.equals(jpg)) {
+			model.addAttribute("imgResult1", "商品画像1はJPEG形式（最後が「.jpg」のもの）で入力してください");
+			return getAdmin(form, model);
 		}
-		
-		if(!imgCheck2.equals(jpg)) {
-	        model.addAttribute("imgResult2","商品画像2はJPEG形式（最後が「.jpg」のもの）で入力してください");
-			return getAdmin(form,model);
+
+		if (!imgCheck2.equals(jpg)) {
+			model.addAttribute("imgResult2", "商品画像2はJPEG形式（最後が「.jpg」のもの）で入力してください");
+			return getAdmin(form, model);
 		}
-		
-		if(!imgCheck3.equals(jpg)) {
-	        model.addAttribute("imgResult3","商品画像3はJPEG形式（最後が「.jpg」のもの）で入力してください");
-			return getAdmin(form,model);
+
+		if (!imgCheck3.equals(jpg)) {
+			model.addAttribute("imgResult3", "商品画像3はJPEG形式（最後が「.jpg」のもの）で入力してください");
+			return getAdmin(form, model);
 		}
-		
+
 		PcDataDTO pcdatadto = new PcDataDTO();
 		pcdatadto.setCompany(form.getCompany());
 		pcdatadto.setOs(form.getOs());
@@ -112,7 +112,6 @@ public class ShoppingController {
 		pcdatadto.setPcImg2(form.getPcImg2());
 		pcdatadto.setPcImg3(form.getPcImg3());
 
-		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 		String user_id = auth.getName();
@@ -145,29 +144,43 @@ public class ShoppingController {
 		return "shopping/productListLayout";
 	}
 
-	// @PostMapping("/productList")
-	// public String postProductList(@ModelAttribute Model model) {
-	//
-	// }
-
 	@GetMapping("/productDetail/{id}")
-	public String getProductDetail(@ModelAttribute PcDetailDataForm form, PcDataForm pcdataform,HttpServletRequest request,
-			 Model model,
-			@PathVariable("id") int id) {
+	public String getProductDetail(@ModelAttribute PcDetailDataForm form, PcDataForm pcdataform,
+			HttpServletRequest request, Model model, @PathVariable("id") int id) {
 		model.addAttribute("contents", "shopping/productDetail::productListLayout_contents");
 
 		System.out.println("redirectcheck");
-		
+
 		PcDataDTO pcdatadtoOne = pcdataService.selectOne(id);
 		String pcName = pcdatadtoOne.getPc_name();
 		model.addAttribute("pcName", pcName);
 		System.out.println("pcdatadtoOne" + pcdatadtoOne);
 		model.addAttribute("pcdatadtoOne", pcdatadtoOne);
 
-		HttpSession session = request.getSession();
-		int afterCustom = ((int)session.getAttribute("afterCustom"));
-		model.addAttribute("afterCustom",afterCustom);
-		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println("auth" + auth.getName());
+		String user_id = auth.getName();
+
+		// ログインユーザーのID取得
+		int select_id = usersService.select_id(user_id);
+
+		int result = customService.selectCustomProduct_id(id, select_id);
+		if (result == 0) {
+			String defaultMemory = "4GB";
+			String defaultHardDisc = "SSD";
+			String defaultCpu = "CORE3";
+			int customPrice = 0;
+			int insertResult = customService.insertCustomData(id, select_id, defaultMemory, defaultHardDisc, defaultCpu,
+					customPrice);
+		}
+
+		PcDetailDataDTO pcdetaildatadto = customService.selectOne(id, select_id);
+
+		model.addAttribute("memory", pcdetaildatadto.getMemory());
+		model.addAttribute("hardDisc", pcdetaildatadto.getHardDisc());
+		model.addAttribute("cpu", pcdetaildatadto.getCpu());
+		model.addAttribute("afterCustom", pcdatadtoOne.getPrice() + pcdetaildatadto.getCustomPrice());
+
 		return "shopping/productListLayout";
 	}
 
@@ -229,9 +242,6 @@ public class ShoppingController {
 			getPrice = getPrice + 100000;
 		}
 
-		
-		
-		
 		model.addAttribute("customPrice", getPrice);
 
 		return getFefore_purchase(pcdataform, form, model, getPrice, id);
@@ -279,19 +289,11 @@ public class ShoppingController {
 		System.out.println("auth" + auth.getName());
 		String getName = auth.getName();
 
-//		List<PcDataDTO> cartList = cartService.selectMany(getName);
-//		for(int i = 0; i < 1; i++) {
-//			PcDataDTO pcdatadto = cartList.get(i);
-//			int totalPrice = pcdatadto.getTotalPrice();
-//			System.out.println("totalPrice" + totalPrice);
-//			model.addAttribute("totalPrice",totalPrice);
-//		}
-
 		List<PcDataDTO> cartList = cartService.selectMany(getName);
 		int totalPrice = 0;
 		for (int i = 0; i < cartList.size(); i++) {
 			PcDataDTO pcdatadto = cartList.get(i);
-			totalPrice = totalPrice + pcdatadto.getProduct_count() * pcdatadto.getPrice();
+			totalPrice = totalPrice + pcdatadto.getProduct_count() * pcdatadto.getAfterCustomPrice();
 			System.out.println("totalPrice" + totalPrice);
 			model.addAttribute("totalPrice", totalPrice);
 			// model.addAttribute("product_count",pcdatadto.getProduct_count());
@@ -299,11 +301,6 @@ public class ShoppingController {
 			System.out.println("form" + form);
 		}
 
-//		List<PcDataDTO> cartList = cartService.cartDataSelectMany();
-//		model.addAttribute("cartList",cartList);
-//		PcDataDTO pcdatadto = new PcDataDTO();
-//		int totalPrice = pcdatadto.getTotalPrice();
-//		model.addAttribute("totalPrice",totalPrice);
 		return "shopping/productListLayout";
 	}
 
@@ -365,21 +362,6 @@ public class ShoppingController {
 		// 購入日取得
 		Date purchaseDate = purchaseService.selectPurchaseDate(purchaseNumber);
 
-//		SimpleDateFormat sdfYear = new SimpleDateFormat("yyyy");
-//		String purchaseStringDateYear = sdfYear.format(purchaseDate);
-//		String yearTrim0 = purchaseStringDateYear.replaceFirst("^0+", "");
-//		int year = Integer.parseInt(yearTrim0);
-//
-//		SimpleDateFormat sdfMonth = new SimpleDateFormat("MM");
-//		String purchaseStringDateMonth = sdfMonth.format(purchaseDate);
-//		String monthTrim0 = purchaseStringDateMonth.replaceFirst("^0+", "");
-//		int month = Integer.parseInt(monthTrim0);
-//
-//		SimpleDateFormat sdfDay = new SimpleDateFormat("dd");
-//		String purchaseStringDateDay = sdfDay.format(purchaseDate);
-//		String dayTrim0 = purchaseStringDateDay.replaceFirst("^0+", "");
-//		int day = Integer.parseInt(dayTrim0);
-
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(purchaseDate);
 		calendar.add(Calendar.DATE, 3);
@@ -394,49 +376,6 @@ public class ShoppingController {
 
 		model.addAttribute("purchaseDate", purchaseDate);
 		model.addAttribute("purchaseDateNext", purchaseDateNext);
-
-//		calendar.set(Calendar.YEAR, year);
-//		calendar.set(Calendar.MONTH, month - 1);
-//		calendar.set(Calendar.DATE, day + 5);
-//		int getYear = calendar.get(Calendar.YEAR);
-//		int getMonth = calendar.get(Calendar.MONTH);
-//		int getDay = calendar.get(Calendar.DATE);
-//		System.out.println("testmonth" + (getMonth + 1));
-//		System.out.println("testgetDay" + getDay);
-
-//-する
-
-		return "shopping/productListLayout";
-
-	}
-
-	@GetMapping("/clearing/{id}")
-	public String getClearing(@ModelAttribute CreditForm form, Model model,
-			@RequestParam("customPrice") int customPrice, @PathVariable("id") int id) {
-		model.addAttribute("contents", "shopping/clearing::productListLayout_contents");
-
-		System.out.println(id);// 商品番号
-		System.out.println(customPrice);// 決済金額
-		model.addAttribute("customPrice", customPrice);
-		return "shopping/productListLayout";
-	}
-
-	@PostMapping("/clearing/{id}")
-	public String postClearing(@ModelAttribute CreditForm form, Model model,
-			@RequestParam("customPrice") int customPrice, @PathVariable("id") int id) {
-		model.addAttribute("contents", "shopping/productReceiving::productListLayout_contents");
-		CreditDTO creditdto = new CreditDTO();
-		// ユーザーが入力した決済番号
-		creditdto.setDigits_3_code(form.getDigits_3_code());
-		creditdto.setCardName(form.getCardName());
-		creditdto.setCardNumber(form.getCardNumber());
-
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		System.out.println("auth" + auth.getName());
-		String getName = auth.getName();
-
-		// 決済でカード内容入力したユーザーがクレジット登録をしているか確認 そのユーザのユーザIDのカード情報が取れていればその情報と入力した情報を比べる
-		CreditDTO getCredit = creditService.selectOne(getName);
 
 		return "shopping/productListLayout";
 
@@ -458,11 +397,11 @@ public class ShoppingController {
 			int totalPrice = 0;
 			for (int i = 0; i < cartList.size(); i++) {
 				PcDataDTO pcdatadto = cartList.get(i);
-				totalPrice = totalPrice + pcdatadto.getProduct_count() * (pcdatadto.getPrice() + pcdatadto.getCustomPrice());
+				totalPrice = totalPrice
+						+ pcdatadto.getProduct_count() * (pcdatadto.getPrice() + pcdatadto.getCustomPrice());
 				System.out.println("テストtotalPrice" + totalPrice);
 				model.addAttribute("totalPrice", totalPrice);
-				// model.addAttribute("product_count",pcdatadto.getProduct_count());
-				// form.setProduct_count(pcdatadto.getProduct_count());
+
 			}
 		}
 
@@ -471,25 +410,25 @@ public class ShoppingController {
 
 		return "shopping/productListLayout";
 	}
-	
-	@GetMapping(value = "/cart/{id}",params = "customUpdate")
-	public String customUpdate(@ModelAttribute PcDetailDataForm form,RedirectAttributes redirectattributes,HttpServletRequest request, HttpServletResponse response,Model model,@PathVariable("id") int id) {
+
+	@GetMapping(value = "/cart/{id}", params = "customUpdate")
+	public String customUpdate(@ModelAttribute PcDetailDataForm form, RedirectAttributes redirectattributes,
+			HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable("id") int id) {
 		String memory = form.getMemory();
 		String hardDisc = form.getHardDisc();
 		String cpu = form.getCpu();
-		
+
 		PcDetailDataDTO pcdetaildatadto = new PcDetailDataDTO();
 		pcdetaildatadto.setMemory(form.getMemory());
 		pcdetaildatadto.setHardDisc(form.getHardDisc());
 		pcdetaildatadto.setMemory(form.getCpu());
-		
-		
+
 		PcDataDTO pcdatadto = pcdataService.selectOne(id);
 		int getPrice = pcdatadto.getPrice();
 		int priceSumCustom = pcdatadto.getPrice();
-		
+
 		int customPrice = 0;
-		
+
 		if (memory.equals("8GB")) {
 			getPrice = getPrice + 5000;
 			customPrice = customPrice + 5000;
@@ -544,26 +483,29 @@ public class ShoppingController {
 			getPrice = getPrice + 100000;
 			customPrice = customPrice + 100000;
 		}
-		
+
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 		String user_id = auth.getName();
-		
+
 		// ログインユーザーのID取得
 		int select_id = usersService.select_id(user_id);
-		
-		int result = customService.insertOne(id,select_id,memory,hardDisc,cpu,customPrice);
-		
+
+		int result = customService.UpdateOne(id, select_id, memory, hardDisc, cpu, customPrice);
+
 		HttpSession session = request.getSession();
-		session.setAttribute("afterCustom",priceSumCustom + customPrice);
-		
-		model.addAttribute("afterCustom",priceSumCustom + customPrice);		
-		
-		//カスタム後に商品詳細画面にリダイレクト
+		session.setAttribute("afterCustom", priceSumCustom + customPrice);
+		session.setAttribute("memory", memory);
+		session.setAttribute("hardDisc", hardDisc);
+		session.setAttribute("cpu", cpu);
+
+		model.addAttribute("afterCustom", priceSumCustom + customPrice);
+
+		// カスタム後に商品詳細画面にリダイレクト
 		return "redirect:/productDetail/{id}";
 	}
 
-	@GetMapping(value = "/cart/{id}",params = "cartAdd")
+	@GetMapping(value = "/cart/{id}", params = "cartAdd")
 	public String getCart(@ModelAttribute CartForm form, Model model, RedirectAttributes redirectattributes,
 			@PathVariable("id") int product_id) {
 		model.addAttribute("contents", "shopping/cart::productListLayout_contents");
@@ -619,7 +561,9 @@ public class ShoppingController {
 
 		int getId = usersService.select_id(getName);
 
-		int result = cartService.deleteOne(id, getId);
+		int deleteCartResult = cartService.deleteOne(id, getId);
+
+		int deleteCustomResult = customService.deleteCustomOne(id, getId);
 
 		return "redirect:/cart";
 	}
@@ -665,16 +609,12 @@ public class ShoppingController {
 		int totalPrice = 0;
 		for (int i = 0; i < cartList.size(); i++) {
 			PcDataDTO pcdatadto = cartList.get(i);
-			totalPrice = totalPrice + pcdatadto.getProduct_count() * pcdatadto.getPrice();
+			totalPrice = totalPrice + pcdatadto.getProduct_count() * pcdatadto.getAfterCustomPrice();
 			System.out.println("totalPrice" + totalPrice);
 			model.addAttribute("totalPrice", totalPrice);
 		}
-		// String cardNumber = (String) model.getAttribute("cardNumber");
-		// System.out.println("cardNumber " + cardNumber);
-		int getId = usersService.select_id(getName);
 
-//		CreditDTO creditList = creditService.clearingSelectOne(getId);
-//		model.addAttribute("creditList",creditList);
+		int getId = usersService.select_id(getName);
 
 		System.out.println("cartList " + cartList);
 		model.addAttribute("cartList", cartList);
@@ -722,11 +662,15 @@ public class ShoppingController {
 		PurchaseDTO purchasedto = new PurchaseDTO();
 
 		for (int i = 0; i < cartList.size(); i++) {
+
 			CartDTO cartdto = cartList.get(i);
+			int cartId = cartdto.getId();
+			// int selectProductId = cartService.selectProductId(cartId);
 			int purchaseId = cartdto.getProduct_id();
+			int customId = customService.selectCustomId(purchaseId);
 			int purchaseCount = cartdto.getProduct_count();
 			int purchaseInsertResult = purchaseService.insert(purchasedto, purchaseId, purchaseCount, select_id,
-					purchaseCreditId);
+					purchaseCreditId, customId);
 
 		}
 

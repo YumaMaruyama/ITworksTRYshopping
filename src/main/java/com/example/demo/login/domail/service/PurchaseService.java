@@ -16,8 +16,8 @@ public class PurchaseService {
 	@Autowired
 	PurchaseDao dao;
 
-	public int insert(PurchaseDTO purchasedto,int purchaseId,int purchaseCount,int select_id,int purchaseCreditId) {
-		int result = dao.insert(purchasedto,purchaseId,purchaseCount,select_id,purchaseCreditId);
+	public int insert(PurchaseDTO purchasedto,int purchaseId,int purchaseCount,int select_id,int purchaseCreditId,int customId) {
+		int result = dao.insert(purchasedto,purchaseId,purchaseCount,select_id,purchaseCreditId,customId);
 
 		if(result > 0) {
 			System.out.println("insert成功");

@@ -29,5 +29,6 @@ public interface CartDao {
 
 	public List<CartDTO> purchaseSelectMany(int select_id);
 
+	//public int selectProductId(int cartId);
 
 }

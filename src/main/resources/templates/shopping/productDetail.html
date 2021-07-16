@@ -84,13 +84,13 @@
 							<option value="32GB">32GB(40000円UP)</option>
 					</select></td>
 
-					<th class="text-center">ハードディスク</th>
+					<th class="text-center">ハードディスク選択</th>
 					<td class="text-center"><select th:field="*{hardDisc}">
 							<option value="SSD">SSD</option>
 							<option value="HDD">HDD(1000円UP)</option>
 					</select></td>
 
-					<th class="text-center">CPU</th>
+					<th class="text-center">CPU選択</th>
 					<td class="text-center"><select th:field="*{cpu}">
 							<option value="CORE3">CORE3</option>
 							<option value="CORE5">CORE5(20000円UP)</option>
@@ -104,12 +104,25 @@
 				</tr>
 			</table>
 			
+			<table class="table table-hover table-bordered">
+				<tr>
+					<th class="text-center" >現在のメモリ</th>
+					<td class="text-center" th:text="${memory}"></td>
+					
+					<th class="text-center" >現在のハードディスク</th>
+					<td class="text-center" th:text="${hardDisc}"></td>
+					
+					<th class="text-center" >現在のCPU</th>
+					<td class="text-center" th:text="${cpu}"></td>
+				</tr>
+			</table>
+			
 			<table class="col-sm-6 table table-bordered table-hover costomTableDesign">
 			<tr>
 			<th style="width: 140px;">
 			<button class="btn btn--yellow btn--cubic" name="customUpdate">カスタム更新</button>
 			<td class="text-right customAfterPriceDesign">カスタム後値段:</td>
-			<td class="text-left customPriceDesign" th:text="${afterCustom}"></td>
+			<td class="text-left customPriceDesign"  th:text="${afterCustom} + '円'"></td>
 			</th>
 			</tr>
 			</table>
