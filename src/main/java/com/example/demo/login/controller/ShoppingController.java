@@ -1,5 +1,6 @@
 package com.example.demo.login.controller;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -676,6 +677,66 @@ public class ShoppingController {
 
 		// return "redirect:/after_purchase";
 		return getAfter_purchase(model);
+	}
+
+	@GetMapping("/purchaseHistory")
+	public String getPurchaseHistory(@ModelAttribute PcDataForm form,Model model) {
+		model.addAttribute("contents", "shopping/purchaseHistory::productListLayout_contents");
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println("auth" + auth.getName());
+		String getName = auth.getName();
+
+		int select_id = usersService.select_id(getName);
+
+		//購入商品情報リスト取得
+		List<PurchaseDTO> purchasedtoList = purchaseService.selectHistory(select_id);
+
+		PurchaseDTO purchasedto = new PurchaseDTO();
+
+		List<PurchaseDTO> allPurchaseList = new ArrayList<>();
+		PurchaseDTO customList;
+		//PurchaseDTO purchasedtoAdd;
+		//購入商品を一つづつ回して値を受け取る
+		for(int i = 0; purchasedtoList.size() > i; i++) {
+			PurchaseDTO purchasedtoAdd = new PurchaseDTO();
+			System.out.println("test1");
+			PurchaseDTO purchaseOne = purchasedtoList.get(i);
+			purchasedtoAdd.setId(purchaseOne.getId());//カスタム情報取得に使用
+			purchasedtoAdd.setPurchase_date(purchaseOne.getPurchase_date());
+			purchasedtoAdd.setPcName(purchaseOne.getPcName());
+			purchasedtoAdd.setPrice(purchaseOne.getPrice());
+			purchasedtoAdd.setProduct_count(purchaseOne.getProduct_count());
+			System.out.println("test2");
+		//購入商品ごとのカスタム情報も取り出す
+			System.out.println("test3");
+			int productId = purchasedtoAdd.getId();
+			System.out.println("productId" + productId);
+		 customList = customService.selectMany(select_id,productId);
+		 System.out.println("costomList" + customList);
+
+		System.out.println("test4");
+
+
+			System.out.println("test5");
+
+		purchasedtoAdd.setMemory(customList.getMemory());
+		purchasedtoAdd.setHardDisc(customList.getHardDisc());
+		purchasedtoAdd.setCpu(customList.getCpu());
+		purchasedtoAdd.setCustomPrice(customList.getCustomPrice());
+		purchasedtoAdd.setTotalPrice(purchaseOne.getProduct_count() * (customList.getCustomPrice() + purchaseOne.getPrice()));
+		System.out.println("test6");
+
+		allPurchaseList.add(purchasedtoAdd);
+		System.out.println("test7");
+		System.out.println("allPurchaseList" + allPurchaseList);
+
+		}
+
+		model.addAttribute("purchaseList",allPurchaseList);
+
+		return "shopping/productListLayout";
+
 	}
 
 	// ログアウト用メソッド

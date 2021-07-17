@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.login.domail.model.PcDetailDataDTO;
+import com.example.demo.login.domail.model.PurchaseDTO;
 import com.example.demo.login.domail.repository.CustomDao;
 
 @Service
@@ -28,11 +29,15 @@ public class CustomService {
 			String defaultCpu,int customPrice) {
 		return dao.insertCustomData(id, select_id, defaultMemory, defaultHardDisc, defaultCpu,customPrice);
 	}
-	
+
 	public int deleteCustomOne(int id,int getId) {
 		return dao.deleteCustomOne(id,getId);
 	}
 	public int selectCustomId(int purchaseId) {
 		return dao.selectCustomId(purchaseId);
+	}
+
+	public PurchaseDTO selectMany(int select_id,int product_id) {
+		return dao.selectMany(select_id,product_id);
 	}
 }

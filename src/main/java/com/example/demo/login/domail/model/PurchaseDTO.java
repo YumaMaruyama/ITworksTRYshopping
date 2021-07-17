@@ -18,6 +18,20 @@ public class PurchaseDTO {
 	private Date purchase_date;
 
 	private int purchaseCreditId;
-	
+
 	private int custom_id;
+
+	private String pcName;
+
+	private int price;
+
+	private String memory;
+
+	private String hardDisc;
+
+	private String cpu;
+
+	private int customPrice;
+
+	private int totalPrice;
 }

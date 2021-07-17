@@ -47,4 +47,8 @@ public class PurchaseService {
 		return result;
 	}
 
+	public List<PurchaseDTO> selectHistory(int select_id) {
+		return dao.selectHistory(select_id);
+	}
+
 }
