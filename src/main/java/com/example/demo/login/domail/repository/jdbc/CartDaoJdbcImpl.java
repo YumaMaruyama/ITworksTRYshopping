@@ -53,8 +53,9 @@ public class CartDaoJdbcImpl implements CartDao {
 			int pcdatadtoOne = product_idList.get(i);
 			System.out.println("pcdatadtoOne" + pcdatadtoOne);
 			List<Map<String, Object>> productList = jdbc.queryForList(
-					"select pcdata.id,pcdata.company,pcdata.os,pcdata.pc_name,pcdata.pc_size,pcdata.price,pcdata.detail,pcdata.product_stock,pcdata.pcimg,pcdata.pcimg2,pcdata.pcimg3,cart.id AS cartId,cart.product_count,custom.id AS customId,custom.memory,custom.hard_disc,custom.cpu,custom.custom_price from pcdata JOIN cart ON pcdata.id = cart.product_id JOIN custom ON pcdata.id = custom.product_id where pcdata.id = ? and custom.user_id = ?",
-					pcdatadtoOne,getId);
+					"select pcdata.id,pcdata.company,pcdata.os,pcdata.pc_name,pcdata.pc_size,pcdata.price,pcdata.detail,pcdata.product_stock,pcdata.pcimg,pcdata.pcimg2,pcdata.pcimg3,cart.id AS cartId,cart.product_count,custom.id AS customId,custom.memory,custom.hard_disc,custom.cpu,custom.custom_price from pcdata JOIN cart ON pcdata.id = cart.product_id JOIN custom ON pcdata.id = custom.product_id where pcdata.id = ? and custom.user_id = ? and cart.user_id = ?",
+					pcdatadtoOne,getId,getId);
+			
 			user_productList.addAll(productList);
 			System.out.println("productList" + productList);
 

@@ -74,17 +74,17 @@ public class CustomDaoJdbcImpl implements CustomDao{
 		return result;
 	}
 
-	public int selectCustomId(int purchaseId) {
-		int result = jdbc.queryForObject("select custom.id from custom where product_id = ?",Integer.class,purchaseId);
+	public int selectCustomId(int purchaseId,int select_id) {
+		int result = jdbc.queryForObject("select custom.id from custom where product_id = ? and user_id = ?",Integer.class,purchaseId,select_id);
 
 		return result;
 
 	}
 
-	public PurchaseDTO selectMany(int select_id,int product_id) {
-		Map<String,Object> map = jdbc.queryForMap("select * from custom where user_id = ? and product_id = ?",select_id,product_id);
+	public PurchaseDTO selectMany(int customId) {
+		Map<String,Object> map = jdbc.queryForMap("select * from custom where id = ?",customId);
 
-
+		System.out.println("textdididididi");
 
 			PurchaseDTO purchasedto = new PurchaseDTO();
 			purchasedto.setMemory((String)map.get("memory"));
@@ -92,7 +92,7 @@ public class CustomDaoJdbcImpl implements CustomDao{
 			purchasedto.setCpu((String)map.get("cpu"));
 			purchasedto.setCustomPrice((int)map.get("custom_price"));
 
-
+			System.out.println("2dkdjffeifjifjjfjeiofj");
 
 		return purchasedto;
 

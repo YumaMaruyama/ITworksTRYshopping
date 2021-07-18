@@ -654,6 +654,9 @@ public class ShoppingController {
 		creditdto.setDigits_3_code(digits_3_code);
 		creditdto.setCardName(cardName);
 		creditdto.setCardNumber(cardNumber);
+		//ここに商品購入したらその商品IDを入れる(customDBに（あらたにcolumnつくってね）)
+		//そうしたらnewcolumn > 0でカスタムDBからカスタムしているだけの奴をのぞいた列を取得できる
+		
 		int insertResult = creditService.clearingInsertOne(creditdto, select_id, totalPrice);
 
 		int purchaseCreditId = creditService.selectMaxId();
@@ -668,7 +671,7 @@ public class ShoppingController {
 			int cartId = cartdto.getId();
 			// int selectProductId = cartService.selectProductId(cartId);
 			int purchaseId = cartdto.getProduct_id();
-			int customId = customService.selectCustomId(purchaseId);
+			int customId = customService.selectCustomId(purchaseId,select_id);
 			int purchaseCount = cartdto.getProduct_count();
 			int purchaseInsertResult = purchaseService.insert(purchasedto, purchaseId, purchaseCount, select_id,
 					purchaseCreditId, customId);
@@ -683,15 +686,16 @@ public class ShoppingController {
 	public String getPurchaseHistory(@ModelAttribute PcDataForm form,Model model) {
 		model.addAttribute("contents", "shopping/purchaseHistory::productListLayout_contents");
 
+		System.out.println("text1");
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 		String getName = auth.getName();
 
 		int select_id = usersService.select_id(getName);
-
+		System.out.println("text1");
 		//購入商品情報リスト取得
 		List<PurchaseDTO> purchasedtoList = purchaseService.selectHistory(select_id);
-
+		System.out.println("text1");
 		PurchaseDTO purchasedto = new PurchaseDTO();
 
 		List<PurchaseDTO> allPurchaseList = new ArrayList<>();
@@ -707,16 +711,22 @@ public class ShoppingController {
 			purchasedtoAdd.setPcName(purchaseOne.getPcName());
 			purchasedtoAdd.setPrice(purchaseOne.getPrice());
 			purchasedtoAdd.setProduct_count(purchaseOne.getProduct_count());
+			purchasedtoAdd.setCustom_id(purchaseOne.getCustom_id());
 			System.out.println("test2");
 		//購入商品ごとのカスタム情報も取り出す
 			System.out.println("test3");
 			int productId = purchasedtoAdd.getId();
 			System.out.println("productId" + productId);
-		 customList = customService.selectMany(select_id,productId);
+			System.out.println(select_id);
+			int customId = purchasedtoAdd.getCustom_id();
+			System.out.println("customId");
+			//ここにはカスタムID(purchaseDB)を入れる　購入のIDを入れているからでないんだよ 上のhistoryでもカスタムIDを取得できないからカスタムテーブルに商品購入時に購入マークを入れる
+			
+		 customList = customService.selectMany(customId);
 		 System.out.println("costomList" + customList);
 
 		System.out.println("test4");
-
+		System.out.println("text1");
 
 			System.out.println("test5");
 

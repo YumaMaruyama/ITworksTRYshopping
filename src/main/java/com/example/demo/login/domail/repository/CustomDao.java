@@ -16,7 +16,7 @@ public interface CustomDao {
 
 	public int deleteCustomOne(int id,int getId);
 
-	public int selectCustomId(int purchaseId);
+	public int selectCustomId(int purchaseId,int select_id);
 
-	public PurchaseDTO selectMany(int select_id,int product_id);
+	public PurchaseDTO selectMany(int customId);
 }

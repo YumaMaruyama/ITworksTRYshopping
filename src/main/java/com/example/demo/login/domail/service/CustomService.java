@@ -33,11 +33,11 @@ public class CustomService {
 	public int deleteCustomOne(int id,int getId) {
 		return dao.deleteCustomOne(id,getId);
 	}
-	public int selectCustomId(int purchaseId) {
-		return dao.selectCustomId(purchaseId);
+	public int selectCustomId(int purchaseId,int select_id) {
+		return dao.selectCustomId(purchaseId,select_id);
 	}
 
-	public PurchaseDTO selectMany(int select_id,int product_id) {
-		return dao.selectMany(select_id,product_id);
+	public PurchaseDTO selectMany(int customId) {
+		return dao.selectMany(customId);
 	}
 }
