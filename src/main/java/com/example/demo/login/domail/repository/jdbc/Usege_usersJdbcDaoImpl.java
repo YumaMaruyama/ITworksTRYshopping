@@ -1,10 +1,16 @@
 package com.example.demo.login.domail.repository.jdbc;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.login.domail.model.Usege_usersDTO;
+import com.example.demo.login.domail.model.UsersListDTO;
 import com.example.demo.login.domail.repository.Usege_usersDao;
 
 @Repository
@@ -31,5 +37,19 @@ public class Usege_usersJdbcDaoImpl implements Usege_usersDao {
 		return address;
 
 	}
-
+	
+	public List<UsersListDTO> selectMany() {
+		List<Map<String,Object>> map = jdbc.queryForList("select * from usege_users");
+		
+		List<UsersListDTO> usegeuserslist = new ArrayList<>();
+		for(Map<String,Object> oneMap : map) {
+			UsersListDTO userslistdto = new UsersListDTO();
+			userslistdto.setBirthday((Date)oneMap.get("birthday"));
+			userslistdto.setAddress((String)oneMap.get("address"));
+			
+			usegeuserslist.add(userslistdto);
+		}
+		
+		return usegeuserslist;
+	}
 }

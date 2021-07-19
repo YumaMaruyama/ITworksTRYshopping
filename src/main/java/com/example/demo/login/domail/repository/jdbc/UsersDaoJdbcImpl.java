@@ -1,5 +1,7 @@
 package com.example.demo.login.domail.repository.jdbc;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.login.domail.model.UsersDTO;
+import com.example.demo.login.domail.model.UsersListDTO;
 import com.example.demo.login.domail.repository.UsersDao;
 
 @Repository
@@ -70,6 +73,21 @@ public class UsersDaoJdbcImpl implements UsersDao {
 		}
 
 		return result;
+	}
+	
+	public List<UsersListDTO> selectMany(String adminCheck) {
+		List<Map<String,Object>> map = jdbc.queryForList("select * from users where role = ?",adminCheck);
+		
+		List<UsersListDTO> usersList = new ArrayList<>();
+		for(Map<String,Object> oneMap : map) {
+			UsersListDTO userslistdto = new UsersListDTO();
+			userslistdto.setUserId((String)oneMap.get("user_id"));
+			userslistdto.setUserName((String)oneMap.get("user_name"));
+			
+			usersList.add(userslistdto);
+		}
+		
+		return usersList;
 	}
 
 }

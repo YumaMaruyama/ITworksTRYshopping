@@ -1,6 +1,9 @@
 package com.example.demo.login.domail.repository;
 
+import java.util.List;
+
 import com.example.demo.login.domail.model.UsersDTO;
+import com.example.demo.login.domail.model.UsersListDTO;
 
 
 public interface UsersDao {
@@ -14,4 +17,6 @@ public interface UsersDao {
 	public String selectId(String user_id);
 
 	public String check(String user_id);
+	
+	public List<UsersListDTO> selectMany(String adminCheck);
 }

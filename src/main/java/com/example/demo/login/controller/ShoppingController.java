@@ -34,6 +34,7 @@ import com.example.demo.login.domail.model.PcDetailDataDTO;
 import com.example.demo.login.domail.model.PcDetailDataForm;
 import com.example.demo.login.domail.model.PurchaseDTO;
 import com.example.demo.login.domail.model.UsersDTO;
+import com.example.demo.login.domail.model.UsersListDTO;
 import com.example.demo.login.domail.model.UsersListForm;
 import com.example.demo.login.domail.service.CartService;
 import com.example.demo.login.domail.service.CreditService;
@@ -66,10 +67,39 @@ public class ShoppingController {
 
 	@GetMapping("usersList")
 	public String getUsersList(@ModelAttribute UsersListForm form,Model model) {
-		model.addAttribute("contents","usersList/shopping::productListLayout_contents");
+		model.addAttribute("contents","shopping/usersList::productListLayout_contents");
 		
-		return "shopping/usersList";
+		String adminCheck = "admin";
+		List<UsersListDTO> getUsers = usersService.selectMany(adminCheck);//管理者以外のusersテーブル情報取得
+		List<UsersListDTO> getUsegeUsers = usegeService.selectMany();
+		
+		List<UsersListDTO> usersDetailManyList = new ArrayList<>();//usersテーブルとusegeusersテーブルの情報をユーザーごとにusersDetailManyListに格納していく
+		for(int i = 0; i < getUsers.size(); i ++) {
+			UsersListDTO userslistdto = new UsersListDTO();//usersテーブルのデータ取得用
+			UsersListDTO usegeuserslistdto = new UsersListDTO();//usegeusersテーブルのデータを取得用
+			UsersListDTO usersdetaillist = new UsersListDTO();//usersとusegeusersテーブルの情報を取得用
+			userslistdto = getUsers.get(i);
+			usegeuserslistdto = getUsegeUsers.get(i);
+			String userId = userslistdto.getUserId();
+			String userName = userslistdto.getUserName();
+			Date birthday = usegeuserslistdto.getBirthday();
+			String address = usegeuserslistdto.getAddress();
+			
+			usersdetaillist.setUserId(userId);
+			usersdetaillist.setUserName(userName);
+			usersdetaillist.setBirthday(birthday);
+			usersdetaillist.setAddress(address);
+		
+			usersDetailManyList.add(usersdetaillist);//各ユーザーの情報を追加していく
+		}
+		
+		model.addAttribute("usersDetailManyList",usersDetailManyList);
+		
+		
+		return "shopping/productListLayout";
 	}
+	
+	
 	
 	@GetMapping("/admin")
 	public String getAdmin(@ModelAttribute PcDataForm form, Model model) {

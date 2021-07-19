@@ -1,9 +1,12 @@
 package com.example.demo.login.domail.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.login.domail.model.UsersDTO;
+import com.example.demo.login.domail.model.UsersListDTO;
 import com.example.demo.login.domail.repository.UsersDao;
 
 @Service
@@ -38,5 +41,9 @@ public class UsersService {
 
 	public String check(String user_id) {
 		return dao.check(user_id);
+	}
+	
+	public List<UsersListDTO> selectMany(String adminCheck) {
+		return dao.selectMany(adminCheck);
 	}
 }
