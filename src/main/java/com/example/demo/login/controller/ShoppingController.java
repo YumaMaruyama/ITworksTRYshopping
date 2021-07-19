@@ -99,6 +99,12 @@ public class ShoppingController {
 		return "shopping/productListLayout";
 	}
 	
+	@PostMapping(value = "usersList",params = "detail")
+	public String postUsersListDetail(@ModelAttribute UsersListForm form,Model model) {
+		model.addAttribute("contents","shopping/usersListDetail::productListLayout");
+		
+	}
+	
 	
 	
 	@GetMapping("/admin")

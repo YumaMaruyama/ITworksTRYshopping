@@ -76,7 +76,7 @@ public class UsersDaoJdbcImpl implements UsersDao {
 	}
 	
 	public List<UsersListDTO> selectMany(String adminCheck) {
-		List<Map<String,Object>> map = jdbc.queryForList("select * from users where role = ?",adminCheck);
+		List<Map<String,Object>> map = jdbc.queryForList("select * from users where role != ?",adminCheck);
 		
 		List<UsersListDTO> usersList = new ArrayList<>();
 		for(Map<String,Object> oneMap : map) {

@@ -39,7 +39,7 @@ public class Usege_usersJdbcDaoImpl implements Usege_usersDao {
 	}
 	
 	public List<UsersListDTO> selectMany() {
-		List<Map<String,Object>> map = jdbc.queryForList("select * from usege_users");
+		List<Map<String,Object>> map = jdbc.queryForList("select * from usege_users where id != 1");
 		
 		List<UsersListDTO> usegeuserslist = new ArrayList<>();
 		for(Map<String,Object> oneMap : map) {
