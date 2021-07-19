@@ -34,6 +34,7 @@ import com.example.demo.login.domail.model.PcDetailDataDTO;
 import com.example.demo.login.domail.model.PcDetailDataForm;
 import com.example.demo.login.domail.model.PurchaseDTO;
 import com.example.demo.login.domail.model.UsersDTO;
+import com.example.demo.login.domail.model.UsersListForm;
 import com.example.demo.login.domail.service.CartService;
 import com.example.demo.login.domail.service.CreditService;
 import com.example.demo.login.domail.service.CustomService;
@@ -63,6 +64,13 @@ public class ShoppingController {
 	@Autowired // Sessionが使用できる
 	HttpSession session;
 
+	@GetMapping("usersList")
+	public String getUsersList(@ModelAttribute UsersListForm form,Model model) {
+		model.addAttribute("contents","usersList/shopping::productListLayout_contents");
+		
+		return "shopping/usersList";
+	}
+	
 	@GetMapping("/admin")
 	public String getAdmin(@ModelAttribute PcDataForm form, Model model) {
 		model.addAttribute("contents", "shopping/admin::productListLayout_contents");
