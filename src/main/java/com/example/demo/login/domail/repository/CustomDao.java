@@ -19,4 +19,8 @@ public interface CustomDao {
 	public int selectCustomId(int purchaseId,int select_id);
 
 	public PurchaseDTO selectMany(int customId);
+	
+	public int purchaseCheckUpdate(int select_id,int product_id);
+	
+	public int selectPurchaseCheck(int select_id,int product_id,String nullCheck);
 }

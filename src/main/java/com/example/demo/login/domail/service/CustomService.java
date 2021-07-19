@@ -40,4 +40,17 @@ public class CustomService {
 	public PurchaseDTO selectMany(int customId) {
 		return dao.selectMany(customId);
 	}
+	
+	public int purchaseCheckUpdate(int select_id,int product_id) {
+		int result = dao.purchaseCheckUpdate(select_id,product_id);
+		if(result > 0) {
+			System.out.println("purchaseCheckUpdate成功");
+		}
+		
+		return result;
+	}
+	
+	public int selectPurchaseCheck(int select_id,int product_id,String nullCheck) {
+		return dao.selectPurchaseCheck(select_id,product_id,nullCheck);
+	}
 }

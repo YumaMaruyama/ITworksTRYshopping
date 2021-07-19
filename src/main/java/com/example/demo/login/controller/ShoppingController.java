@@ -711,7 +711,7 @@ public class ShoppingController {
 			purchasedtoAdd.setPcName(purchaseOne.getPcName());
 			purchasedtoAdd.setPrice(purchaseOne.getPrice());
 			purchasedtoAdd.setProduct_count(purchaseOne.getProduct_count());
-			purchasedtoAdd.setCustom_id(purchaseOne.getCustom_id());
+			//purchasedtoAdd.setCustom_id(purchaseOne.getCustom_id());
 			System.out.println("test2");
 		//購入商品ごとのカスタム情報も取り出す
 			System.out.println("test3");
@@ -720,9 +720,14 @@ public class ShoppingController {
 			System.out.println(select_id);
 			int customId = purchasedtoAdd.getCustom_id();
 			System.out.println("customId");
+			//カスタムテーブルに購入チェックを入れる
+			int result = customService.purchaseCheckUpdate(select_id,purchasedtoAdd.getId());
+			String nullCheck = "null"; 
+			int getCustomId = customService.selectPurchaseCheck(select_id,purchasedtoAdd.getId(),nullCheck);
+			System.out.println("getCustomId" + getCustomId);
 			//ここにはカスタムID(purchaseDB)を入れる　購入のIDを入れているからでないんだよ 上のhistoryでもカスタムIDを取得できないからカスタムテーブルに商品購入時に購入マークを入れる
 			
-		 customList = customService.selectMany(customId);
+		 customList = customService.selectMany(getCustomId);
 		 System.out.println("costomList" + customList);
 
 		System.out.println("test4");
