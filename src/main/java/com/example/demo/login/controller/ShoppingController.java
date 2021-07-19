@@ -80,16 +80,18 @@ public class ShoppingController {
 			UsersListDTO usersdetaillist = new UsersListDTO();//usersとusegeusersテーブルの情報を取得用
 			userslistdto = getUsers.get(i);
 			usegeuserslistdto = getUsegeUsers.get(i);
+			int id = userslistdto.getId();
 			String userId = userslistdto.getUserId();
 			String userName = userslistdto.getUserName();
 			Date birthday = usegeuserslistdto.getBirthday();
 			String address = usegeuserslistdto.getAddress();
 			
+			usersdetaillist.setId(id);
 			usersdetaillist.setUserId(userId);
 			usersdetaillist.setUserName(userName);
 			usersdetaillist.setBirthday(birthday);
 			usersdetaillist.setAddress(address);
-		
+			System.out.println("id" + usersdetaillist.getId());
 			usersDetailManyList.add(usersdetaillist);//各ユーザーの情報を追加していく
 		}
 		
@@ -99,10 +101,34 @@ public class ShoppingController {
 		return "shopping/productListLayout";
 	}
 	
-	@PostMapping(value = "usersList",params = "detail")
-	public String postUsersListDetail(@ModelAttribute UsersListForm form,Model model) {
-		model.addAttribute("contents","shopping/usersListDetail::productListLayout");
+	@PostMapping(value = "usersList",params = "edit")
+	public String postUsersListDetail(@ModelAttribute UsersListForm form,@RequestParam("id") int id,Model model) {
+		model.addAttribute("contents","shopping/usersListDetail::productListLayout_contents");
 		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println("auth" + auth.getName());
+		String user_id = auth.getName();
+		int select_id = usersService.select_id(user_id);
+		
+		UsersListDTO getUsers = usersService.selectOne(id);//管理者以外のusersテーブル情報取得
+		UsersListDTO getUsegeUsers = usegeService.selectOne(id);
+		
+		UsersListDTO usersdetaillist = new UsersListDTO();//usersとusegeusersテーブルの情報を取得用
+		
+		String userId = getUsers.getUserId();
+		String userName = getUsers.getUserName();
+		Date birthday = getUsegeUsers.getBirthday();
+		String address = getUsegeUsers.getAddress();
+		
+		usersdetaillist.setUserId(userId);
+		usersdetaillist.setUserName(userName);
+		usersdetaillist.setBirthday(birthday);
+		usersdetaillist.setAddress(address);
+		
+		model.addAttribute("usersDetailList",usersdetaillist);
+		
+		return "shopping/productListLayout";
+				
 	}
 	
 	

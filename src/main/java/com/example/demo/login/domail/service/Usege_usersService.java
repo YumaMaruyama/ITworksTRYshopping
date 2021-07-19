@@ -31,4 +31,8 @@ public class Usege_usersService {
 	public List<UsersListDTO> selectMany() {
 		return dao.selectMany();
 	}
-}
+	
+	public UsersListDTO selectOne(int id) {
+		return dao.selectOne(id);
+	}
+ }

@@ -12,4 +12,6 @@ public interface Usege_usersDao {
 	public String selectAddress(int select_id);
 	
 	public List<UsersListDTO> selectMany();
+	
+	public UsersListDTO selectOne(int id);
 }

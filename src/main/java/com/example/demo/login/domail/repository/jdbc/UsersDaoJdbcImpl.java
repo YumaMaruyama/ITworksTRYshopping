@@ -81,6 +81,7 @@ public class UsersDaoJdbcImpl implements UsersDao {
 		List<UsersListDTO> usersList = new ArrayList<>();
 		for(Map<String,Object> oneMap : map) {
 			UsersListDTO userslistdto = new UsersListDTO();
+			userslistdto.setId((int)oneMap.get("id"));
 			userslistdto.setUserId((String)oneMap.get("user_id"));
 			userslistdto.setUserName((String)oneMap.get("user_name"));
 			
@@ -89,5 +90,18 @@ public class UsersDaoJdbcImpl implements UsersDao {
 		
 		return usersList;
 	}
+	
+	public UsersListDTO selectOne(int id) {
+		String adminCheck = "admin";
+		Map<String,Object> map = jdbc.queryForMap("select * from users where id = ? and role != ?",id,adminCheck);
+		
+		UsersListDTO userslistdto = new UsersListDTO();
+		userslistdto.setUserId((String)map.get("user_id"));
+		userslistdto.setUserName((String)map.get("user_name"));
+		
+		return userslistdto;
+	}
+	
+	
 
 }

@@ -46,4 +46,8 @@ public class UsersService {
 	public List<UsersListDTO> selectMany(String adminCheck) {
 		return dao.selectMany(adminCheck);
 	}
+	
+	public UsersListDTO selectOne(int id) {
+		return dao.selectOne(id);
+	}
 }

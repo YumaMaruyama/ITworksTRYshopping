@@ -9,6 +9,8 @@ import lombok.Data;
 @Data
 public class UsersListDTO {
 
+	private int id;
+	
 	private String userId;
 	
 	private String userName;

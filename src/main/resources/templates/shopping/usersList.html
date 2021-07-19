@@ -26,6 +26,7 @@
 			<td class="text-center" th:text="${userslistdto.userName}"></td>
 			<td class="text-center" th:text="${userslistdto.birthday}"></td>
 			<td class="text-center" th:text="${userslistdto.address}"></td>
+			<input type="hidden" name="id" th:value="${userslistdto.id}">
 			<td class="text-center" ><button class="btn btn-primary btnDesign" name="edit">編集</button></td>
 		</tr>
 	</table>

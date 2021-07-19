@@ -19,4 +19,6 @@ public interface UsersDao {
 	public String check(String user_id);
 	
 	public List<UsersListDTO> selectMany(String adminCheck);
+	
+	public UsersListDTO selectOne(int id);
 }
