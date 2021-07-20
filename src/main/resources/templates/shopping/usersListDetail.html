@@ -15,7 +15,7 @@
 			<th class="text-center">登録名</th>
 			<th class="text-center">生年月日</th>
 			<th class="text-center">商品受け取り住所</th>
-			<th class="text-center">管理</th>
+			
 		</tr>
 		
 		<tr>
@@ -23,11 +23,10 @@
 			<td class="text-center" th:text="${userslistdto.userName}"></td>
 			<td class="text-center" th:text="${userslistdto.birthday}"></td>
 			<td class="text-center" th:text="${userslistdto.address}"></td>
-		
-			<td class="text-center" ><button class="btn btn-primary btnDesign" name="purchaseList">この方の購入商品</button></td>
 		</tr>
-		
 	</table>
+	
+		<button class="btn btn-primary">このユーザーを退会させる</button>
 	</form>
 	</div>
 </body>

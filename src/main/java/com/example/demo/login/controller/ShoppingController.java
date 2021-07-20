@@ -65,19 +65,19 @@ public class ShoppingController {
 	@Autowired // Sessionが使用できる
 	HttpSession session;
 
-	@GetMapping("usersList")
-	public String getUsersList(@ModelAttribute UsersListForm form,Model model) {
-		model.addAttribute("contents","shopping/usersList::productListLayout_contents");
-		
+	@GetMapping("/usersList")
+	public String getUsersList(@ModelAttribute UsersListForm form, Model model) {
+		model.addAttribute("contents", "shopping/usersList::productListLayout_contents");
+
 		String adminCheck = "admin";
-		List<UsersListDTO> getUsers = usersService.selectMany(adminCheck);//管理者以外のusersテーブル情報取得
+		List<UsersListDTO> getUsers = usersService.selectMany(adminCheck);// 管理者以外のusersテーブル情報取得
 		List<UsersListDTO> getUsegeUsers = usegeService.selectMany();
-		
-		List<UsersListDTO> usersDetailManyList = new ArrayList<>();//usersテーブルとusegeusersテーブルの情報をユーザーごとにusersDetailManyListに格納していく
-		for(int i = 0; i < getUsers.size(); i ++) {
-			UsersListDTO userslistdto = new UsersListDTO();//usersテーブルのデータ取得用
-			UsersListDTO usegeuserslistdto = new UsersListDTO();//usegeusersテーブルのデータを取得用
-			UsersListDTO usersdetaillist = new UsersListDTO();//usersとusegeusersテーブルの情報を取得用
+
+		List<UsersListDTO> usersDetailManyList = new ArrayList<>();// usersテーブルとusegeusersテーブルの情報をユーザーごとにusersDetailManyListに格納していく
+		for (int i = 0; i < getUsers.size(); i++) {
+			UsersListDTO userslistdto = new UsersListDTO();// usersテーブルのデータ取得用
+			UsersListDTO usegeuserslistdto = new UsersListDTO();// usegeusersテーブルのデータを取得用
+			UsersListDTO usersdetaillist = new UsersListDTO();// usersとusegeusersテーブルの情報を取得用
 			userslistdto = getUsers.get(i);
 			usegeuserslistdto = getUsegeUsers.get(i);
 			int id = userslistdto.getId();
@@ -85,54 +85,111 @@ public class ShoppingController {
 			String userName = userslistdto.getUserName();
 			Date birthday = usegeuserslistdto.getBirthday();
 			String address = usegeuserslistdto.getAddress();
-			
+
 			usersdetaillist.setId(id);
 			usersdetaillist.setUserId(userId);
 			usersdetaillist.setUserName(userName);
 			usersdetaillist.setBirthday(birthday);
 			usersdetaillist.setAddress(address);
 			System.out.println("id" + usersdetaillist.getId());
-			usersDetailManyList.add(usersdetaillist);//各ユーザーの情報を追加していく
+			usersDetailManyList.add(usersdetaillist);// 各ユーザーの情報を追加していく
 		}
-		
-		model.addAttribute("usersDetailManyList",usersDetailManyList);
-		
-		
+
+		model.addAttribute("usersDetailManyList", usersDetailManyList);
+
 		return "shopping/productListLayout";
 	}
+
+	@GetMapping("/usersListDetail/{id}")
+	public String GetUsersListDetail(@ModelAttribute UsersListForm form, @PathVariable("id") int id, Model model) {
+		model.addAttribute("contents", "shopping/usersListDetail::productListLayout_contents");
+
 	
-	@PostMapping(value = "usersList",params = "edit")
-	public String postUsersListDetail(@ModelAttribute UsersListForm form,@RequestParam("id") int id,Model model) {
-		model.addAttribute("contents","shopping/usersListDetail::productListLayout_contents");
-		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 		String user_id = auth.getName();
 		int select_id = usersService.select_id(user_id);
-		
-		UsersListDTO getUsers = usersService.selectOne(id);//管理者以外のusersテーブル情報取得
+
+		UsersListDTO getUsers = usersService.selectOne(id);// 管理者以外のusersテーブル情報取得
 		UsersListDTO getUsegeUsers = usegeService.selectOne(id);
-		
-		UsersListDTO usersdetaillist = new UsersListDTO();//usersとusegeusersテーブルの情報を取得用
-		
+
+		UsersListDTO usersdetaillist = new UsersListDTO();// usersとusegeusersテーブルの情報を取得用
+
 		String userId = getUsers.getUserId();
 		String userName = getUsers.getUserName();
 		Date birthday = getUsegeUsers.getBirthday();
 		String address = getUsegeUsers.getAddress();
-		
+
 		usersdetaillist.setUserId(userId);
 		usersdetaillist.setUserName(userName);
 		usersdetaillist.setBirthday(birthday);
 		usersdetaillist.setAddress(address);
-		
-		model.addAttribute("usersDetailList",usersdetaillist);
-		
+
+		model.addAttribute("usersDetailList", usersdetaillist);
+
 		return "shopping/productListLayout";
-				
+
 	}
-	
-	
-	
+
+	@GetMapping("/userPurchaseHistory/{id}")
+	public String getUserPurchaseList(@ModelAttribute UsersListForm form, @PathVariable("id") int id,
+			Model model) {
+		model.addAttribute("contents", "shopping/userPurchaseHistory::productListLayout_contents");
+
+		// ユーザーの購入商品情報リスト取得
+		List<PurchaseDTO> purchasedtoList = purchaseService.selectHistory(id);
+		System.out.println("text1");
+		PurchaseDTO purchasedto = new PurchaseDTO();
+
+		List<PurchaseDTO> allPurchaseList = new ArrayList<>();
+		PurchaseDTO customList;
+		// PurchaseDTO purchasedtoAdd;
+		// 購入商品を一つづつ回して値を受け取る
+		for (int i = 0; purchasedtoList.size() > i; i++) {
+			PurchaseDTO purchasedtoAdd = new PurchaseDTO();
+			System.out.println("test1");
+			PurchaseDTO purchaseOne = purchasedtoList.get(i);
+			purchasedtoAdd.setId(purchaseOne.getId());// カスタム情報取得に使用
+			purchasedtoAdd.setPurchase_date(purchaseOne.getPurchase_date());
+			purchasedtoAdd.setPcName(purchaseOne.getPcName());
+			purchasedtoAdd.setPrice(purchaseOne.getPrice());
+			purchasedtoAdd.setProduct_count(purchaseOne.getProduct_count());
+
+			System.out.println("test2");
+			// 購入商品ごとのカスタム情報を取得
+			System.out.println("test3");
+			int productId = purchasedtoAdd.getId();
+			System.out.println("productId" + productId);
+			System.out.println(id);
+			int customId = purchasedtoAdd.getCustom_id();
+			System.out.println("customId");
+			// カスタムテーブルに購入チェックをつける
+			int result = customService.purchaseCheckUpdate(id, purchasedtoAdd.getId());
+			String nullCheck = "null";
+			int getCustomId = customService.selectPurchaseCheck(id, purchasedtoAdd.getId(), nullCheck);
+			System.out.println("getCustomId" + getCustomId);
+
+			customList = customService.selectMany(getCustomId);
+			System.out.println("costomList" + customList);
+
+			purchasedtoAdd.setMemory(customList.getMemory());
+			purchasedtoAdd.setHardDisc(customList.getHardDisc());
+			purchasedtoAdd.setCpu(customList.getCpu());
+			purchasedtoAdd.setCustomPrice(customList.getCustomPrice());
+			purchasedtoAdd.setTotalPrice(
+					purchaseOne.getProduct_count() * (customList.getCustomPrice() + purchaseOne.getPrice()));
+
+			allPurchaseList.add(purchasedtoAdd);
+
+			System.out.println("allPurchaseList" + allPurchaseList);
+
+		}
+
+		model.addAttribute("purchaseList", allPurchaseList);
+
+		return "shopping/productListLayout";
+	}
+
 	@GetMapping("/admin")
 	public String getAdmin(@ModelAttribute PcDataForm form, Model model) {
 		model.addAttribute("contents", "shopping/admin::productListLayout_contents");
@@ -724,9 +781,9 @@ public class ShoppingController {
 		creditdto.setDigits_3_code(digits_3_code);
 		creditdto.setCardName(cardName);
 		creditdto.setCardNumber(cardNumber);
-		//ここに商品購入したらその商品IDを入れる(customDBに（あらたにcolumnつくってね）)
-		//そうしたらnewcolumn > 0でカスタムDBからカスタムしているだけの奴をのぞいた列を取得できる
-		
+		// ここに商品購入したらその商品IDを入れる(customDBに（あらたにcolumnつくってね）)
+		// そうしたらnewcolumn > 0でカスタムDBからカスタムしているだけの奴をのぞいた列を取得できる
+
 		int insertResult = creditService.clearingInsertOne(creditdto, select_id, totalPrice);
 
 		int purchaseCreditId = creditService.selectMaxId();
@@ -741,7 +798,7 @@ public class ShoppingController {
 			int cartId = cartdto.getId();
 			// int selectProductId = cartService.selectProductId(cartId);
 			int purchaseId = cartdto.getProduct_id();
-			int customId = customService.selectCustomId(purchaseId,select_id);
+			int customId = customService.selectCustomId(purchaseId, select_id);
 			int purchaseCount = cartdto.getProduct_count();
 			int purchaseInsertResult = purchaseService.insert(purchasedto, purchaseId, purchaseCount, select_id,
 					purchaseCreditId, customId);
@@ -753,7 +810,7 @@ public class ShoppingController {
 	}
 
 	@GetMapping("/purchaseHistory")
-	public String getPurchaseHistory(@ModelAttribute PcDataForm form,Model model) {
+	public String getPurchaseHistory(@ModelAttribute PcDataForm form, Model model) {
 		model.addAttribute("contents", "shopping/purchaseHistory::productListLayout_contents");
 
 		System.out.println("text1");
@@ -763,62 +820,64 @@ public class ShoppingController {
 
 		int select_id = usersService.select_id(getName);
 		System.out.println("text1");
-		//購入商品情報リスト取得
+		// 購入商品情報リスト取得
 		List<PurchaseDTO> purchasedtoList = purchaseService.selectHistory(select_id);
 		System.out.println("text1");
 		PurchaseDTO purchasedto = new PurchaseDTO();
 
 		List<PurchaseDTO> allPurchaseList = new ArrayList<>();
 		PurchaseDTO customList;
-		//PurchaseDTO purchasedtoAdd;
-		//購入商品を一つづつ回して値を受け取る
-		for(int i = 0; purchasedtoList.size() > i; i++) {
+		// PurchaseDTO purchasedtoAdd;
+		// 購入商品を一つづつ回して値を受け取る
+		for (int i = 0; purchasedtoList.size() > i; i++) {
 			PurchaseDTO purchasedtoAdd = new PurchaseDTO();
 			System.out.println("test1");
 			PurchaseDTO purchaseOne = purchasedtoList.get(i);
-			purchasedtoAdd.setId(purchaseOne.getId());//カスタム情報取得に使用
+			purchasedtoAdd.setId(purchaseOne.getId());// カスタム情報取得に使用
 			purchasedtoAdd.setPurchase_date(purchaseOne.getPurchase_date());
 			purchasedtoAdd.setPcName(purchaseOne.getPcName());
 			purchasedtoAdd.setPrice(purchaseOne.getPrice());
 			purchasedtoAdd.setProduct_count(purchaseOne.getProduct_count());
-			//purchasedtoAdd.setCustom_id(purchaseOne.getCustom_id());
+			// purchasedtoAdd.setCustom_id(purchaseOne.getCustom_id());
 			System.out.println("test2");
-		//購入商品ごとのカスタム情報も取り出す
+			// 購入商品ごとのカスタム情報も取り出す
 			System.out.println("test3");
 			int productId = purchasedtoAdd.getId();
 			System.out.println("productId" + productId);
 			System.out.println(select_id);
 			int customId = purchasedtoAdd.getCustom_id();
 			System.out.println("customId");
-			//カスタムテーブルに購入チェックを入れる
-			int result = customService.purchaseCheckUpdate(select_id,purchasedtoAdd.getId());
-			String nullCheck = "null"; 
-			int getCustomId = customService.selectPurchaseCheck(select_id,purchasedtoAdd.getId(),nullCheck);
+			// カスタムテーブルに購入チェックを入れる
+			int result = customService.purchaseCheckUpdate(select_id, purchasedtoAdd.getId());
+			String nullCheck = "null";
+			int getCustomId = customService.selectPurchaseCheck(select_id, purchasedtoAdd.getId(), nullCheck);
 			System.out.println("getCustomId" + getCustomId);
-			//ここにはカスタムID(purchaseDB)を入れる　購入のIDを入れているからでないんだよ 上のhistoryでもカスタムIDを取得できないからカスタムテーブルに商品購入時に購入マークを入れる
-			
-		 customList = customService.selectMany(getCustomId);
-		 System.out.println("costomList" + customList);
+			// ここにはカスタムID(purchaseDB)を入れる 購入のIDを入れているからでないんだよ
+			// 上のhistoryでもカスタムIDを取得できないからカスタムテーブルに商品購入時に購入マークを入れる
 
-		System.out.println("test4");
-		System.out.println("text1");
+			customList = customService.selectMany(getCustomId);
+			System.out.println("costomList" + customList);
+
+			System.out.println("test4");
+			System.out.println("text1");
 
 			System.out.println("test5");
 
-		purchasedtoAdd.setMemory(customList.getMemory());
-		purchasedtoAdd.setHardDisc(customList.getHardDisc());
-		purchasedtoAdd.setCpu(customList.getCpu());
-		purchasedtoAdd.setCustomPrice(customList.getCustomPrice());
-		purchasedtoAdd.setTotalPrice(purchaseOne.getProduct_count() * (customList.getCustomPrice() + purchaseOne.getPrice()));
-		System.out.println("test6");
+			purchasedtoAdd.setMemory(customList.getMemory());
+			purchasedtoAdd.setHardDisc(customList.getHardDisc());
+			purchasedtoAdd.setCpu(customList.getCpu());
+			purchasedtoAdd.setCustomPrice(customList.getCustomPrice());
+			purchasedtoAdd.setTotalPrice(
+					purchaseOne.getProduct_count() * (customList.getCustomPrice() + purchaseOne.getPrice()));
+			System.out.println("test6");
 
-		allPurchaseList.add(purchasedtoAdd);
-		System.out.println("test7");
-		System.out.println("allPurchaseList" + allPurchaseList);
+			allPurchaseList.add(purchasedtoAdd);
+			System.out.println("test7");
+			System.out.println("allPurchaseList" + allPurchaseList);
 
 		}
 
-		model.addAttribute("purchaseList",allPurchaseList);
+		model.addAttribute("purchaseList", allPurchaseList);
 
 		return "shopping/productListLayout";
 

@@ -9,7 +9,7 @@
 <body>
 
 	<div th:fragment="productListLayout_contents">
-	<form method="post" th:action="@{/usersList}" th:object="${usersListForm}">
+	
 	<h3>ユーザーリスト</h3>
 	
 	<table class="table table-hover table-bordered usersListDesign" th:each="userslistdto : ${usersDetailManyList}">
@@ -26,11 +26,11 @@
 			<td class="text-center" th:text="${userslistdto.userName}"></td>
 			<td class="text-center" th:text="${userslistdto.birthday}"></td>
 			<td class="text-center" th:text="${userslistdto.address}"></td>
-			<input type="hidden" name="id" th:value="${userslistdto.id}">
-			<td class="text-center" ><button class="btn btn-primary btnDesign" name="edit">編集</button></td>
+			<td class="text-center" ><a th:href="@{ '/usersListDetail' +  '/' + ${userslistdto.id}}" class="btn btn-primary btnDesign" >編集</a>
+			<a th:href="@{'/userPurchaseHistory' + '/' + ${userslistdto.id}}" class="btn btn-primary btnDesign">購入商品</a></td>
 		</tr>
 	</table>
-	</form>
+	
 	</div>
 </body>
 </html>
