@@ -28,6 +28,7 @@ import com.example.demo.login.domail.model.CartForm;
 import com.example.demo.login.domail.model.CreditDTO;
 import com.example.demo.login.domail.model.CreditForm;
 import com.example.demo.login.domail.model.GroupOrder;
+import com.example.demo.login.domail.model.InquiryDTO;
 import com.example.demo.login.domail.model.InquiryForm;
 import com.example.demo.login.domail.model.PcDataDTO;
 import com.example.demo.login.domail.model.PcDataForm;
@@ -42,6 +43,7 @@ import com.example.demo.login.domail.model.UsersListForm;
 import com.example.demo.login.domail.service.CartService;
 import com.example.demo.login.domail.service.CreditService;
 import com.example.demo.login.domail.service.CustomService;
+import com.example.demo.login.domail.service.InquiryService;
 import com.example.demo.login.domail.service.PcDataService;
 import com.example.demo.login.domail.service.PurchaseService;
 import com.example.demo.login.domail.service.Usege_usersService;
@@ -64,6 +66,8 @@ public class ShoppingController {
 	PurchaseService purchaseService;
 	@Autowired
 	CustomService customService;
+	@Autowired
+	InquiryService inquiryService;
 
 	@Autowired // Sessionが使用できる
 	HttpSession session;
@@ -234,9 +238,34 @@ public class ShoppingController {
 	public String getInquiry(@ModelAttribute InquiryForm form,Model model) {
 		model.addAttribute("contents", "shopping/inquiry::productListLayout_contents");
 		
-		
-		
 		return "shopping/productListLayout";
+	}
+	
+	@PostMapping(value = "inquiry",params = "sending")
+	public String postInquirySending(@ModelAttribute @Validated(GroupOrder.class) InquiryForm form,InquiryForm form2,BindingResult bindingResult,Model model) {
+		
+		if(bindingResult.hasErrors()) {
+			System.out.println("バリデーションエラー到達");
+			return getInquiry(form,model);
+		}
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println("auth" + auth.getName());
+		String user_id = auth.getName();
+		// ログインユーザーのID取得
+		int select_id = usersService.select_id(user_id);
+		
+		InquiryDTO inquirydto = new InquiryDTO();
+		inquirydto.setTitle(form.getTitle());
+		inquirydto.setContent(form.getContent());
+		
+		int result = inquiryService.insertOne(inquirydto,select_id);
+		
+		model.addAttribute("result","お問い合わせありがとうございます。");
+		
+		return getInquiry(form2,model); 
+	
+	
 	}
 
 	@GetMapping("/admin")
