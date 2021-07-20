@@ -108,6 +108,17 @@ public class UsersDaoJdbcImpl implements UsersDao {
 		return result;
 	}
 	
+	public UsersDTO userInformationSelectOne(int selectId) {
+		Map<String,Object> map = jdbc.queryForMap("select * from users where id = ?",selectId);
+		
+		UsersDTO usersdto = new UsersDTO();
+		usersdto.setId((int)map.get("id"));
+		usersdto.setUser_id((String)map.get("user_id"));
+		usersdto.setUser_name((String)map.get("user_name"));
+		
+		return usersdto;
+	}
+	
 	
 
 }

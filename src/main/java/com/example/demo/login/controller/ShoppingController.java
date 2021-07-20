@@ -28,11 +28,14 @@ import com.example.demo.login.domail.model.CartForm;
 import com.example.demo.login.domail.model.CreditDTO;
 import com.example.demo.login.domail.model.CreditForm;
 import com.example.demo.login.domail.model.GroupOrder;
+import com.example.demo.login.domail.model.InquiryForm;
 import com.example.demo.login.domail.model.PcDataDTO;
 import com.example.demo.login.domail.model.PcDataForm;
 import com.example.demo.login.domail.model.PcDetailDataDTO;
 import com.example.demo.login.domail.model.PcDetailDataForm;
 import com.example.demo.login.domail.model.PurchaseDTO;
+import com.example.demo.login.domail.model.Usege_usersDTO;
+import com.example.demo.login.domail.model.UserEditForm;
 import com.example.demo.login.domail.model.UsersDTO;
 import com.example.demo.login.domail.model.UsersListDTO;
 import com.example.demo.login.domail.model.UsersListForm;
@@ -200,6 +203,39 @@ public class ShoppingController {
 
 		model.addAttribute("purchaseList", allPurchaseList);
 
+		return "shopping/productListLayout";
+	}
+	
+	@GetMapping("/editYour")
+	public String getEditYour(@ModelAttribute UserEditForm form,Model model) {
+		model.addAttribute("contents", "shopping/editYour::productListLayout_contents");
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println("auth" + auth.getName());
+		String userId = auth.getName();
+		int selectId = usersService.select_id(userId);
+		
+		UsersDTO usersdto = usersService.userInformationSelectOne(selectId);
+		Usege_usersDTO usegeusersdto = usegeService.userInformationSelectOne(selectId);
+		
+		UsersListDTO userslistdto = new UsersListDTO();
+		userslistdto.setId(usersdto.getId());
+		userslistdto.setUserId(usersdto.getUser_id());
+		userslistdto.setUserName(usersdto.getUser_name());
+		userslistdto.setBirthday(usegeusersdto.getBirthday());
+		userslistdto.setAddress(usegeusersdto.getAddress());
+		
+		model.addAttribute("usersList",userslistdto);
+		
+		return "shopping/productListLayout";
+	}
+	
+	@GetMapping("/inquiry")
+	public String getInquiry(@ModelAttribute InquiryForm form,Model model) {
+		model.addAttribute("contents", "shopping/inquiry::productListLayout_contents");
+		
+		
+		
 		return "shopping/productListLayout";
 	}
 

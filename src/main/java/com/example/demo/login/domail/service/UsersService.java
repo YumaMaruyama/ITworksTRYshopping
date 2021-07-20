@@ -59,4 +59,9 @@ public class UsersService {
 		
 		return result;
 	}
+	
+	public UsersDTO userInformationSelectOne(int selectId) {
+		return dao.userInformationSelectOne(selectId);
+		
+	}
 }

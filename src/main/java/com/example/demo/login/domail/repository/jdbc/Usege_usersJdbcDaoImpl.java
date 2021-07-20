@@ -68,4 +68,14 @@ public class Usege_usersJdbcDaoImpl implements Usege_usersDao {
 		
 		return result;
 	}
+	
+	public Usege_usersDTO userInformationSelectOne(int selectId) {
+		Map<String,Object> map = jdbc.queryForMap("select * from usege_users where user_id = ?",selectId); 
+		Usege_usersDTO usegeusersdto = new Usege_usersDTO();
+		usegeusersdto.setBirthday((Date)map.get("birthday"));
+		usegeusersdto.setAddress((String)map.get("address"));
+		
+		
+		return usegeusersdto;
+	}
 }

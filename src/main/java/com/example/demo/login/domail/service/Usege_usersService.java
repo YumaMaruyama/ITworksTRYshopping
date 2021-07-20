@@ -43,4 +43,8 @@ public class Usege_usersService {
 		}
 		return result;
 	}
+	
+	public Usege_usersDTO userInformationSelectOne(int selectId) {
+		return dao.userInformationSelectOne(selectId);
+	}
  }

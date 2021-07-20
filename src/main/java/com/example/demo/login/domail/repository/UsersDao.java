@@ -23,4 +23,6 @@ public interface UsersDao {
 	public UsersListDTO selectOne(int id);
 	
 	public int deleteOne(int id);
+	
+	public UsersDTO userInformationSelectOne(int selectId);
 }

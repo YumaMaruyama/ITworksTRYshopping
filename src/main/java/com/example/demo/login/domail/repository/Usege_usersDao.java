@@ -16,4 +16,6 @@ public interface Usege_usersDao {
 	public UsersListDTO selectOne(int id);
 	
 	public int deleteOne(int id);
+	
+	public Usege_usersDTO userInformationSelectOne(int selectId);
 }
