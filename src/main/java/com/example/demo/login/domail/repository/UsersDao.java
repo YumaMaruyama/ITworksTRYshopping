@@ -21,4 +21,6 @@ public interface UsersDao {
 	public List<UsersListDTO> selectMany(String adminCheck);
 	
 	public UsersListDTO selectOne(int id);
+	
+	public int deleteOne(int id);
 }

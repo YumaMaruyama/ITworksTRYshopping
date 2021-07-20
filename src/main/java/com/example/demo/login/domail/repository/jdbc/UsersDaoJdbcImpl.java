@@ -102,6 +102,12 @@ public class UsersDaoJdbcImpl implements UsersDao {
 		return userslistdto;
 	}
 	
+	public int deleteOne(int id) {
+		int result = jdbc.update("delete from users where id = ?",id);
+		
+		return result;
+	}
+	
 	
 
 }

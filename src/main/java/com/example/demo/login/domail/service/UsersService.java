@@ -50,4 +50,13 @@ public class UsersService {
 	public UsersListDTO selectOne(int id) {
 		return dao.selectOne(id);
 	}
+	
+	public int deleteOne(int id) {
+		int result = dao.deleteOne(id);
+		if(result > 0) {
+			System.out.println("deleteOne(usersService)成功");
+		}
+		
+		return result;
+	}
 }

@@ -99,11 +99,24 @@ public class ShoppingController {
 
 		return "shopping/productListLayout";
 	}
+	
+	@PostMapping(value = "usersList", params = "unsubscribe")
+	public String postUsersListUnsubscribe(@ModelAttribute UsersListForm form,@RequestParam("id") int id,RedirectAttributes redirectAttributes,Model model) {
+		model.addAttribute("contents", "shopping/usersList::productListLayout_contents");
+		System.out.println("testid" + id);
+		int usersDeleteResult = usersService.deleteOne(id); 
+		int usegeUsersDeleteResult = usegeService.deleteOne(id);
+		
+		
+		
+		
+		return "redirect:/usersList";
+	}
 
 	@GetMapping("/usersListDetail/{id}")
 	public String GetUsersListDetail(@ModelAttribute UsersListForm form, @PathVariable("id") int id, Model model) {
 		model.addAttribute("contents", "shopping/usersListDetail::productListLayout_contents");
-
+		
 	
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
@@ -126,7 +139,7 @@ public class ShoppingController {
 		usersdetaillist.setAddress(address);
 
 		model.addAttribute("usersDetailList", usersdetaillist);
-
+		model.addAttribute("userId",id);//ユーザを退会させるためのユーザーのID
 		return "shopping/productListLayout";
 
 	}

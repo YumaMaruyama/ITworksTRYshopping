@@ -61,6 +61,11 @@ public class Usege_usersJdbcDaoImpl implements Usege_usersDao {
 		
 		return usegeuserslistdto;
 		
+	}
+	
+	public int deleteOne(int id) {
+		int result = jdbc.update("delete from usege_users where user_id = ?",id);
 		
+		return result;
 	}
 }
