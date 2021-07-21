@@ -19,4 +19,6 @@ public class InquiryDTO {
 	private Date registrationDate;
 	
 	private Date finishedDate;
+	
+	private String userName;
 }

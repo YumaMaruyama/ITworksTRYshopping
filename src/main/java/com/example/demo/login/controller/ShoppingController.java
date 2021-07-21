@@ -106,25 +106,22 @@ public class ShoppingController {
 
 		return "shopping/productListLayout";
 	}
-	
+
 	@PostMapping(value = "usersList", params = "unsubscribe")
-	public String postUsersListUnsubscribe(@ModelAttribute UsersListForm form,@RequestParam("id") int id,RedirectAttributes redirectAttributes,Model model) {
+	public String postUsersListUnsubscribe(@ModelAttribute UsersListForm form, @RequestParam("id") int id,
+			RedirectAttributes redirectAttributes, Model model) {
 		model.addAttribute("contents", "shopping/usersList::productListLayout_contents");
 		System.out.println("testid" + id);
-		int usersDeleteResult = usersService.deleteOne(id); 
+		int usersDeleteResult = usersService.deleteOne(id);
 		int usegeUsersDeleteResult = usegeService.deleteOne(id);
-		
-		
-		
-		
+
 		return "redirect:/usersList";
 	}
 
 	@GetMapping("/usersListDetail/{id}")
 	public String GetUsersListDetail(@ModelAttribute UsersListForm form, @PathVariable("id") int id, Model model) {
 		model.addAttribute("contents", "shopping/usersListDetail::productListLayout_contents");
-		
-	
+
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 		String user_id = auth.getName();
@@ -146,14 +143,13 @@ public class ShoppingController {
 		usersdetaillist.setAddress(address);
 
 		model.addAttribute("usersDetailList", usersdetaillist);
-		model.addAttribute("userId",id);//ユーザを退会させるためのユーザーのID
+		model.addAttribute("userId", id);// ユーザを退会させるためのユーザーのID
 		return "shopping/productListLayout";
 
 	}
 
 	@GetMapping("/userPurchaseHistory/{id}")
-	public String getUserPurchaseList(@ModelAttribute UsersListForm form, @PathVariable("id") int id,
-			Model model) {
+	public String getUserPurchaseList(@ModelAttribute UsersListForm form, @PathVariable("id") int id, Model model) {
 		model.addAttribute("contents", "shopping/userPurchaseHistory::productListLayout_contents");
 
 		// ユーザーの購入商品情報リスト取得
@@ -209,63 +205,98 @@ public class ShoppingController {
 
 		return "shopping/productListLayout";
 	}
-	
+
 	@GetMapping("/editYour")
-	public String getEditYour(@ModelAttribute UserEditForm form,Model model) {
+	public String getEditYour(@ModelAttribute UserEditForm form, Model model) {
 		model.addAttribute("contents", "shopping/editYour::productListLayout_contents");
-		
+
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 		String userId = auth.getName();
 		int selectId = usersService.select_id(userId);
-		
+
 		UsersDTO usersdto = usersService.userInformationSelectOne(selectId);
 		Usege_usersDTO usegeusersdto = usegeService.userInformationSelectOne(selectId);
-		
+
 		UsersListDTO userslistdto = new UsersListDTO();
 		userslistdto.setId(usersdto.getId());
 		userslistdto.setUserId(usersdto.getUser_id());
 		userslistdto.setUserName(usersdto.getUser_name());
 		userslistdto.setBirthday(usegeusersdto.getBirthday());
 		userslistdto.setAddress(usegeusersdto.getAddress());
-		
-		model.addAttribute("usersList",userslistdto);
-		
+
+		model.addAttribute("usersList", userslistdto);
+
 		return "shopping/productListLayout";
 	}
-	
+
 	@GetMapping("/inquiry")
-	public String getInquiry(@ModelAttribute InquiryForm form,Model model) {
+	public String getInquiry(@ModelAttribute InquiryForm form, Model model) {
 		model.addAttribute("contents", "shopping/inquiry::productListLayout_contents");
-		
+
 		return "shopping/productListLayout";
 	}
-	
-	@PostMapping(value = "inquiry",params = "sending")
-	public String postInquirySending(@ModelAttribute @Validated(GroupOrder.class) InquiryForm form,InquiryForm form2,BindingResult bindingResult,Model model) {
-		
-		if(bindingResult.hasErrors()) {
+
+	@PostMapping(value = "inquiry", params = "sending")
+	public String postInquirySending(@ModelAttribute @Validated(GroupOrder.class) InquiryForm form, InquiryForm form2,
+			BindingResult bindingResult, Model model) {
+
+		if (bindingResult.hasErrors()) {
 			System.out.println("バリデーションエラー到達");
-			return getInquiry(form,model);
+			return getInquiry(form, model);
 		}
-		
+
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 		String user_id = auth.getName();
 		// ログインユーザーのID取得
 		int select_id = usersService.select_id(user_id);
-		
+
 		InquiryDTO inquirydto = new InquiryDTO();
 		inquirydto.setTitle(form.getTitle());
 		inquirydto.setContent(form.getContent());
-		
-		int result = inquiryService.insertOne(inquirydto,select_id);
-		
-		model.addAttribute("result","お問い合わせありがとうございます。");
-		
-		return getInquiry(form2,model); 
+
+		int result = inquiryService.insertOne(inquirydto, select_id);
+
+		model.addAttribute("result", "お問い合わせありがとうございます。");
+
+		return getInquiry(form2, model);
+
+	}
 	
+	@GetMapping("/inquiry/{id}")
+	public String getInquiryReply(@ModelAttribute InquiryForm form,@PathVariable("id") int id,Model model) {
+		model.addAttribute("contents", "shopping/inquiryReply::productListLayout_contents");
+		InquiryDTO inquirydto = inquiryService.selectOne(id);
+		model.addAttribute("inquiryList",inquirydto);
+		model.addAttribute("id",id);
+		
+		return "shopping/productListLayout";
+	}
 	
+	@PostMapping(value = "inquiry", params = "return")
+	public String postInquiryReturn(@ModelAttribute InquiryForm form,@RequestParam("id") int id,Model model) {
+		
+		InquiryReplyDTO inquiryreplydto = new InquiryReplyDTO();
+		inquiryreplydto.setInqiryId(id);
+		inquiryreplydto.setTitle(form.getTitle());
+		inquiryreplydto.setContent(form.getContent());
+		
+		int result = inquiryService.replyInsertOne(inquiryreplydto);
+		
+		return getAdministrator(form,model);)
+
+	}
+	
+	@GetMapping("/administrator")
+	public String getAdministrator(@ModelAttribute InquiryForm form, Model model) {
+		model.addAttribute("contents", "shopping/administrator::productListLayout_contents");
+
+		List<InquiryDTO> inquirydtolist = inquiryService.selectMany();
+		//model.addAttribute("id",inquirydtolist);
+		model.addAttribute("inquiryList", inquirydtolist);
+
+		return "shopping/productListLayout";
 	}
 
 	@GetMapping("/admin")

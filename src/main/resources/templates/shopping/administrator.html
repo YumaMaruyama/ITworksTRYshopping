@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<div th:fragment="productListLayout_contents">
+		<header>
+			<h1>管理者画面</h1>
+		</header>
+		
+		<table class="table table-hover table-bordered">
+			
+			
+			<tr>
+				<td class="text-center"><a th:href="@{/usersList}" class="btn btn-primary">ユーザーリスト</a></td>
+				<td class="text-center"><a th:href="@{/admin}" class="btn btn-primary">商品追加</a></td>
+				<td class="text-center"><a class="btn btn-primary">お知らせする</a></td>
+			</tr>
+		</table>
+		
+		<h3>お問い合わせ内容</h3>
+		<form method="post" th:action="@{/inquiry}" th:object="${inquiryForm}">
+		<table class="table table-hover table-bordered" th:each="inquirydto : ${inquiryList}">
+			<tr>
+				 <th class="text-center">問い合わせユーザー</th>
+				 <th class="text-center">タイトル</th>
+				 <th class="text-center">内容</th>
+				 <th class="text-center">問い合わせ日時</th>
+				  <th class="text-center">管理</th>
+			</tr>
+			
+			<tr>
+				<th class="text-center" th:text="${inquirydto.userName}"></th>
+				<th class="text-center" th:text="${inquirydto.title}"></th>
+				<th class="text-center" th:text="${inquirydto.content}"></th>
+				<th class="text-center" th:text="${inquirydto.registrationDate}"></th>
+				<th class="text-center"><input type=hidden name="id" th:value=${inquirydto.id}><button class="btn btn-primary" name="detail">編集</button><a th:href="@{'/inquiry' + '/' + ${inquirydto.id}}" class="btn btn-primary" >返信</a></th>
+			</tr>
+			
+		</table>
+		</form>
+		
+	</div>
+</body>
+</html>
