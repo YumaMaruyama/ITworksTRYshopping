@@ -32,6 +32,7 @@ import com.example.demo.login.domail.model.InquiryAllDTO;
 import com.example.demo.login.domail.model.InquiryDTO;
 import com.example.demo.login.domail.model.InquiryForm;
 import com.example.demo.login.domail.model.InquiryReplyDTO;
+import com.example.demo.login.domail.model.NewsForm;
 import com.example.demo.login.domail.model.PcDataDTO;
 import com.example.demo.login.domail.model.PcDataForm;
 import com.example.demo.login.domail.model.PcDetailDataDTO;
@@ -275,6 +276,27 @@ public class ShoppingController {
 		
 		return "shopping/productListLayout";
 	}
+	
+	@GetMapping("/inquiryDetail/{id}")
+	public String getInquiryDetail(@ModelAttribute InquiryForm form,@PathVariable("id") int id,Model model) {
+		model.addAttribute("contents", "shopping/inquiryDetail::productListLayout_contents");
+		
+		InquiryDTO inquirydto = inquiryService.selectOne(id);
+		model.addAttribute("id",inquirydto.getId());
+		model.addAttribute("inquiryList",inquirydto);
+		
+		return "shopping/productListLayout";
+	}
+	
+	@PostMapping("/inquiryDetail")
+	public String postInquiryDetail(@ModelAttribute InquiryForm form,@RequestParam("id") int id,Model model) {
+		System.out.println("inquiryDetail到達");
+		int result = inquiryService.deleteOne(id);
+		
+		return getAdministrator(form,model);
+	}
+	
+	
 
 	@PostMapping(value = "inquiry", params = "return")
 	public String postInquiryReturn(@ModelAttribute InquiryForm form,@RequestParam("id") int id,Model model) {
@@ -378,6 +400,20 @@ public class ShoppingController {
 			int pcData = pcdataService.insertOne(pcdatadto);
 		}
 		return getProductList(form, model);
+	}
+	
+	@GetMapping("/news")
+	public String getNews(@ModelAttribute NewsForm form, Model model) {
+		model.addAttribute("contents", "shopping/news::productListLayout_contents");
+		
+		return "shopping/productListLayout";
+	}
+	
+	@GetMapping("/newsAdd")
+	public String getNewsAdd(@ModelAttribute NewsForm form, Model model) {
+		model.addAttribute("contents", "shopping/newsAdd::productListLayout_contents");
+		
+		return "shopping/productListLayout";
 	}
 
 	@GetMapping("/productList")

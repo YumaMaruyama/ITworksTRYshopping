@@ -13,31 +13,31 @@
 		</header>
 		 
 		<table class="tabel table-hover table-bordered" th:each="inquiryAlldto : ${inquiryAllDto}" style="width:1100px;">
-			<tr>
-				<th class="text-center th1">タイトル</th>
-				<th class="text-center th2">内容</th>
+			<tr class="inquiryTr1">
+				<th class="text-center th1">問い合わせタイトル</th>
+				<th class="text-center th2">問い合わせ内容</th>
 				<th class="text-center th3">問い合わせ日時</th>
 			</tr>
 			
-			<tr>
+			<tr class="inquiryTr2">
 				<td class="text-center th1" th:text="${inquiryAlldto.title}"></td>
 				<td class="text-center th2" th:text="${inquiryAlldto.content}"></td>
 				<td class="text-center th3" th:text="${#dates.format(inquiryAlldto.registrationDate,'yyyy/MM/dd hh:mm')}"></td>
 			</tr>
-			<tr><th class="text-center">上記のお問い合わせへの返信</th></tr>
 			<div th:if="${inquiryAlldto.adminTitle != null}">
-			<tr>
-				<th class="text-center th1">タイトル</th>
-				<th class="text-center th2">内容</th>
-				<th class="text-center th3">問い合わせ返信日時</th>
+			<tr class="inquiryReplyTr1">
+				<th class="text-center th1">返信タイトル</th>
+				<th class="text-center th2">返信内容</th>
+				<th class="text-center th3">返信日時</th>
 			</tr>
 			
-			<tr>
+			<tr class="inquiryReplyTr2">
 				<td class="text-center th1" th:text="${inquiryAlldto.adminTitle}"></td>
 				<td class="text-center th2" th:text="${inquiryAlldto.adminContent}"></td>
 				<td class="text-center th3" th:text="${#dates.format(inquiryAlldto.adminRegistrationDate,'yyyy/MM/dd hh:mm')}"></td>
 			</tr>
 			</div>
+			<br>
 		</table>
 	</div>
 </body>

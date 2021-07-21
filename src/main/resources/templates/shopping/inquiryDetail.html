@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>inquiryDetail</title>
+</head>
+<body>
+	<div th:fragment="productListLayout_contents">
+		<header>
+			<h1>問い合わせ編集</h1>
+		</header>
+		<form method="post" th:action="@{/inquiryDetail}" th:object="${inquiryForm}">
+			<table class="table table-hover table-bordered"
+				th:each="inquirydto : ${inquiryList}">
+				<tr>
+					<th class="text-center">問い合わせユーザー</th>
+					<th class="text-center">タイトル</th>
+					<th class="text-center">内容</th>
+					<th class="text-center">問い合わせ日時</th>
+
+				</tr>
+
+				<tr>
+					<th class="text-center" th:text="${inquirydto.userName}"></th>
+					<th class="text-center" th:text="${inquirydto.title}"></th>
+					<th class="text-center" th:text="${inquirydto.content}"></th>
+					<th class="text-center" th:text="${inquirydto.registrationDate}"></th>
+				</tr>
+			</table>
+			<div>
+			<input type="hidden" name="id" th:value="${id}">
+			<button class="btn btn-primary">問い合わせ削除</button>
+			</div>
+		</form>
+	</div>
+</body>
+</html>

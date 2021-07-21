@@ -1,20 +1,29 @@
 @charset "UTF-8";
 
 .th1 {
-  width:300px;
+	width: 300px;
 }
 
 .th2 {
-	width:700px;
+	width: 700px;
 }
 
 .th3 {
-	width:100px;
+	width: 100px;
 }
 
+.inquiryTr1 {
+	background: #8cc3f3;
+}
 
+.inquiryTr2 {
+	background: #c1e1fd;
+}
 
+.inquiryReplyTr1 {
+	background: #ff8a8a;
+}
 
-
-
-
+.inquiryReplyTr2 {
+	background: #f9b3b3;
+}

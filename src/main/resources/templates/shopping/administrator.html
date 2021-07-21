@@ -18,7 +18,7 @@
 			<tr>
 				<td class="text-center"><a th:href="@{/usersList}" class="btn btn-primary">ユーザーリスト</a></td>
 				<td class="text-center"><a th:href="@{/admin}" class="btn btn-primary">商品追加</a></td>
-				<td class="text-center"><a class="btn btn-primary">お知らせする</a></td>
+				<td class="text-center"><a th:href="@{/newsAdd}" class="btn btn-primary">お知らせ追加</a></td>
 			</tr>
 		</table>
 		
@@ -37,8 +37,8 @@
 				<th class="text-center" th:text="${inquirydto.userName}"></th>
 				<th class="text-center" th:text="${inquirydto.title}"></th>
 				<th class="text-center" th:text="${inquirydto.content}"></th>
-				<th class="text-center" th:text="${inquirydto.registrationDate}"></th>
-				<th class="text-center"><input type=hidden name="id" th:value=${inquirydto.id}><button class="btn btn-primary" name="detail">編集</button><a th:href="@{'/inquiry' + '/' + ${inquirydto.id}}" class="btn btn-primary" >返信</a></th>
+				<th class="text-center" th:text="${#dates.format(inquirydto.registrationDate,'yyyy/MM/dd hh:mm')}"></th>
+				<th class="text-center"><input type=hidden name="id" th:value=${inquirydto.id}><a th:href="@{'/inquiryDetail' + '/' + ${inquirydto.id}}" class="btn btn-primary" >編集</a><a th:href="@{'/inquiry' + '/' + ${inquirydto.id}}" class="btn btn-primary">返信</a></th>
 			</tr>
 			
 		</table>

@@ -92,5 +92,11 @@ public class InquiryJdbcDaoImpl implements InquiryDao {
 				
 	}
 	
+	public int deleteOne(int id) {
+		int result = jdbc.update("delete from inquiry where id = ?",id);
+		
+		return result;
+	}
+	
 	
 }

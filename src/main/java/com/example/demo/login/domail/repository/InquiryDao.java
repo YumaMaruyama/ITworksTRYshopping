@@ -17,4 +17,6 @@ public interface InquiryDao {
 	public int replyInsertOne(InquiryReplyDTO inquiryreplydto);
 	
 	public List<InquiryAllDTO> everyUserSelectMany(int select_id);
+	
+	public int deleteOne(int id);
 }
