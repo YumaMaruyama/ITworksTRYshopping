@@ -28,8 +28,10 @@ import com.example.demo.login.domail.model.CartForm;
 import com.example.demo.login.domail.model.CreditDTO;
 import com.example.demo.login.domail.model.CreditForm;
 import com.example.demo.login.domail.model.GroupOrder;
+import com.example.demo.login.domail.model.InquiryAllDTO;
 import com.example.demo.login.domail.model.InquiryDTO;
 import com.example.demo.login.domail.model.InquiryForm;
+import com.example.demo.login.domail.model.InquiryReplyDTO;
 import com.example.demo.login.domail.model.PcDataDTO;
 import com.example.demo.login.domail.model.PcDataForm;
 import com.example.demo.login.domail.model.PcDetailDataDTO;
@@ -273,19 +275,36 @@ public class ShoppingController {
 		
 		return "shopping/productListLayout";
 	}
-	
+
 	@PostMapping(value = "inquiry", params = "return")
 	public String postInquiryReturn(@ModelAttribute InquiryForm form,@RequestParam("id") int id,Model model) {
 		
 		InquiryReplyDTO inquiryreplydto = new InquiryReplyDTO();
-		inquiryreplydto.setInqiryId(id);
+		inquiryreplydto.setInquiryId(id);
 		inquiryreplydto.setTitle(form.getTitle());
 		inquiryreplydto.setContent(form.getContent());
 		
 		int result = inquiryService.replyInsertOne(inquiryreplydto);
 		
-		return getAdministrator(form,model);)
+		return getAdministrator(form,model);
 
+	}
+
+	@GetMapping("contactReply")
+	public String getContactReply(@ModelAttribute InquiryForm form,Model model) {
+		model.addAttribute("contents", "shopping/contactReply::productListLayout_contents");
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println("auth" + auth.getName());
+		String user_id = auth.getName();
+
+		// ログインユーザーのID取得
+		int select_id = usersService.select_id(user_id);
+		
+		List<InquiryAllDTO> inquiryreplydtolist = inquiryService.everyUserSelectMany(select_id);
+		model.addAttribute("inquiryAllDto",inquiryreplydtolist);
+		
+		return "shopping/productListLayout";
 	}
 	
 	@GetMapping("/administrator")

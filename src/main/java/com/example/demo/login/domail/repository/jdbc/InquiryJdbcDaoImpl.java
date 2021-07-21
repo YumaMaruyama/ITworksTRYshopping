@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.example.demo.login.domail.model.InquiryAllDTO;
 import com.example.demo.login.domail.model.InquiryDTO;
+import com.example.demo.login.domail.model.InquiryReplyDTO;
 import com.example.demo.login.domail.repository.InquiryDao;
 
 @Repository
@@ -58,6 +60,36 @@ public class InquiryJdbcDaoImpl implements InquiryDao {
 		inquirydto.setRegistrationDate((Date)map.get("registration_date"));
 		
 		return inquirydto;
+	}
+	
+	public int replyInsertOne(InquiryReplyDTO inquiryreplydto) {
+		int result = jdbc.update("insert into inquiry_reply (id,"
+				+ " inquiry_id,"
+				+ " title,"
+				+ " content)"
+				+ " value(?,?,?,?)",inquiryreplydto.getId(),inquiryreplydto.getInquiryId(),inquiryreplydto.getTitle(),inquiryreplydto.getContent());
+		
+		return result;
+	}
+	
+	public List<InquiryAllDTO> everyUserSelectMany(int select_id) {
+		List<Map<String,Object>> map = jdbc.queryForList("select inquiry.title,inquiry.content,inquiry.registration_date,inquiry_reply.title as adminTitle,inquiry_reply.content as adminContent,inquiry_reply.registration_date as adminRegistration_date from inquiry join inquiry_reply on inquiry.id = inquiry_reply.inquiry_id");
+		
+		List<InquiryAllDTO> inquiryList = new ArrayList<>();
+		for(Map<String,Object> oneMap: map) {
+			InquiryAllDTO inquiryalldto = new InquiryAllDTO();
+			inquiryalldto.setTitle((String)oneMap.get("title"));
+			inquiryalldto.setContent((String)oneMap.get("content"));
+			inquiryalldto.setRegistrationDate((Date)oneMap.get("registration_date"));
+			inquiryalldto.setAdminTitle((String)oneMap.get("adminTitle"));
+			inquiryalldto.setAdminContent((String)oneMap.get("adminContent"));
+			inquiryalldto.setAdminRegistrationDate((Date)oneMap.get("adminRegistration_date"));
+			
+			inquiryList.add(inquiryalldto);
+		}
+		return inquiryList;
+				
+				
 	}
 	
 	

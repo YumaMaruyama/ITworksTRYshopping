@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.login.domail.model.InquiryAllDTO;
 import com.example.demo.login.domail.model.InquiryDTO;
+import com.example.demo.login.domail.model.InquiryReplyDTO;
 import com.example.demo.login.domail.repository.InquiryDao;
 
 @Service
@@ -32,7 +34,11 @@ public class InquiryService {
 		return dao.selectOne(id);
 	}
 	
-	public int replyInsertOne(InquiryDTO inquirydto) {
-		return dao.replyInsertOne(inquirydto);
+	public int replyInsertOne(InquiryReplyDTO inquiryreplydto) {
+		return dao.replyInsertOne(inquiryreplydto);
+	}
+	
+	public List<InquiryAllDTO> everyUserSelectMany(int select_id) {
+		return dao.everyUserSelectMany(select_id);
 	}
 }

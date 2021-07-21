@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>contacteply</title>
+</head>
+<body>
+
+	<div th:fragment="productListLayout_contents">
+		<header>
+			<h1>問い合わせの返信</h1>
+		</header>
+		 
+		<table class="tabel table-hover table-bordered" th:each="inquiryAlldto : ${inquiryAllDto}" style="width:1100px;">
+			<tr>
+				<th class="text-center th1">タイトル</th>
+				<th class="text-center th2">内容</th>
+				<th class="text-center th3">問い合わせ日時</th>
+			</tr>
+			
+			<tr>
+				<td class="text-center th1" th:text="${inquiryAlldto.title}"></td>
+				<td class="text-center th2" th:text="${inquiryAlldto.content}"></td>
+				<td class="text-center th3" th:text="${#dates.format(inquiryAlldto.registrationDate,'yyyy/MM/dd hh:mm')}"></td>
+			</tr>
+			<tr><th class="text-center">上記のお問い合わせへの返信</th></tr>
+			<div th:if="${inquiryAlldto.adminTitle != null}">
+			<tr>
+				<th class="text-center th1">タイトル</th>
+				<th class="text-center th2">内容</th>
+				<th class="text-center th3">問い合わせ返信日時</th>
+			</tr>
+			
+			<tr>
+				<td class="text-center th1" th:text="${inquiryAlldto.adminTitle}"></td>
+				<td class="text-center th2" th:text="${inquiryAlldto.adminContent}"></td>
+				<td class="text-center th3" th:text="${#dates.format(inquiryAlldto.adminRegistrationDate,'yyyy/MM/dd hh:mm')}"></td>
+			</tr>
+			</div>
+		</table>
+	</div>
+</body>
+</html>
