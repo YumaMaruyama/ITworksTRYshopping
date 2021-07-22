@@ -47,4 +47,8 @@ public class Usege_usersService {
 	public Usege_usersDTO userInformationSelectOne(int selectId) {
 		return dao.userInformationSelectOne(selectId);
 	}
+	
+	public int updateOne(Usege_usersDTO usegeusersdto) {
+		return dao.updateOne(usegeusersdto);
+	}
  }

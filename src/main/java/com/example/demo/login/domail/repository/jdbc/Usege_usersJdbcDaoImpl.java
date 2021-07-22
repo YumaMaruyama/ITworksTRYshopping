@@ -78,4 +78,9 @@ public class Usege_usersJdbcDaoImpl implements Usege_usersDao {
 		
 		return usegeusersdto;
 	}
+	
+	public int updateOne(Usege_usersDTO usegeusersdto) {
+		int result = jdbc.update("update usege_users set address = ?",usegeusersdto.getAddress());
+		return result;
+	}
 }

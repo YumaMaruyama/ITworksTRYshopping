@@ -37,7 +37,10 @@
 				</td>
 			</tr>
 		</table>
-		<button class="btn btn-primary">変更する</button>
+		<div>
+		<input type="hidden" name="id" th:value="${id}">
+		<button class="btn btn-primary" name="update">変更する</button>
+		</div>
 		</form>
 	</div>
 </body>

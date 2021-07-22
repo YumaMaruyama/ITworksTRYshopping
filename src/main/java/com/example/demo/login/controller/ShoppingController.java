@@ -255,19 +255,29 @@ public class ShoppingController {
 		userslistdto.setAddress(usegeusersdto.getAddress());
 		usersListForm.setUserName(userslistdto.getUserName());
 		usersListForm.setAddress(userslistdto.getAddress());
+		model.addAttribute("id",id);
 		
 		return "shopping/productListLayout";
 	}
 	
-	@PostMapping("/editYourDetail")
-	public String postEditYourDetail(@ModelAttribute UserEditForm from,UsersListForm usersListForm,Model model) {
+	@PostMapping(value = "/editYourDetail",params = "update")
+	public String postEditYourDetail(@ModelAttribute UserEditForm form,@Validated(GroupOrder.class)UsersListForm usersListForm,BindingResult bindingResult,@RequestParam("id") int id,Model model) {
+		
+		
+		if(bindingResult.hasErrors()) {
+			System.out.println("バリデーションエラー到達");
+			
+			return getEditYourDetail(form,usersListForm,id,model);
+		}
 		
 		UsersDTO usersdto = new UsersDTO();
 		usersdto.setUser_name(usersListForm.getUserName());
 		Usege_usersDTO usegeusersdto = new Usege_usersDTO();
-		int result = usersService.updateOne(usersdto);
+		usegeusersdto.setAddress(usersListForm.getAddress());	
+		int usersUpdateResult = usersService.updateOne(usersdto);
+		int usegeUpdateResult = usegeService.updateOne(usegeusersdto);
 		
-		
+		return getEditYour(form,model);
 	}
 	
 
