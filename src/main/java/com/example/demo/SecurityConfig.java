@@ -53,12 +53,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/css/**").permitAll()
 			.antMatchers("/login").permitAll()
 			.antMatchers("/signup").permitAll()
-			//.antMatchers("/confirmation").permitAll()
-			//.antMatchers("/admin").hasAuthority("admin")
-			//.antMatchers("/productList").permitAll()//テスト時のみ
-			//.antMatchers("/admin").permitAll()//テスト時のみ
-			//.antMatchers("/productDetail").permitAll()//テスト時のみ
-			//.antMatchers("/before_purchase").permitAll()//テスト時のみ
 			.anyRequest().authenticated();
 
 

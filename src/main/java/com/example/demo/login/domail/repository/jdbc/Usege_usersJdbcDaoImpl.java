@@ -80,7 +80,7 @@ public class Usege_usersJdbcDaoImpl implements Usege_usersDao {
 	}
 	
 	public int updateOne(Usege_usersDTO usegeusersdto) {
-		int result = jdbc.update("update usege_users set address = ?",usegeusersdto.getAddress());
+		int result = jdbc.update("update usege_users set address = ? where id = ?",usegeusersdto.getAddress(),usegeusersdto.getId());
 		return result;
 	}
 }

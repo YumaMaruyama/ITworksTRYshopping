@@ -261,7 +261,7 @@ public class ShoppingController {
 	}
 	
 	@PostMapping(value = "/editYourDetail",params = "update")
-	public String postEditYourDetail(@ModelAttribute UserEditForm form,@Validated(GroupOrder.class)UsersListForm usersListForm,BindingResult bindingResult,@RequestParam("id") int id,Model model) {
+	public String postEditYourDetailUpdate(@ModelAttribute UserEditForm form,@Validated(GroupOrder.class)UsersListForm usersListForm,BindingResult bindingResult,@RequestParam("id") int id,Model model) {
 		
 		
 		if(bindingResult.hasErrors()) {
@@ -271,13 +271,39 @@ public class ShoppingController {
 		}
 		
 		UsersDTO usersdto = new UsersDTO();
+		usersdto.setId(id);
 		usersdto.setUser_name(usersListForm.getUserName());
 		Usege_usersDTO usegeusersdto = new Usege_usersDTO();
+		usegeusersdto.setId(id);
 		usegeusersdto.setAddress(usersListForm.getAddress());	
 		int usersUpdateResult = usersService.updateOne(usersdto);
 		int usegeUpdateResult = usegeService.updateOne(usegeusersdto);
 		
 		return getEditYour(form,model);
+	}
+	
+	@PostMapping(value = "/editYourDetail",params = "delete")
+	public String postEditYourDetailDelete(@ModelAttribute UserEditForm form,@RequestParam("id") int id,Model model) {
+		
+		int usersDeleteResult = usersService.deleteOne(id);
+		int usegeDeleteResult = usegeService.deleteOne(id);
+		
+		
+	return 	getLogout();
+	}
+	
+	@GetMapping("termsOfUse")
+	public String gettermsOfUse(Model model) {
+		model.addAttribute("contents", "shopping/termsOfUse::productListLayout_contents");
+		
+		return "shopping/productListLayout";
+	}
+	
+	@GetMapping("privacyPolicy")
+	public String getPrivacyPolicy(Model model) {
+		model.addAttribute("contents", "shopping/privacyPolicy::productListLayout_contents");
+		
+		return "shopping/productListLayout";
 	}
 	
 

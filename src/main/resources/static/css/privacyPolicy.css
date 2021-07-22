@@ -1,0 +1,8 @@
+@charset "UTF-8";
+
+.privacyPolicy {
+	display: block;
+	overflow-y: scroll;
+	height: 500px;
+	font-size:13px !important;
+}

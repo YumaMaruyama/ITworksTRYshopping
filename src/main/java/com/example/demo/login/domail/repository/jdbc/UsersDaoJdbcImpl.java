@@ -120,7 +120,7 @@ public class UsersDaoJdbcImpl implements UsersDao {
 	}
 	
 	public int updateOne(UsersDTO usersdto) {
-		int result = jdbc.update("update users set user_name = ?",usersdto.getUser_name());
+		int result = jdbc.update("update users set user_name = ? where id = ?",usersdto.getUser_name(),usersdto.getId());
 		
 		return result;
 	}
