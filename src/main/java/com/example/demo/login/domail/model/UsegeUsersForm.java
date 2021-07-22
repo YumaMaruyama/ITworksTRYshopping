@@ -3,9 +3,7 @@ package com.example.demo.login.domail.model;
 import lombok.Data;
 
 @Data
-public class UsersListForm {
+public class UsegeUsersForm {
 
-	private String userName;
-	
 	private String address;
 }

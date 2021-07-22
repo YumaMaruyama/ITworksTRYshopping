@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html  xmlns:th="http://www.thymeleaf.org"
+<html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <meta charset="UTF-8">
@@ -24,7 +24,7 @@
 			<td class="text-center" th:text="${userslistdto.userName}"></td>
 			<td class="text-center" th:text="${userslistdto.birthday}"></td>
 			<td class="text-center" th:text="${userslistdto.address}"></td>
-			<td class="text-center" ><a th:href="@{ '/usersListDetail' +  '/' + ${userslistdto.id}}" class="btn btn-primary btnDesign" >編集</a></td>
+			<td class="text-center" ><a th:href="@{ '/editYourDetail' +  '/' + ${id}}" class="btn btn-primary btnDesign" >編集</a></td>
 		</tr>
 	</table>
 	</div>

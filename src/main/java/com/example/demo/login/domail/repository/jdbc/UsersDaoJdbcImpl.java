@@ -119,6 +119,12 @@ public class UsersDaoJdbcImpl implements UsersDao {
 		return usersdto;
 	}
 	
+	public int updateOne(UsersDTO usersdto) {
+		int result = jdbc.update("update users set user_name = ?",usersdto.getUser_name());
+		
+		return result;
+	}
+	
 	
 
 }

@@ -25,4 +25,6 @@ public interface UsersDao {
 	public int deleteOne(int id);
 	
 	public UsersDTO userInformationSelectOne(int selectId);
+	
+	public int updateOne(UsersDTO usersdto);
 }

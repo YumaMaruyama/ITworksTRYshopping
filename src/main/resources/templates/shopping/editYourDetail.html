@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<div th:fragment="productListLayout_contents">
+		<h3>あなたの情報編集</h3>
+
+		<form method="post" th:action="@{/editYourDetail}"
+			th:object="${usersListForm}">
+		<table class="table table-hover table-bordered">
+			<tr>
+				<th class="text-center">登録名</th>
+				<td class="text-center">
+					<div class="form-group">
+						<input type="text" class="form-control" th:field="*{userName}"> 
+						<span
+							class="text-danger" th:if="${#fields.hasErrors('userName')}"
+							th:errors="*{userName}">userName error</span>
+					</div>
+				</td>
+			</tr>
+			
+			<tr>
+				<th class="text-center">商品受け取り住所</th>
+				<td class="text-center">
+					<div class="form-group">
+						<input type="text" class="form-control" th:field="*{address}"> 
+						<span
+							class="text-danger" th:if="${#fields.hasErrors('address')}"
+							th:errors="*{address}">address error</span>
+					</div>
+				</td>
+			</tr>
+		</table>
+		<button class="btn btn-primary">変更する</button>
+		</form>
+	</div>
+</body>
+</html>

@@ -32,6 +32,7 @@ import com.example.demo.login.domail.model.InquiryAllDTO;
 import com.example.demo.login.domail.model.InquiryDTO;
 import com.example.demo.login.domail.model.InquiryForm;
 import com.example.demo.login.domail.model.InquiryReplyDTO;
+import com.example.demo.login.domail.model.NewsDTO;
 import com.example.demo.login.domail.model.NewsForm;
 import com.example.demo.login.domail.model.PcDataDTO;
 import com.example.demo.login.domail.model.PcDataForm;
@@ -47,6 +48,7 @@ import com.example.demo.login.domail.service.CartService;
 import com.example.demo.login.domail.service.CreditService;
 import com.example.demo.login.domail.service.CustomService;
 import com.example.demo.login.domail.service.InquiryService;
+import com.example.demo.login.domail.service.NewsService;
 import com.example.demo.login.domail.service.PcDataService;
 import com.example.demo.login.domail.service.PurchaseService;
 import com.example.demo.login.domail.service.Usege_usersService;
@@ -71,6 +73,8 @@ public class ShoppingController {
 	CustomService customService;
 	@Autowired
 	InquiryService inquiryService;
+	@Autowired
+	NewsService newsService;
 
 	@Autowired // Sessionが使用できる
 	HttpSession session;
@@ -229,9 +233,43 @@ public class ShoppingController {
 		userslistdto.setAddress(usegeusersdto.getAddress());
 
 		model.addAttribute("usersList", userslistdto);
-
+		model.addAttribute("id",userslistdto.getId());
+		
 		return "shopping/productListLayout";
 	}
+	
+	@GetMapping("/editYourDetail/{id}")
+	public String getEditYourDetail(@ModelAttribute UserEditForm from,UsersListForm usersListForm,@PathVariable("id") int id,Model model) {
+		model.addAttribute("contents", "shopping/editYourDetail::productListLayout_contents");
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println("auth" + auth.getName());
+		String userId = auth.getName();
+		int selectId = usersService.select_id(userId);
+
+		UsersDTO usersdto = usersService.userInformationSelectOne(id);
+		Usege_usersDTO usegeusersdto = usegeService.userInformationSelectOne(id);
+
+		UsersListDTO userslistdto = new UsersListDTO();
+		userslistdto.setUserName(usersdto.getUser_name());
+		userslistdto.setAddress(usegeusersdto.getAddress());
+		usersListForm.setUserName(userslistdto.getUserName());
+		usersListForm.setAddress(userslistdto.getAddress());
+		
+		return "shopping/productListLayout";
+	}
+	
+	@PostMapping("/editYourDetail")
+	public String postEditYourDetail(@ModelAttribute UserEditForm from,UsersListForm usersListForm,Model model) {
+		
+		UsersDTO usersdto = new UsersDTO();
+		usersdto.setUser_name(usersListForm.getUserName());
+		Usege_usersDTO usegeusersdto = new Usege_usersDTO();
+		int result = usersService.updateOne(usersdto);
+		
+		
+	}
+	
 
 	@GetMapping("/inquiry")
 	public String getInquiry(@ModelAttribute InquiryForm form, Model model) {
@@ -406,6 +444,10 @@ public class ShoppingController {
 	public String getNews(@ModelAttribute NewsForm form, Model model) {
 		model.addAttribute("contents", "shopping/news::productListLayout_contents");
 		
+		List<NewsDTO> newsdtoList = newsService.selectMany();
+		
+		model.addAttribute("newsdtoList",newsdtoList);
+		
 		return "shopping/productListLayout";
 	}
 	
@@ -413,6 +455,24 @@ public class ShoppingController {
 	public String getNewsAdd(@ModelAttribute NewsForm form, Model model) {
 		model.addAttribute("contents", "shopping/newsAdd::productListLayout_contents");
 		
+		return "shopping/productListLayout";
+	}
+	
+	@PostMapping("newsAdd")
+	public String postNewsAdd(@ModelAttribute @Validated(GroupOrder.class)NewsForm form,BindingResult bidingResult,Model model) {
+		model.addAttribute("contents", "shopping/newsAdd::productListLayout_contents");
+		
+		if(bidingResult.hasErrors()) {
+			System.out.println("バリデーションエラー到達");
+			return getNewsAdd(form,model);
+		}
+		
+		NewsDTO newsdto = new NewsDTO();
+		newsdto.setTitle(form.getTitle());
+		newsdto.setContent(form.getContent());
+		
+		int result = newsService.insertOne(newsdto);
+				
 		return "shopping/productListLayout";
 	}
 

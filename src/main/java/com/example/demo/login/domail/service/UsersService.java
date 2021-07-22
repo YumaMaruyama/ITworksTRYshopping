@@ -64,4 +64,8 @@ public class UsersService {
 		return dao.userInformationSelectOne(selectId);
 		
 	}
+	
+	public int updateOne(UsersDTO usersDTO) {
+		return dao.updateOne(usersDTO);
+	}
 }

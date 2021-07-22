@@ -7,9 +7,37 @@
 </head>
 <body>
 	<div th:fragment="productListLayout_contents">
-	<h3>お知らせ追加</h3>
-	
-	
-	
+		<h3>お知らせ追加</h3>
+
+		<form method="post" th:action="@{/newsAdd}" th:object="${newsForm}">
+			<table class="table table-bordered table-hover">
+
+				<tr>
+					<th>タイトル</th>
+					<td>
+						<div class="form-group"
+							th:classappend="${#fields.hasErrors('title')} ? 'hasError'">
+							<input type="text" class="form-control" th:field="*{title}">
+						</div> <span class="text-danger" th:if="${#fields.hasErrors('title')}"
+						th:errors="*{title}">title error</span>
+					</td>
+				</tr>
+				
+				<tr>
+					<th>内容</th>
+					<td>
+						<div class="form-group"
+							th:classappend="${#fields.hasErrors('content')} ? 'hasError'">
+							<input type="text" class="form-control" th:field="*{content}">
+						</div> <span class="text-danger" th:if="${#fields.hasErrors('content')}"
+						th:errors="*{content}">content error</span>
+					</td>
+				</tr>
+			</table>
+			
+			<button class="btn btn-primary">おしらせ投稿</button>
+		</form>
+	</div>
+
 </body>
 </html>
