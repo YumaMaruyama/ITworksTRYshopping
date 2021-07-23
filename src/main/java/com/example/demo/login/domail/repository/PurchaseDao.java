@@ -17,5 +17,7 @@ public interface PurchaseDao {
 	public int selectPurchaseNumber(int select_id);
 
 	public List<PurchaseDTO> selectHistory(int select_id);
+	
+	public PurchaseDTO selectOne(int id);
 
 }

@@ -6,8 +6,10 @@ import lombok.Data;
 
 @Data
 public class PurchaseDTO {
-
+	
 	private int id;
+	
+	private int purchaseId;
 
 	private int user_id;
 

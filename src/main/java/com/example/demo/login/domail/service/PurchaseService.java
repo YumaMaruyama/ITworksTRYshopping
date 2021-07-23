@@ -50,5 +50,9 @@ public class PurchaseService {
 	public List<PurchaseDTO> selectHistory(int select_id) {
 		return dao.selectHistory(select_id);
 	}
+	
+	public PurchaseDTO selectOne(int id) {
+		return dao.selectOne(id);
+	}
 
 }

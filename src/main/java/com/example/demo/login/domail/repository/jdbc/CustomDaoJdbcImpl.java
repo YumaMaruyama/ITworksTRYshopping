@@ -7,6 +7,7 @@ import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.example.demo.login.domail.model.CustomDTO;
 import com.example.demo.login.domail.model.PcDetailDataDTO;
 import com.example.demo.login.domail.model.PurchaseDTO;
 import com.example.demo.login.domail.repository.CustomDao;
@@ -40,18 +41,24 @@ public class CustomDaoJdbcImpl implements CustomDao{
 		return pcdetaildatadto;
 	}
 
-	public int selectCustomProduct_id(int id,int select_id) {
+	public CustomDTO selectCustomProduct_id(int id,int select_id) {
 
 		int result = 0;
 
+		CustomDTO customdto = new CustomDTO();
+		
 		try {
-		int product_id = jdbc.queryForObject("select custom.product_id from custom where product_id = ? and user_id = ?",Integer.class,id,select_id);
+		Map<String,Object> map = jdbc.queryForMap("select * from custom where product_id = ? and user_id = ? and purchase_check = 'null'",id,select_id);
+		
 		result = 1;
+		int i = 1;
+		customdto.setSelectCheck(i);
 		}catch(IncorrectResultSizeDataAccessException e) {
 			e.printStackTrace();
-			return result;
+			
+			
 		}
-		return result;
+		return customdto;
 	}
 
 	public int insertCustomData(int id, int select_id, String defaultMemory, String defaultHardDisc,

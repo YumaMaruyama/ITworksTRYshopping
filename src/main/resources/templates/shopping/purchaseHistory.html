@@ -21,6 +21,7 @@
 			<th class="text-center">メモリ</th>
 			<th class="text-center">ハードディスク</th>
 			<th class="text-center">CPU</th>
+			<th class="text-center">レビュー</th>
 		</tr>
 
 		<tr>
@@ -31,6 +32,7 @@
 			<td class="text-center" th:text="${purchasedto.memory}"></td>
 			<td class="text-center" th:text="${purchasedto.hardDisc}"></td>
 			<td class="text-center" th:text="${purchasedto.cpu}"></td>
+			<td class="text-center"><a th:href="@{'/reviewAdd' + '/' + ${purchasedto.purchaseId}} " class="btn btn-primary">口コミを書く</a></td>
 		</tr>
 
 	</table>

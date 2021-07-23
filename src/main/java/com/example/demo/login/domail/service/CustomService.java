@@ -3,6 +3,7 @@ package com.example.demo.login.domail.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.login.domail.model.CustomDTO;
 import com.example.demo.login.domail.model.PcDetailDataDTO;
 import com.example.demo.login.domail.model.PurchaseDTO;
 import com.example.demo.login.domail.repository.CustomDao;
@@ -21,7 +22,7 @@ public class CustomService {
 		return dao.selectOne(id, select_id);
 	}
 
-	public int selectCustomProduct_id(int id, int select_id) {
+	public CustomDTO selectCustomProduct_id(int id, int select_id) {
 		return dao.selectCustomProduct_id(id, select_id);
 	}
 

@@ -98,12 +98,15 @@ public class PurchaseDaoJdbcImpl implements PurchaseDao {
 
 	public List<PurchaseDTO> selectHistory(int select_id) {
 
-		List<Map<String,Object>> map = jdbc.queryForList("select purchase.product_id,purchase.purchase_date,purchase.product_count,pcdata.pc_name,pcdata.price from purchase join pcdata on purchase.product_id = pcdata.id  where user_id = ? ",select_id);
+		List<Map<String,Object>> map = jdbc.queryForList("select purchase.id,purchase.product_id,purchase.purchase_date,purchase.product_count,pcdata.pc_name,pcdata.price from purchase join pcdata on purchase.product_id = pcdata.id  where user_id = ? ",select_id);
 
 		List<PurchaseDTO> purchaseList = new ArrayList<>();
 		for(Map<String,Object> oneMap : map) {
 			PurchaseDTO purchasedto = new PurchaseDTO();
+			
+			
 			purchasedto.setId((int)oneMap.get("product_id"));
+			purchasedto.setPurchaseId((int)oneMap.get("id"));
 			purchasedto.setPurchase_date((Date)oneMap.get("purchase_date"));
 			purchasedto.setPcName((String)oneMap.get("pc_name"));
 			purchasedto.setPrice((int)oneMap.get("price"));
@@ -113,6 +116,21 @@ public class PurchaseDaoJdbcImpl implements PurchaseDao {
 		}
 
 		return purchaseList;
+	}
+	
+	public PurchaseDTO selectOne(int id) {
+		Map<String,Object> map = jdbc.queryForMap("select purchase.id,purchase.product_id,purchase.purchase_date,purchase.product_count,pcdata.pc_name,pcdata.price from purchase join pcdata on purchase.product_id = pcdata.id where purchase.id = ? ",id);
+		
+		PurchaseDTO purchasedto = new PurchaseDTO();
+		purchasedto.setId((int)map.get("product_id"));
+		purchasedto.setPurchaseId((int)map.get("id"));
+		purchasedto.setPurchase_date((Date)map.get("purchase_date"));
+		purchasedto.setPcName((String)map.get("pc_name"));
+		purchasedto.setPrice((int)map.get("price"));
+		purchasedto.setProduct_count((int)map.get("product_count"));
+		
+		return purchasedto;
+	
 	}
 
 

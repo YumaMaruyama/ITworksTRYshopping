@@ -27,6 +27,7 @@ import com.example.demo.login.domail.model.CartDTO;
 import com.example.demo.login.domail.model.CartForm;
 import com.example.demo.login.domail.model.CreditDTO;
 import com.example.demo.login.domail.model.CreditForm;
+import com.example.demo.login.domail.model.CustomDTO;
 import com.example.demo.login.domail.model.GroupOrder;
 import com.example.demo.login.domail.model.InquiryAllDTO;
 import com.example.demo.login.domail.model.InquiryDTO;
@@ -39,6 +40,7 @@ import com.example.demo.login.domail.model.PcDataForm;
 import com.example.demo.login.domail.model.PcDetailDataDTO;
 import com.example.demo.login.domail.model.PcDetailDataForm;
 import com.example.demo.login.domail.model.PurchaseDTO;
+import com.example.demo.login.domail.model.ReviewForm;
 import com.example.demo.login.domail.model.Usege_usersDTO;
 import com.example.demo.login.domail.model.UserEditForm;
 import com.example.demo.login.domail.model.UsersDTO;
@@ -51,6 +53,7 @@ import com.example.demo.login.domail.service.InquiryService;
 import com.example.demo.login.domail.service.NewsService;
 import com.example.demo.login.domail.service.PcDataService;
 import com.example.demo.login.domail.service.PurchaseService;
+import com.example.demo.login.domail.service.ReviewService;
 import com.example.demo.login.domail.service.Usege_usersService;
 import com.example.demo.login.domail.service.UsersService;
 
@@ -75,6 +78,8 @@ public class ShoppingController {
 	InquiryService inquiryService;
 	@Autowired
 	NewsService newsService;
+	@Autowired
+	ReviewService reviewService;
 
 	@Autowired // Sessionが使用できる
 	HttpSession session;
@@ -511,6 +516,24 @@ public class ShoppingController {
 				
 		return "shopping/productListLayout";
 	}
+	
+	@GetMapping("/reviewAdd/{id}")
+	public String getReviewAdd(@ModelAttribute ReviewForm form,@PathVariable("id") int id,Model model) {
+		model.addAttribute("contents", "shopping/reviewAdd::productListLayout_contents");
+		
+		PurchaseDTO purchasedto = purchaseService.selectOne(id);
+		
+		PurchaseDTO purchasedtoAdd = new PurchaseDTO();
+		purchasedtoAdd.setId(purchasedto.getId());// カスタム情報取得に使用
+		purchasedtoAdd.setPurchaseId(purchasedto.getPurchaseId());
+		purchasedtoAdd.setPurchase_date(purchasedto.getPurchase_date());
+		purchasedtoAdd.setPcName(purchasedto.getPcName());
+		purchasedtoAdd.setPrice(purchasedto.getPrice());
+		purchasedtoAdd.setProduct_count(purchasedto.getProduct_count());
+		
+		return "s";
+		
+	}
 
 	@GetMapping("/productList")
 	public String getProductList(@ModelAttribute PcDataForm form, Model model) {
@@ -552,12 +575,14 @@ public class ShoppingController {
 		// ログインユーザーのID取得
 		int select_id = usersService.select_id(user_id);
 
-		int result = customService.selectCustomProduct_id(id, select_id);
-		if (result == 0) {
+		CustomDTO customdto = customService.selectCustomProduct_id(id, select_id);
+		System.out.println("test" + customdto.getSelectCheck());
+		if (customdto.getSelectCheck() != 1) {
 			String defaultMemory = "4GB";
 			String defaultHardDisc = "SSD";
 			String defaultCpu = "CORE3";
 			int customPrice = 0;
+			
 			int insertResult = customService.insertCustomData(id, select_id, defaultMemory, defaultHardDisc, defaultCpu,
 					customPrice);
 		}
@@ -1094,6 +1119,7 @@ public class ShoppingController {
 			System.out.println("test1");
 			PurchaseDTO purchaseOne = purchasedtoList.get(i);
 			purchasedtoAdd.setId(purchaseOne.getId());// カスタム情報取得に使用
+			purchasedtoAdd.setPurchaseId(purchaseOne.getPurchaseId());
 			purchasedtoAdd.setPurchase_date(purchaseOne.getPurchase_date());
 			purchasedtoAdd.setPcName(purchaseOne.getPcName());
 			purchasedtoAdd.setPrice(purchaseOne.getPrice());
@@ -1134,7 +1160,8 @@ public class ShoppingController {
 			allPurchaseList.add(purchasedtoAdd);
 			System.out.println("test7");
 			System.out.println("allPurchaseList" + allPurchaseList);
-
+			
+			
 		}
 
 		model.addAttribute("purchaseList", allPurchaseList);
