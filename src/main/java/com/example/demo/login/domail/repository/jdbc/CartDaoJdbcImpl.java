@@ -164,7 +164,7 @@ public class CartDaoJdbcImpl implements CartDao {
 		int result = 0;
 
 		try {
-			int select_result = jdbc.queryForObject("select cart.product_id from cart where product_id = ? and user_id = ?",
+			int select_result = jdbc.queryForObject("select cart.product_id from cart where product_id = ? and user_id = ? and purchase_check is null",
 					Integer.class, product_id, select_id);
 			result = 1;
 		} catch (EmptyResultDataAccessException e) {
