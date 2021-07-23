@@ -114,6 +114,11 @@ public class CartService {
 		return dao.purchaseSelectMany(select_id);
 	}
 	
+	public int idInsertOne(int id,int product_id ,int select_id) {
+		return dao.idInsertOne(id,product_id,select_id);
+	}
+	
+	
 //	public int selectProductId(int cartId) {
 //		return dao.selectProductId(cartId);
 //	}

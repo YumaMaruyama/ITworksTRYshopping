@@ -37,7 +37,7 @@ public class CartDaoJdbcImpl implements CartDao {
 		//ログインユーザーのidを取得
 		int getId = jdbc.queryForObject("select users.id from users where user_id = ?", Integer.class, getName);
 		//ログインユーザーのidをもとに、カートに追加した商品をすべて取得
-		List<Map<String, Object>> cartList = jdbc.queryForList("select cart.product_id from cart where user_id = ?",
+		List<Map<String, Object>> cartList = jdbc.queryForList("select cart.product_id from cart where user_id = ? and purchase_check is null",
 				getId);
 
 		//商品IDのカラム名と値の入ったMapからproduct_idListに値だけを入れる
@@ -187,7 +187,7 @@ public class CartDaoJdbcImpl implements CartDao {
 	}
 
 	public List<CartDTO> selectProductCount(int select_id) {
-		List<Map<String, Object>> map = jdbc.queryForList("select * from cart where user_id = ?",select_id);
+		List<Map<String, Object>> map = jdbc.queryForList("select * from cart where user_id = ? and purchase_check is null",select_id);
 
 
 		List<CartDTO> cartList = new ArrayList<>();
@@ -212,11 +212,12 @@ public class CartDaoJdbcImpl implements CartDao {
 	}
 
 	public List<CartDTO> purchaseSelectMany(int select_id) {
-		List<Map<String,Object>> map = jdbc.queryForList("select * from cart where user_id = ?",select_id);
+		List<Map<String,Object>> map = jdbc.queryForList("select * from cart where user_id = ? and purchase_check is null",select_id);
 
 		List<CartDTO> purchaseList = new ArrayList<>();
 		for(Map<String,Object> oneMap : map) {
 			CartDTO cartdto = new CartDTO();
+			cartdto.setId((int)oneMap.get("id"));
 			cartdto.setUser_id((int)oneMap.get("user_id"));
 			cartdto.setProduct_id((int)oneMap.get("product_id"));
 			cartdto.setProduct_count((int)oneMap.get("product_count"));
@@ -224,6 +225,14 @@ public class CartDaoJdbcImpl implements CartDao {
 		}
 		return purchaseList;
 	}
+	
+	public int idInsertOne(int id,int product_id ,int select_id) {
+		int result = jdbc.update("update cart set purchase_check = ? where product_id = ? and user_id = ?",id,product_id,select_id);
+		
+		return result;
+	}
+	
+	
 	
 //	public int selectProductId(int cartId) {
 //		int result = 

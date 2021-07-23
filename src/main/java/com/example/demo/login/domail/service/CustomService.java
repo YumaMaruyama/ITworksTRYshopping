@@ -34,8 +34,8 @@ public class CustomService {
 	public int deleteCustomOne(int id,int getId) {
 		return dao.deleteCustomOne(id,getId);
 	}
-	public int selectCustomId(int purchaseId,int select_id) {
-		return dao.selectCustomId(purchaseId,select_id);
+	public int selectCustomId(int productId,int select_id) {
+		return dao.selectCustomId(productId,select_id);
 	}
 
 	public PurchaseDTO selectMany(int customId) {
@@ -54,4 +54,9 @@ public class CustomService {
 	public int selectPurchaseCheck(int select_id,int product_id,String nullCheck) {
 		return dao.selectPurchaseCheck(select_id,product_id,nullCheck);
 	}
+	
+	public int pruchaseIdInsertOne(int purchaseId) {
+		return dao.pruchaseIdInsertOne(purchaseId);
+	}
+	
 }

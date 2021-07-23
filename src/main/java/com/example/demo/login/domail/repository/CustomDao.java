@@ -17,11 +17,13 @@ public interface CustomDao {
 
 	public int deleteCustomOne(int id,int getId);
 
-	public int selectCustomId(int purchaseId,int select_id);
+	public int selectCustomId(int productId,int select_id);
 
 	public PurchaseDTO selectMany(int customId);
 	
 	public int purchaseCheckUpdate(int select_id,int product_id);
 	
 	public int selectPurchaseCheck(int select_id,int product_id,String nullCheck);
+	
+	public int pruchaseIdInsertOne(int purchaseId);
 }

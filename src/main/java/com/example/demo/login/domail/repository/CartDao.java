@@ -28,6 +28,10 @@ public interface CartDao {
 	public int productStockCheck(int productId);
 
 	public List<CartDTO> purchaseSelectMany(int select_id);
+	
+	public int idInsertOne(int id,int product_id ,int select_id);
+	
+	
 
 	//public int selectProductId(int cartId);
 

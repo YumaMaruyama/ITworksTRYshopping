@@ -576,8 +576,9 @@ public class ShoppingController {
 		int select_id = usersService.select_id(user_id);
 
 		CustomDTO customdto = customService.selectCustomProduct_id(id, select_id);
-		System.out.println("test" + customdto.getSelectCheck());
-		if (customdto.getSelectCheck() != 1) {
+		System.out.println("test" + customdto.getProductId());
+		System.out.println("test2" + id);
+		if(customdto.getProductId() != id) {
 			String defaultMemory = "4GB";
 			String defaultHardDisc = "SSD";
 			String defaultCpu = "CORE3";
@@ -1082,10 +1083,14 @@ public class ShoppingController {
 			CartDTO cartdto = cartList.get(i);
 			int cartId = cartdto.getId();
 			// int selectProductId = cartService.selectProductId(cartId);
-			int purchaseId = cartdto.getProduct_id();
-			int customId = customService.selectCustomId(purchaseId, select_id);
+			int id = cartdto.getId();
+			int productId = cartdto.getProduct_id();
+			int cartIdResult = cartService.idInsertOne(id,productId,select_id);
+			int productid = cartdto.getProduct_id();
+			int customId = customService.selectCustomId(productId, select_id);
 			int purchaseCount = cartdto.getProduct_count();
-			int purchaseInsertResult = purchaseService.insert(purchasedto, purchaseId, purchaseCount, select_id,
+			customService.pruchaseIdInsertOne(productid);
+			int purchaseInsertResult = purchaseService.insert(purchasedto, productid, purchaseCount, select_id,
 					purchaseCreditId, customId);
 
 		}
@@ -1133,8 +1138,6 @@ public class ShoppingController {
 			System.out.println(select_id);
 			int customId = purchasedtoAdd.getCustom_id();
 			System.out.println("customId");
-			// カスタムテーブルに購入チェックを入れる
-			int result = customService.purchaseCheckUpdate(select_id, purchasedtoAdd.getId());
 			String nullCheck = "null";
 			int getCustomId = customService.selectPurchaseCheck(select_id, purchasedtoAdd.getId(), nullCheck);
 			System.out.println("getCustomId" + getCustomId);

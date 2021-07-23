@@ -20,14 +20,14 @@ public class CustomDaoJdbcImpl implements CustomDao{
 
 	public int UpdateOne(int id,int select_id,String memory,String hardDisc,String cpu,int customPrice) {
 
-		int result = jdbc.update("update custom set memory = ? ,hard_disc = ? ,cpu = ? ,custom_price = ? where product_id = ? and user_id = ?",memory,hardDisc,cpu,customPrice,id,select_id);
+		int result = jdbc.update("update custom set memory = ? ,hard_disc = ? ,cpu = ? ,custom_price = ? where product_id = ? and user_id = ? and purchase_check is null",memory,hardDisc,cpu,customPrice,id,select_id);
 
 		return result;
 	}
 
 	public PcDetailDataDTO selectOne(int id,int select_id) {
 
-		Map<String,Object> map = jdbc.queryForMap("select * from custom where product_id = ? and user_id = ?",id,select_id);
+		Map<String,Object> map = jdbc.queryForMap("select * from custom where product_id = ? and user_id = ? and purchase_check is null",id,select_id);
 
 		PcDetailDataDTO pcdetaildatadto = new PcDetailDataDTO();
 		pcdetaildatadto.setId((int)map.get("id"));
@@ -48,14 +48,15 @@ public class CustomDaoJdbcImpl implements CustomDao{
 		CustomDTO customdto = new CustomDTO();
 		
 		try {
-		Map<String,Object> map = jdbc.queryForMap("select * from custom where product_id = ? and user_id = ? and purchase_check = 'null'",id,select_id);
+		Map<String,Object> map = jdbc.queryForMap("select * from custom where product_id = ? and user_id = ? and purchase_check is null",id,select_id);
 		
 		result = 1;
-		int i = 1;
-		customdto.setSelectCheck(i);
+		 customdto = new CustomDTO();
+		customdto.setProductId((int)map.get("product_id"));
+	
 		}catch(IncorrectResultSizeDataAccessException e) {
 			e.printStackTrace();
-			
+			customdto = new CustomDTO();
 			
 		}
 		return customdto;
@@ -81,8 +82,9 @@ public class CustomDaoJdbcImpl implements CustomDao{
 		return result;
 	}
 
-	public int selectCustomId(int purchaseId,int select_id) {
-		int result = jdbc.queryForObject("select custom.id from custom where product_id = ? and user_id = ?",Integer.class,purchaseId,select_id);
+	public int selectCustomId(int productId,int select_id) {
+		System.out.println("productId" + productId);
+		int result = jdbc.queryForObject("select custom.id from custom where product_id = ? and user_id = ? and purchase_check is null",Integer.class,productId,select_id);
 
 		return result;
 
@@ -111,7 +113,14 @@ public class CustomDaoJdbcImpl implements CustomDao{
 	}
 	
 	public int selectPurchaseCheck(int select_id,int product_id,String nullCheck) {
-		int result = jdbc.queryForObject("select custom.id from custom where user_id = ? and purchase_check = ? and purchase_check != ?",Integer.class,select_id,product_id,nullCheck);
+		System.out.println("eeeeee"+product_id);
+		int result = jdbc.queryForObject("select custom.id from custom where user_id = ? and product_id = ? and purchase_check is not null",Integer.class,select_id,product_id);
+		return result;
+	}
+	
+	public int pruchaseIdInsertOne(int purchaseId) {
+		int result = jdbc.update("update custom set purchase_check = ?",purchaseId);
+		
 		return result;
 	}
 
