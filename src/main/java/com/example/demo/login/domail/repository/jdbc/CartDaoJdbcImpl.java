@@ -53,7 +53,7 @@ public class CartDaoJdbcImpl implements CartDao {
 			int pcdatadtoOne = product_idList.get(i);
 			System.out.println("pcdatadtoOne" + pcdatadtoOne);
 			List<Map<String, Object>> productList = jdbc.queryForList(
-					"select pcdata.id,pcdata.company,pcdata.os,pcdata.pc_name,pcdata.pc_size,pcdata.price,pcdata.detail,pcdata.product_stock,pcdata.pcimg,pcdata.pcimg2,pcdata.pcimg3,cart.id AS cartId,cart.product_count,custom.id AS customId,custom.memory,custom.hard_disc,custom.cpu,custom.custom_price from pcdata JOIN cart ON pcdata.id = cart.product_id JOIN custom ON pcdata.id = custom.product_id where pcdata.id = ? and custom.user_id = ? and cart.user_id = ? and cart.purchase_check is null",
+					"select pcdata.id,pcdata.company,pcdata.os,pcdata.pc_name,pcdata.pc_size,pcdata.price,pcdata.detail,pcdata.product_stock,pcdata.pcimg,pcdata.pcimg2,pcdata.pcimg3,cart.id AS cartId,cart.product_count,cart.purchase_check,custom.id AS customId,custom.memory,custom.hard_disc,custom.cpu,custom.custom_price from pcdata JOIN cart ON pcdata.id = cart.product_id JOIN custom ON pcdata.id = custom.product_id where pcdata.id = ? and custom.user_id = ? and cart.user_id = ? and cart.purchase_check is null and custom.purchase_check is null",
 					pcdatadtoOne,getId,getId);
 			
 			user_productList.addAll(productList);
@@ -227,7 +227,7 @@ public class CartDaoJdbcImpl implements CartDao {
 	}
 	
 	public int idInsertOne(int id,int product_id ,int select_id) {
-		int result = jdbc.update("update cart set purchase_check = ? where product_id = ? and user_id = ?",id,product_id,select_id);
+		int result = jdbc.update("update cart set purchase_check = ? where product_id = ? and user_id = ? and purchase_check is null",id,product_id,select_id);
 		
 		return result;
 	}

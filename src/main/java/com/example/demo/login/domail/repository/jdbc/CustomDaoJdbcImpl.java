@@ -125,7 +125,7 @@ public class CustomDaoJdbcImpl implements CustomDao{
 	}
 	
 	public int purchaseIdUpdate(int purchaseId,int productId,int userId) {
-		int result = jdbc.update("update custom set purchase_check = ? where product_id ? and user_id ? purchase_check is null",purchaseId,productId,userId);
+		int result = jdbc.update("update custom set purchase_check = ? where product_id = ? and user_id = ? and purchase_check is null",purchaseId,productId,userId);
 		
 		return result;
 	}

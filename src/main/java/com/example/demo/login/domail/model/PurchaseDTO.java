@@ -36,4 +36,6 @@ public class PurchaseDTO {
 	private int customPrice;
 
 	private int totalPrice;
+	
+	private int purchaseCheck;
 }
