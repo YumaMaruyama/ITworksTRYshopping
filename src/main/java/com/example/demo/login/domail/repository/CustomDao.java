@@ -26,4 +26,6 @@ public interface CustomDao {
 	public int selectPurchaseCheck(int select_id,int product_id,String nullCheck);
 	
 	public int pruchaseIdInsertOne(int purchaseId);
+	
+	public int purchaseIdUpdate(int purchaseId,int productId,int userId);
 }

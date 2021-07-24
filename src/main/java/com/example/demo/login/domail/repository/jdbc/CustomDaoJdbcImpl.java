@@ -78,7 +78,7 @@ public class CustomDaoJdbcImpl implements CustomDao{
 
 	public int deleteCustomOne(int id,int getId) {
 
-		int result = jdbc.update("delete from custom where product_id = ? and user_id = ?",id,getId);
+		int result = jdbc.update("delete from custom where product_id = ? and user_id = ? and purchase_check is null",id,getId);
 		return result;
 	}
 
@@ -120,6 +120,12 @@ public class CustomDaoJdbcImpl implements CustomDao{
 	
 	public int pruchaseIdInsertOne(int purchaseId) {
 		int result = jdbc.update("update custom set purchase_check = ?",purchaseId);
+		
+		return result;
+	}
+	
+	public int purchaseIdUpdate(int purchaseId,int productId,int userId) {
+		int result = jdbc.update("update custom set purchase_check = ? where product_id ? and user_id ? purchase_check is null",purchaseId,productId,userId);
 		
 		return result;
 	}

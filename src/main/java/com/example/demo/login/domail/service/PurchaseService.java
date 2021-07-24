@@ -54,5 +54,11 @@ public class PurchaseService {
 	public PurchaseDTO selectOne(int id) {
 		return dao.selectOne(id);
 	}
+	
+	public int selectPurchaseIdOne() {
+		return dao.selectPurchaseIdOne();
+	}
+	
+
 
 }

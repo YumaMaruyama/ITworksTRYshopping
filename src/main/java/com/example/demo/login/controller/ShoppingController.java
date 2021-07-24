@@ -819,7 +819,7 @@ public class ShoppingController {
 			}
 		}
 
-		System.out.println("cartList " + cartList);
+		
 		model.addAttribute("cartList", cartList);
 
 		return "shopping/productListLayout";
@@ -958,6 +958,7 @@ public class ShoppingController {
 			int result = cartService.deleteOne(id, getId);
 			return cart(form, model);
 		}
+		
 
 		System.out.println("test");
 		String getText = form.getProduct_count();
@@ -1089,10 +1090,12 @@ public class ShoppingController {
 			int productid = cartdto.getProduct_id();
 			int customId = customService.selectCustomId(productId, select_id);
 			int purchaseCount = cartdto.getProduct_count();
-			customService.pruchaseIdInsertOne(productid);
+			//customService.pruchaseIdInsertOne(productid);
 			int purchaseInsertResult = purchaseService.insert(purchasedto, productid, purchaseCount, select_id,
 					purchaseCreditId, customId);
-
+			int purchaseId = purchaseService.selectPurchaseIdOne();
+			System.out.println("purchaseId" + purchaseId);
+			int customPurchaseCheckUpdateResult = customService.pruchaseIdUpdate(purchaseId,productId,select_id);
 		}
 
 		// return "redirect:/after_purchase";
@@ -1139,7 +1142,7 @@ public class ShoppingController {
 			int customId = purchasedtoAdd.getCustom_id();
 			System.out.println("customId");
 			String nullCheck = "null";
-			int getCustomId = customService.selectPurchaseCheck(select_id, purchasedtoAdd.getId(), nullCheck);
+			int getCustomId = customService.selectPurchaseCheck(select_id, purchasedtoAdd.getPurchaseId(),nullCheck);
 			System.out.println("getCustomId" + getCustomId);
 			// ここにはカスタムID(purchaseDB)を入れる 購入のIDを入れているからでないんだよ
 			// 上のhistoryでもカスタムIDを取得できないからカスタムテーブルに商品購入時に購入マークを入れる

@@ -59,4 +59,8 @@ public class CustomService {
 		return dao.pruchaseIdInsertOne(purchaseId);
 	}
 	
+	public int pruchaseIdUpdate(int purchaseId,int productId,int userId) {
+		return dao.purchaseIdUpdate(purchaseId,productId,userId);
+		
+	}
 }

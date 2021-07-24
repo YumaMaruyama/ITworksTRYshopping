@@ -132,6 +132,15 @@ public class PurchaseDaoJdbcImpl implements PurchaseDao {
 		return purchasedto;
 	
 	}
+	
+	public int selectPurchaseIdOne() {
+		int id = jdbc.queryForObject("select max(id) from purchase",Integer.class);
+		
+		return id;
+		
+	}
+	
+
 
 
 }
