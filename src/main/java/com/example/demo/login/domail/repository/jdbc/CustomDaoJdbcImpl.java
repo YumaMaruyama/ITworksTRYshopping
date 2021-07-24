@@ -112,9 +112,9 @@ public class CustomDaoJdbcImpl implements CustomDao{
 		return result;
 	}
 	
-	public int selectPurchaseCheck(int select_id,int product_id,String nullCheck) {
+	public int selectPurchaseCheck(int select_id,int product_id,int purchaseCheck,String nullCheck) {
 		System.out.println("eeeeee"+product_id);
-		int result = jdbc.queryForObject("select custom.id from custom where user_id = ? and product_id = ? and purchase_check is not null",Integer.class,select_id,product_id);
+		int result = jdbc.queryForObject("select custom.id from custom where user_id = ? and product_id = ? and purchase_check = ? and purchase_check is not null",Integer.class,select_id,product_id,purchaseCheck);
 		return result;
 	}
 	

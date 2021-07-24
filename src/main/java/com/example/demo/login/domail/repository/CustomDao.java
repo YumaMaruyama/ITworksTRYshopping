@@ -23,7 +23,7 @@ public interface CustomDao {
 	
 	public int purchaseCheckUpdate(int select_id,int product_id);
 	
-	public int selectPurchaseCheck(int select_id,int product_id,String nullCheck);
+	public int selectPurchaseCheck(int select_id,int product_id,int purchaseCheck,String nullCheck);
 	
 	public int pruchaseIdInsertOne(int purchaseId);
 	

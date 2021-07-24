@@ -51,8 +51,8 @@ public class CustomService {
 		return result;
 	}
 	
-	public int selectPurchaseCheck(int select_id,int product_id,String nullCheck) {
-		return dao.selectPurchaseCheck(select_id,product_id,nullCheck);
+	public int selectPurchaseCheck(int select_id,int product_id,int purchaseCheck,String nullCheck) {
+		return dao.selectPurchaseCheck(select_id,product_id,purchaseCheck,nullCheck);
 	}
 	
 	public int pruchaseIdInsertOne(int purchaseId) {

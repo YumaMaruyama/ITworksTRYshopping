@@ -98,7 +98,7 @@ public class PurchaseDaoJdbcImpl implements PurchaseDao {
 
 	public List<PurchaseDTO> selectHistory(int select_id) {
 
-		List<Map<String,Object>> map = jdbc.queryForList("select purchase.id,purchase.product_id,purchase.purchase_date,purchase.product_count,pcdata.pc_name,pcdata.price,cart.purchase_check from purchase join pcdata on purchase.product_id = pcdata.id join cart on purchase.id = cart.purchase_check where user_id = ? ",select_id);
+		List<Map<String,Object>> map = jdbc.queryForList("select purchase.id,purchase.product_id,purchase.purchase_date,purchase.product_count,pcdata.pc_name,pcdata.price,cart.purchase_check as cartPurchaseCheck from purchase join pcdata on purchase.product_id = pcdata.id join cart on purchase.id = cart.purchase_check where purchase.user_id = ? ",select_id);
 
 		List<PurchaseDTO> purchaseList = new ArrayList<>();
 		for(Map<String,Object> oneMap : map) {
@@ -111,6 +111,7 @@ public class PurchaseDaoJdbcImpl implements PurchaseDao {
 			purchasedto.setPcName((String)oneMap.get("pc_name"));
 			purchasedto.setPrice((int)oneMap.get("price"));
 			purchasedto.setProduct_count((int)oneMap.get("product_count"));
+			purchasedto.setPurchaseCheck((int)oneMap.get("cartPurchaseCheck"));
 
 			purchaseList.add(purchasedto);
 		}

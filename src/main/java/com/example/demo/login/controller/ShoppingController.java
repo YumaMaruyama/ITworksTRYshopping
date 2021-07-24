@@ -1144,7 +1144,7 @@ public class ShoppingController {
 			int customId = purchasedtoAdd.getCustom_id();
 			System.out.println("customId");
 			String nullCheck = "null";
-			int getCustomId = customService.selectPurchaseCheck(select_id, purchasedtoAdd.getPurchaseCheck(),nullCheck);
+			int getCustomId = customService.selectPurchaseCheck(select_id, productId,purchasedtoAdd.getPurchaseCheck(),nullCheck);
 			System.out.println("getCustomId" + getCustomId);
 			// ここにはカスタムID(purchaseDB)を入れる 購入のIDを入れているからでないんだよ
 			// 上のhistoryでもカスタムIDを取得できないからカスタムテーブルに商品購入時に購入マークを入れる
