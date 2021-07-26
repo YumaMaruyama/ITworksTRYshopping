@@ -972,6 +972,10 @@ public class ShoppingController {
 		// カスタム後に商品詳細画面にリダイレクト
 		return "redirect:/productDetail/{id}";
 	}
+	
+	@GetMapping(value = "/cart/{id}",params = "review")
+	
+	
 
 	@GetMapping(value = "/cart/{id}", params = "cartAdd")
 	public String getCart(@ModelAttribute CartForm form, Model model, RedirectAttributes redirectattributes,
