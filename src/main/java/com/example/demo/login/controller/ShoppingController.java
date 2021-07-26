@@ -182,6 +182,7 @@ public class ShoppingController {
 			purchasedtoAdd.setPcName(purchaseOne.getPcName());
 			purchasedtoAdd.setPrice(purchaseOne.getPrice());
 			purchasedtoAdd.setProduct_count(purchaseOne.getProduct_count());
+			purchasedtoAdd.setPurchaseCheck(purchaseOne.getPurchaseId());
 
 			System.out.println("test2");
 			// 購入商品ごとのカスタム情報を取得
@@ -194,7 +195,7 @@ public class ShoppingController {
 			// カスタムテーブルに購入チェックをつける
 			int result = customService.purchaseCheckUpdate(id, purchasedtoAdd.getId());
 			String nullCheck = "null";
-			int getCustomId = customService.selectPurchaseCheck(id, purchasedtoAdd.getId(), nullCheck);
+			int getCustomId = customService.selectPurchaseCheck(id, purchasedtoAdd.getId(),purchasedtoAdd.getPurchaseCheck(), nullCheck);
 			System.out.println("getCustomId" + getCustomId);
 
 			customList = customService.selectMany(getCustomId);
