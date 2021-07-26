@@ -59,6 +59,10 @@ public class PurchaseService {
 		return dao.selectPurchaseIdOne();
 	}
 	
+	public PurchaseDTO reviewSelectHistory(int selectId,int purchaseId) {
+		return dao.reviewSelectHistory(selectId,purchaseId);
+	}
+	
 
 
 }

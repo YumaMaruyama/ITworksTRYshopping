@@ -195,7 +195,8 @@ public class ShoppingController {
 			// カスタムテーブルに購入チェックをつける
 			int result = customService.purchaseCheckUpdate(id, purchasedtoAdd.getId());
 			String nullCheck = "null";
-			int getCustomId = customService.selectPurchaseCheck(id, purchasedtoAdd.getId(),purchasedtoAdd.getPurchaseCheck(), nullCheck);
+			int getCustomId = customService.selectPurchaseCheck(id, purchasedtoAdd.getId(),
+					purchasedtoAdd.getPurchaseCheck(), nullCheck);
 			System.out.println("getCustomId" + getCustomId);
 
 			customList = customService.selectMany(getCustomId);
@@ -239,15 +240,16 @@ public class ShoppingController {
 		userslistdto.setAddress(usegeusersdto.getAddress());
 
 		model.addAttribute("usersList", userslistdto);
-		model.addAttribute("id",userslistdto.getId());
-		
+		model.addAttribute("id", userslistdto.getId());
+
 		return "shopping/productListLayout";
 	}
-	
+
 	@GetMapping("/editYourDetail/{id}")
-	public String getEditYourDetail(@ModelAttribute UserEditForm from,UsersListForm usersListForm,@PathVariable("id") int id,Model model) {
+	public String getEditYourDetail(@ModelAttribute UserEditForm from, UsersListForm usersListForm,
+			@PathVariable("id") int id, Model model) {
 		model.addAttribute("contents", "shopping/editYourDetail::productListLayout_contents");
-		
+
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 		String userId = auth.getName();
@@ -261,57 +263,56 @@ public class ShoppingController {
 		userslistdto.setAddress(usegeusersdto.getAddress());
 		usersListForm.setUserName(userslistdto.getUserName());
 		usersListForm.setAddress(userslistdto.getAddress());
-		model.addAttribute("id",id);
-		
+		model.addAttribute("id", id);
+
 		return "shopping/productListLayout";
 	}
-	
-	@PostMapping(value = "/editYourDetail",params = "update")
-	public String postEditYourDetailUpdate(@ModelAttribute UserEditForm form,@Validated(GroupOrder.class)UsersListForm usersListForm,BindingResult bindingResult,@RequestParam("id") int id,Model model) {
-		
-		
-		if(bindingResult.hasErrors()) {
+
+	@PostMapping(value = "/editYourDetail", params = "update")
+	public String postEditYourDetailUpdate(@ModelAttribute UserEditForm form,
+			@Validated(GroupOrder.class) UsersListForm usersListForm, BindingResult bindingResult,
+			@RequestParam("id") int id, Model model) {
+
+		if (bindingResult.hasErrors()) {
 			System.out.println("バリデーションエラー到達");
-			
-			return getEditYourDetail(form,usersListForm,id,model);
+
+			return getEditYourDetail(form, usersListForm, id, model);
 		}
-		
+
 		UsersDTO usersdto = new UsersDTO();
 		usersdto.setId(id);
 		usersdto.setUser_name(usersListForm.getUserName());
 		Usege_usersDTO usegeusersdto = new Usege_usersDTO();
 		usegeusersdto.setId(id);
-		usegeusersdto.setAddress(usersListForm.getAddress());	
+		usegeusersdto.setAddress(usersListForm.getAddress());
 		int usersUpdateResult = usersService.updateOne(usersdto);
 		int usegeUpdateResult = usegeService.updateOne(usegeusersdto);
-		
-		return getEditYour(form,model);
+
+		return getEditYour(form, model);
 	}
-	
-	@PostMapping(value = "/editYourDetail",params = "delete")
-	public String postEditYourDetailDelete(@ModelAttribute UserEditForm form,@RequestParam("id") int id,Model model) {
-		
+
+	@PostMapping(value = "/editYourDetail", params = "delete")
+	public String postEditYourDetailDelete(@ModelAttribute UserEditForm form, @RequestParam("id") int id, Model model) {
+
 		int usersDeleteResult = usersService.deleteOne(id);
 		int usegeDeleteResult = usegeService.deleteOne(id);
-		
-		
-	return 	getLogout();
+
+		return getLogout();
 	}
-	
+
 	@GetMapping("termsOfUse")
 	public String gettermsOfUse(Model model) {
 		model.addAttribute("contents", "shopping/termsOfUse::productListLayout_contents");
-		
+
 		return "shopping/productListLayout";
 	}
-	
+
 	@GetMapping("privacyPolicy")
 	public String getPrivacyPolicy(Model model) {
 		model.addAttribute("contents", "shopping/privacyPolicy::productListLayout_contents");
-		
+
 		return "shopping/productListLayout";
 	}
-	
 
 	@GetMapping("/inquiry")
 	public String getInquiry(@ModelAttribute InquiryForm form, Model model) {
@@ -346,75 +347,73 @@ public class ShoppingController {
 		return getInquiry(form2, model);
 
 	}
-	
+
 	@GetMapping("/inquiry/{id}")
-	public String getInquiryReply(@ModelAttribute InquiryForm form,@PathVariable("id") int id,Model model) {
+	public String getInquiryReply(@ModelAttribute InquiryForm form, @PathVariable("id") int id, Model model) {
 		model.addAttribute("contents", "shopping/inquiryReply::productListLayout_contents");
 		InquiryDTO inquirydto = inquiryService.selectOne(id);
-		model.addAttribute("inquiryList",inquirydto);
-		model.addAttribute("id",id);
-		
+		model.addAttribute("inquiryList", inquirydto);
+		model.addAttribute("id", id);
+
 		return "shopping/productListLayout";
 	}
-	
+
 	@GetMapping("/inquiryDetail/{id}")
-	public String getInquiryDetail(@ModelAttribute InquiryForm form,@PathVariable("id") int id,Model model) {
+	public String getInquiryDetail(@ModelAttribute InquiryForm form, @PathVariable("id") int id, Model model) {
 		model.addAttribute("contents", "shopping/inquiryDetail::productListLayout_contents");
-		
+
 		InquiryDTO inquirydto = inquiryService.selectOne(id);
-		model.addAttribute("id",inquirydto.getId());
-		model.addAttribute("inquiryList",inquirydto);
-		
+		model.addAttribute("id", inquirydto.getId());
+		model.addAttribute("inquiryList", inquirydto);
+
 		return "shopping/productListLayout";
 	}
-	
+
 	@PostMapping("/inquiryDetail")
-	public String postInquiryDetail(@ModelAttribute InquiryForm form,@RequestParam("id") int id,Model model) {
+	public String postInquiryDetail(@ModelAttribute InquiryForm form, @RequestParam("id") int id, Model model) {
 		System.out.println("inquiryDetail到達");
 		int result = inquiryService.deleteOne(id);
-		
-		return getAdministrator(form,model);
+
+		return getAdministrator(form, model);
 	}
-	
-	
 
 	@PostMapping(value = "inquiry", params = "return")
-	public String postInquiryReturn(@ModelAttribute InquiryForm form,@RequestParam("id") int id,Model model) {
-		
+	public String postInquiryReturn(@ModelAttribute InquiryForm form, @RequestParam("id") int id, Model model) {
+
 		InquiryReplyDTO inquiryreplydto = new InquiryReplyDTO();
 		inquiryreplydto.setInquiryId(id);
 		inquiryreplydto.setTitle(form.getTitle());
 		inquiryreplydto.setContent(form.getContent());
-		
+
 		int result = inquiryService.replyInsertOne(inquiryreplydto);
-		
-		return getAdministrator(form,model);
+
+		return getAdministrator(form, model);
 
 	}
 
 	@GetMapping("contactReply")
-	public String getContactReply(@ModelAttribute InquiryForm form,Model model) {
+	public String getContactReply(@ModelAttribute InquiryForm form, Model model) {
 		model.addAttribute("contents", "shopping/contactReply::productListLayout_contents");
-		
+
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 		String user_id = auth.getName();
 
 		// ログインユーザーのID取得
 		int select_id = usersService.select_id(user_id);
-		
+
 		List<InquiryAllDTO> inquiryreplydtolist = inquiryService.everyUserSelectMany(select_id);
-		model.addAttribute("inquiryAllDto",inquiryreplydtolist);
-		
+		model.addAttribute("inquiryAllDto", inquiryreplydtolist);
+
 		return "shopping/productListLayout";
 	}
-	
+
 	@GetMapping("/administrator")
 	public String getAdministrator(@ModelAttribute InquiryForm form, Model model) {
 		model.addAttribute("contents", "shopping/administrator::productListLayout_contents");
 
 		List<InquiryDTO> inquirydtolist = inquiryService.selectMany();
-		//model.addAttribute("id",inquirydtolist);
+		// model.addAttribute("id",inquirydtolist);
 		model.addAttribute("inquiryList", inquirydtolist);
 
 		return "shopping/productListLayout";
@@ -481,59 +480,86 @@ public class ShoppingController {
 		}
 		return getProductList(form, model);
 	}
-	
+
 	@GetMapping("/news")
 	public String getNews(@ModelAttribute NewsForm form, Model model) {
 		model.addAttribute("contents", "shopping/news::productListLayout_contents");
-		
+
 		List<NewsDTO> newsdtoList = newsService.selectMany();
-		
-		model.addAttribute("newsdtoList",newsdtoList);
-		
+
+		model.addAttribute("newsdtoList", newsdtoList);
+
 		return "shopping/productListLayout";
 	}
-	
+
 	@GetMapping("/newsAdd")
 	public String getNewsAdd(@ModelAttribute NewsForm form, Model model) {
 		model.addAttribute("contents", "shopping/newsAdd::productListLayout_contents");
-		
+
 		return "shopping/productListLayout";
 	}
-	
+
 	@PostMapping("newsAdd")
-	public String postNewsAdd(@ModelAttribute @Validated(GroupOrder.class)NewsForm form,BindingResult bidingResult,Model model) {
+	public String postNewsAdd(@ModelAttribute @Validated(GroupOrder.class) NewsForm form, BindingResult bidingResult,
+			Model model) {
 		model.addAttribute("contents", "shopping/newsAdd::productListLayout_contents");
-		
-		if(bidingResult.hasErrors()) {
+
+		if (bidingResult.hasErrors()) {
 			System.out.println("バリデーションエラー到達");
-			return getNewsAdd(form,model);
+			return getNewsAdd(form, model);
 		}
-		
+
 		NewsDTO newsdto = new NewsDTO();
 		newsdto.setTitle(form.getTitle());
 		newsdto.setContent(form.getContent());
-		
+
 		int result = newsService.insertOne(newsdto);
-				
+
 		return "shopping/productListLayout";
 	}
-	
+
 	@GetMapping("/reviewAdd/{id}")
-	public String getReviewAdd(@ModelAttribute ReviewForm form,@PathVariable("id") int id,Model model) {
+	public String getReviewAdd(@ModelAttribute ReviewForm form, @PathVariable("id") int id, Model model) {
 		model.addAttribute("contents", "shopping/reviewAdd::productListLayout_contents");
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println("auth" + auth.getName());
+		String getName = auth.getName();
+
+		int select_id = usersService.select_id(getName);
+
+		PurchaseDTO purchasedto = new PurchaseDTO();
 		
-		PurchaseDTO purchasedto = purchaseService.selectOne(id);
+		// 購入商品情報取得
+		PurchaseDTO purchasedtoList = purchaseService.reviewSelectHistory(select_id, id);
+		purchasedto.setId(purchasedtoList.getId());
+		purchasedto.setPurchaseId(purchasedtoList.getPurchaseId());
+		purchasedto.setPurchase_date(purchasedtoList.getPurchase_date());
+		purchasedto.setPcName(purchasedtoList.getPcName());
+		purchasedto.setPrice(purchasedtoList.getPrice());
+		purchasedto.setProduct_count(purchasedtoList.getProduct_count());
+		purchasedto.setPurchaseCheck(purchasedtoList.getPurchaseCheck());
 		
-		PurchaseDTO purchasedtoAdd = new PurchaseDTO();
-		purchasedtoAdd.setId(purchasedto.getId());// カスタム情報取得に使用
-		purchasedtoAdd.setPurchaseId(purchasedto.getPurchaseId());
-		purchasedtoAdd.setPurchase_date(purchasedto.getPurchase_date());
-		purchasedtoAdd.setPcName(purchasedto.getPcName());
-		purchasedtoAdd.setPrice(purchasedto.getPrice());
-		purchasedtoAdd.setProduct_count(purchasedto.getProduct_count());
 		
-		return "s";
+		String nullCheck = "null";
+		int getCustomId = customService.selectPurchaseCheck(select_id, purchasedtoList.getProduct_id(),
+				purchasedtoList.getPurchaseCheck(), nullCheck);
+		System.out.println("getCustomId" + getCustomId);
+
+		PurchaseDTO customList = customService.selectMany(getCustomId);
+		System.out.println("costomList" + customList);
 		
+		purchasedto.setMemory(customList.getMemory());
+		purchasedto.setHardDisc(customList.getHardDisc());
+		purchasedto.setCpu(customList.getCpu());
+		purchasedto.setCustomPrice(customList.getCustomPrice());
+		
+		
+		
+	model.addAttribute("purchaseList",purchasedto);
+
+	return"shopping/productListLayout";
+
 	}
 
 	@GetMapping("/productList")
@@ -579,12 +605,12 @@ public class ShoppingController {
 		CustomDTO customdto = customService.selectCustomProduct_id(id, select_id);
 		System.out.println("test" + customdto.getProductId());
 		System.out.println("test2" + id);
-		if(customdto.getProductId() != id) {
+		if (customdto.getProductId() != id) {
 			String defaultMemory = "4GB";
 			String defaultHardDisc = "SSD";
 			String defaultCpu = "CORE3";
 			int customPrice = 0;
-			
+
 			int insertResult = customService.insertCustomData(id, select_id, defaultMemory, defaultHardDisc, defaultCpu,
 					customPrice);
 		}
@@ -820,7 +846,6 @@ public class ShoppingController {
 			}
 		}
 
-		
 		model.addAttribute("cartList", cartList);
 
 		return "shopping/productListLayout";
@@ -940,8 +965,8 @@ public class ShoppingController {
 			System.out.println("カートにデータがない商品なのでインサート");
 			int insertResult = cartService.insertOne(cartdto, product_id, select_id);
 		}
-		return cart(form,model);
-		//return "redirect:/cart";
+		return cart(form, model);
+		// return "redirect:/cart";
 	}
 
 	@PostMapping(value = "/cart/{id}", params = "delete")
@@ -959,7 +984,6 @@ public class ShoppingController {
 			int result = cartService.deleteOne(id, getId);
 			return cart(form, model);
 		}
-		
 
 		System.out.println("test");
 		String getText = form.getProduct_count();
@@ -1087,17 +1111,17 @@ public class ShoppingController {
 			// int selectProductId = cartService.selectProductId(cartId);
 			int id = cartdto.getId();
 			int productId = cartdto.getProduct_id();
-			
+
 			int productid = cartdto.getProduct_id();
 			int customId = customService.selectCustomId(productId, select_id);
 			int purchaseCount = cartdto.getProduct_count();
-			//customService.pruchaseIdInsertOne(productid);
+			// customService.pruchaseIdInsertOne(productid);
 			int purchaseInsertResult = purchaseService.insert(purchasedto, productid, purchaseCount, select_id,
 					purchaseCreditId, customId);
 			int purchaseId = purchaseService.selectPurchaseIdOne();
 			System.out.println("purchaseId" + purchaseId);
-			int customPurchaseCheckUpdateResult = customService.pruchaseIdUpdate(purchaseId,productId,select_id);
-			int cartIdResult = cartService.idInsertOne(purchaseId,productId,select_id);
+			int customPurchaseCheckUpdateResult = customService.pruchaseIdUpdate(purchaseId, productId, select_id);
+			int cartIdResult = cartService.idInsertOne(purchaseId, productId, select_id);
 		}
 
 		// return "redirect:/after_purchase";
@@ -1108,21 +1132,19 @@ public class ShoppingController {
 	public String getPurchaseHistory(@ModelAttribute PcDataForm form, Model model) {
 		model.addAttribute("contents", "shopping/purchaseHistory::productListLayout_contents");
 
-		System.out.println("text1");
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 		String getName = auth.getName();
 
 		int select_id = usersService.select_id(getName);
-		System.out.println("text1");
+
 		// 購入商品情報リスト取得
 		List<PurchaseDTO> purchasedtoList = purchaseService.selectHistory(select_id);
-		System.out.println("text1");
+
 		PurchaseDTO purchasedto = new PurchaseDTO();
 
 		List<PurchaseDTO> allPurchaseList = new ArrayList<>();
 		PurchaseDTO customList;
-		// PurchaseDTO purchasedtoAdd;
 		// 購入商品を一つづつ回して値を受け取る
 		for (int i = 0; purchasedtoList.size() > i; i++) {
 			PurchaseDTO purchasedtoAdd = new PurchaseDTO();
@@ -1145,18 +1167,12 @@ public class ShoppingController {
 			int customId = purchasedtoAdd.getCustom_id();
 			System.out.println("customId");
 			String nullCheck = "null";
-			int getCustomId = customService.selectPurchaseCheck(select_id, productId,purchasedtoAdd.getPurchaseCheck(),nullCheck);
+			int getCustomId = customService.selectPurchaseCheck(select_id, productId, purchasedtoAdd.getPurchaseCheck(),
+					nullCheck);
 			System.out.println("getCustomId" + getCustomId);
-			// ここにはカスタムID(purchaseDB)を入れる 購入のIDを入れているからでないんだよ
-			// 上のhistoryでもカスタムIDを取得できないからカスタムテーブルに商品購入時に購入マークを入れる
 
 			customList = customService.selectMany(getCustomId);
 			System.out.println("costomList" + customList);
-
-			System.out.println("test4");
-			System.out.println("text1");
-
-			System.out.println("test5");
 
 			purchasedtoAdd.setMemory(customList.getMemory());
 			purchasedtoAdd.setHardDisc(customList.getHardDisc());
@@ -1164,13 +1180,10 @@ public class ShoppingController {
 			purchasedtoAdd.setCustomPrice(customList.getCustomPrice());
 			purchasedtoAdd.setTotalPrice(
 					purchaseOne.getProduct_count() * (customList.getCustomPrice() + purchaseOne.getPrice()));
-			System.out.println("test6");
 
 			allPurchaseList.add(purchasedtoAdd);
-			System.out.println("test7");
 			System.out.println("allPurchaseList" + allPurchaseList);
-			
-			
+
 		}
 
 		model.addAttribute("purchaseList", allPurchaseList);

@@ -21,6 +21,10 @@ public interface PurchaseDao {
 	public PurchaseDTO selectOne(int id);
 	
 	public int selectPurchaseIdOne();
+	
+	public PurchaseDTO reviewSelectHistory(int selectId,int purchaseId);
+	
+	
 
 
 }
