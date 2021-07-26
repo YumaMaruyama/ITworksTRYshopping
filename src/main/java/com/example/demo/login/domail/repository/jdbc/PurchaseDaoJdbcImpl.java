@@ -142,12 +142,13 @@ public class PurchaseDaoJdbcImpl implements PurchaseDao {
 	}
 	
 	public PurchaseDTO reviewSelectHistory(int selectId,int purchaseId) {
-		Map<String,Object> map = jdbc.queryForMap("select purchase.id,purchase.product_id,purchase.purchase_date,purchase.product_count,pcdata.pc_name,pcdata.price,cart.purchase_check as cartPurchaseCheck from purchase join pcdata on purchase.product_id = pcdata.id join cart on purchase.id = cart.purchase_check where purchase.id = ? ",purchaseId);
+		Map<String,Object> map = jdbc.queryForMap("select purchase.id,purchase.product_id,purchase.purchase_date,purchase.product_count,pcdata.id as pcDataId,pcdata.pc_name,pcdata.price,cart.purchase_check as cartPurchaseCheck from purchase join pcdata on purchase.product_id = pcdata.id join cart on purchase.id = cart.purchase_check where purchase.id = ? ",purchaseId);
 	
 		PurchaseDTO purchasedto = new PurchaseDTO();
 		purchasedto.setId((int)map.get("id"));
 		purchasedto.setProduct_id((int)map.get("product_id"));
 		purchasedto.setPurchase_date((Date)map.get("purchase_date"));
+		purchasedto.setPcDataId((int)map.get("pcDataId"));		
 		purchasedto.setPcName((String)map.get("pc_name"));
 		purchasedto.setPrice((int)map.get("price"));
 		purchasedto.setProduct_count((int)map.get("product_count"));

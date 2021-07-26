@@ -23,6 +23,8 @@ public class PurchaseDTO {
 
 	private int custom_id;
 
+	private int pcDataId;
+	
 	private String pcName;
 
 	private int price;

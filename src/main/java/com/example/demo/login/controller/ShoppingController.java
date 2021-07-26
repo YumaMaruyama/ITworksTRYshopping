@@ -40,6 +40,7 @@ import com.example.demo.login.domail.model.PcDataForm;
 import com.example.demo.login.domail.model.PcDetailDataDTO;
 import com.example.demo.login.domail.model.PcDetailDataForm;
 import com.example.demo.login.domail.model.PurchaseDTO;
+import com.example.demo.login.domail.model.ReviewDTO;
 import com.example.demo.login.domail.model.ReviewForm;
 import com.example.demo.login.domail.model.Usege_usersDTO;
 import com.example.demo.login.domail.model.UserEditForm;
@@ -535,6 +536,7 @@ public class ShoppingController {
 		purchasedto.setId(purchasedtoList.getId());
 		purchasedto.setPurchaseId(purchasedtoList.getPurchaseId());
 		purchasedto.setPurchase_date(purchasedtoList.getPurchase_date());
+		purchasedto.setPcDataId(purchasedtoList.getPcDataId());
 		purchasedto.setPcName(purchasedtoList.getPcName());
 		purchasedto.setPrice(purchasedtoList.getPrice());
 		purchasedto.setProduct_count(purchasedtoList.getProduct_count());
@@ -553,13 +555,39 @@ public class ShoppingController {
 		purchasedto.setHardDisc(customList.getHardDisc());
 		purchasedto.setCpu(customList.getCpu());
 		purchasedto.setCustomPrice(customList.getCustomPrice());
-		
+		model.addAttribute("totalPrice",purchasedto.getPrice() + purchasedto.getCustomPrice());	
+		model.addAttribute("purchaseId",id);
 		
 		
 	model.addAttribute("purchaseList",purchasedto);
 
 	return"shopping/productListLayout";
 
+	}
+	
+	@PostMapping("/reviewAdd")
+	public String postReviewAdd(@ModelAttribute ReviewForm form,@RequestParam("pcDataId") int pcDataId,@RequestParam("purchaseId") int purchaseId,RedirectAttributes redirectAttributes, Model model) {
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println("auth" + auth.getName());
+		String getName = auth.getName();
+
+		int selectId = usersService.select_id(getName);
+		
+		ReviewDTO reviewdto = new ReviewDTO();
+		
+		int selectResult = reviewService.selectOne(selectId,pcDataId,purchaseId);
+
+		if(selectResult <= 0) {
+		reviewService.reviewInsertOne(reviewdto,selectId,pcDataId,form.getTitle(),form.getContent(),form.getRating(),purchaseId);
+		}else {
+			model.addAttribute("result","この商品はすでに口コミ投稿しています。");
+			return getReviewAdd(form,purchaseId,model);
+		}
+		
+		
+		return "redirect:/purchaseHistory";
+		
 	}
 
 	@GetMapping("/productList")
