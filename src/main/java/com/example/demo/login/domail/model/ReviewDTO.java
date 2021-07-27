@@ -20,4 +20,6 @@ public class ReviewDTO {
 	private String content;
 	
 	private Date registrationDate;
+	
+	private String userName;
 }

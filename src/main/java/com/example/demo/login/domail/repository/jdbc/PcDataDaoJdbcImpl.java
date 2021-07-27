@@ -100,6 +100,15 @@ public class PcDataDaoJdbcImpl implements PcDataDao {
 		System.out.println("selectResult" + selectResult);
 		return selectResult;
 	}
+	
+	public PcDataDTO selectPcName(int productId) {
+		Map<String,Object> map = jdbc.queryForMap("select * from pcdata where id = ?",productId);
+		
+		PcDataDTO pcdatadto = new PcDataDTO();
+		pcdatadto.setPc_name((String)map.get("pc_name"));
+		
+		return pcdatadto;
+	}
 
 
 }

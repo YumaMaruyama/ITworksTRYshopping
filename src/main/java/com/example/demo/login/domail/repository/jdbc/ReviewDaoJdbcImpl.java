@@ -1,5 +1,10 @@
 package com.example.demo.login.domail.repository.jdbc;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -39,5 +44,29 @@ public class ReviewDaoJdbcImpl implements ReviewDao {
 		}
 	
 		return selectResult;
+	}
+	
+	public List<ReviewDTO> selectMany(int productId) {
+	
+		List<Map<String,Object>> map = jdbc.queryForList("select review.id,review.user_id,rating,review.content,review.title,review.registration_date,users.user_name from review join users on review.user_id = users.id where product_id = ?",productId);
+		
+		List<ReviewDTO> reviewList = new ArrayList<>();
+		for(Map<String,Object> oneMap : map) {
+			ReviewDTO reviewdto = new ReviewDTO();
+			reviewdto.setId((int)oneMap.get("id"));
+			reviewdto.setUserId((int)oneMap.get("user_id"));
+			reviewdto.setRating((int)oneMap.get("rating"));
+			reviewdto.setContent((String)oneMap.get("content"));
+			reviewdto.setTitle((String)oneMap.get("title"));
+			reviewdto.setRegistrationDate((Date)oneMap.get("registration_date"));
+			reviewdto.setUserName((String)oneMap.get("user_name"));
+
+			reviewList.add(reviewdto);
+		}
+		
+		return reviewList;
+		
+
+		
 	}
 }

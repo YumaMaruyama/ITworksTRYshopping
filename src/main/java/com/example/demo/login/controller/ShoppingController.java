@@ -974,6 +974,18 @@ public class ShoppingController {
 	}
 	
 	@GetMapping(value = "/cart/{id}",params = "review")
+	public String getReview(@ModelAttribute ReviewForm form,@PathVariable("id") int productId ,Model model) {
+		model.addAttribute("contents", "shopping/reviewSee::productListLayout_contents");
+	
+		List<ReviewDTO> reviewList = reviewService.selectMany(productId);
+		System.out.println("reviewList" + reviewList);
+		model.addAttribute("reviewList",reviewList);
+		
+		PcDataDTO pcdatadto = pcdataService.selectPcName(productId);
+		model.addAttribute("pcName",pcdatadto.getPc_name());
+		
+		return "shopping/productListLayout";
+	}
 	
 	
 

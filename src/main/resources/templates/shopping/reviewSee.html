@@ -1,10 +1,52 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
+	
+	<div th:fragment="productListLayout_contents">
+	
+	<h3 th:text="${pcName} + 'の口コミ'"></h3>
+	
+
+	<table class="table table-bordered table-hover" th:each="reviewdto : ${reviewList}" style="width:1100px;">
+	<br><br>
+	<tr>
+		<th class="text-center reviewThHength">投稿ユーザー</th>
+		<td class="reviewTdHength" th:text="${reviewdto.userName}"></td>
+	</tr>
+	
+	<tr>
+		<th class="text-center reviewThHength">レーティング</th>
+		<td class="reviewTdHength" th:text="'５段階評価中　' + ${reviewdto.rating}"></td>
+	</tr>
+	
+	<tr>
+		<th class="text-center reviewThHength">タイトル</th>
+		<td  class="reviewTdHength" th:text="${reviewdto.title}"></td>
+	</tr>
+	
+	<tr>
+		<th class="text-center reviewThHength">内容</th>
+		<td class="reviewTdHength" th:text="${reviewdto.content}"></td>
+	</tr>
+	
+	<tr>
+		<th class="text-center reviewThHength">投稿日時</th>
+		<td  th:text="${#dates.format(reviewdto.registrationDate,'yyyy/MM/dd hh:mm')}"></td>
+	</tr>
+	
+	<tr>
+		<th class="text-center reviewThHength">管理</th>
+		<td><button>編集</button></td>
+	</tr>
+	
+	</table>
+	
+	</div>
 
 </body>
 </html>

@@ -1,5 +1,7 @@
 package com.example.demo.login.domail.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,5 +21,9 @@ public class ReviewService {
 	public int selectOne(int selectId,int pcDataId,int purchaseId) {
 		
 		return dao.selectOne(selectId,pcDataId,purchaseId);
+	}
+	
+	public List<ReviewDTO> selectMany(int productId) {
+		return dao.selectMany(productId);
 	}
 }

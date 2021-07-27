@@ -39,6 +39,10 @@ public class PcDataService {
 		return dao.insertCheckSelectOne(pcdatadto);
 
 	}
+	
+	public PcDataDTO selectPcName(int productId) {
+		return dao.selectPcName(productId);
+	}
 
 
 }
