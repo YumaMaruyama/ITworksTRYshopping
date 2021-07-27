@@ -7,3 +7,10 @@
 .reviewTdHength {
 	width:770px;
 }
+
+.reviewTable {
+	display: block;
+    overflow-y: scroll;
+    height: 565px;
+    width: 1100px;
+}

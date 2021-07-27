@@ -11,4 +11,8 @@ public interface ReviewDao {
 	public int selectOne(int selectId,int pcDataId,int purchaseId);
 	
 	public List<ReviewDTO> selectMany(int productId);
+	
+	public ReviewDTO selectReviewDetailOne(int reviewId);
+	
+	public int deleteOne(int reviewId);
 }

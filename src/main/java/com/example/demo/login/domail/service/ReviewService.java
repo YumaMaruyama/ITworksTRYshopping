@@ -26,4 +26,12 @@ public class ReviewService {
 	public List<ReviewDTO> selectMany(int productId) {
 		return dao.selectMany(productId);
 	}
+	
+	public ReviewDTO selectReviewDetailOne(int reviewId) {
+		return dao.selectReviewDetailOne(reviewId);
+	}
+	
+	public int deleteOne(int reviewId) {
+		return dao.deleteOne(reviewId);
+	}
 }

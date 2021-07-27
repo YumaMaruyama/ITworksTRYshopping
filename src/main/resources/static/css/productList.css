@@ -30,7 +30,7 @@
 }
 
 .productList {
-	display: auto;
+	display: auto !important;
 	overflow-y: scroll;
 	height: 526px;
 }

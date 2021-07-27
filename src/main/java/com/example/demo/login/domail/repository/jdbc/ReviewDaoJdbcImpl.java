@@ -48,7 +48,7 @@ public class ReviewDaoJdbcImpl implements ReviewDao {
 	
 	public List<ReviewDTO> selectMany(int productId) {
 	
-		List<Map<String,Object>> map = jdbc.queryForList("select review.id,review.user_id,rating,review.content,review.title,review.registration_date,users.user_name from review join users on review.user_id = users.id where product_id = ?",productId);
+		List<Map<String,Object>> map = jdbc.queryForList("select review.id,review.user_id,rating,review.content,review.title,review.registration_date,users.user_name,users.user_id as usersId from review join users on review.user_id = users.id where product_id = ?",productId);
 		
 		List<ReviewDTO> reviewList = new ArrayList<>();
 		for(Map<String,Object> oneMap : map) {
@@ -60,13 +60,35 @@ public class ReviewDaoJdbcImpl implements ReviewDao {
 			reviewdto.setTitle((String)oneMap.get("title"));
 			reviewdto.setRegistrationDate((Date)oneMap.get("registration_date"));
 			reviewdto.setUserName((String)oneMap.get("user_name"));
+			reviewdto.setUsersId((String)oneMap.get("usersId"));
+			
 
 			reviewList.add(reviewdto);
 		}
 		
 		return reviewList;
+	}
+	
+	public ReviewDTO selectReviewDetailOne(int reviewId) {
 		
-
 		
+		Map<String,Object> map = jdbc.queryForMap("select review.id,review.user_id,rating,review.content,review.title,review.registration_date,users.user_name,users.user_id as usersId from review join users on review.user_id = users.id where review.id = ?",reviewId);
+		ReviewDTO reviewdto = new ReviewDTO();
+		reviewdto.setId((int)map.get("id"));
+		reviewdto.setUserId((int)map.get("user_id"));
+		reviewdto.setRating((int)map.get("rating"));
+		reviewdto.setContent((String)map.get("content"));
+		reviewdto.setTitle((String)map.get("title"));
+		reviewdto.setRegistrationDate((Date)map.get("registration_date"));
+		reviewdto.setUserName((String)map.get("user_name"));
+		reviewdto.setUsersId((String)map.get("usersId"));
+		
+		return reviewdto;
+	}
+	
+	public int deleteOne(int reviewId) {
+		
+		int result = jdbc.update("delete from review where id = ?",reviewId);
+		return result;
 	}
 }

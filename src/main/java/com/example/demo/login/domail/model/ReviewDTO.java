@@ -22,4 +22,6 @@ public class ReviewDTO {
 	private Date registrationDate;
 	
 	private String userName;
+	
+	private String usersId;
 }

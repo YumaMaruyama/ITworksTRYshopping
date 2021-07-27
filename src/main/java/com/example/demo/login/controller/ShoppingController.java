@@ -982,9 +982,38 @@ public class ShoppingController {
 		model.addAttribute("reviewList",reviewList);
 		
 		PcDataDTO pcdatadto = pcdataService.selectPcName(productId);
+		model.addAttribute("productId",productId);
 		model.addAttribute("pcName",pcdatadto.getPc_name());
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println("auth" + auth.getName());
+		String getName = auth.getName();
+		System.out.println("getName" + getName);
+		model.addAttribute("userId",getName);
 		
 		return "shopping/productListLayout";
+	}
+	
+	@GetMapping("reviewSeeDetail/{id}/{productId}")
+	public String getReviewSeeDetail(@ModelAttribute ReviewForm form,@PathVariable("id") int reviewId,@PathVariable("productId") int productId,Model model) {
+		model.addAttribute("contents", "shopping/reviewSeeDetail::productListLayout_contents");
+		
+		ReviewDTO reviewdto = reviewService.selectReviewDetailOne(reviewId);
+		model.addAttribute("reviewList",reviewdto);
+		
+		PcDataDTO pcdatadto = pcdataService.selectPcName(productId);
+		model.addAttribute("pcName",pcdatadto.getPc_name());
+		
+		model.addAttribute("productId",productId);
+		
+		return "shopping/productListLayout";
+	}
+	
+	@PostMapping(value = "reviewSeeDetail", params = "delete") 
+	public String postReviewSeeDetailDelete(@ModelAttribute ReviewForm form,@RequestParam("reviewId") int reviewId,@RequestParam("productId") int productId ,Model model) {
+		
+		reviewService.deleteOne(reviewId);
+		
+		return getReview(form,productId,model);
 	}
 	
 	
