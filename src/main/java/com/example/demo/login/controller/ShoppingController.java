@@ -616,7 +616,18 @@ public class ShoppingController {
 		model.addAttribute("contents", "shopping/productDetail::productListLayout_contents");
 
 		System.out.println("redirectcheck");
-
+		
+		List<ReviewDTO> reviewList = reviewService.selectRating(id);
+		
+		int totalRating = 0;
+		for(int i = 0; reviewList.size() > i; i++) {
+			ReviewDTO reviewdto = reviewList.get(i);
+			totalRating = totalRating + reviewdto.getRating();
+			
+		}
+		double evaluation = totalRating / reviewList.size();
+		model.addAttribute("evaluation",evaluation);
+		
 		PcDataDTO pcdatadtoOne = pcdataService.selectOne(id);
 		String pcName = pcdatadtoOne.getPc_name();
 		model.addAttribute("pcName", pcName);

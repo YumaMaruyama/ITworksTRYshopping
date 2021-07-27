@@ -34,4 +34,8 @@ public class ReviewService {
 	public int deleteOne(int reviewId) {
 		return dao.deleteOne(reviewId);
 	}
+	
+	public List<ReviewDTO> selectRating(int productId) {
+		return dao.selectRating(productId);
+	}
 }

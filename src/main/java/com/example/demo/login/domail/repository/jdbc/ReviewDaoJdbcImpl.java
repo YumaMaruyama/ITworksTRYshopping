@@ -91,4 +91,18 @@ public class ReviewDaoJdbcImpl implements ReviewDao {
 		int result = jdbc.update("delete from review where id = ?",reviewId);
 		return result;
 	}
+	
+	public List<ReviewDTO> selectRating(int productId) {
+		
+		List<Map<String,Object>> map = jdbc.queryForList("select * from review where product_id = ?",productId);
+		
+		List<ReviewDTO> reviewList = new ArrayList<>();
+		for(Map<String,Object> oneMap : map) {
+			ReviewDTO reviewdto = new ReviewDTO();
+			reviewdto.setRating((int)oneMap.get("rating"));
+			
+			reviewList.add(reviewdto);
+		}
+		return reviewList;
+	}
 }
