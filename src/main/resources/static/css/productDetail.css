@@ -19,8 +19,20 @@ width: 178px !important;
 	font-size:11px !important;
 }
 
-.costomTableDesign {
-	 margin-left: 251px;
+
+
+.evaluationDesign {
+	font-size:19px !important;
+	width:182px;
+}
+
+.newEvaluationDesign {
+	font-size:14px !important;
+}
+
+.proDeleBtnDesign {
+	width:100px;
+	padding-left:67px;
 }
 
 

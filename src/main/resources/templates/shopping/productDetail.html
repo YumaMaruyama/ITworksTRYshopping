@@ -28,7 +28,7 @@
 			th:action="@{/productDetail} + '/' + ${pcdatadto.id}"
 			th:object="${pcDetailDataForm}">
 		-->
-		<form th:each="pcdatadto : ${pcdatadtoOne}" method="get"
+		<form style="width:1090px;" th:each="pcdatadto : ${pcdatadtoOne}" method="get"
 			th:action="@{/cart} + '/' + ${pcdatadto.id}"
 			th:object="${pcDetailDataForm}">
 			<table
@@ -63,7 +63,7 @@
 
 			<table class="table table-bordered table-hover">
 				<tr>
-					<td th:each="pcdatadto : ${pcdatadtoOne}"><img class="imgSize"
+					<td style="padding-left: 120px;" th:each="pcdatadto : ${pcdatadtoOne}"><img class="imgSize"
 						th:src="${pcdatadto.pcImg}"> <img class="imgSize"
 						th:src="${pcdatadto.pcImg2}"> <img class="imgSize"
 						th:src="${pcdatadto.pcImg3}"></td>
@@ -117,13 +117,12 @@
 				</tr>
 			</table>
 			
-			<table class="col-sm-8 table table-bordered table-hover costomTableDesign">
+			<table class="table table-bordered table-hover costomTableDesign">
 			<tr>
-			<td th:text="${evaluation}"></td>
-			<td><button style="width:130px;" class="btn btn--yellow btn--cubic" name="review">口コミを見る</button></td>
-			<td><button style="width:130px;" class="btn btn--yellow btn--cubic" name="customUpdate">カスタム更新</button></td>
-			<td style="width:155px;" class="text-right customAfterPriceDesign">カスタム後値段:</td>
-			<td class="text-left customPriceDesign"  th:text="${afterCustom} + '円'"></td>
+			<td class="evaluationDesign" th:text="'ユーザー5段階評価： ' + ${evaluation}" th:classappend="${evaluation == '評価はまだありません'} ? newEvaluationDesign"></td>
+			<td class="proDeleBtnDesign"><button style="width:130px;" class="btn btn--yellow btn--cubic" name="review">口コミを見る</button></td>
+			<td class="proDeleBtnDesign"><button style="width:130px;" class="btn btn--yellow btn--cubic" name="customUpdate">カスタム更新</button></td>
+			<td class="text-left customPriceDesign" style="width:155px;" th:text="${'カスタム後値段：' + afterCustom} + '円'"></td>
 			
 			</tr>
 			</table>

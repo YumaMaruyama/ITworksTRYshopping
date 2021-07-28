@@ -619,14 +619,20 @@ public class ShoppingController {
 		
 		List<ReviewDTO> reviewList = reviewService.selectRating(id);
 		
-		int totalRating = 0;
+		double totalRating = 0;
 		for(int i = 0; reviewList.size() > i; i++) {
 			ReviewDTO reviewdto = reviewList.get(i);
 			totalRating = totalRating + reviewdto.getRating();
 			
 		}
+		try {
 		double evaluation = totalRating / reviewList.size();
 		model.addAttribute("evaluation",evaluation);
+		}catch(ArithmeticException e) {
+			e.printStackTrace();
+			model.addAttribute("evaluation","評価はまだありません");
+		}
+		
 		
 		PcDataDTO pcdatadtoOne = pcdataService.selectOne(id);
 		String pcName = pcdatadtoOne.getPc_name();
