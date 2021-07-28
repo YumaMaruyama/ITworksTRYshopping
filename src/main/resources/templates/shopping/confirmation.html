@@ -9,9 +9,9 @@
 	<div th:fragment="productListLayout_contents">
 
 		<header>
-			<h1>最終確認画面</h1>
+			<h1 class="titleDesign">最終確認画面</h1>
 		</header>
-		<form method="post" th:action="@{confirmation}">
+		<form method="post" th:action="@{confirmation}" style="width:1100px;">
 			<div class="flex confirmationList">
 				<div class="item" th:each="pcdatadto : ${cartList}">
 					<img class="size" th:src="${pcdatadto.pcImg}">
@@ -29,24 +29,25 @@
 			<table
 				class="col-sm-5 confirmationPrice table table-bordered table-hover cardTable">
 				<tr>
-					<th class="text-center">お支払いカード名義</th>
-					<td th:text="${cardName}"></td>
+					<th class="text-center clearingBackColora">お支払いカード名義</th>
+					<td class="clearingBackColorb" th:text="${cardName}"></td>
 				</tr>
 				<tr>
-					<th class="text-center">お支払い三桁コード</th>
-					<td th:text="${digits_3_code}"></td>
+					<th class="text-center clearingBackColora">お支払い三桁コード</th>
+					<td class="clearingBackColorb" th:text="${digits_3_code}"></td>
 				</tr>
 				<tr>
-					<th class="text-center">お支払い番号</th>
-					<td th:text="${cardNumber}"></td>
+					<th class="text-center clearingBackColora">お支払い番号</th>
+					<td class="clearingBackColorb" th:text="${cardNumber}"></td>
 				</tr>
 				<tr>
-					<th class="text-center">お支払い合計金額</th>
-					<td th:text="${totalPrice}"></td>
+					<th class="text-center priceBackColora">お支払い合計金額</th>
+					<td class="priceBackColorb" th:text="${totalPrice}"></td>
 				</tr>
 			</table>
 
 			<div class="btn-wrapper">
+			<br><br>
 				<div class="check-box">
 					<label class="text-danger"><input class="check"
 						type="checkbox" name="check" autocomplete="off" id="agree"><span class="confirmation_statement"><a></a>カート内の全ての商品を確認し、商品内容に同意した上で購入します。</span></label>

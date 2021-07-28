@@ -2,7 +2,7 @@
 
 .after_purchaseTableDesign {
 	font-size: 19px;
-    margin: 61px 0px 0px 153px;
+    margin: 34px 0px 0px 153px;
 }
 
 .after_purchaseTableDesign2 {
@@ -17,6 +17,13 @@
 .fontDesign {
 	font-size:25px;
 	margin-top: 36px;
+}
+
+.afterPurchaseList {
+	display: block;
+    overflow-y: scroll;
+    height: 230px;
+   
 }
 
 .af_PuProductListBtn {

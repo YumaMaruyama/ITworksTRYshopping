@@ -10,7 +10,7 @@
 	<div th:fragment="productListLayout_contents">
 
 		<header>
-			<h1>決済画面</h1>
+			<h1 class="titleDesign">決済画面</h1>
 		</header>
 
 		<br> <br>
@@ -19,13 +19,13 @@
 			<div>
 				<h4>JCBカードの情報を入力してください。</h4>
 			</div>
-			<table class="table table-bordered table-hover tableDesign">
+			<table class="table table-bordered table-hover clearingTableDesign">
 
 
 
 				<tr>
-					<th class="form-group text-center thTitleDesign">クレジット三桁コード</th>
-					<td>
+					<th class="form-group text-center thTitleDesign clearingBackColora">クレジット三桁コード</th>
+					<td class="clearingBackColorb">
 						<div class="form-group"
 							th:classappend="${#fields.hasErrors('digits_3_code')} ? 'hasError'">
 							<input type="text" class="form-control inputDesign"
@@ -37,8 +37,8 @@
 				</tr>
 
 				<tr>
-					<th class="form-group text-center thTitleDesign">クレジット記載名義</th>
-					<td><div class="form-group"
+					<th class="form-group text-center thTitleDesign clearingBackColora">クレジット記載名義</th>
+					<td class="clearingBackColorb"><div class="form-group"
 							th:classappend="${#fields.hasErrors('cardName')} ? 'hasError'">
 							<input type="text" class="form-control inputDesign" th:field="*{cardName}"
 								placeholder="ローマ字記載のカード名義を入力してください。">
@@ -48,8 +48,8 @@
 				</tr>
 
 				<tr>
-					<th class="form-group text-center thTitleDesign">クレジット番号</th>
-					<td><div class="form-group"
+					<th class="form-group text-center thTitleDesign clearingBackColora">クレジット番号</th>
+					<td class="clearingBackColorb"><div class="form-group"
 							th:classappend="${#fields.hasErrors('cardNumber')} ? 'hasError'">
 							<input type="tel" class="form-control inputDesign" th:field="*{cardNumber}"
 								placeholder="16桁のカード番号を入力してください。">
@@ -59,8 +59,8 @@
 				</tr>
 
 				<tr>
-					<th class="form-group text-center thTitleDesign">引き落とし金額</th>
-					<td th:text="${totalPrice} + '円'"></td>
+					<th class="form-group text-center thTitleDesign priceBackColora">引き落とし金額</th>
+					<td class="priceBackColorb" th:text="${totalPrice} + '円'"></td>
 				</tr>
 
 			</table>

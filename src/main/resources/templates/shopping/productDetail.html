@@ -21,7 +21,7 @@
 <body>
 	<div th:fragment="productListLayout_contents">
 		<header>
-			<h1>商品詳細</h1>
+			<h1 class="titleDesign">商品詳細</h1>
 		</header>
 		<!--
 		<form th:each="pcdatadto : ${pcdatadtoOne}" method="post"
@@ -53,10 +53,10 @@
 
 			<table
 				class="table table-bordered productDetailTableDesigin">
-				<tr class="pcdataTableDesigna">
+				<tr class="pcdataDetailTableDesigna">
 					<th class="text-center">PC詳細</th>
 				</tr>
-				<tr th:each="pcdatadto : ${pcdatadtoOne}" class="pcdataTableDesignb">
+				<tr th:each="pcdatadto : ${pcdatadtoOne}" class="pcdataDetailTableDesignb">
 					<td class="text-center" th:text="${pcdatadto.detail}"></td>
 				</tr>
 			</table>

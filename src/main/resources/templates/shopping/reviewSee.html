@@ -9,7 +9,7 @@
 	
 	<div th:fragment="productListLayout_contents">
 	
-	<h3 th:text="${pcName} + 'の口コミ'"></h3>
+	<h1 class="titleDesign" th:text="${pcName} + 'の口コミ'"></h1>
 	
 	<div class="reviewTable">
 	<table class="table table-bordered table-hover" th:each="reviewdto : ${reviewList}" style="width:1100px;">
