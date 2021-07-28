@@ -530,7 +530,7 @@ public class ShoppingController {
 		int select_id = usersService.select_id(getName);
 
 		PurchaseDTO purchasedto = new PurchaseDTO();
-		
+
 		// 購入商品情報取得
 		PurchaseDTO purchasedtoList = purchaseService.reviewSelectHistory(select_id, id);
 		purchasedto.setId(purchasedtoList.getId());
@@ -541,8 +541,7 @@ public class ShoppingController {
 		purchasedto.setPrice(purchasedtoList.getPrice());
 		purchasedto.setProduct_count(purchasedtoList.getProduct_count());
 		purchasedto.setPurchaseCheck(purchasedtoList.getPurchaseCheck());
-		
-		
+
 		String nullCheck = "null";
 		int getCustomId = customService.selectPurchaseCheck(select_id, purchasedtoList.getProduct_id(),
 				purchasedtoList.getPurchaseCheck(), nullCheck);
@@ -550,44 +549,44 @@ public class ShoppingController {
 
 		PurchaseDTO customList = customService.selectMany(getCustomId);
 		System.out.println("costomList" + customList);
-		
+
 		purchasedto.setMemory(customList.getMemory());
 		purchasedto.setHardDisc(customList.getHardDisc());
 		purchasedto.setCpu(customList.getCpu());
 		purchasedto.setCustomPrice(customList.getCustomPrice());
-		model.addAttribute("totalPrice",purchasedto.getPrice() + purchasedto.getCustomPrice());	
-		model.addAttribute("purchaseId",id);
-		
-		
-	model.addAttribute("purchaseList",purchasedto);
+		model.addAttribute("totalPrice", purchasedto.getPrice() + purchasedto.getCustomPrice());
+		model.addAttribute("purchaseId", id);
 
-	return"shopping/productListLayout";
+		model.addAttribute("purchaseList", purchasedto);
+
+		return "shopping/productListLayout";
 
 	}
-	
+
 	@PostMapping("/reviewAdd")
-	public String postReviewAdd(@ModelAttribute ReviewForm form,@RequestParam("pcDataId") int pcDataId,@RequestParam("purchaseId") int purchaseId,RedirectAttributes redirectAttributes, Model model) {
-		
+	public String postReviewAdd(@ModelAttribute ReviewForm form, @RequestParam("pcDataId") int pcDataId,
+			@RequestParam("purchaseId") int purchaseId, RedirectAttributes redirectAttributes, Model model) {
+
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 		String getName = auth.getName();
 
 		int selectId = usersService.select_id(getName);
-		
-		ReviewDTO reviewdto = new ReviewDTO();
-		
-		int selectResult = reviewService.selectOne(selectId,pcDataId,purchaseId);
 
-		if(selectResult <= 0) {
-		reviewService.reviewInsertOne(reviewdto,selectId,pcDataId,form.getTitle(),form.getContent(),form.getRating(),purchaseId);
-		}else {
-			model.addAttribute("result","この商品はすでに口コミ投稿しています。");
-			return getReviewAdd(form,purchaseId,model);
+		ReviewDTO reviewdto = new ReviewDTO();
+
+		int selectResult = reviewService.selectOne(selectId, pcDataId, purchaseId);
+
+		if (selectResult <= 0) {
+			reviewService.reviewInsertOne(reviewdto, selectId, pcDataId, form.getTitle(), form.getContent(),
+					form.getRating(), purchaseId);
+		} else {
+			model.addAttribute("result", "この商品はすでに口コミ投稿しています。");
+			return getReviewAdd(form, purchaseId, model);
 		}
-		
-		
+
 		return "redirect:/purchaseHistory";
-		
+
 	}
 
 	@GetMapping("/productList")
@@ -616,24 +615,30 @@ public class ShoppingController {
 		model.addAttribute("contents", "shopping/productDetail::productListLayout_contents");
 
 		System.out.println("redirectcheck");
-		
-		List<ReviewDTO> reviewList = reviewService.selectRating(id);
-		
-		double totalRating = 0;
-		for(int i = 0; reviewList.size() > i; i++) {
-			ReviewDTO reviewdto = reviewList.get(i);
-			totalRating = totalRating + reviewdto.getRating();
-			
-		}
 		try {
-		double evaluation = totalRating / reviewList.size();
-		model.addAttribute("evaluation",evaluation);
-		}catch(ArithmeticException e) {
+			List<ReviewDTO> reviewList = reviewService.selectRating(id);
+			if (reviewList.size() != 0) {
+				System.out.println("reviewList" + reviewList);
+				double totalRating = 0;
+				for (int i = 0; reviewList.size() > i; i++) {
+					ReviewDTO reviewdto = reviewList.get(i);
+					totalRating = totalRating + reviewdto.getRating();
+					System.out.println("totalRating" + totalRating);
+				}
+
+				double evaluation = totalRating / reviewList.size();
+				System.out.println("evaluation" + evaluation);
+				model.addAttribute("evaluation", evaluation);
+			} else {
+
+				model.addAttribute("evaluation", "評価はまだありません");
+			}
+		} catch (ArithmeticException e) {
+
 			e.printStackTrace();
-			model.addAttribute("evaluation","評価はまだありません");
+			model.addAttribute("evaluation", "評価はまだありません");
 		}
-		
-		
+
 		PcDataDTO pcdatadtoOne = pcdataService.selectOne(id);
 		String pcName = pcdatadtoOne.getPc_name();
 		model.addAttribute("pcName", pcName);
@@ -989,51 +994,51 @@ public class ShoppingController {
 		// カスタム後に商品詳細画面にリダイレクト
 		return "redirect:/productDetail/{id}";
 	}
-	
-	@GetMapping(value = "/cart/{id}",params = "review")
-	public String getReview(@ModelAttribute ReviewForm form,@PathVariable("id") int productId ,Model model) {
+
+	@GetMapping(value = "/cart/{id}", params = "review")
+	public String getReview(@ModelAttribute ReviewForm form, @PathVariable("id") int productId, Model model) {
 		model.addAttribute("contents", "shopping/reviewSee::productListLayout_contents");
-	
+
 		List<ReviewDTO> reviewList = reviewService.selectMany(productId);
 		System.out.println("reviewList" + reviewList);
-		model.addAttribute("reviewList",reviewList);
-		
+		model.addAttribute("reviewList", reviewList);
+
 		PcDataDTO pcdatadto = pcdataService.selectPcName(productId);
-		model.addAttribute("productId",productId);
-		model.addAttribute("pcName",pcdatadto.getPc_name());
+		model.addAttribute("productId", productId);
+		model.addAttribute("pcName", pcdatadto.getPc_name());
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 		String getName = auth.getName();
 		System.out.println("getName" + getName);
-		model.addAttribute("userId",getName);
-		
+		model.addAttribute("userId", getName);
+
 		return "shopping/productListLayout";
 	}
-	
+
 	@GetMapping("reviewSeeDetail/{id}/{productId}")
-	public String getReviewSeeDetail(@ModelAttribute ReviewForm form,@PathVariable("id") int reviewId,@PathVariable("productId") int productId,Model model) {
+	public String getReviewSeeDetail(@ModelAttribute ReviewForm form, @PathVariable("id") int reviewId,
+			@PathVariable("productId") int productId, Model model) {
 		model.addAttribute("contents", "shopping/reviewSeeDetail::productListLayout_contents");
-		
+
 		ReviewDTO reviewdto = reviewService.selectReviewDetailOne(reviewId);
-		model.addAttribute("reviewList",reviewdto);
-		
+		model.addAttribute("reviewList", reviewdto);
+
 		PcDataDTO pcdatadto = pcdataService.selectPcName(productId);
-		model.addAttribute("pcName",pcdatadto.getPc_name());
-		
-		model.addAttribute("productId",productId);
-		
+		model.addAttribute("pcName", pcdatadto.getPc_name());
+
+		model.addAttribute("productId", productId);
+
 		return "shopping/productListLayout";
 	}
-	
-	@PostMapping(value = "reviewSeeDetail", params = "delete") 
-	public String postReviewSeeDetailDelete(@ModelAttribute ReviewForm form,@RequestParam("reviewId") int reviewId,@RequestParam("productId") int productId ,Model model) {
-		
+
+	@PostMapping(value = "reviewSeeDetail", params = "delete")
+	public String postReviewSeeDetailDelete(@ModelAttribute ReviewForm form, @RequestParam("reviewId") int reviewId,
+			@RequestParam("productId") int productId, Model model) {
+
 		reviewService.deleteOne(reviewId);
-		
-		return getReview(form,productId,model);
+
+		return getReview(form, productId, model);
 	}
-	
-	
 
 	@GetMapping(value = "/cart/{id}", params = "cartAdd")
 	public String getCart(@ModelAttribute CartForm form, Model model, RedirectAttributes redirectattributes,

@@ -7,7 +7,7 @@
 }
 
 .productListGo {
-	padding-left:48px;
+	padding-left:52px;
 }
 
 .font {
@@ -37,5 +37,21 @@
 
 .fontdesign {
 	font-size:15px ;
+}
+
+.os {
+	padding-right:31px;
+}
+
+.pcsize {
+	padding-right:23px;
+}
+
+.price {
+	padding-right:39px;
+}
+
+.stock {
+	padding-right:44px;
 }
 
