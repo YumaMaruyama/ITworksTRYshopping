@@ -32,8 +32,8 @@
 			th:action="@{/cart} + '/' + ${pcdatadto.id}"
 			th:object="${pcDetailDataForm}">
 			<table
-				class="table table-bordered table-hover productDetailTableDesigin">
-				<tr>
+				class="table table-bordered productDetailTableDesigin">
+				<tr class="pcdataTableDesigna">
 					<th class="text-center">会社名</th>
 					<th class="text-center">OS</th>
 					<th class="text-center">商品名</th>
@@ -41,7 +41,7 @@
 					<th class="text-center">値段</th>
 					<th class="text-center">在庫数</th>
 				</tr>
-				<tr th:each="pcdatadto : ${pcdatadtoOne}">
+				<tr th:each="pcdatadto : ${pcdatadtoOne}" class="pcdataTableDesignb" >
 					<td class="text-center" th:text="${pcdatadto.company}"></td>
 					<td class="text-center" th:text="${pcdatadto.os}"></td>
 					<td class="text-center" th:text="${pcdatadto.pc_name}"></td>
@@ -52,16 +52,16 @@
 			</table>
 
 			<table
-				class="table table-bordered table-hover productDetailTableDesigin">
-				<tr>
+				class="table table-bordered productDetailTableDesigin">
+				<tr class="pcdataTableDesigna">
 					<th class="text-center">PC詳細</th>
 				</tr>
-				<tr th:each="pcdatadto : ${pcdatadtoOne}">
+				<tr th:each="pcdatadto : ${pcdatadtoOne}" class="pcdataTableDesignb">
 					<td class="text-center" th:text="${pcdatadto.detail}"></td>
 				</tr>
 			</table>
 
-			<table class="table table-bordered table-hover">
+			<table class="table table-bordered imageTableDesign">
 				<tr>
 					<td style="padding-left: 120px;" th:each="pcdatadto : ${pcdatadtoOne}"><img class="imgSize"
 						th:src="${pcdatadto.pcImg}"> <img class="imgSize"
@@ -74,24 +74,24 @@
 				<h3>PCのカスタムが可能です。</h3>
 			</div>
 
-			<table class="table table-bordered table-hover">
+			<table class="table table-bordered customUpdateDesign">
 				<tr>
-					<th class="text-center">メモリ選択</th>
-					<td class="text-center"><select th:field="*{memory}">
+					<th class="text-center memoryBackColora">メモリ選択</th>
+					<td class="text-center memoryBackColorb"><select th:field="*{memory}">
 							<option value="4GB">4GB</option>
 							<option value="8GB">8GB(5000円UP)</option>
 							<option value="16GB">16GB(15000円UP)</option>
 							<option value="32GB">32GB(40000円UP)</option>
 					</select></td>
 
-					<th class="text-center">ハードディスク選択</th>
-					<td class="text-center"><select th:field="*{hardDisc}">
+					<th class="text-center hardDiscBackColora">ハードディスク選択</th>
+					<td class="text-center hardDiscBackColorb"><select th:field="*{hardDisc}">
 							<option value="SSD">SSD</option>
 							<option value="HDD">HDD(1000円UP)</option>
 					</select></td>
 
-					<th class="text-center">CPU選択</th>
-					<td class="text-center"><select th:field="*{cpu}">
+					<th class="text-center cpuBackColora">CPU選択</th>
+					<td class="text-center cpuBackColorb"><select th:field="*{cpu}">
 							<option value="CORE3">CORE3</option>
 							<option value="CORE5">CORE5(20000円UP)</option>
 							<option value="CORE7">CORE7(40000円UP)</option>
@@ -102,25 +102,25 @@
 							<option value="Ryzen9">Ryzen9(100000円UP)</option>
 					</select></td>
 				</tr>
-			</table>
 			
-			<table class="table table-hover table-bordered">
+			
+	
 				<tr>
-					<th class="text-center" >現在のメモリ</th>
-					<td class="text-center" th:text="${memory}"></td>
+					<th class="text-center memoryBackColora" >現在のメモリ</th>
+					<td class="text-center memoryBackColorb" th:text="${memory}"></td>
 					
-					<th class="text-center" >現在のハードディスク</th>
-					<td class="text-center" th:text="${hardDisc}"></td>
+					<th class="text-center hardDiscBackColora" >現在のハードディスク</th>
+					<td class="text-center hardDiscBackColorb" th:text="${hardDisc}"></td>
 					
-					<th class="text-center" >現在のCPU</th>
-					<td class="text-center" th:text="${cpu}"></td>
+					<th class="text-center cpuBackColora" >現在のCPU</th>
+					<td class="text-center cpuBackColorb" th:text="${cpu}"></td>
 				</tr>
 			</table>
 			
-			<table class="table table-bordered table-hover costomTableDesign">
+			<table class="table table-bordered table-hover costomTableDesign" style="background:#b6e8ec">
 			<tr>
 			<td class="evaluationDesign" th:text="'ユーザー5段階評価： ' + ${evaluation}" th:classappend="${evaluation == '評価はまだありません'} ? newEvaluationDesign"></td>
-			<td class="proDeleBtnDesign"><button style="width:130px;" class="btn btn--yellow btn--cubic" name="review">口コミを見る</button></td>
+			<td class="proDeleBtnDesign"><button style="width:130px;" class="btn btn--green btn--cubic" name="review">口コミを見る</button></td>
 			<td class="proDeleBtnDesign"><button style="width:130px;" class="btn btn--yellow btn--cubic" name="customUpdate">カスタム更新</button></td>
 			<td class="text-left customPriceDesign" style="width:155px;" th:text="${'カスタム後値段：' + afterCustom} + '円'"></td>
 			
