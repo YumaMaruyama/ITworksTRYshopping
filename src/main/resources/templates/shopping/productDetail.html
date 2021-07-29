@@ -117,9 +117,9 @@
 				</tr>
 			</table>
 			
-			<table class="table table-bordered table-hover costomTableDesign" style="background:#b6e8ec">
+			<table class="table costomTableDesign" style="background:#b6e8ec">
 			<tr>
-			<td class="evaluationDesign" th:text="'ユーザー5段階評価： ' + ${evaluation}" th:classappend="${evaluation == '評価はまだありません'} ? newEvaluationDesign"></td>
+			<td class="evaluationDesign" th:text="'ユーザー5段階評価： ' + ${reviews} + '人の平均' + ${evaluation}" th:classappend="${evaluation == '評価はまだありません'} ? newEvaluationDesign"></td>
 			<td class="proDeleBtnDesign"><button style="width:130px;" class="btn btn--green btn--cubic" name="review">口コミを見る</button></td>
 			<td class="proDeleBtnDesign"><button style="width:130px;" class="btn btn--yellow btn--cubic" name="customUpdate">カスタム更新</button></td>
 			<td class="text-left customPriceDesign" style="width:155px;" th:text="${'カスタム後値段：' + afterCustom} + '円'"></td>

@@ -777,6 +777,7 @@ model.addAttribute("contents", "shopping/cancelConfirmation::productListLayout_c
 
 				double evaluation = totalRating / reviewList.size();
 				System.out.println("evaluation" + evaluation);
+				model.addAttribute("reviews",reviewList.size());
 				model.addAttribute("evaluation", evaluation);
 			} else {
 
