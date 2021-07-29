@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>cancelNext</title>
+</head>
+<body>
+ 	<div th:fragment="productListLayout_contents">
+<h1 class="titleDesign">キャンセル画面</h1>
+
+<div class="progress">
+  <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+		<form method="post" th:action="@{/cancel}"
+			th:object="${cancelForm}">
+			<br>
+			<table class="table table-hover table-bordered"
+				th:each="purchasedto : ${purchaseList}">
+
+				<tr>
+					<th class="text-center">購入日</th>
+					<th class="text-center">商品名</th>
+					<th class="text-center">値段</th>
+					<th class="text-center">購入数</th>
+					<th class="text-center">メモリ</th>
+					<th class="text-center">ハードディスク</th>
+					<th class="text-center">CPU</th>
+				</tr>
+
+				<tr>
+					<td class="text-center"
+						th:text="${#dates.format(purchasedto.purchase_date, 'yyyy/MM/dd HH:mm')}"></td>
+					<td class="text-center" th:text="${purchasedto.pcName}"></td>
+					<td class="text-center" th:text="${totalPrice}"></td>
+					<td class="text-center" th:text="${purchasedto.product_count}"></td>
+					<td class="text-center" th:text="${purchasedto.memory}"></td>
+					<td class="text-center" th:text="${purchasedto.hardDisc}"></td>
+					<td class="text-center" th:text="${purchasedto.cpu}"></td>
+				</tr>
+			</table>
+			
+			
+			<table>
+			<br>
+			<h3>先ほど入力していただいたキャンセル理由に最も近いものを一つ選択してください。</h3>
+			
+			<tr>
+			
+			<br>
+			<th class="text-center memoryBackColora">メモリ選択</th>
+					<td class="text-center memoryBackColorb"><select th:field="*{content}">
+							<option value="1">購入した商品画像と違うものだった</option>
+							<option value="2">壊れた状態で送られてきた。</option>
+							<option value="3">自分の気が変わった</option>
+							<option value="4">間違えて注文した</option>
+					</select></td>
+			</table>
+			<div th:each="purchasedto : ${purchaseList}">
+			<input type="hidden" name="id" th:value="${purchasedto.id}">
+			<button class="btn btn-primary" name="cancelNext">次へ</button>
+			</div>
+			</form>
+</body>
+</html>

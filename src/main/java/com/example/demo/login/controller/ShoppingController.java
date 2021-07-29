@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.demo.login.domail.model.CancelForm;
 import com.example.demo.login.domail.model.CartDTO;
 import com.example.demo.login.domail.model.CartForm;
 import com.example.demo.login.domail.model.CreditDTO;
@@ -587,6 +588,98 @@ public class ShoppingController {
 
 		return "redirect:/purchaseHistory";
 
+	}
+	
+	//キャンセル画面に遷移
+	@GetMapping("/cancel/{id}")
+	public String getCancen(@ModelAttribute CancelForm form,@PathVariable("id") int purchaseId,Model model) {
+		model.addAttribute("contents", "shopping/cancel::productListLayout_contents");
+		
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println("auth" + auth.getName());
+		String getName = auth.getName();
+		int select_id = usersService.select_id(getName);//メソッドに入ったユーザーのIDを取得
+
+		PurchaseDTO purchasedto = new PurchaseDTO();
+
+		// 購入商品情報取得
+		PurchaseDTO purchasedtoList = purchaseService.reviewSelectHistory(select_id, purchaseId);//Pathで取得した購入IDでpurchaseテーブルの情報を取得
+		purchasedto.setId(purchasedtoList.getId());
+		purchasedto.setPurchaseId(purchasedtoList.getPurchaseId());
+		purchasedto.setPurchase_date(purchasedtoList.getPurchase_date());
+		purchasedto.setPcDataId(purchasedtoList.getPcDataId());
+		purchasedto.setPcName(purchasedtoList.getPcName());
+		purchasedto.setPrice(purchasedtoList.getPrice());
+		purchasedto.setProduct_count(purchasedtoList.getProduct_count());
+		purchasedto.setPurchaseCheck(purchasedtoList.getPurchaseCheck());
+
+		String nullCheck = "null";
+		int getCustomId = customService.selectPurchaseCheck(select_id, purchasedtoList.getProduct_id(), //購入した商品のcustomテーブルIDを取得
+				
+				purchasedtoList.getPurchaseCheck(), nullCheck);
+		System.out.println("getCustomId" + getCustomId);
+
+		PurchaseDTO customList = customService.selectMany(getCustomId);//購入した商品のcustomテーブル情報を取得
+		System.out.println("costomList" + customList);
+
+		purchasedto.setMemory(customList.getMemory());
+		purchasedto.setHardDisc(customList.getHardDisc());
+		purchasedto.setCpu(customList.getCpu());
+		purchasedto.setCustomPrice(customList.getCustomPrice());
+		model.addAttribute("totalPrice", purchasedto.getPrice() + purchasedto.getCustomPrice());
+		model.addAttribute("purchaseId", purchaseId);
+
+		model.addAttribute("purchaseList", purchasedto);
+		
+		
+		
+		
+		return "shopping/productListLayout";
+		
+	}
+	
+	@PostMapping(value = "/cancel",params = "cancelNext")
+	public String postCancelCancelNext(@ModelAttribute CancelForm form,@RequestParam("id") int purchaseId, Model model) {
+		model.addAttribute("contents", "shopping/cancelNext::productListLayout_contents");
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println("auth" + auth.getName());
+		String getName = auth.getName();
+		int select_id = usersService.select_id(getName);//メソッドに入ったユーザーのIDを取得
+
+		PurchaseDTO purchasedto = new PurchaseDTO();
+
+		// 購入商品情報取得
+		PurchaseDTO purchasedtoList = purchaseService.reviewSelectHistory(select_id, purchaseId);//Pathで取得した購入IDでpurchaseテーブルの情報を取得
+		purchasedto.setId(purchasedtoList.getId());
+		purchasedto.setPurchaseId(purchasedtoList.getPurchaseId());
+		purchasedto.setPurchase_date(purchasedtoList.getPurchase_date());
+		purchasedto.setPcDataId(purchasedtoList.getPcDataId());
+		purchasedto.setPcName(purchasedtoList.getPcName());
+		purchasedto.setPrice(purchasedtoList.getPrice());
+		purchasedto.setProduct_count(purchasedtoList.getProduct_count());
+		purchasedto.setPurchaseCheck(purchasedtoList.getPurchaseCheck());
+
+		String nullCheck = "null";
+		int getCustomId = customService.selectPurchaseCheck(select_id, purchasedtoList.getProduct_id(), //購入した商品のcustomテーブルIDを取得
+				
+				purchasedtoList.getPurchaseCheck(), nullCheck);
+		System.out.println("getCustomId" + getCustomId);
+
+		PurchaseDTO customList = customService.selectMany(getCustomId);//購入した商品のcustomテーブル情報を取得
+		System.out.println("costomList" + customList);
+
+		purchasedto.setMemory(customList.getMemory());
+		purchasedto.setHardDisc(customList.getHardDisc());
+		purchasedto.setCpu(customList.getCpu());
+		purchasedto.setCustomPrice(customList.getCustomPrice());
+		model.addAttribute("totalPrice", purchasedto.getPrice() + purchasedto.getCustomPrice());
+		model.addAttribute("purchaseId", purchaseId);
+
+		model.addAttribute("purchaseList", purchasedto);
+		
+		return "shopping/productListLayout";
 	}
 
 	@GetMapping("/productList")
