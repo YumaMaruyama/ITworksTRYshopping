@@ -1,5 +1,10 @@
 @charset "UTF-8";
 
-.form-control-lg {
-	width:1000px !important;
+select {
+width: 412px !important; 
+}
+
+.progress {
+	margin-top:20px;
+	margin-bottom:20px;
 }

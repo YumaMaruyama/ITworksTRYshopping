@@ -3,14 +3,15 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <meta charset="UTF-8">
-<title>cancelNext</title>
+<title>cancelConfirmation</title>
 </head>
 <body>
- 	<div th:fragment="productListLayout_contents">
+
+	<div th:fragment="productListLayout_contents">
 <h1 class="titleDesign">キャンセル画面</h1>
 
 <div class="progress">
-  <div class="progress-bar progress-bar-striped " role="progressbar" style="width: 35%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+  <div class="progress-bar progress-bar-striped " role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
 </div>
 		<form method="post" th:action="@{/cancel}"
 			th:object="${cancelForm}">
@@ -47,15 +48,17 @@
 			<th style="font-size:20px;">キャンセル理由:</th>
 			<td th:text="${title}" style="font-size:17px;"></td>
 			</tr>
+			
+			<tr>
+			<th style="font-size:20px;">キャンセル理由詳細:</th>
+			<td th:text="${content}" style="font-size:17px;"></td>
+			</tr>
 			</table>
-		
+			
 			<br>
 			<table>
 			<tr>
-			<th style="font-size:20px;">キャンセル理由の詳細を記載してください。</th>
-			</tr>
-			<tr>
-			<td class="formDesign"><input class="form-control form-control-lg" type="text" th:field="*{content}"></td>
+			<th style="font-size:20px;">上記の理由によりキャンセルを行います</th>
 			</tr>
 			</table>
 			<div th:each="purchasedto : ${purchaseList}">
