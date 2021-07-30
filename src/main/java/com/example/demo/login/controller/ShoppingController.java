@@ -781,8 +781,18 @@ model.addAttribute("contents", "shopping/cancelDetail::productListLayout_content
 
 		model.addAttribute("purchaseList", purchasedto);
 		
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(purchasedto.getPurchase_date());//商品の購入日をセット;
+		calendar.add(Calendar.DATE, 4);//発送予定日が購入日から3日から5日の間なので、真ん中の日に発送する設定とする
+		Date purchaseDate = calendar.getTime();
+		Date nowDate = new Date();
+		boolean check = nowDate.before(purchaseDate);
+		System.out.println("purchaseDate" + purchaseDate);
 		
-		
+		if(check == false) {
+			model.addAttribute("contents", "shopping/cancelDeliveredDetail::productListLayout_contents");
+			return "shopping/productListLayout";
+		}
 		
 		return "shopping/productListLayout";
 	}
