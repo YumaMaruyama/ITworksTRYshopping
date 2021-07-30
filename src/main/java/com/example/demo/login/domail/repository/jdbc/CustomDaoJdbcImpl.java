@@ -130,5 +130,11 @@ public class CustomDaoJdbcImpl implements CustomDao{
 		
 		return result;
 	}
+	
+	public int deleteOne(int customId) {
+		int result = jdbc.update("delete from custom where id = ?",customId);
+		
+		return result;
+	}
 
 }

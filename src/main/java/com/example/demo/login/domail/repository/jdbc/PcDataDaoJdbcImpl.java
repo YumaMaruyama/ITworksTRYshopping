@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.login.domail.model.PcDataDTO;
+import com.example.demo.login.domail.model.PurchaseDTO;
 import com.example.demo.login.domail.repository.PcDataDao;
 
 @Repository
@@ -108,6 +109,13 @@ public class PcDataDaoJdbcImpl implements PcDataDao {
 		pcdatadto.setPc_name((String)map.get("pc_name"));
 		
 		return pcdatadto;
+	}
+	
+	
+	public int updateOne(PurchaseDTO purchasedto,int productStock) {
+		System.out.println("updateone到達");
+		int result = jdbc.update("update pcdata set product_stock = product_stock+? where id = ?",productStock,purchasedto.getPcDataId());
+		return result;
 	}
 
 

@@ -63,4 +63,8 @@ public class CustomService {
 		return dao.purchaseIdUpdate(purchaseId,productId,userId);
 		
 	}
+	
+	public int deleteOne(int customId) {
+		return dao.deleteOne(customId);
+	}
 }

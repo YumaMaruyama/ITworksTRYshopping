@@ -67,7 +67,7 @@
 			</table>
 			<div th:each="purchasedto : ${purchaseList}">
 			<input type="hidden" name="id" th:value="${purchasedto.id}">
-			<input type="hidden" name="costomId" th:value="${purchasedto.custom_id}">
+			<input type="hidden" name="customId" th:value="${purchasedto.custom_id}">
 			<button class="btn btn-primary" name="completed">キャンセル確定</button>
 			</div>
 		</form>

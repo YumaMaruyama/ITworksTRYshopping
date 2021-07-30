@@ -15,13 +15,14 @@ public class CancelDaoJdbcImpl implements CancelDao {
 	
 	public int insertOne(CancelDTO canceldto,int userId, int purchaseId, int product_id,String title, String content,int bankNumber, int storeName) {
 		int result = jdbc.update("insert into cancel (id,"
+				+ " user_id,"
 				+ " purchase_id,"
 				+ " product_id,"
 				+ " title,"
 				+ " content,"
 				+ " bank_number,"
 				+ " store_name)"
-				+ " value(?,?,?,?,?,?)",canceldto.getId(),userId,purchaseId,product_id,title,content,bankNumber,storeName);
+				+ " value(?,?,?,?,?,?,?,?)",canceldto.getId(),userId,purchaseId,product_id,title,content,bankNumber,storeName);
 		
 		
 		return result;

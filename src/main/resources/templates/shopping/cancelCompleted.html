@@ -6,7 +6,7 @@
 <title>cancelCompleted</title>
 </head>
 <body>
-	<div th:fragment="loginLayout_contents">
+	<div th:fragment="productListLayout_contents">
 
 		<h1 class="titleDesign">キャンセル完了</h1>
 		<div class="progress">
@@ -40,7 +40,7 @@
 			</tr>
 		</table>
 
-		<table>
+		<table class="table table-bordered">
 			<br>
 			<h3>キャンセル手続きをしていただきありがとうございました。上記商品のキャンセルが完了しました。</h3>
 			<tr>
@@ -57,15 +57,14 @@
 			</tr>
 			
 			<tr>
-				<th class="text-center" style="font-size: 20px;">返品口座番店舗</th>
+				<th class="text-center" style="font-size: 20px;">返品口座店舗番号</th>
 				<td class="text-center" style="font-size: 17px;"
 					th:text="${storeName}"></td>
 			</tr>
 				
-				
-				
 		</table>
 
+		<h3>上記口座に返品金額分振込ました。</h3>
 	</div>
 </body>
 </html>

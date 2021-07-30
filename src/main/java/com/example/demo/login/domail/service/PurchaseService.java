@@ -63,6 +63,9 @@ public class PurchaseService {
 		return dao.reviewSelectHistory(selectId,purchaseId);
 	}
 	
+	public int deleteOne(int purchaseId) {
+		return dao.deleteOne(purchaseId);
+	}
 
 
 }

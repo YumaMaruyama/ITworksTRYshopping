@@ -781,6 +781,9 @@ model.addAttribute("contents", "shopping/cancelDetail::productListLayout_content
 
 		model.addAttribute("purchaseList", purchasedto);
 		
+		
+		
+		
 		return "shopping/productListLayout";
 	}
 	
@@ -809,6 +812,8 @@ model.addAttribute("contents", "shopping/cancelDetail::productListLayout_content
 		purchasedto.setPcName(purchasedtoList.getPcName());
 		purchasedto.setPrice(purchasedtoList.getPrice());
 		purchasedto.setProduct_count(purchasedtoList.getProduct_count());
+		int productStock = purchasedto.getProduct_count();
+		System.out.println("stock" + productStock);
 		purchasedto.setPurchaseCheck(purchasedtoList.getPurchaseCheck());
 
 	
@@ -825,16 +830,24 @@ model.addAttribute("contents", "shopping/cancelDetail::productListLayout_content
 
 		model.addAttribute("purchaseList", purchasedto);
 		
+		
+		customService.deleteOne(customId);
+		purchaseService.deleteOne(purchaseId);
+		int stock = pcdataService.updateOne(purchasedto,productStock);
+		System.out.println("stock2" + stock);
+		
 		HttpSession session = request.getSession();
 		 String title = (String) session.getAttribute("title");
+		 System.out.println("title" + title);
 		 String content = (String) session.getAttribute("content");
 		CancelDTO canceldto = new CancelDTO();
-		int bancNumber = Integer.parseInt(form.getBankNumber());
-		model.addAttribute("bancNumber",bancNumber);
+		int bankNumber = Integer.parseInt(form.getBankNumber());
+		model.addAttribute("bankNumber",bankNumber);
 		int storeName = Integer.parseInt(form.getStoreName());
 		model.addAttribute("storeName",storeName);
-		cancelService.insertOne(canceldto,userId,purchaseId,purchasedto.getProduct_id(),title,content,bancNumber,storeName);
+		cancelService.insertOne(canceldto,userId,purchaseId,purchasedto.getProduct_id(),title,content,bankNumber,storeName);
 		
+
 		return "shopping/productListLayout";
 		
 	}
@@ -1360,11 +1373,19 @@ model.addAttribute("contents", "shopping/cancelDetail::productListLayout_content
 			Model model, RedirectAttributes redirectattributes, @PathVariable("id") int productId) {
 		System.out.println("countUpdate到達");
 
+		
 		if (bindingResult.hasErrors()) {
 			System.out.println("バリデーションエラー到達");
 
 			return cart(form, model);
 		}
+		
+		int productcount = Integer.parseInt(form.getProduct_count());
+		 if (productcount == 0) {
+			 System.out.println("バリデーションエラー到達");
+
+				return cart(form, model);
+		 }
 
 		String productCount = form.getProduct_count();
 		int newProductCount = Integer.parseInt(productCount);

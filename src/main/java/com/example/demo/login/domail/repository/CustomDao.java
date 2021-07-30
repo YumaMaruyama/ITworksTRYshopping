@@ -28,4 +28,6 @@ public interface CustomDao {
 	public int pruchaseIdInsertOne(int purchaseId);
 	
 	public int purchaseIdUpdate(int purchaseId,int productId,int userId);
+	
+	public int deleteOne(int customId);
 }

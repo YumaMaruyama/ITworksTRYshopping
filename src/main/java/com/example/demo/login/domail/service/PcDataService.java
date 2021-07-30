@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.login.domail.model.PcDataDTO;
+import com.example.demo.login.domail.model.PurchaseDTO;
 import com.example.demo.login.domail.repository.PcDataDao;
 
 @Service
@@ -42,6 +43,10 @@ public class PcDataService {
 	
 	public PcDataDTO selectPcName(int productId) {
 		return dao.selectPcName(productId);
+	}
+	
+	public int updateOne(PurchaseDTO purchasedto,int productStock) {
+		return dao.updateOne(purchasedto,productStock);
 	}
 
 

@@ -156,6 +156,12 @@ public class PurchaseDaoJdbcImpl implements PurchaseDao {
 	
 		return purchasedto;
 	}
+	
+	public int deleteOne(int purchaseId) {
+		int result = jdbc.update("delete from purchase where id = ?",purchaseId);
+		
+		return result;
+	}
 
 
 

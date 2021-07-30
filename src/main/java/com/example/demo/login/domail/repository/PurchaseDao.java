@@ -24,7 +24,7 @@ public interface PurchaseDao {
 	
 	public PurchaseDTO reviewSelectHistory(int selectId,int purchaseId);
 	
-	
+	public int deleteOne(int purchaseId);
 
 
 }
