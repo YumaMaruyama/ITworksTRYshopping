@@ -9,7 +9,7 @@
 
 	<div th:fragment="productListLayout_contents">
 	
-	<h1 class="titleDesign">キャンセル画面</h1>
+	<h1 class="titleDesign">キャンセル前詳細</h1>
 	<div class="progress">
   <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 1%;" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100"></div>
 </div>
@@ -46,18 +46,29 @@
 			
 			<tr>
 			<th>口座番号</th>
-			<td></td>
+			<td>
+						<div class="form-group" th:classappend="${#fields.hasErrors('bankNumber')} ? 'hasError'">
+							<input type="text" class="form-control" th:field="*{bankNumber}">
+						</div>
+						<span class="text-danger" th:if="${#fields.hasErrors('bankNumber')}" th:errors="*{bankNumber}">bankNumber error</span>
+					</td>
 			</tr>
 			
 			<tr>
-			<th>店舗名</th>
-			<td></td>
+			<th>店舗番号</th>
+			<td>
+						<div class="form-group" th:classappend="${#fields.hasErrors('storeName')} ? 'hasError'">
+							<input type="text" class="form-control" th:field="*{storeName}">
+						</div>
+						<span class="text-danger" th:if="${#fields.hasErrors('storeName')}" th:errors="*{storeName}">storeName error</span>
+					</td>
 			</tr>
 			
 			</table>
 			<div th:each="purchasedto : ${purchaseList}">
 			<input type="hidden" name="id" th:value="${purchasedto.id}">
-			<button class="btn btn-primary" name="cancelNext">次へ</button>
+			<input type="hidden" name="costomId" th:value="${purchasedto.custom_id}">
+			<button class="btn btn-primary" name="completed">キャンセル確定</button>
 			</div>
 		</form>
 	

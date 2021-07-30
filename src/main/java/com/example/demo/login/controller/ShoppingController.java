@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.demo.login.domail.model.CancelDTO;
 import com.example.demo.login.domail.model.CancelForm;
 import com.example.demo.login.domail.model.CartDTO;
 import com.example.demo.login.domail.model.CartForm;
@@ -646,6 +647,7 @@ public class ShoppingController {
 	public String postCancelCancelNext(@ModelAttribute CancelForm form,@RequestParam("id") int purchaseId,HttpServletRequest request, HttpServletResponse response, Model model) {
 		model.addAttribute("contents", "shopping/cancelNext::productListLayout_contents");
 		
+		System.out.println("cancelNext到達");
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 		String getName = auth.getName();
@@ -763,8 +765,8 @@ model.addAttribute("contents", "shopping/cancelDetail::productListLayout_content
 
 		String nullCheck = "null";
 		int getCustomId = customService.selectPurchaseCheck(select_id, purchasedtoList.getProduct_id(), //購入した商品のcustomテーブルIDを取得
-				
 				purchasedtoList.getPurchaseCheck(), nullCheck);
+		purchasedto.setCustom_id(getCustomId);
 		System.out.println("getCustomId" + getCustomId);
 
 		PurchaseDTO customList = customService.selectMany(getCustomId);//購入した商品のcustomテーブル情報を取得
@@ -780,6 +782,61 @@ model.addAttribute("contents", "shopping/cancelDetail::productListLayout_content
 		model.addAttribute("purchaseList", purchasedto);
 		
 		return "shopping/productListLayout";
+	}
+	
+	@PostMapping(value = "/cancel",params = "completed")
+	public String postCancelCompleted(@ModelAttribute @Validated(GroupOrder.class) CancelForm form,BindingResult bidingResult,@RequestParam("id") int purchaseId,@RequestParam("customId") int customId,HttpServletRequest request, HttpServletResponse response,Model model) {
+		model.addAttribute("contents", "shopping/cancelCompleted::productListLayout_contents");
+
+		if (bidingResult.hasErrors()) {
+			System.out.println("バリデーションエラー到達");
+			return postCancelDetail(form, purchaseId,model);
+		}
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println("auth" + auth.getName());
+		String getName = auth.getName();
+		int userId = usersService.select_id(getName);//メソッドに入ったユーザーのIDを取得
+
+		PurchaseDTO purchasedto = new PurchaseDTO();
+
+		// 購入商品情報取得
+		PurchaseDTO purchasedtoList = purchaseService.reviewSelectHistory(userId, purchaseId);//Pathで取得した購入IDでpurchaseテーブルの情報を取得
+		purchasedto.setId(purchasedtoList.getId());
+		purchasedto.setPurchaseId(purchasedtoList.getPurchaseId());
+		purchasedto.setPurchase_date(purchasedtoList.getPurchase_date());
+		purchasedto.setPcDataId(purchasedtoList.getPcDataId());
+		purchasedto.setPcName(purchasedtoList.getPcName());
+		purchasedto.setPrice(purchasedtoList.getPrice());
+		purchasedto.setProduct_count(purchasedtoList.getProduct_count());
+		purchasedto.setPurchaseCheck(purchasedtoList.getPurchaseCheck());
+
+	
+
+		PurchaseDTO customList = customService.selectMany(customId);//購入した商品のcustomテーブル情報を取得
+		System.out.println("costomList" + customList);
+
+		purchasedto.setMemory(customList.getMemory());
+		purchasedto.setHardDisc(customList.getHardDisc());
+		purchasedto.setCpu(customList.getCpu());
+		purchasedto.setCustomPrice(customList.getCustomPrice());
+		model.addAttribute("totalPrice", purchasedto.getPrice() + purchasedto.getCustomPrice());
+		model.addAttribute("purchaseId", purchaseId);
+
+		model.addAttribute("purchaseList", purchasedto);
+		
+		HttpSession session = request.getSession();
+		 String title = (String) session.getAttribute("title");
+		 String content = (String) session.getAttribute("content");
+		CancelDTO canceldto = new CancelDTO();
+		int bancNumber = Integer.parseInt(form.getBankNumber());
+		model.addAttribute("bancNumber",bancNumber);
+		int storeName = Integer.parseInt(form.getStoreName());
+		model.addAttribute("storeName",storeName);
+		cancelService.insertOne(canceldto,userId,purchaseId,purchasedto.getProduct_id(),title,content,bancNumber,storeName);
+		
+		return "shopping/productListLayout";
+		
 	}
 
 	@GetMapping("/productList")

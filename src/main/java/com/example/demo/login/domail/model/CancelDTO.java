@@ -18,4 +18,8 @@ public class CancelDTO {
 	private String content;
 	
 	private Date registrationDate;
+	
+	private int bankNumber;
+	
+	private int storeName;
 }
