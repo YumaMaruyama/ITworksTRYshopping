@@ -9,14 +9,14 @@
 
 	<div th:fragment="productListLayout_contents">
 	
-	<h1 class="titleDesign">キャンセル前詳細</h1>
+	<h1 class="titleDesign" style="width:1100px;">キャンセル前詳細</h1>
 	<div class="progress">
   <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 1%;" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100"></div>
 </div>
 		<form method="post" th:action="@{/cancel}"
 			th:object="${cancelForm}">
 			<table class="table table-hover table-bordered"
-				th:each="purchasedto : ${purchaseList}">
+				th:each="purchasedto : ${purchaseList}" style="width:1100px;">
 
 				<tr>
 					<th class="text-center">購入日</th>
@@ -73,5 +73,4 @@
 		</form>
 	
 	</div>
-</body>
 </html>

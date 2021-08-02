@@ -7,6 +7,97 @@
 </head>
 <body>
 	<div th:fragment="productListLayout_contents">
+	
+	<h1 class="titleDesign" >キャンセル前詳細</h1>
+	<div class="progress" style="width:1100px;">
+  <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 1%;" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+
+<form method="post" th:action="@{/cancel}"
+			th:object="${cancelForm}">
+			<table class="table table-hover table-bordered"
+				th:each="purchasedto : ${purchaseList}" style="width:1100px;">
+
+				<tr>
+					<th class="text-center">購入日</th>
+					<th class="text-center">商品名</th>
+					<th class="text-center">値段</th>
+					<th class="text-center">購入数</th>
+					<th class="text-center">メモリ</th>
+					<th class="text-center">ハードディスク</th>
+					<th class="text-center">CPU</th>
+				</tr>
+
+				<tr>
+					<td class="text-center"
+						th:text="${#dates.format(purchasedto.purchase_date, 'yyyy/MM/dd HH:mm')}"></td>
+					<td class="text-center" th:text="${purchasedto.pcName}"></td>
+					<td class="text-center" th:text="${totalPrice}"></td>
+					<td class="text-center" th:text="${purchasedto.product_count}"></td>
+					<td class="text-center" th:text="${purchasedto.memory}"></td>
+					<td class="text-center" th:text="${purchasedto.hardDisc}"></td>
+					<td class="text-center" th:text="${purchasedto.cpu}"></td>
+				</tr>
+			</table>
+			
+		<table class="tabel table-bordered canDeliDetaTableDesign" style="width:1000px;">
+			<br>
+		
+			<h3 style="width:1100px;">上記商品は発送済みのためお客様のお手元に届いたキャンセル商品をこのサイトの商品管理室へ着払いで発送をお願いいたします。</h3>
+			
+			<br>
+			<h4>発送に必要な詳細情報</h4>
+			
+			<tr>
+				<th>商品管理室住所</th>
+				<td>大阪府枚方市丸山町1丁目2番3地号</td>
+			</tr>
+			
+			<tr>
+				<th>商品管理室郵便番号</th>
+				<td>573-1111</td>
+			</tr>
+			
+			<tr>
+				<th>商品管理室電話番号</th>
+				<td>090-1234-5678</td>
+			</tr>
+			</table>
+			
+			<table>
+			<br>
+			<h4>返金をするための口座情報を入力してください。</h4>
+			
+			<tr>
+			<th>口座番号</th>
+			<td>
+						<div class="form-group" th:classappend="${#fields.hasErrors('bankNumber')} ? 'hasError'">
+							<input type="text" class="form-control" th:field="*{bankNumber}">
+						</div>
+						<span class="text-danger" th:if="${#fields.hasErrors('bankNumber')}" th:errors="*{bankNumber}">bankNumber error</span>
+					</td>
+			</tr>
+			
+			<tr>
+			<th>店舗番号</th>
+			<td>
+						<div class="form-group" th:classappend="${#fields.hasErrors('storeName')} ? 'hasError'">
+							<input type="text" class="form-control" th:field="*{storeName}">
+						</div>
+						<span class="text-danger" th:if="${#fields.hasErrors('storeName')}" th:errors="*{storeName}">storeName error</span>
+					</td>
+			</tr>
+			
+			</table>
+			
+				
+			
+			<div th:each="purchasedto : ${purchaseList}">
+			<input type="hidden" name="id" th:value="${purchasedto.id}">
+			<input type="hidden" name="customId" th:value="${purchasedto.custom_id}">
+			<a class="btn btn-primary" th:href="@{'/cancelDeliveryComplete' + '/' + ${purchasedto.id}} + '/' + ${purchasedto.custom_id} ">発送詳細ページへ</a>
+			</div>
+		</form>
 	</div>
 </body>
 </html>

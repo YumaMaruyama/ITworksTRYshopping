@@ -783,7 +783,7 @@ model.addAttribute("contents", "shopping/cancelDetail::productListLayout_content
 		
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(purchasedto.getPurchase_date());//商品の購入日をセット;
-		calendar.add(Calendar.DATE, 4);//発送予定日が購入日から3日から5日の間なので、真ん中の日に発送する設定とする
+		calendar.add(Calendar.DATE, 4);//発送予定日が購入日から3日から5日の間なので、間の4日目に発送する設定とする
 		Date purchaseDate = calendar.getTime();
 		Date nowDate = new Date();
 		boolean check = nowDate.before(purchaseDate);
@@ -861,6 +861,50 @@ model.addAttribute("contents", "shopping/cancelDetail::productListLayout_content
 		return "shopping/productListLayout";
 		
 	}
+	
+	@GetMapping("/cancelDeliveryComplete/{id}/{customId}")
+	public String getCancelDeliveryComplete(@ModelAttribute CancelForm form,@PathVariable("id") int purchaseId,@PathVariable("customId") int customId,Model model) {
+		model.addAttribute("contents", "shopping/cancelDeliveryComplete::productListLayout_contents");
+		System.out.println("1");
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println("auth" + auth.getName());
+		String getName = auth.getName();
+		int userId = usersService.select_id(getName);//メソッドに入ったユーザーのIDを取得
+
+		PurchaseDTO purchasedto = new PurchaseDTO();
+
+		// 購入商品情報取得
+		PurchaseDTO purchasedtoList = purchaseService.reviewSelectHistory(userId, purchaseId);//Pathで取得した購入IDでpurchaseテーブルの情報を取得
+		purchasedto.setId(purchasedtoList.getId());
+		purchasedto.setPurchaseId(purchasedtoList.getPurchaseId());
+		purchasedto.setPurchase_date(purchasedtoList.getPurchase_date());
+		purchasedto.setPcDataId(purchasedtoList.getPcDataId());
+		purchasedto.setPcName(purchasedtoList.getPcName());
+		purchasedto.setPrice(purchasedtoList.getPrice());
+		purchasedto.setProduct_count(purchasedtoList.getProduct_count());
+		int productStock = purchasedto.getProduct_count();
+		System.out.println("stock" + productStock);
+		purchasedto.setPurchaseCheck(purchasedtoList.getPurchaseCheck());
+
+		System.out.println("2");
+
+		PurchaseDTO customList = customService.selectMany(customId);//購入した商品のcustomテーブル情報を取得
+		System.out.println("costomList" + customList);
+
+		purchasedto.setMemory(customList.getMemory());
+		purchasedto.setHardDisc(customList.getHardDisc());
+		purchasedto.setCpu(customList.getCpu());
+		purchasedto.setCustomPrice(customList.getCustomPrice());
+		model.addAttribute("totalPrice", purchasedto.getPrice() + purchasedto.getCustomPrice());
+		model.addAttribute("purchaseId", purchaseId);
+
+		model.addAttribute("purchaseList", purchasedto);
+		
+		System.out.println("3");
+		return "shopping/productListLayout";
+		
+	}
+	
 
 	@GetMapping("/productList")
 	public String getProductList(@ModelAttribute PcDataForm form, Model model) {

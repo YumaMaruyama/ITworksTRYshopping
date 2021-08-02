@@ -3,18 +3,18 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <meta charset="UTF-8">
-<title>cancelNext</title>
+<title>cancelDeliveryComplete</title>
 </head>
 <body>
- 	<div th:fragment="productListLayout_contents">
-<h1 class="titleDesign">キャンセル画面</h1>
-
-<div class="progress" style="width:1100px;">
-  <div class="progress-bar progress-bar-striped " role="progressbar" style="width: 35%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+	<div th:fragment="productListLayout_contents">
+	
+	<h1 class="titleDesign" >配達？</h1>
+	<div class="progress" style="width:1100px;">
+  <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 1%;" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100"></div>
 </div>
-		<form method="post" th:action="@{/cancel}"
+
+<form method="post" th:action="@{/cancel}"
 			th:object="${cancelForm}">
-			<br>
 			<table class="table table-hover table-bordered"
 				th:each="purchasedto : ${purchaseList}" style="width:1100px;">
 
@@ -40,28 +40,25 @@
 				</tr>
 			</table>
 			
-			
-			<table>
-			
-			<tr>
-			<th style="font-size:20px;">キャンセル理由:</th>
-			<td th:text="${title}" style="font-size:17px;"></td>
-			</tr>
-			</table>
-		
+		<table class="tabel table-bordered canDeliDetaTableDesign" style="width:1000px;">
 			<br>
-			<table>
-			<tr>
-			<th style="font-size:20px;">キャンセル理由の詳細を記載してください。</th>
-			</tr>
-			<tr>
-			<td class="formDesign" ><input class="form-control form-control-lg" type="text" th:field="*{content}"></td>
-			</tr>
+		
+			<h3 style="width:1100px;">上記商品は発送済みのためお客様のお手元に届いたキャンセル商品をこのサイトの商品管理室へ着払いで発送をお願いいたします。</h3>
+			
+			
+			
 			</table>
+			
+			
+				
+			
 			<div th:each="purchasedto : ${purchaseList}">
 			<input type="hidden" name="id" th:value="${purchasedto.id}">
-			<button class="btn btn-primary" name="confirmation">次へ</button>
+			<input type="hidden" name="customId" th:value="${purchasedto.custom_id}">
+			<button class="btn btn-primary" name="delivery">発送詳細ページへ</button>
 			</div>
-			</form>
+		</form>
+	</div>
+	
 </body>
 </html>
