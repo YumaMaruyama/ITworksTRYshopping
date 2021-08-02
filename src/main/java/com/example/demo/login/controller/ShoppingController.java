@@ -819,6 +819,8 @@ model.addAttribute("contents", "shopping/cancelDetail::productListLayout_content
 		purchasedto.setPurchaseId(purchasedtoList.getPurchaseId());
 		purchasedto.setPurchase_date(purchasedtoList.getPurchase_date());
 		purchasedto.setPcDataId(purchasedtoList.getPcDataId());
+		purchasedto.setProduct_id(purchasedtoList.getProduct_id());
+		int productId = purchasedto.getProduct_id();
 		purchasedto.setPcName(purchasedtoList.getPcName());
 		purchasedto.setPrice(purchasedtoList.getPrice());
 		purchasedto.setProduct_count(purchasedtoList.getProduct_count());
@@ -855,17 +857,17 @@ model.addAttribute("contents", "shopping/cancelDetail::productListLayout_content
 		model.addAttribute("bankNumber",bankNumber);
 		int storeName = Integer.parseInt(form.getStoreName());
 		model.addAttribute("storeName",storeName);
-		cancelService.insertOne(canceldto,userId,purchaseId,purchasedto.getProduct_id(),title,content,bankNumber,storeName);
+		cancelService.insertOne(canceldto,userId,purchaseId,productId,title,content,bankNumber,storeName);
 		
 
 		return "shopping/productListLayout";
 		
 	}
 	
-	@GetMapping("/cancelDeliveryComplete/{id}/{customId}")
-	public String getCancelDeliveryComplete(@ModelAttribute CancelForm form,@PathVariable("id") int purchaseId,@PathVariable("customId") int customId,Model model) {
+	@PostMapping("/cancelDeliveryComplete")
+	public String postCancelDeliveryComplete(@ModelAttribute CancelForm form,@RequestParam("id") int purchaseId,@RequestParam("customId") int customId,HttpServletRequest request, HttpServletResponse response,Model model) {
 		model.addAttribute("contents", "shopping/cancelDeliveryComplete::productListLayout_contents");
-		System.out.println("1");
+	
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 		String getName = auth.getName();
@@ -879,6 +881,8 @@ model.addAttribute("contents", "shopping/cancelDetail::productListLayout_content
 		purchasedto.setPurchaseId(purchasedtoList.getPurchaseId());
 		purchasedto.setPurchase_date(purchasedtoList.getPurchase_date());
 		purchasedto.setPcDataId(purchasedtoList.getPcDataId());
+		purchasedto.setProduct_id(purchasedtoList.getProduct_id());
+		int productId = purchasedto.getProduct_id();
 		purchasedto.setPcName(purchasedtoList.getPcName());
 		purchasedto.setPrice(purchasedtoList.getPrice());
 		purchasedto.setProduct_count(purchasedtoList.getProduct_count());
@@ -886,7 +890,7 @@ model.addAttribute("contents", "shopping/cancelDetail::productListLayout_content
 		System.out.println("stock" + productStock);
 		purchasedto.setPurchaseCheck(purchasedtoList.getPurchaseCheck());
 
-		System.out.println("2");
+		
 
 		PurchaseDTO customList = customService.selectMany(customId);//購入した商品のcustomテーブル情報を取得
 		System.out.println("costomList" + customList);
@@ -900,7 +904,17 @@ model.addAttribute("contents", "shopping/cancelDetail::productListLayout_content
 
 		model.addAttribute("purchaseList", purchasedto);
 		
-		System.out.println("3");
+		HttpSession session = request.getSession();
+		 String title = (String) session.getAttribute("title");
+		 System.out.println("title" + title);
+		 String content = (String) session.getAttribute("content");
+		CancelDTO canceldto = new CancelDTO();
+		System.out.println("IDtest"+canceldto.getId());
+		int bankNumber = Integer.parseInt(form.getBankNumber());
+		model.addAttribute("bankNumber",bankNumber);
+		int storeName = Integer.parseInt(form.getStoreName());
+		cancelService.insertOneCancelCheck(canceldto,userId,purchaseId,productId,title,content,bankNumber,storeName);
+		purchaseService.insertOneCancelCheck(purchaseId);
 		return "shopping/productListLayout";
 		
 	}
@@ -1574,10 +1588,14 @@ model.addAttribute("contents", "shopping/cancelDetail::productListLayout_content
 			purchasedtoAdd.setId(purchaseOne.getId());// カスタム情報取得に使用
 			purchasedtoAdd.setPurchaseId(purchaseOne.getPurchaseId());
 			purchasedtoAdd.setPurchase_date(purchaseOne.getPurchase_date());
+			purchasedtoAdd.setCancelCheck(purchaseOne.getCancelCheck());
+			String ifCheck = "キャンセル取引中";
+			purchasedtoAdd.setCancelIfCheck(ifCheck);
 			purchasedtoAdd.setPcName(purchaseOne.getPcName());
 			purchasedtoAdd.setPrice(purchaseOne.getPrice());
 			purchasedtoAdd.setProduct_count(purchaseOne.getProduct_count());
 			purchasedtoAdd.setPurchaseCheck(purchaseOne.getPurchaseCheck());
+			
 			// purchasedtoAdd.setCustom_id(purchaseOne.getCustom_id());
 			System.out.println("test2");
 			// 購入商品ごとのカスタム情報も取り出す

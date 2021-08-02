@@ -28,4 +28,19 @@ public class CancelDaoJdbcImpl implements CancelDao {
 		return result;
 				
 	}
+	
+	public int insertOneCancelCheck(CancelDTO canceldto,int userId, int purchaseId, int productId,String title, String content,int bankNumber, int storeName) {
+		int result = jdbc.update("insert into cancel (id,"
+				+ " user_id,"
+				+ " purchase_id,"
+				+ " product_id,"
+				+ " title,"
+				+ " content,"
+				+ " bank_number,"
+				+ " store_name,"
+				+ " cancel_check)"
+				+ " value(?,?,?,?,?,?,?,?,'キャンセル取引中')",canceldto.getId(),userId,purchaseId,productId,title,content,bankNumber,storeName);
+		
+		return result;
+	}
 }

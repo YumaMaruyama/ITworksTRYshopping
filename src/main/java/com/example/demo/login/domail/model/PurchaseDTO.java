@@ -40,4 +40,8 @@ public class PurchaseDTO {
 	private int totalPrice;
 	
 	private int purchaseCheck;
+	
+	private String cancelCheck;
+	
+	private String cancelIfCheck;
 }

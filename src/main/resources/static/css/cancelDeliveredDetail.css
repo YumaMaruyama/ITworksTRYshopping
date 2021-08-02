@@ -3,3 +3,90 @@
 .canDeliDetaTableDesign {
 	font-size:14px;
 }
+
+.btn-wrapper {
+  padding: 20px;
+  text-align: center;
+}
+
+.check-box {
+  margin-bottom: 20px;
+}
+
+.check {
+  display: none;
+}
+
+.check + span {
+  cursor: pointer;
+  display: inline-block;
+  margin: 0 0.2em 0;
+  padding: 0 0 0 2em;
+  position: relative;
+}
+
+.check + span::before {
+  -webkit-transform: translateY(-50%);
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  border-radius: 2px;
+  content: "";
+  display: block;
+  height: 1.3em;
+  left: 0;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.3em;
+}
+
+.check + span::after {
+  -webkit-transform: translateY(-50%) rotate(-45deg);
+  border-bottom: 3px solid rgba(0, 0, 0, 0.8);
+  border-left: 3px solid rgba(0, 0, 0, 0.8);
+  content: "";
+  display: block;
+  height: 0.6em;
+  left: 1%;
+  margin-top: -0.2em;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%) rotate(-45deg);
+  transition: all 0.3s ease 0s;
+  width: 1em;
+}
+
+.check:checked + span::after {
+  opacity: 1;
+}
+
+.submit {
+  -webkit-appearance: none;
+  background-color: rgba(0, 0, 0, 0.8);
+  background-image: none;
+  border: none;
+  border-radius: 0;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 1em;
+  margin: 0 0 1em;
+  padding: 0.6em 2em;
+  text-decoration: none;
+}
+
+.submit:hover,
+.submit:focus {
+  outline: none;
+}
+
+.submit::-moz-foucus-inner {
+  border: none;
+  padding: 0;
+}
+
+input:disabled {
+  cursor: default;
+  opacity: 0.5;  
+}

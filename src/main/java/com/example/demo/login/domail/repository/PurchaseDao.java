@@ -26,5 +26,6 @@ public interface PurchaseDao {
 	
 	public int deleteOne(int purchaseId);
 
+	public int insertOneCancelCheck(int purchaseId);
 
 }

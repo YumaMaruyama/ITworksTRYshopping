@@ -98,7 +98,7 @@ public class PurchaseDaoJdbcImpl implements PurchaseDao {
 
 	public List<PurchaseDTO> selectHistory(int select_id) {
 
-		List<Map<String,Object>> map = jdbc.queryForList("select purchase.id,purchase.product_id,purchase.purchase_date,purchase.product_count,pcdata.pc_name,pcdata.price,cart.purchase_check as cartPurchaseCheck from purchase join pcdata on purchase.product_id = pcdata.id join cart on purchase.id = cart.purchase_check where purchase.user_id = ? ",select_id);
+		List<Map<String,Object>> map = jdbc.queryForList("select purchase.id,purchase.product_id,purchase.purchase_date,purchase.product_count,purchase.cancel_check,pcdata.pc_name,pcdata.price,cart.purchase_check as cartPurchaseCheck from purchase join pcdata on purchase.product_id = pcdata.id join cart on purchase.id = cart.purchase_check where purchase.user_id = ? ",select_id);
 
 		List<PurchaseDTO> purchaseList = new ArrayList<>();
 		for(Map<String,Object> oneMap : map) {
@@ -108,10 +108,12 @@ public class PurchaseDaoJdbcImpl implements PurchaseDao {
 			purchasedto.setId((int)oneMap.get("product_id"));
 			purchasedto.setPurchaseId((int)oneMap.get("id"));
 			purchasedto.setPurchase_date((Date)oneMap.get("purchase_date"));
+			purchasedto.setCancelCheck((String)oneMap.get("purchase_check"));
 			purchasedto.setPcName((String)oneMap.get("pc_name"));
 			purchasedto.setPrice((int)oneMap.get("price"));
 			purchasedto.setProduct_count((int)oneMap.get("product_count"));
 			purchasedto.setPurchaseCheck((int)oneMap.get("cartPurchaseCheck"));
+			
 
 			purchaseList.add(purchasedto);
 		}
@@ -159,6 +161,12 @@ public class PurchaseDaoJdbcImpl implements PurchaseDao {
 	
 	public int deleteOne(int purchaseId) {
 		int result = jdbc.update("delete from purchase where id = ?",purchaseId);
+		
+		return result;
+	}
+	
+	public int insertOneCancelCheck(int purchaseId) {
+		int result = jdbc.update("update purchase set cancel_check = 'キャンセル取引中' where id = ?",purchaseId);
 		
 		return result;
 	}

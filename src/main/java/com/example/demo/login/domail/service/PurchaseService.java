@@ -66,6 +66,10 @@ public class PurchaseService {
 	public int deleteOne(int purchaseId) {
 		return dao.deleteOne(purchaseId);
 	}
+	
+	public int insertOneCancelCheck(int purchaseId) {
+		return dao.insertOneCancelCheck(purchaseId);
+	}
 
 
 }
