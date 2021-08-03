@@ -42,6 +42,5 @@ public class PurchaseDTO {
 	private int purchaseCheck;
 	
 	private String cancelCheck;
-	
-	private String cancelIfCheck;
+
 }

@@ -20,7 +20,5 @@ public class CancelForm {
 	@Length(min = 1, max = 3, groups = ValidGroup2.class)
 	private String storeName;
 	
-	@NotBlank(groups = ValidGroup1.class)
-	@Length(min = 1, max = 40, groups = ValidGroup2.class)
-	private String deliveryAddress;
+
 }

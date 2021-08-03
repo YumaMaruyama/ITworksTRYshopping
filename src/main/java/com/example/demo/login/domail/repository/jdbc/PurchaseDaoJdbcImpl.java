@@ -108,7 +108,7 @@ public class PurchaseDaoJdbcImpl implements PurchaseDao {
 			purchasedto.setId((int)oneMap.get("product_id"));
 			purchasedto.setPurchaseId((int)oneMap.get("id"));
 			purchasedto.setPurchase_date((Date)oneMap.get("purchase_date"));
-			purchasedto.setCancelCheck((String)oneMap.get("purchase_check"));
+			purchasedto.setCancelCheck((String)oneMap.get("cancel_check"));
 			purchasedto.setPcName((String)oneMap.get("pc_name"));
 			purchasedto.setPrice((int)oneMap.get("price"));
 			purchasedto.setProduct_count((int)oneMap.get("product_count"));

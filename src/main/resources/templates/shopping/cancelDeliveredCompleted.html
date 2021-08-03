@@ -3,21 +3,20 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <meta charset="UTF-8">
-<title>cancelCompleted</title>
+<title>cancelDeliveredComplated</title>
 </head>
 <body>
 	<div th:fragment="productListLayout_contents">
-
-		<h1 class="titleDesign">キャンセル完了</h1>
-		<div class="progress">
+	<h1 class="titleDesign">商品発送詳細</h1>
+		<div class="progress" style="width: 1100px;">
 			<div class="progress-bar progress-bar-striped" role="progressbar"
-				style="width: 100%;" aria-valuenow="100" aria-valuemin="0"
+				style="width: 90%;" aria-valuenow="90" aria-valuemin="0"
 				aria-valuemax="100"></div>
 		</div>
 
-		<table class="table table-hover table-bordered"
-			th:each="purchasedto : ${purchaseList}">
 
+		<table class="table table-hover table-bordered"
+			th:each="purchasedto : ${purchaseList}" style="width: 1100px;">
 			<tr>
 				<th class="text-center">購入日</th>
 				<th class="text-center">商品名</th>
@@ -40,31 +39,17 @@
 			</tr>
 		</table>
 
-		<table class="table table-bordered">
-			<br>
-			<h3>キャンセル手続きをしていただきありがとうございました。上記商品のキャンセルが完了しました。</h3>
-			<tr>
-				<br>
-				<th class="text-center" style="font-size: 20px;">返品金額</th>
-				<td class="text-center" style="font-size: 17px;"
-					th:text="${totalPrice}"></td>
-			</tr>
-			
-			<tr>
-				<th class="text-center" style="font-size: 20px;">返品口座番号</th>
-				<td class="text-center" style="font-size: 17px;"
-					th:text="${bankNumber}"></td>
-			</tr>
-			
-			<tr>
-				<th class="text-center" style="font-size: 20px;">返品口座店舗番号</th>
-				<td class="text-center" style="font-size: 17px;"
-					th:text="${storeName}"></td>
-			</tr>
-				
-		</table>
+		<br>
+		<h3>
+			返品商品を発送ありがとうございます。商品管理室で返品商品が確認でき次第入力口座に返金いたします。
+		</h3>
 
-		<h3>上記口座に返品金額分振込ました。</h3>
+		<br>
+		<h4>発送に必要な詳細情報</h4>
+
+		
+
+	
 	</div>
 </body>
 </html>

@@ -25,6 +25,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.login.domail.model.CancelDTO;
 import com.example.demo.login.domail.model.CancelForm;
+import com.example.demo.login.domail.model.CancelInTransactionForm;
 import com.example.demo.login.domail.model.CartDTO;
 import com.example.demo.login.domail.model.CartForm;
 import com.example.demo.login.domail.model.CreditDTO;
@@ -619,9 +620,8 @@ public class ShoppingController {
 		purchasedto.setPurchaseCheck(purchasedtoList.getPurchaseCheck());
 
 		String nullCheck = "null";
-		int getCustomId = customService.selectPurchaseCheck(select_id, purchasedtoList.getProduct_id(), //購入した商品のcustomテーブルIDを取得
+		int getCustomId = customService.selectPurchaseCheck(select_id, purchasedtoList.getProduct_id(),purchasedtoList.getPurchaseCheck(), nullCheck); //購入した商品のcustomテーブルIDを取得
 				
-				purchasedtoList.getPurchaseCheck(), nullCheck);
 		System.out.println("getCustomId" + getCustomId);
 
 		PurchaseDTO customList = customService.selectMany(getCustomId);//購入した商品のcustomテーブル情報を取得
@@ -865,7 +865,7 @@ model.addAttribute("contents", "shopping/cancelDetail::productListLayout_content
 	}
 	
 	@PostMapping("/cancelDeliveryComplete")
-	public String postCancelDeliveryComplete(@ModelAttribute CancelForm form,@RequestParam("id") int purchaseId,@RequestParam("customId") int customId,HttpServletRequest request, HttpServletResponse response,Model model) {
+	public String postCancelDeliveryComplete(@ModelAttribute CancelForm form,CancelInTransactionForm intransactionform,@RequestParam("id") int purchaseId,@RequestParam("customId") int customId,HttpServletRequest request, HttpServletResponse response,Model model) {
 		model.addAttribute("contents", "shopping/cancelDeliveryComplete::productListLayout_contents");
 	
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -894,7 +894,7 @@ model.addAttribute("contents", "shopping/cancelDetail::productListLayout_content
 
 		PurchaseDTO customList = customService.selectMany(customId);//購入した商品のcustomテーブル情報を取得
 		System.out.println("costomList" + customList);
-
+		purchasedto.setCustom_id(customId);
 		purchasedto.setMemory(customList.getMemory());
 		purchasedto.setHardDisc(customList.getHardDisc());
 		purchasedto.setCpu(customList.getCpu());
@@ -917,6 +917,102 @@ model.addAttribute("contents", "shopping/cancelDetail::productListLayout_content
 		purchaseService.insertOneCancelCheck(purchaseId);
 		return "shopping/productListLayout";
 		
+	}
+	
+	@PostMapping(value = "/cancelDeliveryComplete",params = "deliveredCompleted")
+	public String postCancelDeliveryCompleteDeliveredCompleted(@ModelAttribute CancelForm form,CancelInTransactionForm intransactionform,@RequestParam("id") int purchaseId,@RequestParam("customId") int customId,Model model) {
+		
+		model.addAttribute("contents", "shopping/cancelDeliveredCompleted::productListLayout_contents");
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println("auth" + auth.getName());
+		String getName = auth.getName();
+		int userId = usersService.select_id(getName);//メソッドに入ったユーザーのIDを取得
+
+		PurchaseDTO purchasedto = new PurchaseDTO();
+
+		// 購入商品情報取得
+		PurchaseDTO purchasedtoList = purchaseService.reviewSelectHistory(userId, purchaseId);//Pathで取得した購入IDでpurchaseテーブルの情報を取得
+		purchasedto.setId(purchasedtoList.getId());
+		purchasedto.setPurchaseId(purchasedtoList.getPurchaseId());
+		purchasedto.setPurchase_date(purchasedtoList.getPurchase_date());
+		purchasedto.setPcDataId(purchasedtoList.getPcDataId());
+		purchasedto.setProduct_id(purchasedtoList.getProduct_id());
+		int productId = purchasedto.getProduct_id();
+		purchasedto.setPcName(purchasedtoList.getPcName());
+		purchasedto.setPrice(purchasedtoList.getPrice());
+		purchasedto.setProduct_count(purchasedtoList.getProduct_count());
+		int productStock = purchasedto.getProduct_count();
+		System.out.println("stock" + productStock);
+		purchasedto.setPurchaseCheck(purchasedtoList.getPurchaseCheck());
+
+		
+		
+		PurchaseDTO customList = customService.selectMany(customId);//購入した商品のcustomテーブル情報を取得
+		System.out.println("costomList" + customList);
+
+		purchasedto.setCustom_id(customId);
+		purchasedto.setMemory(customList.getMemory());
+		purchasedto.setHardDisc(customList.getHardDisc());
+		purchasedto.setCpu(customList.getCpu());
+		purchasedto.setCustomPrice(customList.getCustomPrice());
+		model.addAttribute("totalPrice", purchasedto.getPrice() + purchasedto.getCustomPrice());
+		model.addAttribute("purchaseId", purchaseId);
+
+		model.addAttribute("purchaseList", purchasedto);
+		
+		return "shopping/productListLayout";
+	
+	}
+	
+	
+	
+	@GetMapping("/cancelInTransaction/{id}")
+	public String getCancelInTransaction(@ModelAttribute CancelInTransactionForm form,@PathVariable("id") int purchaseId,HttpServletRequest request, HttpServletResponse response,Model model) {
+		
+		model.addAttribute("contents", "shopping/cancelDeliveryComplete::productListLayout_contents");
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println("auth" + auth.getName());
+		String getName = auth.getName();
+		int userId = usersService.select_id(getName);//メソッドに入ったユーザーのIDを取得
+
+		PurchaseDTO purchasedto = new PurchaseDTO();
+
+		// 購入商品情報取得
+		PurchaseDTO purchasedtoList = purchaseService.reviewSelectHistory(userId, purchaseId);//Pathで取得した購入IDでpurchaseテーブルの情報を取得
+		purchasedto.setId(purchasedtoList.getId());
+		purchasedto.setPurchaseId(purchasedtoList.getPurchaseId());
+		purchasedto.setPurchase_date(purchasedtoList.getPurchase_date());
+		purchasedto.setPcDataId(purchasedtoList.getPcDataId());
+		purchasedto.setProduct_id(purchasedtoList.getProduct_id());
+		int productId = purchasedto.getProduct_id();
+		purchasedto.setPcName(purchasedtoList.getPcName());
+		purchasedto.setPrice(purchasedtoList.getPrice());
+		purchasedto.setProduct_count(purchasedtoList.getProduct_count());
+		int productStock = purchasedto.getProduct_count();
+		System.out.println("stock" + productStock);
+		purchasedto.setPurchaseCheck(purchasedtoList.getPurchaseCheck());
+
+		String nullCheck = "null";
+		int customId = customService.selectPurchaseCheck(userId, purchasedtoList.getProduct_id(),purchasedtoList.getPurchaseCheck(), nullCheck); //購入した商品のcustomテーブルIDを取得
+
+		PurchaseDTO customList = customService.selectMany(customId);//購入した商品のcustomテーブル情報を取得
+		System.out.println("costomList" + customList);
+
+		purchasedto.setCustom_id(customId);
+		purchasedto.setMemory(customList.getMemory());
+		purchasedto.setHardDisc(customList.getHardDisc());
+		purchasedto.setCpu(customList.getCpu());
+		purchasedto.setCustomPrice(customList.getCustomPrice());
+		model.addAttribute("totalPrice", purchasedto.getPrice() + purchasedto.getCustomPrice());
+		model.addAttribute("purchaseId", purchaseId);
+
+		model.addAttribute("purchaseList", purchasedto);
+		
+		
+		return "shopping/productListLayout";
+				
 	}
 	
 
@@ -1583,23 +1679,20 @@ model.addAttribute("contents", "shopping/cancelDetail::productListLayout_content
 		// 購入商品を一つづつ回して値を受け取る
 		for (int i = 0; purchasedtoList.size() > i; i++) {
 			PurchaseDTO purchasedtoAdd = new PurchaseDTO();
-			System.out.println("test1");
+
 			PurchaseDTO purchaseOne = purchasedtoList.get(i);
 			purchasedtoAdd.setId(purchaseOne.getId());// カスタム情報取得に使用
 			purchasedtoAdd.setPurchaseId(purchaseOne.getPurchaseId());
 			purchasedtoAdd.setPurchase_date(purchaseOne.getPurchase_date());
 			purchasedtoAdd.setCancelCheck(purchaseOne.getCancelCheck());
-			String ifCheck = "キャンセル取引中";
-			purchasedtoAdd.setCancelIfCheck(ifCheck);
 			purchasedtoAdd.setPcName(purchaseOne.getPcName());
 			purchasedtoAdd.setPrice(purchaseOne.getPrice());
 			purchasedtoAdd.setProduct_count(purchaseOne.getProduct_count());
 			purchasedtoAdd.setPurchaseCheck(purchaseOne.getPurchaseCheck());
 			
-			// purchasedtoAdd.setCustom_id(purchaseOne.getCustom_id());
-			System.out.println("test2");
+
 			// 購入商品ごとのカスタム情報も取り出す
-			System.out.println("test3");
+
 			int productId = purchasedtoAdd.getId();
 			System.out.println("productId" + productId);
 			System.out.println(select_id);

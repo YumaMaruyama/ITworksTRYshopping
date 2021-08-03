@@ -34,8 +34,8 @@
 			<td class="text-center" th:text="${purchasedto.hardDisc}"></td>
 			<td class="text-center" th:text="${purchasedto.cpu}"></td>
 			<td class="text-center"><a th:href="@{'/reviewAdd' + '/' + ${purchasedto.purchaseId}} " class="btn btn-primary">口コミを書く</a></td>
-			<td th:if="${purchasedto.cancelCheck} == ${purchasedto.cancelIfCheck}">キャンセル取引中</td>
-			<td th:if="${purchasedto.cancelCheck} != ${purchasedto.cancelIfCheck}" class="text-center"><a th:href="@{'/cancel' + '/' + ${purchasedto.purchaseId}} " class="btn btn-primary">商品キャンセル</a></td>
+			<td th:if="${purchasedto.cancelCheck != null}"><a th:href="@{'/cancelInTransaction' + '/' + ${purchasedto.purchaseId}} " class="btn btn-primary">キャンセル取引中</a></td>
+			<td th:if="${purchasedto.cancelCheck == null}" class="text-center"><a th:href="@{'/cancel' + '/' + ${purchasedto.purchaseId}} " class="btn btn-primary">商品キャンセル</a></td>
 		</tr>
 
 	</table>
