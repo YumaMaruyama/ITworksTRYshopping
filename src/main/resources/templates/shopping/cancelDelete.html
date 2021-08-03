@@ -3,18 +3,14 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <meta charset="UTF-8">
-<title>cancelDeliveredComplated</title>
+<title>cancelDelete</title>
 </head>
 <body>
+	
 	<div th:fragment="productListLayout_contents">
 	<h1 class="titleDesign">商品発送詳細</h1>
-		<div class="progress" style="width: 1100px;">
-			<div class="progress-bar progress-bar-striped" role="progressbar"
-				style="width: 90%;" aria-valuenow="90" aria-valuemin="0"
-				aria-valuemax="100"></div>
-		</div>
-
-
+		
+		<form method="post" th:action="@{/cancelDelete}">
 		<table class="table table-hover table-bordered"
 			th:each="purchasedto : ${purchaseList}" style="width: 1100px;">
 			<tr>
@@ -39,14 +35,19 @@
 			</tr>
 		</table>
 
-		<br>
-		<h3>
-			返品商品を発送ありがとうございます。商品管理室で返品商品が確認でき次第入力口座に返金いたします。
-		</h3>
+		<h3>上記の商品のキャンセル取り消しをしますか？</h3>
 
+		<table th:each="purchasedto : ${purchaseList}">
+		<input type="hidden" name="id" th:value="${purchasedto.id}">
+			<input type="hidden" name="customId" th:value="${purchasedto.custom_id}">
+			<tr>
+				<td><button name="yes">はい</button></td>
+				
+				<td><button name="no">取り消ししないで前のページに戻る</button></td>
+			</tr>
+		</table>
 		
-
-		
+		</form>
 
 	
 	</div>

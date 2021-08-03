@@ -43,4 +43,14 @@ public class CancelDaoJdbcImpl implements CancelDao {
 		
 		return result;
 	}
+	
+	public int deleteOne(int purchaseId) {
+		int result = jdbc.update("delete from cancel where purchase_id = ?",purchaseId);
+		return result;
+	}
+	
+	public int cancelCheckUpdate(int purchaseId) {
+		int result = jdbc.update("update cancel set cancel_check = '返品商品発送済み' where purchase_id = ?",purchaseId);
+		return result;
+	}
 }

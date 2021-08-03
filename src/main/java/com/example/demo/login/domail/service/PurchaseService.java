@@ -70,6 +70,14 @@ public class PurchaseService {
 	public int insertOneCancelCheck(int purchaseId) {
 		return dao.insertOneCancelCheck(purchaseId);
 	}
+	
+	public int cancelCheckUpdate(int purchaseId) {
+		return dao.cancelCheckUpdate(purchaseId);
+	}
+	
+	public int cancelCheckUpdateNext(int purchaseId) {
+		return dao.cancelCheckUpdateNext(purchaseId);
+	}
 
 
 }

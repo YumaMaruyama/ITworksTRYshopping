@@ -170,6 +170,16 @@ public class PurchaseDaoJdbcImpl implements PurchaseDao {
 		
 		return result;
 	}
+	
+	public int cancelCheckUpdate(int purchaseId) {
+		int result = jdbc.update("update purchase set cancel_check = null where id = ?",purchaseId);
+		return result;
+	}
+	
+	public int cancelCheckUpdateNext(int purchaseId) {
+		int result = jdbc.update("update purchase set cancel_check = '返品商品確認待ち' where id = ?",purchaseId);
+		return result;
+	}
 
 
 

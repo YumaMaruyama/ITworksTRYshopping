@@ -21,4 +21,12 @@ public class CancelService {
 	public int insertOneCancelCheck(CancelDTO canceldto,int userId, int purchaseId, int productId,String title, String content,int bankNumber, int storeName) {
 		return dao.insertOneCancelCheck(canceldto,userId,purchaseId,productId,title,content,bankNumber,storeName);
 	}
+	
+	public int deleteOne(int purchaseId) {
+		return dao.deleteOne(purchaseId);
+	}
+	
+	public int cancelCheckUpdate(int purchaseId) {
+		return dao.cancelCheckUpdate(purchaseId);
+	}
 }
