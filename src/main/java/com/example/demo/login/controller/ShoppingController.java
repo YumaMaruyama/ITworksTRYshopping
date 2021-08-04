@@ -1854,14 +1854,26 @@ model.addAttribute("contents", "shopping/cancelDeliveryComplete::productListLayo
 			Calendar calendar = Calendar.getInstance();
 			Date now = calendar.getTime();
 	        calendar.setTime(purchasedtoAdd.getPurchase_date());
-	        Date purchaseDate = calendar.getTime();//現在日付
-	        model.addAttribute("purchaseCheck",purchaseDate);//購入日付
+	        Date purchaseDate = calendar.getTime();//購入日付
+	        model.addAttribute("purchaseCheck",purchaseDate);
 	        calendar.add(Calendar.DATE, 10);
 	        Date purchaseDateAddTen = calendar.getTime();//キャンセル期間外の購入日付から10日後の日付
 	        model.addAttribute("result",purchaseDateAddTen);
-	        long d = (purchaseDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24);
-			int count = (int)d;
-			model.addAttribute("dayCount",count);
+	        long d = (purchaseDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24);//購入日と現在の日付を比べる
+			int count = (int)-d;
+			
+			if(count <= 10) {
+			 System.out.println("true");
+				purchasedtoAdd.setCancelResult("true");
+				}else {
+				System.out.println("false");
+				purchasedtoAdd.setCancelResult("false");
+			}
+		
+			
+			
+			
+			
 			
 			allPurchaseList.add(purchasedtoAdd);
 			System.out.println("allPurchaseList" + allPurchaseList);
