@@ -34,9 +34,10 @@
 			<td class="text-center" th:text="${purchasedto.hardDisc}"></td>
 			<td class="text-center" th:text="${purchasedto.cpu}"></td>
 			<td class="text-center"><a th:href="@{'/reviewAdd' + '/' + ${purchasedto.purchaseId}} " class="btn btn-primary">口コミを書く</a></td>
-			<td th:if="${purchasedto.cancelCheck} == ${confirmationPending}"><a th:href="@{'/confirmationPending' + '/' + ${purchasedto.purchaseId}} " class="btn btn-primary">返品商品確認待ち</a></td>
-			<td th:if="${purchasedto.cancelCheck} == ${inTransaction}"><a th:href="@{'/cancelInTransaction' + '/' + ${purchasedto.purchaseId}} " class="btn btn-primary">キャンセル取引中</a></td>
-			<td th:if="${purchasedto.cancelCheck == null}" class="text-center"><a th:href="@{'/cancel' + '/' + ${purchasedto.purchaseId}} " class="btn btn-primary">商品キャンセル</a></td>
+			<td th:if="${purchasedto.cancelCheck} == ${confirmationPending} and ${dayCount} le 0 and ${dayCount} ge -10"><a th:href="@{'/confirmationPending' + '/' + ${purchasedto.purchaseId}} " class="btn btn-primary">返品商品確認待ち</a></td>
+			<td th:if="${purchasedto.cancelCheck} == ${inTransaction} and ${purchaseCheck} le ${result} and ${dayCount} le 0"><a th:href="@{'/cancelInTransaction' + '/' + ${purchasedto.purchaseId}} " class="btn btn-primary">キャンセル取引中</a></td>
+			<td th:if="${purchasedto.cancelCheck == null} and ${purchaseCheck} le ${result} and ${dayCount} le 0" class="text-center"><a th:href="@{'/cancel' + '/' + ${purchasedto.purchaseId}} " class="btn btn-primary">商品キャンセル</a></td>
+			<td th:if="${purchaseCheck} ge ${result} and ${dayCount} ge 0" class="text-center">キャンセル期間外</td>
 		</tr>
 
 	</table>

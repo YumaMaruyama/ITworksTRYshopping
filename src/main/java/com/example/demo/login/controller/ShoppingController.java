@@ -1121,6 +1121,35 @@ model.addAttribute("contents", "shopping/cancelDeliveryComplete::productListLayo
 				
 	}
 	
+	@GetMapping("/confirmationPending/{id}")
+	public String getConfirmationPending(@ModelAttribute CancelForm form,CancelInTransactionForm intransactionform,@PathVariable("id") int purchaseId,Model model) {
+	
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println("auth" + auth.getName());
+		String getName = auth.getName();
+		int select_id = usersService.select_id(getName);//メソッドに入ったユーザーのIDを取得
+
+		PurchaseDTO purchasedto = new PurchaseDTO();
+
+		// 購入商品情報取得
+		PurchaseDTO purchasedtoList = purchaseService.reviewSelectHistory(select_id, purchaseId);//Pathで取得した購入IDでpurchaseテーブルの情報を取得
+		purchasedto.setId(purchasedtoList.getId());
+		purchasedto.setPurchaseId(purchasedtoList.getPurchaseId());
+		purchasedto.setPurchase_date(purchasedtoList.getPurchase_date());
+		purchasedto.setPcDataId(purchasedtoList.getPcDataId());
+		purchasedto.setPcName(purchasedtoList.getPcName());
+		purchasedto.setPrice(purchasedtoList.getPrice());
+		purchasedto.setProduct_count(purchasedtoList.getProduct_count());
+		purchasedto.setPurchaseCheck(purchasedtoList.getPurchaseCheck());
+
+		String nullCheck = "null";
+		int getCustomId = customService.selectPurchaseCheck(select_id, purchasedtoList.getProduct_id(),purchasedtoList.getPurchaseCheck(), nullCheck); //購入した商品のcustomテーブルIDを取得
+				
+		
+		return postCancelDeliveryCompleteDeliveredCompleted( form,intransactionform,purchaseId,getCustomId,model);
+	}
+	
 
 	@GetMapping("/productList")
 	public String getProductList(@ModelAttribute PcDataForm form, Model model) {
@@ -1779,7 +1808,8 @@ model.addAttribute("contents", "shopping/cancelDeliveryComplete::productListLayo
 		List<PurchaseDTO> purchasedtoList = purchaseService.selectHistory(select_id);
 
 		PurchaseDTO purchasedto = new PurchaseDTO();
-
+ 
+		
 		List<PurchaseDTO> allPurchaseList = new ArrayList<>();
 		PurchaseDTO customList;
 		// 購入商品を一つづつ回して値を受け取る
@@ -1820,6 +1850,19 @@ model.addAttribute("contents", "shopping/cancelDeliveryComplete::productListLayo
 			purchasedtoAdd.setTotalPrice(
 					purchaseOne.getProduct_count() * (customList.getCustomPrice() + purchaseOne.getPrice()));
 
+			//Date purchaseDate = purchasedtoAdd.getPurchase_date();
+			Calendar calendar = Calendar.getInstance();
+			Date now = calendar.getTime();
+	        calendar.setTime(purchasedtoAdd.getPurchase_date());
+	        Date purchaseDate = calendar.getTime();//現在日付
+	        model.addAttribute("purchaseCheck",purchaseDate);//購入日付
+	        calendar.add(Calendar.DATE, 10);
+	        Date purchaseDateAddTen = calendar.getTime();//キャンセル期間外の購入日付から10日後の日付
+	        model.addAttribute("result",purchaseDateAddTen);
+	        long d = (purchaseDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24);
+			int count = (int)d;
+			model.addAttribute("dayCount",count);
+			
 			allPurchaseList.add(purchasedtoAdd);
 			System.out.println("allPurchaseList" + allPurchaseList);
 
