@@ -19,7 +19,11 @@ public class CancelDTO {
 	
 	private Date registrationDate;
 	
+	private Date deliveryDate;
+	
 	private int bankNumber;
 	
 	private int storeName;
+	
+	private String cancelCheck;
 }

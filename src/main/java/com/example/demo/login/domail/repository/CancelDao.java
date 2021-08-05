@@ -1,5 +1,7 @@
 package com.example.demo.login.domail.repository;
 
+import java.util.Date;
+
 import com.example.demo.login.domail.model.CancelDTO;
 
 public interface CancelDao {
@@ -11,4 +13,8 @@ public interface CancelDao {
 	public int deleteOne(int purchaseId);
 	
 	public int cancelCheckUpdate(int purchaseId);
+	
+	public CancelDTO selectCancelCheck(int purchaseId);
+	
+	public int deliveryDateUpdate(CancelDTO canceldto,Date deliveryDate);
 }

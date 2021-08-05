@@ -806,6 +806,8 @@ public class ShoppingController {
 			System.out.println("バリデーションエラー到達");
 			return postCancelDetail(form, purchaseId, model);
 		}
+		
+		
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
@@ -841,8 +843,7 @@ public class ShoppingController {
 
 		model.addAttribute("purchaseList", purchasedto);
 
-		customService.deleteOne(customId);
-		purchaseService.deleteOne(purchaseId);
+		
 		int stock = pcdataService.updateOne(purchasedto, productStock);
 		System.out.println("stock2" + stock);
 
@@ -857,6 +858,26 @@ public class ShoppingController {
 		model.addAttribute("storeName", storeName);
 		cancelService.insertOne(canceldto, userId, purchaseId, productId, title, content, bankNumber, storeName);
 
+		Calendar calendar = Calendar.getInstance();
+		Date now = calendar.getTime();
+		calendar.setTime(purchasedto.getPurchase_date());
+		Date purchaseDate = calendar.getTime();// 購入日付
+		long d = (purchaseDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24);// 購入日と現在の日付を比べる
+		int count = (int) -d;
+
+		if (count > 10) {
+			System.out.println("true");
+			model.addAttribute("result", "購入日から10日経過したため、キャンセル期間外になりました。");
+			model.addAttribute("totalPrice", purchasedto.getPrice() + purchasedto.getCustomPrice());
+			model.addAttribute("purchaseId", purchaseId);
+
+			model.addAttribute("purchaseList", purchasedto);
+			model.addAttribute("contents", "shopping/cancelInquiry::productListLayout_contents");
+			return "shopping/productListLayout";
+		}
+		customService.deleteOne(customId);
+		purchaseService.deleteOne(purchaseId);
+		
 		return "shopping/productListLayout";
 
 	}
@@ -947,7 +968,12 @@ public class ShoppingController {
 		int userId = usersService.select_id(getName);// メソッドに入ったユーザーのIDを取得
 
 		PurchaseDTO purchasedto = new PurchaseDTO();
-
+		
+		CancelDTO canceldto = new CancelDTO();
+		Calendar calendar = Calendar.getInstance();
+		Date deliveryDate = calendar.getTime();
+		cancelService.deliveryDateUpdate(canceldto,deliveryDate);
+		
 		// 購入商品情報取得
 		PurchaseDTO purchasedtoList = purchaseService.reviewSelectHistory(userId, purchaseId);// Pathで取得した購入IDでpurchaseテーブルの情報を取得
 		purchasedto.setId(purchasedtoList.getId());
@@ -1873,20 +1899,35 @@ public class ShoppingController {
 			long d = (purchaseDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24);// 購入日と現在の日付を比べる
 			int count = (int) -d;
 
-			CancelDTO canceldto = cancelService.selectCancelCheck(purchasedtoAdd.getPurchaseId());
+			
 			
 			
 			if (count <= 10) {
 				System.out.println("true");
 				purchasedtoAdd.setCancelResult("true");
-			} else {
-				System.out.println("false");
+			}else {
 				purchasedtoAdd.setCancelResult("false");
 			}
+			
+			
+			
+				System.out.println("testfalse");
+				CancelDTO canceldto = cancelService.selectCancelCheck(purchasedtoAdd.getPurchaseId());
+				System.out.println("testdd" + canceldto);
+				if(canceldto.getCancelCheck() != null ) {
+					System.out.println("truefdfdfffdf");
+					purchasedtoAdd.setCancelResult("true");
+				}
+			
 
+			System.out.println("purId" + purchasedtoAdd.getPurchaseId());
+		
+			
+			
 			allPurchaseList.add(purchasedtoAdd);
 			System.out.println("allPurchaseList" + allPurchaseList);
 
+			
 		}
 
 		model.addAttribute("purchaseList", allPurchaseList);

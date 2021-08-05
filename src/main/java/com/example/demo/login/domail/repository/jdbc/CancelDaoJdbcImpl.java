@@ -1,5 +1,7 @@
 package com.example.demo.login.domail.repository.jdbc;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -51,6 +53,21 @@ public class CancelDaoJdbcImpl implements CancelDao {
 	
 	public int cancelCheckUpdate(int purchaseId) {
 		int result = jdbc.update("update cancel set cancel_check = '返品商品発送済み' where purchase_id = ?",purchaseId);
+		return result;
+	}
+	
+	public CancelDTO selectCancelCheck(int purchaseId) {
+		
+	
+		Map<String,Object> map = jdbc.queryForMap("select * from purchase where id = ?",purchaseId);
+
+		CancelDTO canceldto = new CancelDTO();
+		canceldto.setCancelCheck((String)map.get("cancel_check"));
+		return canceldto;
+	}
+	
+	public int deliveryDateUpdate(CancelDTO canceldto,Date deliveryDate) {
+		int result = jdbc.update("insert into cancel delivery_date = ?",canceldto.getDeliveryDate());
 		return result;
 	}
 }
