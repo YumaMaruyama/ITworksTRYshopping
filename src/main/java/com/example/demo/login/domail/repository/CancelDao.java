@@ -16,5 +16,9 @@ public interface CancelDao {
 	
 	public CancelDTO selectCancelCheck(int purchaseId);
 	
-	public int deliveryDateUpdate(CancelDTO canceldto,Date deliveryDate);
+	public int deliveryDateUpdate(int purchaseId,Date deliveryDate);
+	
+	public CancelDTO selectDerivaryDate(int purchaseId);
+	
+	public CancelDTO deliveryDateCheck(CancelDTO canceldto,int purchaseId);
 }

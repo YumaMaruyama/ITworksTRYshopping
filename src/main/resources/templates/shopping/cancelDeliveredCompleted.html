@@ -44,9 +44,9 @@
 			返品商品を発送ありがとうございます。商品管理室で返品商品が確認でき次第入力口座に返金いたします。
 		</h3>
 
-		<br>
+		<br><br><br>
 		<h4>返品商品情報</h4>
-		<ul class="progressbar" >
+		<ul class="progressbar" th:if="${deliveryInformation == '0.5'}" >
 			<li class="active">引き受け</li>
 			<li>目的地周辺郵便局へ発送準備中</li>
 			<li>目的地周辺郵便局へ輸送中</li>
@@ -55,7 +55,7 @@
 			<li>目的地へ配達完了</li>
 		</ul>
 		
-		<ul class="progressbar">
+		<ul class="progressbar" th:if="${deliveryInformation == '1'}">
 			<li class="active">引き受け</li>
 			<li class="active">目的地周辺郵便局へ発送準備中</li>
 			<li>目的地周辺郵便局へ輸送中</li>
@@ -64,7 +64,7 @@
 			<li>目的地へ配達完了</li>
 		</ul>
 		
-		<ul class="progressbar">
+		<ul class="progressbar" th:if="${deliveryInformation == '1.5'}">
 			<li class="active">引き受け</li>
 			<li class="active">目的地周辺郵便局へ発送準備中</li>
 			<li class="active">目的地周辺郵便局へ輸送中</li>
@@ -73,7 +73,7 @@
 			<li>目的地へ配達完了</li>
 		</ul>
 		
-		<ul class="progressbar">
+		<ul class="progressbar" th:if="${deliveryInformation == '2'}">
 			<li class="active">引き受け</li>
 			<li class="active">目的地周辺郵便局へ発送準備中</li>
 			<li class="active">目的地周辺郵便局へ輸送中</li>
@@ -82,7 +82,7 @@
 			<li>目的地へ配達完了</li>
 		</ul>
 		
-		<ul class="progressbar">
+		<ul class="progressbar" th:if="${deliveryInformation == '2.5'}">
 			<li class="active">引き受け</li>
 			<li class="active">目的地周辺郵便局へ発送準備中</li>
 			<li class="active">目的地周辺郵便局へ輸送中</li>
@@ -91,13 +91,18 @@
 			<li>目的地へ配達完了</li>
 		</ul>
 		
-		<ul class="progressbar">
+		<ul class="progressbar" th:if="${deliveryInformation == '3'}">
 			<li class="active">引き受け</li>
 			<li class="active">目的地周辺郵便局へ発送準備中</li>
 			<li class="active">目的地周辺郵便局へ輸送中</li>
 			<li class="active">目的地周辺郵便局へ到着</li>
 			<li class="active">目的地へ持ち出し中</li>
 			<li class="active">目的地へ配達完了</li>
+			
+		<h3 th:if="${productConfirmation == '商品確認中'}">商品管理室へお届けが完了しました。商品確認ができるまでお待ちください。</h3>
+		<div  th:if="${productConfirmation == '商品確認完了'}"><h3  th:if="${productConfirmation == '商品確認完了'}">商品管理室へお届けが完了し、商品確認が取れましたので返品へ進むをクリックしてください。<br>自動でキャンセル時に入力した口座に返金されます。</h3>
+		<a th:></a>
+		</div>
 		</ul>
 
 

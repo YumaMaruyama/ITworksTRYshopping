@@ -36,7 +36,15 @@ public class CancelService {
 		return dao.selectCancelCheck(purchaseId);
 	}
 	
-	public int deliveryDateUpdate(CancelDTO canceldto,Date deliveryDate) {
-		return dao.deliveryDateUpdate(canceldto,deliveryDate);
+	public int deliveryDateUpdate(int purchaseId,Date deliveryDate) {
+		return dao.deliveryDateUpdate(purchaseId,deliveryDate);
+	}
+	
+	public CancelDTO selectDerivaryDate(int purchaseId) {
+		return dao.selectDerivaryDate(purchaseId);
+	}
+	
+	public CancelDTO deliveryDateCheck(CancelDTO canceldto,int purchaseId) {
+		return dao.deliveryDateCheck(canceldto,purchaseId);
 	}
 }

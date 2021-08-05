@@ -970,9 +970,14 @@ public class ShoppingController {
 		PurchaseDTO purchasedto = new PurchaseDTO();
 		
 		CancelDTO canceldto = new CancelDTO();
+		
 		Calendar calendar = Calendar.getInstance();
-		Date deliveryDate = calendar.getTime();
-		cancelService.deliveryDateUpdate(canceldto,deliveryDate);
+		Date nowTime = calendar.getTime();
+		 canceldto = cancelService.deliveryDateCheck(canceldto,purchaseId);
+		if(canceldto.getDeliveryDate() == null) {
+			System.out.println("dateがnull");
+		cancelService.deliveryDateUpdate(purchaseId,nowTime);
+		}
 		
 		// 購入商品情報取得
 		PurchaseDTO purchasedtoList = purchaseService.reviewSelectHistory(userId, purchaseId);// Pathで取得した購入IDでpurchaseテーブルの情報を取得
@@ -1002,6 +1007,40 @@ public class ShoppingController {
 
 		model.addAttribute("purchaseList", purchasedto);
 
+		canceldto = cancelService.selectDerivaryDate(purchaseId);
+		Date deliveryDate = canceldto.getDeliveryDate();
+		Date now = calendar.getTime();
+		calendar.setTime(deliveryDate);
+		Date deliveryDateNew = calendar.getTime();
+		
+		long d = (deliveryDateNew.getTime() - now.getTime()) / (1000 * 60 * 60 * 24);// 購入日と現在の日付を比べる
+		int count = (int) -d;
+		System.out.println(deliveryDate);
+		System.out.println(now);
+		System.out.println("count"+count);
+		
+		if(0.5 >= count) {
+			System.out.println("0.5");
+			model.addAttribute("deliveryInformation","0.5");
+		}else if(1 >= count) {
+			System.out.println("1");
+			model.addAttribute("deliveryInformation","1");
+		}else if(1.5 >= count) {
+			model.addAttribute("deliveryInformation","1.5");
+		}else if(2 >= count) {
+			model.addAttribute("deliveryInformation","2");
+		}else if(2.5 >= count) {
+			model.addAttribute("deliveryInformation","2.5");
+		}else {
+			model.addAttribute("deliveryInformation","3");
+		}
+		
+		if(3 >= count) {
+			model.addAttribute("productConfirmation","商品確認中");
+		}else {
+			model.addAttribute("productConfirmation","商品確認完了");
+		}
+		
 		cancelService.cancelCheckUpdate(purchaseId);
 		purchaseService.cancelCheckUpdateNext(purchaseId);
 
