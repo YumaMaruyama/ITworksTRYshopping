@@ -88,4 +88,10 @@ public class CancelDaoJdbcImpl implements CancelDao {
 		
 		return canceldto;
 	}
+	
+	public int selectCancelCheck(int purchaseId,int userId) {
+		int maxId = jdbc.queryForObject("select max(id) from cancel where purchase_id = ? and user_id = ?",Integer.class,purchaseId,userId);
+		
+		return maxId;
+	}
 }

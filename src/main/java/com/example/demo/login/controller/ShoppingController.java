@@ -948,6 +948,8 @@ public class ShoppingController {
 		int bankNumber = Integer.parseInt(form.getBankNumber());
 		model.addAttribute("bankNumber", bankNumber);
 		int storeName = Integer.parseInt(form.getStoreName());
+		int maxId = cancelService.selectCancelCheck(purchaseId,userId);
+		//じょうきのIDをしようしてcheckがnullかどうかで下記のinsertをするか決める　キャンセル完了で入るのは一つでいいからね
 		cancelService.insertOneCancelCheck(canceldto, userId, purchaseId, productId, title, content, bankNumber,
 				storeName);
 		purchaseService.insertOneCancelCheck(purchaseId);
@@ -1200,6 +1202,8 @@ public class ShoppingController {
 		return "shopping/productListLayout";
 
 	}
+	
+	
 
 	@GetMapping("/confirmationPending/{id}")
 	public String getConfirmationPending(@ModelAttribute CancelForm form, CancelInTransactionForm intransactionform,

@@ -100,8 +100,8 @@
 			<li class="active">目的地へ配達完了</li>
 			
 		<h3 th:if="${productConfirmation == '商品確認中'}">商品管理室へお届けが完了しました。商品確認ができるまでお待ちください。</h3>
-		<div  th:if="${productConfirmation == '商品確認完了'}"><h3  th:if="${productConfirmation == '商品確認完了'}">商品管理室へお届けが完了し、商品確認が取れましたので返品へ進むをクリックしてください。<br>自動でキャンセル時に入力した口座に返金されます。</h3>
-		<a th:></a>
+		<div  th:if="${productConfirmation == '商品確認完了'}" th:each="purchasedto : ${purchaseList}"><h3  th:if="${productConfirmation == '商品確認完了'}">商品管理室へお届けが完了し、商品確認が取れましたので返金へ進むをクリックしてください。<br>自動でキャンセル時に入力した口座に返金されます。</h3>
+		<a th:href="@{'/cancelEnd' + '/' + &{purchasedto.id}}">返金へ進む</a>
 		</div>
 		</ul>
 

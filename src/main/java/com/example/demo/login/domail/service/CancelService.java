@@ -47,4 +47,8 @@ public class CancelService {
 	public CancelDTO deliveryDateCheck(CancelDTO canceldto,int purchaseId) {
 		return dao.deliveryDateCheck(canceldto,purchaseId);
 	}
+	
+	public int selectCancelCheck(int purchaseId,int userId) {
+		return dao.selectCancelCheck(purchaseId,userId);
+	}
 }
