@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -53,7 +54,7 @@ public class CancelDaoJdbcImpl implements CancelDao {
 	}
 	
 	public int cancelCheckUpdate(int purchaseId,String DeliveryAddress) {
-		int result = jdbc.update("update cancel set cancel_check = '返品商品確認待ち' delirery_address = ? where purchase_id = ?",DeliveryAddress,purchaseId);
+		int result = jdbc.update("update cancel set cancel_check = '返品商品確認待ち',delivery_address = ? where purchase_id = ?",DeliveryAddress,purchaseId);
 		return result;
 	}
 	
@@ -113,14 +114,19 @@ public class CancelDaoJdbcImpl implements CancelDao {
 		int result = 0;
 		try {
 		String deliveryAddress = jdbc.queryForObject("select cancel.delivery_address from cancel where purchase_id = ?",String.class,purchaseId);
-		result = 1;
+		System.out.println("deliadd" + deliveryAddress);
+		if(deliveryAddress != null) {
+			result = 1;
+		}
 		}catch(NullPointerException e) {
+		}catch(EmptyResultDataAccessException eNext) {
 		}
 		return result;
 	}
 	
 	public String deriveredCheckSelect(int purchaseId) {
 		String deriveredCheck = jdbc.queryForObject("select cancel.cancel_check from cancel where purchase_id = ?",String.class,purchaseId);
+		System.out.println("deriveredCheck"+deriveredCheck);
 		return deriveredCheck;
 	}
 }

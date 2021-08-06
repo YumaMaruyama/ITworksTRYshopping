@@ -888,12 +888,6 @@ public class ShoppingController {
 			HttpServletResponse response, Model model) {
 		model.addAttribute("contents", "shopping/cancelDeliveryComplete::productListLayout_contents");
 
-		int result =cancelService.deliveryAddressSelect(purchaseId);
-		if(result == 1) {
-			model.addAttribute("contents", "shopping/cancelDeliveredCompleted::productListLayout_contents");
-			return "shopping/productListLayout";
-		}
-		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 		String getName = auth.getName();
@@ -961,16 +955,22 @@ public class ShoppingController {
 			purchaseService.insertOneCancelCheck(purchaseId);
 			return "shopping/productListLayout";
 		}else {
+		System.out.println("maxid"+maxId);
 		CancelDTO canceldtoNext = cancelService.cancelCheckSelect(maxId);
 		System.out.println("canceldtocancelCheck"+canceldtoNext.getCancelCheck());
+		String checkName = canceldtoNext.getCancelCheck();
 		if(canceldtoNext.getCancelCheck() == "null") {
+			System.out.println("1");
 		cancelService.insertOneCancelCheck(canceldto, userId, purchaseId, productId, title, content, bankNumber,
 				storeName);
 		purchaseService.insertOneCancelCheck(purchaseId);
-		}else {
+		}else if(canceldtoNext.getCancelCheck() != "返品商品確認待ち") {
+			System.out.println("2");
 			model.addAttribute("result","すでに口座情報が入力されています。キャンセル取り消しをする場合は商品履歴画面から上記商品の商品問題から行ってください。");
 			model.addAttribute("contents", "shopping/cancelDeliveredDetail::productListLayout_contents");
 			return "shopping/productListLayout";
+		}else {
+			System.out.println("3");
 		}
 		}
 		return "shopping/productListLayout";
@@ -1063,21 +1063,24 @@ public class ShoppingController {
 			model.addAttribute("productConfirmation","商品確認完了");
 		}
 		
+		int result =cancelService.deliveryAddressSelect(purchaseId);
+		if(result == 0) {
+			System.out.println("1");
 		cancelService.cancelCheckUpdate(purchaseId,intransactionform.getDeliveryAddress());
 		purchaseService.cancelCheckUpdateNext(purchaseId);
-//		int result =cancelService.deliveryAddressSelect(purchaseId);
-//		if(result == 0) {
-//		cancelService.cancelCheckUpdate(purchaseId,intransactionform.getDeliveryAddress());
-//		purchaseService.cancelCheckUpdateNext(purchaseId);
-//		}else {
-//			model.addAttribute("result","すでに発送場所が入力済みです。発送状況を確認するには商品履歴画面の商品問題からご覧になれます。");
-//			model.addAttribute("contents", "shopping/cancelDeliveryComplete::productListLayout_contents");
-//			String deriveredCheck = cancelService.deriveredCheckSelect(purchaseId);
-//			if(deriveredCheck == "返品商品確認待ち") {
-//				model.addAttribute("notCancel","notCancel");
-//			}
-//			return "shopping/productListLayout";
-//		}
+		}else {
+			System.out.println("2");
+			model.addAttribute("result","すでに発送場所が入力済みです。発送状況を確認するには商品履歴画面の商品問題からご覧になれます。");
+			model.addAttribute("contents", "shopping/cancelDeliveryComplete::productListLayout_contents");
+			String deriveredCheck = cancelService.deriveredCheckSelect(purchaseId);
+			if(deriveredCheck == "返品商品確認待ち") {
+				System.out.println("3");
+				model.addAttribute("notCancel","notCancel");
+			}
+			System.out.println("4");
+			return "shopping/productListLayout";
+		}
+		System.out.println("5");
 		return "shopping/productListLayout";
 
 	}
@@ -1240,7 +1243,7 @@ public class ShoppingController {
 	@GetMapping("/confirmationPending/{id}")
 	public String getConfirmationPending(@ModelAttribute CancelForm form, CancelInTransactionForm intransactionform,
 			@PathVariable("id") int purchaseId, Model model) {
-
+		model.addAttribute("contents", "shopping/cancelDeliveredCompleted::productListLayout_contents");
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 		String getName = auth.getName();
@@ -1262,8 +1265,63 @@ public class ShoppingController {
 		String nullCheck = "null";
 		int getCustomId = customService.selectPurchaseCheck(select_id, purchasedtoList.getProduct_id(),
 				purchasedtoList.getPurchaseCheck(), nullCheck); // 購入した商品のcustomテーブルIDを取得
+		PurchaseDTO customList = customService.selectMany(getCustomId);// 購入した商品のcustomテーブル情報を取得
+		System.out.println("costomList" + customList);
 
-		return postCancelDeliveryCompleteDeliveredCompleted(form, intransactionform, purchaseId, getCustomId, model);
+		purchasedto.setCustom_id(getCustomId);
+		purchasedto.setMemory(customList.getMemory());
+		purchasedto.setHardDisc(customList.getHardDisc());
+		purchasedto.setCpu(customList.getCpu());
+		purchasedto.setCustomPrice(customList.getCustomPrice());
+		model.addAttribute("totalPrice", purchasedto.getPrice() + purchasedto.getCustomPrice());
+		model.addAttribute("purchaseId", purchaseId);
+
+		model.addAttribute("purchaseList", purchasedto);
+		
+		
+		CancelDTO canceldto = new CancelDTO();
+		Calendar calendar = Calendar.getInstance();
+		Date nowTime = calendar.getTime();
+		 canceldto = cancelService.deliveryDateCheck(canceldto,purchaseId);
+		if(canceldto.getDeliveryDate() == null) {
+			System.out.println("dateがnull");
+		cancelService.deliveryDateUpdate(purchaseId,nowTime);
+		}
+		
+		canceldto = cancelService.selectDerivaryDate(purchaseId);
+		Date deliveryDate = canceldto.getDeliveryDate();
+		Date now = calendar.getTime();
+		calendar.setTime(deliveryDate);
+		Date deliveryDateNew = calendar.getTime();
+		
+		long d = (deliveryDateNew.getTime() - now.getTime()) / (1000 * 60 * 60 * 24);// 購入日と現在の日付を比べる
+		double count = (double) -d;
+		System.out.println(deliveryDate);
+		System.out.println(now);
+		System.out.println("count"+count);
+		
+		if(0.5 >= count) {
+			System.out.println("0.5");
+			model.addAttribute("deliveryInformation","0.5");
+		}else if(1 >= count) {
+			System.out.println("1");
+			model.addAttribute("deliveryInformation","1");
+		}else if(1.5 >= count) {
+			model.addAttribute("deliveryInformation","1.5");
+		}else if(2 >= count) {
+			model.addAttribute("deliveryInformation","2");
+		}else if(2.5 >= count) {
+			model.addAttribute("deliveryInformation","2.5");
+		}else {
+			model.addAttribute("deliveryInformation","3");
+		}
+		
+		if(3 >= count) {
+			model.addAttribute("productConfirmation","商品確認中");
+		}else {
+			model.addAttribute("productConfirmation","商品確認完了");
+		}
+		return "shopping/productListLayout";
 	}
 
 	@GetMapping("/productList")
