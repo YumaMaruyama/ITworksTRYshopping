@@ -875,6 +875,31 @@ public class ShoppingController {
 		customService.deleteOne(customId);
 		purchaseService.deleteOne(purchaseId);
 
+		int maxId = cancelService.selectCancelCheck(purchaseId, userId);
+		if (maxId == 0) {
+			cancelService.insertOneCancelCheck(canceldto, userId, purchaseId, productId, title, content, bankNumber,
+					storeName);
+			purchaseService.insertOneCancelCheck(purchaseId);
+			return "shopping/productListLayout";
+		} else {
+			System.out.println("maxid" + maxId);
+			CancelDTO canceldtoNext = cancelService.cancelCheckSelect(maxId);
+			System.out.println("canceldtocancelCheck" + canceldtoNext.getCancelCheck());
+			String checkName = canceldtoNext.getCancelCheck();
+			if (canceldtoNext.getCancelCheck() == "null") {
+				System.out.println("1");
+				cancelService.insertOneCancelCheck(canceldto, userId, purchaseId, productId, title, content, bankNumber,
+						storeName);
+				purchaseService.insertOneCancelCheck(purchaseId);
+			} else if ((canceldtoNext.getCancelCheck() == "キャンセル取引中") && (canceldtoNext.getCancelCheck() != "返品商品確認待ち")) {
+				System.out.println("2");
+				model.addAttribute("result", "すでに口座情報が入力されています。キャンセル取り消しをする場合は商品履歴画面から上記商品の商品問題から行ってください。");
+				model.addAttribute("contents", "shopping/cancelDeliveredDetail::productListLayout_contents");
+				return "shopping/productListLayout";
+			} else {
+				System.out.println("3");
+			}
+		}
 		return "shopping/productListLayout";
 
 	}
@@ -961,7 +986,7 @@ public class ShoppingController {
 				cancelService.insertOneCancelCheck(canceldto, userId, purchaseId, productId, title, content, bankNumber,
 						storeName);
 				purchaseService.insertOneCancelCheck(purchaseId);
-			} else if (canceldtoNext.getCancelCheck() != "返品商品確認待ち") {
+			} else if ((canceldtoNext.getCancelCheck() == "キャンセル取引中") && (canceldtoNext.getCancelCheck() != "返品商品確認待ち")) {
 				System.out.println("2");
 				model.addAttribute("result", "すでに口座情報が入力されています。キャンセル取り消しをする場合は商品履歴画面から上記商品の商品問題から行ってください。");
 				model.addAttribute("contents", "shopping/cancelDeliveredDetail::productListLayout_contents");
@@ -969,6 +994,24 @@ public class ShoppingController {
 			} else {
 				System.out.println("3");
 			}
+		}
+		
+		int result = cancelService.deliveryAddressSelect(purchaseId);
+		if (result == 0) {
+			System.out.println("1");
+			cancelService.cancelCheckUpdate(purchaseId, intransactionform.getDeliveryAddress());
+			purchaseService.cancelCheckUpdateNext(purchaseId);
+		} else {
+			System.out.println("2");
+			model.addAttribute("result", "すでに発送場所が入力済みです。発送状況を確認するには商品履歴画面の商品問題からご覧になれます。");
+			model.addAttribute("contents", "shopping/cancelDeliveryComplete::productListLayout_contents");
+			String deriveredCheck = cancelService.deriveredCheckSelect(purchaseId);
+			if ((deriveredCheck != "null") &&(deriveredCheck != "キャンセル取引中")){
+				System.out.println("3");
+				model.addAttribute("notCancel", "notCancel");
+			}
+			System.out.println("4");
+			return "shopping/productListLayout";
 		}
 		return "shopping/productListLayout";
 
