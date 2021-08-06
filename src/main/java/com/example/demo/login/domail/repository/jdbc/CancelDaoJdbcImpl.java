@@ -52,8 +52,8 @@ public class CancelDaoJdbcImpl implements CancelDao {
 		return result;
 	}
 	
-	public int cancelCheckUpdate(int purchaseId) {
-		int result = jdbc.update("update cancel set cancel_check = '返品商品発送済み' where purchase_id = ?",purchaseId);
+	public int cancelCheckUpdate(int purchaseId,String DeliveryAddress) {
+		int result = jdbc.update("update cancel set cancel_check = '返品商品確認待ち' delirery_address = ? where purchase_id = ?",DeliveryAddress,purchaseId);
 		return result;
 	}
 	
@@ -90,8 +90,37 @@ public class CancelDaoJdbcImpl implements CancelDao {
 	}
 	
 	public int selectCancelCheck(int purchaseId,int userId) {
-		int maxId = jdbc.queryForObject("select max(id) from cancel where purchase_id = ? and user_id = ?",Integer.class,purchaseId,userId);
-		
+		int maxId = 0;
+		try {
+		 maxId = jdbc.queryForObject("select max(id) from cancel where purchase_id = ? and user_id = ?",Integer.class,purchaseId,userId);
+		 
+		}catch(NullPointerException e) {
+		}
 		return maxId;
+	}
+	
+	public CancelDTO cancelCheckSelect(int maxId) {
+		Map<String,Object> map = jdbc.queryForMap("select * from cancel where id = ?",maxId);
+		
+		CancelDTO canceldto = new CancelDTO();
+		canceldto.setCancelCheck((String)map.get("cancel_check"));
+		
+		return canceldto;
+		
+	}
+	
+	public int deliveryAddressSelect(int purchaseId) {
+		int result = 0;
+		try {
+		String deliveryAddress = jdbc.queryForObject("select cancel.delivery_address from cancel where purchase_id = ?",String.class,purchaseId);
+		result = 1;
+		}catch(NullPointerException e) {
+		}
+		return result;
+	}
+	
+	public String deriveredCheckSelect(int purchaseId) {
+		String deriveredCheck = jdbc.queryForObject("select cancel.cancel_check from cancel where purchase_id = ?",String.class,purchaseId);
+		return deriveredCheck;
 	}
 }

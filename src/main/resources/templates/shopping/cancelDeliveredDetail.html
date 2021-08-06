@@ -48,6 +48,8 @@
 			<br>
 			<h3>返金をするための口座情報を入力してください。</h3>
 			
+			<h2 class="text-danger" th:text="${result}"></h2>
+			
 			<tr>
 			<th>口座番号</th>
 			<td>
@@ -72,7 +74,7 @@
 			
 				<div class="btn-wrapper"> 
     <div class="check-box" >
-        <label><input class="check" type="checkbox" name="check" autocomplete="off" id="agree"><span><a ></a>キャンセル確定に同意する</span></label>
+        <label><input class="check" type="checkbox" name="check" autocomplete="off" id="agree"><span><a ></a>口座情報を確定し、キャンセルに同意する</span></label>
     </div>
     <div th:each="purchasedto : ${purchaseList}">
     <input type="hidden" name="id" th:value="${purchasedto.id}">

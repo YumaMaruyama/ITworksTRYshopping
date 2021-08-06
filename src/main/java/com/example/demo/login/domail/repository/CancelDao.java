@@ -12,7 +12,7 @@ public interface CancelDao {
 	
 	public int deleteOne(int purchaseId);
 	
-	public int cancelCheckUpdate(int purchaseId);
+	public int cancelCheckUpdate(int purchaseId,String DeliveryAddress);
 	
 	public CancelDTO selectCancelCheck(int purchaseId);
 	
@@ -23,4 +23,10 @@ public interface CancelDao {
 	public CancelDTO deliveryDateCheck(CancelDTO canceldto,int purchaseId);
 	
 	public int selectCancelCheck(int purchaseId,int userId);
+	
+	public CancelDTO cancelCheckSelect(int maxId);
+	
+	public int deliveryAddressSelect(int purchaseId);
+	
+	public String deriveredCheckSelect(int purchaseId);
 }

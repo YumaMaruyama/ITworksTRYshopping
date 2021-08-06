@@ -888,6 +888,12 @@ public class ShoppingController {
 			HttpServletResponse response, Model model) {
 		model.addAttribute("contents", "shopping/cancelDeliveryComplete::productListLayout_contents");
 
+		int result =cancelService.deliveryAddressSelect(purchaseId);
+		if(result == 1) {
+			model.addAttribute("contents", "shopping/cancelDeliveredCompleted::productListLayout_contents");
+			return "shopping/productListLayout";
+		}
+		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 		String getName = auth.getName();
@@ -949,10 +955,24 @@ public class ShoppingController {
 		model.addAttribute("bankNumber", bankNumber);
 		int storeName = Integer.parseInt(form.getStoreName());
 		int maxId = cancelService.selectCancelCheck(purchaseId,userId);
-		//じょうきのIDをしようしてcheckがnullかどうかで下記のinsertをするか決める　キャンセル完了で入るのは一つでいいからね
+		if(maxId == 0) {
+			cancelService.insertOneCancelCheck(canceldto, userId, purchaseId, productId, title, content, bankNumber,
+					storeName);
+			purchaseService.insertOneCancelCheck(purchaseId);
+			return "shopping/productListLayout";
+		}else {
+		CancelDTO canceldtoNext = cancelService.cancelCheckSelect(maxId);
+		System.out.println("canceldtocancelCheck"+canceldtoNext.getCancelCheck());
+		if(canceldtoNext.getCancelCheck() == "null") {
 		cancelService.insertOneCancelCheck(canceldto, userId, purchaseId, productId, title, content, bankNumber,
 				storeName);
 		purchaseService.insertOneCancelCheck(purchaseId);
+		}else {
+			model.addAttribute("result","すでに口座情報が入力されています。キャンセル取り消しをする場合は商品履歴画面から上記商品の商品問題から行ってください。");
+			model.addAttribute("contents", "shopping/cancelDeliveredDetail::productListLayout_contents");
+			return "shopping/productListLayout";
+		}
+		}
 		return "shopping/productListLayout";
 
 	}
@@ -1016,7 +1036,7 @@ public class ShoppingController {
 		Date deliveryDateNew = calendar.getTime();
 		
 		long d = (deliveryDateNew.getTime() - now.getTime()) / (1000 * 60 * 60 * 24);// 購入日と現在の日付を比べる
-		int count = (int) -d;
+		double count = (double) -d;
 		System.out.println(deliveryDate);
 		System.out.println(now);
 		System.out.println("count"+count);
@@ -1043,9 +1063,21 @@ public class ShoppingController {
 			model.addAttribute("productConfirmation","商品確認完了");
 		}
 		
-		cancelService.cancelCheckUpdate(purchaseId);
+		cancelService.cancelCheckUpdate(purchaseId,intransactionform.getDeliveryAddress());
 		purchaseService.cancelCheckUpdateNext(purchaseId);
-
+//		int result =cancelService.deliveryAddressSelect(purchaseId);
+//		if(result == 0) {
+//		cancelService.cancelCheckUpdate(purchaseId,intransactionform.getDeliveryAddress());
+//		purchaseService.cancelCheckUpdateNext(purchaseId);
+//		}else {
+//			model.addAttribute("result","すでに発送場所が入力済みです。発送状況を確認するには商品履歴画面の商品問題からご覧になれます。");
+//			model.addAttribute("contents", "shopping/cancelDeliveryComplete::productListLayout_contents");
+//			String deriveredCheck = cancelService.deriveredCheckSelect(purchaseId);
+//			if(deriveredCheck == "返品商品確認待ち") {
+//				model.addAttribute("notCancel","notCancel");
+//			}
+//			return "shopping/productListLayout";
+//		}
 		return "shopping/productListLayout";
 
 	}

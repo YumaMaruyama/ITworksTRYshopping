@@ -73,6 +73,7 @@
 			発送が完了したあと下記に進んでください。<br> 発送をした場所を詳しく記載してください。(例 丸山宅急便枚方4番店舗
 			コンビニエンスストア枚方1号店など)
 		</h4>
+		<h3 th:text="${result}" class="text-danger"></h3>
 
 		<form method="post" th:action="@{/cancelDeliveryComplete}"
 			th:object="${cancelInTransactionForm}">
@@ -101,7 +102,7 @@
 			<table>
 				<tr>
 				<td><button class="btn btn-primary" name="deliveredCompleted">発送完了</button></td>
-				<td><button class="btn btn-primary" name="cancelDelete">キャンセル取り消し</button></td>
+				<td th:if="${notCancel} == 'notCancel'"><button class="btn btn-primary" name="cancelDelete">キャンセル取り消し</button></td>
 				</tr>
 			</table>
 			</div>

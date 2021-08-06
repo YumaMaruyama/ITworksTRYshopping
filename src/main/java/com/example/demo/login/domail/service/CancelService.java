@@ -28,8 +28,8 @@ public class CancelService {
 		return dao.deleteOne(purchaseId);
 	}
 	
-	public int cancelCheckUpdate(int purchaseId) {
-		return dao.cancelCheckUpdate(purchaseId);
+	public int cancelCheckUpdate(int purchaseId,String DeliveryAddress) {
+		return dao.cancelCheckUpdate(purchaseId,DeliveryAddress);
 	}
 	
 	public CancelDTO selectCancelCheck(int purchaseId) {
@@ -50,5 +50,17 @@ public class CancelService {
 	
 	public int selectCancelCheck(int purchaseId,int userId) {
 		return dao.selectCancelCheck(purchaseId,userId);
+	}
+	
+	public CancelDTO cancelCheckSelect(int maxId) {
+		return dao.cancelCheckSelect(maxId);
+	}
+	
+	public int deliveryAddressSelect(int purchaseId) {
+		return dao.deliveryAddressSelect(purchaseId);
+	}
+	
+	public String deriveredCheckSelect(int purchaseId) {
+		return dao.deriveredCheckSelect(purchaseId);
 	}
 }
