@@ -756,6 +756,7 @@ public class ShoppingController {
 		purchasedto.setId(purchasedtoList.getId());
 		purchasedto.setPurchaseId(purchasedtoList.getPurchaseId());
 		purchasedto.setPurchase_date(purchasedtoList.getPurchase_date());
+		System.out.println("datetest"+purchasedto.getPurchase_date());
 		purchasedto.setPcDataId(purchasedtoList.getPcDataId());
 		purchasedto.setPcName(purchasedtoList.getPcName());
 		purchasedto.setPrice(purchasedtoList.getPrice());
