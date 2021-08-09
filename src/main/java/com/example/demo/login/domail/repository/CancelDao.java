@@ -29,4 +29,8 @@ public interface CancelDao {
 	public int deliveryAddressSelect(int purchaseId);
 	
 	public String deriveredCheckSelect(int purchaseId);
+	
+	public CancelDTO selectOne(int purchaseId);
+	
+	public int cancelCompletedUpdate(int purchaseId);
 }

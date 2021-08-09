@@ -63,4 +63,12 @@ public class CancelService {
 	public String deriveredCheckSelect(int purchaseId) {
 		return dao.deriveredCheckSelect(purchaseId);
 	}
+	
+	public CancelDTO selectOne(int purchaseId) {
+		return dao.selectOne(purchaseId);
+	}
+	
+	public int cancelCompletedUpdate(int purchaseId) {
+		return dao.cancelCompletedUpdate(purchaseId);
+	}
 }

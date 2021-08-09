@@ -40,7 +40,31 @@
 			</tr>
 		</table>
 
-		<table class="table table-bordered">
+		<table class="table table-bordered" th:if="${cancelCheck} != 'キャンセル完了'">
+			<br>
+			<h3>キャンセル手続きをしていただきありがとうございました。上記商品のキャンセルが完了しました。</h3>
+			<tr>
+				<br>
+				<th class="text-center" style="font-size: 20px;">返品金額</th>
+				<td class="text-center" style="font-size: 17px;"
+					th:text="${totalPrice}"></td>
+			</tr>
+			
+			<tr>
+				<th class="text-center" style="font-size: 20px;">返品口座番号</th>
+				<td class="text-center" style="font-size: 17px;"
+					th:text="${bankNumber}"></td>
+			</tr>
+			
+			<tr>
+				<th class="text-center" style="font-size: 20px;">返品口座店舗番号</th>
+				<td class="text-center" style="font-size: 17px;"
+					th:text="${storeName}"></td>
+			</tr>
+				
+		</table>
+		
+		<table class="table table-bordered" th:if="${cancelCheck} == 'キャンセル完了'" th:each="canceldto:${canceldto}">
 			<br>
 			<h3>キャンセル手続きをしていただきありがとうございました。上記商品のキャンセルが完了しました。</h3>
 			<tr>

@@ -886,9 +886,9 @@ public class ShoppingController {
 			model.addAttribute("contents", "shopping/cancelInquiry::productListLayout_contents");
 			return "shopping/productListLayout";
 		}
-		customService.deleteOne(customId);
-		purchaseService.deleteOne(purchaseId);
-
+		cancelService.cancelCompletedUpdate(purchaseId);//キャンセル完了に伴い、キャンセルチェックをキャンセル完了に変更
+		customService.deleteOne(customId);//キャンセル完了に伴い、カスタムデータ削除
+		purchaseService.deleteOne(purchaseId);//キャンセル完了に伴い、購入データ削除
 		
 		
 		return "shopping/productListLayout";
@@ -1076,40 +1076,29 @@ public class ShoppingController {
 		Date deliveryDateNew = calendar.getTime();
 		long deliveryDateNewNext = deliveryDateNew.getTime();//返品商品の発送日
 		long oneDateTime = 1000 * 60 * 40 * 24;//返品商品の発送日と現在の日付の差を出すために使用する値
-		long diffDays = (nowNew - deliveryDateNewNext) / oneDateTime;//返品商品の発送日と現在の日付の差
+		double diffDays = (deliveryDateNewNext - nowNew) / oneDateTime;//返品商品の発送日と現在の日付の差
+		double diffDaysNew = -diffDays;
 		System.out.println("nowNew"+nowNew);
 		System.out.println(deliveryDateNewNext);
-		System.out.println(diffDays);
+		System.out.println(diffDaysNew);
 		System.out.println(oneDateTime);
+
+		if (1 >= diffDaysNew) {
+			
+			model.addAttribute("deliveryInformation", "1");
+		} else if (2 >= diffDaysNew) {
+			
+			model.addAttribute("deliveryInformation", "2");
+		} else if (3 >= diffDaysNew) {
+			model.addAttribute("deliveryInformation", "3");
+		} else if (4 >= diffDaysNew) {
+			model.addAttribute("deliveryInformation", "4");
+		} else if (5 >= diffDaysNew) {
+			model.addAttribute("deliveryInformation", "5");
+		} else {
+			model.addAttribute("deliveryInformation", "6");
+		}
 		
-//		long d = (deliveryDeteNewNext.getTime() - newNew.getTime()) / (1000 * 60 * 60 * 24);// 購入日と現在の日付を比べる
-//		double count =  -d;
-//		System.out.println(deliveryDateNew);
-//		System.out.println(now);
-//		System.out.println("count" + count);
-
-//		if (0.5 >= count) {
-//			System.out.println("0.5");
-//			model.addAttribute("deliveryInformation", "0.5");
-//		} else if (1 >= count) {
-//			System.out.println("1");
-//			model.addAttribute("deliveryInformation", "1");
-//		} else if (1.5 >= count) {
-//			model.addAttribute("deliveryInformation", "1.5");
-//		} else if (2 >= count) {
-//			model.addAttribute("deliveryInformation", "2");
-//		} else if (2.5 >= count) {
-//			model.addAttribute("deliveryInformation", "2.5");
-//		} else {
-//			model.addAttribute("deliveryInformation", "3");
-//		}
-//
-//		if (3 >= count) {
-//			model.addAttribute("productConfirmation", "商品確認中");
-//		} else {
-//			model.addAttribute("productConfirmation", "商品確認完了");
-//		}
-
 		int result = cancelService.deliveryAddressSelect(purchaseId);
 		if (result == 0) {
 			System.out.println("1");
@@ -1369,6 +1358,64 @@ public class ShoppingController {
 			model.addAttribute("productConfirmation", "商品確認完了");
 		}
 		return "shopping/productListLayout";
+	}
+	
+	@GetMapping("/cancelCompleted/{id}")
+	public String getCancelCompleted(@ModelAttribute CancelForm form,@PathVariable("id") int purchaseId,Model model) {
+		model.addAttribute("contents", "shopping/cancelCompleted::productListLayout_contents");
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println("auth" + auth.getName());
+		String getName = auth.getName();
+		int userId = usersService.select_id(getName);// メソッドに入ったユーザーのIDを取得
+
+		PurchaseDTO purchasedto = new PurchaseDTO();
+
+		// 購入商品情報取得
+		PurchaseDTO purchasedtoList = purchaseService.reviewSelectHistory(userId, purchaseId);// Pathで取得した購入IDでpurchaseテーブルの情報を取得
+		purchasedto.setId(purchasedtoList.getId());
+		purchasedto.setPurchaseId(purchasedtoList.getPurchaseId());
+		purchasedto.setPurchase_date(purchasedtoList.getPurchase_date());
+		purchasedto.setPcDataId(purchasedtoList.getPcDataId());
+		purchasedto.setProduct_id(purchasedtoList.getProduct_id());
+		int productId = purchasedto.getProduct_id();
+		purchasedto.setPcName(purchasedtoList.getPcName());
+		purchasedto.setPrice(purchasedtoList.getPrice());
+		purchasedto.setProduct_count(purchasedtoList.getProduct_count());
+		int productStock = purchasedto.getProduct_count();
+		System.out.println("stock" + productStock);
+		purchasedto.setPurchaseCheck(purchasedtoList.getPurchaseCheck());
+
+		String nullCheck = "null";
+		int customId = customService.selectPurchaseCheck(userId, purchasedtoList.getProduct_id(),
+				purchasedtoList.getPurchaseCheck(), nullCheck); // 購入した商品のcustomテーブルIDを取得
+
+		PurchaseDTO customList = customService.selectMany(customId);// 購入した商品のcustomテーブル情報を取得
+		System.out.println("costomList" + customList);
+
+		purchasedto.setCustom_id(customId);
+		purchasedto.setMemory(customList.getMemory());
+		purchasedto.setHardDisc(customList.getHardDisc());
+		purchasedto.setCpu(customList.getCpu());
+		purchasedto.setCustomPrice(customList.getCustomPrice());
+		model.addAttribute("totalPrice", purchasedto.getPrice() + purchasedto.getCustomPrice());
+		model.addAttribute("purchaseId", purchaseId);
+
+		model.addAttribute("purchaseList", purchasedto);
+
+		CancelDTO canceldto = new CancelDTO();
+		canceldto = cancelService.selectOne(purchaseId);
+		model.addAttribute("bankNumber",canceldto.getBankNumber());
+		model.addAttribute("storeName",canceldto.getStoreName());
+		model.addAttribute("cancelCheck","返品完了");
+		System.out.println("candto"+canceldto);
+		
+		cancelService.cancelCompletedUpdate(purchaseId);//キャンセル完了に伴い、キャンセルチェックをキャンセル完了に変更
+		customService.deleteOne(customId);//キャンセル完了に伴い、カスタムデータ削除
+		purchaseService.deleteOne(purchaseId);//キャンセル完了に伴い、購入データ削除
+		
+		return "shopping/productListLayout";
+	
 	}
 
 	@GetMapping("/productList")

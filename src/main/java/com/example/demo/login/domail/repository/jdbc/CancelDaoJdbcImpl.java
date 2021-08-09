@@ -129,4 +129,19 @@ public class CancelDaoJdbcImpl implements CancelDao {
 		System.out.println("deriveredCheck"+deriveredCheck);
 		return deriveredCheck;
 	}
+	
+	public CancelDTO selectOne(int purchaseId) {
+		Map<String,Object> map = jdbc.queryForMap("select * from cancel where purchase_id = ?",purchaseId);
+		
+		CancelDTO canceldto = new CancelDTO();
+		canceldto.setBankNumber((int)map.get("bank_number"));
+		canceldto.setStoreName((int)map.get("store_name"));
+		
+		return canceldto;
+	}
+	
+	public int cancelCompletedUpdate(int purchaseId) {
+		int result = jdbc.update("update cancel set cancel_check = 'キャンセル完了' where purchase_id = ?",purchaseId);
+		return result;
+	}
 }
