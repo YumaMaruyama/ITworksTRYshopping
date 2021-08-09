@@ -791,7 +791,20 @@ public class ShoppingController {
 
 		if (check == false) {
 			model.addAttribute("contents", "shopping/cancelDeliveredDetail::productListLayout_contents");
-			return "shopping/productListLayout";
+			int maxId = cancelService.selectCancelCheck(purchaseId, select_id);
+			if(maxId != 0) {
+				System.out.println("maxid" + maxId);
+				CancelDTO canceldtoNext = cancelService.cancelCheckSelect(maxId);
+				System.out.println("canceldtocancelCheck" + canceldtoNext.getCancelCheck());
+				String checkName = canceldtoNext.getCancelCheck();
+				 if (canceldtoNext.getCancelCheck() != "null") {
+					System.out.println("2");
+					return postCancelDeliveredDetail(form,model);
+				}
+				
+			}else {
+				return "shopping/productListLayout";
+			}
 		}
 
 		return "shopping/productListLayout";
@@ -876,33 +889,18 @@ public class ShoppingController {
 		customService.deleteOne(customId);
 		purchaseService.deleteOne(purchaseId);
 
-		int maxId = cancelService.selectCancelCheck(purchaseId, userId);
-		if (maxId == 0) {
-			cancelService.insertOneCancelCheck(canceldto, userId, purchaseId, productId, title, content, bankNumber,
-					storeName);
-			purchaseService.insertOneCancelCheck(purchaseId);
-			return "shopping/productListLayout";
-		} else {
-			System.out.println("maxid" + maxId);
-			CancelDTO canceldtoNext = cancelService.cancelCheckSelect(maxId);
-			System.out.println("canceldtocancelCheck" + canceldtoNext.getCancelCheck());
-			String checkName = canceldtoNext.getCancelCheck();
-			if (canceldtoNext.getCancelCheck() == "null") {
-				System.out.println("1");
-				cancelService.insertOneCancelCheck(canceldto, userId, purchaseId, productId, title, content, bankNumber,
-						storeName);
-				purchaseService.insertOneCancelCheck(purchaseId);
-			} else if ((canceldtoNext.getCancelCheck() == "キャンセル取引中") && (canceldtoNext.getCancelCheck() != "返品商品確認待ち")) {
-				System.out.println("2");
-				model.addAttribute("result", "すでに口座情報が入力されています。キャンセル取り消しをする場合は商品履歴画面から上記商品の商品問題から行ってください。");
-				model.addAttribute("contents", "shopping/cancelDeliveredDetail::productListLayout_contents");
-				return "shopping/productListLayout";
-			} else {
-				System.out.println("3");
-			}
-		}
+		
+		
 		return "shopping/productListLayout";
 
+	}
+	
+	@PostMapping("/cancelDeliveredDetail::productListLayout_contents")
+	public String postCancelDeliveredDetail(@ModelAttribute CancelForm form,Model model) {
+		model.addAttribute("contents", "shopping/cancelDeliveredDetail::productListLayout_contents");
+		model.addAttribute("result", "すでに口座情報が入力されています。次のページ表示や、キャンセル取り消しをする場合は商品履歴画面から上記商品の商品問題から行ってください。");
+		model.addAttribute("check","再入力不可");
+		return "shopping/productListLayout";
 	}
 
 	@PostMapping("/cancelDeliveryComplete")
@@ -998,12 +996,12 @@ public class ShoppingController {
 		}
 		
 		int result = cancelService.deliveryAddressSelect(purchaseId);
-		if (result == 0) {
-			System.out.println("1");
-			cancelService.cancelCheckUpdate(purchaseId, intransactionform.getDeliveryAddress());
-			purchaseService.cancelCheckUpdateNext(purchaseId);
-		} else {
-			System.out.println("2");
+//		if (result == 0) {
+//			System.out.println("1");
+//			cancelService.cancelCheckUpdate(purchaseId, intransactionform.getDeliveryAddress());
+//			purchaseService.cancelCheckUpdateNext(purchaseId);
+		if(result == 1) {
+			System.out.println("22");
 			model.addAttribute("result", "すでに発送場所が入力済みです。発送状況を確認するには商品履歴画面の商品問題からご覧になれます。");
 			model.addAttribute("contents", "shopping/cancelDeliveryComplete::productListLayout_contents");
 			String deriveredCheck = cancelService.deriveredCheckSelect(purchaseId);
@@ -1070,39 +1068,47 @@ public class ShoppingController {
 
 		model.addAttribute("purchaseList", purchasedto);
 
-		canceldto = cancelService.selectDerivaryDate(purchaseId);
+		canceldto = cancelService.selectDerivaryDate(purchaseId);//返品商品の発送日を取得
 		Date deliveryDate = canceldto.getDeliveryDate();
-		Date now = calendar.getTime();
+		Date now = calendar.getTime();//現在の日付を取得
+		long nowNew = now.getTime();
 		calendar.setTime(deliveryDate);
 		Date deliveryDateNew = calendar.getTime();
+		long deliveryDateNewNext = deliveryDateNew.getTime();//返品商品の発送日
+		long oneDateTime = 1000 * 60 * 40 * 24;//返品商品の発送日と現在の日付の差を出すために使用する値
+		long diffDays = (nowNew - deliveryDateNewNext) / oneDateTime;//返品商品の発送日と現在の日付の差
+		System.out.println("nowNew"+nowNew);
+		System.out.println(deliveryDateNewNext);
+		System.out.println(diffDays);
+		System.out.println(oneDateTime);
+		
+//		long d = (deliveryDeteNewNext.getTime() - newNew.getTime()) / (1000 * 60 * 60 * 24);// 購入日と現在の日付を比べる
+//		double count =  -d;
+//		System.out.println(deliveryDateNew);
+//		System.out.println(now);
+//		System.out.println("count" + count);
 
-		long d = (deliveryDateNew.getTime() - now.getTime()) / (1000 * 60 * 60 * 24);// 購入日と現在の日付を比べる
-		double count = (double) -d;
-		System.out.println(deliveryDate);
-		System.out.println(now);
-		System.out.println("count" + count);
-
-		if (0.5 >= count) {
-			System.out.println("0.5");
-			model.addAttribute("deliveryInformation", "0.5");
-		} else if (1 >= count) {
-			System.out.println("1");
-			model.addAttribute("deliveryInformation", "1");
-		} else if (1.5 >= count) {
-			model.addAttribute("deliveryInformation", "1.5");
-		} else if (2 >= count) {
-			model.addAttribute("deliveryInformation", "2");
-		} else if (2.5 >= count) {
-			model.addAttribute("deliveryInformation", "2.5");
-		} else {
-			model.addAttribute("deliveryInformation", "3");
-		}
-
-		if (3 >= count) {
-			model.addAttribute("productConfirmation", "商品確認中");
-		} else {
-			model.addAttribute("productConfirmation", "商品確認完了");
-		}
+//		if (0.5 >= count) {
+//			System.out.println("0.5");
+//			model.addAttribute("deliveryInformation", "0.5");
+//		} else if (1 >= count) {
+//			System.out.println("1");
+//			model.addAttribute("deliveryInformation", "1");
+//		} else if (1.5 >= count) {
+//			model.addAttribute("deliveryInformation", "1.5");
+//		} else if (2 >= count) {
+//			model.addAttribute("deliveryInformation", "2");
+//		} else if (2.5 >= count) {
+//			model.addAttribute("deliveryInformation", "2.5");
+//		} else {
+//			model.addAttribute("deliveryInformation", "3");
+//		}
+//
+//		if (3 >= count) {
+//			model.addAttribute("productConfirmation", "商品確認中");
+//		} else {
+//			model.addAttribute("productConfirmation", "商品確認完了");
+//		}
 
 		int result = cancelService.deliveryAddressSelect(purchaseId);
 		if (result == 0) {
@@ -1326,35 +1332,38 @@ public class ShoppingController {
 			cancelService.deliveryDateUpdate(purchaseId, nowTime);
 		}
 
-		canceldto = cancelService.selectDerivaryDate(purchaseId);
+		canceldto = cancelService.selectDerivaryDate(purchaseId);//返品商品の発送日を取得
 		Date deliveryDate = canceldto.getDeliveryDate();
-		Date now = calendar.getTime();
+		Date now = calendar.getTime();//現在の日付を取得
+		long nowNew = now.getTime();
 		calendar.setTime(deliveryDate);
 		Date deliveryDateNew = calendar.getTime();
+		long deliveryDateNewNext = deliveryDateNew.getTime();//返品商品の発送日
+		long oneDateTime = 1000 * 60 * 40 * 24;//返品商品の発送日と現在の日付の差を出すために使用する値
+		double diffDays = (deliveryDateNewNext - nowNew) / oneDateTime;//返品商品の発送日と現在の日付の差
+		double diffDaysNew = -diffDays;
+		System.out.println("nowNew"+nowNew);
+		System.out.println(deliveryDateNewNext);
+		System.out.println(diffDaysNew);
+		System.out.println(oneDateTime);
 
-		long d = (deliveryDateNew.getTime() - now.getTime()) / (1000 * 60 * 60 * 24);// 購入日と現在の日付を比べる
-		double count = (double) -d;
-		System.out.println(deliveryDate);
-		System.out.println(now);
-		System.out.println("count" + count);
-
-		if (0.5 >= count) {
-			System.out.println("0.5");
-			model.addAttribute("deliveryInformation", "0.5");
-		} else if (1 >= count) {
-			System.out.println("1");
+		if (1 >= diffDaysNew) {
+			
 			model.addAttribute("deliveryInformation", "1");
-		} else if (1.5 >= count) {
-			model.addAttribute("deliveryInformation", "1.5");
-		} else if (2 >= count) {
+		} else if (2 >= diffDaysNew) {
+			
 			model.addAttribute("deliveryInformation", "2");
-		} else if (2.5 >= count) {
-			model.addAttribute("deliveryInformation", "2.5");
-		} else {
+		} else if (3 >= diffDaysNew) {
 			model.addAttribute("deliveryInformation", "3");
+		} else if (4 >= diffDaysNew) {
+			model.addAttribute("deliveryInformation", "4");
+		} else if (5 >= diffDaysNew) {
+			model.addAttribute("deliveryInformation", "5");
+		} else {
+			model.addAttribute("deliveryInformation", "6");
 		}
 
-		if (3 >= count) {
+		if (6 >= diffDaysNew) {
 			model.addAttribute("productConfirmation", "商品確認中");
 		} else {
 			model.addAttribute("productConfirmation", "商品確認完了");

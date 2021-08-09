@@ -79,7 +79,7 @@
 			th:object="${cancelInTransactionForm}">
 			<table>
 
-				<tr>
+				<tr th:if="${notCancel} != 'notCancel'">
 					<th>発送場所</th>
 					<td>
 						<div class="form-group"
@@ -95,14 +95,14 @@
 
 
 
-			<div th:each="purchasedto : ${purchaseList}">
+			<div th:each="purchasedto : ${purchaseList}" >
 				<input type="hidden" name="id" th:value="${purchasedto.id}">
 				<input type="hidden" name="customId"
 					th:value="${purchasedto.custom_id}">
 			<table>
-				<tr>
+				<tr  th:if="${notCancel} != 'notCancel'">
 				<td><button class="btn btn-primary" name="deliveredCompleted">発送完了</button></td>
-				<td th:if="${notCancel} != 'notCancel'"><button class="btn btn-primary" name="cancelDelete">キャンセル取り消し</button></td>
+				<td><button class="btn btn-primary" name="cancelDelete">キャンセル取り消し</button></td>
 				</tr>
 			</table>
 			</div>
