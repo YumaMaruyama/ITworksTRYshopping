@@ -417,8 +417,7 @@ public class ShoppingController {
 	public String getAdministrator(@ModelAttribute InquiryForm form, Model model) {
 		model.addAttribute("contents", "shopping/administrator::productListLayout_contents");
 
-		List<InquiryDTO> inquirydtolist = inquiryService.selectMany();
-		// model.addAttribute("id",inquirydtolist);
+		List<InquiryDTO> inquirydtolist = inquiryService.selectMany();//inquiryテーブル情報をすべて取得
 		model.addAttribute("inquiryList", inquirydtolist);
 
 		return "shopping/productListLayout";
@@ -439,11 +438,11 @@ public class ShoppingController {
 			return getAdmin(form, model);
 		}
 
-		String img1 = form.getPcImg();
+		String img1 = form.getPcImg();//画像アドレスを変数に入れる
 		String img2 = form.getPcImg2();
 		String img3 = form.getPcImg3();
 
-		String imgCheck1 = img1.substring(img1.length() - 4);
+		String imgCheck1 = img1.substring(img1.length() - 4);//画像アドレスが.jpgか確かめるため最後に4文字を取得
 		String imgCheck2 = img2.substring(img2.length() - 4);
 		String imgCheck3 = img3.substring(img3.length() - 4);
 		String jpg = ".jpg";
@@ -462,6 +461,7 @@ public class ShoppingController {
 			return getAdmin(form, model);
 		}
 
+		//バリデーションエラーにならなければ入力した情報をdtoにいれる
 		PcDataDTO pcdatadto = new PcDataDTO();
 		pcdatadto.setCompany(form.getCompany());
 		pcdatadto.setOs(form.getOs());
@@ -474,13 +474,13 @@ public class ShoppingController {
 		pcdatadto.setPcImg2(form.getPcImg2());
 		pcdatadto.setPcImg3(form.getPcImg3());
 
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		System.out.println("auth" + auth.getName());
-		String user_id = auth.getName();
-		int select_id = usersService.select_id(user_id);
-		int result = pcdataService.insertCheckSelectOne(pcdatadto);
-		if (result < 1) {
-			System.out.println("insert到達");
+//		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//		System.out.println("auth" + auth.getName());
+//		String user_id = auth.getName();
+//		int select_id = usersService.select_id(user_id);
+		
+		int result = pcdataService.insertCheckSelectOne(pcdatadto);//dtoの情報をもとに、pcdateテーブルの情報と比較し、同じ商品がないか確かめる
+		if (result < 1) {//同じ商品がなければdtoの情報をpdcataテーブルに格納する
 			int pcData = pcdataService.insertOne(pcdatadto);
 		}
 		return getProductList(form, model);
