@@ -65,6 +65,7 @@ import com.example.demo.login.domail.service.UsersService;
 @Controller
 public class ShoppingController {
 
+	
 	@Autowired
 	PcDataService pcdataService;
 	@Autowired
@@ -131,8 +132,8 @@ public class ShoppingController {
 			RedirectAttributes redirectAttributes, Model model) {
 		model.addAttribute("contents", "shopping/usersList::productListLayout_contents");
 		System.out.println("testid" + id);
-		int usersDeleteResult = usersService.deleteOne(id);
-		int usegeUsersDeleteResult = usegeService.deleteOne(id);
+		usersService.deleteOne(id);//usersテーブル情報を削除
+		usegeService.deleteOne(id);//usege_usersテーブル情報を削除
 
 		return "redirect:/usersList";
 	}
@@ -231,13 +232,13 @@ public class ShoppingController {
 	public String getEditYour(@ModelAttribute UserEditForm form, Model model) {
 		model.addAttribute("contents", "shopping/editYour::productListLayout_contents");
 
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();//メソッドに入ってきたユーザのuser_idを取得
 		System.out.println("auth" + auth.getName());
 		String userId = auth.getName();
-		int selectId = usersService.select_id(userId);
+		int selectId = usersService.select_id(userId);//取得したuser_idでusersテーブルのidを取得
 
-		UsersDTO usersdto = usersService.userInformationSelectOne(selectId);
-		Usege_usersDTO usegeusersdto = usegeService.userInformationSelectOne(selectId);
+		UsersDTO usersdto = usersService.userInformationSelectOne(selectId);//usersテーブルから引数のidをもとに情報を取得
+		Usege_usersDTO usegeusersdto = usegeService.userInformationSelectOne(selectId);//usege_usersテーブルから引数のidをもとに情報を取得
 
 		UsersListDTO userslistdto = new UsersListDTO();
 		userslistdto.setId(usersdto.getId());
@@ -288,12 +289,12 @@ public class ShoppingController {
 
 		UsersDTO usersdto = new UsersDTO();
 		usersdto.setId(id);
-		usersdto.setUser_name(usersListForm.getUserName());
+		usersdto.setUser_name(usersListForm.getUserName());//変更された名前をdtoに入れる
 		Usege_usersDTO usegeusersdto = new Usege_usersDTO();
 		usegeusersdto.setId(id);
-		usegeusersdto.setAddress(usersListForm.getAddress());
-		int usersUpdateResult = usersService.updateOne(usersdto);
-		int usegeUpdateResult = usegeService.updateOne(usegeusersdto);
+		usegeusersdto.setAddress(usersListForm.getAddress());//変更された住所をdtoに入れる
+		usersService.updateOne(usersdto);//変更された名前に更新
+		usegeService.updateOne(usegeusersdto);//変更された住所に更新
 
 		return getEditYour(form, model);
 	}
@@ -301,8 +302,8 @@ public class ShoppingController {
 	@PostMapping(value = "/editYourDetail", params = "delete")
 	public String postEditYourDetailDelete(@ModelAttribute UserEditForm form, @RequestParam("id") int id, Model model) {
 
-		int usersDeleteResult = usersService.deleteOne(id);
-		int usegeDeleteResult = usegeService.deleteOne(id);
+		usersService.deleteOne(id);//idをもとにusersテーブルの情報を削除
+		usegeService.deleteOne(id);//idをもとにusege_usersテーブルの情報を削除
 
 		return getLogout();
 	}
@@ -332,44 +333,43 @@ public class ShoppingController {
 	public String postInquirySending(@ModelAttribute @Validated(GroupOrder.class) InquiryForm form, InquiryForm form2,
 			BindingResult bindingResult, Model model) {
 
-		if (bindingResult.hasErrors()) {
+		if (bindingResult.hasErrors()) {//入力内容がおかしい場合はtrue
 			System.out.println("バリデーションエラー到達");
-			return getInquiry(form, model);
+			return getInquiry(form, model);//もう一度入力画面に遷移させる
 		}
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 		String user_id = auth.getName();
-		// ログインユーザーのID取得
 		int select_id = usersService.select_id(user_id);
 
 		InquiryDTO inquirydto = new InquiryDTO();
-		inquirydto.setTitle(form.getTitle());
-		inquirydto.setContent(form.getContent());
+		inquirydto.setTitle(form.getTitle());//問い合わせタイトルをdtoに入れる
+		inquirydto.setContent(form.getContent());//問い合わせ内容をdtoに入れる
 
-		int result = inquiryService.insertOne(inquirydto, select_id);
+		int result = inquiryService.insertOne(inquirydto, select_id);//dtoとusersテーブルのidでお問い合わせの情報を格納する
 
-		model.addAttribute("result", "お問い合わせありがとうございます。");
+		model.addAttribute("result", "お問い合わせありがとうございます。");//画面に表示させる問い合わせ完了のメッセージ
 
 		return getInquiry(form2, model);
 
 	}
 
-	@GetMapping("/inquiry/{id}")
-	public String getInquiryReply(@ModelAttribute InquiryForm form, @PathVariable("id") int id, Model model) {
+	@GetMapping("/inquiryReplay/{id}")
+	public String getInquiryReply(@ModelAttribute InquiryForm form, @PathVariable("id") int inquiryId, Model model) {
 		model.addAttribute("contents", "shopping/inquiryReply::productListLayout_contents");
-		InquiryDTO inquirydto = inquiryService.selectOne(id);
+		InquiryDTO inquirydto = inquiryService.selectOne(inquiryId);//inquiryテーブルのIdをもとにinquiryテーブルの情報を取得
 		model.addAttribute("inquiryList", inquirydto);
-		model.addAttribute("id", id);
+		model.addAttribute("inquiryId", inquiryId);
 
 		return "shopping/productListLayout";
 	}
 
 	@GetMapping("/inquiryDetail/{id}")
-	public String getInquiryDetail(@ModelAttribute InquiryForm form, @PathVariable("id") int id, Model model) {
+	public String getInquiryDetail(@ModelAttribute InquiryForm form, @PathVariable("id") int inquiryId, Model model) {
 		model.addAttribute("contents", "shopping/inquiryDetail::productListLayout_contents");
 
-		InquiryDTO inquirydto = inquiryService.selectOne(id);
+		InquiryDTO inquirydto = inquiryService.selectOne(inquiryId);//inquiryテーブルのIdをもとにinquiryテーブルの情報を取得
 		model.addAttribute("id", inquirydto.getId());
 		model.addAttribute("inquiryList", inquirydto);
 
@@ -379,7 +379,7 @@ public class ShoppingController {
 	@PostMapping("/inquiryDetail")
 	public String postInquiryDetail(@ModelAttribute InquiryForm form, @RequestParam("id") int id, Model model) {
 		System.out.println("inquiryDetail到達");
-		int result = inquiryService.deleteOne(id);
+		int result = inquiryService.deleteOne(id);//inquiryテーブルのIdをもとにinquiryテーブルの情報を削除
 
 		return getAdministrator(form, model);
 	}
@@ -389,10 +389,10 @@ public class ShoppingController {
 
 		InquiryReplyDTO inquiryreplydto = new InquiryReplyDTO();
 		inquiryreplydto.setInquiryId(id);
-		inquiryreplydto.setTitle(form.getTitle());
-		inquiryreplydto.setContent(form.getContent());
+		inquiryreplydto.setTitle(form.getTitle());//問い合わせの返信タイトルをdtoに入れる
+		inquiryreplydto.setContent(form.getContent());//問い合わせの返信内容をdtoに入れる
 
-		int result = inquiryService.replyInsertOne(inquiryreplydto);
+		int result = inquiryService.replyInsertOne(inquiryreplydto);//dtoの情報をinquiry_replyテーブルに格納
 
 		return getAdministrator(form, model);
 
@@ -405,11 +405,9 @@ public class ShoppingController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 		String user_id = auth.getName();
-
-		// ログインユーザーのID取得
 		int select_id = usersService.select_id(user_id);
 
-		List<InquiryAllDTO> inquiryreplydtolist = inquiryService.everyUserSelectMany(select_id);
+		List<InquiryAllDTO> inquiryreplydtolist = inquiryService.everyUserSelectMany(select_id);//usersテーブルのidをもとにinquiryテーブルとinquiry_replyテーブル情報を取得
 		model.addAttribute("inquiryAllDto", inquiryreplydtolist);
 
 		return "shopping/productListLayout";
@@ -756,7 +754,7 @@ public class ShoppingController {
 		purchasedto.setId(purchasedtoList.getId());
 		purchasedto.setPurchaseId(purchasedtoList.getPurchaseId());
 		purchasedto.setPurchase_date(purchasedtoList.getPurchase_date());
-		System.out.println("datetest"+purchasedto.getPurchase_date());
+		System.out.println("datetest" + purchasedto.getPurchase_date());
 		purchasedto.setPcDataId(purchasedtoList.getPcDataId());
 		purchasedto.setPcName(purchasedtoList.getPcName());
 		purchasedto.setPrice(purchasedtoList.getPrice());
@@ -792,17 +790,17 @@ public class ShoppingController {
 		if (check == false) {
 			model.addAttribute("contents", "shopping/cancelDeliveredDetail::productListLayout_contents");
 			int maxId = cancelService.selectCancelCheck(purchaseId, select_id);
-			if(maxId != 0) {
+			if (maxId != 0) {
 				System.out.println("maxid" + maxId);
 				CancelDTO canceldtoNext = cancelService.cancelCheckSelect(maxId);
 				System.out.println("canceldtocancelCheck" + canceldtoNext.getCancelCheck());
 				String checkName = canceldtoNext.getCancelCheck();
-				 if (canceldtoNext.getCancelCheck() != "null") {
+				if (canceldtoNext.getCancelCheck() != "null") {
 					System.out.println("2");
-					return postCancelDeliveredDetail(form,model);
+					return postCancelDeliveredDetail(form, model);
 				}
-				
-			}else {
+
+			} else {
 				return "shopping/productListLayout";
 			}
 		}
@@ -886,20 +884,19 @@ public class ShoppingController {
 			model.addAttribute("contents", "shopping/cancelInquiry::productListLayout_contents");
 			return "shopping/productListLayout";
 		}
-		cancelService.cancelCompletedUpdate(purchaseId);//キャンセル完了に伴い、キャンセルチェックをキャンセル完了に変更
-		customService.deleteOne(customId);//キャンセル完了に伴い、カスタムデータ削除
-		purchaseService.deleteOne(purchaseId);//キャンセル完了に伴い、購入データ削除
-		
-		
+		cancelService.cancelCompletedUpdate(purchaseId);// キャンセル完了に伴い、キャンセルチェックをキャンセル完了に変更
+		customService.deleteOne(customId);// キャンセル完了に伴い、カスタムデータ削除
+		purchaseService.deleteOne(purchaseId);// キャンセル完了に伴い、購入データ削除
+
 		return "shopping/productListLayout";
 
 	}
-	
+
 	@PostMapping("/cancelDeliveredDetail::productListLayout_contents")
-	public String postCancelDeliveredDetail(@ModelAttribute CancelForm form,Model model) {
+	public String postCancelDeliveredDetail(@ModelAttribute CancelForm form, Model model) {
 		model.addAttribute("contents", "shopping/cancelDeliveredDetail::productListLayout_contents");
 		model.addAttribute("result", "すでに口座情報が入力されています。次のページ表示や、キャンセル取り消しをする場合は商品履歴画面から上記商品の商品問題から行ってください。");
-		model.addAttribute("check","再入力不可");
+		model.addAttribute("check", "再入力不可");
 		return "shopping/productListLayout";
 	}
 
@@ -985,7 +982,8 @@ public class ShoppingController {
 				cancelService.insertOneCancelCheck(canceldto, userId, purchaseId, productId, title, content, bankNumber,
 						storeName);
 				purchaseService.insertOneCancelCheck(purchaseId);
-			} else if ((canceldtoNext.getCancelCheck() == "キャンセル取引中") && (canceldtoNext.getCancelCheck() != "返品商品確認待ち")) {
+			} else if ((canceldtoNext.getCancelCheck() == "キャンセル取引中")
+					&& (canceldtoNext.getCancelCheck() != "返品商品確認待ち")) {
 				System.out.println("2");
 				model.addAttribute("result", "すでに口座情報が入力されています。キャンセル取り消しをする場合は商品履歴画面から上記商品の商品問題から行ってください。");
 				model.addAttribute("contents", "shopping/cancelDeliveredDetail::productListLayout_contents");
@@ -994,18 +992,18 @@ public class ShoppingController {
 				System.out.println("3");
 			}
 		}
-		
+
 		int result = cancelService.deliveryAddressSelect(purchaseId);
 //		if (result == 0) {
 //			System.out.println("1");
 //			cancelService.cancelCheckUpdate(purchaseId, intransactionform.getDeliveryAddress());
 //			purchaseService.cancelCheckUpdateNext(purchaseId);
-		if(result == 1) {
+		if (result == 1) {
 			System.out.println("22");
 			model.addAttribute("result", "すでに発送場所が入力済みです。発送状況を確認するには商品履歴画面の商品問題からご覧になれます。");
 			model.addAttribute("contents", "shopping/cancelDeliveryComplete::productListLayout_contents");
 			String deriveredCheck = cancelService.deriveredCheckSelect(purchaseId);
-			if ((deriveredCheck != "null") &&(deriveredCheck != "キャンセル取引中")){
+			if ((deriveredCheck != "null") && (deriveredCheck != "キャンセル取引中")) {
 				System.out.println("3");
 				model.addAttribute("notCancel", "notCancel");
 			}
@@ -1068,26 +1066,26 @@ public class ShoppingController {
 
 		model.addAttribute("purchaseList", purchasedto);
 
-		canceldto = cancelService.selectDerivaryDate(purchaseId);//返品商品の発送日を取得
+		canceldto = cancelService.selectDerivaryDate(purchaseId);// 返品商品の発送日を取得
 		Date deliveryDate = canceldto.getDeliveryDate();
-		Date now = calendar.getTime();//現在の日付を取得
+		Date now = calendar.getTime();// 現在の日付を取得
 		long nowNew = now.getTime();
 		calendar.setTime(deliveryDate);
 		Date deliveryDateNew = calendar.getTime();
-		long deliveryDateNewNext = deliveryDateNew.getTime();//返品商品の発送日
-		long oneDateTime = 1000 * 60 * 40 * 24;//返品商品の発送日と現在の日付の差を出すために使用する値
-		double diffDays = (deliveryDateNewNext - nowNew) / oneDateTime;//返品商品の発送日と現在の日付の差
+		long deliveryDateNewNext = deliveryDateNew.getTime();// 返品商品の発送日
+		long oneDateTime = 1000 * 60 * 40 * 24;// 返品商品の発送日と現在の日付の差を出すために使用する値
+		double diffDays = (deliveryDateNewNext - nowNew) / oneDateTime;// 返品商品の発送日と現在の日付の差
 		double diffDaysNew = -diffDays;
-		System.out.println("nowNew"+nowNew);
+		System.out.println("nowNew" + nowNew);
 		System.out.println(deliveryDateNewNext);
 		System.out.println(diffDaysNew);
 		System.out.println(oneDateTime);
 
 		if (1 >= diffDaysNew) {
-			
+
 			model.addAttribute("deliveryInformation", "1");
 		} else if (2 >= diffDaysNew) {
-			
+
 			model.addAttribute("deliveryInformation", "2");
 		} else if (3 >= diffDaysNew) {
 			model.addAttribute("deliveryInformation", "3");
@@ -1098,7 +1096,7 @@ public class ShoppingController {
 		} else {
 			model.addAttribute("deliveryInformation", "6");
 		}
-		
+
 		int result = cancelService.deliveryAddressSelect(purchaseId);
 		if (result == 0) {
 			System.out.println("1");
@@ -1109,7 +1107,7 @@ public class ShoppingController {
 			model.addAttribute("result", "すでに発送場所が入力済みです。発送状況を確認するには商品履歴画面の商品問題からご覧になれます。");
 			model.addAttribute("contents", "shopping/cancelDeliveryComplete::productListLayout_contents");
 			String deriveredCheck = cancelService.deriveredCheckSelect(purchaseId);
-			if ((deriveredCheck != "null") &&(deriveredCheck != "キャンセル取引中")){
+			if ((deriveredCheck != "null") && (deriveredCheck != "キャンセル取引中")) {
 				System.out.println("3");
 				model.addAttribute("notCancel", "notCancel");
 			}
@@ -1321,26 +1319,26 @@ public class ShoppingController {
 			cancelService.deliveryDateUpdate(purchaseId, nowTime);
 		}
 
-		canceldto = cancelService.selectDerivaryDate(purchaseId);//返品商品の発送日を取得
+		canceldto = cancelService.selectDerivaryDate(purchaseId);// 返品商品の発送日を取得
 		Date deliveryDate = canceldto.getDeliveryDate();
-		Date now = calendar.getTime();//現在の日付を取得
+		Date now = calendar.getTime();// 現在の日付を取得
 		long nowNew = now.getTime();
 		calendar.setTime(deliveryDate);
 		Date deliveryDateNew = calendar.getTime();
-		long deliveryDateNewNext = deliveryDateNew.getTime();//返品商品の発送日
-		long oneDateTime = 1000 * 60 * 40 * 24;//返品商品の発送日と現在の日付の差を出すために使用する値
-		double diffDays = (deliveryDateNewNext - nowNew) / oneDateTime;//返品商品の発送日と現在の日付の差
+		long deliveryDateNewNext = deliveryDateNew.getTime();// 返品商品の発送日
+		long oneDateTime = 1000 * 60 * 40 * 24;// 返品商品の発送日と現在の日付の差を出すために使用する値
+		double diffDays = (deliveryDateNewNext - nowNew) / oneDateTime;// 返品商品の発送日と現在の日付の差
 		double diffDaysNew = -diffDays;
-		System.out.println("nowNew"+nowNew);
+		System.out.println("nowNew" + nowNew);
 		System.out.println(deliveryDateNewNext);
 		System.out.println(diffDaysNew);
 		System.out.println(oneDateTime);
 
 		if (1 >= diffDaysNew) {
-			
+
 			model.addAttribute("deliveryInformation", "1");
 		} else if (2 >= diffDaysNew) {
-			
+
 			model.addAttribute("deliveryInformation", "2");
 		} else if (3 >= diffDaysNew) {
 			model.addAttribute("deliveryInformation", "3");
@@ -1359,11 +1357,11 @@ public class ShoppingController {
 		}
 		return "shopping/productListLayout";
 	}
-	
+
 	@GetMapping("/cancelCompleted/{id}")
-	public String getCancelCompleted(@ModelAttribute CancelForm form,@PathVariable("id") int purchaseId,Model model) {
+	public String getCancelCompleted(@ModelAttribute CancelForm form, @PathVariable("id") int purchaseId, Model model) {
 		model.addAttribute("contents", "shopping/cancelCompleted::productListLayout_contents");
-		
+
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 		String getName = auth.getName();
@@ -1405,17 +1403,17 @@ public class ShoppingController {
 
 		CancelDTO canceldto = new CancelDTO();
 		canceldto = cancelService.selectOne(purchaseId);
-		model.addAttribute("bankNumber",canceldto.getBankNumber());
-		model.addAttribute("storeName",canceldto.getStoreName());
-		model.addAttribute("cancelCheck","返品完了");
-		System.out.println("candto"+canceldto);
-		
-		cancelService.cancelCompletedUpdate(purchaseId);//キャンセル完了に伴い、キャンセルチェックをキャンセル完了に変更
-		customService.deleteOne(customId);//キャンセル完了に伴い、カスタムデータ削除
-		purchaseService.deleteOne(purchaseId);//キャンセル完了に伴い、購入データ削除
-		
+		model.addAttribute("bankNumber", canceldto.getBankNumber());
+		model.addAttribute("storeName", canceldto.getStoreName());
+		model.addAttribute("cancelCheck", "返品完了");
+		System.out.println("candto" + canceldto);
+
+		cancelService.cancelCompletedUpdate(purchaseId);// キャンセル完了に伴い、キャンセルチェックをキャンセル完了に変更
+		customService.deleteOne(customId);// キャンセル完了に伴い、カスタムデータ削除
+		purchaseService.deleteOne(purchaseId);// キャンセル完了に伴い、購入データ削除
+
 		return "shopping/productListLayout";
-	
+
 	}
 
 	@GetMapping("/productList")

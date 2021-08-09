@@ -38,7 +38,7 @@
 				<th class="text-center" th:text="${inquirydto.title}"></th>
 				<th class="text-center" th:text="${inquirydto.content}"></th>
 				<th class="text-center" th:text="${#dates.format(inquirydto.registrationDate,'yyyy/MM/dd hh:mm')}"></th>
-				<th class="text-center"><input type=hidden name="id" th:value=${inquirydto.id}><a th:href="@{'/inquiryDetail' + '/' + ${inquirydto.id}}" class="btn btn-primary" >編集</a><a th:href="@{'/inquiry' + '/' + ${inquirydto.id}}" class="btn btn-primary">返信</a></th>
+				<th class="text-center"><input type=hidden name="id" th:value=${inquirydto.id}><a th:href="@{'/inquiryDetail' + '/' + ${inquirydto.id}}" class="btn btn-primary" >編集</a><a th:href="@{'/inquiryReplay' + '/' + ${inquirydto.id}}" class="btn btn-primary">返信</a></th>
 			</tr>
 			
 		</table>
