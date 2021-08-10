@@ -642,7 +642,7 @@ public class ShoppingController {
 
 	@PostMapping(value = "/cancel", params = "cancelNext")
 	public String postCancelCancelNext(@ModelAttribute CancelForm form,CancelNextForm nextform, @RequestParam("id") int purchaseId,
-			HttpServletRequest request, HttpServletResponse response, Model model) {
+			HttpServletRequest request, HttpServletResponse response, Model model,String title) {
 		model.addAttribute("contents", "shopping/cancelNext::productListLayout_contents");
 
 		System.out.println("formnai"+form.getTitle());
@@ -695,13 +695,12 @@ public class ShoppingController {
 
 		HttpSession session = request.getSession();
 		try {
-			if(form.getTitle().equals("null")) {
+			if(title == null) {
 				System.out.println("title"+form.getTitle());
 				System.out.println("sessionTitle"+session.getAttribute("title"));
 				model.addAttribute("title", (String) session.getAttribute("title"));
 			}else {
-				System.out.println("title"+form.getTitle());
-				System.out.println("sessionTitle"+form.getTitle());
+				System.out.println("title"+title);
 				model.addAttribute("title", (String) session.getAttribute("title"));
 			}
 			}catch(NullPointerException e) {
@@ -719,7 +718,8 @@ public class ShoppingController {
 		if(bindingResult.hasErrors()) {
 			System.out.println("バリデーションエラー到達");
 			//model.addAttribute("result","キャンセル詳細を入力してください");
-			return postCancelCancelNext(form,nextform,purchaseId,request,response,model);
+			String titleNew = (String) session.getAttribute("title");
+			return postCancelCancelNext(form,nextform,purchaseId,request,response,model,titleNew);
 		}
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -759,22 +759,11 @@ public class ShoppingController {
 		model.addAttribute("purchaseList", purchasedto);
 
 		HttpSession session = request.getSession();
-		try {
-		if(form.getTitle().equals("null")) {
-			System.out.println("title"+form.getTitle());
-			System.out.println("sessionTitle"+session.getAttribute("title"));
+		
 			model.addAttribute("title", (String) session.getAttribute("title"));
 			session.setAttribute("content", nextform.getContent());
 			model.addAttribute("content", nextform.getContent());
-		}else {
-			System.out.println("elsedayo");
-		session.setAttribute("content", nextform.getContent());
-		model.addAttribute("content", nextform.getContent());
-		model.addAttribute("title", (String) session.getAttribute("title"));
-		}
-		}catch(NullPointerException e) {
-			e.printStackTrace();
-		}
+		
 		return "shopping/productListLayout";
 	}
 
