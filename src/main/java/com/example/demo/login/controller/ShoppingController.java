@@ -26,8 +26,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.demo.login.domail.model.CancelDTO;
 import com.example.demo.login.domail.model.CancelForm;
 import com.example.demo.login.domail.model.CancelInTransactionForm;
+import com.example.demo.login.domail.model.CancelNextForm;
 import com.example.demo.login.domail.model.CartDTO;
 import com.example.demo.login.domail.model.CartForm;
+import com.example.demo.login.domail.model.CouponForm;
 import com.example.demo.login.domail.model.CreditDTO;
 import com.example.demo.login.domail.model.CreditForm;
 import com.example.demo.login.domail.model.CustomDTO;
@@ -595,7 +597,7 @@ public class ShoppingController {
 
 	// キャンセル画面に遷移
 	@GetMapping("/cancel/{id}")
-	public String getCancen(@ModelAttribute CancelForm form, @PathVariable("id") int purchaseId, Model model) {
+	public String getCancel(@ModelAttribute CancelForm form, @PathVariable("id") int purchaseId, Model model) {
 		model.addAttribute("contents", "shopping/cancel::productListLayout_contents");
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -639,10 +641,21 @@ public class ShoppingController {
 	}
 
 	@PostMapping(value = "/cancel", params = "cancelNext")
-	public String postCancelCancelNext(@ModelAttribute CancelForm form, @RequestParam("id") int purchaseId,
+	public String postCancelCancelNext(@ModelAttribute CancelForm form,CancelNextForm nextform, @RequestParam("id") int purchaseId,
 			HttpServletRequest request, HttpServletResponse response, Model model) {
 		model.addAttribute("contents", "shopping/cancelNext::productListLayout_contents");
 
+		System.out.println("formnai"+form.getTitle());
+		try {
+		if(form.getTitle().equals("0")) {
+			System.out.println("バリデーションエラー到達");
+			model.addAttribute("result","キャンセル理由を選択してください");
+			return getCancel(form,purchaseId,model);
+		}
+		}catch(NullPointerException e) {
+			e.printStackTrace();
+		}
+		
 		System.out.println("cancelNext到達");
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
@@ -681,18 +694,34 @@ public class ShoppingController {
 		model.addAttribute("purchaseList", purchasedto);
 
 		HttpSession session = request.getSession();
-		session.setAttribute("title", form.getTitle());
-		model.addAttribute("title", form.getTitle());
-
+		try {
+			if(form.getTitle().equals("null")) {
+				System.out.println("title"+form.getTitle());
+				System.out.println("sessionTitle"+session.getAttribute("title"));
+				model.addAttribute("title", (String) session.getAttribute("title"));
+			}else {
+				System.out.println("title"+form.getTitle());
+				System.out.println("sessionTitle"+form.getTitle());
+				model.addAttribute("title", (String) session.getAttribute("title"));
+			}
+			}catch(NullPointerException e) {
+				e.printStackTrace();
+			}
+		
 		return "shopping/productListLayout";
 	}
 
 	@PostMapping(value = "/cancel", params = "confirmation")
-	public String postCancelConfirmation(@ModelAttribute CancelForm form, @RequestParam("id") int purchaseId,
+	public String postCancelConfirmation(@ModelAttribute @Validated(GroupOrder.class) CancelNextForm nextform,BindingResult bindingResult,CancelForm form,@RequestParam("id") int purchaseId,
 			HttpServletRequest request, HttpServletResponse response, Model model) {
-
 		model.addAttribute("contents", "shopping/cancelConfirmation::productListLayout_contents");
 
+		if(bindingResult.hasErrors()) {
+			System.out.println("バリデーションエラー到達");
+			//model.addAttribute("result","キャンセル詳細を入力してください");
+			return postCancelCancelNext(form,nextform,purchaseId,request,response,model);
+		}
+		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 		String getName = auth.getName();
@@ -730,10 +759,22 @@ public class ShoppingController {
 		model.addAttribute("purchaseList", purchasedto);
 
 		HttpSession session = request.getSession();
-		session.setAttribute("content", form.getContent());
-		model.addAttribute("content", form.getContent());
+		try {
+		if(form.getTitle().equals("null")) {
+			System.out.println("title"+form.getTitle());
+			System.out.println("sessionTitle"+session.getAttribute("title"));
+			model.addAttribute("title", (String) session.getAttribute("title"));
+			session.setAttribute("content", nextform.getContent());
+			model.addAttribute("content", nextform.getContent());
+		}else {
+			System.out.println("elsedayo");
+		session.setAttribute("content", nextform.getContent());
+		model.addAttribute("content", nextform.getContent());
 		model.addAttribute("title", (String) session.getAttribute("title"));
-
+		}
+		}catch(NullPointerException e) {
+			e.printStackTrace();
+		}
 		return "shopping/productListLayout";
 	}
 
@@ -1414,6 +1455,20 @@ public class ShoppingController {
 
 		return "shopping/productListLayout";
 
+	}
+	
+	@GetMapping("/couponList")
+	public String getCouponList(@ModelAttribute CouponForm form,Model model) {
+		model.addAttribute("contents", "shopping/couponList::productListLayout_contents");
+		
+		return "shopping/productListLayout";
+	}
+	
+	@GetMapping("couponAdd")
+	public String getCouponAdd(@ModelAttribute CouponForm form,Model model) {
+		model.addAttribute("contents", "shopping/couponAdd::productListLayout_contents");
+		
+		return "shopping/productListLayout";
 	}
 
 	@GetMapping("/productList")

@@ -6,17 +6,18 @@
 <title>cancelNext</title>
 </head>
 <body>
- 	<div th:fragment="productListLayout_contents">
-<h1 class="titleDesign">キャンセル画面</h1>
+	<div th:fragment="productListLayout_contents">
+		<h1 class="titleDesign">キャンセル画面</h1>
 
-<div class="progress" style="width:1100px;">
-  <div class="progress-bar progress-bar-striped " role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-</div>
-		<form method="post" th:action="@{/cancel}"
-			th:object="${cancelForm}">
+		<div class="progress" style="width: 1100px;">
+			<div class="progress-bar progress-bar-striped " role="progressbar"
+				style="width: 15%" aria-valuenow="15" aria-valuemin="0"
+				aria-valuemax="100"></div>
+		</div>
+		<form method="post" th:action="@{/cancel}" th:object="${cancelNextForm}">
 			<br>
 			<table class="table table-hover table-bordered"
-				th:each="purchasedto : ${purchaseList}" style="width:1100px;">
+				th:each="purchasedto : ${purchaseList}" style="width: 1100px;">
 
 				<tr>
 					<th class="text-center">購入日</th>
@@ -39,29 +40,38 @@
 					<td class="text-center" th:text="${purchasedto.cpu}"></td>
 				</tr>
 			</table>
-			
-			
+
+
 			<table>
-			
-			<tr>
-			<th style="font-size:20px;">キャンセル理由:</th>
-			<td th:text="${title}" style="font-size:17px;"></td>
-			</tr>
+
+				<tr>
+					<th style="font-size: 20px;">キャンセル理由:</th>
+					<td th:text="${title}" style="font-size: 17px;"></td>
+				</tr>
 			</table>
-		
+
 			<br>
 			<table>
-			<tr>
-			<th style="font-size:20px;">キャンセル理由の詳細を記載してください。</th>
-			</tr>
-			<tr>
-			<td class="formDesign" ><input class="form-control form-control-lg" type="text" th:field="*{content}"></td>
-			</tr>
+				<tr>
+					<th style="font-size: 20px;">キャンセル理由の詳細を記載してください。</th>
+				</tr>
+				<br>
+				<h3 th:text="${result}" class="text-danger"></h3>
+				<br>
+				<tr>
+					<td class="formDesign form-group"
+						th:classappend="${#fields.hasErrors('content')}?'has-error'"
+						><input
+						class="form-control form-control-lg" type="text"
+						th:field="*{content}"><span class="text-danger"
+						th:if="${#fields.hasErrors('content')}" th:errors="*{content}">content
+							error</span></td>
+				</tr>
 			</table>
 			<div th:each="purchasedto : ${purchaseList}">
-			<input type="hidden" name="id" th:value="${purchasedto.id}">
-			<button class="btn btn-primary" name="confirmation">次へ</button>
+				<input type="hidden" name="id" th:value="${purchasedto.id}">
+				<button class="btn btn-primary" name="confirmation">次へ</button>
 			</div>
-			</form>
+		</form>
 </body>
 </html>

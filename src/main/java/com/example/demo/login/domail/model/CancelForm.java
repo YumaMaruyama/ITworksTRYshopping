@@ -11,7 +11,7 @@ public class CancelForm {
 
 	private String title;
 	
-	private String content;
+	
 	
 	@NotBlank(groups = ValidGroup1.class)
 	@Length(min = 7, max = 7, groups = ValidGroup2.class)
