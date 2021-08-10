@@ -29,6 +29,7 @@ import com.example.demo.login.domail.model.CancelInTransactionForm;
 import com.example.demo.login.domail.model.CancelNextForm;
 import com.example.demo.login.domail.model.CartDTO;
 import com.example.demo.login.domail.model.CartForm;
+import com.example.demo.login.domail.model.CouponDTO;
 import com.example.demo.login.domail.model.CouponForm;
 import com.example.demo.login.domail.model.CreditDTO;
 import com.example.demo.login.domail.model.CreditForm;
@@ -54,6 +55,7 @@ import com.example.demo.login.domail.model.UsersListDTO;
 import com.example.demo.login.domail.model.UsersListForm;
 import com.example.demo.login.domail.service.CancelService;
 import com.example.demo.login.domail.service.CartService;
+import com.example.demo.login.domail.service.CouponService;
 import com.example.demo.login.domail.service.CreditService;
 import com.example.demo.login.domail.service.CustomService;
 import com.example.demo.login.domail.service.InquiryService;
@@ -90,6 +92,8 @@ public class ShoppingController {
 	ReviewService reviewService;
 	@Autowired
 	CancelService cancelService;
+	@Autowired
+	CouponService couponService;
 
 	@Autowired // Sessionが使用できる
 	HttpSession session;
@@ -252,6 +256,7 @@ public class ShoppingController {
 		model.addAttribute("usersList", userslistdto);
 		model.addAttribute("id", userslistdto.getId());
 
+		
 		return "shopping/productListLayout";
 	}
 
@@ -275,6 +280,9 @@ public class ShoppingController {
 		usersListForm.setAddress(userslistdto.getAddress());
 		model.addAttribute("id", id);
 
+		//商品購入数と合計金額を取得、クーポン一覧の上の画面にも表示してクーポン使えるかどうかも判定　とりあえずユーザー情報に表示する
+		
+		
 		return "shopping/productListLayout";
 	}
 
@@ -1463,12 +1471,38 @@ public class ShoppingController {
 	public String getCouponList(@ModelAttribute CouponForm form,Model model) {
 		model.addAttribute("contents", "shopping/couponList::productListLayout_contents");
 		
+		List<CouponDTO> coupondtoList = couponService.selectMany();
+		
+		model.addAttribute("couponList",coupondtoList);
+		
 		return "shopping/productListLayout";
 	}
+	
+	
 	
 	@GetMapping("couponAdd")
 	public String getCouponAdd(@ModelAttribute CouponForm form,Model model) {
 		model.addAttribute("contents", "shopping/couponAdd::productListLayout_contents");
+		
+		return "shopping/productListLayout";
+	}
+	
+	@PostMapping(value = "couponAdd",params = "distribution")
+	public String postCouponAdd(@ModelAttribute CouponForm form, HttpServletRequest request, HttpServletResponse response,Model model) {
+		model.addAttribute("contents", "shopping/couponList::productListLayout_contents");
+		
+		HttpSession session = request.getSession();//入力されたクーポン情報をsession保存
+		session.setAttribute("title", form.getTitle());
+		session.setAttribute("discount",form.getDiscount());
+		session.setAttribute("purchaseCountTarget",form.getPurchaseCountTarget());
+		session.setAttribute("purchaseTotalPriceTarget",form.getPurchaseTotalPriceTarget());
+		
+		CouponDTO coupondto = new CouponDTO();
+		
+		couponService.couponInsert(coupondto,session);//couponテーブルにsessionに保存したデータを格納
+		
+		
+		
 		
 		return "shopping/productListLayout";
 	}

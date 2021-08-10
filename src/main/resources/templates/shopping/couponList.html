@@ -12,6 +12,24 @@
 			<h1 class="titleDesign">クーポン情報</h1>
 		</header>
 		
+		<table class="table table-hover table-bordered" th:each="coupondto:${couponList}">
+		
+			<tr>
+				<th class="text-center">クーポン名</th>
+				<th class="text-center">割引パーセント</th>
+				<th class="text-center">対象ユーザー(商品購入数)</th>
+				<th class="text-center">対象ユーザー(合計購入金額)</th>
+				<th class="text-center">クーポン詳細</th>
+			</tr>
+			
+			<tr>
+				<td class="text-center" th:text="${coupondto.title}"></td>
+				<td class="text-center" th:text="${coupondto.discount}"></td>
+				<td class="text-center" th:text="${coupondto.purchaseCountTarget}"></td>
+				<td class="text-center" th:text="${coupondto.purchaseTotalPriceTarget}"></td>
+			</tr>
+		
+		</table>
 		
 	</div>
 </body>

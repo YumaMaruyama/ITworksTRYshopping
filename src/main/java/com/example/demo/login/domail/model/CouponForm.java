@@ -7,12 +7,13 @@ public class CouponForm {
 	
 	private int id;
 	
-	private int userId;
-	
-	private int discout;
+	private int discount;
 	
 	private int purchaseCountTarget;
 	
 	private int purchaseTotalPriceTarget;
+	
+	private String title;
+	
 	
 }
