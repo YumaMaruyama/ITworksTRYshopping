@@ -597,7 +597,7 @@ public class ShoppingController {
 
 	// キャンセル画面に遷移
 	@GetMapping("/cancel/{id}")
-	public String getCancel(@ModelAttribute CancelForm form, @PathVariable("id") int purchaseId, Model model) {
+	public String getCancel(@ModelAttribute CancelForm form,CancelNextForm nextform, @PathVariable("id") int purchaseId, Model model) {
 		model.addAttribute("contents", "shopping/cancel::productListLayout_contents");
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -650,7 +650,7 @@ public class ShoppingController {
 		if(form.getTitle().equals("0")) {
 			System.out.println("バリデーションエラー到達");
 			model.addAttribute("result","キャンセル理由を選択してください");
-			return getCancel(form,purchaseId,model);
+			return getCancel(form,nextform,purchaseId,model);
 		}
 		}catch(NullPointerException e) {
 			e.printStackTrace();
@@ -700,8 +700,10 @@ public class ShoppingController {
 				System.out.println("sessionTitle"+session.getAttribute("title"));
 				model.addAttribute("title", (String) session.getAttribute("title"));
 			}else {
-				System.out.println("title"+title);
+				System.out.println("titleelse"+title);
+				session.setAttribute("title",title);
 				model.addAttribute("title", (String) session.getAttribute("title"));
+				session.setAttribute(title,(String) session.getAttribute("title"));
 			}
 			}catch(NullPointerException e) {
 				e.printStackTrace();
@@ -993,9 +995,11 @@ public class ShoppingController {
 		System.out.println("title" + title);
 		String content = (String) session.getAttribute("content");
 		CancelDTO canceldto = new CancelDTO();
+		if(form.getBankNumber() != null) {
 		int bankNumber = Integer.parseInt(form.getBankNumber());
 		model.addAttribute("bankNumber", bankNumber);
 		int storeName = Integer.parseInt(form.getStoreName());
+		
 		int maxId = cancelService.selectCancelCheck(purchaseId, userId);
 		if (maxId == 0) {
 			cancelService.insertOneCancelCheck(canceldto, userId, purchaseId, productId, title, content, bankNumber,
@@ -1021,6 +1025,10 @@ public class ShoppingController {
 			} else {
 				System.out.println("3");
 			}
+			
+		}
+}else {
+			
 		}
 
 		int result = cancelService.deliveryAddressSelect(purchaseId);
@@ -1046,11 +1054,16 @@ public class ShoppingController {
 
 	@PostMapping(value = "/cancelDeliveryComplete", params = "deliveredCompleted")
 	public String postCancelDeliveryCompleteDeliveredCompleted(@ModelAttribute CancelForm form,
-			CancelInTransactionForm intransactionform, @RequestParam("id") int purchaseId,
-			@RequestParam("customId") int customId, Model model) {
-
+			@Validated(GroupOrder.class)CancelInTransactionForm intransactionform,BindingResult bindingResult,@RequestParam("id") int purchaseId,
+			@RequestParam("customId") int customId, HttpServletRequest request,
+			HttpServletResponse response,Model model) {
 		model.addAttribute("contents", "shopping/cancelDeliveredCompleted::productListLayout_contents");
 
+		if(bindingResult.hasErrors()) {
+			System.out.println("1");
+			return postCancelDeliveryComplete(form,intransactionform,purchaseId,customId,request,response,model);
+		}
+		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 		String getName = auth.getName();
