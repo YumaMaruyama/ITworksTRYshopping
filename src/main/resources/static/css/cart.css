@@ -40,11 +40,21 @@
 
 .productListBtn {
 	font-size: 23px !important;
+	width: 214px;
+    margin-top: 4px;
 }
 
 .clearingBtn {
 	font-size: 23px !important;
-	margin-left: 24px;
+	
+	margin-top: 4px;
+    margin-left: 56px;
+}
+
+.couponBtn {
+	font-size: 23px !important;
+	margin-top: 4px;
+    margin-left: 56px;
 }
 
 .textDesign1 {
@@ -54,7 +64,6 @@
 .textDesign2 {
 	font-size: 20px;
 	width: 161px;
-	padding-top: 15px !important;
 }
 
 .delteBtnMargin {
@@ -107,6 +116,7 @@
 .cartTable {
 	background:#f1b8ab;
 	margin-top:24px;
+	width:1020px;
 }
 
 a.btn--orange, button.btn--orange {

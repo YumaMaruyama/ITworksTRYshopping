@@ -77,13 +77,25 @@
 
 
 		<form th:action="@{/clearing}">
-			<table class="cartPrice table table-bordered table-hover cartTable">
+			<table th:if="${couponAfterPrice} == '-1'" class="cartPrice table table-bordered table-hover cartTable">
 				<tr>
 					<td style="width: 214px;"><a th:href="@{/productList}"
 						class="btn btn2 btn--blue btn--cubic btn--shadow productListBtn">買い物を続ける</a></td>
-					<th class="text-center textDesign1">カート合計金額</th>
+					<td style="width: 214px;" class="text-center " th:text="'カート合計金額' + ${totalPrice} + '円'"></td>
+					<td><button
+							class="btn btn2 btn--orange btn--cubic btn--shadow clearingBtn">決済画面へ</button></td>
+					<td><a th:href="@{/couponSee}"
+							class="btn btn2 btn--orange btn--cubic btn--shadow couponBtn">クーポンを見る</a></td>
+				</tr>
+			</table>
+			
+			<table th:if="${couponAfterPrice} != '-1'" class="cartPrice table table-bordered table-hover cartTable">
+				<tr>
+					<td style="width: 214px;"><a th:href="@{/productList}"
+						class="btn btn2 btn--blue btn--cubic btn--shadow productListBtn">買い物を続ける</a></td>
+					<td style="width: 214px;" class="text-center " th:text="'カート合計金額' + ${totalPrice} + '円'"></td>
 					<td class="cartPrice2 card-text text-center fontdesign textDesign2"
-						th:text="${totalPrice} + '円'"></td>
+						th:text="'クーポン使用後' + ${couponAfterPrice} + '円'"></td>
 
 					<td><button
 							class="btn btn2 btn--orange btn--cubic btn--shadow clearingBtn">決済画面へ</button></td>
@@ -91,6 +103,7 @@
 							class="btn btn2 btn--orange btn--cubic btn--shadow clearingBtn">クーポンを見る</a></td>
 				</tr>
 			</table>
+			
 
 		</form>
 	</div>

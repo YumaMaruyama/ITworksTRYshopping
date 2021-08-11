@@ -1654,6 +1654,7 @@ List<CouponDTO> coupondtoListAdd = new ArrayList<>();
 		
 	@GetMapping("/couponUse/{id}")
 	public String getCouponUse(@ModelAttribute CouponForm form,@PathVariable("id") int couponId,Model model) {
+		model.addAttribute("contents", "shopping/cart::productListLayout_contents");
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
@@ -1676,10 +1677,16 @@ List<CouponDTO> coupondtoListAdd = new ArrayList<>();
 		
 		CouponDTO coupondto = couponService.selectOne(couponId);
 		int disCount = coupondto.getDiscount();
+		double disCountNew = Double.valueOf("0." + disCount);
+		double couponAfterPrice = totalPrice * disCountNew;
+		//ここから割引分の値が入っているのでそれをトータルからひく、小数点以下も切り捨てる
+		model.addAttribute("couponAfterPrice",couponAfterPrice);
+		
+		model.addAttribute("cartList", cartList);
 		
 		
 		
-		return "getcart";
+		return "shopping/productListLayout";
 	}
 
 	@GetMapping("couponAdd")
@@ -2016,7 +2023,8 @@ List<CouponDTO> coupondtoListAdd = new ArrayList<>();
 		}
 
 		model.addAttribute("cartList", cartList);
-
+		model.addAttribute("couponAfterPrice","-1");//クーポン使用していない時に表示するテーブルを出すための値
+		
 		return "shopping/productListLayout";
 	}
 
