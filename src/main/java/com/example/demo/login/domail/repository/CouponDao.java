@@ -12,4 +12,6 @@ public interface CouponDao {
 	
 	public List<CouponDTO> selectMany();
 	
+	public CouponDTO selectOne(int couponId);
+	
 }

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	
+	<div th:fragment="productListLayout_contents">
+		<header>
+			<h1 class="titleDesign">使用可能なクーポン一覧</h1>
+		</header>
+		
+		<table>
+		<tr class="couponDetail1"><td th:text="'これまでの商品購入数は、' + ${purchaseCount} + '個で、合計購入金額は' + ${allTotalPrice} + '円です'"></td></tr>
+		</table>
+		
+		<table class="table table-hover table-bordered" th:each="coupondto:${couponList}">
+		
+			<tr>
+				<th class="text-center">クーポン名</th>
+				<th class="text-center">割引パーセント</th>
+				<th class="text-center">対象ユーザー(商品購入数)</th>
+				<th class="text-center">対象ユーザー(合計購入金額)</th>
+				<th class="text-center">クーポン活用</th>
+			</tr>
+			
+			<tr>
+				<td class="text-center" th:text="${coupondto.title}"></td>
+				<td class="text-center" th:text="${coupondto.discount}"></td>
+				<td class="text-center" th:text="${coupondto.purchaseCountTarget}"></td>
+				<td class="text-center" th:text="${coupondto.purchaseTotalPriceTarget}"></td>
+				<td class="text-center"><a th:href="@{/couponUse} + '/' + ${coupondto.id}">使用する</a></td>
+			</tr>
+		
+		</table>
+		
+		
+		
+	</div>
+</body>
+</html>

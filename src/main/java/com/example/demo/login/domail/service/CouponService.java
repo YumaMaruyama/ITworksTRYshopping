@@ -23,4 +23,8 @@ public class CouponService {
 	public List<CouponDTO> selectMany() {
 		return dao.selectMany();
 	}
+	
+	public CouponDTO selectOne(int couponId) {
+		return dao.selectOne(couponId);
+	}
 }

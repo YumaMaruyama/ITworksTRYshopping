@@ -1578,11 +1578,108 @@ public class ShoppingController {
 		return "shopping/productListLayout";
 	}
 	
-	@GetMapping("couponSee")
+	@GetMapping("/couponSee")
 	public String getCouponSee(@ModelAttribute CouponForm form,Model model) {
 		model.addAttribute("contents", "shopping/couponSee::productListLayout_contents");
 		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println("auth" + auth.getName());
+		String getName = auth.getName();
+		int userId = usersService.select_id(getName);// メソッドに入ったユーザーのIDを取得
+
+		int allProductCount = 0;
+		int allTotalPrice = 0;
+		List<PurchaseDTO> purchasedtoList = purchaseService.selectHistory(userId);// メソッドに入ったユーザーの購入情報を取得
+		List<PurchaseDTO> allPurchaseList = new ArrayList<>();
+		PurchaseDTO customList;
+		// 購入商品を一つづつ回して値を受け取る
+		for (int i = 0; purchasedtoList.size() > i; i++) {
+			PurchaseDTO purchasedtoAdd = new PurchaseDTO();
+			PurchaseDTO purchaseOne = purchasedtoList.get(i);
+			purchasedtoAdd.setId(purchaseOne.getId());// カスタム情報取得に使用
+			purchasedtoAdd.setCancelCheck(purchaseOne.getCancelCheck());
+			purchasedtoAdd.setPrice(purchaseOne.getPrice());
+			purchasedtoAdd.setProduct_count(purchaseOne.getProduct_count());
+			purchasedtoAdd.setPurchaseCheck(purchaseOne.getPurchaseCheck());
+			int productId = purchasedtoAdd.getId();
+			// 購入商品ごとのカスタム情報も取り出す
+			String nullCheck = "null";
+			int getCustomId = customService.selectPurchaseCheck(userId, productId, purchasedtoAdd.getPurchaseCheck(),
+					nullCheck);
+
+			customList = customService.selectMany(getCustomId);// customテーブルのIDでカスタム情報を取得
+			purchasedtoAdd.setCustomPrice(customList.getCustomPrice());
+			purchasedtoAdd.setTotalPrice(
+					purchaseOne.getProduct_count() * (customList.getCustomPrice() + purchaseOne.getPrice()));
+			allTotalPrice = allTotalPrice + purchasedtoAdd.getTotalPrice();// ユーザーの購入した商品の合計金額を取得
+			allProductCount = allProductCount + purchasedtoAdd.getProduct_count();// ユーザーの購入した商品の数を取得
+			model.addAttribute("purchaseCount", allProductCount);
+			model.addAttribute("allTotalPrice", allTotalPrice);
+			allPurchaseList.add(purchasedtoAdd);
+		}
+		
+		List<CouponDTO> coupondtoList = couponService.selectMany();// couponテーブルからクーポン情報をすべて取得
+List<CouponDTO> coupondtoListAdd = new ArrayList<>();
+		
+		for(int i = 0; coupondtoList.size() > i; i++) {//クーポン情報を一つづつ取り出す
+			CouponDTO coupondtoOne = coupondtoList.get(i);
+			int allCount = coupondtoOne.getPurchaseCountTarget();
+			int allPrice = coupondtoOne.getPurchaseTotalPriceTarget();
+		
+			boolean countCheck = false;
+			boolean priceCheck = false;
+			
+			if(allProductCount >= allCount) {//ユーザーの商品購入数と、クーポンの使用条件の商品購入数を比較
+				countCheck = true;
+			}
+			if(allTotalPrice >= allPrice) {//ユーザーの全商品購入金額と、クーポンの使用条件の全商品購入金額を比較
+				priceCheck = true;
+			}
+			
+			coupondtoOne.setCouponCheck(false);
+			if((countCheck == true) && (priceCheck == true)) {//商品購入数と全商品購入金額がクーポンの使用条件に達しているか比較
+				coupondtoOne.setCouponCheck(true);
+			}
+			
+			if(coupondtoOne.isCouponCheck() == true) {//商品購入数と全商品購入金額がクーポンの使用条件に達しているもののみList追加
+			coupondtoListAdd.add(coupondtoOne);
+			System.out.println("couponCheck"+coupondtoOne.isCouponCheck());
+			}
+		}
+		
+		
+		model.addAttribute("couponList", coupondtoListAdd);
 		return "shopping/productListLayout";
+	}
+		
+	@GetMapping("/couponUse/{id}")
+	public String getCouponUse(@ModelAttribute CouponForm form,@PathVariable("id") int couponId,Model model) {
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println("auth" + auth.getName());
+		String getUserId = auth.getName();
+		
+		// ログインユーザーのみのカートの情報を取得
+		List<PcDataDTO> cartList = cartService.selectMany(getUserId);
+		int totalPrice = 0;
+		if (cartList == null || cartList.size() == 0) {
+			model.addAttribute("totalPrice", 0);
+		} else {
+			
+			for (int i = 0; i < cartList.size(); i++) {
+				PcDataDTO pcdatadto = cartList.get(i);
+				totalPrice = totalPrice
+						+ pcdatadto.getProduct_count() * (pcdatadto.getPrice() + pcdatadto.getCustomPrice());
+				model.addAttribute("totalPrice", totalPrice);
+			}
+		}
+		
+		CouponDTO coupondto = couponService.selectOne(couponId);
+		int disCount = coupondto.getDiscount();
+		
+		
+		
+		return "getcart";
 	}
 
 	@GetMapping("couponAdd")

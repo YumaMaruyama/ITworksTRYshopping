@@ -1,6 +1,7 @@
 package com.example.demo.login.domail.repository.jdbc;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -38,15 +39,26 @@ public class CouponDaoJdbcImpl implements CouponDao {
 		
 		for(Map<String,Object> oneMap : map) {
 			CouponDTO coupondto = new CouponDTO();
+			coupondto.setId((int)oneMap.get("id"));
 			coupondto.setDiscount((int)oneMap.get("discount"));
 			coupondto.setPurchaseCountTarget((int)oneMap.get("purchase_count_target"));
 			coupondto.setPurchaseTotalPriceTarget((int)oneMap.get("purchase_total_price_target"));
 			coupondto.setTitle((String)oneMap.get("title"));
+			coupondto.setRegistratonDate((Date)oneMap.get("registration_date"));
 			
 			coupondtoList.add(coupondto);
 		}
 		
 		return coupondtoList;
 				
+	}
+	
+	public CouponDTO selectOne(int couponId) {
+		Map<String,Object> map = jdbc.queryForMap("select * from coupon where id = ?",couponId);
+		CouponDTO coupondto = new CouponDTO();
+		
+		coupondto.setDiscount((int)map.get("discount"));
+		
+		return coupondto;
 	}
 }
