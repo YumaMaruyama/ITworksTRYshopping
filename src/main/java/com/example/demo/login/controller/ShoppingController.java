@@ -69,7 +69,6 @@ import com.example.demo.login.domail.service.UsersService;
 @Controller
 public class ShoppingController {
 
-	
 	@Autowired
 	PcDataService pcdataService;
 	@Autowired
@@ -138,8 +137,8 @@ public class ShoppingController {
 			RedirectAttributes redirectAttributes, Model model) {
 		model.addAttribute("contents", "shopping/usersList::productListLayout_contents");
 		System.out.println("testid" + id);
-		usersService.deleteOne(id);//usersテーブル情報を削除
-		usegeService.deleteOne(id);//usege_usersテーブル情報を削除
+		usersService.deleteOne(id);// usersテーブル情報を削除
+		usegeService.deleteOne(id);// usege_usersテーブル情報を削除
 
 		return "redirect:/usersList";
 	}
@@ -238,13 +237,13 @@ public class ShoppingController {
 	public String getEditYour(@ModelAttribute UserEditForm form, Model model) {
 		model.addAttribute("contents", "shopping/editYour::productListLayout_contents");
 
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();//メソッドに入ってきたユーザのuser_idを取得
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();// メソッドに入ってきたユーザのuser_idを取得
 		System.out.println("auth" + auth.getName());
 		String userId = auth.getName();
-		int selectId = usersService.select_id(userId);//取得したuser_idでusersテーブルのidを取得
+		int selectId = usersService.select_id(userId);// 取得したuser_idでusersテーブルのidを取得
 
-		UsersDTO usersdto = usersService.userInformationSelectOne(selectId);//usersテーブルから引数のidをもとに情報を取得
-		Usege_usersDTO usegeusersdto = usegeService.userInformationSelectOne(selectId);//usege_usersテーブルから引数のidをもとに情報を取得
+		UsersDTO usersdto = usersService.userInformationSelectOne(selectId);// usersテーブルから引数のidをもとに情報を取得
+		Usege_usersDTO usegeusersdto = usegeService.userInformationSelectOne(selectId);// usege_usersテーブルから引数のidをもとに情報を取得
 
 		UsersListDTO userslistdto = new UsersListDTO();
 		userslistdto.setId(usersdto.getId());
@@ -256,7 +255,40 @@ public class ShoppingController {
 		model.addAttribute("usersList", userslistdto);
 		model.addAttribute("id", userslistdto.getId());
 
-		
+		int allProductCount = 0;
+		int allTotalPrice = 0;
+
+		List<PurchaseDTO> purchasedtoList = purchaseService.selectHistory(selectId);// メソッドに入ったユーザーの購入情報を取得
+		List<PurchaseDTO> allPurchaseList = new ArrayList<>();
+		PurchaseDTO customList;
+		// 購入商品を一つづつ回して値を受け取る
+		for (int i = 0; purchasedtoList.size() > i; i++) {
+			PurchaseDTO purchasedtoAdd = new PurchaseDTO();
+			PurchaseDTO purchaseOne = purchasedtoList.get(i);
+			purchasedtoAdd.setId(purchaseOne.getId());// カスタム情報取得に使用
+			purchasedtoAdd.setCancelCheck(purchaseOne.getCancelCheck());
+			purchasedtoAdd.setPrice(purchaseOne.getPrice());
+			purchasedtoAdd.setProduct_count(purchaseOne.getProduct_count());
+			purchasedtoAdd.setPurchaseCheck(purchaseOne.getPurchaseCheck());
+			// 購入商品ごとのカスタム情報も取り出す
+			int productId = purchasedtoAdd.getId();
+			// int customId = purchasedtoAdd.getCustom_id();
+
+			String nullCheck = "null";
+			int getCustomId = customService.selectPurchaseCheck(selectId, productId, purchasedtoAdd.getPurchaseCheck(),
+					nullCheck);
+
+			customList = customService.selectMany(getCustomId);// customテーブルのIDでカスタム情報を取得
+			purchasedtoAdd.setCustomPrice(customList.getCustomPrice());
+			purchasedtoAdd.setTotalPrice(
+					purchaseOne.getProduct_count() * (customList.getCustomPrice() + purchaseOne.getPrice()));
+			allTotalPrice = allTotalPrice + purchasedtoAdd.getTotalPrice();// ユーザーの購入した商品の合計金額を取得
+			allProductCount = allProductCount + purchasedtoAdd.getProduct_count();// ユーザーの購入した商品の数を取得
+			model.addAttribute("purchaseCount", allProductCount);
+			model.addAttribute("allTotalPrice", allTotalPrice);
+			allPurchaseList.add(purchasedtoAdd);
+		}
+
 		return "shopping/productListLayout";
 	}
 
@@ -280,9 +312,8 @@ public class ShoppingController {
 		usersListForm.setAddress(userslistdto.getAddress());
 		model.addAttribute("id", id);
 
-		//商品購入数と合計金額を取得、クーポン一覧の上の画面にも表示してクーポン使えるかどうかも判定　とりあえずユーザー情報に表示する
-		
-		
+		// 商品購入数と合計金額を取得、クーポン一覧の上の画面にも表示してクーポン使えるかどうかも判定 とりあえずユーザー情報に表示する
+
 		return "shopping/productListLayout";
 	}
 
@@ -299,12 +330,12 @@ public class ShoppingController {
 
 		UsersDTO usersdto = new UsersDTO();
 		usersdto.setId(id);
-		usersdto.setUser_name(usersListForm.getUserName());//変更された名前をdtoに入れる
+		usersdto.setUser_name(usersListForm.getUserName());// 変更された名前をdtoに入れる
 		Usege_usersDTO usegeusersdto = new Usege_usersDTO();
 		usegeusersdto.setId(id);
-		usegeusersdto.setAddress(usersListForm.getAddress());//変更された住所をdtoに入れる
-		usersService.updateOne(usersdto);//変更された名前に更新
-		usegeService.updateOne(usegeusersdto);//変更された住所に更新
+		usegeusersdto.setAddress(usersListForm.getAddress());// 変更された住所をdtoに入れる
+		usersService.updateOne(usersdto);// 変更された名前に更新
+		usegeService.updateOne(usegeusersdto);// 変更された住所に更新
 
 		return getEditYour(form, model);
 	}
@@ -312,8 +343,8 @@ public class ShoppingController {
 	@PostMapping(value = "/editYourDetail", params = "delete")
 	public String postEditYourDetailDelete(@ModelAttribute UserEditForm form, @RequestParam("id") int id, Model model) {
 
-		usersService.deleteOne(id);//idをもとにusersテーブルの情報を削除
-		usegeService.deleteOne(id);//idをもとにusege_usersテーブルの情報を削除
+		usersService.deleteOne(id);// idをもとにusersテーブルの情報を削除
+		usegeService.deleteOne(id);// idをもとにusege_usersテーブルの情報を削除
 
 		return getLogout();
 	}
@@ -343,9 +374,9 @@ public class ShoppingController {
 	public String postInquirySending(@ModelAttribute @Validated(GroupOrder.class) InquiryForm form, InquiryForm form2,
 			BindingResult bindingResult, Model model) {
 
-		if (bindingResult.hasErrors()) {//入力内容がおかしい場合はtrue
+		if (bindingResult.hasErrors()) {// 入力内容がおかしい場合はtrue
 			System.out.println("バリデーションエラー到達");
-			return getInquiry(form, model);//もう一度入力画面に遷移させる
+			return getInquiry(form, model);// もう一度入力画面に遷移させる
 		}
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -354,12 +385,12 @@ public class ShoppingController {
 		int select_id = usersService.select_id(user_id);
 
 		InquiryDTO inquirydto = new InquiryDTO();
-		inquirydto.setTitle(form.getTitle());//問い合わせタイトルをdtoに入れる
-		inquirydto.setContent(form.getContent());//問い合わせ内容をdtoに入れる
+		inquirydto.setTitle(form.getTitle());// 問い合わせタイトルをdtoに入れる
+		inquirydto.setContent(form.getContent());// 問い合わせ内容をdtoに入れる
 
-		int result = inquiryService.insertOne(inquirydto, select_id);//dtoとusersテーブルのidでお問い合わせの情報を格納する
+		int result = inquiryService.insertOne(inquirydto, select_id);// dtoとusersテーブルのidでお問い合わせの情報を格納する
 
-		model.addAttribute("result", "お問い合わせありがとうございます。");//画面に表示させる問い合わせ完了のメッセージ
+		model.addAttribute("result", "お問い合わせありがとうございます。");// 画面に表示させる問い合わせ完了のメッセージ
 
 		return getInquiry(form2, model);
 
@@ -368,7 +399,7 @@ public class ShoppingController {
 	@GetMapping("/inquiryReplay/{id}")
 	public String getInquiryReply(@ModelAttribute InquiryForm form, @PathVariable("id") int inquiryId, Model model) {
 		model.addAttribute("contents", "shopping/inquiryReply::productListLayout_contents");
-		InquiryDTO inquirydto = inquiryService.selectOne(inquiryId);//inquiryテーブルのIdをもとにinquiryテーブルの情報を取得
+		InquiryDTO inquirydto = inquiryService.selectOne(inquiryId);// inquiryテーブルのIdをもとにinquiryテーブルの情報を取得
 		model.addAttribute("inquiryList", inquirydto);
 		model.addAttribute("inquiryId", inquiryId);
 
@@ -379,7 +410,7 @@ public class ShoppingController {
 	public String getInquiryDetail(@ModelAttribute InquiryForm form, @PathVariable("id") int inquiryId, Model model) {
 		model.addAttribute("contents", "shopping/inquiryDetail::productListLayout_contents");
 
-		InquiryDTO inquirydto = inquiryService.selectOne(inquiryId);//inquiryテーブルのIdをもとにinquiryテーブルの情報を取得
+		InquiryDTO inquirydto = inquiryService.selectOne(inquiryId);// inquiryテーブルのIdをもとにinquiryテーブルの情報を取得
 		model.addAttribute("id", inquirydto.getId());
 		model.addAttribute("inquiryList", inquirydto);
 
@@ -389,7 +420,7 @@ public class ShoppingController {
 	@PostMapping("/inquiryDetail")
 	public String postInquiryDetail(@ModelAttribute InquiryForm form, @RequestParam("id") int id, Model model) {
 		System.out.println("inquiryDetail到達");
-		int result = inquiryService.deleteOne(id);//inquiryテーブルのIdをもとにinquiryテーブルの情報を削除
+		int result = inquiryService.deleteOne(id);// inquiryテーブルのIdをもとにinquiryテーブルの情報を削除
 
 		return getAdministrator(form, model);
 	}
@@ -399,10 +430,10 @@ public class ShoppingController {
 
 		InquiryReplyDTO inquiryreplydto = new InquiryReplyDTO();
 		inquiryreplydto.setInquiryId(id);
-		inquiryreplydto.setTitle(form.getTitle());//問い合わせの返信タイトルをdtoに入れる
-		inquiryreplydto.setContent(form.getContent());//問い合わせの返信内容をdtoに入れる
+		inquiryreplydto.setTitle(form.getTitle());// 問い合わせの返信タイトルをdtoに入れる
+		inquiryreplydto.setContent(form.getContent());// 問い合わせの返信内容をdtoに入れる
 
-		int result = inquiryService.replyInsertOne(inquiryreplydto);//dtoの情報をinquiry_replyテーブルに格納
+		int result = inquiryService.replyInsertOne(inquiryreplydto);// dtoの情報をinquiry_replyテーブルに格納
 
 		return getAdministrator(form, model);
 
@@ -417,7 +448,7 @@ public class ShoppingController {
 		String user_id = auth.getName();
 		int select_id = usersService.select_id(user_id);
 
-		List<InquiryAllDTO> inquiryreplydtolist = inquiryService.everyUserSelectMany(select_id);//usersテーブルのidをもとにinquiryテーブルとinquiry_replyテーブル情報を取得
+		List<InquiryAllDTO> inquiryreplydtolist = inquiryService.everyUserSelectMany(select_id);// usersテーブルのidをもとにinquiryテーブルとinquiry_replyテーブル情報を取得
 		model.addAttribute("inquiryAllDto", inquiryreplydtolist);
 
 		return "shopping/productListLayout";
@@ -427,7 +458,7 @@ public class ShoppingController {
 	public String getAdministrator(@ModelAttribute InquiryForm form, Model model) {
 		model.addAttribute("contents", "shopping/administrator::productListLayout_contents");
 
-		List<InquiryDTO> inquirydtolist = inquiryService.selectMany();//inquiryテーブル情報をすべて取得
+		List<InquiryDTO> inquirydtolist = inquiryService.selectMany();// inquiryテーブル情報をすべて取得
 		model.addAttribute("inquiryList", inquirydtolist);
 
 		return "shopping/productListLayout";
@@ -448,11 +479,11 @@ public class ShoppingController {
 			return getAdmin(form, model);
 		}
 
-		String img1 = form.getPcImg();//画像アドレスを変数に入れる
+		String img1 = form.getPcImg();// 画像アドレスを変数に入れる
 		String img2 = form.getPcImg2();
 		String img3 = form.getPcImg3();
 
-		String imgCheck1 = img1.substring(img1.length() - 4);//画像アドレスが.jpgか確かめるため最後に4文字を取得
+		String imgCheck1 = img1.substring(img1.length() - 4);// 画像アドレスが.jpgか確かめるため最後に4文字を取得
 		String imgCheck2 = img2.substring(img2.length() - 4);
 		String imgCheck3 = img3.substring(img3.length() - 4);
 		String jpg = ".jpg";
@@ -471,7 +502,7 @@ public class ShoppingController {
 			return getAdmin(form, model);
 		}
 
-		//バリデーションエラーにならなければ入力した情報をdtoにいれる
+		// バリデーションエラーにならなければ入力した情報をdtoにいれる
 		PcDataDTO pcdatadto = new PcDataDTO();
 		pcdatadto.setCompany(form.getCompany());
 		pcdatadto.setOs(form.getOs());
@@ -488,9 +519,9 @@ public class ShoppingController {
 //		System.out.println("auth" + auth.getName());
 //		String user_id = auth.getName();
 //		int select_id = usersService.select_id(user_id);
-		
-		int result = pcdataService.insertCheckSelectOne(pcdatadto);//dtoの情報をもとに、pcdateテーブルの情報と比較し、同じ商品がないか確かめる
-		if (result < 1) {//同じ商品がなければdtoの情報をpdcataテーブルに格納する
+
+		int result = pcdataService.insertCheckSelectOne(pcdatadto);// dtoの情報をもとに、pcdateテーブルの情報と比較し、同じ商品がないか確かめる
+		if (result < 1) {// 同じ商品がなければdtoの情報をpdcataテーブルに格納する
 			int pcData = pcdataService.insertOne(pcdatadto);
 		}
 		return getProductList(form, model);
@@ -605,7 +636,8 @@ public class ShoppingController {
 
 	// キャンセル画面に遷移
 	@GetMapping("/cancel/{id}")
-	public String getCancel(@ModelAttribute CancelForm form,CancelNextForm nextform, @PathVariable("id") int purchaseId, Model model) {
+	public String getCancel(@ModelAttribute CancelForm form, CancelNextForm nextform,
+			@PathVariable("id") int purchaseId, Model model) {
 		model.addAttribute("contents", "shopping/cancel::productListLayout_contents");
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -649,21 +681,22 @@ public class ShoppingController {
 	}
 
 	@PostMapping(value = "/cancel", params = "cancelNext")
-	public String postCancelCancelNext(@ModelAttribute CancelForm form,CancelNextForm nextform, @RequestParam("id") int purchaseId,
-			HttpServletRequest request, HttpServletResponse response, Model model,String title) {
+	public String postCancelCancelNext(@ModelAttribute CancelForm form, CancelNextForm nextform,
+			@RequestParam("id") int purchaseId, HttpServletRequest request, HttpServletResponse response, Model model,
+			String title) {
 		model.addAttribute("contents", "shopping/cancelNext::productListLayout_contents");
 
-		System.out.println("formnai"+form.getTitle());
+		System.out.println("formnai" + form.getTitle());
 		try {
-		if(form.getTitle().equals("0")) {
-			System.out.println("バリデーションエラー到達");
-			model.addAttribute("result","キャンセル理由を選択してください");
-			return getCancel(form,nextform,purchaseId,model);
-		}
-		}catch(NullPointerException e) {
+			if (form.getTitle().equals("0")) {
+				System.out.println("バリデーションエラー到達");
+				model.addAttribute("result", "キャンセル理由を選択してください");
+				return getCancel(form, nextform, purchaseId, model);
+			}
+		} catch (NullPointerException e) {
 			e.printStackTrace();
 		}
-		
+
 		System.out.println("cancelNext到達");
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
@@ -703,35 +736,36 @@ public class ShoppingController {
 
 		HttpSession session = request.getSession();
 		try {
-			if(title == null) {
-				System.out.println("title"+form.getTitle());
-				System.out.println("sessionTitle"+session.getAttribute("title"));
+			if (title == null) {
+				System.out.println("title" + form.getTitle());
+				System.out.println("sessionTitle" + session.getAttribute("title"));
 				model.addAttribute("title", (String) session.getAttribute("title"));
-			}else {
-				System.out.println("titleelse"+title);
-				session.setAttribute("title",title);
+			} else {
+				System.out.println("titleelse" + title);
+				session.setAttribute("title", title);
 				model.addAttribute("title", (String) session.getAttribute("title"));
-				session.setAttribute(title,(String) session.getAttribute("title"));
+				session.setAttribute(title, (String) session.getAttribute("title"));
 			}
-			}catch(NullPointerException e) {
-				e.printStackTrace();
-			}
-		
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		}
+
 		return "shopping/productListLayout";
 	}
 
 	@PostMapping(value = "/cancel", params = "confirmation")
-	public String postCancelConfirmation(@ModelAttribute @Validated(GroupOrder.class) CancelNextForm nextform,BindingResult bindingResult,CancelForm form,@RequestParam("id") int purchaseId,
+	public String postCancelConfirmation(@ModelAttribute @Validated(GroupOrder.class) CancelNextForm nextform,
+			BindingResult bindingResult, CancelForm form, @RequestParam("id") int purchaseId,
 			HttpServletRequest request, HttpServletResponse response, Model model) {
 		model.addAttribute("contents", "shopping/cancelConfirmation::productListLayout_contents");
 
-		if(bindingResult.hasErrors()) {
+		if (bindingResult.hasErrors()) {
 			System.out.println("バリデーションエラー到達");
-			//model.addAttribute("result","キャンセル詳細を入力してください");
+			// model.addAttribute("result","キャンセル詳細を入力してください");
 			String titleNew = (String) session.getAttribute("title");
-			return postCancelCancelNext(form,nextform,purchaseId,request,response,model,titleNew);
+			return postCancelCancelNext(form, nextform, purchaseId, request, response, model, titleNew);
 		}
-		
+
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 		String getName = auth.getName();
@@ -769,11 +803,11 @@ public class ShoppingController {
 		model.addAttribute("purchaseList", purchasedto);
 
 		HttpSession session = request.getSession();
-		
-			model.addAttribute("title", (String) session.getAttribute("title"));
-			session.setAttribute("content", nextform.getContent());
-			model.addAttribute("content", nextform.getContent());
-		
+
+		model.addAttribute("title", (String) session.getAttribute("title"));
+		session.setAttribute("content", nextform.getContent());
+		model.addAttribute("content", nextform.getContent());
+
 		return "shopping/productListLayout";
 	}
 
@@ -1003,40 +1037,40 @@ public class ShoppingController {
 		System.out.println("title" + title);
 		String content = (String) session.getAttribute("content");
 		CancelDTO canceldto = new CancelDTO();
-		if(form.getBankNumber() != null) {
-		int bankNumber = Integer.parseInt(form.getBankNumber());
-		model.addAttribute("bankNumber", bankNumber);
-		int storeName = Integer.parseInt(form.getStoreName());
-		
-		int maxId = cancelService.selectCancelCheck(purchaseId, userId);
-		if (maxId == 0) {
-			cancelService.insertOneCancelCheck(canceldto, userId, purchaseId, productId, title, content, bankNumber,
-					storeName);
-			purchaseService.insertOneCancelCheck(purchaseId);
-			return "shopping/productListLayout";
-		} else {
-			System.out.println("maxid" + maxId);
-			CancelDTO canceldtoNext = cancelService.cancelCheckSelect(maxId);
-			System.out.println("canceldtocancelCheck" + canceldtoNext.getCancelCheck());
-			String checkName = canceldtoNext.getCancelCheck();
-			if (canceldtoNext.getCancelCheck() == "null") {
-				System.out.println("1");
+		if (form.getBankNumber() != null) {
+			int bankNumber = Integer.parseInt(form.getBankNumber());
+			model.addAttribute("bankNumber", bankNumber);
+			int storeName = Integer.parseInt(form.getStoreName());
+
+			int maxId = cancelService.selectCancelCheck(purchaseId, userId);
+			if (maxId == 0) {
 				cancelService.insertOneCancelCheck(canceldto, userId, purchaseId, productId, title, content, bankNumber,
 						storeName);
 				purchaseService.insertOneCancelCheck(purchaseId);
-			} else if ((canceldtoNext.getCancelCheck() == "キャンセル取引中")
-					&& (canceldtoNext.getCancelCheck() != "返品商品確認待ち")) {
-				System.out.println("2");
-				model.addAttribute("result", "すでに口座情報が入力されています。キャンセル取り消しをする場合は商品履歴画面から上記商品の商品問題から行ってください。");
-				model.addAttribute("contents", "shopping/cancelDeliveredDetail::productListLayout_contents");
 				return "shopping/productListLayout";
 			} else {
-				System.out.println("3");
+				System.out.println("maxid" + maxId);
+				CancelDTO canceldtoNext = cancelService.cancelCheckSelect(maxId);
+				System.out.println("canceldtocancelCheck" + canceldtoNext.getCancelCheck());
+				String checkName = canceldtoNext.getCancelCheck();
+				if (canceldtoNext.getCancelCheck() == "null") {
+					System.out.println("1");
+					cancelService.insertOneCancelCheck(canceldto, userId, purchaseId, productId, title, content,
+							bankNumber, storeName);
+					purchaseService.insertOneCancelCheck(purchaseId);
+				} else if ((canceldtoNext.getCancelCheck() == "キャンセル取引中")
+						&& (canceldtoNext.getCancelCheck() != "返品商品確認待ち")) {
+					System.out.println("2");
+					model.addAttribute("result", "すでに口座情報が入力されています。キャンセル取り消しをする場合は商品履歴画面から上記商品の商品問題から行ってください。");
+					model.addAttribute("contents", "shopping/cancelDeliveredDetail::productListLayout_contents");
+					return "shopping/productListLayout";
+				} else {
+					System.out.println("3");
+				}
+
 			}
-			
-		}
-}else {
-			
+		} else {
+
 		}
 
 		int result = cancelService.deliveryAddressSelect(purchaseId);
@@ -1062,16 +1096,16 @@ public class ShoppingController {
 
 	@PostMapping(value = "/cancelDeliveryComplete", params = "deliveredCompleted")
 	public String postCancelDeliveryCompleteDeliveredCompleted(@ModelAttribute CancelForm form,
-			@Validated(GroupOrder.class)CancelInTransactionForm intransactionform,BindingResult bindingResult,@RequestParam("id") int purchaseId,
-			@RequestParam("customId") int customId, HttpServletRequest request,
-			HttpServletResponse response,Model model) {
+			@Validated(GroupOrder.class) CancelInTransactionForm intransactionform, BindingResult bindingResult,
+			@RequestParam("id") int purchaseId, @RequestParam("customId") int customId, HttpServletRequest request,
+			HttpServletResponse response, Model model) {
 		model.addAttribute("contents", "shopping/cancelDeliveredCompleted::productListLayout_contents");
 
-		if(bindingResult.hasErrors()) {
+		if (bindingResult.hasErrors()) {
 			System.out.println("1");
-			return postCancelDeliveryComplete(form,intransactionform,purchaseId,customId,request,response,model);
+			return postCancelDeliveryComplete(form, intransactionform, purchaseId, customId, request, response, model);
 		}
-		
+
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 		String getName = auth.getName();
@@ -1466,45 +1500,107 @@ public class ShoppingController {
 		return "shopping/productListLayout";
 
 	}
-	
+
 	@GetMapping("/couponList")
-	public String getCouponList(@ModelAttribute CouponForm form,Model model) {
+	public String getCouponList(@ModelAttribute CouponForm form, Model model) {
 		model.addAttribute("contents", "shopping/couponList::productListLayout_contents");
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println("auth" + auth.getName());
+		String getName = auth.getName();
+		int userId = usersService.select_id(getName);// メソッドに入ったユーザーのIDを取得
+
+		int allProductCount = 0;
+		int allTotalPrice = 0;
+		List<PurchaseDTO> purchasedtoList = purchaseService.selectHistory(userId);// メソッドに入ったユーザーの購入情報を取得
+		List<PurchaseDTO> allPurchaseList = new ArrayList<>();
+		PurchaseDTO customList;
+		// 購入商品を一つづつ回して値を受け取る
+		for (int i = 0; purchasedtoList.size() > i; i++) {
+			PurchaseDTO purchasedtoAdd = new PurchaseDTO();
+			PurchaseDTO purchaseOne = purchasedtoList.get(i);
+			purchasedtoAdd.setId(purchaseOne.getId());// カスタム情報取得に使用
+			purchasedtoAdd.setCancelCheck(purchaseOne.getCancelCheck());
+			purchasedtoAdd.setPrice(purchaseOne.getPrice());
+			purchasedtoAdd.setProduct_count(purchaseOne.getProduct_count());
+			purchasedtoAdd.setPurchaseCheck(purchaseOne.getPurchaseCheck());
+			int productId = purchasedtoAdd.getId();
+			// 購入商品ごとのカスタム情報も取り出す
+			String nullCheck = "null";
+			int getCustomId = customService.selectPurchaseCheck(userId, productId, purchasedtoAdd.getPurchaseCheck(),
+					nullCheck);
+
+			customList = customService.selectMany(getCustomId);// customテーブルのIDでカスタム情報を取得
+			purchasedtoAdd.setCustomPrice(customList.getCustomPrice());
+			purchasedtoAdd.setTotalPrice(
+					purchaseOne.getProduct_count() * (customList.getCustomPrice() + purchaseOne.getPrice()));
+			allTotalPrice = allTotalPrice + purchasedtoAdd.getTotalPrice();// ユーザーの購入した商品の合計金額を取得
+			allProductCount = allProductCount + purchasedtoAdd.getProduct_count();// ユーザーの購入した商品の数を取得
+			model.addAttribute("purchaseCount", allProductCount);
+			model.addAttribute("allTotalPrice", allTotalPrice);
+			allPurchaseList.add(purchasedtoAdd);
+		}
 		
-		List<CouponDTO> coupondtoList = couponService.selectMany();
 		
-		model.addAttribute("couponList",coupondtoList);
+		List<CouponDTO> coupondtoList = couponService.selectMany();// couponテーブルからクーポン情報をすべて取得
 		
+		List<CouponDTO> coupondtoListAdd = new ArrayList<>();
+		
+		for(int i = 0; coupondtoList.size() > i; i++) {//クーポン情報を一つづつ取り出す
+			CouponDTO coupondtoOne = coupondtoList.get(i);
+			int allCount = coupondtoOne.getPurchaseCountTarget();
+			int allPrice = coupondtoOne.getPurchaseTotalPriceTarget();
+		
+			boolean countCheck = false;
+			boolean priceCheck = false;
+			
+			if(allProductCount >= allCount) {//ユーザーの商品購入数と、クーポンの使用条件の商品購入数を比較
+				countCheck = true;
+			}
+			if(allTotalPrice >= allPrice) {//ユーザーの全商品購入金額と、クーポンの使用条件の全商品購入金額を比較
+				priceCheck = true;
+			}
+			
+			coupondtoOne.setCouponCheck(false);
+			if((countCheck == true) && (priceCheck == true)) {//商品購入数と全商品購入金額がクーポンの使用条件に達しているか比較
+				coupondtoOne.setCouponCheck(true);
+			}
+			
+			coupondtoListAdd.add(coupondtoOne);
+			System.out.println("couponCheck"+coupondtoOne.isCouponCheck());
+		}
+		
+	
+		model.addAttribute("couponList", coupondtoListAdd);
+
+
+
 		return "shopping/productListLayout";
 	}
-	
-	
-	
+
 	@GetMapping("couponAdd")
-	public String getCouponAdd(@ModelAttribute CouponForm form,Model model) {
+	public String getCouponAdd(@ModelAttribute CouponForm form, Model model) {
 		model.addAttribute("contents", "shopping/couponAdd::productListLayout_contents");
-		
+
 		return "shopping/productListLayout";
 	}
-	
-	@PostMapping(value = "couponAdd",params = "distribution")
-	public String postCouponAdd(@ModelAttribute CouponForm form, HttpServletRequest request, HttpServletResponse response,Model model) {
-		model.addAttribute("contents", "shopping/couponList::productListLayout_contents");
-		
-		HttpSession session = request.getSession();//入力されたクーポン情報をsession保存
+
+	@PostMapping(value = "couponAdd", params = "distribution")
+	public String postCouponAdd(@ModelAttribute CouponForm form, HttpServletRequest request,
+			HttpServletResponse response, Model model) {
+		//model.addAttribute("contents", "shopping/couponList::productListLayout_contents");
+
+		HttpSession session = request.getSession();// 入力されたクーポン情報をsession保存
 		session.setAttribute("title", form.getTitle());
-		session.setAttribute("discount",form.getDiscount());
-		session.setAttribute("purchaseCountTarget",form.getPurchaseCountTarget());
-		session.setAttribute("purchaseTotalPriceTarget",form.getPurchaseTotalPriceTarget());
-		
+		session.setAttribute("discount", form.getDiscount());
+		session.setAttribute("purchaseCountTarget", form.getPurchaseCountTarget());
+		session.setAttribute("purchaseTotalPriceTarget", form.getPurchaseTotalPriceTarget());
+
 		CouponDTO coupondto = new CouponDTO();
-		
-		couponService.couponInsert(coupondto,session);//couponテーブルにsessionに保存したデータを格納
-		
-		
-		
-		
-		return "shopping/productListLayout";
+
+		couponService.couponInsert(coupondto, session);// couponテーブルにsessionに保存したデータを格納
+
+		return getCouponList(form,model);
 	}
 
 	@GetMapping("/productList")

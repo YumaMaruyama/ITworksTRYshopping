@@ -8,25 +8,35 @@
 <body>
 
 	<div th:fragment="productListLayout_contents">
-	<h1 class="titleDesign">あなたの情報</h1>
-	
-	<table class="table table-hover table-bordered usersListDesign" th:each="userslistdto : ${usersList}">
-		<tr>
-			<th class="text-center">メールアドレス</th>
-			<th class="text-center">登録名</th>
-			<th class="text-center">生年月日</th>
-			<th class="text-center">商品受け取り住所</th>
-			<th class="text-center">管理</th>
-		</tr>
-		
-		<tr>
-			<td class="text-center" th:text="${userslistdto.userId}"></td>
-			<td class="text-center" th:text="${userslistdto.userName}"></td>
-			<td class="text-center" th:text="${userslistdto.birthday}"></td>
-			<td class="text-center" th:text="${userslistdto.address}"></td>
-			<td class="text-center" ><a th:href="@{ '/editYourDetail' +  '/' + ${id}}" class="btn btn-primary btnDesign" >編集</a></td>
-		</tr>
-	</table>
+		<h1 class="titleDesign">あなたの情報</h1>
+
+		<table class="table table-hover table-bordered usersListDesign"
+			th:each="userslistdto : ${usersList}">
+			<tr>
+				<th class="text-center">メールアドレス</th>
+				<th class="text-center">登録名</th>
+				<th class="text-center">生年月日</th>
+				<th class="text-center">商品受け取り住所</th>
+				<th class="text-center">管理</th>
+			</tr>
+
+			<tr>
+				<td class="text-center" th:text="${userslistdto.userId}"></td>
+				<td class="text-center" th:text="${userslistdto.userName}"></td>
+				<td class="text-center" th:text="${userslistdto.birthday}"></td>
+				<td class="text-center" th:text="${userslistdto.address}"></td>
+				<td class="text-center"><a
+					th:href="@{ '/editYourDetail' +  '/' + ${id}}"
+					class="btn btn-primary btnDesign">編集</a></td>
+			</tr>
+		</table>
+
+		<table class="table table-hover table-bordered">
+			<tr>
+				<td class="text-center" th:text="'商品購入数:' + ${purchaseCount}"></td>
+				<td class="text-center" th:text="'合計購入金額:' + ${allTotalPrice}"></td>
+			</tr>
+		</table>
 	</div>
 </body>
 </html>
