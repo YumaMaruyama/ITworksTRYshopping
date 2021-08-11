@@ -1577,6 +1577,13 @@ public class ShoppingController {
 
 		return "shopping/productListLayout";
 	}
+	
+	@GetMapping("couponSee")
+	public String getCouponSee(@ModelAttribute CouponForm form,Model model) {
+		model.addAttribute("contents", "shopping/couponSee::productListLayout_contents");
+		
+		return "shopping/productListLayout";
+	}
 
 	@GetMapping("couponAdd")
 	public String getCouponAdd(@ModelAttribute CouponForm form, Model model) {
