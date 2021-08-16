@@ -1651,6 +1651,13 @@ List<CouponDTO> coupondtoListAdd = new ArrayList<>();
 		model.addAttribute("couponList", coupondtoListAdd);
 		return "shopping/productListLayout";
 	}
+	
+	@GetMapping("/couponCancel")
+	public String getCouponCancel(@ModelAttribute CouponForm form,Model model) {
+		
+		CartForm cartForm = new CartForm();
+		return cart(cartForm,model);
+	}
 		
 	@GetMapping("/couponUse/{id}")
 	public String getCouponUse(@ModelAttribute CouponForm form,@PathVariable("id") int couponId,Model model) {
@@ -1678,12 +1685,14 @@ List<CouponDTO> coupondtoListAdd = new ArrayList<>();
 		CouponDTO coupondto = couponService.selectOne(couponId);
 		int disCount = coupondto.getDiscount();
 		double disCountNew = Double.valueOf("0." + disCount);
-		double couponAfterPrice = totalPrice * disCountNew;
+		double disCountPrice = totalPrice * disCountNew;
+		int couponAfterPrice = (int)(totalPrice - disCountPrice);
 		//ここから割引分の値が入っているのでそれをトータルからひく、小数点以下も切り捨てる
 		model.addAttribute("couponAfterPrice",couponAfterPrice);
 		
 		model.addAttribute("cartList", cartList);
-		
+		//model.addAttribute("couponUseCheck","couponUse");//クーポンチェック文字をhtmlにもっていく
+		model.addAttribute("couponId",couponId);//使用するクーポンIDをhtmlに持っていく
 		
 		
 		return "shopping/productListLayout";
@@ -1899,7 +1908,7 @@ List<CouponDTO> coupondtoListAdd = new ArrayList<>();
 	}
 
 	@GetMapping("/clearing")
-	public String getCardClearing(@ModelAttribute CreditForm form, Model model) {
+	public String getCardClearing(@ModelAttribute CreditForm form,@RequestParam("couponId") int couponId,Model model) {
 		model.addAttribute("contents", "shopping/clearing::productListLayout_contents");
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -1912,12 +1921,23 @@ List<CouponDTO> coupondtoListAdd = new ArrayList<>();
 			PcDataDTO pcdatadto = cartList.get(i);
 			totalPrice = totalPrice + pcdatadto.getProduct_count() * pcdatadto.getAfterCustomPrice();
 			System.out.println("totalPrice" + totalPrice);
+			if(couponId == 0) {
 			model.addAttribute("totalPrice", totalPrice);
+			}else {
+				CouponDTO coupondto = couponService.selectOne(couponId);
+				int disCount = coupondto.getDiscount();
+				double disCountNew = Double.valueOf("0." + disCount);
+				double disCountPrice = totalPrice * disCountNew;
+				int couponAfterPrice = (int)(totalPrice - disCountPrice);
+				//ここから割引分の値が入っているのでそれをトータルからひく、小数点以下も切り捨てる
+				model.addAttribute("totalPrice",couponAfterPrice);
+			}
 			// model.addAttribute("product_count",pcdatadto.getProduct_count());
 			// form.setProduct_count(pcdatadto.getProduct_count());
 			System.out.println("form" + form);
 		}
-
+		model.addAttribute("couponId",couponId);
+		System.out.println("coId"+couponId);
 		return "shopping/productListLayout";
 	}
 
@@ -1925,11 +1945,11 @@ List<CouponDTO> coupondtoListAdd = new ArrayList<>();
 	public String getClearing(@ModelAttribute @Validated(GroupOrder.class) CreditForm form, BindingResult bindingResult,
 			RedirectAttributes redirectAttributes, @RequestParam("digits_3_code") String digits_3_code,
 			@RequestParam("cardName") String cardName, @RequestParam("cardNumber") String cardNumber,
-			HttpServletRequest request, HttpServletResponse response, Model model) {
+			@RequestParam("couponId") int couponId,HttpServletRequest request, HttpServletResponse response, Model model) {
 		model.addAttribute("contents", "shopping/confirmation::productListLayout_contents");
 		if (bindingResult.hasErrors()) {
 			System.out.println("バリデーションエラー");
-			return getCardClearing(form, model);
+			return getCardClearing(form,couponId,model);
 		}
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -1942,6 +1962,7 @@ List<CouponDTO> coupondtoListAdd = new ArrayList<>();
 		session.setAttribute("digits_3_code", digits_3_code);
 		session.setAttribute("cardName", cardName);
 		session.setAttribute("cardNumber", cardNumber);
+		model.addAttribute("couponId",couponId);
 
 		return "redirect:/confirmation";
 	}
@@ -2023,6 +2044,8 @@ List<CouponDTO> coupondtoListAdd = new ArrayList<>();
 		}
 
 		model.addAttribute("cartList", cartList);
+		//model.addAttribute("couponUseCheck","couponNotUse");
+		model.addAttribute("couponId",0);
 		model.addAttribute("couponAfterPrice","-1");//クーポン使用していない時に表示するテーブルを出すための値
 		
 		return "shopping/productListLayout";

@@ -14,7 +14,7 @@
 		</header>
 		
 		<table>
-		<tr class="couponDetail1"><td th:text="'これまでの商品購入数は、' + ${purchaseCount} + '個で、合計購入金額は' + ${allTotalPrice} + '円です'"></td></tr>
+		<tr class="couponDetail1"><td th:text="'あなたのこれまでの商品購入数は' + ${purchaseCount} + '個で、合計購入金額は' + ${allTotalPrice} + '円です' + ' ※商品購入数と合計購入金額の条件をどちらも満たしている必要があります'"></td></tr>
 		</table>
 		
 		<table class="table table-hover table-bordered" th:each="coupondto:${couponList}">
@@ -29,9 +29,9 @@
 			
 			<tr>
 				<td class="text-center" th:text="${coupondto.title}"></td>
-				<td class="text-center" th:text="${coupondto.discount}"></td>
-				<td class="text-center" th:text="${coupondto.purchaseCountTarget}"></td>
-				<td class="text-center" th:text="${coupondto.purchaseTotalPriceTarget}"></td>
+				<td class="text-center" th:text="${coupondto.discount} + '%割り'"></td>
+				<td class="text-center" th:text="${coupondto.purchaseCountTarget} + '個以上'"></td>
+				<td class="text-center" th:text="${coupondto.purchaseTotalPriceTarget} + '円以上'"></td>
 				<td class="text-center"><a th:href="@{/couponUse} + '/' + ${coupondto.id}">使用する</a></td>
 			</tr>
 		

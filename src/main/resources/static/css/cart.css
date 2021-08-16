@@ -45,10 +45,15 @@
 }
 
 .clearingBtn {
-	font-size: 23px !important;
-	
+	font-size: 23px !important;	
 	margin-top: 4px;
     margin-left: 56px;
+}
+
+.clearingBtnAfter {
+	font-size: 23px !important;	
+	margin-top: 4px;
+    margin-left: 26px;
 }
 
 .couponBtn {
