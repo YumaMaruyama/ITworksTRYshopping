@@ -14,7 +14,7 @@
 		</header>
 
 		<br> <br>
-		<form method="post" th:action="@{/clearing}" th:object="${creditForm}">
+		<form method="post" th:action="@{/clearing} + '/' + ${couponId}" th:object="${creditForm}">
 
 			<div>
 				<h4>JCBカードの情報を入力してください。</h4>
@@ -68,7 +68,7 @@
 			<!-- <input type="hidden" name="digits_3_code" th:value="${digits_3_code}">-->
 
 			<button class="btn btn-gradient confirmationBtn">最終確認画面へ</button>
-			<input type="hidden" name="couponId" th:velue="${couponId}">
+		
 		</form>
 
 		<!--

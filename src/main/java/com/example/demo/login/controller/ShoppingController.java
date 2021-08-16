@@ -1936,17 +1936,21 @@ List<CouponDTO> coupondtoListAdd = new ArrayList<>();
 			// form.setProduct_count(pcdatadto.getProduct_count());
 			System.out.println("form" + form);
 		}
+		if(couponId != 0) {
 		model.addAttribute("couponId",couponId);
+		}else {
+			model.addAttribute("couponId",-1);
+		}
 		System.out.println("coId"+couponId);
 		return "shopping/productListLayout";
 	}
 
-	@PostMapping("/clearing")
+	@PostMapping("/clearing/{couponId}")
 	public String getClearing(@ModelAttribute @Validated(GroupOrder.class) CreditForm form, BindingResult bindingResult,
 			RedirectAttributes redirectAttributes, @RequestParam("digits_3_code") String digits_3_code,
 			@RequestParam("cardName") String cardName, @RequestParam("cardNumber") String cardNumber,
-			@RequestParam("couponId") int couponId,HttpServletRequest request, HttpServletResponse response, Model model) {
-		model.addAttribute("contents", "shopping/confirmation::productListLayout_contents");
+			@PathVariable("couponId") int couponId,HttpServletRequest request, HttpServletResponse response, Model model) {
+		//model.addAttribute("contents", "shopping/confirmation::productListLayout_contents");
 		if (bindingResult.hasErrors()) {
 			System.out.println("バリデーションエラー");
 			return getCardClearing(form,couponId,model);
@@ -1962,8 +1966,8 @@ List<CouponDTO> coupondtoListAdd = new ArrayList<>();
 		session.setAttribute("digits_3_code", digits_3_code);
 		session.setAttribute("cardName", cardName);
 		session.setAttribute("cardNumber", cardNumber);
-		model.addAttribute("couponId",couponId);
-
+		session.setAttribute("couponId",couponId);
+		
 		return "redirect:/confirmation";
 	}
 
@@ -2293,6 +2297,7 @@ List<CouponDTO> coupondtoListAdd = new ArrayList<>();
 			HttpServletResponse response, Model model) {
 		model.addAttribute("contents", "shopping/confirmation::productListLayout_contents");
 
+		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 		String getName = auth.getName();
@@ -2315,9 +2320,22 @@ List<CouponDTO> coupondtoListAdd = new ArrayList<>();
 		String digits_3_code = (String) session.getAttribute("digits_3_code");
 		String cardName = (String) session.getAttribute("cardName");
 		String cardNumber = (String) session.getAttribute("cardNumber");
+		int couponId = (int) session.getAttribute("couponId");
+		
+		if(couponId > 0) {
+			CouponDTO coupondto = couponService.selectOne(couponId);
+			int disCount = coupondto.getDiscount();
+			double disCountNew = Double.valueOf("0." + disCount);
+			double disCountPrice = totalPrice * disCountNew;
+			int couponAfterPrice = (int)(totalPrice - disCountPrice);
+			//ここから割引分の値が入っているのでそれをトータルからひく、小数点以下も切り捨てる
+			model.addAttribute("totalPrice",couponAfterPrice);
+		}
+		
 		model.addAttribute("digits_3_code", digits_3_code);
 		model.addAttribute("cardName", cardName);
 		model.addAttribute("cardNumber", cardNumber);
+		model.addAttribute("couponId",couponId);
 
 		return "shopping/productListLayout";
 	}

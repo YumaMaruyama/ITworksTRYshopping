@@ -24,4 +24,6 @@ public class CreditForm {
 	//@NumberFormat(pattern = "\\d{16}")
 	@Length(min = 16, max = 16, groups = ValidGroup2.class)
 	private String cardNumber;
+	
+	private int couponId;
 }
