@@ -8,7 +8,7 @@ import com.example.demo.login.domail.model.PurchaseDTO;
 
 public interface PurchaseDao {
 
-	public int insert(PurchaseDTO purchasedto,int purchaseId,int purchaseCount,int select_id,int purchaseCreditId,int customId);
+	public int insert(PurchaseDTO purchasedto,int purchaseId,int purchaseCount,int select_id,int purchaseCreditId,int customId,int couponId);
 
 	public List<PcDataDTO> selectMany(int select_id,int purchaseNumber);
 

@@ -53,7 +53,7 @@ public class CartDaoJdbcImpl implements CartDao {
 			int pcdatadtoOne = product_idList.get(i);
 			System.out.println("pcdatadtoOne" + pcdatadtoOne);
 			List<Map<String, Object>> productList = jdbc.queryForList(
-					"select pcdata.id,pcdata.company,pcdata.os,pcdata.pc_name,pcdata.pc_size,pcdata.price,pcdata.detail,pcdata.product_stock,pcdata.pcimg,pcdata.pcimg2,pcdata.pcimg3,cart.id AS cartId,cart.product_count,cart.purchase_check,custom.id AS customId,custom.memory,custom.hard_disc,custom.cpu,custom.custom_price from pcdata JOIN cart ON pcdata.id = cart.product_id JOIN custom ON pcdata.id = custom.product_id where pcdata.id = ? and custom.user_id = ? and cart.user_id = ? and cart.purchase_check is null and custom.purchase_check is null",
+					"select pcdata.id,pcdata.company,pcdata.os,pcdata.pc_name,pcdata.pc_size,pcdata.price,pcdata.detail,pcdata.product_stock,pcdata.pcimg,pcdata.pcimg2,pcdata.pcimg3,cart.id AS cartId,cart.product_count,cart.purchase_check,cart.coupon_id,custom.id AS customId,custom.memory,custom.hard_disc,custom.cpu,custom.custom_price from pcdata JOIN cart ON pcdata.id = cart.product_id JOIN custom ON pcdata.id = custom.product_id where pcdata.id = ? and custom.user_id = ? and cart.user_id = ? and cart.purchase_check is null and custom.purchase_check is null",
 					pcdatadtoOne,getId,getId);
 			
 			user_productList.addAll(productList);
@@ -77,8 +77,32 @@ public class CartDaoJdbcImpl implements CartDao {
 
 			PcDataDTO pcdatadto = new PcDataDTO();
 			PcDetailDataDTO pcdetaildatadto = new PcDetailDataDTO();
-			
-			
+			String couponIdCheck = (String) map.get("couponId");
+			int couponId;
+			if(couponIdCheck == null) {
+				couponId = 0;
+				pcdatadto.setId((int) map.get("id"));
+				pcdatadto.setCompany((String) map.get("company"));
+				pcdatadto.setOs((String) map.get("os"));
+				pcdatadto.setPc_name((String) map.get("pc_name"));
+				pcdatadto.setPc_size((int) map.get("pc_size"));
+				pcdatadto.setPrice((int) map.get("price"));
+				pcdatadto.setDetail((String) map.get("detail"));
+				pcdatadto.setProduct_stock((int) map.get("product_stock"));
+				pcdatadto.setPcImg((String) map.get("pcImg"));
+				pcdatadto.setPcImg2((String) map.get("pcImg2"));
+				pcdatadto.setPcImg3((String) map.get("pcImg3"));
+				pcdatadto.setCartId((int) map.get("cartId"));
+				pcdatadto.setProduct_count((int) map.get("product_count"));
+				pcdatadto.setCouponId(couponId);
+				pcdatadto.setId((int)map.get("id"));
+				pcdatadto.setMemory((String)map.get("memory"));
+				pcdatadto.setHardDisc((String)map.get("hard_disc"));
+				pcdatadto.setCpu((String)map.get("cpu"));
+				pcdatadto.setCustomPrice((int)map.get("custom_price"));
+				pcdatadto.setAfterCustomPrice(pcdatadto.getPrice() + pcdatadto.getCustomPrice());
+				pcdatadto.setTotalPrice(sumPrice);
+			}else {
 			pcdatadto.setId((int) map.get("id"));
 			pcdatadto.setCompany((String) map.get("company"));
 			pcdatadto.setOs((String) map.get("os"));
@@ -92,6 +116,7 @@ public class CartDaoJdbcImpl implements CartDao {
 			pcdatadto.setPcImg3((String) map.get("pcImg3"));
 			pcdatadto.setCartId((int) map.get("cartId"));
 			pcdatadto.setProduct_count((int) map.get("product_count"));
+			pcdatadto.setCouponId((int)map.get("coupon_id"));
 			pcdatadto.setId((int)map.get("id"));
 			pcdatadto.setMemory((String)map.get("memory"));
 			pcdatadto.setHardDisc((String)map.get("hard_disc"));
@@ -99,7 +124,7 @@ public class CartDaoJdbcImpl implements CartDao {
 			pcdatadto.setCustomPrice((int)map.get("custom_price"));
 			pcdatadto.setAfterCustomPrice(pcdatadto.getPrice() + pcdatadto.getCustomPrice());
 			pcdatadto.setTotalPrice(sumPrice);
-			
+			}
 			
 			pcdataList.add(pcdatadto);
 
@@ -229,6 +254,16 @@ public class CartDaoJdbcImpl implements CartDao {
 	public int idInsertOne(int id,int product_id ,int select_id) {
 		int result = jdbc.update("update cart set purchase_check = ? where product_id = ? and user_id = ? and purchase_check is null",id,product_id,select_id);
 		
+		return result;
+	}
+	
+	public int selectMaxId(int productId) {
+		int result = jdbc.queryForObject("select max(id) from cart where product_id = ?",Integer.class,productId);
+		return result;
+	}
+	
+	public int updateCouponId(int cartId,int couponId) {
+		int result = jdbc.update("update cart set coupon_id = ? where id = ?",couponId,cartId);
 		return result;
 	}
 	

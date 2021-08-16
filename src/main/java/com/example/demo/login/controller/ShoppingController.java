@@ -1659,16 +1659,20 @@ List<CouponDTO> coupondtoListAdd = new ArrayList<>();
 		return cart(cartForm,model);
 	}
 		
-	@GetMapping("/couponUse/{id}")
-	public String getCouponUse(@ModelAttribute CouponForm form,@PathVariable("id") int couponId,Model model) {
+	@GetMapping("/couponUse/{couponId}/{productId}")
+	public String getCouponUse(@ModelAttribute CouponForm form,@PathVariable("couponId") int couponId,@PathVariable("productId") int productId,Model model) {
 		model.addAttribute("contents", "shopping/cart::productListLayout_contents");
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 		String getUserId = auth.getName();
 		
+		int cartId = cartService.selectMaxId(productId);//cartテーブルからクーポンを使う商品IDを取得
+		cartService.updateCouponId(cartId,couponId);//商品IDでselectし、クーポン情報を加える
+		
 		// ログインユーザーのみのカートの情報を取得
 		List<PcDataDTO> cartList = cartService.selectMany(getUserId);
+		int totalPriceNew = 0;
 		int totalPrice = 0;
 		if (cartList == null || cartList.size() == 0) {
 			model.addAttribute("totalPrice", 0);
@@ -1676,19 +1680,24 @@ List<CouponDTO> coupondtoListAdd = new ArrayList<>();
 			
 			for (int i = 0; i < cartList.size(); i++) {
 				PcDataDTO pcdatadto = cartList.get(i);
+				
+				totalPriceNew = totalPriceNew
+						+ pcdatadto.getProduct_count() * (pcdatadto.getPrice() + pcdatadto.getCustomPrice());
+				//クーポン情報はcartテーブルに入っている。カート画面は値段は変わっていないからここから始める。
 				totalPrice = totalPrice
 						+ pcdatadto.getProduct_count() * (pcdatadto.getPrice() + pcdatadto.getCustomPrice());
-				model.addAttribute("totalPrice", totalPrice);
+				if(pcdatadto.getCouponId() >= 1) {
+					CouponDTO coupondto = couponService.selectOne(couponId);
+					int disCount = coupondto.getDiscount();
+					double disCountNew = Double.valueOf("0." + disCount);
+					double disCountPrice = totalPrice * disCountNew;
+					totalPrice = (int)(totalPrice - disCountPrice);
+				}
+				model.addAttribute("totalPrice",totalPriceNew);
+				model.addAttribute("couponAfterPrice", totalPrice);
 			}
 		}
-		
-		CouponDTO coupondto = couponService.selectOne(couponId);
-		int disCount = coupondto.getDiscount();
-		double disCountNew = Double.valueOf("0." + disCount);
-		double disCountPrice = totalPrice * disCountNew;
-		int couponAfterPrice = (int)(totalPrice - disCountPrice);
-		//ここから割引分の値が入っているのでそれをトータルからひく、小数点以下も切り捨てる
-		model.addAttribute("couponAfterPrice",couponAfterPrice);
+	
 		
 		model.addAttribute("cartList", cartList);
 		//model.addAttribute("couponUseCheck","couponUse");//クーポンチェック文字をhtmlにもっていく
@@ -1696,6 +1705,35 @@ List<CouponDTO> coupondtoListAdd = new ArrayList<>();
 		
 		
 		return "shopping/productListLayout";
+	}
+	
+	@GetMapping("couponProductChoose/{id}")
+	public String getCouponProductChoose(@ModelAttribute CouponForm form,@PathVariable("id") int couponId,Model model) {
+		model.addAttribute("contents", "shopping/couponProductChoose::productListLayout_contents");
+		
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println("auth" + auth.getName());
+		String user_id = auth.getName();
+		// ログインユーザーのみのカートの情報を取得
+		List<PcDataDTO> cartList = cartService.selectMany(user_id);
+		System.out.println("cartList" + cartList);
+//			int totalPrice = 0;
+//			for (int i = 0; i < cartList.size(); i++) {
+//				PcDataDTO pcdatadto = cartList.get(i);
+//				totalPrice = totalPrice
+//						+ pcdatadto.getProduct_count() * (pcdatadto.getPrice() + pcdatadto.getCustomPrice());
+//				System.out.println("テストtotalPrice" + totalPrice);
+//				model.addAttribute("totalPrice", totalPrice);
+//				}
+			
+		
+		model.addAttribute("cartList", cartList);
+		model.addAttribute("couponId",couponId);
+	
+		
+		return "shopping/productListLayout";
+	
 	}
 
 	@GetMapping("couponAdd")
@@ -2343,7 +2381,7 @@ List<CouponDTO> coupondtoListAdd = new ArrayList<>();
 	@PostMapping("/confirmation")
 	public String postConfirmation(@ModelAttribute PcDataForm form, RedirectAttributes redirectattributes,
 			@RequestParam("digits_3_code") String digits_3_code, @RequestParam("cardName") String cardName,
-			@RequestParam("cardNumber") String cardNumber, @RequestParam("totalPrice") int totalPrice,
+			@RequestParam("cardNumber") String cardNumber, @RequestParam("totalPrice") int totalPrice,@RequestParam("couponId") int couponId,
 			HttpServletRequest request, HttpServletResponse response, Model model) {
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -2387,7 +2425,7 @@ List<CouponDTO> coupondtoListAdd = new ArrayList<>();
 			int purchaseCount = cartdto.getProduct_count();
 			// customService.pruchaseIdInsertOne(productid);
 			int purchaseInsertResult = purchaseService.insert(purchasedto, productid, purchaseCount, select_id,
-					purchaseCreditId, customId);
+					purchaseCreditId, customId,couponId);
 			int purchaseId = purchaseService.selectPurchaseIdOne();
 			System.out.println("purchaseId" + purchaseId);
 			int customPurchaseCheckUpdateResult = customService.pruchaseIdUpdate(purchaseId, productId, select_id);

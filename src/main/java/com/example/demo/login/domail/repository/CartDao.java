@@ -31,6 +31,10 @@ public interface CartDao {
 	
 	public int idInsertOne(int id,int product_id ,int select_id);
 	
+	public int selectMaxId(int productId);
+	
+	public int updateCouponId(int cartId,int couponId);
+	
 	
 
 	//public int selectProductId(int cartId);

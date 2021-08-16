@@ -118,6 +118,14 @@ public class CartService {
 		return dao.idInsertOne(id,product_id,select_id);
 	}
 	
+	public int selectMaxId(int productId) {
+		return dao.selectMaxId(productId);
+	}
+	
+	public int updateCouponId(int cartId,int couponId) {
+		return dao.updateCouponId(cartId,couponId);
+	}
+	
 	
 //	public int selectProductId(int cartId) {
 //		return dao.selectProductId(cartId);

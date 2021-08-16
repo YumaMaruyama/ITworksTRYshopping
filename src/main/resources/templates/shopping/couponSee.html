@@ -32,7 +32,8 @@
 				<td class="text-center" th:text="${coupondto.discount} + '%割り'"></td>
 				<td class="text-center" th:text="${coupondto.purchaseCountTarget} + '個以上'"></td>
 				<td class="text-center" th:text="${coupondto.purchaseTotalPriceTarget} + '円以上'"></td>
-				<td class="text-center"><a th:href="@{/couponUse} + '/' + ${coupondto.id}">使用する</a></td>
+				<!-- <td class="text-center"><a th:href="@{/couponUse} + '/' + ${coupondto.id}">使用する</a></td> -->
+				<td class="text-center"><a th:href="@{/couponProductChoose} + '/' + ${coupondto.id}">使用する</a></td>
 			</tr>
 		
 		</table>

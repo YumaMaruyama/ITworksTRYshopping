@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<div th:fragment="productListLayout_contents">
+		<header>
+			<h1 class="titleDesign">カート画面</h1>
+		</header>
+		
+		
+		<div class="flex cartList" style="width:1100px;">
+			<div class="item" th:each="pcdatadto : ${cartList}">
+				<form method="post" th:action="@{/cart} + '/' + ${pcdatadto.id}"
+					th:object="${cartForm}">
+					<img class="size" th:src="${pcdatadto.pcImg}">
+					<h5 class="card-title text-center fontdesign"
+						th:text="'商品名：' + ${pcdatadto.pc_name}"></h5>
+					<p class="card-text text-center fontdesign"
+						style="margin-bottom: 0px !important"
+						th:text="'会社名：' + ${pcdatadto.company}"></p>
+					<p class="card-text text-center fontdesign cartos"
+						style="margin-bottom: 0px !important"
+						th:text="'OS：' + ${pcdatadto.os}"></p>
+					<p class="card-text text-center fontdesign cartsize"
+						style="margin-bottom: 0px !important"
+						th:text="'画面サイズ：' + ${pcdatadto.pc_size} + '型'"></p>
+					<p class="card-text text-center fontdesign cartmemory"
+						style="margin-bottom: 0px !important"
+						th:text="'メモリー：' + ${pcdatadto.memory}"></p>
+					<p class="card-text text-center fontdesign cartharddisc"
+						style="margin-bottom: 0px !important"
+						th:text="'ハードディスク：' + ${pcdatadto.hardDisc}"></p>
+					<p class="card-text text-center fontdesign cartcpu"
+						style="margin-bottom: 0px !important"
+						th:text="'CPU：' + ${pcdatadto.cpu}"></p>
+					<p class="card-text text-center fontdesign cartprice"
+						style="margin-bottom: 0px !important"
+						th:text="'カスタム後値段：' + ${pcdatadto.afterCustomPrice} + '円'"></p>
+					<p class="card-text text-center fontdesign cartstock"
+						style="margin-bottom: 0px !important"
+						th:text="'在庫数：' + ${pcdatadto.product_stock} + '個'"></p>
+					<a class="text-center detailGoCart"
+						style="margin-bottom: 0px !important"
+						th:href="@{/couponUse} + '/' + ${couponId} + '/' + ${pcdatadto.id}"><span
+						class="font">この商品に適用</span></a>
+				</form>
+			</div>
+		</div>
+		
+	</div>
+	
+</body>
+</html>
