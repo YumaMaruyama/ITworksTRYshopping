@@ -2486,6 +2486,7 @@ public class ShoppingController {
 
 			purchasedtoAdd.setPcName(purchaseOne.getPcName());
 			purchasedtoAdd.setPrice(purchaseOne.getPrice());
+			purchasedtoAdd.setPcImg(purchaseOne.getPcImg());
 			purchasedtoAdd.setProduct_count(purchaseOne.getProduct_count());
 			purchasedtoAdd.setPurchaseCheck(purchaseOne.getPurchaseCheck());
 

@@ -28,6 +28,8 @@ public class PurchaseDTO {
 	private String pcName;
 
 	private int price;
+	
+	private String pcImg;
 
 	private String memory;
 

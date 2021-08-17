@@ -8,40 +8,69 @@
 <body>
 	<div th:fragment="productListLayout_contents">
 
-	<h1 class="titleDesign">商品購入履歴</h1>
+		<h1 class="titleDesign">商品購入履歴</h1>
 
-	<div class="purHisTable">
-	<table class="table table-hover table-bordered" style="width:1090px;" th:each="purchasedto : ${purchaseList}">
+		
 
-		<tr>
-			<th class="text-center">購入日</th>
-			<th class="text-center">商品名</th>
-			<th class="text-center">値段</th>
-			<th class="text-center">購入数</th>
-			<th class="text-center">メモリ</th>
-			<th class="text-center">ハードディスク</th>
-			<th class="text-center">CPU</th>
-			<th class="text-center">レビュー</th>
-			<th class="text-center">商品問題</th>
-		</tr>
+			<div class="flex purHisTable" style="width: 1100px;">
+				<div class="item" 
+			 th:each="purchasedto : ${purchaseList}">
+			 <form>
+						<img class="size" th:src="${purchasedto.pcImg}">
+						<h5  class="card-title purHisfontdesign"
+							th:text="'購入日：' + ${#dates.format(purchasedto.purchase_date, 'yyyy/MM/dd HH:mm')}"></h5>
+						<p class="card-title purHisfontdesign"
+							th:text="'商品名：' + ${purchasedto.pcName}"></p>
+						<p class="card-title purHisfontdesign"
+							th:text="'値段：' + ${purchasedto.totalPrice}"></p>
+						<p class="card-text purHisfontdesign cartmemory"
+							style="margin-bottom: 0px !important"
+							th:text="'メモリー：' + ${purchasedto.memory}"></p>
+						<p class="card-text purHisfontdesign cartharddisc"
+							style="margin-bottom: 0px !important"
+							th:text="'ハードディスク：' + ${purchasedto.hardDisc}"></p>
+						<p class="card-text purHisfontdesign cartcpu"
+							style="margin-bottom: 0px !important"
+							th:text="'CPU：' + ${purchasedto.cpu}"></p>
+						<p class="card-text purHisfontdesign cartcpu"
+							style="margin-bottom: 0px !important"
+							th:text="'購入数：' + ${purchasedto.product_count}"></p>
+						<table>
+							<tr>
+								<th>
+									
+									<div class="btn-radius-gradient-wrap">
+										
+											<a
+												th:href="@{'/reviewAdd' + '/' + ${purchasedto.purchaseId}} "
+												class="btnA btn-c">口コミを書く</a></div>
+											<div
+												class="btn-radius-gradient-wrap" th:if="${purchasedto.cancelCheck} == ${confirmationPending} and ${purchasedto.cancelResult} == 'true'"><a
+												th:href="@{'/confirmationPending' + '/' + ${purchasedto.purchaseId}} "
+												class="btnB btn-d">返品商品確認待ち</a></div>
+											<div
+												class="btn-radius-gradient-wrap" th:if="${purchasedto.cancelCheck} == ${inTransaction} and ${purchasedto.cancelResult} == 'true'"><a
+												 th:href="@{'/cancelInTransaction' + '/' + ${purchasedto.purchaseId}} "
+												class="btnB btn-d">キャンセル取引中</a></div>
+											<div
+												class="btn-radius-gradient-wrap" th:if="${purchasedto.cancelCheck == null} and ${purchasedto.cancelResult} == 'true'"
+													><a
+												 th:href="@{'/cancel' + '/' + ${purchasedto.purchaseId}} "
+												class="btnB btn-d">商品キャンセル</a></div>
+											<div th:if="${purchasedto.cancelResult} == 'false'"
+												class="text-center">キャンセル期間外</div>
+										
+									
+								</th>
+							</tr>
+						</table>
+					
 
-		<tr>
-			<td class="text-center" th:text="${#dates.format(purchasedto.purchase_date, 'yyyy/MM/dd HH:mm')}"></td>
-			<td class="text-center" th:text="${purchasedto.pcName}"></td>
-			<td class="text-center" th:text="${purchasedto.totalPrice}"></td>
-			<td class="text-center" th:text="${purchasedto.product_count}"></td>
-			<td class="text-center" th:text="${purchasedto.memory}"></td>
-			<td class="text-center" th:text="${purchasedto.hardDisc}"></td>
-			<td class="text-center" th:text="${purchasedto.cpu}"></td>
-			<td class="text-center"><a th:href="@{'/reviewAdd' + '/' + ${purchasedto.purchaseId}} " class="btn btn-primary">口コミを書く</a></td>
-			<td th:if="${purchasedto.cancelCheck} == ${confirmationPending} and ${purchasedto.cancelResult} == 'true'"><a th:href="@{'/confirmationPending' + '/' + ${purchasedto.purchaseId}} " class="btn btn-primary">返品商品確認待ち</a></td>
-			<td th:if="${purchasedto.cancelCheck} == ${inTransaction} and ${purchasedto.cancelResult} == 'true'"><a th:href="@{'/cancelInTransaction' + '/' + ${purchasedto.purchaseId}} " class="btn btn-primary">キャンセル取引中</a></td>
-			<td th:if="${purchasedto.cancelCheck == null} and ${purchasedto.cancelResult} == 'true'" class="text-center"><a th:href="@{'/cancel' + '/' + ${purchasedto.purchaseId}} " class="btn btn-primary">商品キャンセル</a></td>
-			<td th:if="${purchasedto.cancelResult} == 'false'" class="text-center">キャンセル期間外</td>
-		</tr>
 
-	</table>
-	</div>
-	</div>
+
+				</div>
+				</form>
+			</div>
+			</div>
 </body>
 </html>

@@ -36,7 +36,7 @@
 	
 	<tr>
 		<th class="text-center reviewThHength">投稿日時</th>
-		<td  th:text="${#dates.format(reviewdto.registrationDate,'yyyy/MM/dd hh:mm')}"></td>
+		<td  th:text="${#dates.format(reviewdto.registrationDate,'yyyy/MM/dd ah:mm')}"></td>
 	</tr>
 	
 	<tr th:if="${reviewdto.usersId} == ${#authentication.principal.username}">

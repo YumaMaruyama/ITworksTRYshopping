@@ -3,5 +3,149 @@
 .purHisTable {
 	display: inline-block;
 	overflow-y: scroll;
-	height: 552px;
+	height: 557px;
+}
+
+.purflex {
+	display: flex !important;
+    flex-wrap: wrap !important;
+    width: 30%;
+    height: 20%;
+}
+
+.purHisfontdesign {
+	font-size: 13px;
+	margin-bottom: 0px!important;
+}
+
+
+/*_____________________________________________*/
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: inherit;
+  box-sizing: inherit;
+}
+
+html {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+
+.btnA,
+a.btnA,
+button.btnA {
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.5;
+  position: relative;
+  display: inline-block;
+  padding: 1rem 4rem;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  text-align: center;
+  vertical-align: middle;
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  color: #212529;
+  border-radius: 0.5rem;
+}
+
+a.btn-c {
+  font-size: 14px;
+
+  position: relative;
+
+
+
+  -webkit-transition: all 0.3s;
+
+  transition: all 0.3s;
+
+  color: #fff;
+  border-radius: 100vh;
+  background-image: -webkit-gradient(
+    linear,
+    left top,
+    right top,
+    from(#007adf),
+    to(#00ecbc)
+  );
+  background-image: -webkit-linear-gradient(left, #007adf 0%, #00ecbc 100%);
+  background-image: linear-gradient(to right, #007adf 0%, #00ecbc 100%);
+  -webkit-box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+}
+
+
+a.btn-c:hover {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+
+  color: #000000;
+}
+
+
+.btnB,
+a.btnB,
+button.btnB {
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.5;
+  position: relative;
+  display: inline-block;
+  padding: 1rem 4rem;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  text-align: center;
+  vertical-align: middle;
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  color: #212529;
+  border-radius: 0.5rem;
+}
+
+a.btn-d {
+  font-size: 14px;
+
+  position: relative;
+
+
+
+  -webkit-transition: all 0.3s;
+
+  transition: all 0.3s;
+
+  color: #fff;
+  border-radius: 100vh;
+  background-image: -webkit-gradient(
+    linear,
+    left top,
+    right top,
+    from(#007adf),
+    to(#00ecbc)
+  );
+  background-image: -webkit-linear-gradient(left, #007adf 0%, #00ecbc 100%);
+ background-image: linear-gradient(to right, #fb3838 0%, #d8b574 100%);
+  -webkit-box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+}
+
+
+a.btn-d:hover {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+
+  color: #000000;
 }
