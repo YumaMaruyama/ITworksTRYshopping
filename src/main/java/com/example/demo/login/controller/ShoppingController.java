@@ -1540,48 +1540,44 @@ public class ShoppingController {
 			model.addAttribute("allTotalPrice", allTotalPrice);
 			allPurchaseList.add(purchasedtoAdd);
 		}
-		
-		
+
 		List<CouponDTO> coupondtoList = couponService.selectMany();// couponテーブルからクーポン情報をすべて取得
-		
+
 		List<CouponDTO> coupondtoListAdd = new ArrayList<>();
-		
-		for(int i = 0; coupondtoList.size() > i; i++) {//クーポン情報を一つづつ取り出す
+
+		for (int i = 0; coupondtoList.size() > i; i++) {// クーポン情報を一つづつ取り出す
 			CouponDTO coupondtoOne = coupondtoList.get(i);
 			int allCount = coupondtoOne.getPurchaseCountTarget();
 			int allPrice = coupondtoOne.getPurchaseTotalPriceTarget();
-		
+
 			boolean countCheck = false;
 			boolean priceCheck = false;
-			
-			if(allProductCount >= allCount) {//ユーザーの商品購入数と、クーポンの使用条件の商品購入数を比較
+
+			if (allProductCount >= allCount) {// ユーザーの商品購入数と、クーポンの使用条件の商品購入数を比較
 				countCheck = true;
 			}
-			if(allTotalPrice >= allPrice) {//ユーザーの全商品購入金額と、クーポンの使用条件の全商品購入金額を比較
+			if (allTotalPrice >= allPrice) {// ユーザーの全商品購入金額と、クーポンの使用条件の全商品購入金額を比較
 				priceCheck = true;
 			}
-			
+
 			coupondtoOne.setCouponCheck(false);
-			if((countCheck == true) && (priceCheck == true)) {//商品購入数と全商品購入金額がクーポンの使用条件に達しているか比較
+			if ((countCheck == true) && (priceCheck == true)) {// 商品購入数と全商品購入金額がクーポンの使用条件に達しているか比較
 				coupondtoOne.setCouponCheck(true);
 			}
-			
+
 			coupondtoListAdd.add(coupondtoOne);
-			System.out.println("couponCheck"+coupondtoOne.isCouponCheck());
+			System.out.println("couponCheck" + coupondtoOne.isCouponCheck());
 		}
-		
-	
+
 		model.addAttribute("couponList", coupondtoListAdd);
-
-
 
 		return "shopping/productListLayout";
 	}
-	
+
 	@GetMapping("/couponSee")
-	public String getCouponSee(@ModelAttribute CouponForm form,Model model) {
+	public String getCouponSee(@ModelAttribute CouponForm form, Model model) {
 		model.addAttribute("contents", "shopping/couponSee::productListLayout_contents");
-		
+
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 		String getName = auth.getName();
@@ -1617,109 +1613,106 @@ public class ShoppingController {
 			model.addAttribute("allTotalPrice", allTotalPrice);
 			allPurchaseList.add(purchasedtoAdd);
 		}
-		
+
 		List<CouponDTO> coupondtoList = couponService.selectMany();// couponテーブルからクーポン情報をすべて取得
-List<CouponDTO> coupondtoListAdd = new ArrayList<>();
-		
-		for(int i = 0; coupondtoList.size() > i; i++) {//クーポン情報を一つづつ取り出す
+		List<CouponDTO> coupondtoListAdd = new ArrayList<>();
+
+		for (int i = 0; coupondtoList.size() > i; i++) {// クーポン情報を一つづつ取り出す
 			CouponDTO coupondtoOne = coupondtoList.get(i);
 			int allCount = coupondtoOne.getPurchaseCountTarget();
 			int allPrice = coupondtoOne.getPurchaseTotalPriceTarget();
-		
+
 			boolean countCheck = false;
 			boolean priceCheck = false;
-			
-			if(allProductCount >= allCount) {//ユーザーの商品購入数と、クーポンの使用条件の商品購入数を比較
+
+			if (allProductCount >= allCount) {// ユーザーの商品購入数と、クーポンの使用条件の商品購入数を比較
 				countCheck = true;
 			}
-			if(allTotalPrice >= allPrice) {//ユーザーの全商品購入金額と、クーポンの使用条件の全商品購入金額を比較
+			if (allTotalPrice >= allPrice) {// ユーザーの全商品購入金額と、クーポンの使用条件の全商品購入金額を比較
 				priceCheck = true;
 			}
-			
+
 			coupondtoOne.setCouponCheck(false);
-			if((countCheck == true) && (priceCheck == true)) {//商品購入数と全商品購入金額がクーポンの使用条件に達しているか比較
+			if ((countCheck == true) && (priceCheck == true)) {// 商品購入数と全商品購入金額がクーポンの使用条件に達しているか比較
 				coupondtoOne.setCouponCheck(true);
 			}
-			
-			if(coupondtoOne.isCouponCheck() == true) {//商品購入数と全商品購入金額がクーポンの使用条件に達しているもののみList追加
-			coupondtoListAdd.add(coupondtoOne);
-			System.out.println("couponCheck"+coupondtoOne.isCouponCheck());
+
+			if (coupondtoOne.isCouponCheck() == true) {// 商品購入数と全商品購入金額がクーポンの使用条件に達しているもののみList追加
+				coupondtoListAdd.add(coupondtoOne);
+				System.out.println("couponCheck" + coupondtoOne.isCouponCheck());
 			}
 		}
-		
-		
+
 		model.addAttribute("couponList", coupondtoListAdd);
 		return "shopping/productListLayout";
 	}
-	
+
 	@GetMapping("/couponCancel")
-	public String getCouponCancel(@ModelAttribute CouponForm form,Model model) {
-		
+	public String getCouponCancel(@ModelAttribute CouponForm form, Model model) {
+
 		CartForm cartForm = new CartForm();
-		return cart(cartForm,model);
+		return cart(cartForm, model);
 	}
-		
+
 	@GetMapping("/couponUse/{couponId}/{productId}")
-	public String getCouponUse(@ModelAttribute CouponForm form,@PathVariable("couponId") int couponId,@PathVariable("productId") int productId,Model model) {
+	public String getCouponUse(@ModelAttribute CouponForm form, @PathVariable("couponId") int couponId,
+			@PathVariable("productId") int productId, Model model) {
 		model.addAttribute("contents", "shopping/cart::productListLayout_contents");
-		
+
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 		String getUserId = auth.getName();
-		
-		int cartId = cartService.selectMaxId(productId);//cartテーブルからクーポンを使う商品IDを取得
-		cartService.updateCouponId(cartId,couponId);//商品IDでselectし、クーポン情報を加える
-		
-		
+
+		int cartId = cartService.selectMaxId(productId);// cartテーブルからクーポンを使う商品IDを取得
+		cartService.updateCouponId(cartId, couponId);// 商品IDでselectし、クーポン情報を加える
+
 		List<PcDataDTO> cartList = cartService.selectMany(getUserId);// ログインユーザーのみのカートの情報を取得
-		int totalPriceAll = 0;//カート全体価格
-		int totalPriceOne = 0;//各商品価格
-		int disCountPrice = 0;//割引数
-		if (cartList == null || cartList.size() == 0) {//カートが0の場合
+		int totalPriceAll = 0;// カート全体価格
+		int totalPriceOne = 0;// 各商品価格
+		int disCountPrice = 0;// 割引数
+		if (cartList == null || cartList.size() == 0) {// カートが0の場合
 			model.addAttribute("totalPrice", 0);
 		} else {
-			
+
 			for (int i = 0; i < cartList.size(); i++) {
 				PcDataDTO pcdatadto = cartList.get(i);
-				
+
 				totalPriceAll = totalPriceAll
-						+ pcdatadto.getProduct_count() * (pcdatadto.getPrice() + pcdatadto.getCustomPrice());//購入数+商品金額+カスタム金額
-				
+						+ pcdatadto.getProduct_count() * (pcdatadto.getPrice() + pcdatadto.getCustomPrice());// 購入数+商品金額+カスタム金額
+
 				totalPriceOne = totalPriceOne
 						+ pcdatadto.getProduct_count() * (pcdatadto.getPrice() + pcdatadto.getCustomPrice());
-				
+
 				disCountPrice = pcdatadto.getProduct_count() * (pcdatadto.getPrice() + pcdatadto.getCustomPrice());
-				
-				if(pcdatadto.getCouponId() >= 1) {//商品にクーポンが適用されていればtrue
+
+				if (pcdatadto.getCouponId() >= 1) {// 商品にクーポンが適用されていればtrue
 					CouponDTO coupondto = couponService.selectOne(couponId);
-					int disCount = coupondto.getDiscount();//割引率(%)
-					System.out.println("disCount"+disCount);
+					int disCount = coupondto.getDiscount();// 割引率(%)
+					System.out.println("disCount" + disCount);
 					double disCountNew = Double.valueOf("0." + disCount);
-					double disCountPriceNew = disCountPrice * disCountNew;//割引価格
+					double disCountPriceNew = disCountPrice * disCountNew;// 割引価格
 					int disCountPriceNewNext = (int) disCountPriceNew;
 					pcdatadto.setDisCountPriceNew(disCountPriceNewNext);
-					totalPriceOne = (int)(totalPriceOne - disCountPriceNew);
+					totalPriceOne = (int) (totalPriceOne - disCountPriceNew);
 				}
-				
-				model.addAttribute("totalPrice",totalPriceAll);
+
+				model.addAttribute("totalPrice", totalPriceAll);
 				model.addAttribute("couponAfterPrice", totalPriceOne);
 			}
 		}
-	
-		
+
 		model.addAttribute("cartList", cartList);
-		//model.addAttribute("couponUseCheck","couponUse");//クーポンチェック文字をhtmlにもっていく
-		model.addAttribute("couponId",couponId);//使用するクーポンIDをhtmlに持っていく
-		
-		
+		// model.addAttribute("couponUseCheck","couponUse");//クーポンチェック文字をhtmlにもっていく
+		model.addAttribute("couponId", couponId);// 使用するクーポンIDをhtmlに持っていく
+
 		return "shopping/productListLayout";
 	}
-	
+
 	@GetMapping("couponProductChoose/{id}")
-	public String getCouponProductChoose(@ModelAttribute CouponForm form,@PathVariable("id") int couponId,Model model) {
+	public String getCouponProductChoose(@ModelAttribute CouponForm form, @PathVariable("id") int couponId,
+			Model model) {
 		model.addAttribute("contents", "shopping/couponProductChoose::productListLayout_contents");
-		
-		
+
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 		String user_id = auth.getName();
@@ -1734,14 +1727,12 @@ List<CouponDTO> coupondtoListAdd = new ArrayList<>();
 //				System.out.println("テストtotalPrice" + totalPrice);
 //				model.addAttribute("totalPrice", totalPrice);
 //				}
-			
-		
+
 		model.addAttribute("cartList", cartList);
-		model.addAttribute("couponId",couponId);
-	
-		
+		model.addAttribute("couponId", couponId);
+
 		return "shopping/productListLayout";
-	
+
 	}
 
 	@GetMapping("couponAdd")
@@ -1754,7 +1745,8 @@ List<CouponDTO> coupondtoListAdd = new ArrayList<>();
 	@PostMapping(value = "couponAdd", params = "distribution")
 	public String postCouponAdd(@ModelAttribute CouponForm form, HttpServletRequest request,
 			HttpServletResponse response, Model model) {
-		//model.addAttribute("contents", "shopping/couponList::productListLayout_contents");
+		// model.addAttribute("contents",
+		// "shopping/couponList::productListLayout_contents");
 
 		HttpSession session = request.getSession();// 入力されたクーポン情報をsession保存
 		session.setAttribute("title", form.getTitle());
@@ -1766,7 +1758,7 @@ List<CouponDTO> coupondtoListAdd = new ArrayList<>();
 
 		couponService.couponInsert(coupondto, session);// couponテーブルにsessionに保存したデータを格納
 
-		return getCouponList(form,model);
+		return getCouponList(form, model);
 	}
 
 	@GetMapping("/productList")
@@ -1954,7 +1946,8 @@ List<CouponDTO> coupondtoListAdd = new ArrayList<>();
 	}
 
 	@GetMapping("/clearing")
-	public String getCardClearing(@ModelAttribute CreditForm form,@RequestParam("couponId") int couponId,Model model) {
+	public String getCardClearing(@ModelAttribute CreditForm form, @RequestParam("couponId") int couponId,
+			Model model) {
 		model.addAttribute("contents", "shopping/clearing::productListLayout_contents");
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -1962,44 +1955,50 @@ List<CouponDTO> coupondtoListAdd = new ArrayList<>();
 		String getName = auth.getName();
 
 		List<PcDataDTO> cartList = cartService.selectMany(getName);
-		int totalPrice = 0;
+		int totalPriceAll = 0;// カート全体価格
+		int totalPriceOne = 0;// 各商品価格
+
 		for (int i = 0; i < cartList.size(); i++) {
 			PcDataDTO pcdatadto = cartList.get(i);
-			totalPrice = totalPrice + pcdatadto.getProduct_count() * pcdatadto.getAfterCustomPrice();
-			System.out.println("totalPrice" + totalPrice);
-			if(couponId == 0) {
-			model.addAttribute("totalPrice", totalPrice);
-			}else {
+			totalPriceAll = totalPriceAll + pcdatadto.getProduct_count() * pcdatadto.getAfterCustomPrice();
+			totalPriceOne = pcdatadto.getProduct_count() * pcdatadto.getAfterCustomPrice();
+			System.out.println("totalPriceAll" + totalPriceAll);
+			if (couponId == 0) {
+				model.addAttribute("totalPrice", totalPriceAll);
+			} else {// クーポンを使用した商品はelse
 				CouponDTO coupondto = couponService.selectOne(couponId);
 				int disCount = coupondto.getDiscount();
 				double disCountNew = Double.valueOf("0." + disCount);
-				double disCountPrice = totalPrice * disCountNew;
-				int couponAfterPrice = (int)(totalPrice - disCountPrice);
-				//ここから割引分の値が入っているのでそれをトータルからひく、小数点以下も切り捨てる
-				model.addAttribute("totalPrice",couponAfterPrice);
+				double disCountPrice = totalPriceOne * disCountNew;// クーポンを使用した商品の割引数取得
+				int couponAfterPrice = (int) (totalPriceAll - disCountPrice);
+				// ここから割引分の値が入っているのでそれをトータルからひく、小数点以下も切り捨てる
+				model.addAttribute("totalPrice", couponAfterPrice);
 			}
 			// model.addAttribute("product_count",pcdatadto.getProduct_count());
 			// form.setProduct_count(pcdatadto.getProduct_count());
 			System.out.println("form" + form);
 		}
-		if(couponId != 0) {
-		model.addAttribute("couponId",couponId);
-		}else {
-			model.addAttribute("couponId",-1);
+		if (couponId != 0) {
+			model.addAttribute("couponId", couponId);
+		} else {
+			model.addAttribute("couponId", -1);
 		}
-		System.out.println("coId"+couponId);
+		System.out.println("coId" + couponId);
 		return "shopping/productListLayout";
+
 	}
 
 	@PostMapping("/clearing/{couponId}")
 	public String getClearing(@ModelAttribute @Validated(GroupOrder.class) CreditForm form, BindingResult bindingResult,
 			RedirectAttributes redirectAttributes, @RequestParam("digits_3_code") String digits_3_code,
 			@RequestParam("cardName") String cardName, @RequestParam("cardNumber") String cardNumber,
-			@PathVariable("couponId") int couponId,HttpServletRequest request, HttpServletResponse response, Model model) {
-		//model.addAttribute("contents", "shopping/confirmation::productListLayout_contents");
+			@PathVariable("couponId") int couponId, HttpServletRequest request, HttpServletResponse response,
+			Model model) {
+		// model.addAttribute("contents",
+		// "shopping/confirmation::productListLayout_contents");
 		if (bindingResult.hasErrors()) {
 			System.out.println("バリデーションエラー");
-			return getCardClearing(form,couponId,model);
+			return getCardClearing(form, couponId, model);
 		}
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -2012,8 +2011,8 @@ List<CouponDTO> coupondtoListAdd = new ArrayList<>();
 		session.setAttribute("digits_3_code", digits_3_code);
 		session.setAttribute("cardName", cardName);
 		session.setAttribute("cardNumber", cardNumber);
-		session.setAttribute("couponId",couponId);
-		
+		session.setAttribute("couponId", couponId);
+
 		return "redirect:/confirmation";
 	}
 
@@ -2076,9 +2075,9 @@ List<CouponDTO> coupondtoListAdd = new ArrayList<>();
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 		String user_id = auth.getName();
-		
-		cartService.couponCancelUpdate();//クーポンを不使用に変更
-		
+
+		cartService.couponCancelUpdate();// クーポンを不使用に変更
+
 		// ログインユーザーのみのカートの情報を取得
 		List<PcDataDTO> cartList = cartService.selectMany(user_id);
 		System.out.println("cartList" + cartList);
@@ -2095,14 +2094,12 @@ List<CouponDTO> coupondtoListAdd = new ArrayList<>();
 
 			}
 		}
-		
-		
 
 		model.addAttribute("cartList", cartList);
-		//model.addAttribute("couponUseCheck","couponNotUse");
-		model.addAttribute("couponId",0);
-		model.addAttribute("couponAfterPrice","-1");//クーポン使用していない時に表示するテーブルを出すための値
-		
+		// model.addAttribute("couponUseCheck","couponNotUse");
+		model.addAttribute("couponId", 0);
+		model.addAttribute("couponAfterPrice", "-1");// クーポン使用していない時に表示するテーブルを出すための値
+
 		return "shopping/productListLayout";
 	}
 
@@ -2348,54 +2345,59 @@ List<CouponDTO> coupondtoListAdd = new ArrayList<>();
 			HttpServletResponse response, Model model) {
 		model.addAttribute("contents", "shopping/confirmation::productListLayout_contents");
 
-		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 		String getName = auth.getName();
 
 		List<PcDataDTO> cartList = cartService.selectMany(getName);
-		int totalPrice = 0;
+		int totalPriceAll = 0;//カート全体価格
+		int totalPriceOne = 0;//各商品価格
 		for (int i = 0; i < cartList.size(); i++) {
 			PcDataDTO pcdatadto = cartList.get(i);
-			totalPrice = totalPrice + pcdatadto.getProduct_count() * pcdatadto.getAfterCustomPrice();
-			System.out.println("totalPrice" + totalPrice);
-			model.addAttribute("totalPrice", totalPrice);
+			totalPriceAll = totalPriceAll + pcdatadto.getProduct_count() * pcdatadto.getAfterCustomPrice();
+			totalPriceOne = pcdatadto.getProduct_count() * pcdatadto.getAfterCustomPrice();
+			System.out.println("totalPrice" + totalPriceAll);
+			if (pcdatadto.getCouponId() == 0) {
+				model.addAttribute("totalPrice", totalPriceAll);
+			}else {//クーポンを使用していればelse
+				CouponDTO coupondto = couponService.selectOne(pcdatadto.getCouponId());//クーポン情報取得
+				int disCount = coupondto.getDiscount();//割引％
+				double disCountNew = Double.valueOf("0." + disCount);
+				double disCountPrice = totalPriceOne * disCountNew;//割引数
+				int disCountPriceNew = (int) disCountPrice;
+				int couponAfterPrice = (int) (totalPriceOne - disCountPrice);
+				totalPriceAll = totalPriceAll - disCountPriceNew;
+				model.addAttribute("totalPrice", totalPriceAll);
+			}
+			
+
+			int getId = usersService.select_id(getName);
+
+			System.out.println("cartList " + cartList);
+			model.addAttribute("cartList", cartList);
+
+			HttpSession session = request.getSession();//クレジット情報をsessionから取得
+			String digits_3_code = (String) session.getAttribute("digits_3_code");
+			String cardName = (String) session.getAttribute("cardName");
+			String cardNumber = (String) session.getAttribute("cardNumber");
+			int couponId = (int) session.getAttribute("couponId");
+
+			model.addAttribute("digits_3_code", digits_3_code);
+			model.addAttribute("cardName", cardName);
+			model.addAttribute("cardNumber", cardNumber);
+			model.addAttribute("couponId", couponId);
+
+			
 		}
-
-		int getId = usersService.select_id(getName);
-
-		System.out.println("cartList " + cartList);
-		model.addAttribute("cartList", cartList);
-
-		HttpSession session = request.getSession();
-		String digits_3_code = (String) session.getAttribute("digits_3_code");
-		String cardName = (String) session.getAttribute("cardName");
-		String cardNumber = (String) session.getAttribute("cardNumber");
-		int couponId = (int) session.getAttribute("couponId");
-		
-		if(couponId > 0) {
-			CouponDTO coupondto = couponService.selectOne(couponId);
-			int disCount = coupondto.getDiscount();
-			double disCountNew = Double.valueOf("0." + disCount);
-			double disCountPrice = totalPrice * disCountNew;
-			int couponAfterPrice = (int)(totalPrice - disCountPrice);
-			//ここから割引分の値が入っているのでそれをトータルからひく、小数点以下も切り捨てる
-			model.addAttribute("totalPrice",couponAfterPrice);
-		}
-		
-		model.addAttribute("digits_3_code", digits_3_code);
-		model.addAttribute("cardName", cardName);
-		model.addAttribute("cardNumber", cardNumber);
-		model.addAttribute("couponId",couponId);
-
 		return "shopping/productListLayout";
 	}
 
 	@PostMapping("/confirmation")
 	public String postConfirmation(@ModelAttribute PcDataForm form, RedirectAttributes redirectattributes,
 			@RequestParam("digits_3_code") String digits_3_code, @RequestParam("cardName") String cardName,
-			@RequestParam("cardNumber") String cardNumber, @RequestParam("totalPrice") int totalPrice,@RequestParam("couponId") int couponId,
-			HttpServletRequest request, HttpServletResponse response, Model model) {
+			@RequestParam("cardNumber") String cardNumber, @RequestParam("totalPrice") int totalPrice,
+			@RequestParam("couponId") int couponId, HttpServletRequest request, HttpServletResponse response,
+			Model model) {
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
@@ -2438,7 +2440,7 @@ List<CouponDTO> coupondtoListAdd = new ArrayList<>();
 			int purchaseCount = cartdto.getProduct_count();
 			// customService.pruchaseIdInsertOne(productid);
 			int purchaseInsertResult = purchaseService.insert(purchasedto, productid, purchaseCount, select_id,
-					purchaseCreditId, customId,couponId);
+					purchaseCreditId, customId, couponId);
 			int purchaseId = purchaseService.selectPurchaseIdOne();
 			System.out.println("purchaseId" + purchaseId);
 			int customPurchaseCheckUpdateResult = customService.pruchaseIdUpdate(purchaseId, productId, select_id);
