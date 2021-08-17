@@ -126,6 +126,11 @@ public class CartService {
 		return dao.updateCouponId(cartId,couponId);
 	}
 	
+	public int couponCancelUpdate() {
+		System.out.println("service到達");
+		return dao.couponCancelUpdate();
+	}
+	
 	
 //	public int selectProductId(int cartId) {
 //		return dao.selectProductId(cartId);

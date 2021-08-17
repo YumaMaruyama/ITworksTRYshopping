@@ -43,6 +43,9 @@
 					<p class="card-text text-center fontdesign cartprice"
 						style="margin-bottom: 0px !important"
 						th:text="'カスタム後値段：' + ${pcdatadto.afterCustomPrice} + '円'"></p>
+					<p th:if="${pcdatadto.couponId} ge 1" class="card-text text-center text-danger fontdesign cartprice"
+						style="margin-bottom: 0px !important"
+						th:text="'クーポン効果：' + ${pcdatadto.disCountPriceNew} + '円引き！'"></p>
 					<p class="card-text text-center fontdesign cartstock"
 						style="margin-bottom: 0px !important"
 						th:text="'在庫数：' + ${pcdatadto.product_stock} + '個'"></p>
@@ -95,7 +98,7 @@
 				<tr>
 					<td style="width: 214px;"><a th:href="@{/productList}"
 						class="btn btn2 btn--blue btn--cubic btn--shadow productListBtn">買い物を続ける</a></td>
-					<td style="width: 156px;" class="text-center " th:text="'カート合計金額' + ${totalPrice} + '円'"></td>
+					<td style="width: 156px;" class="text-center lineAdd" th:text="'カート合計金額' + ${totalPrice} + '円'"></td>
 					<td class="cartPrice2 card-text text-center fontdesign textDesign2"
 						th:text="'クーポン使用後' + ${couponAfterPrice} + '円'"></td>
 

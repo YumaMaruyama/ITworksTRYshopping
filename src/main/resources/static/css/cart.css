@@ -26,7 +26,7 @@
 .cartList {
 	display: auto;
 	overflow-y: scroll;
-	height: 393px;
+	height: 410px;
 }
 
 .cartPrice {
@@ -122,6 +122,10 @@
 	background:#f1b8ab;
 	margin-top:24px;
 	width:1020px;
+}
+
+.lineAdd {
+	 text-decoration: line-through;
 }
 
 a.btn--orange, button.btn--orange {

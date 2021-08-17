@@ -1670,31 +1670,39 @@ List<CouponDTO> coupondtoListAdd = new ArrayList<>();
 		int cartId = cartService.selectMaxId(productId);//cartテーブルからクーポンを使う商品IDを取得
 		cartService.updateCouponId(cartId,couponId);//商品IDでselectし、クーポン情報を加える
 		
-		// ログインユーザーのみのカートの情報を取得
-		List<PcDataDTO> cartList = cartService.selectMany(getUserId);
-		int totalPriceNew = 0;
-		int totalPrice = 0;
-		if (cartList == null || cartList.size() == 0) {
+		
+		List<PcDataDTO> cartList = cartService.selectMany(getUserId);// ログインユーザーのみのカートの情報を取得
+		int totalPriceAll = 0;//カート全体価格
+		int totalPriceOne = 0;//各商品価格
+		int disCountPrice = 0;//割引数
+		if (cartList == null || cartList.size() == 0) {//カートが0の場合
 			model.addAttribute("totalPrice", 0);
 		} else {
 			
 			for (int i = 0; i < cartList.size(); i++) {
 				PcDataDTO pcdatadto = cartList.get(i);
 				
-				totalPriceNew = totalPriceNew
+				totalPriceAll = totalPriceAll
+						+ pcdatadto.getProduct_count() * (pcdatadto.getPrice() + pcdatadto.getCustomPrice());//購入数+商品金額+カスタム金額
+				
+				totalPriceOne = totalPriceOne
 						+ pcdatadto.getProduct_count() * (pcdatadto.getPrice() + pcdatadto.getCustomPrice());
-				//クーポン情報はcartテーブルに入っている。カート画面は値段は変わっていないからここから始める。
-				totalPrice = totalPrice
-						+ pcdatadto.getProduct_count() * (pcdatadto.getPrice() + pcdatadto.getCustomPrice());
-				if(pcdatadto.getCouponId() >= 1) {
+				
+				disCountPrice = pcdatadto.getProduct_count() * (pcdatadto.getPrice() + pcdatadto.getCustomPrice());
+				
+				if(pcdatadto.getCouponId() >= 1) {//商品にクーポンが適用されていればtrue
 					CouponDTO coupondto = couponService.selectOne(couponId);
-					int disCount = coupondto.getDiscount();
+					int disCount = coupondto.getDiscount();//割引率(%)
+					System.out.println("disCount"+disCount);
 					double disCountNew = Double.valueOf("0." + disCount);
-					double disCountPrice = totalPrice * disCountNew;
-					totalPrice = (int)(totalPrice - disCountPrice);
+					double disCountPriceNew = disCountPrice * disCountNew;//割引価格
+					int disCountPriceNewNext = (int) disCountPriceNew;
+					pcdatadto.setDisCountPriceNew(disCountPriceNewNext);
+					totalPriceOne = (int)(totalPriceOne - disCountPriceNew);
 				}
-				model.addAttribute("totalPrice",totalPriceNew);
-				model.addAttribute("couponAfterPrice", totalPrice);
+				
+				model.addAttribute("totalPrice",totalPriceAll);
+				model.addAttribute("couponAfterPrice", totalPriceOne);
 			}
 		}
 	
@@ -2068,6 +2076,9 @@ List<CouponDTO> coupondtoListAdd = new ArrayList<>();
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 		String user_id = auth.getName();
+		
+		cartService.couponCancelUpdate();//クーポンを不使用に変更
+		
 		// ログインユーザーのみのカートの情報を取得
 		List<PcDataDTO> cartList = cartService.selectMany(user_id);
 		System.out.println("cartList" + cartList);
@@ -2084,6 +2095,8 @@ List<CouponDTO> coupondtoListAdd = new ArrayList<>();
 
 			}
 		}
+		
+		
 
 		model.addAttribute("cartList", cartList);
 		//model.addAttribute("couponUseCheck","couponNotUse");

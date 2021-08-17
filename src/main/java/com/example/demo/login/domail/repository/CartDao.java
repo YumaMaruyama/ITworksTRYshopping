@@ -35,6 +35,10 @@ public interface CartDao {
 	
 	public int updateCouponId(int cartId,int couponId);
 	
+	public int couponCancelUpdate();
+	
+	
+	
 	
 
 	//public int selectProductId(int cartId);

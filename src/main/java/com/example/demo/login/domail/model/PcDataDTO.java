@@ -50,5 +50,7 @@ public class PcDataDTO {
 	private int customPrice;
 	
 	private int afterCustomPrice;
+	
+	private int disCountPriceNew;
 
 }
