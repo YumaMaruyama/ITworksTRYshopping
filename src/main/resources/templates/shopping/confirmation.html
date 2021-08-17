@@ -17,8 +17,10 @@
 					<img class="size" th:src="${pcdatadto.pcImg}">
 					<h4 class="card-title text-center fontdesign"
 						th:text="'商品名：' + ${pcdatadto.pc_name}"></h4>
-					<p class="card-text text-center fontdesign"
-						th:text="'値段：' + ${pcdatadto.afterCustomPrice} + '円'"></p>
+					<p th:if="${pcdatadto.couponCheck} == true" class="card-text text-center fontdesign"
+						th:text="'支払い値段(クーポン適用)：' + ${pcdatadto.totalPriceOne} + '円'"></p>
+					<p th:if="${pcdatadto.couponCheck} != true" class="card-text text-center fontdesign"
+						th:text="'支払い値段：' + ${pcdatadto.totalPriceOne} + '円'"></p>
 					<p class="card-text text-center fontdesign"
 						th:text="'在庫数：' + ${pcdatadto.product_stock} + '個'"></p>
 					<p class="card-text text-center fontdesign"

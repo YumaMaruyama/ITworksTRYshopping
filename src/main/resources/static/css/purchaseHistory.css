@@ -1,0 +1,7 @@
+@charset "UTF-8";
+
+.purHisTable {
+	display: inline-block;
+	overflow-y: scroll;
+	height: 552px;
+}

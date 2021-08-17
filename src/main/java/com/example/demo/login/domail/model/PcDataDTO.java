@@ -52,5 +52,9 @@ public class PcDataDTO {
 	private int afterCustomPrice;
 	
 	private int disCountPriceNew;
+	
+	private int totalPriceOne;
+	
+	private boolean couponCheck;
 
 }

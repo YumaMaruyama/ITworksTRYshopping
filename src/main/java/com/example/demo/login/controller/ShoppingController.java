@@ -2362,6 +2362,7 @@ public class ShoppingController {
 			PcDataDTO pcdatadto = cartList.get(i);
 			totalPriceAll = totalPriceAll + pcdatadto.getProduct_count() * pcdatadto.getAfterCustomPrice();
 			totalPriceOne = pcdatadto.getProduct_count() * pcdatadto.getAfterCustomPrice();
+			pcdatadto.setTotalPriceOne(totalPriceOne);
 			System.out.println("totalPrice" + totalPriceAll);
 			if (pcdatadto.getCouponId() == 0) {
 				model.addAttribute("totalPrice", totalPriceAll);
@@ -2370,12 +2371,11 @@ public class ShoppingController {
 				int disCount = coupondto.getDiscount();//割引％
 				double disCountNew = Double.valueOf("0." + disCount);
 				double disCountPrice = totalPriceOne * disCountNew;//割引数
-				int disCountPriceNew = (int) disCountPrice;
-				int couponAfterPrice = (int) (totalPriceOne - disCountPrice);
-				totalPriceAll = totalPriceAll - disCountPriceNew;
-				model.addAttribute("totalPrice", totalPriceAll);
+				pcdatadto.setTotalPriceOne((int) (totalPriceOne - disCountPrice));
+				totalPriceAll = (int) (totalPriceAll - disCountPrice);
+				pcdatadto.setCouponCheck(true);
 			}
-			
+			model.addAttribute("totalPrice", totalPriceAll);
 
 			int getId = usersService.select_id(getName);
 
