@@ -20,8 +20,8 @@ public class CouponService {
 		return dao.couponInsert(coupondto,session);
 	}
 	
-	public List<CouponDTO> selectMany() {
-		return dao.selectMany();
+	public List<CouponDTO> selectMany(int beforeUseCouponId) {
+		return dao.selectMany(beforeUseCouponId);
 	}
 	
 	public CouponDTO selectOne(int couponId) {

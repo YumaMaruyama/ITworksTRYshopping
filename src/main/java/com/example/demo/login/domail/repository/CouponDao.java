@@ -10,7 +10,7 @@ public interface CouponDao {
 
 	public int couponInsert(CouponDTO coupondto,HttpSession session);
 	
-	public List<CouponDTO> selectMany();
+	public List<CouponDTO> selectMany(int beforeUseCouponId);
 	
 	public CouponDTO selectOne(int couponId);
 	

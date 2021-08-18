@@ -31,9 +31,9 @@ public class CouponDaoJdbcImpl implements CouponDao {
 		return result;
 	}
 	
-	public List<CouponDTO> selectMany() {
+	public List<CouponDTO> selectMany(int beforeUseCouponId) {
 		
-		List<Map<String,Object>> map = jdbc.queryForList("select * from coupon");
+		List<Map<String,Object>> map = jdbc.queryForList("select * from coupon where id = ?",beforeUseCouponId);
 		
 		List<CouponDTO> coupondtoList = new ArrayList<>();
 		

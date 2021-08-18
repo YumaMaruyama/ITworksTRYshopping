@@ -1512,10 +1512,10 @@ public class ShoppingController {
 
 		int allProductCount = 0;
 		int allTotalPrice = 0;
-		
+
 		List<PurchaseDTO> purchasedtoList = purchaseService.selectHistory(userId);// メソッドに入ったユーザーの購入情報を取得
 		List<PurchaseDTO> allPurchaseList = new ArrayList<>();
-		List<Integer> couponUsedId = new ArrayList<>();//使用済みクーポンIDを格納
+		List<Integer> couponUsedId = new ArrayList<>();// 使用済みクーポンIDを格納
 		PurchaseDTO customList;
 		// 購入商品を一つづつ回して値を受け取る
 		for (int i = 0; purchasedtoList.size() > i; i++) {
@@ -1526,8 +1526,8 @@ public class ShoppingController {
 			purchasedtoAdd.setPrice(purchaseOne.getPrice());
 			purchasedtoAdd.setProduct_count(purchaseOne.getProduct_count());
 			purchasedtoAdd.setPurchaseCheck(purchaseOne.getPurchaseCheck());
-			purchasedtoAdd.setCouponId(purchaseOne.getCouponId());//購入者のクーポンID情報を取得
-			if(purchasedtoAdd.getCouponId() > 0) {//クーポンを使用して購入していればtrue
+			purchasedtoAdd.setCouponId(purchaseOne.getCouponId());// 購入者のクーポンID情報を取得
+			if (purchasedtoAdd.getCouponId() > 0) {// クーポンを使用して購入していればtrue
 				int couponId = purchasedtoAdd.getCouponId();
 				couponUsedId.add(couponId);
 			}
@@ -1548,13 +1548,42 @@ public class ShoppingController {
 			allPurchaseList.add(purchasedtoAdd);
 		}
 
-		List<Integer> couponId = couponService.selectIdMany();//全クーポン
-		
-		
-		
-		
-		List<CouponDTO> coupondtoList = couponService.selectMany();// couponテーブルからクーポン情報をすべて取得
-		
+		// 一度使用したクーポンは表示されないようにする
+		// 使用済みクーポンの一枚目のIDを使用して、使用前クーポンListを作成
+
+		List<Integer> couponId = couponService.selectIdMany();// 全クーポン
+		System.out.println("全クーポン" + couponId);
+		System.out.println("使用済みクーポン" + couponUsedId);
+		List<Integer> beforeUseCouponId = new ArrayList<>();// 使用前クーポン
+		for (int i = 0; couponId.size() > i; i++) {// 全クーポンの数文入る
+			if (couponId.get(i) != couponUsedId.get(0)) {// 全クーポンと使用済みクーポンの最初に一枚を比べて、使用前クーポンならtrue
+				beforeUseCouponId.add(couponId.get(i));// 使用済みクーポン一枚に対しての、使用前クーポンListを構築
+			}
+			System.out.println("beforeUseCouponId" + beforeUseCouponId);
+		}
+
+		// 上記で使用済みクーポン一枚に対しての、使用前クーポンListを構築したため下記に移る
+		// 下記では残りの使用済みクーポンIDを上記で作成した使用前クーポンListと比べている
+
+		if (couponUsedId.size() >= 2) {// 使用済みクーポンが2枚以上あればtrue
+			for (int x = 1; couponUsedId.size() > x; x++) {// 上記のコードで使用した使用済みクーポン１枚を除いた使用済みクーポン文を繰り返す
+				List<Integer> dummyBeforeUseCouponId = new ArrayList<>();
+				for (int i = 0; beforeUseCouponId.size() > i; i++) {// 上記で構築した使用前クーポンの数文繰り返す
+					if (beforeUseCouponId.get(i) != couponUsedId.get(x)) {
+						dummyBeforeUseCouponId.add(beforeUseCouponId.get(i));
+					}
+				}
+				beforeUseCouponId = dummyBeforeUseCouponId;
+			}
+			System.out.println("beforeUseCouponId" + beforeUseCouponId);
+		}
+
+		List<CouponDTO> coupondtoList = new ArrayList<>();
+
+		for (int i = 0; beforeUseCouponId.size() > i; i++) {
+			coupondtoList = couponService.selectMany(beforeUseCouponId.get(i));// couponテーブルからクーポン情報をすべて取得
+		}
+
 		List<CouponDTO> coupondtoListAdd = new ArrayList<>();
 
 		for (int i = 0; coupondtoList.size() > i; i++) {// クーポン情報を一つづつ取り出す
@@ -1599,6 +1628,7 @@ public class ShoppingController {
 		int allTotalPrice = 0;
 		List<PurchaseDTO> purchasedtoList = purchaseService.selectHistory(userId);// メソッドに入ったユーザーの購入情報を取得
 		List<PurchaseDTO> allPurchaseList = new ArrayList<>();
+		List<Integer> couponUsedId = new ArrayList<>();// 使用済みクーポンIDを格納
 		PurchaseDTO customList;
 		// 購入商品を一つづつ回して値を受け取る
 		for (int i = 0; purchasedtoList.size() > i; i++) {
@@ -1609,6 +1639,11 @@ public class ShoppingController {
 			purchasedtoAdd.setPrice(purchaseOne.getPrice());
 			purchasedtoAdd.setProduct_count(purchaseOne.getProduct_count());
 			purchasedtoAdd.setPurchaseCheck(purchaseOne.getPurchaseCheck());
+			purchasedtoAdd.setCouponId(purchaseOne.getCouponId());// 購入者のクーポンID情報を取得
+			if (purchasedtoAdd.getCouponId() > 0) {// クーポンを使用して購入していればtrue
+				int couponId = purchasedtoAdd.getCouponId();
+				couponUsedId.add(couponId);
+			}
 			int productId = purchasedtoAdd.getId();
 			// 購入商品ごとのカスタム情報も取り出す
 			String nullCheck = "null";
@@ -1626,7 +1661,41 @@ public class ShoppingController {
 			allPurchaseList.add(purchasedtoAdd);
 		}
 
-		List<CouponDTO> coupondtoList = couponService.selectMany();// couponテーブルからクーポン情報をすべて取得
+		// 一度使用したクーポンは表示されないようにする
+		// 使用済みクーポンの一枚目のIDを使用して、使用前クーポンListを作成
+
+		List<Integer> couponId = couponService.selectIdMany();// 全クーポン
+		System.out.println("全クーポン" + couponId);
+		System.out.println("使用済みクーポン" + couponUsedId);
+		List<Integer> beforeUseCouponId = new ArrayList<>();// 使用前クーポン
+		for (int i = 0; couponId.size() > i; i++) {// 全クーポンの数文入る
+			if (couponId.get(i) != couponUsedId.get(0)) {// 全クーポンと使用済みクーポンの最初に一枚を比べて、使用前クーポンならtrue
+				beforeUseCouponId.add(couponId.get(i));// 使用済みクーポン一枚に対しての、使用前クーポンListを構築
+			}
+			System.out.println("beforeUseCouponId" + beforeUseCouponId);
+		}
+
+		// 上記で使用済みクーポン一枚に対しての、使用前クーポンListを構築したため下記に移る
+		// 下記では残りの使用済みクーポンIDを上記で作成した使用前クーポンListと比べている
+
+		if (couponUsedId.size() >= 2) {// 使用済みクーポンが2枚以上あればtrue
+			for (int x = 1; couponUsedId.size() > x; x++) {// 上記のコードで使用した使用済みクーポン１枚を除いた使用済みクーポン文を繰り返す
+				List<Integer> dummyBeforeUseCouponId = new ArrayList<>();
+				for (int i = 0; beforeUseCouponId.size() > i; i++) {// 上記で構築した使用前クーポンの数文繰り返す
+					if (beforeUseCouponId.get(i) != couponUsedId.get(x)) {
+						dummyBeforeUseCouponId.add(beforeUseCouponId.get(i));
+					}
+				}
+				beforeUseCouponId = dummyBeforeUseCouponId;
+			}
+			System.out.println("beforeUseCouponId" + beforeUseCouponId);
+		}
+
+		List<CouponDTO> coupondtoList = new ArrayList<>();
+
+		for (int i = 0; beforeUseCouponId.size() > i; i++) {
+			coupondtoList = couponService.selectMany(beforeUseCouponId.get(i));// couponテーブルからクーポン情報をすべて取得
+		}
 		List<CouponDTO> coupondtoListAdd = new ArrayList<>();
 
 		for (int i = 0; coupondtoList.size() > i; i++) {// クーポン情報を一つづつ取り出す
@@ -1813,7 +1882,7 @@ public class ShoppingController {
 				double evaluation = totalRating / reviewList.size();
 				System.out.println("evaluation" + evaluation);
 				model.addAttribute("reviews", reviewList.size());
-				System.out.println("evaluation"+evaluation);
+				System.out.println("evaluation" + evaluation);
 				model.addAttribute("evaluation", evaluation);
 			} else {
 
@@ -1970,7 +2039,7 @@ public class ShoppingController {
 		List<PcDataDTO> cartList = cartService.selectMany(getName);
 		int totalPriceAll = 0;// カート全体価格
 		int totalPriceOne = 0;// 各商品価格
-		double disCountPrice =0;
+		double disCountPrice = 0;
 
 		for (int i = 0; i < cartList.size(); i++) {
 			PcDataDTO pcdatadto = cartList.get(i);
@@ -1983,13 +2052,13 @@ public class ShoppingController {
 				CouponDTO coupondto = couponService.selectOne(couponId);
 				int disCount = coupondto.getDiscount();
 				double disCountNew = Double.valueOf("0." + disCount);
-				 disCountPrice = totalPriceOne * disCountNew;// クーポンを使用した商品の割引数取得
-				
-				System.out.println("totalAll"+totalPriceAll);
-				System.out.println("totalOne"+totalPriceOne);
-				System.out.println("Dis"+disCountPrice);
+				disCountPrice = totalPriceOne * disCountNew;// クーポンを使用した商品の割引数取得
+
+				System.out.println("totalAll" + totalPriceAll);
+				System.out.println("totalOne" + totalPriceOne);
+				System.out.println("Dis" + disCountPrice);
 				// ここから割引分の値が入っているのでそれをトータルからひく、小数点以下も切り捨てる
-				//model.addAttribute("totalPrice", couponAfterPrice);
+				// model.addAttribute("totalPrice", couponAfterPrice);
 			}
 			int couponAfterPrice = (int) (totalPriceAll - disCountPrice);
 			model.addAttribute("totalPrice", couponAfterPrice);
@@ -2102,8 +2171,8 @@ public class ShoppingController {
 		System.out.println("cartList" + cartList);
 		if (cartList == null || cartList.size() == 0) {
 			model.addAttribute("totalPrice", 0);
-			model.addAttribute("notProduct","yes");
-			
+			model.addAttribute("notProduct", "yes");
+
 		} else {
 			int totalPrice = 0;
 			for (int i = 0; i < cartList.size(); i++) {
@@ -2370,8 +2439,8 @@ public class ShoppingController {
 		String getName = auth.getName();
 
 		List<PcDataDTO> cartList = cartService.selectMany(getName);
-		int totalPriceAll = 0;//カート全体価格
-		int totalPriceOne = 0;//各商品価格
+		int totalPriceAll = 0;// カート全体価格
+		int totalPriceOne = 0;// 各商品価格
 		for (int i = 0; i < cartList.size(); i++) {
 			PcDataDTO pcdatadto = cartList.get(i);
 			totalPriceAll = totalPriceAll + pcdatadto.getProduct_count() * pcdatadto.getAfterCustomPrice();
@@ -2380,11 +2449,11 @@ public class ShoppingController {
 			System.out.println("totalPrice" + totalPriceAll);
 			if (pcdatadto.getCouponId() == 0) {
 				model.addAttribute("totalPrice", totalPriceAll);
-			}else {//クーポンを使用していればelse
-				CouponDTO coupondto = couponService.selectOne(pcdatadto.getCouponId());//クーポン情報取得
-				int disCount = coupondto.getDiscount();//割引％
+			} else {// クーポンを使用していればelse
+				CouponDTO coupondto = couponService.selectOne(pcdatadto.getCouponId());// クーポン情報取得
+				int disCount = coupondto.getDiscount();// 割引％
 				double disCountNew = Double.valueOf("0." + disCount);
-				double disCountPrice = totalPriceOne * disCountNew;//割引数
+				double disCountPrice = totalPriceOne * disCountNew;// 割引数
 				pcdatadto.setTotalPriceOne((int) (totalPriceOne - disCountPrice));
 				totalPriceAll = (int) (totalPriceAll - disCountPrice);
 				pcdatadto.setCouponCheck(true);
@@ -2396,7 +2465,7 @@ public class ShoppingController {
 			System.out.println("cartList " + cartList);
 			model.addAttribute("cartList", cartList);
 
-			HttpSession session = request.getSession();//クレジット情報をsessionから取得
+			HttpSession session = request.getSession();// クレジット情報をsessionから取得
 			String digits_3_code = (String) session.getAttribute("digits_3_code");
 			String cardName = (String) session.getAttribute("cardName");
 			String cardNumber = (String) session.getAttribute("cardNumber");
@@ -2407,7 +2476,6 @@ public class ShoppingController {
 			model.addAttribute("cardNumber", cardNumber);
 			model.addAttribute("couponId", couponId);
 
-			
 		}
 		return "shopping/productListLayout";
 	}
@@ -2526,7 +2594,7 @@ public class ShoppingController {
 			purchasedtoAdd.setTotalPrice(
 					purchaseOne.getProduct_count() * (customList.getCustomPrice() + purchaseOne.getPrice()));
 
-			if(purchasedtoAdd.getCouponId() > 0) {
+			if (purchasedtoAdd.getCouponId() > 0) {
 				int totalPrice = purchasedtoAdd.getTotalPrice();
 				CouponDTO coupondto = couponService.selectOne(purchasedtoAdd.getCouponId());
 				int disCount = coupondto.getDiscount();// 割引率(%)
