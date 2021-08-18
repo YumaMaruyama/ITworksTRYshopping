@@ -1530,6 +1530,8 @@ public class ShoppingController {
 			if (purchasedtoAdd.getCouponId() > 0) {// クーポンを使用して購入していればtrue
 				int couponId = purchasedtoAdd.getCouponId();
 				couponUsedId.add(couponId);
+			}else {
+				couponUsedId.add(-1);
 			}
 			int productId = purchasedtoAdd.getId();
 			// 購入商品ごとのカスタム情報も取り出す
@@ -1551,6 +1553,7 @@ public class ShoppingController {
 		// 一度使用したクーポンは表示されないようにする
 		// 使用済みクーポンの一枚目のIDを使用して、使用前クーポンListを作成
 
+		try {
 		List<Integer> couponId = couponService.selectIdMany();// 全クーポン
 		System.out.println("全クーポン" + couponId);
 		System.out.println("使用済みクーポン" + couponUsedId);
@@ -1581,8 +1584,10 @@ public class ShoppingController {
 		List<CouponDTO> coupondtoList = new ArrayList<>();
 
 		for (int i = 0; beforeUseCouponId.size() > i; i++) {
-			coupondtoList = couponService.selectMany(beforeUseCouponId.get(i));// couponテーブルからクーポン情報をすべて取得
-		}
+			List<CouponDTO> dummyCoupondtoList = new ArrayList<>();
+			dummyCoupondtoList = couponService.selectMany(beforeUseCouponId.get(i));// couponテーブルからクーポン情報をすべて取得
+			coupondtoList.addAll(dummyCoupondtoList);
+			}
 
 		List<CouponDTO> coupondtoListAdd = new ArrayList<>();
 
@@ -1611,7 +1616,40 @@ public class ShoppingController {
 		}
 
 		model.addAttribute("couponList", coupondtoListAdd);
+		}catch(IndexOutOfBoundsException e) {
+			e.printStackTrace();
+			
+			
+			List<CouponDTO> coupondtoListAdd = new ArrayList<>();
+			List<CouponDTO> coupondtoList = couponService.beforePurchaseSelectMany();
+			for (int i = 0; coupondtoList.size() > i; i++) {// クーポン情報を一つづつ取り出す
+				CouponDTO coupondtoOne = coupondtoList.get(i);
+				int allCount = coupondtoOne.getPurchaseCountTarget();
+				int allPrice = coupondtoOne.getPurchaseTotalPriceTarget();
 
+				boolean countCheck = false;
+				boolean priceCheck = false;
+
+				if (allProductCount >= allCount) {// ユーザーの商品購入数と、クーポンの使用条件の商品購入数を比較
+					countCheck = true;
+				}
+				if (allTotalPrice >= allPrice) {// ユーザーの全商品購入金額と、クーポンの使用条件の全商品購入金額を比較
+					priceCheck = true;
+				}
+
+				coupondtoOne.setCouponCheck(false);
+				if ((countCheck == true) && (priceCheck == true)) {// 商品購入数と全商品購入金額がクーポンの使用条件に達しているか比較
+					coupondtoOne.setCouponCheck(true);
+				}
+
+				coupondtoListAdd.add(coupondtoOne);
+				System.out.println("couponCheck" + coupondtoOne.isCouponCheck());
+				model.addAttribute("couponList", coupondtoListAdd);
+				
+			}
+			model.addAttribute("purchaseCount", 0);
+			model.addAttribute("allTotalPrice",0);
+		}
 		return "shopping/productListLayout";
 	}
 
@@ -1643,6 +1681,8 @@ public class ShoppingController {
 			if (purchasedtoAdd.getCouponId() > 0) {// クーポンを使用して購入していればtrue
 				int couponId = purchasedtoAdd.getCouponId();
 				couponUsedId.add(couponId);
+			}else {
+				couponUsedId.add(-1);
 			}
 			int productId = purchasedtoAdd.getId();
 			// 購入商品ごとのカスタム情報も取り出す
@@ -1663,7 +1703,7 @@ public class ShoppingController {
 
 		// 一度使用したクーポンは表示されないようにする
 		// 使用済みクーポンの一枚目のIDを使用して、使用前クーポンListを作成
-
+		try {
 		List<Integer> couponId = couponService.selectIdMany();// 全クーポン
 		System.out.println("全クーポン" + couponId);
 		System.out.println("使用済みクーポン" + couponUsedId);
@@ -1694,8 +1734,10 @@ public class ShoppingController {
 		List<CouponDTO> coupondtoList = new ArrayList<>();
 
 		for (int i = 0; beforeUseCouponId.size() > i; i++) {
-			coupondtoList = couponService.selectMany(beforeUseCouponId.get(i));// couponテーブルからクーポン情報をすべて取得
-		}
+			List<CouponDTO> dummyCoupondtoList = new ArrayList<>();
+			dummyCoupondtoList = couponService.selectMany(beforeUseCouponId.get(i));// couponテーブルからクーポン情報をすべて取得
+			coupondtoList.addAll(dummyCoupondtoList);
+			}
 		List<CouponDTO> coupondtoListAdd = new ArrayList<>();
 
 		for (int i = 0; coupondtoList.size() > i; i++) {// クーポン情報を一つづつ取り出す
@@ -1725,6 +1767,12 @@ public class ShoppingController {
 		}
 
 		model.addAttribute("couponList", coupondtoListAdd);
+		}catch(IndexOutOfBoundsException e) {
+			e.printStackTrace();
+		
+			model.addAttribute("purchaseCount", 0);
+			model.addAttribute("allTotalPrice",0);
+		}
 		return "shopping/productListLayout";
 	}
 

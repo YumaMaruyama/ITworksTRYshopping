@@ -14,7 +14,7 @@
 		</header>
 		
 		<table>
-		<tr class="couponDetail1"><td th:text="'あなたのこれまでの商品購入数は' + ${purchaseCount} + '個で、合計購入金額は' + ${allTotalPrice} + '円です' + ' ※商品購入数と合計購入金額の条件をどちらも満たしている必要があります'"></td></tr>
+		<tr th:if="${purchaseCount} == 0 " class="couponDetail1"><td>使用可能なクーポンはありません</td></tr>
 		</table>
 		
 		<table class="table table-hover table-bordered" th:each="coupondto:${couponList}">

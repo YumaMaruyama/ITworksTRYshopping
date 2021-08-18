@@ -21,8 +21,8 @@
 			<tr>
 				<th class="text-center">クーポン名</th>
 				<th class="text-center">割引パーセント</th>
-				<th class="text-center">対象ユーザー(商品購入数)</th>
-				<th class="text-center">対象ユーザー(合計購入金額)</th>
+				<th class="text-center">使用条件1(商品購入数)</th>
+				<th class="text-center">使用条件2(合計購入金額)</th>
 				<th class="text-center">クーポン詳細</th>
 			</tr>
 			
@@ -33,6 +33,14 @@
 				<td class="text-center" th:text="${coupondto.purchaseTotalPriceTarget} + '円以上'"></td>
 				<td th:if="${coupondto.couponCheck} == true" class="text-center text-danger">使用可能</td>
 				<td th:if="${coupondto.couponCheck} == false" class="text-center">使用不可</td>
+			</tr>
+		
+		</table>
+		
+		<table>
+			<tr>
+				<th>クーポンについて</th>
+				<td>クーポンは種類ごとに一回のみ使用できます。クーポンは使用条件(商品購入数と合計購入金額)を二つとも達成している場合のみ使用できます。</td>
 			</tr>
 		
 		</table>
