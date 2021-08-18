@@ -45,6 +45,8 @@ public class PurchaseDTO {
 	
 	private String cancelCheck;
 	
+	private int couponId;
+	
 	private String cancelResult;
 
 }

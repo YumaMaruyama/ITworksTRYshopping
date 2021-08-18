@@ -21,6 +21,7 @@
 
 .customTableDesign {
 	background: #b6e8ec !important;
+	
 }
 
 .customUpdateDesign {
@@ -123,9 +124,9 @@
 
 .star5_rating[data-rate="5"]:after{ width: 100%; } /* 星5 */
 .star5_rating[data-rate="4.5"]:after{ width: 90%; } /* 星4.5 */
-.star5_rating[data-rate="4"]:after{ width: 80%; } /* 星4 */
-.star5_rating[data-rate="3.5"]:after{ width: 70%; } /* 星3.5 */
-.star5_rating[data-rate="3"]:after{ width: 60%; } /* 星3 */
+.star5_rating[data-rate="4.0"]:after{ width: 80%; } /* 星4 */
+.star5_rating[data-rate="3.7"]:after{ width: 70%; } /* 星3.5 */
+.star5_rating[data-rate="3.6"]:after{ width: 60%; } /* 星3 */
 .star5_rating[data-rate="2.5"]:after{ width: 50%; } /* 星2.5 */
 .star5_rating[data-rate="2"]:after{ width: 40%; } /* 星2 */
 .star5_rating[data-rate="1.5"]:after{ width: 30%; } /* 星1.5 */

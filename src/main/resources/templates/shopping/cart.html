@@ -12,8 +12,8 @@
 		</header>
 
 		<p class="cartDesign" th:text="${result}"></p>
-		<br>
-		<br>
+		
+		
 
 		<div class="flex cartList" style="width:1100px;">
 			<div class="item" th:each="pcdatadto : ${cartList}">
@@ -82,8 +82,16 @@
 		<form th:action="@{/clearing}">
 		
 		
-			<table th:if="${couponAfterPrice} == '-1'" class="cartPrice table table-bordered table-hover cartTable">
-				<tr>
+		<table th:if="${notProduct} == 'yes'" class="notProductCartPrice table table-bordered table-hover notProductCartTable">
+				<tr class="cartdetailtableDesign">
+					<td style="width: 214px;"><a th:href="@{/productList}"
+						class="btn btn2 btn--blue btn--cubic btn--shadow notProductListBtn">カートに追加してみよう！</a></td>
+					<td style="width: 156px; font-size:24px;" class="text-center " th:text="'カート合計金額' + ${totalPrice} + '円'"></td>
+				</tr>
+			</table>
+		
+			<table th:if="${couponAfterPrice} == '-1' and ${notProduct} != 'yes'" class="cartPrice table table-bordered table-hover cartTable">
+				<tr class="cartdetailtableDesign">
 					<td style="width: 214px;"><a th:href="@{/productList}"
 						class="btn btn2 btn--blue btn--cubic btn--shadow productListBtn">買い物を続ける</a></td>
 					<td style="width: 156px;" class="text-center " th:text="'カート合計金額' + ${totalPrice} + '円'"></td>
@@ -94,12 +102,12 @@
 				</tr>
 			</table>
 			
-			<table th:if="${couponAfterPrice} != '-1'" class="cartPrice table table-bordered table-hover cartTable">
-				<tr>
+			<table th:if="${couponAfterPrice} != '-1' and ${notProduct} != 'yes'" class="cartPrice table table-bordered table-hover cartTable">
+				<tr class="cartdetailtableDesign">
 					<td style="width: 214px;"><a th:href="@{/productList}"
 						class="btn btn2 btn--blue btn--cubic btn--shadow productListBtn">買い物を続ける</a></td>
 					<td style="width: 156px;" class="text-center lineAdd" th:text="'カート合計金額' + ${totalPrice} + '円'"></td>
-					<td class="cartPrice2 card-text text-center fontdesign textDesign2"
+					<td class=" card-text text-center fontdesignNew textDesign2"
 						th:text="'クーポン使用後' + ${couponAfterPrice} + '円'"></td>
 
 					<td><button

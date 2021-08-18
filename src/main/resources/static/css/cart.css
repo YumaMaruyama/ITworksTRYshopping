@@ -2,7 +2,11 @@
 
 .fontdesign {
 	font-size: 13px;
-	margin-bottom: 0px!important;
+	margin-bottom: 0px !important;
+}
+
+.fontdesignNew {
+	margin-bottom: 0px !important;
 }
 
 .font {
@@ -26,7 +30,7 @@
 .cartList {
 	display: auto;
 	overflow-y: scroll;
-	height: 410px;
+	height: 439px;
 }
 
 .cartPrice {
@@ -41,25 +45,25 @@
 .productListBtn {
 	font-size: 23px !important;
 	width: 214px;
-    margin-top: 4px;
+	margin-top: 4px;
 }
 
 .clearingBtn {
-	font-size: 23px !important;	
+	font-size: 23px !important;
 	margin-top: 4px;
-    margin-left: 56px;
+	margin-left: 56px;
 }
 
 .clearingBtnAfter {
-	font-size: 23px !important;	
+	font-size: 23px !important;
 	margin-top: 4px;
-    margin-left: 26px;
+	margin-left: 26px;
 }
 
 .couponBtn {
 	font-size: 23px !important;
 	margin-top: 4px;
-    margin-left: 56px;
+	margin-left: 56px;
 }
 
 .textDesign1 {
@@ -67,7 +71,6 @@
 }
 
 .textDesign2 {
-	font-size: 20px;
 	width: 161px;
 }
 
@@ -86,46 +89,66 @@
 }
 
 .cartos {
-	padding-right:32px;
+	padding-right: 32px;
 }
 
 .cartsize {
-	padding-right:24px;
+	padding-right: 24px;
 }
 
 .cartmemory {
-	padding-right:39px;
+	padding-right: 39px;
 }
 
 .cartharddisc {
-	padding-right:8px;
+	padding-right: 8px;
 }
 
 .cartcpu {
-	padding-right:50px;
+	padding-right: 50px;
 }
 
 .cartprice {
-	padding-left:11px;
+	padding-left: 11px;
 }
 
 .cartstock {
-	padding-right:48px;
+	padding-right: 48px;
 }
 
 .purchaseCount {
 	font-size: 11px;
-    padding-left: 19px;
+	padding-left: 19px;
 }
 
 .cartTable {
-	background:#f1b8ab;
-	margin-top:24px;
-	width:1020px;
+	background: #f1b8ab;
+	margin-top: 24px;
+	width: 1020px;
+}
+
+.notProductCartTable {
+	background: #f1b8ab;
+	width: 374px;
+}
+
+.notProductCartPrice {
+	margin-left: 350px;
+	font-size: 20px !important;
+}
+
+.notProductListBtn {
+	font-size: 23px !important;
+	width: 192px;
+	margin-top: 4px;
 }
 
 .lineAdd {
-	 text-decoration: line-through;
+	text-decoration: line-through;
+}
+
+.cartdetailtableDesign {
+	font-size: 17px !important;
 }
 
 a.btn--orange, button.btn--orange {

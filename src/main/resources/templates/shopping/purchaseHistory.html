@@ -21,8 +21,10 @@
 							th:text="'購入日：' + ${#dates.format(purchasedto.purchase_date, 'yyyy/MM/dd HH:mm')}"></h5>
 						<p class="card-title purHisfontdesign"
 							th:text="'商品名：' + ${purchasedto.pcName}"></p>
-						<p class="card-title purHisfontdesign"
+						<p  th:if="${purchasedto.couponId} == -1"class="card-title purHisfontdesign"
 							th:text="'値段：' + ${purchasedto.totalPrice}"></p>
+						<p th:if="${purchasedto.couponId} gt 0" class="card-title purHisfontdesign"
+							th:text="'値段：' + ${purchasedto.totalPrice} + '(クーポン適用)'"></p>
 						<p class="card-text purHisfontdesign cartmemory"
 							style="margin-bottom: 0px !important"
 							th:text="'メモリー：' + ${purchasedto.memory}"></p>

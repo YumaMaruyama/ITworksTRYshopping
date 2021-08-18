@@ -61,4 +61,10 @@ public class CouponDaoJdbcImpl implements CouponDao {
 		
 		return coupondto;
 	}
+	
+	public List<Integer> selectIdMany() {
+		List<Integer> couponId = jdbc.queryForList("select coupon.id from coupon",Integer.class);
+		return couponId;
+		
+	}
 }

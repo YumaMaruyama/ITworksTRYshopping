@@ -28,4 +28,8 @@ public class CouponService {
 		return dao.selectOne(couponId);
 	}
 	
+	public List<Integer> selectIdMany() {
+		return dao.selectIdMany();
+	}
+	
 }
