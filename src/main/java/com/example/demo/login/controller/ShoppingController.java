@@ -1,7 +1,5 @@
 package com.example.demo.login.controller;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -1612,8 +1610,19 @@ public class ShoppingController {
 			if ((countCheck == true) && (priceCheck == true)) {// 商品購入数と全商品購入金額がクーポンの使用条件に達しているか比較
 				coupondtoOne.setCouponCheck(true);
 			}
-
+			Calendar calendar = Calendar.getInstance();
+			Date now = calendar.getTime();
+			calendar.setTime(coupondtoOne.getExpirationDate());
+			Date expirationDate = calendar.getTime();// 購入日付
+			model.addAttribute("expirationDate", expirationDate);
+			System.out.println("nw"+now);
+			System.out.println("ex"+expirationDate);
+			long d = (expirationDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24);// 購入日と現在の日付を比べる
+			int count = (int) -d;
+			System.out.println("count+++++++++++++++++++++++++++++++"+count);
+			if(count < 0) {
 			coupondtoListAdd.add(coupondtoOne);
+			}
 			System.out.println("couponCheck" + coupondtoOne.isCouponCheck());
 			
 		}
@@ -1629,30 +1638,21 @@ public class ShoppingController {
 				CouponDTO coupondtoOne = coupondtoList.get(i);
 				int allCount = coupondtoOne.getPurchaseCountTarget();
 				int allPrice = coupondtoOne.getPurchaseTotalPriceTarget();
-				Calendar calendar = Calendar.getInstance();
-				SimpleDateFormat sdformat = new SimpleDateFormat("yyyy-MM-dd");
-				Date now1 = calendar.getTime();
-				//System.out.println("Datenow1"+now1);
-				String now2 = sdformat.format(now1);
-				Date now2new;
-				try {
-					now2new = sdformat.parse(now2);
 				
-				System.out.println("Stringnow2"+now2);
-				Date now3 = new Date();
-				//System.out.println("newDatenow3"+now3);
-				//SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-				//Date newNewNext = df.format(nowNew);
+				
+				
+				Calendar calendar = Calendar.getInstance();
+				Date now = calendar.getTime();
 				calendar.setTime(coupondtoOne.getExpirationDate());
-				Date dateEx = coupondtoOne.getExpirationDate();
-				Date expirationDate = calendar.getTime();
-				int a = 11;
-				int b = 02;
-				int d = 23;
-				//念月日を分けてやってみる
-				Date date1 = new Date(a,b,d);
-				System.out.println("DateEx"+dateEx);
-				//System.out.println("getDatedateex"+expirationDate);
+				Date expirationDate = calendar.getTime();// 購入日付
+				model.addAttribute("expirationDate", expirationDate);
+				System.out.println("nw"+now);
+				System.out.println("ex"+expirationDate);
+				long d = (expirationDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24);// 購入日と現在の日付を比べる
+				int count = (int) -d;
+				System.out.println("count+++++++++++++++++++++++++++++++"+count);
+				
+			
 				boolean countCheck = false;
 				boolean priceCheck = false;
 
@@ -1668,18 +1668,14 @@ public class ShoppingController {
 					coupondtoOne.setCouponCheck(true);
 				}
 
+if (count < 0) {	
+
 				coupondtoListAdd.add(coupondtoOne);
+}
 				System.out.println("couponCheck" + coupondtoOne.isCouponCheck());
-				 int result = expirationDate.compareTo(now2new);
-				 System.out.println("result"+result);
-				if(result == -1) {
-				System.out.println("truturueur");
 				model.addAttribute("couponList", coupondtoListAdd);
-				}
-				} catch (ParseException e1) {
-					// TODO 自動生成された catch ブロック
-					e1.printStackTrace();
-				}
+				
+				
 				
 			}
 			
@@ -1781,6 +1777,17 @@ public class ShoppingController {
 				int allCount = coupondtoOne.getPurchaseCountTarget();
 				int allPrice = coupondtoOne.getPurchaseTotalPriceTarget();
 
+				Calendar calendar = Calendar.getInstance();
+				Date now = calendar.getTime();
+				calendar.setTime(coupondtoOne.getExpirationDate());
+				Date expirationDate = calendar.getTime();// 購入日付
+				model.addAttribute("expirationDate", expirationDate);
+				System.out.println("nw"+now);
+				System.out.println("ex"+expirationDate);
+				long d = (expirationDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24);// 購入日と現在の日付を比べる
+				int count = (int) -d;
+				System.out.println("count+++++++++++++++++++++++++++++++"+count);
+				
 				boolean countCheck = false;
 				boolean priceCheck = false;
 
@@ -1797,8 +1804,11 @@ public class ShoppingController {
 				}
 
 				if (coupondtoOne.isCouponCheck() == true) {// 商品購入数と全商品購入金額がクーポンの使用条件に達しているもののみList追加
+					if(count < 0) {
 					coupondtoListAdd.add(coupondtoOne);
+					}
 					System.out.println("couponCheck" + coupondtoOne.isCouponCheck());
+					
 				}
 			}
 
@@ -1827,9 +1837,24 @@ public class ShoppingController {
 				if ((countCheck == true) && (priceCheck == true)) {// 商品購入数と全商品購入金額がクーポンの使用条件に達しているか比較
 					coupondtoOne.setCouponCheck(true);
 				}
+				model.addAttribute("notCoupon","yes");
 				if (coupondtoOne.isCouponCheck() == true) {
+					Calendar calendar = Calendar.getInstance();
+					Date now = calendar.getTime();
+					calendar.setTime(coupondtoOne.getExpirationDate());
+					Date expirationDate = calendar.getTime();// 購入日付
+					model.addAttribute("expirationDate", expirationDate);
+					System.out.println("nw"+now);
+					System.out.println("ex"+expirationDate);
+					long d = (expirationDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24);// 購入日と現在の日付を比べる
+					int count = (int) -d;
+					System.out.println("count+++++++++++++++++++++++++++++++"+count);
+					if(count < 0) {
 					coupondtoListAdd.add(coupondtoOne);
+					}
+					model.addAttribute("notCoupon","no");
 				}
+				
 
 				System.out.println("couponCheck" + coupondtoOne.isCouponCheck());
 				model.addAttribute("couponList", coupondtoListAdd);
@@ -1837,6 +1862,7 @@ public class ShoppingController {
 			model.addAttribute("purchaseCount", 0);
 			model.addAttribute("allTotalPrice", 0);
 
+			
 		}
 		return "shopping/productListLayout";
 	}
@@ -2725,6 +2751,8 @@ public class ShoppingController {
 			calendar.add(Calendar.DATE, 10);
 			Date purchaseDateAddTen = calendar.getTime();// キャンセル期間外の購入日付から10日後の日付
 			model.addAttribute("result", purchaseDateAddTen);
+			System.out.println("pur"+purchaseDate.getTime());
+			System.out.println("now"+now.getTime());
 			long d = (purchaseDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24);// 購入日と現在の日付を比べる
 			int count = (int) -d;
 

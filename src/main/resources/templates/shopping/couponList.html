@@ -32,7 +32,7 @@
 				<td class="text-center" th:text="${coupondto.discount} + '%割り'"></td>
 				<td class="text-center" th:text="${coupondto.purchaseCountTarget} + '個以上'"></td>
 				<td class="text-center" th:text="${coupondto.purchaseTotalPriceTarget} + '円以上'"></td>
-				<td class="text-center" th:text="${coupondto.expirationDate} + 'まで'"></td>
+				<td class="text-center" th:text="${#dates.format(coupondto.expirationDate,'yyyy/MM/dd')} + 'まで'"></td>
 				<td th:if="${coupondto.couponCheck} == true" class="text-center text-danger">使用可能</td>
 				<td th:if="${coupondto.couponCheck} == false" class="text-center">使用不可</td>
 			</tr>

@@ -14,7 +14,7 @@
 		</header>
 		
 		<table>
-		<tr th:if="${purchaseCount} == 0 " class="couponDetail1"><td>使用可能なクーポンはありません</td></tr>
+		<tr th:if="${notCoupon} == 'yes'" class="couponDetail1"><td>使用可能なクーポンはありません</td></tr>
 		</table>
 		
 		<table class="table table-hover table-bordered" th:each="coupondto:${couponList}">
@@ -24,6 +24,7 @@
 				<th class="text-center">割引パーセント</th>
 				<th class="text-center">対象ユーザー(商品購入数)</th>
 				<th class="text-center">対象ユーザー(合計購入金額)</th>
+				<th class="text-center">期限日</th>
 				<th class="text-center">クーポン活用</th>
 			</tr>
 			
@@ -32,7 +33,7 @@
 				<td class="text-center" th:text="${coupondto.discount} + '%割り'"></td>
 				<td class="text-center" th:text="${coupondto.purchaseCountTarget} + '個以上'"></td>
 				<td class="text-center" th:text="${coupondto.purchaseTotalPriceTarget} + '円以上'"></td>
-				<!-- <td class="text-center"><a th:href="@{/couponUse} + '/' + ${coupondto.id}">使用する</a></td> -->
+				<td class="text-center" th:text="${#dates.format(coupondto.expirationDate,'yyyy/MM/dd')} + 'まで'"></td>
 				<td class="text-center"><a th:href="@{/couponProductChoose} + '/' + ${coupondto.id}">使用する</a></td>
 			</tr>
 		
