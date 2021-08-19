@@ -25,8 +25,9 @@ public class CouponDaoJdbcImpl implements CouponDao {
 				+ " discount,"
 				+ " purchase_count_target,"
 				+ " purchase_total_price_target,"
-				+ " title)"
-				+ " value(?,?,?,?,?)",coupondto.getId(),session.getAttribute("discount"),session.getAttribute("purchaseCountTarget"),session.getAttribute("purchaseTotalPriceTarget"),session.getAttribute("title"));
+				+ " title,"
+				+ " expiration_date)"
+				+ " value(?,?,?,?,?,?)",coupondto.getId(),session.getAttribute("discount"),session.getAttribute("purchaseCountTarget"),session.getAttribute("purchaseTotalPriceTarget"),session.getAttribute("title"),session.getAttribute("expirationDate"));
 		
 		return result;
 	}
@@ -45,7 +46,7 @@ public class CouponDaoJdbcImpl implements CouponDao {
 			coupondto.setPurchaseTotalPriceTarget((int)oneMap.get("purchase_total_price_target"));
 			coupondto.setTitle((String)oneMap.get("title"));
 			coupondto.setRegistratonDate((Date)oneMap.get("registration_date"));
-			
+			coupondto.setExpirationDate((Date)oneMap.get("expiration_date"));			
 			coupondtoList.add(coupondto);
 		}
 		
@@ -67,6 +68,7 @@ List<Map<String,Object>> map = jdbc.queryForList("select * from coupon");
 			coupondto.setPurchaseTotalPriceTarget((int)oneMap.get("purchase_total_price_target"));
 			coupondto.setTitle((String)oneMap.get("title"));
 			coupondto.setRegistratonDate((Date)oneMap.get("registration_date"));
+			coupondto.setExpirationDate((Date)oneMap.get("expiration_date"));	
 			
 			coupondtoList.add(coupondto);
 		}

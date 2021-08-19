@@ -1595,6 +1595,7 @@ public class ShoppingController {
 			CouponDTO coupondtoOne = coupondtoList.get(i);
 			int allCount = coupondtoOne.getPurchaseCountTarget();
 			int allPrice = coupondtoOne.getPurchaseTotalPriceTarget();
+			
 
 			boolean countCheck = false;
 			boolean priceCheck = false;
@@ -1613,6 +1614,7 @@ public class ShoppingController {
 
 			coupondtoListAdd.add(coupondtoOne);
 			System.out.println("couponCheck" + coupondtoOne.isCouponCheck());
+			
 		}
 
 		model.addAttribute("couponList", coupondtoListAdd);
@@ -1645,7 +1647,7 @@ public class ShoppingController {
 				coupondtoListAdd.add(coupondtoOne);
 				System.out.println("couponCheck" + coupondtoOne.isCouponCheck());
 				model.addAttribute("couponList", coupondtoListAdd);
-				
+			
 			}
 			model.addAttribute("purchaseCount", 0);
 			model.addAttribute("allTotalPrice",0);
@@ -1770,8 +1772,37 @@ public class ShoppingController {
 		}catch(IndexOutOfBoundsException e) {
 			e.printStackTrace();
 		
+			List<CouponDTO> coupondtoListAdd = new ArrayList<>();
+			List<CouponDTO> coupondtoList = couponService.beforePurchaseSelectMany();
+			for (int i = 0; coupondtoList.size() > i; i++) {// クーポン情報を一つづつ取り出す
+				CouponDTO coupondtoOne = coupondtoList.get(i);
+				int allCount = coupondtoOne.getPurchaseCountTarget();
+				int allPrice = coupondtoOne.getPurchaseTotalPriceTarget();
+
+				boolean countCheck = false;
+				boolean priceCheck = false;
+
+				if (allProductCount >= allCount) {// ユーザーの商品購入数と、クーポンの使用条件の商品購入数を比較
+					countCheck = true;
+				}
+				if (allTotalPrice >= allPrice) {// ユーザーの全商品購入金額と、クーポンの使用条件の全商品購入金額を比較
+					priceCheck = true;
+				}
+
+				coupondtoOne.setCouponCheck(false);
+				if ((countCheck == true) && (priceCheck == true)) {// 商品購入数と全商品購入金額がクーポンの使用条件に達しているか比較
+					coupondtoOne.setCouponCheck(true);
+				}
+				if(coupondtoOne.isCouponCheck() == true) {
+					coupondtoListAdd.add(coupondtoOne);
+				}
+				
+				System.out.println("couponCheck" + coupondtoOne.isCouponCheck());
+				model.addAttribute("couponList", coupondtoListAdd);
+			}
 			model.addAttribute("purchaseCount", 0);
 			model.addAttribute("allTotalPrice",0);
+			
 		}
 		return "shopping/productListLayout";
 	}
@@ -1882,12 +1913,13 @@ public class ShoppingController {
 		session.setAttribute("discount", form.getDiscount());
 		session.setAttribute("purchaseCountTarget", form.getPurchaseCountTarget());
 		session.setAttribute("purchaseTotalPriceTarget", form.getPurchaseTotalPriceTarget());
-
+		session.setAttribute("expirationDate",form.getExpirationDate());
+		
 		CouponDTO coupondto = new CouponDTO();
 
 		couponService.couponInsert(coupondto, session);// couponテーブルにsessionに保存したデータを格納
 
-		return getCouponList(form, model);
+		return "redirect:/couponList";
 	}
 
 	@GetMapping("/productList")

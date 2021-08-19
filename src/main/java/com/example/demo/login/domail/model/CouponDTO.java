@@ -17,6 +17,8 @@ public class CouponDTO {
 	
 	private String title;
 	
+	private Date expirationDate;
+	
 	private Date registratonDate;
 	
 	private boolean couponCheck;

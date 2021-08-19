@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html　xmlns:th="http://www.thymeleaf.org"
+<html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <meta charset="UTF-8">
@@ -23,6 +23,7 @@
 				<th class="text-center">割引パーセント</th>
 				<th class="text-center">使用条件1(商品購入数)</th>
 				<th class="text-center">使用条件2(合計購入金額)</th>
+				<th class="text-center">期限日</th>
 				<th class="text-center">クーポン詳細</th>
 			</tr>
 			
@@ -31,6 +32,7 @@
 				<td class="text-center" th:text="${coupondto.discount} + '%割り'"></td>
 				<td class="text-center" th:text="${coupondto.purchaseCountTarget} + '個以上'"></td>
 				<td class="text-center" th:text="${coupondto.purchaseTotalPriceTarget} + '円以上'"></td>
+				<td class="text-center" th:text="${coupondto.expirationDate} + 'まで'"></td>
 				<td th:if="${coupondto.couponCheck} == true" class="text-center text-danger">使用可能</td>
 				<td th:if="${coupondto.couponCheck} == false" class="text-center">使用不可</td>
 			</tr>

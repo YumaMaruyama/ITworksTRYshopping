@@ -51,6 +51,16 @@
 						th:if="${#fields.hasErrors('purchaseTotalPriceTarget')}" th:errors="*{purchaseTotalPriceTarget}">purchaseTotalPriceTarget
 							error</span></td>
 				</tr>
+				
+					<tr>
+					<th  class="text-center">クーポン期限日</th>
+					<td  th:classappend="${#fields.hasErrors('expirationDate')}?'has-error'"
+						class="form-group">
+							<input type="date" class="form-control" th:field="*{expirationDate}">
+						<span class="text-danger" th:if="${#fields.hasErrors('expirationDate')}" th:errors="*{expirationDate}">expirationDate error</span>
+					</td>
+				</tr>
+				
 			
 			</table>
 			
