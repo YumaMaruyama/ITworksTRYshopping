@@ -1963,11 +1963,13 @@ if (count < 0) {
 	}
 
 	@PostMapping(value = "couponAdd", params = "distribution")
-	public String postCouponAdd(@ModelAttribute CouponForm form, HttpServletRequest request,
+	public String postCouponAdd(@ModelAttribute @Validated(GroupOrder.class) CouponForm form,BindingResult bindingResult, HttpServletRequest request,
 			HttpServletResponse response, Model model) {
-		// model.addAttribute("contents",
-		// "shopping/couponList::productListLayout_contents");
-
+	
+		if(bindingResult.hasErrors()) {
+			return getCouponAdd(form,model);
+		}
+		
 		HttpSession session = request.getSession();// 入力されたクーポン情報をsession保存
 		session.setAttribute("title", form.getTitle());
 		session.setAttribute("discount", form.getDiscount());
