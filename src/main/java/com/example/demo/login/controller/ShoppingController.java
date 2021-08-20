@@ -1909,13 +1909,23 @@ if (count < 0) {
 					CouponDTO coupondto = couponService.selectOne(couponId);
 					int disCount = coupondto.getDiscount();// 割引率(%)
 					System.out.println("disCount" + disCount);
-					double disCountNew = Double.valueOf("0." + disCount);
+					double disCountNew = 0;
+					if(disCount < 10) {
+						disCountNew = Double.valueOf("0.0" + disCount);
+						
+						double disCountPriceNew = disCountPrice * disCountNew;// 割引価格
+						int disCountPriceNewNext = (int) disCountPriceNew;
+						pcdatadto.setDisCountPriceNew(disCountPriceNewNext);
+						totalPriceOne = (int) (totalPriceOne - disCountPriceNew);
+					}else {
+					disCountNew = Double.valueOf("0." + disCount);
+					
 					double disCountPriceNew = disCountPrice * disCountNew;// 割引価格
 					int disCountPriceNewNext = (int) disCountPriceNew;
 					pcdatadto.setDisCountPriceNew(disCountPriceNewNext);
 					totalPriceOne = (int) (totalPriceOne - disCountPriceNew);
 				}
-
+				}
 				model.addAttribute("totalPrice", totalPriceAll);
 				model.addAttribute("couponAfterPrice", totalPriceOne);
 			}

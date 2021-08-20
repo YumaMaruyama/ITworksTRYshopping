@@ -1,5 +1,88 @@
 @charset "UTF-8";
 
 .couponDetail1 {
-	font-size:13px;
+	font-size: 13px;
+}
+
+.couponTable {
+	display: block;
+	overflow-y: scroll;
+	height: 464px;
+	font-size: 12px;
+	width: 1100px;
+}
+
+.couponAboutTable {
+	font-size: 15px;
+}
+
+.couponListThCouponName {
+	width: 463px;
+}
+
+.couponListThDiscount {
+	width: 110px;
+}
+
+.couponListThPurchaseCountTarget {
+	width: 150px;
+}
+
+.couponListThPurchaseTotalPriceTarget {
+	width: 162px;
+}
+
+.couponListThExpirationDate {
+	width: 102px;
+}
+
+.couponListThCouponDetail {
+	width: 98px;
+}
+
+.couponListTdCouponName {
+	width: 463px;
+}
+
+.couponListTdDiscount {
+	width: 110px
+}
+
+.couponListTdPurchaseCountTarget {
+	width: 150px;
+}
+
+.couponListTdPurchaseTotalPriceTarget {
+	width: 162px;
+}
+
+.couponListTdExpirationDate {
+	width: 102px;
+}
+
+.couponListTdCouponDetail {
+	width: 98px;
+}
+
+.couponAboutTh {
+	width: 91px;
+	background: #f7eb64;
+}
+
+.couponAboutTd {
+	width: 459px;
+	background: #fffdb8
+}
+
+.couponSeeAboutTd {
+	width: 950px;
+	background: #fffdb8
+}
+
+.couponListThColor {
+	background: aquamarine
+}
+
+.couponListTdColor {
+	background: #d1fff6;
 }

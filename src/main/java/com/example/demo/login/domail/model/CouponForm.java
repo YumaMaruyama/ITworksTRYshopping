@@ -15,15 +15,15 @@ public class CouponForm {
 	
 	private int id;
 	@NotBlank(groups = ValidGroup1.class)
-	@Pattern(regexp = "^[0-9]",groups = ValidGroup2.class)
+	@Pattern(regexp = "[0-9]+$",groups = ValidGroup2.class)
 	@Length(min=1,max=2,groups = ValidGroup3.class)
 	private String discount;
 	@NotBlank(groups = ValidGroup1.class)
-	@Pattern(regexp = "[0-9]",groups = ValidGroup2.class)
+	@Pattern(regexp = "[0-9]+$",groups = ValidGroup2.class)
 	@Length(min=1,max=3,groups = ValidGroup3.class)
 	private String purchaseCountTarget;
 	@NotBlank(groups = ValidGroup1.class)
-	@Pattern(regexp = "^[0-9]+$",groups = ValidGroup2.class)
+	@Pattern(regexp = "[0-9]+$",groups = ValidGroup2.class)
 	@Length(min=1,max=3,groups = ValidGroup3.class)
 	private String purchaseTotalPriceTarget;
 	@NotBlank(groups = ValidGroup1.class)

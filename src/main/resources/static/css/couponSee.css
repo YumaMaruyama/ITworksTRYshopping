@@ -1,0 +1,23 @@
+@charset "UTF-8";
+
+.couponSeeTable {
+	display: block;
+	overflow-y: scroll;
+	height: 464px;
+	font-size: 12px;
+	width: 1100px;
+}
+
+.couponSeeAboutTh {
+	width: 233px;
+	background: #f7eb64;
+}
+
+.couponSeeAboutTd {
+	width: 950px;
+	background: #fffdb8
+}
+
+.couponSeeAboutTable {
+	font-size: 15px;
+}
