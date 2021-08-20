@@ -262,6 +262,7 @@ public class ShoppingController {
 		List<PurchaseDTO> allPurchaseList = new ArrayList<>();
 		PurchaseDTO customList;
 		// 購入商品を一つづつ回して値を受け取る
+		if(purchasedtoList.size() > 0) {
 		for (int i = 0; purchasedtoList.size() > i; i++) {
 			PurchaseDTO purchasedtoAdd = new PurchaseDTO();
 			PurchaseDTO purchaseOne = purchasedtoList.get(i);
@@ -287,6 +288,10 @@ public class ShoppingController {
 			model.addAttribute("purchaseCount", allProductCount);
 			model.addAttribute("allTotalPrice", allTotalPrice);
 			allPurchaseList.add(purchasedtoAdd);
+		}
+		}else {
+			model.addAttribute("purchaseCount", 0);
+			model.addAttribute("allTotalPrice",0);
 		}
 
 		return "shopping/productListLayout";
