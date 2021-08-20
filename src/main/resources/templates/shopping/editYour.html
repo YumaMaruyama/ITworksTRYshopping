@@ -10,7 +10,8 @@
 	<div th:fragment="productListLayout_contents">
 		<h1 class="titleDesign">あなたの情報</h1>
 
-		<table class="table table-hover table-bordered usersListDesign"
+	<h2>基本情報</h2>
+		<table class="table table-hover table-bordered userInfoTableDesign"
 			th:each="userslistdto : ${usersList}">
 			<tr>
 				<th class="text-center">メールアドレス</th>
@@ -30,11 +31,29 @@
 					class="btn btn-primary btnDesign">編集</a></td>
 			</tr>
 		</table>
-
-		<table class="table table-hover table-bordered">
+		<h2>購入情報</h2>
+		<table class="table table-hover table-bordered userPurchaseInfoTableDesign">
 			<tr>
 				<td class="text-center" th:text="'商品購入数:' + ${purchaseCount}"></td>
 				<td class="text-center" th:text="'合計購入金額:' + ${allTotalPrice}"></td>
+			</tr>
+		</table>
+		
+		<h2>会員ランク</h2>
+		<table class="table table-hover table-bordered TableDesign">
+			<tr>
+				<td class="text-center" th:text="${rankPoint}+'ランク！'"></td>
+				<td th:if="${rankPoint} == 'アマチュアランク'"class="text-center" ><i class="fa fa-qq rank1"></i></td>
+				<td th:if="${rankPoint} == 'プロランク'"class="text-center" ><i class="fa fa-qq rank2"></i></td>
+				<td th:if="${rankPoint} == 'ブロンズランク'"class="text-center" ><i class="fa fa-drupal rank3"></i></td>
+				<td th:if="${rankPoint} == 'シルバーランク'"class="text-center" ><i class="fa fa-drupal rank4"></i></td>
+				<td th:if="${rankPoint} == 'ゴールドランク'"class="text-center" ><i class="fa fa-drupal rank5"></i></td>
+				<td th:if="${rankPoint} == 'ダイヤモンドランク'"class="text-center" ><i class="fa fa-android"></i></td>
+				<td th:if="${rankPoint} == 'プラチナムランク'"class="text-center" ><i class="fa fa-android"></i></td>
+				<td th:if="${rankPoint} == 'エイリアンランク'"class="text-center" ><i class="fa fa-android"></i></td>
+				<td th:if="${rankPoint} == 'ゴッドランク'"class="text-center" ><i class="fa fa-android"></i></td>
+				<td th:if="${rankPoint} == 'プレミアムゴッドランク'"class="text-center" ><i class="fa fa-android"></i></td>
+				<td th:if="${rankPoint} == 'MEASUREMENTIMPOSSIBLERANK'"class="text-center" ><i class="fa fa-android"></i></td>
 			</tr>
 		</table>
 	</div>

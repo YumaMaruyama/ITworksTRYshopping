@@ -1,1 +1,29 @@
 @charset "UTF-8";
+
+.userInfoTableDesign {
+	font-size:13px !important;
+}
+
+.userPurchaseInfoTableDesign {
+	font-size:13px !important;
+}
+
+.rank1 {
+	color: #b3b1ba;
+}
+
+.rank2 {
+	color: #9c942f;
+}
+
+.rank3 {
+	color: #915e3c;
+}
+
+.rank4 {
+	color: #b3b1ba;
+}
+
+.rank5 {
+	color: #9c942f;
+}

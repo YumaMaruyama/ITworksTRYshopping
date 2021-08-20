@@ -287,11 +287,39 @@ public class ShoppingController {
 			allProductCount = allProductCount + purchasedtoAdd.getProduct_count();// ユーザーの購入した商品の数を取得
 			model.addAttribute("purchaseCount", allProductCount);
 			model.addAttribute("allTotalPrice", allTotalPrice);
+//			int priceRank = allTotalPrice * 10;
+//			int countRank = allProductCount * 30000;
+//			int rankPoint = priceRank + countRank;
+//			System.out.println(rankPoint);
+			if((allTotalPrice > 0) && (allTotalPrice < 50000)) {
+			model.addAttribute("rankPoint","アマチュアランク");
+			}else if((allTotalPrice > 0) && (allTotalPrice < 100000)) {
+				model.addAttribute("rankPoint","プロランク");
+			}else if((allTotalPrice > 0) && (allTotalPrice < 200000)) {
+				model.addAttribute("rankPoint","ブロンズランク");
+			}else if((allTotalPrice > 0) && (allTotalPrice < 400000)) {
+				model.addAttribute("rankPoint","シルバーランク");
+			}else if((allTotalPrice > 0) && (allTotalPrice < 800000)) {
+				model.addAttribute("rankPoint","ゴールドランク");
+			}else if((allTotalPrice > 0) && (allTotalPrice < 1000000)) {
+				model.addAttribute("rankPoint","ダイヤモンドランク");
+			}else if((allTotalPrice > 0) && (allTotalPrice < 1500000)) {
+				model.addAttribute("rankPoint","プラチナムランク");
+			}else if((allTotalPrice > 0) && (allTotalPrice < 3000000)) {
+				model.addAttribute("rankPoint","エイリアンランク");
+			}else if((allTotalPrice > 0) && (allTotalPrice < 5000000)) {
+				model.addAttribute("rankPoint","ゴッドランク");
+			}else if((allTotalPrice > 0) && (allTotalPrice < 8000000)) {
+				model.addAttribute("rankPoint","プレミアムゴッドランク");
+			}else if((allTotalPrice > 0) && (allTotalPrice < 10000000)) {
+				model.addAttribute("rankPoint","MEASUREMENTIMPOSSIBLERANK");
+			}
 			allPurchaseList.add(purchasedtoAdd);
 		}
 		}else {
 			model.addAttribute("purchaseCount", 0);
 			model.addAttribute("allTotalPrice",0);
+			model.addAttribute("rankPoint","アマチュアランク");
 		}
 
 		return "shopping/productListLayout";
