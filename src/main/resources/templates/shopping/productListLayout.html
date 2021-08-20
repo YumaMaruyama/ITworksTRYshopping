@@ -4,6 +4,9 @@
 <head>
 <meta charset="UTF-8">
 
+<!-- アイコン用 -->
+<link rel="stylesheet"
+	href="http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 <!-- Bootstrap　 jQuery Bootstrapの読み込み必要がある-->
 <!--　cssファイル タイムリーフでファイル読み込み　 -->
 <link th:href="@{/webjars/bootstrap/4.2.1/css/bootstrap.min.css}"
@@ -38,6 +41,7 @@
 <link th:href="@{/css/couponList.css}" rel="stylesheet"></link>
 <link th:href="@{/css/purchaseHistory.css}" rel="stylesheet"></link>
 <link th:href="@{/css/couponSee.css}" rel="stylesheet"></link>
+<link th:href="@{/css/icon.css}" rel="stylesheet"></link>
 
 <title>PcShoppingYM</title>
 </head>
@@ -71,7 +75,7 @@
 			<div class="clearfix"></div>
 			<div class="col-sm-3 col-md-2 sidebar">
 				<ul class="nav nav-sidebar">
-					<li><a class="btn btn-gradient desiginBtn"th:href="@{/productList}"><span>商品一覧</span></a></li>
+					<li><a class="btn btn-gradient desiginBtn"th:href="@{/productList}"><i class="fa fa-file "><span>商品一覧</span></i></a></li>
 					<li class="flexDetail"><a class="btn btn-gradient desiginBtn" th:href="@{/cart}"><span>カート一覧</span></a></li>
 					<li><a class="btn btn-gradient desiginBtn" th:href="@{/inquiry}"><span>お問い合わせ</span></a></li>
 					<li><a class="btn btn-gradient desiginBtn" th:href="@{/privacyPolicy}"><span style="font-size:12px;">プライバシーポリシー</span></a></li>
@@ -79,7 +83,7 @@
 					<li><a class="btn btn-gradient desiginBtn" th:href="@{/purchaseHistory}"><span>商品購入履歴</span></a></li>
 					<li><a class="btn btn-gradient desiginBtn" th:href="@{/couponList}"><span>クーポン情報</span></a></li>
 					<li><a class="btn btn-gradient desiginBtn" th:href="@{/editYour}"><span>あなたの編集</span></a></li>
-					<li><a class="btn btn-gradient desiginBtn" th:href="@{/news}"><span>管理者からのお知らせ</span></a></li>
+					<li><a class="btn btn-gradient desiginBtn" th:href="@{/news}"><span>お知らせ</span></a></li>
 					<li><a class="btn btn-gradient desiginBtn" th:href="@{/contactReply}"><span>問い合わせの返信</span></a></li>
 					<li><a class="btn btn-gradient desiginBtn" th:href="@{/administrator}"><span style="font-size:12px;">管理者専用画面</span></a></li>
 

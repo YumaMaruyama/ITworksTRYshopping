@@ -8,7 +8,7 @@
 .confirmationList {
 	display: auto;
 	overflow-y: scroll;
-	height: 226px;
+	height: 238px;
 }
 
 .afPuThDesign {
@@ -20,7 +20,7 @@
 }
 
 .confirmation_statement {
-	font-size: 12px;
+	font-size: 16px;
 }
 
 .clearing {
@@ -29,6 +29,7 @@
 
 .btn-wrapper {
 	text-align: center;
+	padding:0px !important;
 }
 
 .check-box {
