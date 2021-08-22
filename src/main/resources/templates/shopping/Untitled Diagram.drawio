@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-08-21T12:33:30.601Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36 Edg/92.0.902.78" etag="vhfQq3Hk9tzbAKsq6bI6" version="14.9.6" type="github" pages="31">
+<mxfile host="app.diagrams.net" modified="2021-08-22T03:40:08.941Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36 Edg/92.0.902.78" etag="pH7w17N6E-Zyf-0Gxggk" version="14.9.8" type="github" pages="32">
   <diagram id="3dSM1hKOwx3oM_8oYQWr" name="ログイン画面">
     <mxGraphModel dx="1438" dy="579" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -5286,6 +5286,14 @@
       <root>
         <mxCell id="iFnZcThXHePSC__bWPCX-0" />
         <mxCell id="iFnZcThXHePSC__bWPCX-1" parent="iFnZcThXHePSC__bWPCX-0" />
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="exxKVxlPINlanbGktVJ2" name="会員ランク画面">
+    <mxGraphModel dx="1038" dy="579" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="JyrgZ4I7zMmZBxSgQvyX-0" />
+        <mxCell id="JyrgZ4I7zMmZBxSgQvyX-1" parent="JyrgZ4I7zMmZBxSgQvyX-0" />
       </root>
     </mxGraphModel>
   </diagram>
