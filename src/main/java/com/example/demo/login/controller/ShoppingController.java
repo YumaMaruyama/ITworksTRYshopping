@@ -405,8 +405,10 @@ public class ShoppingController {
 
 	@PostMapping(value = "inquiry", params = "sending")
 	public String postInquirySending(@ModelAttribute @Validated(GroupOrder.class) InquiryForm form, InquiryForm form2,
-			BindingResult bindingResult, Model model) {
+			BindingResult bindingResult, HttpServletRequest request, HttpServletResponse response,Model model) {
 
+		model.addAttribute("contents", "shopping/inquiryFinish::productListLayout_contents");
+		
 		if (bindingResult.hasErrors()) {// 入力内容がおかしい場合はtrue
 			System.out.println("バリデーションエラー到達");
 			return getInquiry(form, model);// もう一度入力画面に遷移させる
@@ -421,11 +423,19 @@ public class ShoppingController {
 		inquirydto.setTitle(form.getTitle());// 問い合わせタイトルをdtoに入れる
 		inquirydto.setContent(form.getContent());// 問い合わせ内容をdtoに入れる
 
+		HttpSession session = request.getSession();
+		session.setAttribute("title", form.getTitle());
+		session.setAttribute("content", form.getContent());
+		model.addAttribute("title",(String) session.getAttribute("title"));
+		model.addAttribute("content",(String) session.getAttribute("content"));
+		
+		
+		
 		int result = inquiryService.insertOne(inquirydto, select_id);// dtoとusersテーブルのidでお問い合わせの情報を格納する
 
-		model.addAttribute("result", "お問い合わせありがとうございます。");// 画面に表示させる問い合わせ完了のメッセージ
+	
 
-		return getInquiry(form2, model);
+		return "shopping/productListLayout";
 
 	}
 
