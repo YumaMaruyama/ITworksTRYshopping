@@ -504,6 +504,8 @@ public class ShoppingController {
 		List<InquiryAllDTO> inquiryreplydtolist = inquiryService.everyUserSelectMany(select_id);// usersテーブルのidをもとにinquiryテーブルとinquiry_replyテーブル情報を取得
 		System.out.println("inquiryList"+inquiryreplydtolist);
 		
+	
+		
 		model.addAttribute("inquiryAllDto", inquiryreplydtolist);
 
 		return "shopping/productListLayout";
