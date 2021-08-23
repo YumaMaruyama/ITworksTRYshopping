@@ -34,30 +34,30 @@
 			<table
 				class="table table-bordered productDetailTableDesigin">
 				<tr class="pcdataTableDesigna">
-					<th class="text-center">会社名</th>
-					<th class="text-center">OS</th>
-					<th class="text-center">商品名</th>
-					<th class="text-center">画面サイズ</th>
-					<th class="text-center">値段</th>
-					<th class="text-center">在庫数</th>
+					<th class="text-center padding">会社名</th>
+					<th class="text-center padding">OS</th>
+					<th class="text-center padding">商品名</th>
+					<th class="text-center padding">画面サイズ</th>
+					<th class="text-center padding">値段</th>
+					<th class="text-center padding">在庫数</th>
 				</tr>
 				<tr th:each="pcdatadto : ${pcdatadtoOne}" class="pcdataTableDesignb" >
-					<td class="text-center" th:text="${pcdatadto.company}"></td>
-					<td class="text-center" th:text="${pcdatadto.os}"></td>
-					<td class="text-center" th:text="${pcdatadto.pc_name}"></td>
-					<td class="text-center" th:text="${pcdatadto.pc_size} + '型'"></td>
-					<td class="text-center" th:text="${pcdatadto.price} + '円'"></td>
-					<td class="text-center" th:text="${pcdatadto.product_stock} + '個'"></td>
+					<td class="text-center padding" th:text="${pcdatadto.company}"></td>
+					<td class="text-center padding" th:text="${pcdatadto.os}"></td>
+					<td class="text-center padding" th:text="${pcdatadto.pc_name}"></td>
+					<td class="text-center padding" th:text="${pcdatadto.pc_size} + '型'"></td>
+					<td class="text-center padding" th:text="${pcdatadto.price} + '円'"></td>
+					<td class="text-center padding" th:text="${pcdatadto.product_stock} + '個'"></td>
 				</tr>
 			</table>
 
 			<table
 				class="table table-bordered productDetailTableDesigin">
 				<tr class="pcdataDetailTableDesigna">
-					<th class="text-center">PC詳細</th>
+					<th class="text-center padding">PC詳細</th>
 				</tr>
 				<tr th:each="pcdatadto : ${pcdatadtoOne}" class="pcdataDetailTableDesignb">
-					<td class="text-center" th:text="${pcdatadto.detail}"></td>
+					<td class="text-center padding" th:text="${pcdatadto.detail}"></td>
 				</tr>
 			</table>
 

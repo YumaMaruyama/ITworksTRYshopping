@@ -19,6 +19,8 @@
 	font-size: 13px !important;
 }
 
+
+
 .customTableDesign {
 	background: #b6e8ec !important;
 	
@@ -40,10 +42,16 @@
 
 .pcdataTableDesigna {
 	background:#edff5b;
+	
+}
+
+.padding {
+	padding:2px !important;
 }
 
 .pcdataTableDesignb {
 	background:#efeb8a;
+	padding:0px !important;
 }
 
 .pcdataDetailTableDesigna {

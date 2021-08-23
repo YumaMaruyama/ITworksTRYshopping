@@ -123,23 +123,23 @@
 
 .cartTable {
 	background: #f1b8ab;
-	margin-top: 24px;
+	margin-top: 12px;
 	width: 1020px;
 }
 
 .notProductCartTable {
 	background: #f1b8ab;
-	width: 374px;
+	width: 647px;
 }
 
 .notProductCartPrice {
-	margin-left: 350px;
+	margin-left: 234px;
 	font-size: 20px !important;
 }
 
 .notProductListBtn {
 	font-size: 23px !important;
-	width: 192px;
+	width: 324px;
 	margin-top: 4px;
 }
 

@@ -36,6 +36,10 @@
 	
 }
 
+.padding {
+	padding:5px !important;
+}
+
 .cardTable {
 	margin-bottom: 0px !important;
 }

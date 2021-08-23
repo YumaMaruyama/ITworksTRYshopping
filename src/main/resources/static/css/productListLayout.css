@@ -1,13 +1,23 @@
 @charset "UTF-8";
 
+.navbar {
+	padding:0px !important;
+}
 
 .headerDesign {
 	background:#42106f;
 }
 
+.topBtn {
+	margin-top: 3px !important;
+}
+.sidebar {
+	    background: #e2abf9 !important;
+}
+
 .nav-sidebar {
-	height: 592px;
-	background: rgb(157 0 255 / 44%);
+	height: 565px;
+	
 }
 
 .height {
@@ -94,6 +104,8 @@ a.btn-gradient span {
 a.btn-gradient:hover {
   color: #fff;
 }
+
+
 
 
 
