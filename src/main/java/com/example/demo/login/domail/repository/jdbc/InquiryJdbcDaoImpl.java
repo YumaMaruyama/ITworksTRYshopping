@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 
 import com.example.demo.login.domail.model.InquiryAllDTO;
 import com.example.demo.login.domail.model.InquiryDTO;
-import com.example.demo.login.domail.model.InquiryReplyDTO;
 import com.example.demo.login.domail.repository.InquiryDao;
 
 @Repository
@@ -62,15 +61,6 @@ public class InquiryJdbcDaoImpl implements InquiryDao {
 		return inquirydto;
 	}
 	
-	public int replyInsertOne(InquiryReplyDTO inquiryreplydto) {
-		int result = jdbc.update("insert into inquiry_reply (id,"
-				+ " inquiry_id,"
-				+ " title,"
-				+ " content)"
-				+ " value(?,?,?,?)",inquiryreplydto.getId(),inquiryreplydto.getInquiryId(),inquiryreplydto.getTitle(),inquiryreplydto.getContent());
-		
-		return result;
-	}
 	
 	public List<InquiryAllDTO> everyUserSelectMany(int select_id) {
 		List<Map<String,Object>> map = jdbc.queryForList("select inquiry.title,inquiry.content,inquiry.registration_date,inquiry_reply.title as adminTitle,inquiry_reply.content as adminContent,inquiry_reply.registration_date as adminRegistration_date from inquiry join inquiry_reply on inquiry.id = inquiry_reply.inquiry_id");
@@ -96,6 +86,17 @@ public class InquiryJdbcDaoImpl implements InquiryDao {
 		int result = jdbc.update("delete from inquiry where id = ?",id);
 		
 		return result;
+	}
+	
+	public int selectMaxId() {
+//		Map<String,Object> map = jdbc.queryForMap("select max(id) from inquiry");
+//		System.out.println("map"+map);
+//		InquiryReplyDTO inquiryreplydto = new InquiryReplyDTO();
+//		inquiryreplydto.setId((int)map.get("id"));
+		
+		int maxId = jdbc.queryForObject("select max(id) from inquiry",Integer.class);
+		
+		return maxId;
 	}
 	
 	

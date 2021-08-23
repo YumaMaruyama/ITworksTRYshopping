@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.example.demo.login.domail.model.InquiryAllDTO;
 import com.example.demo.login.domail.model.InquiryDTO;
-import com.example.demo.login.domail.model.InquiryReplyDTO;
 
 public interface InquiryDao {
 
@@ -14,9 +13,11 @@ public interface InquiryDao {
 	
 	public InquiryDTO selectOne(int id);
 	
-	public int replyInsertOne(InquiryReplyDTO inquiryreplydto);
+
 	
 	public List<InquiryAllDTO> everyUserSelectMany(int select_id);
 	
 	public int deleteOne(int id);
+	
+	public int selectMaxId();
 }

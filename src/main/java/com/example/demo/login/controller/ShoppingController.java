@@ -58,6 +58,7 @@ import com.example.demo.login.domail.service.CartService;
 import com.example.demo.login.domail.service.CouponService;
 import com.example.demo.login.domail.service.CreditService;
 import com.example.demo.login.domail.service.CustomService;
+import com.example.demo.login.domail.service.InquiryReplyService;
 import com.example.demo.login.domail.service.InquiryService;
 import com.example.demo.login.domail.service.NewsService;
 import com.example.demo.login.domail.service.PcDataService;
@@ -93,6 +94,8 @@ public class ShoppingController {
 	CancelService cancelService;
 	@Autowired
 	CouponService couponService;
+	@Autowired
+	InquiryReplyService inquiryreplyService;
 
 	@Autowired // Sessionが使用できる
 	HttpSession session;
@@ -430,9 +433,10 @@ public class ShoppingController {
 		model.addAttribute("content",(String) session.getAttribute("content"));
 		
 		
-		
+		InquiryReplyDTO inquiryreplydto = new InquiryReplyDTO();
 		int result = inquiryService.insertOne(inquirydto, select_id);// dtoとusersテーブルのidでお問い合わせの情報を格納する
-
+		int maxId = inquiryService.selectMaxId();
+		inquiryreplyService.insertOne(inquiryreplydto,maxId);
 	
 
 		return "shopping/productListLayout";
@@ -469,14 +473,20 @@ public class ShoppingController {
 	}
 
 	@PostMapping(value = "inquiry", params = "return")
-	public String postInquiryReturn(@ModelAttribute InquiryForm form, @RequestParam("id") int id, Model model) {
+	public String postInquiryReturn(@ModelAttribute InquiryForm form, @RequestParam("id") int id, HttpServletRequest request, HttpServletResponse response,Model model) {
 
 		InquiryReplyDTO inquiryreplydto = new InquiryReplyDTO();
 		inquiryreplydto.setInquiryId(id);
 		inquiryreplydto.setTitle(form.getTitle());// 問い合わせの返信タイトルをdtoに入れる
 		inquiryreplydto.setContent(form.getContent());// 問い合わせの返信内容をdtoに入れる
 
-		int result = inquiryService.replyInsertOne(inquiryreplydto);// dtoの情報をinquiry_replyテーブルに格納
+		HttpSession session = request.getSession();
+		session.setAttribute("id", id);
+		session.setAttribute("title",form.getTitle());
+		session.setAttribute("content",form.getContent());
+		
+		
+		int result = inquiryreplyService.replyUpdateOne(session,inquiryreplydto);// dtoの情報をinquiry_replyテーブルに格納
 
 		return getAdministrator(form, model);
 
@@ -492,6 +502,8 @@ public class ShoppingController {
 		int select_id = usersService.select_id(user_id);
 
 		List<InquiryAllDTO> inquiryreplydtolist = inquiryService.everyUserSelectMany(select_id);// usersテーブルのidをもとにinquiryテーブルとinquiry_replyテーブル情報を取得
+		System.out.println("inquiryList"+inquiryreplydtolist);
+		
 		model.addAttribute("inquiryAllDto", inquiryreplydtolist);
 
 		return "shopping/productListLayout";

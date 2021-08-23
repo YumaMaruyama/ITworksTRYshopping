@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.login.domail.model.InquiryAllDTO;
 import com.example.demo.login.domail.model.InquiryDTO;
-import com.example.demo.login.domail.model.InquiryReplyDTO;
 import com.example.demo.login.domail.repository.InquiryDao;
 
 @Service
@@ -34,9 +33,7 @@ public class InquiryService {
 		return dao.selectOne(id);
 	}
 	
-	public int replyInsertOne(InquiryReplyDTO inquiryreplydto) {
-		return dao.replyInsertOne(inquiryreplydto);
-	}
+	
 	
 	public List<InquiryAllDTO> everyUserSelectMany(int select_id) {
 		return dao.everyUserSelectMany(select_id);
@@ -44,5 +41,9 @@ public class InquiryService {
 	
 	public int deleteOne(int id) {
 		return dao.deleteOne(id);
+	}
+	
+	public int selectMaxId() {
+		return dao.selectMaxId();
 	}
 }
