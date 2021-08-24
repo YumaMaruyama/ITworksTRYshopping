@@ -13,9 +13,13 @@
 }
 
 .cancelDeliveryCompleteNextThDesign {
-	
+	background: #faa9fb;
 }
 
 .cancelDeliveryCompleteNextTdDesign {
-	
+	background: #ffd3f9;
+}
+
+.cancelDeliveryCompleteNextTableDesign {
+	font-size:15px;
 }

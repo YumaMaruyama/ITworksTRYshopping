@@ -1,5 +1,18 @@
 @charset "UTF-8";
 
+.cancelDeliveredCompletedTableDesign {
+	font-size:14px;
+}
+
+.cancelDeliveredCompleteThDesign {
+	background: #ff6c73;
+}
+
+.cancelDeliveredCompleteTdDesign {
+	background: #ffbcbf;
+}
+
+
 .progressbar {
     position: relative;
     margin: 0;
