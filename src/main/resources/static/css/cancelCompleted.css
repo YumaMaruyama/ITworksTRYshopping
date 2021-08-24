@@ -1,0 +1,21 @@
+@charset "UTF-8";
+
+.cancelCompleted {
+	font-size:14px;
+}
+
+.cancelCompletedThDesign {
+	background:#ff6c73;
+}
+
+.cancelCompletedTdDesign {
+	background:#ffbcbf;
+}
+
+.cancelCompletedThNextDesign {
+	background: #adcc8f;
+}
+
+.cancelCompletedTdNextDesign {
+	 background: #acd6aa;
+}

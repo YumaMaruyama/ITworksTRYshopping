@@ -15,10 +15,10 @@
 </div>
 		<form method="post" th:action="@{/cancel}"
 			th:object="${cancelForm}">
-			<table class="table table-hover table-bordered"
+			<table class="table  table-bordered calcelDetailTableDesign"
 				th:each="purchasedto : ${purchaseList}" style="width:1100px;">
 
-				<tr>
+				<tr class="cancelDetailThDesign">
 					<th class="text-center">購入日</th>
 					<th class="text-center">商品名</th>
 					<th class="text-center">値段</th>
@@ -28,7 +28,7 @@
 					<th class="text-center">CPU</th>
 				</tr>
 
-				<tr>
+				<tr class="cancelDetailTdDesign">
 					<td class="text-center"
 						th:text="${#dates.format(purchasedto.purchase_date, 'yyyy/MM/dd HH:mm')}"></td>
 					<td class="text-center" th:text="${purchasedto.pcName}"></td>
@@ -47,7 +47,7 @@
 			
 		<table>
 			<tr>
-			<th>口座番号</th>
+			<th class="cancelDetailThNextDesign">口座番号</th>
 			<td>
 						<div class="form-group" th:classappend="${#fields.hasErrors('bankNumber')} ? 'hasError'">
 							<input type="text" class="form-control" th:field="*{bankNumber}">
@@ -57,7 +57,7 @@
 			</tr>
 			
 			<tr>
-			<th>店舗番号</th>
+			<th class="cancelDetailThNextDesign">店舗番号</th>
 			<td>
 						<div class="form-group" th:classappend="${#fields.hasErrors('storeName')} ? 'hasError'">
 							<input type="text" class="form-control" th:field="*{storeName}">

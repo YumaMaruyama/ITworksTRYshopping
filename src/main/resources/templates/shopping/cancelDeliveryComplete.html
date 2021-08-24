@@ -16,9 +16,9 @@
 		</div>
 
 
-		<table class="table table-hover table-bordered"
+		<table class="table table-hover table-bordered cancelDeliveryCompleteTableDesign"
 			th:each="purchasedto : ${purchaseList}" style="width: 1100px;">
-			<tr>
+			<tr class="cancelDeliveryCompleteThDesign">
 				<th class="text-center">購入日</th>
 				<th class="text-center">商品名</th>
 				<th class="text-center">値段</th>
@@ -28,7 +28,7 @@
 				<th class="text-center">CPU</th>
 			</tr>
 
-			<tr>
+			<tr class="cancelDeliveryCompleteTdDesign">
 				<td class="text-center"
 					th:text="${#dates.format(purchasedto.purchase_date, 'yyyy/MM/dd HH:mm')}"></td>
 				<td class="text-center" th:text="${purchasedto.pcName}"></td>
@@ -52,18 +52,18 @@
 			style="width: 1000px;">
 
 			<tr>
-				<th>商品管理室住所</th>
-				<td>大阪府枚方市丸山町1丁目2番3地号</td>
+				<th class="cancelDeliveryCompleteNextThDesign">商品管理室住所</th>
+				<td class="cancelDeliveryCompleteNextTdDesign">大阪府枚方市丸山町1丁目2番3地号</td>
 			</tr>
 
 			<tr>
-				<th>商品管理室郵便番号</th>
-				<td>573-1111</td>
+				<th class="cancelDeliveryCompleteNextThDesign">商品管理室郵便番号</th>
+				<td class="cancelDeliveryCompleteNextTdDesign">573-1111</td>
 			</tr>
 
 			<tr>
-				<th>商品管理室電話番号</th>
-				<td>090-1234-5678</td>
+				<th class="cancelDeliveryCompleteNextThDesign">商品管理室電話番号</th>
+				<td class="cancelDeliveryCompleteNextTdDesign">090-1234-5678</td>
 			</tr>
 		</table>
 

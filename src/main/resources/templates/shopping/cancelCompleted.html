@@ -15,10 +15,10 @@
 				aria-valuemax="100"></div>
 		</div>
 
-		<table class="table table-hover table-bordered"
+		<table class="table table-hover table-bordered cancelCompleted"
 			th:each="purchasedto : ${purchaseList}">
 
-			<tr>
+			<tr class="cancelCompletedThDesign">
 				<th class="text-center">購入日</th>
 				<th class="text-center">商品名</th>
 				<th class="text-center">値段</th>
@@ -28,7 +28,7 @@
 				<th class="text-center">CPU</th>
 			</tr>
 
-			<tr>
+			<tr class="cancelCompletedTdDesign">
 				<td class="text-center"
 					th:text="${#dates.format(purchasedto.purchase_date, 'yyyy/MM/dd HH:mm')}"></td>
 				<td class="text-center" th:text="${purchasedto.pcName}"></td>
@@ -45,20 +45,20 @@
 			<h3>キャンセル手続きをしていただきありがとうございました。上記商品のキャンセルが完了しました。</h3>
 			<tr>
 				<br>
-				<th class="text-center" style="font-size: 20px;">返品金額</th>
-				<td class="text-center" style="font-size: 17px;"
-					th:text="${totalPrice}"></td>
+				<th class="text-center cancelCompletedThNextDesign" style="font-size: 20px;">返品金額</th>
+				<td class="text-center cancelCompletedTdNextDesign" style="font-size: 17px;"
+					th:text="${totalPrice} + '円'"></td>
 			</tr>
 			
 			<tr>
-				<th class="text-center" style="font-size: 20px;">返品口座番号</th>
-				<td class="text-center" style="font-size: 17px;"
+				<th class="text-center cancelCompletedThNextDesign" style="font-size: 20px;">返品口座番号</th>
+				<td class="text-center cancelCompletedTdNextDesign" style="font-size: 17px;"
 					th:text="${bankNumber}"></td>
 			</tr>
 			
 			<tr>
-				<th class="text-center" style="font-size: 20px;">返品口座店舗番号</th>
-				<td class="text-center" style="font-size: 17px;"
+				<th class="text-center cancelCompletedThNextDesign" style="font-size: 20px;">返品口座店舗番号</th>
+				<td class="text-center cancelCompletedTdNextDesign" style="font-size: 17px;"
 					th:text="${storeName}"></td>
 			</tr>
 				

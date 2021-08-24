@@ -10,10 +10,10 @@
 		<h1 class="titleDesign">口コミ投稿</h1>
 		<form method="post" th:action="@{/reviewAdd}"
 			th:object="${reviewForm}">
-			<table class="table table-hover table-bordered"
+			<table class="table table-hover table-bordered reviewAddTable"
 				th:each="purchasedto : ${purchaseList}">
 
-				<tr>
+				<tr class="reviewAddThDesign">
 					<th class="text-center">購入日</th>
 					<th class="text-center">商品名</th>
 					<th class="text-center">値段</th>
@@ -23,7 +23,7 @@
 					<th class="text-center">CPU</th>
 				</tr>
 
-				<tr>
+				<tr class="reviewAddTdDesign">
 					<td class="text-center"
 						th:text="${#dates.format(purchasedto.purchase_date, 'yyyy/MM/dd HH:mm')}"></td>
 					<td class="text-center" th:text="${purchasedto.pcName}"></td>
@@ -38,10 +38,10 @@
 
 			<h4>この商品の評価をしてください</h4>
 			<h4 class="text-danger" th:text="${result}"></h4>
-			<table class="table table-hover table-bordered">
+			<table class="table table-hover table-bordered reviewAddTableNext">
 				<tr>
-					<th class="text-center">タイトル</th>
-					<td class="text-center">
+					<th class="text-center reviewAddThDesignNext">タイトル</th>
+					<td class="text-center reviewAddTdDesignNext">
 						<div class="text-center form-group"
 							th:classappend="${#fields.hasErrors('title')} ? 'hasError'">
 							<input type="text" class="form-control" th:field="*{title}">
@@ -51,8 +51,8 @@
 				</tr>
 
 				<tr>
-					<th class="text-center">内容</th>
-					<td class="text-center">
+					<th class="text-center reviewAddThDesignNext">内容</th>
+					<td class="text-center reviewAddTdDesignNext">
 						<div class="text-center form-group"
 							th:classappend="${#fields.hasErrors('content')} ? 'hasError'">
 							<input type="text" class="form-control" th:field="*{content}">
@@ -62,17 +62,17 @@
 				</tr>
 
 				<tr>
-					<th class="text-center">レーティング</th>
-					<td class="text-center">
+					<th class="text-center reviewAddThDesignNext">レーティング</th>
+					<td class="text-center reviewAddTdDesignNext">
 						<div class="text-center form-group"
 							th:classappend="${#fields.hasErrors('rating')} ? 'hasError'">
 							<select th:field="*{rating}">
-							<option value="5">5(とても素晴らしい)</option>
-							<option value="4">4(素晴らしい)</option>
-							<option value="3">3(良い)</option>
-							<option value="2">2(普通)</option>
-							<option value="1">1(悪い)</option>
-					</select>
+								<option value="5">5(とても素晴らしい)</option>
+								<option value="4">4(素晴らしい)</option>
+								<option value="3">3(良い)</option>
+								<option value="2">2(普通)</option>
+								<option value="1">1(悪い)</option>
+							</select>
 						</div> <span class="text-danger" th:if="${#fields.hasErrors('rating')}"
 						th:errors="*{rating}">rating error</span>
 					</td>
@@ -80,9 +80,10 @@
 
 			</table>
 			<div th:each="purchasedto : ${purchaseList}">
-			<input type="hidden" name="pcDataId" th:value="${purchasedto.pcDataId}">
-			<input type="hidden" name="purchaseId" th:value="${purchaseId}">
-			<button class="btn btn-primary">口コミ投稿</button>
+				<input type="hidden" name="pcDataId"
+					th:value="${purchasedto.pcDataId}"> <input type="hidden"
+					name="purchaseId" th:value="${purchaseId}">
+				<button class="btn btn-border reviewAddBtn">口コミ投稿</button>
 			</div>
 		</form>
 	</div>

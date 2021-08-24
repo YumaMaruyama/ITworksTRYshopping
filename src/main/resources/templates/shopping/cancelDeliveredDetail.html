@@ -15,10 +15,10 @@
 
 <form method="post" th:action="@{/cancelDeliveryComplete}"
 			th:object="${cancelForm}">
-			<table class="table table-hover table-bordered"
+			<table class="table table-hover table-bordered cancelDeliveredDetailTableDesign"
 				th:each="purchasedto : ${purchaseList}" style="width:1100px;">
 
-				<tr>
+				<tr class="cancelDeliveredDetailThDesign">
 					<th class="text-center">購入日</th>
 					<th class="text-center">商品名</th>
 					<th class="text-center">値段</th>
@@ -28,7 +28,7 @@
 					<th class="text-center">CPU</th>
 				</tr>
 
-				<tr>
+				<tr class="cancelDeliveredDetailTdDesign">
 					<td class="text-center"
 						th:text="${#dates.format(purchasedto.purchase_date, 'yyyy/MM/dd HH:mm')}"></td>
 					<td class="text-center" th:text="${purchasedto.pcName}"></td>
@@ -51,7 +51,7 @@
 			<h2 class="text-danger" th:text="${result}"></h2>
 			
 			<tr>
-			<th>口座番号</th>
+			<th class="cancelDeliveredDetailThNextDesign">口座番号</th>
 			<td>
 						<div class="form-group" th:classappend="${#fields.hasErrors('bankNumber')} ? 'hasError'">
 							<input type="text" class="form-control" th:field="*{bankNumber}">
@@ -61,7 +61,7 @@
 			</tr>
 			
 			<tr>
-			<th>店舗番号</th>
+			<th class="cancelDeliveredDetailThNextDesign">店舗番号</th>
 			<td>
 						<div class="form-group" th:classappend="${#fields.hasErrors('storeName')} ? 'hasError'">
 							<input type="text" class="form-control" th:field="*{storeName}">
@@ -72,7 +72,7 @@
 			
 			</table>
 			
-				<div class="btn-wrapper" th:if="${check} != '再入力不可'"> 
+				<div class="btn-wrapper cancelCheckDesign" th:if="${check} != '再入力不可'"> 
     <div class="check-box" >
         <label><input class="check" type="checkbox" name="check" autocomplete="off" id="agree"><span><a ></a>口座情報を確定し、キャンセルに同意する</span></label>
     </div>

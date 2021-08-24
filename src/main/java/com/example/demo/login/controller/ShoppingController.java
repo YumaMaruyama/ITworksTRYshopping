@@ -942,13 +942,16 @@ public class ShoppingController {
 	@PostMapping(value = "/cancel", params = "completed")
 	public String postCancelCompleted(@ModelAttribute @Validated(GroupOrder.class) CancelForm form,
 			BindingResult bidingResult, @RequestParam("id") int purchaseId, @RequestParam("customId") int customId,
-			HttpServletRequest request, HttpServletResponse response, Model model) {
+			HttpServletRequest request, HttpServletResponse response,RedirectAttributes redirectattributes, Model model) {
 		model.addAttribute("contents", "shopping/cancelCompleted::productListLayout_contents");
 
 		if (bidingResult.hasErrors()) {
 			System.out.println("バリデーションエラー到達");
 			return postCancelDetail(form, purchaseId, model);
 		}
+		
+		
+	
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
@@ -959,6 +962,9 @@ public class ShoppingController {
 
 		// 購入商品情報取得
 		PurchaseDTO purchasedtoList = purchaseService.reviewSelectHistory(userId, purchaseId);// Pathで取得した購入IDでpurchaseテーブルの情報を取得
+		if(purchasedtoList.getId() == 0) {
+			return "redirect:/purchaseHistory";
+		}
 		purchasedto.setId(purchasedtoList.getId());
 		purchasedto.setPurchaseId(purchasedtoList.getPurchaseId());
 		purchasedto.setPurchase_date(purchasedtoList.getPurchase_date());
@@ -1019,6 +1025,7 @@ public class ShoppingController {
 		customService.deleteOne(customId);// キャンセル完了に伴い、カスタムデータ削除
 		purchaseService.deleteOne(purchaseId);// キャンセル完了に伴い、購入データ削除
 
+		
 		return "shopping/productListLayout";
 
 	}

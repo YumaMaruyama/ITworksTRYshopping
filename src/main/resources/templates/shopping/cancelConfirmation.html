@@ -16,10 +16,10 @@
 		<form method="post" th:action="@{/cancel}"
 			th:object="${cancelForm}">
 			<br>
-			<table class="table table-hover table-bordered"
+			<table class="table  table-bordered cancelConfirmationTableDesing"
 				th:each="purchasedto : ${purchaseList}" style="width:1100px;">
 
-				<tr>
+				<tr class="cancelConfirmationThDesign">
 					<th class="text-center">購入日</th>
 					<th class="text-center">商品名</th>
 					<th class="text-center">値段</th>
@@ -29,7 +29,7 @@
 					<th class="text-center">CPU</th>
 				</tr>
 
-				<tr>
+				<tr class="cancelConfirmationTdDesign">
 					<td class="text-center"
 						th:text="${#dates.format(purchasedto.purchase_date, 'yyyy/MM/dd HH:mm')}"></td>
 					<td class="text-center" th:text="${purchasedto.pcName}"></td>

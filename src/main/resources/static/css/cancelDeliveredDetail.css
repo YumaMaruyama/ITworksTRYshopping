@@ -4,6 +4,26 @@
 	font-size:14px;
 }
 
+.cancelDeliveredDetailTableDesign {
+	font-size:14px;
+}
+
+.cancelDeliveredDetailThDesign {
+	background:#ff6c73;
+}
+
+.cancelDeliveredDetailTdDesign {
+	background:#ffbcbf;
+}
+
+.cancelDeliveredDetailThNextDesign {
+	font-size:15px;
+}
+
+.cancelCheckDesign {
+	    font-size: 16px;
+}
+
 .btn-wrapper {
   padding: 20px;
   text-align: center;
