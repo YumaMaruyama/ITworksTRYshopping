@@ -52,6 +52,7 @@ public class UsersDaoJdbcImpl implements UsersDao {
 
 		UsersDTO usersdto = new UsersDTO();
 		usersdto.setUser_name((String)map.get("user_name"));
+		usersdto.setRole((String)map.get("role"));
 		System.out.println("dto" + usersdto.getUser_name());
 		return usersdto;
 	}

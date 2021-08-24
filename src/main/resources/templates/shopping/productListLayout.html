@@ -1,6 +1,7 @@
 <!DOCTYPE html >
 <html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <meta charset="UTF-8">
 
@@ -87,7 +88,7 @@
 					<li><a class="btn btn-gradient desiginBtn" th:href="@{/editYour}"><i class="fa fa-info"></i><span>あなたの情報</span></a></li>
 					<li><a class="btn btn-gradient desiginBtn" th:href="@{/news}"><i class="fa fa-envelope"></i><span>お知らせ</span></a></li>
 					<li><a class="btn btn-gradient desiginBtn" th:href="@{/contactReply}"><span>問い合わせの返信</span></a></li>
-					<li><a class="btn btn-gradient desiginBtn" th:href="@{/administrator}"><i class="fa fa-cogs"></i><span style="font-size:12px;">管理者専用画面</span></a></li>
+					<li th:if="${session.sessionGetRole} == 'admin'"><a class="btn btn-gradient desiginBtn" th:href="@{/administrator}"><i class="fa fa-cogs"></i><span style="font-size:12px;">管理者専用画面</span></a></li>
 
 				</ul>
 			</div>

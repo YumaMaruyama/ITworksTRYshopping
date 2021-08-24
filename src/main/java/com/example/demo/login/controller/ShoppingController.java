@@ -1925,10 +1925,10 @@ if (count < 0) {
 	}
 
 	@GetMapping("/couponCancel")
-	public String getCouponCancel(@ModelAttribute CouponForm form, Model model) {
+	public String getCouponCancel(@ModelAttribute CouponForm form,RedirectAttributes redirectattributes, Model model) {
 
 		CartForm cartForm = new CartForm();
-		return cart(cartForm, model);
+		return "redirect:/cart";
 	}
 
 	@GetMapping("/couponUse/{couponId}/{productId}")
@@ -2062,6 +2062,7 @@ if (count < 0) {
 		// @AutowiredがついてるのでUsersServiceのインスタンス（usersService）を使う
 		UsersDTO headerName = usersService.getUser_name(auth.getName());
 		session.setAttribute("sessionGetUser_name", headerName.getUser_name());
+		session.setAttribute("sessionGetRole",headerName.getRole());
 		System.out.println("getUser_name" + headerName.getUser_name());
 
 		System.out.println("productList" + productList);
