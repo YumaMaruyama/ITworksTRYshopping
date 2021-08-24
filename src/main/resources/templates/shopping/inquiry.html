@@ -10,36 +10,36 @@
 	<div th:fragment="productListLayout_contents">
 	<h1 class="titleDesign">お問い合わせ</h1>
 		<form method="post" th:action="@{/inquiry}" th:object="${inquiryForm}">
-			<table class="table table-hover table-bordered">
+			<br>
+			<table class="table table-hover table-bordered inquiryTable">
 				<tr>
-					<th class="text-center">問い合わせタイトル</th>
-					<td><div class="form-group"
-						th:classappend="${#fields.hasErrors('title')} ? 'hasError'">
-						<input type="text" class="form-control" th:field="*{title}">
-					</div>
-					<span class="text-danger" th:if="${#fields.hasErrors('title')}"
-						th:errors="*{title}">title error</span>
-						</td>
+					<th class="text-center inquiryThTitle">お問い合わせタイトル</th>
+					<td th:classappend="${#fields.hasErrors('title')}?'has-error'"
+						class="form-group inquiryTdTitle"><input type="text" class="form-control"
+						th:field="*{title}"> <span class="text-danger"
+						th:if="${#fields.hasErrors('title')}" th:errors="*{title}">title
+							error</span></td>
 				</tr>
 
 				<tr>
-					<th class="text-center">問い合わせ内容</th>
-					<td><div class="form-group"
-						th:classappend="${#fields.hasErrors('content')} ? 'hasError'">
-						<input type="text" class="form-control" th:field="*{content}">
-					</div>
-					<span class="text-danger" th:if="${#fields.hasErrors('content')}"
-						th:errors="*{content}">content error</span>
-						</td>
+					<th class="text-center inquiryThContent">お問い合わせ内容</th>
+					<td th:classappend="${#fields.hasErrors('content')}?'has-error'"
+						class="form-group inquiryTdContent"><input type="text" class="form-control"
+						th:field="*{content}"> <span class="text-danger"
+						th:if="${#fields.hasErrors('content')}" th:errors="*{content}">content
+							error</span></td>
 				</tr>
 
 			</table>
 
-			<button class="btn btn-danger" name="sending">問い合わせ送信</button>
+			<button class="btn btn--yellow btn--circle inquirySendingBtn" name="sending">問い合わせ送信</button>
+			
 		</form>
 		
-		<a th:href="@{/contactReply}">問い合わせの返信を確認</a>
+		<br><br>
+		<a th:href="@{/contactReply}" class="btn btn--orange btn--cubic btn--shadow inquiryreplyGoBtn">問い合わせの返信を確認</a>
 
+		
 	</div>
 </body>
 </html>

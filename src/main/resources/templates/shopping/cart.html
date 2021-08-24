@@ -53,10 +53,13 @@
 						style="margin-bottom: 0px !important"
 						th:href="@{/productDetail} + '/' + ${pcdatadto.id}"><span
 						class="font">詳細画面に行く</span></a>
-					<p style="margin-bottom: 0px !important">
+					<p style="margin-bottom: 0px !important" th:classappend="${#fields.hasErrors('product_count')}?'has-error'"
+						class="form-group">
 						<span class="purchaseCount">購入数</span><input type="text" class="form-control formdesign"
 							th:value="${pcdatadto.product_count}" name="product_count"
-							style="width: 48%; margin-left: 51px;">
+							style="width: 48%; margin-left: 51px;"><span class="text-danger"
+						th:if="${#fields.hasErrors('product_count')}" th:errors="*{product_count}">product_count
+							error</span>
 					</p>
 					<table>
 						<tr>

@@ -407,8 +407,8 @@ public class ShoppingController {
 	}
 
 	@PostMapping(value = "inquiry", params = "sending")
-	public String postInquirySending(@ModelAttribute @Validated(GroupOrder.class) InquiryForm form, InquiryForm form2,
-			BindingResult bindingResult, HttpServletRequest request, HttpServletResponse response,Model model) {
+	public String postInquirySending(@ModelAttribute @Validated(GroupOrder.class)InquiryForm form,BindingResult bindingResult, InquiryForm form2,
+			 HttpServletRequest request, HttpServletResponse response,Model model) {
 
 		model.addAttribute("contents", "shopping/inquiryFinish::productListLayout_contents");
 		
@@ -1932,7 +1932,7 @@ if (count < 0) {
 	}
 
 	@GetMapping("/couponUse/{couponId}/{productId}")
-	public String getCouponUse(@ModelAttribute CouponForm form, @PathVariable("couponId") int couponId,
+	public String getCouponUse(@ModelAttribute CouponForm form,CartForm cartform, @PathVariable("couponId") int couponId,
 			@PathVariable("productId") int productId, Model model) {
 		model.addAttribute("contents", "shopping/cart::productListLayout_contents");
 
@@ -2605,7 +2605,7 @@ if (count < 0) {
 	// clearingからproductReceiving
 
 	@PostMapping(value = "/cart/{id}", params = "countUpdate")
-	public String postCartCountUpdate(@ModelAttribute @Validated CartForm form, BindingResult bindingResult,
+	public String postCartCountUpdate(@ModelAttribute @Validated(GroupOrder.class) CartForm form, BindingResult bindingResult,
 			Model model, RedirectAttributes redirectattributes, @PathVariable("id") int productId) {
 		System.out.println("countUpdate到達");
 
