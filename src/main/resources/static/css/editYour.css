@@ -22,6 +22,73 @@
 
 .rank5 {
 	color: #9c942f;
+	
+}
+
+.rank6 {
+	color: #00000008;
+    background: linear-gradient(
+45deg
+, #d2f7ff 25%, transparent 25%, transparent 75%, #d7e8ea 75%), linear-gradient(
+45deg
+, #bcdbde 25%, transparent 25%, transparent 75%, #91d2ea 75%);
+    background-color: #60b4e4;
+    background-size: 24px 24px;
+    background-position: 0 0, 12px 12px;
+    -webkit-background-clip: text;
+}
+
+.rank7 {
+	color: #00000008;
+    background: linear-gradient(
+45deg
+, #b7b1a6 25%, transparent 25%, transparent 75%, #a4a6a7 75%), linear-gradient(
+45deg
+, #e0e0e0 25%, transparent 25%, transparent 75%, #d0c3cf 75%);
+    background-color: #bcd4c3;
+    background-size: 24px 24px;
+    background-position: 0 0, 12px 12px;
+    -webkit-background-clip: text;
+
+}
+
+.rank8 {
+	color: #00000008;
+    background: linear-gradient( 
+45deg
+ , #90944a 25%, transparent 25%, transparent 75%, #a7b6bd 75%), linear-gradient( 
+45deg
+ , #e6923b 25%, transparent 25%, transparent 75%, #ea9be4 75%);
+    background-color: #aedabb;
+    background-size: 24px 24px;
+    background-position: 0 0, 12px 12px;
+    -webkit-background-clip: text;
+}
+
+.rank9 {
+	color: #00000008;
+    background: linear-gradient( 
+45deg
+ , #a7af21 25%, #ff7b7b00 25%, transparent 75%, #ff0c0c 75%), linear-gradient( 
+45deg
+ , #b5c364 25%, transparent 25%, transparent 75%, #ff0000 75%);
+    background-color: #564b4b;
+    background-size: 24px 24px;
+    background-position: 0 0, 12px 12px;
+    -webkit-background-clip: text;
+}
+
+.rank10 {
+	color: #00000008;
+    background: linear-gradient( 
+45deg
+ , #a7af21 25%, #ff7b7b00 25%, transparent 75%, #d8c434c7 75%), linear-gradient( 
+45deg
+ , #ded930d1 25%, transparent 25%, transparent 75%, #a4bdb6 75%);
+    background-color: #bdd24b;
+    background-size: 24px 24px;
+    background-position: 0 0, 12px 12px;
+    -webkit-background-clip: text;
 }
 
 .userInfoTableDesign {

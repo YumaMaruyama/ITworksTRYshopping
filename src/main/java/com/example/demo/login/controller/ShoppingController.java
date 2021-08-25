@@ -311,7 +311,7 @@ public class ShoppingController {
 			}else if((allTotalPrice >= 1500000) && (allTotalPrice < 3000000)) {
 				model.addAttribute("rankPoint","エイリアンランク");
 			}else if((allTotalPrice >= 3000000) && (allTotalPrice < 5000000)) {
-				model.addAttribute("rankPoint","ゴッドランク");
+				model.addAttribute("rankPoint","ゴッドフォックスランク");
 			}else if((allTotalPrice >= 5000000) && (allTotalPrice < 8000000)) {
 				model.addAttribute("rankPoint","プレミアムゴッドランク");
 			}else if((allTotalPrice >= 8000000)) {
