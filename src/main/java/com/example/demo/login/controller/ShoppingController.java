@@ -917,7 +917,17 @@ public class ShoppingController {
 		Date nowDate = new Date();
 		boolean check = nowDate.before(purchaseDate);
 		System.out.println("purchaseDate" + purchaseDate);
-
+		calendar.add(Calendar.DATE,6);
+		Date cancelOutDate = calendar.getTime();
+		boolean cancelOutCheck = nowDate.before(cancelOutDate);
+		System.out.println("cancelOutCheck"+cancelOutCheck);
+		
+		if(cancelOutCheck == false) {
+			model.addAttribute("contents", "shopping/cancelInquiry::productListLayout_contents");
+			
+			return "shopping/productListLayout";
+		}
+		
 		if (check == false) {
 			model.addAttribute("contents", "shopping/cancelDeliveredDetail::productListLayout_contents");
 			int maxId = cancelService.selectCancelCheck(purchaseId, select_id);

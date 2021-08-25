@@ -29,5 +29,12 @@
 }
 
 .contactReplyTable {
-	font-size:16px;
+	font-size: 16px;
+}
+
+.contactReplyTableScrollBar {
+	display: block;
+	overflow-y: scroll;
+	height: 525px;
+	width: 1100px;
 }

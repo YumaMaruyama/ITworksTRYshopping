@@ -12,7 +12,8 @@
 			<h1 class="titleDesign">問い合わせの返信</h1>
 		</header>
 		 
-		<table class="tabel table-bordered contactReplyTable" th:each="inquiryAlldto : ${inquiryAllDto}" style="width:1100px;">
+		 <div class="contactReplyTableScrollBar">
+		<table class="tabel table-bordered contactReplyTable" th:each="inquiryAlldto : ${inquiryAllDto}" >
 			<tr class="inquiryTr1">
 				<th class="text-center th1">問い合わせタイトル</th>
 				<th class="text-center th2">問い合わせ内容</th>
@@ -51,6 +52,7 @@
 			
 			<br>
 		</table>
+	</div>
 	</div>
 </body>
 </html>
