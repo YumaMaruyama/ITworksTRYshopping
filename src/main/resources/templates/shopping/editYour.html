@@ -56,9 +56,10 @@
 				<p th:if="${rankPoint} == 'エイリアンランク'"class="text-center" ><i class="fa  fa-drupal rank8 rankIconDesign"></i></p>
 				<p th:if="${rankPoint} == 'ゴッドフォックスランク'"class="text-center" ><i class="fa fa-firefox rank9 rankIconDesign"></i></p>
 				<p th:if="${rankPoint} == 'プレミアムゴッドランク'"class="text-center" ><i class="fa fa-graduation-cap rank10 rankIconDesign"></i></p>
-				<p th:if="${rankPoint} == 'MEASUREMENTIMPOSSIBLERANK'"class="text-center" ><i class="fa fa-optin-monster rankIconDesign"></i></p>
-				<button class="btn btn-primary">会員ランクの詳細</button></td>
-				<td>次のランクは⇒⇒⇒⇒⇒⇒⇒⇒</td>
+				<p th:if="${rankPoint} == 'InductedIntoTheHalOfFameRank'"class="text-center" ><i class="fa fa-optin-monster rank11 rankIconDesign"></i></p>
+				</td>
+				<td><a th:href="@{/userRankDetail}" class="btn btn-primary">会員ランクの詳細</a></td>
+				
 			</tr>
 		</table>
 		

@@ -91,6 +91,19 @@
     -webkit-background-clip: text;
 }
 
+.rank11 {
+	color: #00000008;
+    background: linear-gradient( 
+178deg
+ , #9b9c8c 25%, #ff7b7b00 25%, transparent 75%, #d8c434c7 75%), linear-gradient( 
+29deg
+ , #ded930d1 25%, transparent 25%, transparent 75%, #09543f 75%);
+    background-color: #bfbda2c4;
+    background-size: 24px 24px;
+    background-position: 0 0, 12px 12px;
+    -webkit-background-clip: text;
+}
+
 .userInfoTableDesign {
 	font-size:14px;
 }

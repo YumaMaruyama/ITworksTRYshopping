@@ -315,7 +315,7 @@ public class ShoppingController {
 			}else if((allTotalPrice >= 5000000) && (allTotalPrice < 8000000)) {
 				model.addAttribute("rankPoint","プレミアムゴッドランク");
 			}else if((allTotalPrice >= 8000000)) {
-				model.addAttribute("rankPoint","InductedIntoTheHalOfFame");
+				model.addAttribute("rankPoint","InductedIntoTheHalOfFameRank");
 			}
 			allPurchaseList.add(purchasedtoAdd);
 		}
@@ -327,7 +327,15 @@ public class ShoppingController {
 
 		return "shopping/productListLayout";
 	}
+	
+	@GetMapping("/userRankDetail")
+	public String getUserRankDetail(@ModelAttribute UserEditForm form,Model model) {
+		model.addAttribute("contents", "shopping/userRankDetail::productListLayout_contents");
+		
+		return "shopping/productListLayout";
+	}
 
+	
 	@GetMapping("/editYourDetail/{id}")
 	public String getEditYourDetail(@ModelAttribute UserEditForm from, UsersListForm usersListForm,
 			@PathVariable("id") int id, Model model) {
