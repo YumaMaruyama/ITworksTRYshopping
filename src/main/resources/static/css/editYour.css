@@ -1,12 +1,8 @@
 @charset "UTF-8";
-/*
-.userInfoTableDesign {
-	font-size:13px !important;
-}
 
-.userPurchaseInfoTableDesign {
-	font-size:13px !important;
-}
+
+
+
 
 .rank1 {
 	color: #b3b1ba;
@@ -26,4 +22,28 @@
 
 .rank5 {
 	color: #9c942f;
+}
+
+.userInfoTableDesign {
+	font-size:14px;
+}
+
+.editYourThDesign {
+	background:#7bf1cb;
+}
+
+.editYourTdDesign {
+	background: #defdf3;
+}
+
+.userPurchaseInfoTableDesign {
+	font-size:16px;
+}
+
+.userRankTableDesign {
+	font-size:16px;
+}
+
+.rankIconDesign {
+	font-size:50px !important;
 }

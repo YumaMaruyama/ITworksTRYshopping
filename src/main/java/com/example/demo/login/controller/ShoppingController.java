@@ -296,26 +296,26 @@ public class ShoppingController {
 //			System.out.println(rankPoint);
 			if((allTotalPrice > 0) && (allTotalPrice < 50000)) {
 			model.addAttribute("rankPoint","アマチュアランク");
-			}else if((allTotalPrice > 0) && (allTotalPrice < 100000)) {
+			}else if((allTotalPrice >= 50000) && (allTotalPrice < 100000)) {
 				model.addAttribute("rankPoint","プロランク");
-			}else if((allTotalPrice > 0) && (allTotalPrice < 200000)) {
+			}else if((allTotalPrice >= 100000) && (allTotalPrice < 200000)) {
 				model.addAttribute("rankPoint","ブロンズランク");
-			}else if((allTotalPrice > 0) && (allTotalPrice < 400000)) {
+			}else if((allTotalPrice >= 200000) && (allTotalPrice < 400000)) {
 				model.addAttribute("rankPoint","シルバーランク");
-			}else if((allTotalPrice > 0) && (allTotalPrice < 800000)) {
+			}else if((allTotalPrice >= 400000) && (allTotalPrice < 800000)) {
 				model.addAttribute("rankPoint","ゴールドランク");
-			}else if((allTotalPrice > 0) && (allTotalPrice < 1000000)) {
+			}else if((allTotalPrice >= 800000) && (allTotalPrice < 1000000)) {
 				model.addAttribute("rankPoint","ダイヤモンドランク");
-			}else if((allTotalPrice > 0) && (allTotalPrice < 1500000)) {
+			}else if((allTotalPrice >= 1000000) && (allTotalPrice < 1500000)) {
 				model.addAttribute("rankPoint","プラチナムランク");
-			}else if((allTotalPrice > 0) && (allTotalPrice < 3000000)) {
+			}else if((allTotalPrice >= 1500000) && (allTotalPrice < 3000000)) {
 				model.addAttribute("rankPoint","エイリアンランク");
-			}else if((allTotalPrice > 0) && (allTotalPrice < 5000000)) {
+			}else if((allTotalPrice >= 3000000) && (allTotalPrice < 5000000)) {
 				model.addAttribute("rankPoint","ゴッドランク");
-			}else if((allTotalPrice > 0) && (allTotalPrice < 8000000)) {
+			}else if((allTotalPrice >= 5000000) && (allTotalPrice < 8000000)) {
 				model.addAttribute("rankPoint","プレミアムゴッドランク");
-			}else if((allTotalPrice > 0) && (allTotalPrice < 10000000)) {
-				model.addAttribute("rankPoint","MEASUREMENTIMPOSSIBLERANK");
+			}else if((allTotalPrice >= 8000000)) {
+				model.addAttribute("rankPoint","InductedIntoTheHalOfFame");
 			}
 			allPurchaseList.add(purchasedtoAdd);
 		}
