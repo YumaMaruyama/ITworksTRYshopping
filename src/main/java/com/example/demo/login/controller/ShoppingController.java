@@ -332,6 +332,142 @@ public class ShoppingController {
 	public String getUserRankDetail(@ModelAttribute UserEditForm form, Model model) {
 		model.addAttribute("contents", "shopping/userRankDetail::productListLayout_contents");
 
+		UsersDTO usersdto = new UsersDTO();
+		List<UsersDTO> usersIdList = new ArrayList<>();
+		usersIdList = usersService.selectMany();
+		int totalUser = usersIdList.size();
+		int amateurUser = 0;
+		int proUser = 0;
+		int bronzeUser = 0;
+		int silverUser = 0;
+		int goldUser = 0;
+		int diamondUser = 0;
+		int platinumUser = 0;
+		int alienUser = 0;
+		int godFoxUser = 0;
+		int premiumGodUser = 0;
+		int inductedIntoTheHalOfFameRank = 0;
+		for(int y = 0; usersIdList.size() > y; y++) {
+		usersdto = usersIdList.get(y);
+		int userId = usersdto.getId();
+		
+		int allProductCount = 0;
+		int allTotalPrice = 0;
+		
+		
+		List<PurchaseDTO> purchasedtoList = purchaseService.selectHistory(userId);// メソッドに入ったユーザーの購入情報を取得
+		List<PurchaseDTO> allPurchaseList = new ArrayList<>();
+		PurchaseDTO customList;
+		// 購入商品を一つづつ回して値を受け取る
+		if (purchasedtoList.size() > 0) {
+			for (int i = 0; purchasedtoList.size() > i; i++) {
+				PurchaseDTO purchasedtoAdd = new PurchaseDTO();
+				PurchaseDTO purchaseOne = purchasedtoList.get(i);
+				purchasedtoAdd.setId(purchaseOne.getId());// カスタム情報取得に使用
+				purchasedtoAdd.setCancelCheck(purchaseOne.getCancelCheck());
+				purchasedtoAdd.setPrice(purchaseOne.getPrice());
+				purchasedtoAdd.setProduct_count(purchaseOne.getProduct_count());
+				purchasedtoAdd.setPurchaseCheck(purchaseOne.getPurchaseCheck());
+				// 購入商品ごとのカスタム情報も取り出す
+				int productId = purchasedtoAdd.getId();
+				// int customId = purchasedtoAdd.getCustom_id();
+
+				String nullCheck = "null";
+				int getCustomId = customService.selectPurchaseCheck(userId, productId,
+						purchasedtoAdd.getPurchaseCheck(), nullCheck);
+
+				customList = customService.selectMany(getCustomId);// customテーブルのIDでカスタム情報を取得
+				purchasedtoAdd.setCustomPrice(customList.getCustomPrice());
+				purchasedtoAdd.setTotalPrice(
+						purchaseOne.getProduct_count() * (customList.getCustomPrice() + purchaseOne.getPrice()));
+				allTotalPrice = allTotalPrice + purchasedtoAdd.getTotalPrice();// ユーザーの購入した商品の合計金額を取得
+				allProductCount = allProductCount + purchasedtoAdd.getProduct_count();// ユーザーの購入した商品の数を取得
+				model.addAttribute("purchaseCount", allProductCount);
+				model.addAttribute("allTotalPrice", allTotalPrice);
+//			int priceRank = allTotalPrice * 10;
+//			int countRank = allProductCount * 30000;
+//			int rankPoint = priceRank + countRank;
+//			System.out.println(rankPoint);
+				if ((allTotalPrice > 0) && (allTotalPrice < 50000)) {
+					model.addAttribute("rankPoint", "アマチュアランク");
+					amateurUser = amateurUser + 1;
+				} else if ((allTotalPrice >= 50000) && (allTotalPrice < 100000)) {
+					model.addAttribute("rankPoint", "プロランク");
+					proUser = proUser + 1;
+				} else if ((allTotalPrice >= 100000) && (allTotalPrice < 200000)) {
+					model.addAttribute("rankPoint", "ブロンズランク");
+					bronzeUser = bronzeUser + 1;
+				} else if ((allTotalPrice >= 200000) && (allTotalPrice < 400000)) {
+					model.addAttribute("rankPoint", "シルバーランク");
+					silverUser = silverUser + 1;
+				} else if ((allTotalPrice >= 400000) && (allTotalPrice < 800000)) {
+					model.addAttribute("rankPoint", "ゴールドランク");
+					goldUser = goldUser + 1;
+				} else if ((allTotalPrice >= 800000) && (allTotalPrice < 1000000)) {
+					model.addAttribute("rankPoint", "ダイヤモンドランク");
+					diamondUser = diamondUser + 1;
+				} else if ((allTotalPrice >= 1000000) && (allTotalPrice < 1500000)) {
+					model.addAttribute("rankPoint", "プラチナランク");
+					platinumUser = platinumUser + 1;
+				} else if ((allTotalPrice >= 1500000) && (allTotalPrice < 3000000)) {
+					model.addAttribute("rankPoint", "エイリアンランク");
+					alienUser = alienUser + 1;
+				} else if ((allTotalPrice >= 3000000) && (allTotalPrice < 5000000)) {
+					model.addAttribute("rankPoint", "ゴッドフォックスランク");
+					godFoxUser = godFoxUser + 1;
+				} else if ((allTotalPrice >= 5000000) && (allTotalPrice < 8000000)) {
+					model.addAttribute("rankPoint", "プレミアムゴッドランク");
+					premiumGodUser = premiumGodUser + 1;
+				} else if ((allTotalPrice >= 8000000)) {
+					model.addAttribute("rankPoint", "InductedIntoTheHalOfFameRank");
+					inductedIntoTheHalOfFameRank = inductedIntoTheHalOfFameRank + 1;
+				}
+				allPurchaseList.add(purchasedtoAdd);
+			}
+		} else {
+			model.addAttribute("purchaseCount", 0);
+			model.addAttribute("allTotalPrice", 0);
+			model.addAttribute("rankPoint", "アマチュアランク");
+		}
+		}
+		System.out.println("amateurUser"+amateurUser);
+		System.out.println("totalUser"+totalUser);
+		double amateurRatio = (double)3 / (double)83;
+		System.out.println("amateurRatio"+amateurRatio);
+		String amateurRatioStr = String.valueOf(amateurRatio);
+		int ratioSize = amateurRatioStr.length();
+		System.out.println("ratioSize"+ratioSize);
+		if(ratioSize == 3) {
+			System.out.println("11");
+			String amateurRatioStrCheck = amateurRatioStr.substring(0,1);
+			if(amateurRatioStrCheck.equals("1")) {
+				System.out.println("22");
+				model.addAttribute("amateurUser",100);
+			}else {
+				System.out.println("33");
+				String amateurRatioStrChecktwo = amateurRatioStr.substring(2,3);
+				String amateurRatioStrChecktwoNew = amateurRatioStrChecktwo + "0";
+				model.addAttribute("amateurUser",amateurRatioStrChecktwoNew);
+			}
+		}else {
+			String amateurRatioStrCheckthree = amateurRatioStr.substring(2,3);
+			System.out.println("3333");
+			if(amateurRatioStrCheckthree.equals("0")) {
+				System.out.println("44");
+				String amateurRatioStrCheckthreeNew = amateurRatioStr.substring(3,4);
+				model.addAttribute("amateurUser",amateurRatioStrCheckthreeNew);
+			}else {
+				System.out.println("334");
+				String amateurRatioStrCheckfour = amateurRatioStr.substring(2,4);
+				model.addAttribute("amateurUser",amateurRatioStrCheckfour);
+			}
+		}
+		
+		
+		
+	
+	
+		
 		return "shopping/productListLayout";
 	}
 

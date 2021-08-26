@@ -126,6 +126,20 @@ public class UsersDaoJdbcImpl implements UsersDao {
 		return result;
 	}
 	
+	public List<UsersDTO> selectMany() {
+		List<Map<String,Object>> map = jdbc.queryForList("select * from users");
+		
+		List<UsersDTO> usersIdList = new ArrayList<>();
+		
+		for(Map<String,Object> oneMap : map) {
+			UsersDTO usersdto = new UsersDTO();
+			usersdto.setId((int)oneMap.get("id"));
+			
+			usersIdList.add(usersdto);
+		}
+		
+		return usersIdList;
+	}
 	
 
 }

@@ -68,4 +68,8 @@ public class UsersService {
 	public int updateOne(UsersDTO usersDTO) {
 		return dao.updateOne(usersDTO);
 	}
+	
+	public List<UsersDTO> selectMany() {
+		return dao.selectMany();
+	}
 }

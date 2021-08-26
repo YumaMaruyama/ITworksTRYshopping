@@ -27,4 +27,6 @@ public interface UsersDao {
 	public UsersDTO userInformationSelectOne(int selectId);
 	
 	public int updateOne(UsersDTO usersdto);
+	
+	public List<UsersDTO> selectMany();
 }
