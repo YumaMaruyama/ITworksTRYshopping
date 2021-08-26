@@ -12,4 +12,6 @@ public class CartDTO {
 	private int product_id;
 
 	private int product_count;
+	
+	private int couponId;
 }

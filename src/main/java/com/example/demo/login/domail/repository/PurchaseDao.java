@@ -31,5 +31,8 @@ public interface PurchaseDao {
 	public int cancelCheckUpdate(int purchaseId);
 	
 	public int cancelCheckUpdateNext(int purchaseId);
+	
+	public int insertNotCoupon(PurchaseDTO purchasedto, int purchaseId, int purchaseCount, int select_id,
+			int purchaseCreditId, int customId);
 
 }

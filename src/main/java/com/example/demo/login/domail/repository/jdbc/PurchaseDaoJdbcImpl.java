@@ -36,6 +36,8 @@ public class PurchaseDaoJdbcImpl implements PurchaseDao {
 		return result;
 
 	}
+	
+	
 
 	public List<PcDataDTO> selectMany(int select_id,int purchaseNumber) {
 		List<Map<String, Object>> idList = jdbc
@@ -188,6 +190,21 @@ public class PurchaseDaoJdbcImpl implements PurchaseDao {
 	
 	public int cancelCheckUpdateNext(int purchaseId) {
 		int result = jdbc.update("update purchase set cancel_check = '返品商品確認待ち' where id = ?",purchaseId);
+		return result;
+	}
+	
+	public int insertNotCoupon(PurchaseDTO purchasedto, int purchaseId, int purchaseCount, int select_id,
+			int purchaseCreditId, int customId) {
+		int result = jdbc.update("insert into purchase (id,"
+				+ " user_id,"
+				+ " product_id,"
+				+ " product_count,"
+				+ " credit_id,"
+				+ " custom_id,"
+				+ " coupon_id)"
+				+ " value(?,?,?,?,?,?,?)", purchasedto.getId(), select_id, purchaseId, purchaseCount,
+				purchaseCreditId,customId,-1);
+
 		return result;
 	}
 

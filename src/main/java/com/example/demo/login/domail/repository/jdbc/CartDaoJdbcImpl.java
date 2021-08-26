@@ -254,6 +254,13 @@ public class CartDaoJdbcImpl implements CartDao {
 			cartdto.setUser_id((int) oneMap.get("user_id"));
 			cartdto.setProduct_id((int) oneMap.get("product_id"));
 			cartdto.setProduct_count((int) oneMap.get("product_count"));
+			try {
+				cartdto.setCouponId((int)oneMap.get("coupon_id"));
+			}catch(NullPointerException e){
+				e.printStackTrace();
+				cartdto.setCouponId(-1);
+			}
+			
 			purchaseList.add(cartdto);
 		}
 		return purchaseList;

@@ -78,6 +78,12 @@ public class PurchaseService {
 	public int cancelCheckUpdateNext(int purchaseId) {
 		return dao.cancelCheckUpdateNext(purchaseId);
 	}
+	
+	public int insertNotCoupon(PurchaseDTO purchasedto, int purchaseId, int purchaseCount, int select_id,
+			int purchaseCreditId, int customId) {
+		return dao.insertNotCoupon(purchasedto, purchaseId, purchaseCount, select_id,
+				purchaseCreditId, customId);
+	}
 
 
 }

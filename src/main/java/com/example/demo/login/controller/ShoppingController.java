@@ -2278,15 +2278,25 @@ if (count < 0) {
 
 		for (int i = 0; i < cartList.size(); i++) {
 			PcDataDTO pcdatadto = cartList.get(i);
-			totalPriceAll = totalPriceAll + pcdatadto.getProduct_count() * pcdatadto.getAfterCustomPrice();
-			totalPriceOne = pcdatadto.getProduct_count() * pcdatadto.getAfterCustomPrice();
+			
+			totalPriceAll = totalPriceAll + pcdatadto.getProduct_count() * pcdatadto.getAfterCustomPrice();//カート内の合計金額
 			System.out.println("totalPriceAll" + totalPriceAll);
+			
+			totalPriceOne = pcdatadto.getProduct_count() * pcdatadto.getAfterCustomPrice();//各商品の金額
+			
 			if (pcdatadto.getCouponId() == 0) {
-				model.addAttribute("totalPrice", totalPriceAll);
+				System.out.println("クーポン使用なし");
+				int couponAfterPrice = (int) totalPriceAll;
+				System.out.println("couponAfterPrice"+couponAfterPrice);
+				model.addAttribute("totalPrice", couponAfterPrice);
+				
 			} else {// クーポンを使用した商品はelse
+				System.out.println("クーポン使用！");
 				CouponDTO coupondto = couponService.selectOne(couponId);
 				int disCount = coupondto.getDiscount();
+				if(disCount >= 10) {
 				double disCountNew = Double.valueOf("0." + disCount);
+				System.out.println("discoutnnew"+disCountNew);
 				disCountPrice = totalPriceOne * disCountNew;// クーポンを使用した商品の割引数取得
 
 				System.out.println("totalAll" + totalPriceAll);
@@ -2294,9 +2304,25 @@ if (count < 0) {
 				System.out.println("Dis" + disCountPrice);
 				// ここから割引分の値が入っているのでそれをトータルからひく、小数点以下も切り捨てる
 				// model.addAttribute("totalPrice", couponAfterPrice);
-			}
-			int couponAfterPrice = (int) (totalPriceAll - disCountPrice);
-			model.addAttribute("totalPrice", couponAfterPrice);
+				totalPriceAll = (int) (totalPriceAll - disCountPrice);
+				model.addAttribute("totalPrice",totalPriceAll);
+				}else {
+					double disCountNew = Double.valueOf("0.0" + disCount);
+					System.out.println("discoutnnew"+disCountNew);
+					disCountPrice = totalPriceOne * disCountNew;// クーポンを使用した商品の割引数取得
+
+					System.out.println("totalAll" + totalPriceAll);
+					System.out.println("totalOne" + totalPriceOne);
+					System.out.println("Dis" + disCountPrice);
+					// ここから割引分の値が入っているのでそれをトータルからひく、小数点以下も切り捨てる
+					// model.addAttribute("totalPrice", couponAfterPrice);
+					totalPriceAll = (int) (totalPriceAll - disCountPrice);
+					model.addAttribute("totalPrice",totalPriceAll);
+				}
+				}
+			
+			
+			
 			// model.addAttribute("product_count",pcdatadto.getProduct_count());
 			// form.setProduct_count(pcdatadto.getProduct_count());
 			System.out.println("form" + form);
@@ -2687,11 +2713,19 @@ if (count < 0) {
 			} else {// クーポンを使用していればelse
 				CouponDTO coupondto = couponService.selectOne(pcdatadto.getCouponId());// クーポン情報取得
 				int disCount = coupondto.getDiscount();// 割引％
+				if(disCount >= 10) {
 				double disCountNew = Double.valueOf("0." + disCount);
 				double disCountPrice = totalPriceOne * disCountNew;// 割引数
 				pcdatadto.setTotalPriceOne((int) (totalPriceOne - disCountPrice));
 				totalPriceAll = (int) (totalPriceAll - disCountPrice);
 				pcdatadto.setCouponCheck(true);
+				}else {
+					double disCountNew = Double.valueOf("0.0" + disCount);
+					double disCountPrice = totalPriceOne * disCountNew;// 割引数
+					pcdatadto.setTotalPriceOne((int) (totalPriceOne - disCountPrice));
+					totalPriceAll = (int) (totalPriceAll - disCountPrice);
+					pcdatadto.setCouponCheck(true);
+				}
 			}
 			model.addAttribute("totalPrice", totalPriceAll);
 
@@ -2761,13 +2795,26 @@ if (count < 0) {
 			int productid = cartdto.getProduct_id();
 			int customId = customService.selectCustomId(productId, select_id);
 			int purchaseCount = cartdto.getProduct_count();
+			int couponCheck = cartdto.getCouponId();
+			
 			// customService.pruchaseIdInsertOne(productid);
-			int purchaseInsertResult = purchaseService.insert(purchasedto, productid, purchaseCount, select_id,
+			try {
+			if(couponCheck > 0) {
+				System.out.println("クーポン使用");
+			purchaseService.insert(purchasedto, productid, purchaseCount, select_id,
 					purchaseCreditId, customId, couponId);
+			}else {
+				System.out.println("クーポン未使用");
+				purchaseService.insertNotCoupon(purchasedto, productid, purchaseCount, select_id,
+						purchaseCreditId, customId);
+			}
+			}catch(NullPointerException e) {
+				e.printStackTrace();
+			}
 			int purchaseId = purchaseService.selectPurchaseIdOne();
 			System.out.println("purchaseId" + purchaseId);
-			int customPurchaseCheckUpdateResult = customService.pruchaseIdUpdate(purchaseId, productId, select_id);
-			int cartIdResult = cartService.idInsertOne(purchaseId, productId, select_id);
+			customService.pruchaseIdUpdate(purchaseId, productId, select_id);
+			cartService.idInsertOne(purchaseId, productId, select_id);
 		}
 
 		// return "redirect:/after_purchase";
@@ -2830,12 +2877,19 @@ if (count < 0) {
 					purchaseOne.getProduct_count() * (customList.getCustomPrice() + purchaseOne.getPrice()));
 
 			if (purchasedtoAdd.getCouponId() > 0) {
+				System.out.println("クーポン使用！");
 				int totalPrice = purchasedtoAdd.getTotalPrice();
 				CouponDTO coupondto = couponService.selectOne(purchasedtoAdd.getCouponId());
 				int disCount = coupondto.getDiscount();// 割引率(%)
+				if(disCount >= 10) {
 				double disCountNew = Double.valueOf("0." + disCount);
 				double disCountPriceNew = totalPrice * disCountNew;// 割引価格
 				purchasedtoAdd.setTotalPrice((int) (totalPrice - disCountPriceNew));
+				}else {
+					double disCountNew = Double.valueOf("0.0" + disCount);
+					double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+					purchasedtoAdd.setTotalPrice((int) (totalPrice - disCountPriceNew));
+				}
 			}
 			// Date purchaseDate = purchasedtoAdd.getPurchase_date();
 			Calendar calendar = Calendar.getInstance();
