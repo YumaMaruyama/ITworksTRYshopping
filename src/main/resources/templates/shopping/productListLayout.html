@@ -60,7 +60,19 @@
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container-fluid headerDesign">
 			<div class="navbar-header col-sm-4">
-			<i th:if="@" class="fa fa-android fa-spin fa-colorLogin fa-size"></i>
+			<i th:if="${session.rankPoint} == 'アマチュアランク'" class="fa fa-glass rank1 fa-spin"></i>
+			<i th:if="${session.rankPoint} == 'プロランク'" class="fa fa-glass rank2 fa-spin"></i>
+			<i th:if="${session.rankPoint} == 'ブロンズランク'" class="fa fa-trophy rank3 fa-spin"></i>
+			<i th:if="${session.rankPoint} == 'シルバーランク'" class="fa fa-trophy rank4 fa-spin"></i>
+			<i th:if="${session.rankPoint} == 'ゴールドランク'" class="fa fa-trophy rank5 fa-spin"></i>
+			<i th:if="${session.rankPoint} == 'ダイヤモンドランク'" class="fa fa-trophy rank6 fa-spin"></i>
+			<i th:if="${session.rankPoint} == 'プラチナランク'" class="fa fa-trophy rank7 fa-spin"></i>
+			<i th:if="${session.rankPoint} == 'エイリアンランク'" class="fa  fa-drupal rank8 fa-spin"></i>
+			<i th:if="${session.rankPoint} == 'ゴッドフォックスランク'" class="fa fa-firefox rank9 fa-spin"></i>
+			<i th:if="${session.rankPoint} == 'プレミアムゴッドランク'" class="fa fa-graduation-cap rank10 fa-spin"></i>
+			<i th:if="${session.rankPoint} == 'InductedIntoTheHalOfFameRank'" class="fa fa-optin-monster rank11 fa-spin"></i>
+			
+			
 				<a class="navbar-brand" th:href="@{/productList}"
 					title="アプリ名をクリックするとLogin画面に推移します"><span
 					style="color: #a4f7cb !important; font-size:20px">PCショップYM</span></a>

@@ -265,77 +265,76 @@ public class ShoppingController {
 		List<PurchaseDTO> allPurchaseList = new ArrayList<>();
 		PurchaseDTO customList;
 		// 購入商品を一つづつ回して値を受け取る
-		if(purchasedtoList.size() > 0) {
-		for (int i = 0; purchasedtoList.size() > i; i++) {
-			PurchaseDTO purchasedtoAdd = new PurchaseDTO();
-			PurchaseDTO purchaseOne = purchasedtoList.get(i);
-			purchasedtoAdd.setId(purchaseOne.getId());// カスタム情報取得に使用
-			purchasedtoAdd.setCancelCheck(purchaseOne.getCancelCheck());
-			purchasedtoAdd.setPrice(purchaseOne.getPrice());
-			purchasedtoAdd.setProduct_count(purchaseOne.getProduct_count());
-			purchasedtoAdd.setPurchaseCheck(purchaseOne.getPurchaseCheck());
-			// 購入商品ごとのカスタム情報も取り出す
-			int productId = purchasedtoAdd.getId();
-			// int customId = purchasedtoAdd.getCustom_id();
+		if (purchasedtoList.size() > 0) {
+			for (int i = 0; purchasedtoList.size() > i; i++) {
+				PurchaseDTO purchasedtoAdd = new PurchaseDTO();
+				PurchaseDTO purchaseOne = purchasedtoList.get(i);
+				purchasedtoAdd.setId(purchaseOne.getId());// カスタム情報取得に使用
+				purchasedtoAdd.setCancelCheck(purchaseOne.getCancelCheck());
+				purchasedtoAdd.setPrice(purchaseOne.getPrice());
+				purchasedtoAdd.setProduct_count(purchaseOne.getProduct_count());
+				purchasedtoAdd.setPurchaseCheck(purchaseOne.getPurchaseCheck());
+				// 購入商品ごとのカスタム情報も取り出す
+				int productId = purchasedtoAdd.getId();
+				// int customId = purchasedtoAdd.getCustom_id();
 
-			String nullCheck = "null";
-			int getCustomId = customService.selectPurchaseCheck(selectId, productId, purchasedtoAdd.getPurchaseCheck(),
-					nullCheck);
+				String nullCheck = "null";
+				int getCustomId = customService.selectPurchaseCheck(selectId, productId,
+						purchasedtoAdd.getPurchaseCheck(), nullCheck);
 
-			customList = customService.selectMany(getCustomId);// customテーブルのIDでカスタム情報を取得
-			purchasedtoAdd.setCustomPrice(customList.getCustomPrice());
-			purchasedtoAdd.setTotalPrice(
-					purchaseOne.getProduct_count() * (customList.getCustomPrice() + purchaseOne.getPrice()));
-			allTotalPrice = allTotalPrice + purchasedtoAdd.getTotalPrice();// ユーザーの購入した商品の合計金額を取得
-			allProductCount = allProductCount + purchasedtoAdd.getProduct_count();// ユーザーの購入した商品の数を取得
-			model.addAttribute("purchaseCount", allProductCount);
-			model.addAttribute("allTotalPrice", allTotalPrice);
+				customList = customService.selectMany(getCustomId);// customテーブルのIDでカスタム情報を取得
+				purchasedtoAdd.setCustomPrice(customList.getCustomPrice());
+				purchasedtoAdd.setTotalPrice(
+						purchaseOne.getProduct_count() * (customList.getCustomPrice() + purchaseOne.getPrice()));
+				allTotalPrice = allTotalPrice + purchasedtoAdd.getTotalPrice();// ユーザーの購入した商品の合計金額を取得
+				allProductCount = allProductCount + purchasedtoAdd.getProduct_count();// ユーザーの購入した商品の数を取得
+				model.addAttribute("purchaseCount", allProductCount);
+				model.addAttribute("allTotalPrice", allTotalPrice);
 //			int priceRank = allTotalPrice * 10;
 //			int countRank = allProductCount * 30000;
 //			int rankPoint = priceRank + countRank;
 //			System.out.println(rankPoint);
-			if((allTotalPrice > 0) && (allTotalPrice < 50000)) {
-			model.addAttribute("rankPoint","アマチュアランク");
-			}else if((allTotalPrice >= 50000) && (allTotalPrice < 100000)) {
-				model.addAttribute("rankPoint","プロランク");
-			}else if((allTotalPrice >= 100000) && (allTotalPrice < 200000)) {
-				model.addAttribute("rankPoint","ブロンズランク");
-			}else if((allTotalPrice >= 200000) && (allTotalPrice < 400000)) {
-				model.addAttribute("rankPoint","シルバーランク");
-			}else if((allTotalPrice >= 400000) && (allTotalPrice < 800000)) {
-				model.addAttribute("rankPoint","ゴールドランク");
-			}else if((allTotalPrice >= 800000) && (allTotalPrice < 1000000)) {
-				model.addAttribute("rankPoint","ダイヤモンドランク");
-			}else if((allTotalPrice >= 1000000) && (allTotalPrice < 1500000)) {
-				model.addAttribute("rankPoint","プラチナムランク");
-			}else if((allTotalPrice >= 1500000) && (allTotalPrice < 3000000)) {
-				model.addAttribute("rankPoint","エイリアンランク");
-			}else if((allTotalPrice >= 3000000) && (allTotalPrice < 5000000)) {
-				model.addAttribute("rankPoint","ゴッドフォックスランク");
-			}else if((allTotalPrice >= 5000000) && (allTotalPrice < 8000000)) {
-				model.addAttribute("rankPoint","プレミアムゴッドランク");
-			}else if((allTotalPrice >= 8000000)) {
-				model.addAttribute("rankPoint","InductedIntoTheHalOfFameRank");
+				if ((allTotalPrice > 0) && (allTotalPrice < 50000)) {
+					model.addAttribute("rankPoint", "アマチュアランク");
+				} else if ((allTotalPrice >= 50000) && (allTotalPrice < 100000)) {
+					model.addAttribute("rankPoint", "プロランク");
+				} else if ((allTotalPrice >= 100000) && (allTotalPrice < 200000)) {
+					model.addAttribute("rankPoint", "ブロンズランク");
+				} else if ((allTotalPrice >= 200000) && (allTotalPrice < 400000)) {
+					model.addAttribute("rankPoint", "シルバーランク");
+				} else if ((allTotalPrice >= 400000) && (allTotalPrice < 800000)) {
+					model.addAttribute("rankPoint", "ゴールドランク");
+				} else if ((allTotalPrice >= 800000) && (allTotalPrice < 1000000)) {
+					model.addAttribute("rankPoint", "ダイヤモンドランク");
+				} else if ((allTotalPrice >= 1000000) && (allTotalPrice < 1500000)) {
+					model.addAttribute("rankPoint", "プラチナランク");
+				} else if ((allTotalPrice >= 1500000) && (allTotalPrice < 3000000)) {
+					model.addAttribute("rankPoint", "エイリアンランク");
+				} else if ((allTotalPrice >= 3000000) && (allTotalPrice < 5000000)) {
+					model.addAttribute("rankPoint", "ゴッドフォックスランク");
+				} else if ((allTotalPrice >= 5000000) && (allTotalPrice < 8000000)) {
+					model.addAttribute("rankPoint", "プレミアムゴッドランク");
+				} else if ((allTotalPrice >= 8000000)) {
+					model.addAttribute("rankPoint", "InductedIntoTheHalOfFameRank");
+				}
+				allPurchaseList.add(purchasedtoAdd);
 			}
-			allPurchaseList.add(purchasedtoAdd);
-		}
-		}else {
+		} else {
 			model.addAttribute("purchaseCount", 0);
-			model.addAttribute("allTotalPrice",0);
-			model.addAttribute("rankPoint","アマチュアランク");
+			model.addAttribute("allTotalPrice", 0);
+			model.addAttribute("rankPoint", "アマチュアランク");
 		}
 
 		return "shopping/productListLayout";
 	}
-	
+
 	@GetMapping("/userRankDetail")
-	public String getUserRankDetail(@ModelAttribute UserEditForm form,Model model) {
+	public String getUserRankDetail(@ModelAttribute UserEditForm form, Model model) {
 		model.addAttribute("contents", "shopping/userRankDetail::productListLayout_contents");
-		
+
 		return "shopping/productListLayout";
 	}
 
-	
 	@GetMapping("/editYourDetail/{id}")
 	public String getEditYourDetail(@ModelAttribute UserEditForm from, UsersListForm usersListForm,
 			@PathVariable("id") int id, Model model) {
@@ -415,11 +414,12 @@ public class ShoppingController {
 	}
 
 	@PostMapping(value = "inquiry", params = "sending")
-	public String postInquirySending(@ModelAttribute @Validated(GroupOrder.class)InquiryForm form,BindingResult bindingResult, InquiryForm form2,
-			 HttpServletRequest request, HttpServletResponse response,Model model) {
+	public String postInquirySending(@ModelAttribute @Validated(GroupOrder.class) InquiryForm form,
+			BindingResult bindingResult, InquiryForm form2, HttpServletRequest request, HttpServletResponse response,
+			Model model) {
 
 		model.addAttribute("contents", "shopping/inquiryFinish::productListLayout_contents");
-		
+
 		if (bindingResult.hasErrors()) {// 入力内容がおかしい場合はtrue
 			System.out.println("バリデーションエラー到達");
 			return getInquiry(form, model);// もう一度入力画面に遷移させる
@@ -437,15 +437,13 @@ public class ShoppingController {
 		HttpSession session = request.getSession();
 		session.setAttribute("title", form.getTitle());
 		session.setAttribute("content", form.getContent());
-		model.addAttribute("title",(String) session.getAttribute("title"));
-		model.addAttribute("content",(String) session.getAttribute("content"));
-		
-		
+		model.addAttribute("title", (String) session.getAttribute("title"));
+		model.addAttribute("content", (String) session.getAttribute("content"));
+
 		InquiryReplyDTO inquiryreplydto = new InquiryReplyDTO();
 		int result = inquiryService.insertOne(inquirydto, select_id);// dtoとusersテーブルのidでお問い合わせの情報を格納する
 		int maxId = inquiryService.selectMaxId();
-		inquiryreplyService.insertOne(inquiryreplydto,maxId);
-	
+		inquiryreplyService.insertOne(inquiryreplydto, maxId);
 
 		return "shopping/productListLayout";
 
@@ -481,7 +479,8 @@ public class ShoppingController {
 	}
 
 	@PostMapping(value = "inquiry", params = "return")
-	public String postInquiryReturn(@ModelAttribute InquiryForm form, @RequestParam("id") int id, HttpServletRequest request, HttpServletResponse response,Model model) {
+	public String postInquiryReturn(@ModelAttribute InquiryForm form, @RequestParam("id") int id,
+			HttpServletRequest request, HttpServletResponse response, Model model) {
 
 		InquiryReplyDTO inquiryreplydto = new InquiryReplyDTO();
 		inquiryreplydto.setInquiryId(id);
@@ -490,11 +489,10 @@ public class ShoppingController {
 
 		HttpSession session = request.getSession();
 		session.setAttribute("id", id);
-		session.setAttribute("title",form.getTitle());
-		session.setAttribute("content",form.getContent());
-		
-		
-		int result = inquiryreplyService.replyUpdateOne(session,inquiryreplydto);// dtoの情報をinquiry_replyテーブルに格納
+		session.setAttribute("title", form.getTitle());
+		session.setAttribute("content", form.getContent());
+
+		int result = inquiryreplyService.replyUpdateOne(session, inquiryreplydto);// dtoの情報をinquiry_replyテーブルに格納
 
 		return getAdministrator(form, model);
 
@@ -510,10 +508,8 @@ public class ShoppingController {
 		int select_id = usersService.select_id(user_id);
 
 		List<InquiryAllDTO> inquiryreplydtolist = inquiryService.everyUserSelectMany(select_id);// usersテーブルのidをもとにinquiryテーブルとinquiry_replyテーブル情報を取得
-		System.out.println("inquiryList"+inquiryreplydtolist);
-		
-	
-		
+		System.out.println("inquiryList" + inquiryreplydtolist);
+
 		model.addAttribute("inquiryAllDto", inquiryreplydtolist);
 
 		return "shopping/productListLayout";
@@ -925,17 +921,17 @@ public class ShoppingController {
 		Date nowDate = new Date();
 		boolean check = nowDate.before(purchaseDate);
 		System.out.println("purchaseDate" + purchaseDate);
-		calendar.add(Calendar.DATE,6);
+		calendar.add(Calendar.DATE, 6);
 		Date cancelOutDate = calendar.getTime();
 		boolean cancelOutCheck = nowDate.before(cancelOutDate);
-		System.out.println("cancelOutCheck"+cancelOutCheck);
-		
-		if(cancelOutCheck == false) {
+		System.out.println("cancelOutCheck" + cancelOutCheck);
+
+		if (cancelOutCheck == false) {
 			model.addAttribute("contents", "shopping/cancelInquiry::productListLayout_contents");
-			
+
 			return "shopping/productListLayout";
 		}
-		
+
 		if (check == false) {
 			model.addAttribute("contents", "shopping/cancelDeliveredDetail::productListLayout_contents");
 			int maxId = cancelService.selectCancelCheck(purchaseId, select_id);
@@ -960,16 +956,14 @@ public class ShoppingController {
 	@PostMapping(value = "/cancel", params = "completed")
 	public String postCancelCompleted(@ModelAttribute @Validated(GroupOrder.class) CancelForm form,
 			BindingResult bidingResult, @RequestParam("id") int purchaseId, @RequestParam("customId") int customId,
-			HttpServletRequest request, HttpServletResponse response,RedirectAttributes redirectattributes, Model model) {
+			HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectattributes,
+			Model model) {
 		model.addAttribute("contents", "shopping/cancelCompleted::productListLayout_contents");
 
 		if (bidingResult.hasErrors()) {
 			System.out.println("バリデーションエラー到達");
 			return postCancelDetail(form, purchaseId, model);
 		}
-		
-		
-	
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
@@ -980,7 +974,7 @@ public class ShoppingController {
 
 		// 購入商品情報取得
 		PurchaseDTO purchasedtoList = purchaseService.reviewSelectHistory(userId, purchaseId);// Pathで取得した購入IDでpurchaseテーブルの情報を取得
-		if(purchasedtoList.getId() == 0) {
+		if (purchasedtoList.getId() == 0) {
 			return "redirect:/purchaseHistory";
 		}
 		purchasedto.setId(purchasedtoList.getId());
@@ -1043,7 +1037,6 @@ public class ShoppingController {
 		customService.deleteOne(customId);// キャンセル完了に伴い、カスタムデータ削除
 		purchaseService.deleteOne(purchaseId);// キャンセル完了に伴い、購入データ削除
 
-		
 		return "shopping/productListLayout";
 
 	}
@@ -1612,7 +1605,7 @@ public class ShoppingController {
 			if (purchasedtoAdd.getCouponId() > 0) {// クーポンを使用して購入していればtrue
 				int couponId = purchasedtoAdd.getCouponId();
 				couponUsedId.add(couponId);
-			}else {
+			} else {
 				couponUsedId.add(-1);
 			}
 			int productId = purchasedtoAdd.getId();
@@ -1636,105 +1629,101 @@ public class ShoppingController {
 		// 使用済みクーポンの一枚目のIDを使用して、使用前クーポンListを作成
 
 		try {
-		List<Integer> couponId = couponService.selectIdMany();// 全クーポン
-		System.out.println("全クーポン" + couponId);
-		System.out.println("使用済みクーポン" + couponUsedId);
-		List<Integer> beforeUseCouponId = new ArrayList<>();// 使用前クーポン
-		for (int i = 0; couponId.size() > i; i++) {// 全クーポンの数文入る
-			if (couponId.get(i) != couponUsedId.get(0)) {// 全クーポンと使用済みクーポンの最初に一枚を比べて、使用前クーポンならtrue
-				beforeUseCouponId.add(couponId.get(i));// 使用済みクーポン一枚に対しての、使用前クーポンListを構築
-			}
-			System.out.println("beforeUseCouponId" + beforeUseCouponId);
-		}
-
-		// 上記で使用済みクーポン一枚に対しての、使用前クーポンListを構築したため下記に移る
-		// 下記では残りの使用済みクーポンIDを上記で作成した使用前クーポンListと比べている
-
-		if (couponUsedId.size() >= 2) {// 使用済みクーポンが2枚以上あればtrue
-			for (int x = 1; couponUsedId.size() > x; x++) {// 上記のコードで使用した使用済みクーポン１枚を除いた使用済みクーポン文を繰り返す
-				List<Integer> dummyBeforeUseCouponId = new ArrayList<>();
-				for (int i = 0; beforeUseCouponId.size() > i; i++) {// 上記で構築した使用前クーポンの数文繰り返す
-					if (beforeUseCouponId.get(i) != couponUsedId.get(x)) {
-						dummyBeforeUseCouponId.add(beforeUseCouponId.get(i));
-					}
+			List<Integer> couponId = couponService.selectIdMany();// 全クーポン
+			System.out.println("全クーポン" + couponId);
+			System.out.println("使用済みクーポン" + couponUsedId);
+			List<Integer> beforeUseCouponId = new ArrayList<>();// 使用前クーポン
+			for (int i = 0; couponId.size() > i; i++) {// 全クーポンの数文入る
+				if (couponId.get(i) != couponUsedId.get(0)) {// 全クーポンと使用済みクーポンの最初に一枚を比べて、使用前クーポンならtrue
+					beforeUseCouponId.add(couponId.get(i));// 使用済みクーポン一枚に対しての、使用前クーポンListを構築
 				}
-				beforeUseCouponId = dummyBeforeUseCouponId;
-			}
-			System.out.println("beforeUseCouponId" + beforeUseCouponId);
-		}
-
-		List<CouponDTO> coupondtoList = new ArrayList<>();
-
-		for (int i = 0; beforeUseCouponId.size() > i; i++) {
-			List<CouponDTO> dummyCoupondtoList = new ArrayList<>();
-			dummyCoupondtoList = couponService.selectMany(beforeUseCouponId.get(i));// couponテーブルからクーポン情報をすべて取得
-			coupondtoList.addAll(dummyCoupondtoList);
+				System.out.println("beforeUseCouponId" + beforeUseCouponId);
 			}
 
-		List<CouponDTO> coupondtoListAdd = new ArrayList<>();
+			// 上記で使用済みクーポン一枚に対しての、使用前クーポンListを構築したため下記に移る
+			// 下記では残りの使用済みクーポンIDを上記で作成した使用前クーポンListと比べている
 
-		for (int i = 0; coupondtoList.size() > i; i++) {// クーポン情報を一つづつ取り出す
-			CouponDTO coupondtoOne = coupondtoList.get(i);
-			int allCount = coupondtoOne.getPurchaseCountTarget();
-			int allPrice = coupondtoOne.getPurchaseTotalPriceTarget();
-		
-			boolean countCheck = false;
-			boolean priceCheck = false;
-
-			if (allProductCount >= allCount) {// ユーザーの商品購入数と、クーポンの使用条件の商品購入数を比較
-				countCheck = true;
-			}
-			if (allTotalPrice >= allPrice) {// ユーザーの全商品購入金額と、クーポンの使用条件の全商品購入金額を比較
-				priceCheck = true;
+			if (couponUsedId.size() >= 2) {// 使用済みクーポンが2枚以上あればtrue
+				for (int x = 1; couponUsedId.size() > x; x++) {// 上記のコードで使用した使用済みクーポン１枚を除いた使用済みクーポン文を繰り返す
+					List<Integer> dummyBeforeUseCouponId = new ArrayList<>();
+					for (int i = 0; beforeUseCouponId.size() > i; i++) {// 上記で構築した使用前クーポンの数文繰り返す
+						if (beforeUseCouponId.get(i) != couponUsedId.get(x)) {
+							dummyBeforeUseCouponId.add(beforeUseCouponId.get(i));
+						}
+					}
+					beforeUseCouponId = dummyBeforeUseCouponId;
+				}
+				System.out.println("beforeUseCouponId" + beforeUseCouponId);
 			}
 
-			coupondtoOne.setCouponCheck(false);
-			if ((countCheck == true) && (priceCheck == true)) {// 商品購入数と全商品購入金額がクーポンの使用条件に達しているか比較
-				coupondtoOne.setCouponCheck(true);
-			}
-			Calendar calendar = Calendar.getInstance();
-			Date now = calendar.getTime();
-			calendar.setTime(coupondtoOne.getExpirationDate());
-			Date expirationDate = calendar.getTime();// 購入日付
-			model.addAttribute("expirationDate", expirationDate);
-			System.out.println("nw"+now);
-			System.out.println("ex"+expirationDate);
-			long d = (expirationDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24);// 購入日と現在の日付を比べる
-			int count = (int) -d;
-			System.out.println("count+++++++++++++++++++++++++++++++"+count);
-			if(count < 0) {
-			coupondtoListAdd.add(coupondtoOne);
-			}
-			System.out.println("couponCheck" + coupondtoOne.isCouponCheck());
-			
-		}
+			List<CouponDTO> coupondtoList = new ArrayList<>();
 
-		model.addAttribute("couponList", coupondtoListAdd);
-		}catch(IndexOutOfBoundsException e) {
+			for (int i = 0; beforeUseCouponId.size() > i; i++) {
+				List<CouponDTO> dummyCoupondtoList = new ArrayList<>();
+				dummyCoupondtoList = couponService.selectMany(beforeUseCouponId.get(i));// couponテーブルからクーポン情報をすべて取得
+				coupondtoList.addAll(dummyCoupondtoList);
+			}
+
+			List<CouponDTO> coupondtoListAdd = new ArrayList<>();
+
+			for (int i = 0; coupondtoList.size() > i; i++) {// クーポン情報を一つづつ取り出す
+				CouponDTO coupondtoOne = coupondtoList.get(i);
+				int allCount = coupondtoOne.getPurchaseCountTarget();
+				int allPrice = coupondtoOne.getPurchaseTotalPriceTarget();
+
+				boolean countCheck = false;
+				boolean priceCheck = false;
+
+				if (allProductCount >= allCount) {// ユーザーの商品購入数と、クーポンの使用条件の商品購入数を比較
+					countCheck = true;
+				}
+				if (allTotalPrice >= allPrice) {// ユーザーの全商品購入金額と、クーポンの使用条件の全商品購入金額を比較
+					priceCheck = true;
+				}
+
+				coupondtoOne.setCouponCheck(false);
+				if ((countCheck == true) && (priceCheck == true)) {// 商品購入数と全商品購入金額がクーポンの使用条件に達しているか比較
+					coupondtoOne.setCouponCheck(true);
+				}
+				Calendar calendar = Calendar.getInstance();
+				Date now = calendar.getTime();
+				calendar.setTime(coupondtoOne.getExpirationDate());
+				Date expirationDate = calendar.getTime();// 購入日付
+				model.addAttribute("expirationDate", expirationDate);
+				System.out.println("nw" + now);
+				System.out.println("ex" + expirationDate);
+				long d = (expirationDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24);// 購入日と現在の日付を比べる
+				int count = (int) -d;
+				System.out.println("count+++++++++++++++++++++++++++++++" + count);
+				if (count < 0) {
+					coupondtoListAdd.add(coupondtoOne);
+				}
+				System.out.println("couponCheck" + coupondtoOne.isCouponCheck());
+
+			}
+
+			model.addAttribute("couponList", coupondtoListAdd);
+		} catch (IndexOutOfBoundsException e) {
 			e.printStackTrace();
-			
-			
+
 			List<CouponDTO> coupondtoListAdd = new ArrayList<>();
 			List<CouponDTO> coupondtoList = couponService.beforePurchaseSelectMany();
 			for (int i = 0; coupondtoList.size() > i; i++) {// クーポン情報を一つづつ取り出す
 				CouponDTO coupondtoOne = coupondtoList.get(i);
 				int allCount = coupondtoOne.getPurchaseCountTarget();
 				int allPrice = coupondtoOne.getPurchaseTotalPriceTarget();
-				
-				
-				
+
 				Calendar calendar = Calendar.getInstance();
 				Date now = calendar.getTime();
 				calendar.setTime(coupondtoOne.getExpirationDate());
 				Date expirationDate = calendar.getTime();// 購入日付
 				model.addAttribute("expirationDate", expirationDate);
-				System.out.println("nw"+now);
-				System.out.println("ex"+expirationDate);
+				System.out.println("nw" + now);
+				System.out.println("ex" + expirationDate);
 				long d = (expirationDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24);// 購入日と現在の日付を比べる
 				int count = (int) -d;
-				System.out.println("count+++++++++++++++++++++++++++++++"+count);
-				
-			
+				System.out.println("count+++++++++++++++++++++++++++++++" + count);
+
 				boolean countCheck = false;
 				boolean priceCheck = false;
 
@@ -1750,19 +1739,17 @@ public class ShoppingController {
 					coupondtoOne.setCouponCheck(true);
 				}
 
-if (count < 0) {	
+				if (count < 0) {
 
-				coupondtoListAdd.add(coupondtoOne);
-}
+					coupondtoListAdd.add(coupondtoOne);
+				}
 				System.out.println("couponCheck" + coupondtoOne.isCouponCheck());
 				model.addAttribute("couponList", coupondtoListAdd);
-				
-				
-				
+
 			}
-			
+
 			model.addAttribute("purchaseCount", 0);
-			model.addAttribute("allTotalPrice",0);
+			model.addAttribute("allTotalPrice", 0);
 		}
 		return "shopping/productListLayout";
 	}
@@ -1864,12 +1851,12 @@ if (count < 0) {
 				calendar.setTime(coupondtoOne.getExpirationDate());
 				Date expirationDate = calendar.getTime();// 購入日付
 				model.addAttribute("expirationDate", expirationDate);
-				System.out.println("nw"+now);
-				System.out.println("ex"+expirationDate);
+				System.out.println("nw" + now);
+				System.out.println("ex" + expirationDate);
 				long d = (expirationDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24);// 購入日と現在の日付を比べる
 				int count = (int) -d;
-				System.out.println("count+++++++++++++++++++++++++++++++"+count);
-				
+				System.out.println("count+++++++++++++++++++++++++++++++" + count);
+
 				boolean countCheck = false;
 				boolean priceCheck = false;
 
@@ -1886,11 +1873,11 @@ if (count < 0) {
 				}
 
 				if (coupondtoOne.isCouponCheck() == true) {// 商品購入数と全商品購入金額がクーポンの使用条件に達しているもののみList追加
-					if(count < 0) {
-					coupondtoListAdd.add(coupondtoOne);
+					if (count < 0) {
+						coupondtoListAdd.add(coupondtoOne);
 					}
 					System.out.println("couponCheck" + coupondtoOne.isCouponCheck());
-					
+
 				}
 			}
 
@@ -1919,24 +1906,23 @@ if (count < 0) {
 				if ((countCheck == true) && (priceCheck == true)) {// 商品購入数と全商品購入金額がクーポンの使用条件に達しているか比較
 					coupondtoOne.setCouponCheck(true);
 				}
-				model.addAttribute("notCoupon","yes");
+				model.addAttribute("notCoupon", "yes");
 				if (coupondtoOne.isCouponCheck() == true) {
 					Calendar calendar = Calendar.getInstance();
 					Date now = calendar.getTime();
 					calendar.setTime(coupondtoOne.getExpirationDate());
 					Date expirationDate = calendar.getTime();// 購入日付
 					model.addAttribute("expirationDate", expirationDate);
-					System.out.println("nw"+now);
-					System.out.println("ex"+expirationDate);
+					System.out.println("nw" + now);
+					System.out.println("ex" + expirationDate);
 					long d = (expirationDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24);// 購入日と現在の日付を比べる
 					int count = (int) -d;
-					System.out.println("count+++++++++++++++++++++++++++++++"+count);
-					if(count < 0) {
-					coupondtoListAdd.add(coupondtoOne);
+					System.out.println("count+++++++++++++++++++++++++++++++" + count);
+					if (count < 0) {
+						coupondtoListAdd.add(coupondtoOne);
 					}
-					model.addAttribute("notCoupon","no");
+					model.addAttribute("notCoupon", "no");
 				}
-				
 
 				System.out.println("couponCheck" + coupondtoOne.isCouponCheck());
 				model.addAttribute("couponList", coupondtoListAdd);
@@ -1944,21 +1930,20 @@ if (count < 0) {
 			model.addAttribute("purchaseCount", 0);
 			model.addAttribute("allTotalPrice", 0);
 
-			
 		}
 		return "shopping/productListLayout";
 	}
 
 	@GetMapping("/couponCancel")
-	public String getCouponCancel(@ModelAttribute CouponForm form,RedirectAttributes redirectattributes, Model model) {
+	public String getCouponCancel(@ModelAttribute CouponForm form, RedirectAttributes redirectattributes, Model model) {
 
 		CartForm cartForm = new CartForm();
 		return "redirect:/cart";
 	}
 
 	@GetMapping("/couponUse/{couponId}/{productId}")
-	public String getCouponUse(@ModelAttribute CouponForm form,CartForm cartform, @PathVariable("couponId") int couponId,
-			@PathVariable("productId") int productId, Model model) {
+	public String getCouponUse(@ModelAttribute CouponForm form, CartForm cartform,
+			@PathVariable("couponId") int couponId, @PathVariable("productId") int productId, Model model) {
 		model.addAttribute("contents", "shopping/cart::productListLayout_contents");
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -1992,21 +1977,21 @@ if (count < 0) {
 					int disCount = coupondto.getDiscount();// 割引率(%)
 					System.out.println("disCount" + disCount);
 					double disCountNew = 0;
-					if(disCount < 10) {
+					if (disCount < 10) {
 						disCountNew = Double.valueOf("0.0" + disCount);
-						
+
 						double disCountPriceNew = disCountPrice * disCountNew;// 割引価格
 						int disCountPriceNewNext = (int) disCountPriceNew;
 						pcdatadto.setDisCountPriceNew(disCountPriceNewNext);
 						totalPriceOne = (int) (totalPriceOne - disCountPriceNew);
-					}else {
-					disCountNew = Double.valueOf("0." + disCount);
-					
-					double disCountPriceNew = disCountPrice * disCountNew;// 割引価格
-					int disCountPriceNewNext = (int) disCountPriceNew;
-					pcdatadto.setDisCountPriceNew(disCountPriceNewNext);
-					totalPriceOne = (int) (totalPriceOne - disCountPriceNew);
-				}
+					} else {
+						disCountNew = Double.valueOf("0." + disCount);
+
+						double disCountPriceNew = disCountPrice * disCountNew;// 割引価格
+						int disCountPriceNewNext = (int) disCountPriceNew;
+						pcdatadto.setDisCountPriceNew(disCountPriceNewNext);
+						totalPriceOne = (int) (totalPriceOne - disCountPriceNew);
+					}
 				}
 				model.addAttribute("totalPrice", totalPriceAll);
 				model.addAttribute("couponAfterPrice", totalPriceOne);
@@ -2055,13 +2040,13 @@ if (count < 0) {
 	}
 
 	@PostMapping(value = "couponAdd", params = "distribution")
-	public String postCouponAdd(@ModelAttribute @Validated(GroupOrder.class) CouponForm form,BindingResult bindingResult, HttpServletRequest request,
-			HttpServletResponse response, Model model) {
-	
-		if(bindingResult.hasErrors()) {
-			return getCouponAdd(form,model);
+	public String postCouponAdd(@ModelAttribute @Validated(GroupOrder.class) CouponForm form,
+			BindingResult bindingResult, HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		if (bindingResult.hasErrors()) {
+			return getCouponAdd(form, model);
 		}
-		
+
 		HttpSession session = request.getSession();// 入力されたクーポン情報をsession保存
 		session.setAttribute("title", form.getTitle());
 		session.setAttribute("discount", form.getDiscount());
@@ -2087,13 +2072,90 @@ if (count < 0) {
 		// @AutowiredがついてるのでUsersServiceのインスタンス（usersService）を使う
 		UsersDTO headerName = usersService.getUser_name(auth.getName());
 		session.setAttribute("sessionGetUser_name", headerName.getUser_name());
-		session.setAttribute("sessionGetRole",headerName.getRole());
+		session.setAttribute("sessionGetRole", headerName.getRole());
 		System.out.println("getUser_name" + headerName.getUser_name());
 
 		System.out.println("productList" + productList);
 
 		model.addAttribute("productList", productList);
 
+		int allProductCount = 0;
+		int allTotalPrice = 0;
+		String user_id = auth.getName();
+		// ログインユーザーのID取得
+		int selectId = usersService.select_id(user_id);
+		List<PurchaseDTO> purchasedtoList = purchaseService.selectHistory(selectId);// メソッドに入ったユーザーの購入情報を取得
+		List<PurchaseDTO> allPurchaseList = new ArrayList<>();
+		PurchaseDTO customList;
+		// 購入商品を一つづつ回して値を受け取る
+		if (purchasedtoList.size() > 0) {
+			for (int i = 0; purchasedtoList.size() > i; i++) {
+				PurchaseDTO purchasedtoAdd = new PurchaseDTO();
+				PurchaseDTO purchaseOne = purchasedtoList.get(i);
+				purchasedtoAdd.setId(purchaseOne.getId());// カスタム情報取得に使用
+				purchasedtoAdd.setCancelCheck(purchaseOne.getCancelCheck());
+				purchasedtoAdd.setPrice(purchaseOne.getPrice());
+				purchasedtoAdd.setProduct_count(purchaseOne.getProduct_count());
+				purchasedtoAdd.setPurchaseCheck(purchaseOne.getPurchaseCheck());
+				// 購入商品ごとのカスタム情報も取り出す
+				int productId = purchasedtoAdd.getId();
+				// int customId = purchasedtoAdd.getCustom_id();
+
+				String nullCheck = "null";
+				int getCustomId = customService.selectPurchaseCheck(selectId, productId,
+						purchasedtoAdd.getPurchaseCheck(), nullCheck);
+
+				customList = customService.selectMany(getCustomId);// customテーブルのIDでカスタム情報を取得
+				purchasedtoAdd.setCustomPrice(customList.getCustomPrice());
+				purchasedtoAdd.setTotalPrice(
+						purchaseOne.getProduct_count() * (customList.getCustomPrice() + purchaseOne.getPrice()));
+				allTotalPrice = allTotalPrice + purchasedtoAdd.getTotalPrice();// ユーザーの購入した商品の合計金額を取得
+				allProductCount = allProductCount + purchasedtoAdd.getProduct_count();// ユーザーの購入した商品の数を取得
+				model.addAttribute("purchaseCount", allProductCount);
+				model.addAttribute("allTotalPrice", allTotalPrice);
+//			int priceRank = allTotalPrice * 10;
+//			int countRank = allProductCount * 30000;
+//			int rankPoint = priceRank + countRank;
+//			System.out.println(rankPoint);
+				System.out.println("allTotalPrice" + allTotalPrice);
+				if ((allTotalPrice > 0) && (allTotalPrice < 50000)) {
+
+					session.setAttribute("rankPoint", "アマチュアランク");
+				} else if ((allTotalPrice >= 50000) && (allTotalPrice < 100000)) {
+
+					session.setAttribute("rankPoint", "プロランク");
+				} else if ((allTotalPrice >= 100000) && (allTotalPrice < 200000)) {
+
+					session.setAttribute("rankPoint", "ブロンズランク");
+				} else if ((allTotalPrice >= 200000) && (allTotalPrice < 400000)) {
+
+					session.setAttribute("rankPoint", "シルバーランク");
+				} else if ((allTotalPrice >= 400000) && (allTotalPrice < 800000)) {
+
+					session.setAttribute("rankPoint", "ゴールドランク");
+				} else if ((allTotalPrice >= 800000) && (allTotalPrice < 1000000)) {
+
+					session.setAttribute("rankPoint", "ダイヤモンドランク");
+				} else if ((allTotalPrice >= 1000000) && (allTotalPrice < 1500000)) {
+
+					session.setAttribute("rankPoint", "プラチナランク");
+				} else if ((allTotalPrice >= 1500000) && (allTotalPrice < 3000000)) {
+
+					session.setAttribute("rankPoint", "エイリアンランク");
+				} else if ((allTotalPrice >= 3000000) && (allTotalPrice < 5000000)) {
+
+					session.setAttribute("rankPoint", "ゴッドフォックスランク");
+				} else if ((allTotalPrice >= 5000000) && (allTotalPrice < 8000000)) {
+
+					session.setAttribute("rankPoint", "プレミアムゴッドランク");
+				} else if ((allTotalPrice >= 8000000)) {
+
+					session.setAttribute("rankPoint", "InductedIntoTheHalOfFameRank");
+				}
+			}
+		} else {
+			session.setAttribute("rankPoint","アマチュアランク");
+		}
 		return "shopping/productListLayout";
 	}
 
@@ -2278,37 +2340,25 @@ if (count < 0) {
 
 		for (int i = 0; i < cartList.size(); i++) {
 			PcDataDTO pcdatadto = cartList.get(i);
-			
-			totalPriceAll = totalPriceAll + pcdatadto.getProduct_count() * pcdatadto.getAfterCustomPrice();//カート内の合計金額
+
+			totalPriceAll = totalPriceAll + pcdatadto.getProduct_count() * pcdatadto.getAfterCustomPrice();// カート内の合計金額
 			System.out.println("totalPriceAll" + totalPriceAll);
-			
-			totalPriceOne = pcdatadto.getProduct_count() * pcdatadto.getAfterCustomPrice();//各商品の金額
-			
+
+			totalPriceOne = pcdatadto.getProduct_count() * pcdatadto.getAfterCustomPrice();// 各商品の金額
+
 			if (pcdatadto.getCouponId() == 0) {
 				System.out.println("クーポン使用なし");
 				int couponAfterPrice = (int) totalPriceAll;
-				System.out.println("couponAfterPrice"+couponAfterPrice);
+				System.out.println("couponAfterPrice" + couponAfterPrice);
 				model.addAttribute("totalPrice", couponAfterPrice);
-				
+
 			} else {// クーポンを使用した商品はelse
 				System.out.println("クーポン使用！");
 				CouponDTO coupondto = couponService.selectOne(couponId);
 				int disCount = coupondto.getDiscount();
-				if(disCount >= 10) {
-				double disCountNew = Double.valueOf("0." + disCount);
-				System.out.println("discoutnnew"+disCountNew);
-				disCountPrice = totalPriceOne * disCountNew;// クーポンを使用した商品の割引数取得
-
-				System.out.println("totalAll" + totalPriceAll);
-				System.out.println("totalOne" + totalPriceOne);
-				System.out.println("Dis" + disCountPrice);
-				// ここから割引分の値が入っているのでそれをトータルからひく、小数点以下も切り捨てる
-				// model.addAttribute("totalPrice", couponAfterPrice);
-				totalPriceAll = (int) (totalPriceAll - disCountPrice);
-				model.addAttribute("totalPrice",totalPriceAll);
-				}else {
-					double disCountNew = Double.valueOf("0.0" + disCount);
-					System.out.println("discoutnnew"+disCountNew);
+				if (disCount >= 10) {
+					double disCountNew = Double.valueOf("0." + disCount);
+					System.out.println("discoutnnew" + disCountNew);
 					disCountPrice = totalPriceOne * disCountNew;// クーポンを使用した商品の割引数取得
 
 					System.out.println("totalAll" + totalPriceAll);
@@ -2317,12 +2367,22 @@ if (count < 0) {
 					// ここから割引分の値が入っているのでそれをトータルからひく、小数点以下も切り捨てる
 					// model.addAttribute("totalPrice", couponAfterPrice);
 					totalPriceAll = (int) (totalPriceAll - disCountPrice);
-					model.addAttribute("totalPrice",totalPriceAll);
+					model.addAttribute("totalPrice", totalPriceAll);
+				} else {
+					double disCountNew = Double.valueOf("0.0" + disCount);
+					System.out.println("discoutnnew" + disCountNew);
+					disCountPrice = totalPriceOne * disCountNew;// クーポンを使用した商品の割引数取得
+
+					System.out.println("totalAll" + totalPriceAll);
+					System.out.println("totalOne" + totalPriceOne);
+					System.out.println("Dis" + disCountPrice);
+					// ここから割引分の値が入っているのでそれをトータルからひく、小数点以下も切り捨てる
+					// model.addAttribute("totalPrice", couponAfterPrice);
+					totalPriceAll = (int) (totalPriceAll - disCountPrice);
+					model.addAttribute("totalPrice", totalPriceAll);
 				}
-				}
-			
-			
-			
+			}
+
 			// model.addAttribute("product_count",pcdatadto.getProduct_count());
 			// form.setProduct_count(pcdatadto.getProduct_count());
 			System.out.println("form" + form);
@@ -2657,8 +2717,9 @@ if (count < 0) {
 	// clearingからproductReceiving
 
 	@PostMapping(value = "/cart/{id}", params = "countUpdate")
-	public String postCartCountUpdate(@ModelAttribute @Validated(GroupOrder.class) CartForm form, BindingResult bindingResult,
-			Model model, RedirectAttributes redirectattributes, @PathVariable("id") int productId) {
+	public String postCartCountUpdate(@ModelAttribute @Validated(GroupOrder.class) CartForm form,
+			BindingResult bindingResult, Model model, RedirectAttributes redirectattributes,
+			@PathVariable("id") int productId) {
 		System.out.println("countUpdate到達");
 
 		if (bindingResult.hasErrors()) {
@@ -2713,13 +2774,13 @@ if (count < 0) {
 			} else {// クーポンを使用していればelse
 				CouponDTO coupondto = couponService.selectOne(pcdatadto.getCouponId());// クーポン情報取得
 				int disCount = coupondto.getDiscount();// 割引％
-				if(disCount >= 10) {
-				double disCountNew = Double.valueOf("0." + disCount);
-				double disCountPrice = totalPriceOne * disCountNew;// 割引数
-				pcdatadto.setTotalPriceOne((int) (totalPriceOne - disCountPrice));
-				totalPriceAll = (int) (totalPriceAll - disCountPrice);
-				pcdatadto.setCouponCheck(true);
-				}else {
+				if (disCount >= 10) {
+					double disCountNew = Double.valueOf("0." + disCount);
+					double disCountPrice = totalPriceOne * disCountNew;// 割引数
+					pcdatadto.setTotalPriceOne((int) (totalPriceOne - disCountPrice));
+					totalPriceAll = (int) (totalPriceAll - disCountPrice);
+					pcdatadto.setCouponCheck(true);
+				} else {
 					double disCountNew = Double.valueOf("0.0" + disCount);
 					double disCountPrice = totalPriceOne * disCountNew;// 割引数
 					pcdatadto.setTotalPriceOne((int) (totalPriceOne - disCountPrice));
@@ -2796,19 +2857,19 @@ if (count < 0) {
 			int customId = customService.selectCustomId(productId, select_id);
 			int purchaseCount = cartdto.getProduct_count();
 			int couponCheck = cartdto.getCouponId();
-			
+
 			// customService.pruchaseIdInsertOne(productid);
 			try {
-			if(couponCheck > 0) {
-				System.out.println("クーポン使用");
-			purchaseService.insert(purchasedto, productid, purchaseCount, select_id,
-					purchaseCreditId, customId, couponId);
-			}else {
-				System.out.println("クーポン未使用");
-				purchaseService.insertNotCoupon(purchasedto, productid, purchaseCount, select_id,
-						purchaseCreditId, customId);
-			}
-			}catch(NullPointerException e) {
+				if (couponCheck > 0) {
+					System.out.println("クーポン使用");
+					purchaseService.insert(purchasedto, productid, purchaseCount, select_id, purchaseCreditId, customId,
+							couponId);
+				} else {
+					System.out.println("クーポン未使用");
+					purchaseService.insertNotCoupon(purchasedto, productid, purchaseCount, select_id, purchaseCreditId,
+							customId);
+				}
+			} catch (NullPointerException e) {
 				e.printStackTrace();
 			}
 			int purchaseId = purchaseService.selectPurchaseIdOne();
@@ -2881,11 +2942,11 @@ if (count < 0) {
 				int totalPrice = purchasedtoAdd.getTotalPrice();
 				CouponDTO coupondto = couponService.selectOne(purchasedtoAdd.getCouponId());
 				int disCount = coupondto.getDiscount();// 割引率(%)
-				if(disCount >= 10) {
-				double disCountNew = Double.valueOf("0." + disCount);
-				double disCountPriceNew = totalPrice * disCountNew;// 割引価格
-				purchasedtoAdd.setTotalPrice((int) (totalPrice - disCountPriceNew));
-				}else {
+				if (disCount >= 10) {
+					double disCountNew = Double.valueOf("0." + disCount);
+					double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+					purchasedtoAdd.setTotalPrice((int) (totalPrice - disCountPriceNew));
+				} else {
 					double disCountNew = Double.valueOf("0.0" + disCount);
 					double disCountPriceNew = totalPrice * disCountNew;// 割引価格
 					purchasedtoAdd.setTotalPrice((int) (totalPrice - disCountPriceNew));
@@ -2900,8 +2961,8 @@ if (count < 0) {
 			calendar.add(Calendar.DATE, 10);
 			Date purchaseDateAddTen = calendar.getTime();// キャンセル期間外の購入日付から10日後の日付
 			model.addAttribute("result", purchaseDateAddTen);
-			System.out.println("pur"+purchaseDate.getTime());
-			System.out.println("now"+now.getTime());
+			System.out.println("pur" + purchaseDate.getTime());
+			System.out.println("now" + now.getTime());
 			long d = (purchaseDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24);// 購入日と現在の日付を比べる
 			int count = (int) -d;
 

@@ -22,10 +22,10 @@
 			<tr class="couponListThColor">
 				<th class="text-center couponListThCouponName">クーポン名</th>
 				<th class="text-center couponListThDiscount">割引パーセント</th>
-				<th class="text-center couponListThPurchaseCountTarget">使用条件1(商品購入数)</th>
-				<th class="text-center couponListThPurchaseTotalPriceTarget">使用条件2(合計購入金額)</th>
+				<th class="text-center couponListThPurchaseCountTarget">取得条件1(商品購入数)</th>
+				<th class="text-center couponListThPurchaseTotalPriceTarget">取得条件2(合計購入金額)</th>
 				<th class="text-center couponListThExpirationDate">期限日</th>
-				<th class="text-center couponListThCouponDetail">クーポン詳細</th>
+				<th class="text-center couponListThCouponDetail">取得詳細</th>
 			</tr>
 			
 			<tr class="couponListTdColor">
@@ -34,7 +34,7 @@
 				<td class="text-center couponListTdPurchaseCountTarget" th:text="${coupondto.purchaseCountTarget} + '個以上'"></td>
 				<td class="text-center couponListTdPurchaseTotalPriceTarget" th:text="${coupondto.purchaseTotalPriceTarget} + '円以上'"></td>
 				<td class="text-center couponListTdExpirationDate" th:text="${#dates.format(coupondto.expirationDate,'yyyy/MM/dd')} + 'まで'"></td>
-				<td th:if="${coupondto.couponCheck} == true" class="text-center text-danger couponListTdCouponDetail">使用可能</td>
+				<td th:if="${coupondto.couponCheck} == true" class="text-center text-danger couponListTdCouponDetail">取得済み</td>
 				<td th:if="${coupondto.couponCheck} == false" class="text-center couponListTdCouponDetail">使用不可</td>
 			</tr>
 		
@@ -43,7 +43,7 @@
 		<table class="couponAboutTable">
 			<tr>
 				<th class="couponAboutTh text-center">クーポンに<br>ついて</th>
-				<td class="couponAboutTd"><br>クーポンは１会計ごとに一回のみ使用できます。<br>クーポンは使用条件(商品購入数と合計購入金額)を二つとも達成している場合のみ使用できます。</td>
+				<td class="couponAboutTd"><br>クーポンは１会計ごとに一回のみ使用できます。<br>取得条件(商品購入数と合計購入金額)を二つとも達成している場合のみ使用できます。</td>
 				<th class="couponAboutTh text-center">使用条件<br>早見表</th>
 				<td class="couponAboutTd" th:text="'あなたのこれまでの商品購入数は' + ${purchaseCount} + '個で、合計購入金額は' + ${allTotalPrice} + '円です'"></td>
 			</tr>
