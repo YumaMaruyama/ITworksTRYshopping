@@ -503,12 +503,16 @@ public class ShoppingController {
 				System.out.println("22");
 				model.addAttribute("amateurUser",100);
 			}else {
+				if(amateurRatioStr.equals("0.0")) {
+					model.addAttribute("amateurUser",0);
+				}else {
 				System.out.println("33");
 				String amateurRatioStrChecktwo = amateurRatioStr.substring(2,3);
 				String amateurRatioStrChecktwoNew = amateurRatioStrChecktwo + "0";
 				model.addAttribute("amateurUser",amateurRatioStrChecktwoNew);
+				}
 			}
-		}else {
+		}else if(ratioSize == 4){
 			String amateurRatioStrCheckthree = amateurRatioStr.substring(2,3);
 			System.out.println("3333");
 			if(amateurRatioStrCheckthree.equals("0")) {
@@ -520,6 +524,10 @@ public class ShoppingController {
 				String amateurRatioStrCheckfour = amateurRatioStr.substring(2,4);
 				model.addAttribute("amateurUser",amateurRatioStrCheckfour);
 			}
+		}else {
+			String amateurRatioStrCheckfive = amateurRatioStr.substring(4,5);
+			String amateurRatioStrCheckfiveNew = "0." + amateurRatioStrCheckfive;
+			model.addAttribute("amateurUser",amateurRatioStrCheckfiveNew);
 		}
 		
 		//proユーザー
@@ -535,12 +543,16 @@ public class ShoppingController {
 				System.out.println("22");
 				model.addAttribute("proUser",100);
 			}else {
+				if(proRatioStr.equals("0.0")) {
+					model.addAttribute("proUser",0);
+				}else {
 				System.out.println("33");
 				String proRatioStrChecktwo = proRatioStr.substring(2,3);
 				String proRatioStrChecktwoNew = proRatioStrChecktwo + "0";
 				model.addAttribute("proUser",proRatioStrChecktwoNew);
+				}
 			}
-		}else {
+		}else if(ratioSizePro == 4){
 			String proRatioStrCheckthree = proRatioStr.substring(2,3);
 			System.out.println("3333");
 			if(proRatioStrCheckthree.equals("0")) {
@@ -552,6 +564,10 @@ public class ShoppingController {
 				String proRatioStrCheckfour = proRatioStr.substring(2,4);
 				model.addAttribute("proUser",proRatioStrCheckfour);
 			}
+		}else{
+			String proRatioStrCheckfive = proRatioStr.substring(4,5);
+			String proRatioStrCheckfiveNew = "0." + proRatioStrCheckfive;
+			model.addAttribute("proUser",proRatioStrCheckfiveNew);
 		}
 		
 		//bronzeユーザー
@@ -567,12 +583,16 @@ public class ShoppingController {
 						System.out.println("22");
 						model.addAttribute("bronzeUser",100);
 					}else {
+						if(bronzeRatioStr.equals("0.0")) {
+							model.addAttribute("bronzeUser",0);
+						}else {
 						System.out.println("33");
 						String bronzeRatioStrChecktwo = bronzeRatioStr.substring(2,3);
 						String bronzeRatioStrChecktwoNew = bronzeRatioStrChecktwo + "0";
 						model.addAttribute("bronzeUser",bronzeRatioStrChecktwoNew);
+						}
 					}
-				}else {
+				}else if(ratioSizeBronze == 4){
 					String bronzeRatioStrCheckthree = bronzeRatioStr.substring(2,3);
 					System.out.println("3333");
 					if(bronzeRatioStrCheckthree.equals("0")) {
@@ -584,6 +604,10 @@ public class ShoppingController {
 						String bronzeRatioStrCheckfour = bronzeRatioStr.substring(2,4);
 						model.addAttribute("bronzeUser",bronzeRatioStrCheckfour);
 					}
+				} else {
+					String bronzeRatioStrCheckfive = bronzeRatioStr.substring(4,5);
+					String bronzeRatioStrCheckfiveNew = "0." + bronzeRatioStrCheckfive;
+					model.addAttribute("bronzeUser",bronzeRatioStrCheckfiveNew);
 				}
 				
 				//sivlerユーザー
@@ -599,12 +623,16 @@ public class ShoppingController {
 						System.out.println("22");
 						model.addAttribute("silverUser",100);
 					}else {
+						if(silverRatioStr.equals("0.0")) {
+							model.addAttribute("silverUser",0);
+						}else {
 						System.out.println("33");
 						String silverRatioStrChecktwo = silverRatioStr.substring(2,3);
 						String silverRatioStrChecktwoNew = silverRatioStrChecktwo + "0";
 						model.addAttribute("silverUser",silverRatioStrChecktwoNew);
+						}
 					}
-				}else {
+				}else if (ratioSizeSilver == 4){
 					String silverRatioStrCheckthree = silverRatioStr.substring(2,3);
 					System.out.println("3333");
 					if(silverRatioStrCheckthree.equals("0")) {
@@ -616,6 +644,10 @@ public class ShoppingController {
 						String silverRatioStrCheckfour = silverRatioStr.substring(2,4);
 						model.addAttribute("silverUser",silverRatioStrCheckfour);
 					}
+				} else {
+					String silverRatioStrCheckfive = silverRatioStr.substring(4,5);
+					String silverRatioStrCheckfiveNew = "0." + silverRatioStrCheckfive;
+					model.addAttribute("silverUser",silverRatioStrCheckfiveNew);
 				}
 				
 				//goldユーザー
@@ -652,6 +684,10 @@ public class ShoppingController {
 						String goldRatioStrCheckfour = goldRatioStr.substring(2,4);
 						model.addAttribute("goldUser",goldRatioStrCheckfour);
 					}
+				} else {
+					String goldRatioStrCheckfive = goldRatioStr.substring(4,5);
+					String goldRatioStrCheckfiveNew = "0." + goldRatioStrCheckfive;
+					model.addAttribute("goldUser",goldRatioStrCheckfiveNew);
 				}
 				
 				//diamondユーザー
@@ -667,12 +703,16 @@ public class ShoppingController {
 						System.out.println("22");
 						model.addAttribute("diamondUser",100);
 					}else {
+						if(diamondRatioStr.equals("0.0")) {
+							model.addAttribute("diamondRatioUser",0);
+						}else {
 						System.out.println("33");
 						String diamondRatioStrChecktwo = diamondRatioStr.substring(2,3);
 						String diamondRatioStrChecktwoNew = diamondRatioStrChecktwo + "0";
 						model.addAttribute("diamondUser",diamondRatioStrChecktwoNew);
+						}
 					}
-				}else {
+				}else if (ratioSizeDiamond == 4){
 					String diamondRatioStrCheckthree = diamondRatioStr.substring(2,3);
 					System.out.println("3333");
 					if(diamondRatioStrCheckthree.equals("0")) {
@@ -684,6 +724,10 @@ public class ShoppingController {
 						String diamondRatioStrCheckfour = diamondRatioStr.substring(2,4);
 						model.addAttribute("diamondUser",diamondRatioStrCheckfour);
 					}
+				} else {
+					String diamondRatioStrCheckfive = diamondRatioStr.substring(4,5);
+					String diamondRatioStrCheckfiveNew = "0." + diamondRatioStrCheckfive;
+					model.addAttribute("diamondUser",diamondRatioStrCheckfiveNew);
 				}
 				
 				//platinumユーザー
@@ -699,12 +743,16 @@ public class ShoppingController {
 						System.out.println("22");
 						model.addAttribute("platinumUser",100);
 					}else {
+						if(platinumRatioStr.equals("0.0")) {
+							model.addAttribute("platinumUser",0);
+						}else {
 						System.out.println("33");
 						String platinumRatioStrChecktwo = platinumRatioStr.substring(2,3);
 						String platinumRatioStrChecktwoNew = platinumRatioStrChecktwo + "0";
 						model.addAttribute("platinumUser",platinumRatioStrChecktwoNew);
+						}
 					}
-				}else {
+				}else if (ratioSizePlatinum == 4){
 					String platinumRatioStrCheckthree = platinumRatioStr.substring(2,3);
 					System.out.println("3333");
 					if(platinumRatioStrCheckthree.equals("0")) {
@@ -716,6 +764,10 @@ public class ShoppingController {
 						String platinumRatioStrCheckfour = platinumRatioStr.substring(2,4);
 						model.addAttribute("platinumUser",platinumRatioStrCheckfour);
 					}
+				}else  {
+					String platinumRatioStrCheckfive = platinumRatioStr.substring(4,5);
+					String platinumRatioStrCheckfiveNew = "0." + platinumRatioStrCheckfive;
+					model.addAttribute("platinumUser",platinumRatioStrCheckfiveNew);
 				}
 		
 				//alienユーザー
@@ -731,12 +783,16 @@ public class ShoppingController {
 						System.out.println("22");
 						model.addAttribute("alienUser",100);
 					}else {
+						if(alienRatioStr.equals("0.0")) {
+							model.addAttribute("alienUser",0);
+						}else {
 						System.out.println("33");
 						String alienRatioStrChecktwo = alienRatioStr.substring(2,3);
 						String alienRatioStrChecktwoNew = alienRatioStrChecktwo + "0";
 						model.addAttribute("alienUser",alienRatioStrChecktwoNew);
+						}
 					}
-				}else {
+				}else if (ratioSizeAlien == 4){
 					String alienRatioStrCheckthree = alienRatioStr.substring(2,3);
 					System.out.println("3333");
 					if(alienRatioStrCheckthree.equals("0")) {
@@ -748,6 +804,10 @@ public class ShoppingController {
 						String alienRatioStrCheckfour = alienRatioStr.substring(2,4);
 						model.addAttribute("alienUser",alienRatioStrCheckfour);
 					}
+				} else {
+					String alienRatioStrCheckfive = alienRatioStr.substring(4,5);
+					String alienRatioStrCheckfiveNew = "0." + alienRatioStrCheckfive;
+					model.addAttribute("alienUser",alienRatioStrCheckfiveNew);
 				}
 				
 				//godFoxユーザー
@@ -763,12 +823,16 @@ public class ShoppingController {
 						System.out.println("22");
 						model.addAttribute("godFoxUser",100);
 					}else {
+						if(godFoxRatioStr.equals("0.0")) {
+							model.addAttribute("godFoxUser",0);
+						}else {
 						System.out.println("33");
 						String godFoxRatioStrChecktwo = godFoxRatioStr.substring(2,3);
 						String godFoxRatioStrChecktwoNew = godFoxRatioStrChecktwo + "0";
 						model.addAttribute("godFoxUser",godFoxRatioStrChecktwoNew);
+						}
 					}
-				}else {
+				}else if (ratioSizegodFox == 4){
 					String godFoxRatioStrCheckthree = godFoxRatioStr.substring(2,3);
 					System.out.println("3333");
 					if(godFoxRatioStrCheckthree.equals("0")) {
@@ -780,6 +844,10 @@ public class ShoppingController {
 						String godFoxRatioStrCheckfour = godFoxRatioStr.substring(2,4);
 						model.addAttribute("godFoxUser",godFoxRatioStrCheckfour);
 					}
+				} else {
+					String godFoxRatioStrCheckfive = godFoxRatioStr.substring(4,5);
+					String godFoxRatioStrCheckfiveNew = "0." + godFoxRatioStrCheckfive;
+					model.addAttribute("godFoxUser",godFoxRatioStrCheckfiveNew);
 				}
 				
 				//premiumGodユーザー
@@ -795,12 +863,16 @@ public class ShoppingController {
 						System.out.println("22");
 						model.addAttribute("premiumGodUser",100);
 					}else {
+						if(premiumGodRatioStr.equals("0.0")) {
+							model.addAttribute("premiumGodUser",0);
+						}else {
 						System.out.println("33");
 						String premiumGodRatioStrChecktwo = premiumGodRatioStr.substring(2,3);
 						String premiumGodRatioStrChecktwoNew = premiumGodRatioStrChecktwo + "0";
 						model.addAttribute("premiumGodUser",premiumGodRatioStrChecktwoNew);
+						}
 					}
-				}else {
+				}else if (ratioSizePremiumGod == 4){
 					String premiumGodRatioStrCheckthree = premiumGodRatioStr.substring(2,3);
 					System.out.println("3333");
 					if(premiumGodRatioStrCheckthree.equals("0")) {
@@ -812,6 +884,10 @@ public class ShoppingController {
 						String premiumGodRatioStrCheckfour = premiumGodRatioStr.substring(2,4);
 						model.addAttribute("premiumGodUser",premiumGodRatioStrCheckfour);
 					}
+				} else {
+					String premiumGodRatioStrCheckfive = premiumGodRatioStr.substring(4,5);
+					String premiumGodRatioStrCheckfiveNew = "0." + premiumGodRatioStrCheckfive;
+					model.addAttribute("premiumGodUser",premiumGodRatioStrCheckfiveNew);
 				}
 				
 				//inductedIntoTheHalOfFameRankユーザー
@@ -827,12 +903,16 @@ public class ShoppingController {
 						System.out.println("22");
 						model.addAttribute("inductedIntoTheHalOfFameUser",100);
 					}else {
+						if(inductedIntoTheHalOfFameRankRatioStr.equals("0.0")) {
+							model.addAttribute("inductedIntoTheHalOfFameUser",0);
+						}else {
 						System.out.println("33");
 						String inductedIntoTheHalOfFameRankRatioStrChecktwo = inductedIntoTheHalOfFameRankRatioStr.substring(2,3);
 						String inductedIntoTheHalOfFameRankRatioStrChecktwoNew = inductedIntoTheHalOfFameRankRatioStrChecktwo + "0";
 						model.addAttribute("inductedIntoTheHalOfFameUser",inductedIntoTheHalOfFameRankRatioStrChecktwoNew);
+						}
 					}
-				}else {
+				}else if (ratioSizeInductedIntoTheHalOfFameRank == 4){
 					String inductedIntoTheHalOfFameRankRatioStrCheckthree = inductedIntoTheHalOfFameRankRatioStr.substring(2,3);
 					System.out.println("3333");
 					if(inductedIntoTheHalOfFameRankRatioStrCheckthree.equals("0")) {
@@ -844,7 +924,12 @@ public class ShoppingController {
 						String inductedIntoTheHalOfFameRankRatioStrCheckfour = inductedIntoTheHalOfFameRankRatioStr.substring(2,4);
 						model.addAttribute("inductedIntoTheHalOfFameUser",inductedIntoTheHalOfFameRankRatioStrCheckfour);
 					}
+				} else {
+					String inductedIntoTheHalOfFameRankRatioStrCheckfive = inductedIntoTheHalOfFameRankRatioStr.substring(4,5);
+					String inductedIntoTheHalOfFameRankRatioStrCheckfiveNew = "0." + inductedIntoTheHalOfFameRankRatioStrCheckfive;
+					model.addAttribute("inductedIntoTheHalOfFameRankUser",inductedIntoTheHalOfFameRankRatioStrCheckfiveNew);
 				}
+				
 	
 	
 		

@@ -1,0 +1,97 @@
+@charset "UTF-8";
+
+.userRankTable {
+	display: block;
+	overflow-y: scroll;
+	height: 529px;
+	font-size: 15px;
+	width: 1100px;
+}
+
+.userRankDetailThRank {
+	width: 290px;
+}
+
+.userRankDetailThTitle {
+	width: 80px;
+}
+
+.userRankDetailThPrivilege {
+	width: 290px;
+}
+
+.userRankDetailThTarget {
+	width: 290px;
+}
+
+.userRankDetailThDistribution {
+	width: 135px;
+}
+
+.userRankDetailTdRank {
+	width: 290px;
+}
+
+.userRankDetailTdTitle {
+	width: 80px;
+}
+
+.userRankDetailTdPrivilege {
+	width: 290px;
+}
+
+.userRankDetailTdTarget {
+	width: 290px;
+}
+
+.userRankDetailTdDistribution {
+	width: 135px;
+}
+
+.userRankDetailTrHeader {
+	background: #c1c1c1;
+}
+
+.userRankDetailTrAmateur {
+	background: #c7d7e6;
+}
+
+.userRankDetailTrPro {
+	background: #a9cae6;
+}
+
+.userRankDetailTrBronze {
+	background: #99c7ef;
+}
+
+.userRankDetailTrSilver {
+	background: #78b8ef;
+}
+
+.userRankDetailTrGold {
+	background: #47a3f3;
+}
+
+.userRankDetailTrDiamond {
+	background: #2b9cff;
+}
+
+.userRankDetailTrPlatinum {
+	background: #1e7aca;
+}
+
+.userRankDetailTrAlien {
+	background: #c03fe0;
+}
+
+.userRankDetailTrGodFox {
+	background: #bf8a53;
+}
+
+.userRankDetailTrPremiumGod {
+	background: #afa0a0;
+}
+
+.userRankDetailTrInductedIntoTheHalOfFame {
+	background: #a78934;
+}
