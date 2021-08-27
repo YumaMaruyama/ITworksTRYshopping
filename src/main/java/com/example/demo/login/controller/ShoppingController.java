@@ -388,50 +388,108 @@ public class ShoppingController {
 //			int countRank = allProductCount * 30000;
 //			int rankPoint = priceRank + countRank;
 //			System.out.println(rankPoint);
-				if ((allTotalPrice > 0) && (allTotalPrice < 50000)) {
-					model.addAttribute("rankPoint", "アマチュアランク");
-					amateurUser = amateurUser + 1;
-				} else if ((allTotalPrice >= 50000) && (allTotalPrice < 100000)) {
-					model.addAttribute("rankPoint", "プロランク");
-					proUser = proUser + 1;
-				} else if ((allTotalPrice >= 100000) && (allTotalPrice < 200000)) {
-					model.addAttribute("rankPoint", "ブロンズランク");
-					bronzeUser = bronzeUser + 1;
-				} else if ((allTotalPrice >= 200000) && (allTotalPrice < 400000)) {
-					model.addAttribute("rankPoint", "シルバーランク");
-					silverUser = silverUser + 1;
-				} else if ((allTotalPrice >= 400000) && (allTotalPrice < 800000)) {
-					model.addAttribute("rankPoint", "ゴールドランク");
-					goldUser = goldUser + 1;
-				} else if ((allTotalPrice >= 800000) && (allTotalPrice < 1000000)) {
-					model.addAttribute("rankPoint", "ダイヤモンドランク");
-					diamondUser = diamondUser + 1;
-				} else if ((allTotalPrice >= 1000000) && (allTotalPrice < 1500000)) {
-					model.addAttribute("rankPoint", "プラチナランク");
-					platinumUser = platinumUser + 1;
-				} else if ((allTotalPrice >= 1500000) && (allTotalPrice < 3000000)) {
-					model.addAttribute("rankPoint", "エイリアンランク");
-					alienUser = alienUser + 1;
-				} else if ((allTotalPrice >= 3000000) && (allTotalPrice < 5000000)) {
-					model.addAttribute("rankPoint", "ゴッドフォックスランク");
-					godFoxUser = godFoxUser + 1;
-				} else if ((allTotalPrice >= 5000000) && (allTotalPrice < 8000000)) {
-					model.addAttribute("rankPoint", "プレミアムゴッドランク");
-					premiumGodUser = premiumGodUser + 1;
-				} else if ((allTotalPrice >= 8000000)) {
-					model.addAttribute("rankPoint", "InductedIntoTheHalOfFameRank");
-					inductedIntoTheHalOfFameUser = inductedIntoTheHalOfFameUser + 1;
+//				if ((allTotalPrice > 0) && (allTotalPrice < 50000)) {
+//					model.addAttribute("rankPoint", "アマチュアランク");
+//					amateurUser = amateurUser + 1;
+//				} else if ((allTotalPrice >= 50000) && (allTotalPrice < 100000)) {
+//					model.addAttribute("rankPoint", "プロランク");
+//					proUser = proUser + 1;
+//				} else if ((allTotalPrice >= 100000) && (allTotalPrice < 200000)) {
+//					model.addAttribute("rankPoint", "ブロンズランク");
+//					bronzeUser = bronzeUser + 1;
+//				} else if ((allTotalPrice >= 200000) && (allTotalPrice < 400000)) {
+//					model.addAttribute("rankPoint", "シルバーランク");
+//					silverUser = silverUser + 1;
+//				} else if ((allTotalPrice >= 400000) && (allTotalPrice < 800000)) {
+//					model.addAttribute("rankPoint", "ゴールドランク");
+//					goldUser = goldUser + 1;
+//				} else if ((allTotalPrice >= 800000) && (allTotalPrice < 1000000)) {
+//					model.addAttribute("rankPoint", "ダイヤモンドランク");
+//					diamondUser = diamondUser + 1;
+//				} else if ((allTotalPrice >= 1000000) && (allTotalPrice < 1500000)) {
+//					model.addAttribute("rankPoint", "プラチナランク");
+//					platinumUser = platinumUser + 1;
+//				} else if ((allTotalPrice >= 1500000) && (allTotalPrice < 3000000)) {
+//					model.addAttribute("rankPoint", "エイリアンランク");
+//					alienUser = alienUser + 1;
+//				} else if ((allTotalPrice >= 3000000) && (allTotalPrice < 5000000)) {
+//					model.addAttribute("rankPoint", "ゴッドフォックスランク");
+//					godFoxUser = godFoxUser + 1;
+//				} else if ((allTotalPrice >= 5000000) && (allTotalPrice < 8000000)) {
+//					model.addAttribute("rankPoint", "プレミアムゴッドランク");
+//					premiumGodUser = premiumGodUser + 1;
+//				} else if ((allTotalPrice >= 8000000)) {
+//					model.addAttribute("rankPoint", "InductedIntoTheHalOfFameRank");
+//					inductedIntoTheHalOfFameUser = inductedIntoTheHalOfFameUser + 1;
 				}
-				allPurchaseList.add(purchasedtoAdd);
-			}
-		} else {
-			model.addAttribute("purchaseCount", 0);
-			model.addAttribute("allTotalPrice", 0);
+//				allPurchaseList.add(purchasedtoAdd);
+//			}
+//		} else {
+//			model.addAttribute("purchaseCount", 0);
+//			model.addAttribute("allTotalPrice", 0);
+//			model.addAttribute("rankPoint", "アマチュアランク");
+//		}
+		
+		
+		if ((allTotalPrice > 0) && (allTotalPrice < 50000)) {
 			model.addAttribute("rankPoint", "アマチュアランク");
+			amateurUser = amateurUser + 1;
+		} else if ((allTotalPrice >= 50000) && (allTotalPrice < 100000)) {
+			model.addAttribute("rankPoint", "プロランク");
+			proUser = proUser + 1;
+		} else if ((allTotalPrice >= 100000) && (allTotalPrice < 200000)) {
+			model.addAttribute("rankPoint", "ブロンズランク");
+			bronzeUser = bronzeUser + 1;
+		} else if ((allTotalPrice >= 200000) && (allTotalPrice < 400000)) {
+			model.addAttribute("rankPoint", "シルバーランク");
+			silverUser = silverUser + 1;
+		} else if ((allTotalPrice >= 400000) && (allTotalPrice < 800000)) {
+			model.addAttribute("rankPoint", "ゴールドランク");
+			goldUser = goldUser + 1;
+		} else if ((allTotalPrice >= 800000) && (allTotalPrice < 1000000)) {
+			model.addAttribute("rankPoint", "ダイヤモンドランク");
+			diamondUser = diamondUser + 1;
+		} else if ((allTotalPrice >= 1000000) && (allTotalPrice < 1500000)) {
+			model.addAttribute("rankPoint", "プラチナランク");
+			platinumUser = platinumUser + 1;
+		} else if ((allTotalPrice >= 1500000) && (allTotalPrice < 3000000)) {
+			model.addAttribute("rankPoint", "エイリアンランク");
+			alienUser = alienUser + 1;
+		} else if ((allTotalPrice >= 3000000) && (allTotalPrice < 5000000)) {
+			model.addAttribute("rankPoint", "ゴッドフォックスランク");
+			godFoxUser = godFoxUser + 1;
+		} else if ((allTotalPrice >= 5000000) && (allTotalPrice < 8000000)) {
+			model.addAttribute("rankPoint", "プレミアムゴッドランク");
+			premiumGodUser = premiumGodUser + 1;
+		} else if ((allTotalPrice >= 8000000)) {
+			model.addAttribute("rankPoint", "InductedIntoTheHalOfFameRank");
+			inductedIntoTheHalOfFameUser = inductedIntoTheHalOfFameUser + 1;
 		}
+		
+	
+} else {
+	model.addAttribute("purchaseCount", 0);
+	model.addAttribute("allTotalPrice", 0);
+	model.addAttribute("rankPoint", "アマチュアランク");
+	model.addAttribute("rankPoint", "アマチュアランク");
+	amateurUser = amateurUser + 1;
+}
+	
+		
 		}
 		System.out.println("amateurUser"+amateurUser);
 		System.out.println("totalUser"+totalUser);
+		System.out.println(amateurUser);
+		System.out.println(proUser );
+		System.out.println(bronzeUser );
+		System.out.println(silverUser );
+		System.out.println(goldUser );
+		System.out.println(diamondUser );
+		System.out.println(platinumUser );
+		System.out.println(alienUser );
+		System.out.println(godFoxUser );
+		System.out.println(premiumGodUser );
+		System.out.println(inductedIntoTheHalOfFameUser );
 		//amateurユーザー
 		double amateurRatio = (double)amateurUser / (double)totalUser;
 		System.out.println("amateurRatio"+amateurRatio);
@@ -470,7 +528,7 @@ public class ShoppingController {
 		String proRatioStr = String.valueOf(proRatio);
 		int ratioSizePro = proRatioStr.length();
 		System.out.println("ratioSizePro"+ratioSizePro);
-		if(ratioSize == 3) {
+		if(ratioSizePro == 3) {
 			System.out.println("11");
 			String proRatioStrCheck = proRatioStr.substring(0,1);
 			if(proRatioStrCheck.equals("1")) {
@@ -502,7 +560,7 @@ public class ShoppingController {
 				String bronzeRatioStr = String.valueOf(bronzeRatio);
 				int ratioSizeBronze = bronzeRatioStr.length();
 				System.out.println("ratioSizeBronze"+ratioSizeBronze);
-				if(ratioSize == 3) {
+				if(ratioSizeBronze == 3) {
 					System.out.println("11");
 					String bronzeRatioStrCheck = bronzeRatioStr.substring(0,1);
 					if(bronzeRatioStrCheck.equals("1")) {
@@ -534,7 +592,7 @@ public class ShoppingController {
 				String silverRatioStr = String.valueOf(silverRatio);
 				int ratioSizeSilver = silverRatioStr.length();
 				System.out.println("ratioSizeSilver"+ratioSizeSilver);
-				if(ratioSize == 3) {
+				if(ratioSizeSilver == 3) {
 					System.out.println("11");
 					String silverRatioStrCheck = silverRatioStr.substring(0,1);
 					if(silverRatioStrCheck.equals("1")) {
@@ -566,19 +624,23 @@ public class ShoppingController {
 				String goldRatioStr = String.valueOf(goldRatio);
 				int ratioSizeGold = goldRatioStr.length();
 				System.out.println("ratioSizeGold"+ratioSizeGold);
-				if(ratioSize == 3) {
+				if(ratioSizeGold == 3) {
 					System.out.println("11");
 					String goldRatioStrCheck = goldRatioStr.substring(0,1);
 					if(goldRatioStrCheck.equals("1")) {
 						System.out.println("22");
 						model.addAttribute("goldUser",100);
 					}else {
+						if(goldRatioStr.equals("0.0")) {
+							model.addAttribute("goldUser",0);
+						}else {
 						System.out.println("33");
 						String goldRatioStrChecktwo = goldRatioStr.substring(2,3);
 						String goldRatioStrChecktwoNew = goldRatioStrChecktwo + "0";
 						model.addAttribute("goldUser",goldRatioStrChecktwoNew);
+						}
 					}
-				}else {
+				}else if(ratioSizeGold == 4){
 					String goldRatioStrCheckthree = goldRatioStr.substring(2,3);
 					System.out.println("3333");
 					if(goldRatioStrCheckthree.equals("0")) {
@@ -596,9 +658,9 @@ public class ShoppingController {
 				double diamondRatio = (double)diamondUser / (double)totalUser;
 				System.out.println("diamondRatio"+diamondRatio);
 				String diamondRatioStr = String.valueOf(diamondRatio);
-				int ratioSizeDiamond = goldRatioStr.length();
+				int ratioSizeDiamond = diamondRatioStr.length();
 				System.out.println("ratioSizeDiamond"+ratioSizeDiamond);
-				if(ratioSize == 3) {
+				if(ratioSizeDiamond == 3) {
 					System.out.println("11");
 					String diamondRatioStrCheck = diamondRatioStr.substring(0,1);
 					if(diamondRatioStrCheck.equals("1")) {
@@ -630,7 +692,7 @@ public class ShoppingController {
 				String platinumRatioStr = String.valueOf(platinumRatio);
 				int ratioSizePlatinum = platinumRatioStr.length();
 				System.out.println("ratioSizePlatinum"+ratioSizePlatinum);
-				if(ratioSize == 3) {
+				if(ratioSizePlatinum == 3) {
 					System.out.println("11");
 					String platinumRatioStrCheck = platinumRatioStr.substring(0,1);
 					if(platinumRatioStrCheck.equals("1")) {
@@ -662,7 +724,7 @@ public class ShoppingController {
 				String alienRatioStr = String.valueOf(alienRatio);
 				int ratioSizeAlien = alienRatioStr.length();
 				System.out.println("ratioSizeAlien"+ratioSizeAlien);
-				if(ratioSize == 3) {
+				if(ratioSizeAlien == 3) {
 					System.out.println("11");
 					String alienRatioStrCheck = alienRatioStr.substring(0,1);
 					if(alienRatioStrCheck.equals("1")) {
@@ -694,7 +756,7 @@ public class ShoppingController {
 				String godFoxRatioStr = String.valueOf(godFoxRatio);
 				int ratioSizegodFox = godFoxRatioStr.length();
 				System.out.println("ratioSizegodFox"+ratioSizegodFox);
-				if(ratioSize == 3) {
+				if(ratioSizegodFox == 3) {
 					System.out.println("11");
 					String godFoxRatioStrCheck = godFoxRatioStr.substring(0,1);
 					if(godFoxRatioStrCheck.equals("1")) {
@@ -726,7 +788,7 @@ public class ShoppingController {
 				String premiumGodRatioStr = String.valueOf(premiumGodRatio);
 				int ratioSizePremiumGod = premiumGodRatioStr.length();
 				System.out.println("ratioSizePremiumGod"+ratioSizePremiumGod);
-				if(ratioSize == 3) {
+				if(ratioSizePremiumGod == 3) {
 					System.out.println("11");
 					String premiumGodRatioStrCheck = premiumGodRatioStr.substring(0,1);
 					if(premiumGodRatioStrCheck.equals("1")) {
@@ -758,7 +820,7 @@ public class ShoppingController {
 				String inductedIntoTheHalOfFameRankRatioStr = String.valueOf(inductedIntoTheHalOfFameRankRatio);
 				int ratioSizeInductedIntoTheHalOfFameRank = inductedIntoTheHalOfFameRankRatioStr.length();
 				System.out.println("ratioSizeInductedIntoTheHalOfFameRank"+ratioSizeInductedIntoTheHalOfFameRank);
-				if(ratioSize == 3) {
+				if(ratioSizeInductedIntoTheHalOfFameRank == 3) {
 					System.out.println("11");
 					String inductedIntoTheHalOfFameRankRatioStrCheck = inductedIntoTheHalOfFameRankRatioStr.substring(0,1);
 					if(inductedIntoTheHalOfFameRankRatioStrCheck.equals("1")) {

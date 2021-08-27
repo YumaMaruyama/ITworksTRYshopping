@@ -50,7 +50,8 @@
 				<td><i class="fa fa-trophy rank5 rankIconDesign"></i></td>
 				<th>ランク特典:ゴールド到達記念クーポン2枚</th>
 				<th>対象者：合計購入金額が400000円以上、800000万円未満の方</th>
-				<th th:text="'約' + ${goldUser} + '%'"></th>
+				<th th:if="${goldUser} != 0" th:text="'約' + ${goldUser} + '%'"></th>
+				<th th:if="${goldUser} == 0" th:text="${goldUser} + '%'"></th>
 			</tr>
 			
 			<tr>
