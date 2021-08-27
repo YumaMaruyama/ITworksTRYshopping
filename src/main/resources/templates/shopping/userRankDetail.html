@@ -18,7 +18,7 @@
 				<td><i class="fa fa-glass rank1 rankIconDesign"></i></td>
 				<th>ランク特典:なし</th>
 				<th>対象者：合計購入金額が50000円未満の方</th>
-				<th th:text="${amateurUser}"></th>
+				<th th:text="'約' + ${amateurUser} + '%'"></th>
 			</tr>
 			
 			<tr>
@@ -26,6 +26,7 @@
 				<td><i class="fa fa-glass rank2 rankIconDesign"></i></td>
 				<th>ランク特典:プロランク到達記念クーポン1枚</th>
 				<th>対象者：合計購入金額が50000円以上、100000万円未満の方</th>
+				<th th:text="'約' + ${proUser} + '%'"></th>
 			</tr>
 			
 			<tr>
@@ -33,6 +34,7 @@
 				<td><i class="fa fa-trophy rank3 rankIconDesign"></i></td>
 				<th>ランク特典:ブロンズランク到達記念クーポン1枚</th>
 				<th>対象者：合計購入金額が100000円以上、200000万円未満の方</th>
+				<th th:text="'約' + ${bronzeUser} + '%'"></th>
 			</tr>
 			
 			<tr>
@@ -40,6 +42,7 @@
 				<td><i class="fa fa-trophy rank4 rankIconDesign"></i></td>
 				<th>ランク特典:シルバーランク到達記念クーポン1枚</th>
 				<th>対象者：合計購入金額が200000円以上、400000万円未満の方</th>
+				<th th:text="'約' + ${silverUser} + '%'"></th>
 			</tr>
 			
 			<tr>
@@ -47,6 +50,7 @@
 				<td><i class="fa fa-trophy rank5 rankIconDesign"></i></td>
 				<th>ランク特典:ゴールド到達記念クーポン2枚</th>
 				<th>対象者：合計購入金額が400000円以上、800000万円未満の方</th>
+				<th th:text="'約' + ${goldUser} + '%'"></th>
 			</tr>
 			
 			<tr>
@@ -54,6 +58,7 @@
 				<td><i class="fa fa-trophy rank6 rankIconDesign"></i></td>
 				<th>ランク特典:ダイヤモンドランク到達記念クーポン2枚</th>
 				<th>対象者：合計購入金額が800000円以上、1000000万円未満の方</th>
+				<th th:text="'約' + ${diamondUser} + '%'"></th>
 			</tr>
 			
 			<tr>
@@ -61,6 +66,7 @@
 				<td><i class="fa fa-trophy rank7 rankIconDesign"></i></td>
 				<th>ランク特典:プラチナランク到達記念クーポン3枚</th>
 				<th>対象者：合計購入金額が1000000円以上、1500000万円未満の方</th>
+				<th th:text="'約' + ${platinumUser} + '%'"></th>
 			</tr>
 			
 			<tr>
@@ -68,6 +74,7 @@
 				<td><i class="fa  fa-drupal rank8 rankIconDesign"></i></td>
 				<th>ランク特典:エイリアンランク到達記念クーポン3枚</th>
 				<th>対象者：合計購入金額が1500000円以上、3000000万円未満の方</th>
+				<th th:text="'約' + ${alienUser} + '%'"></th>
 			</tr>
 			
 			<tr>
@@ -75,6 +82,7 @@
 				<td><i class="fa fa-firefox rank9 rankIconDesign"></i></td>
 				<th>ランク特典:ゴッドフォックスランク到達記念クーポン5枚</th>
 				<th>対象者：合計購入金額が3000000円以上、5000000万円未満の方</th>
+				<th th:text="'約' + ${godFoxUser} + '%'"></th>
 			</tr>
 			
 			<tr>
@@ -82,6 +90,7 @@
 				<td><i class="fa fa-graduation-cap rank10 rankIconDesign"></i></td>
 				<th>ランク特典:プレミアムランク到達記念クーポン7枚</th>
 				<th>対象者：合計購入金額が5000000円以上、8000000万円未満の方</th>
+				<th th:text="'約' + ${premiumGodUser} + '%'"></th>
 			</tr>
 			
 			<tr>
@@ -89,6 +98,7 @@
 				<td><i class="fa fa-optin-monster rank11 rankIconDesign"></i></td>
 				<th>ランク特典:InductedIntoTheHalOfFameRankランク到達記念クーポン10枚</th>
 				<th>対象者：合計購入金額が8000000円以上の方</th>
+				<th th:text="'約' + ${inductedIntoTheHalOfFameUser} + '%'"></th>
 			</tr>
 		</table>
 		
