@@ -17,7 +17,7 @@ public class MenberCouponDTO {
 	
 	private String title;
 	
-	private String couponRank;
+	private int couponRank;
 	
 	private Date registration_date;
 }

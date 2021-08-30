@@ -39,6 +39,7 @@ import com.example.demo.login.domail.model.InquiryAllDTO;
 import com.example.demo.login.domail.model.InquiryDTO;
 import com.example.demo.login.domail.model.InquiryForm;
 import com.example.demo.login.domail.model.InquiryReplyDTO;
+import com.example.demo.login.domail.model.MenberCouponDTO;
 import com.example.demo.login.domail.model.MenberCouponForm;
 import com.example.demo.login.domail.model.NewsDTO;
 import com.example.demo.login.domail.model.NewsForm;
@@ -61,6 +62,7 @@ import com.example.demo.login.domail.service.CreditService;
 import com.example.demo.login.domail.service.CustomService;
 import com.example.demo.login.domail.service.InquiryReplyService;
 import com.example.demo.login.domail.service.InquiryService;
+import com.example.demo.login.domail.service.MenberCouponService;
 import com.example.demo.login.domail.service.NewsService;
 import com.example.demo.login.domail.service.PcDataService;
 import com.example.demo.login.domail.service.PurchaseService;
@@ -97,6 +99,8 @@ public class ShoppingController {
 	CouponService couponService;
 	@Autowired
 	InquiryReplyService inquiryreplyService;
+	@Autowired
+	MenberCouponService menberCouponService;
 
 	@Autowired // Sessionが使用できる
 	HttpSession session;
@@ -385,53 +389,9 @@ public class ShoppingController {
 				allProductCount = allProductCount + purchasedtoAdd.getProduct_count();// ユーザーの購入した商品の数を取得
 				model.addAttribute("purchaseCount", allProductCount);
 				model.addAttribute("allTotalPrice", allTotalPrice);
-//			int priceRank = allTotalPrice * 10;
-//			int countRank = allProductCount * 30000;
-//			int rankPoint = priceRank + countRank;
-//			System.out.println(rankPoint);
-//				if ((allTotalPrice > 0) && (allTotalPrice < 50000)) {
-//					model.addAttribute("rankPoint", "アマチュアランク");
-//					amateurUser = amateurUser + 1;
-//				} else if ((allTotalPrice >= 50000) && (allTotalPrice < 100000)) {
-//					model.addAttribute("rankPoint", "プロランク");
-//					proUser = proUser + 1;
-//				} else if ((allTotalPrice >= 100000) && (allTotalPrice < 200000)) {
-//					model.addAttribute("rankPoint", "ブロンズランク");
-//					bronzeUser = bronzeUser + 1;
-//				} else if ((allTotalPrice >= 200000) && (allTotalPrice < 400000)) {
-//					model.addAttribute("rankPoint", "シルバーランク");
-//					silverUser = silverUser + 1;
-//				} else if ((allTotalPrice >= 400000) && (allTotalPrice < 800000)) {
-//					model.addAttribute("rankPoint", "ゴールドランク");
-//					goldUser = goldUser + 1;
-//				} else if ((allTotalPrice >= 800000) && (allTotalPrice < 1000000)) {
-//					model.addAttribute("rankPoint", "ダイヤモンドランク");
-//					diamondUser = diamondUser + 1;
-//				} else if ((allTotalPrice >= 1000000) && (allTotalPrice < 1500000)) {
-//					model.addAttribute("rankPoint", "プラチナランク");
-//					platinumUser = platinumUser + 1;
-//				} else if ((allTotalPrice >= 1500000) && (allTotalPrice < 3000000)) {
-//					model.addAttribute("rankPoint", "エイリアンランク");
-//					alienUser = alienUser + 1;
-//				} else if ((allTotalPrice >= 3000000) && (allTotalPrice < 5000000)) {
-//					model.addAttribute("rankPoint", "ゴッドフォックスランク");
-//					godFoxUser = godFoxUser + 1;
-//				} else if ((allTotalPrice >= 5000000) && (allTotalPrice < 8000000)) {
-//					model.addAttribute("rankPoint", "プレミアムゴッドランク");
-//					premiumGodUser = premiumGodUser + 1;
-//				} else if ((allTotalPrice >= 8000000)) {
-//					model.addAttribute("rankPoint", "InductedIntoTheHalOfFameRank");
-//					inductedIntoTheHalOfFameUser = inductedIntoTheHalOfFameUser + 1;
+
 				}
-//				allPurchaseList.add(purchasedtoAdd);
-//			}
-//		} else {
-//			model.addAttribute("purchaseCount", 0);
-//			model.addAttribute("allTotalPrice", 0);
-//			model.addAttribute("rankPoint", "アマチュアランク");
-//		}
-		
-		
+
 		if ((allTotalPrice > 0) && (allTotalPrice < 50000)) {
 			model.addAttribute("rankPoint", "アマチュアランク");
 			amateurUser = amateurUser + 1;
@@ -2535,6 +2495,87 @@ public class ShoppingController {
 		}
 		return "shopping/productListLayout";
 	}
+	
+	@GetMapping("/menberCouponSee") 
+	public String getMenberCouponSee(@ModelAttribute MenberCouponForm form,Model model) {
+		model.addAttribute("contents", "shopping/menberCouponSee::productListLayout_contents");
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println("auth" + auth.getName());
+		String user_id = auth.getName();
+		// ログインユーザーのID取得
+		int userId = usersService.select_id(user_id);
+		
+		int allProductCount = 0;
+		int allTotalPrice = 0;
+		int rankNumber = 0;
+		
+		List<PurchaseDTO> purchasedtoList = purchaseService.selectHistory(userId);// メソッドに入ったユーザーの購入情報を取得
+		List<PurchaseDTO> allPurchaseList = new ArrayList<>();
+		PurchaseDTO customList;
+		// 購入商品を一つづつ回して値を受け取る
+		if (purchasedtoList.size() > 0) {
+			for (int i = 0; purchasedtoList.size() > i; i++) {
+				PurchaseDTO purchasedtoAdd = new PurchaseDTO();
+				PurchaseDTO purchaseOne = purchasedtoList.get(i);
+				purchasedtoAdd.setId(purchaseOne.getId());// カスタム情報取得に使用
+				purchasedtoAdd.setCancelCheck(purchaseOne.getCancelCheck());
+				purchasedtoAdd.setPrice(purchaseOne.getPrice());
+				purchasedtoAdd.setProduct_count(purchaseOne.getProduct_count());
+				purchasedtoAdd.setPurchaseCheck(purchaseOne.getPurchaseCheck());
+				// 購入商品ごとのカスタム情報も取り出す
+				int productId = purchasedtoAdd.getId();
+				// int customId = purchasedtoAdd.getCustom_id();
+
+				String nullCheck = "null";
+				int getCustomId = customService.selectPurchaseCheck(userId, productId,
+						purchasedtoAdd.getPurchaseCheck(), nullCheck);
+
+				customList = customService.selectMany(getCustomId);// customテーブルのIDでカスタム情報を取得
+				purchasedtoAdd.setCustomPrice(customList.getCustomPrice());
+				purchasedtoAdd.setTotalPrice(
+						purchaseOne.getProduct_count() * (customList.getCustomPrice() + purchaseOne.getPrice()));
+				allTotalPrice = allTotalPrice + purchasedtoAdd.getTotalPrice();// ユーザーの購入した商品の合計金額を取得
+				allProductCount = allProductCount + purchasedtoAdd.getProduct_count();// ユーザーの購入した商品の数を取得
+				model.addAttribute("purchaseCount", allProductCount);
+				model.addAttribute("allTotalPrice", allTotalPrice);
+
+				}
+
+		if ((allTotalPrice > 0) && (allTotalPrice < 50000)) {
+			rankNumber = 1;
+		} else if ((allTotalPrice >= 50000) && (allTotalPrice < 100000)) {
+			rankNumber = 2;
+		} else if ((allTotalPrice >= 100000) && (allTotalPrice < 200000)) {
+			rankNumber = 3;
+		} else if ((allTotalPrice >= 200000) && (allTotalPrice < 400000)) {
+			rankNumber = 4;
+		} else if ((allTotalPrice >= 400000) && (allTotalPrice < 800000)) {
+			rankNumber = 5;
+		} else if ((allTotalPrice >= 800000) && (allTotalPrice < 1000000)) {
+			rankNumber = 6;
+		} else if ((allTotalPrice >= 1000000) && (allTotalPrice < 1500000)) {
+			rankNumber = 7;
+		} else if ((allTotalPrice >= 1500000) && (allTotalPrice < 3000000)) {
+			rankNumber = 8;
+		} else if ((allTotalPrice >= 3000000) && (allTotalPrice < 5000000)) {
+			rankNumber = 9;
+		} else if ((allTotalPrice >= 5000000) && (allTotalPrice < 8000000)) {
+			rankNumber = 10;
+		} else if ((allTotalPrice >= 8000000)) {
+			rankNumber = 11;
+		}
+		
+		menberCouponService.selectMany(rankNumber);
+		
+	
+} else {
+	rankNumber = 1;
+}
+	
+		
+		
+	}
 
 	@GetMapping("/couponCancel")
 	public String getCouponCancel(@ModelAttribute CouponForm form, RedirectAttributes redirectattributes, Model model) {
@@ -2684,11 +2725,12 @@ public class ShoppingController {
 		session.setAttribute("discount", form.getDiscount());
 		session.setAttribute("purchaseCountTarget", 0);
 		session.setAttribute("purchaseTotalPriceTarget", 0);
+		session.setAttribute("couponRank", form.getCouponRank());
 		
 
-		CouponDTO coupondto = new CouponDTO();
+		MenberCouponDTO menbercoupondto = new MenberCouponDTO();
 
-		couponService.couponInsert(coupondto, session);// couponテーブルにsessionに保存したデータを格納
+		menberCouponService.menberCouponInsert(menbercoupondto, session);// couponテーブルにsessionに保存したデータを格納
 
 		return "redirect:/couponList";
 	}

@@ -10,7 +10,11 @@
 	
 	<div th:fragment="productListLayout_contents">
 		<header>
-			<h1 class="titleDesign">使用可能なクーポン一覧</h1>
+		<table>
+		<tr>
+			<td><h1 class="titleDesign">使用可能なクーポン一覧</h1></td>
+			<td><a th:href="@{/menberCouponSee}">会員ランク特典クーポンを見る</a></td>
+			</tr></table>
 		</header>
 		
 		<table>

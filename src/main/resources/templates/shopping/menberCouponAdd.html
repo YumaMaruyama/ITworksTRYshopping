@@ -11,11 +11,12 @@
 		<header>
 			<h1 class="titleDesign">会員ランク特典クーポン追加</h1>
 		</header>
-		
-		<form method="post" th:action="@{/menberCouponAdd}" th:object=${menberCouponForm}>
-		
+
+		<form method="post" th:action="@{/menberCouponAdd}"
+			th:object=${menberCouponForm}>
+
 			<table class="table table-hover table-bordered">
-			
+
 				<tr>
 					<th class="text-center">クーポン名</th>
 					<td th:classappend="${#fields.hasErrors('title')}?'has-error'"
@@ -24,7 +25,7 @@
 						th:if="${#fields.hasErrors('title')}" th:errors="*{title}">title
 							error</span></td>
 				</tr>
-				
+
 				<tr>
 					<th class="text-center">割引パーセント</th>
 					<td th:classappend="${#fields.hasErrors('discount')}?'has-error'"
@@ -33,26 +34,40 @@
 						th:if="${#fields.hasErrors('discount')}" th:errors="*{discount}">discount
 							error</span></td>
 				</tr>
-				
+
 				<tr>
 					<th class="text-center">特典付加ランク(入力したランク以上の方に付与)</th>
-					<td th:classappend="${#fields.hasErrors('couponRank')}?'has-error'"
-						class="form-group"><input type="text" class="form-control"
-						th:field="*{couponRank}"> <span class="text-danger"
-						th:if="${#fields.hasErrors('couponRank')}" th:errors="*{couponRank}">couponRank
-							error</span></td>
+					<td class="text-center">
+						<div class="text-center form-group"
+							th:classappend="${#fields.hasErrors('couponRank')}?'has-error'">
+							<select th:field="*{couponRank}"><option value="1">アマチュアランク</option>
+								<option value="2">プロランク</option>
+								<option value="3">ブロンズランク</option>
+								<option value="4">シルバーランク</option>
+								<option value="5">ゴールドランク</option>
+								<option value="6">ダイヤモンドランク</option>
+								<option value="7">プラチナランク</option>
+								<option value="8">エイリアンランク</option>
+								<option value="9">ゴッドフォックスランク</option>
+								<option value="10">プレミアムゴッドランク</option>
+								<option value="11">InductedIntoTheHalOfFameRank</option>
+								</select>
+						</div> <span class="text-danger"
+						th:if="${#fields.hasErrors('couponRank')}"
+						th:errors="*{couponRank}">couponRank error</span>
+					</td>
 				</tr>
-				
-		
-				
-			
+
+
+
+
 			</table>
-			
-			<button class="btn btn-primary" name="distribution">クーポン配布</button>
+
+			<button class="btn btn-primary">クーポン配布</button>
 		</form>
-		
-		
-		
+
+
+
 	</div>
 </body>
 </html>
