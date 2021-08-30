@@ -39,6 +39,7 @@ import com.example.demo.login.domail.model.InquiryAllDTO;
 import com.example.demo.login.domail.model.InquiryDTO;
 import com.example.demo.login.domail.model.InquiryForm;
 import com.example.demo.login.domail.model.InquiryReplyDTO;
+import com.example.demo.login.domail.model.MenberCouponForm;
 import com.example.demo.login.domail.model.NewsDTO;
 import com.example.demo.login.domail.model.NewsForm;
 import com.example.demo.login.domail.model.PcDataDTO;
@@ -2654,6 +2655,36 @@ public class ShoppingController {
 		session.setAttribute("purchaseCountTarget", form.getPurchaseCountTarget());
 		session.setAttribute("purchaseTotalPriceTarget", form.getPurchaseTotalPriceTarget());
 		session.setAttribute("expirationDate", form.getExpirationDate());
+
+		CouponDTO coupondto = new CouponDTO();
+
+		couponService.couponInsert(coupondto, session);// couponテーブルにsessionに保存したデータを格納
+
+		return "redirect:/couponList";
+	}
+	
+	@GetMapping("menberCouponAdd")
+	public String getMenberCouponAdd(@ModelAttribute MenberCouponForm form, Model model) {
+		model.addAttribute("contents", "shopping/menberCouponAdd::productListLayout_contents");
+
+		
+		return "shopping/productListLayout";
+	}
+	
+	@PostMapping("/menberCouponAdd")
+	public String postMenberCouponAdd(@ModelAttribute @Validated(GroupOrder.class) MenberCouponForm form,
+			BindingResult bindingResult, HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		if (bindingResult.hasErrors()) {
+			return getMenberCouponAdd(form, model);
+		}
+
+		HttpSession session = request.getSession();// 入力されたクーポン情報をsession保存
+		session.setAttribute("title", form.getTitle());
+		session.setAttribute("discount", form.getDiscount());
+		session.setAttribute("purchaseCountTarget", 0);
+		session.setAttribute("purchaseTotalPriceTarget", 0);
+		
 
 		CouponDTO coupondto = new CouponDTO();
 
