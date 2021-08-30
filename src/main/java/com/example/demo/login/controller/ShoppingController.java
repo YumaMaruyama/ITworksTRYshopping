@@ -352,548 +352,548 @@ public class ShoppingController {
 		int godFoxUser = 0;
 		int premiumGodUser = 0;
 		int inductedIntoTheHalOfFameUser = 0;
-		for(int y = 0; usersIdList.size() > y; y++) {
-		usersdto = usersIdList.get(y);
-		int userId = usersdto.getId();
-		
-		int allProductCount = 0;
-		int allTotalPrice = 0;
-		
-		
-		List<PurchaseDTO> purchasedtoList = purchaseService.selectHistory(userId);// メソッドに入ったユーザーの購入情報を取得
-		List<PurchaseDTO> allPurchaseList = new ArrayList<>();
-		PurchaseDTO customList;
-		// 購入商品を一つづつ回して値を受け取る
-		if (purchasedtoList.size() > 0) {
-			for (int i = 0; purchasedtoList.size() > i; i++) {
-				PurchaseDTO purchasedtoAdd = new PurchaseDTO();
-				PurchaseDTO purchaseOne = purchasedtoList.get(i);
-				purchasedtoAdd.setId(purchaseOne.getId());// カスタム情報取得に使用
-				purchasedtoAdd.setCancelCheck(purchaseOne.getCancelCheck());
-				purchasedtoAdd.setPrice(purchaseOne.getPrice());
-				purchasedtoAdd.setProduct_count(purchaseOne.getProduct_count());
-				purchasedtoAdd.setPurchaseCheck(purchaseOne.getPurchaseCheck());
-				// 購入商品ごとのカスタム情報も取り出す
-				int productId = purchasedtoAdd.getId();
-				// int customId = purchasedtoAdd.getCustom_id();
+		for (int y = 0; usersIdList.size() > y; y++) {
+			usersdto = usersIdList.get(y);
+			int userId = usersdto.getId();
 
-				String nullCheck = "null";
-				int getCustomId = customService.selectPurchaseCheck(userId, productId,
-						purchasedtoAdd.getPurchaseCheck(), nullCheck);
+			int allProductCount = 0;
+			int allTotalPrice = 0;
 
-				customList = customService.selectMany(getCustomId);// customテーブルのIDでカスタム情報を取得
-				purchasedtoAdd.setCustomPrice(customList.getCustomPrice());
-				purchasedtoAdd.setTotalPrice(
-						purchaseOne.getProduct_count() * (customList.getCustomPrice() + purchaseOne.getPrice()));
-				allTotalPrice = allTotalPrice + purchasedtoAdd.getTotalPrice();// ユーザーの購入した商品の合計金額を取得
-				allProductCount = allProductCount + purchasedtoAdd.getProduct_count();// ユーザーの購入した商品の数を取得
-				model.addAttribute("purchaseCount", allProductCount);
-				model.addAttribute("allTotalPrice", allTotalPrice);
+			List<PurchaseDTO> purchasedtoList = purchaseService.selectHistory(userId);// メソッドに入ったユーザーの購入情報を取得
+			List<PurchaseDTO> allPurchaseList = new ArrayList<>();
+			PurchaseDTO customList;
+			// 購入商品を一つづつ回して値を受け取る
+			if (purchasedtoList.size() > 0) {
+				for (int i = 0; purchasedtoList.size() > i; i++) {
+					PurchaseDTO purchasedtoAdd = new PurchaseDTO();
+					PurchaseDTO purchaseOne = purchasedtoList.get(i);
+					purchasedtoAdd.setId(purchaseOne.getId());// カスタム情報取得に使用
+					purchasedtoAdd.setCancelCheck(purchaseOne.getCancelCheck());
+					purchasedtoAdd.setPrice(purchaseOne.getPrice());
+					purchasedtoAdd.setProduct_count(purchaseOne.getProduct_count());
+					purchasedtoAdd.setPurchaseCheck(purchaseOne.getPurchaseCheck());
+					// 購入商品ごとのカスタム情報も取り出す
+					int productId = purchasedtoAdd.getId();
+					// int customId = purchasedtoAdd.getCustom_id();
+
+					String nullCheck = "null";
+					int getCustomId = customService.selectPurchaseCheck(userId, productId,
+							purchasedtoAdd.getPurchaseCheck(), nullCheck);
+
+					customList = customService.selectMany(getCustomId);// customテーブルのIDでカスタム情報を取得
+					purchasedtoAdd.setCustomPrice(customList.getCustomPrice());
+					purchasedtoAdd.setTotalPrice(
+							purchaseOne.getProduct_count() * (customList.getCustomPrice() + purchaseOne.getPrice()));
+					allTotalPrice = allTotalPrice + purchasedtoAdd.getTotalPrice();// ユーザーの購入した商品の合計金額を取得
+					allProductCount = allProductCount + purchasedtoAdd.getProduct_count();// ユーザーの購入した商品の数を取得
+					model.addAttribute("purchaseCount", allProductCount);
+					model.addAttribute("allTotalPrice", allTotalPrice);
 
 				}
 
-		if ((allTotalPrice > 0) && (allTotalPrice < 50000)) {
-			model.addAttribute("rankPoint", "アマチュアランク");
-			amateurUser = amateurUser + 1;
-		} else if ((allTotalPrice >= 50000) && (allTotalPrice < 100000)) {
-			model.addAttribute("rankPoint", "プロランク");
-			proUser = proUser + 1;
-		} else if ((allTotalPrice >= 100000) && (allTotalPrice < 200000)) {
-			model.addAttribute("rankPoint", "ブロンズランク");
-			bronzeUser = bronzeUser + 1;
-		} else if ((allTotalPrice >= 200000) && (allTotalPrice < 400000)) {
-			model.addAttribute("rankPoint", "シルバーランク");
-			silverUser = silverUser + 1;
-		} else if ((allTotalPrice >= 400000) && (allTotalPrice < 800000)) {
-			model.addAttribute("rankPoint", "ゴールドランク");
-			goldUser = goldUser + 1;
-		} else if ((allTotalPrice >= 800000) && (allTotalPrice < 1000000)) {
-			model.addAttribute("rankPoint", "ダイヤモンドランク");
-			diamondUser = diamondUser + 1;
-		} else if ((allTotalPrice >= 1000000) && (allTotalPrice < 1500000)) {
-			model.addAttribute("rankPoint", "プラチナランク");
-			platinumUser = platinumUser + 1;
-		} else if ((allTotalPrice >= 1500000) && (allTotalPrice < 3000000)) {
-			model.addAttribute("rankPoint", "エイリアンランク");
-			alienUser = alienUser + 1;
-		} else if ((allTotalPrice >= 3000000) && (allTotalPrice < 5000000)) {
-			model.addAttribute("rankPoint", "ゴッドフォックスランク");
-			godFoxUser = godFoxUser + 1;
-		} else if ((allTotalPrice >= 5000000) && (allTotalPrice < 8000000)) {
-			model.addAttribute("rankPoint", "プレミアムゴッドランク");
-			premiumGodUser = premiumGodUser + 1;
-		} else if ((allTotalPrice >= 8000000)) {
-			model.addAttribute("rankPoint", "InductedIntoTheHalOfFameRank");
-			inductedIntoTheHalOfFameUser = inductedIntoTheHalOfFameUser + 1;
+				if ((allTotalPrice > 0) && (allTotalPrice < 50000)) {
+					model.addAttribute("rankPoint", "アマチュアランク");
+					amateurUser = amateurUser + 1;
+				} else if ((allTotalPrice >= 50000) && (allTotalPrice < 100000)) {
+					model.addAttribute("rankPoint", "プロランク");
+					proUser = proUser + 1;
+				} else if ((allTotalPrice >= 100000) && (allTotalPrice < 200000)) {
+					model.addAttribute("rankPoint", "ブロンズランク");
+					bronzeUser = bronzeUser + 1;
+				} else if ((allTotalPrice >= 200000) && (allTotalPrice < 400000)) {
+					model.addAttribute("rankPoint", "シルバーランク");
+					silverUser = silverUser + 1;
+				} else if ((allTotalPrice >= 400000) && (allTotalPrice < 800000)) {
+					model.addAttribute("rankPoint", "ゴールドランク");
+					goldUser = goldUser + 1;
+				} else if ((allTotalPrice >= 800000) && (allTotalPrice < 1000000)) {
+					model.addAttribute("rankPoint", "ダイヤモンドランク");
+					diamondUser = diamondUser + 1;
+				} else if ((allTotalPrice >= 1000000) && (allTotalPrice < 1500000)) {
+					model.addAttribute("rankPoint", "プラチナランク");
+					platinumUser = platinumUser + 1;
+				} else if ((allTotalPrice >= 1500000) && (allTotalPrice < 3000000)) {
+					model.addAttribute("rankPoint", "エイリアンランク");
+					alienUser = alienUser + 1;
+				} else if ((allTotalPrice >= 3000000) && (allTotalPrice < 5000000)) {
+					model.addAttribute("rankPoint", "ゴッドフォックスランク");
+					godFoxUser = godFoxUser + 1;
+				} else if ((allTotalPrice >= 5000000) && (allTotalPrice < 8000000)) {
+					model.addAttribute("rankPoint", "プレミアムゴッドランク");
+					premiumGodUser = premiumGodUser + 1;
+				} else if ((allTotalPrice >= 8000000)) {
+					model.addAttribute("rankPoint", "InductedIntoTheHalOfFameRank");
+					inductedIntoTheHalOfFameUser = inductedIntoTheHalOfFameUser + 1;
+				}
+
+			} else {
+				model.addAttribute("purchaseCount", 0);
+				model.addAttribute("allTotalPrice", 0);
+				model.addAttribute("rankPoint", "アマチュアランク");
+				model.addAttribute("rankPoint", "アマチュアランク");
+				amateurUser = amateurUser + 1;
+			}
+
 		}
-		
-	
-} else {
-	model.addAttribute("purchaseCount", 0);
-	model.addAttribute("allTotalPrice", 0);
-	model.addAttribute("rankPoint", "アマチュアランク");
-	model.addAttribute("rankPoint", "アマチュアランク");
-	amateurUser = amateurUser + 1;
-}
-	
-		
-		}
-		System.out.println("amateurUser"+amateurUser);
-		System.out.println("totalUser"+totalUser);
+		System.out.println("amateurUser" + amateurUser);
+		System.out.println("totalUser" + totalUser);
 		System.out.println(amateurUser);
-		System.out.println(proUser );
-		System.out.println(bronzeUser );
-		System.out.println(silverUser );
-		System.out.println(goldUser );
-		System.out.println(diamondUser );
-		System.out.println(platinumUser );
-		System.out.println(alienUser );
-		System.out.println(godFoxUser );
-		System.out.println(premiumGodUser );
-		System.out.println(inductedIntoTheHalOfFameUser );
-		//amateurユーザー
-		double amateurRatio = (double)amateurUser / (double)totalUser;
-		System.out.println("amateurRatio"+amateurRatio);
+		System.out.println(proUser);
+		System.out.println(bronzeUser);
+		System.out.println(silverUser);
+		System.out.println(goldUser);
+		System.out.println(diamondUser);
+		System.out.println(platinumUser);
+		System.out.println(alienUser);
+		System.out.println(godFoxUser);
+		System.out.println(premiumGodUser);
+		System.out.println(inductedIntoTheHalOfFameUser);
+		// amateurユーザー
+		double amateurRatio = (double) amateurUser / (double) totalUser;
+		System.out.println("amateurRatio" + amateurRatio);
 		String amateurRatioStr = String.valueOf(amateurRatio);
 		int ratioSize = amateurRatioStr.length();
-		System.out.println("ratioSize"+ratioSize);
-		if(ratioSize == 3) {
+		System.out.println("ratioSize" + ratioSize);
+		if (ratioSize == 3) {
 			System.out.println("11");
-			String amateurRatioStrCheck = amateurRatioStr.substring(0,1);
-			if(amateurRatioStrCheck.equals("1")) {
+			String amateurRatioStrCheck = amateurRatioStr.substring(0, 1);
+			if (amateurRatioStrCheck.equals("1")) {
 				System.out.println("22");
-				model.addAttribute("amateurUser",100);
-			}else {
-				if(amateurRatioStr.equals("0.0")) {
-					model.addAttribute("amateurUser",0);
-				}else {
-				System.out.println("33");
-				String amateurRatioStrChecktwo = amateurRatioStr.substring(2,3);
-				String amateurRatioStrChecktwoNew = amateurRatioStrChecktwo + "0";
-				model.addAttribute("amateurUser",amateurRatioStrChecktwoNew);
+				model.addAttribute("amateurUser", 100);
+			} else {
+				if (amateurRatioStr.equals("0.0")) {
+					model.addAttribute("amateurUser", 0);
+				} else {
+					System.out.println("33");
+					String amateurRatioStrChecktwo = amateurRatioStr.substring(2, 3);
+					String amateurRatioStrChecktwoNew = amateurRatioStrChecktwo + "0";
+					model.addAttribute("amateurUser", amateurRatioStrChecktwoNew);
 				}
 			}
-		}else if(ratioSize == 4){
-			String amateurRatioStrCheckthree = amateurRatioStr.substring(2,3);
+		} else if (ratioSize == 4) {
+			String amateurRatioStrCheckthree = amateurRatioStr.substring(2, 3);
 			System.out.println("3333");
-			if(amateurRatioStrCheckthree.equals("0")) {
+			if (amateurRatioStrCheckthree.equals("0")) {
 				System.out.println("44");
-				String amateurRatioStrCheckthreeNew = amateurRatioStr.substring(3,4);
-				model.addAttribute("amateurUser",amateurRatioStrCheckthreeNew);
-			}else {
+				String amateurRatioStrCheckthreeNew = amateurRatioStr.substring(3, 4);
+				model.addAttribute("amateurUser", amateurRatioStrCheckthreeNew);
+			} else {
 				System.out.println("334");
-				String amateurRatioStrCheckfour = amateurRatioStr.substring(2,4);
-				model.addAttribute("amateurUser",amateurRatioStrCheckfour);
+				String amateurRatioStrCheckfour = amateurRatioStr.substring(2, 4);
+				model.addAttribute("amateurUser", amateurRatioStrCheckfour);
 			}
-		}else {
-			String amateurRatioStrCheckfive = amateurRatioStr.substring(4,5);
+		} else {
+			String amateurRatioStrCheckfive = amateurRatioStr.substring(4, 5);
 			String amateurRatioStrCheckfiveNew = "0." + amateurRatioStrCheckfive;
-			model.addAttribute("amateurUser",amateurRatioStrCheckfiveNew);
+			model.addAttribute("amateurUser", amateurRatioStrCheckfiveNew);
 		}
-		
-		//proユーザー
-		double proRatio = (double)proUser / (double)totalUser;
-		System.out.println("proRatio"+proRatio);
+
+		// proユーザー
+		double proRatio = (double) proUser / (double) totalUser;
+		System.out.println("proRatio" + proRatio);
 		String proRatioStr = String.valueOf(proRatio);
 		int ratioSizePro = proRatioStr.length();
-		System.out.println("ratioSizePro"+ratioSizePro);
-		if(ratioSizePro == 3) {
+		System.out.println("ratioSizePro" + ratioSizePro);
+		if (ratioSizePro == 3) {
 			System.out.println("11");
-			String proRatioStrCheck = proRatioStr.substring(0,1);
-			if(proRatioStrCheck.equals("1")) {
+			String proRatioStrCheck = proRatioStr.substring(0, 1);
+			if (proRatioStrCheck.equals("1")) {
 				System.out.println("22");
-				model.addAttribute("proUser",100);
-			}else {
-				if(proRatioStr.equals("0.0")) {
-					model.addAttribute("proUser",0);
-				}else {
-				System.out.println("33");
-				String proRatioStrChecktwo = proRatioStr.substring(2,3);
-				String proRatioStrChecktwoNew = proRatioStrChecktwo + "0";
-				model.addAttribute("proUser",proRatioStrChecktwoNew);
+				model.addAttribute("proUser", 100);
+			} else {
+				if (proRatioStr.equals("0.0")) {
+					model.addAttribute("proUser", 0);
+				} else {
+					System.out.println("33");
+					String proRatioStrChecktwo = proRatioStr.substring(2, 3);
+					String proRatioStrChecktwoNew = proRatioStrChecktwo + "0";
+					model.addAttribute("proUser", proRatioStrChecktwoNew);
 				}
 			}
-		}else if(ratioSizePro == 4){
-			String proRatioStrCheckthree = proRatioStr.substring(2,3);
+		} else if (ratioSizePro == 4) {
+			String proRatioStrCheckthree = proRatioStr.substring(2, 3);
 			System.out.println("3333");
-			if(proRatioStrCheckthree.equals("0")) {
+			if (proRatioStrCheckthree.equals("0")) {
 				System.out.println("44");
-				String proRatioStrCheckthreeNew = proRatioStr.substring(3,4);
-				model.addAttribute("proUser",proRatioStrCheckthreeNew);
-			}else {
+				String proRatioStrCheckthreeNew = proRatioStr.substring(3, 4);
+				model.addAttribute("proUser", proRatioStrCheckthreeNew);
+			} else {
 				System.out.println("334");
-				String proRatioStrCheckfour = proRatioStr.substring(2,4);
-				model.addAttribute("proUser",proRatioStrCheckfour);
+				String proRatioStrCheckfour = proRatioStr.substring(2, 4);
+				model.addAttribute("proUser", proRatioStrCheckfour);
 			}
-		}else{
-			String proRatioStrCheckfive = proRatioStr.substring(4,5);
+		} else {
+			String proRatioStrCheckfive = proRatioStr.substring(4, 5);
 			String proRatioStrCheckfiveNew = "0." + proRatioStrCheckfive;
-			model.addAttribute("proUser",proRatioStrCheckfiveNew);
+			model.addAttribute("proUser", proRatioStrCheckfiveNew);
 		}
-		
-		//bronzeユーザー
-				double bronzeRatio = (double)bronzeUser / (double)totalUser;
-				System.out.println("bronzeRatio"+bronzeRatio);
-				String bronzeRatioStr = String.valueOf(bronzeRatio);
-				int ratioSizeBronze = bronzeRatioStr.length();
-				System.out.println("ratioSizeBronze"+ratioSizeBronze);
-				if(ratioSizeBronze == 3) {
-					System.out.println("11");
-					String bronzeRatioStrCheck = bronzeRatioStr.substring(0,1);
-					if(bronzeRatioStrCheck.equals("1")) {
-						System.out.println("22");
-						model.addAttribute("bronzeUser",100);
-					}else {
-						if(bronzeRatioStr.equals("0.0")) {
-							model.addAttribute("bronzeUser",0);
-						}else {
-						System.out.println("33");
-						String bronzeRatioStrChecktwo = bronzeRatioStr.substring(2,3);
-						String bronzeRatioStrChecktwoNew = bronzeRatioStrChecktwo + "0";
-						model.addAttribute("bronzeUser",bronzeRatioStrChecktwoNew);
-						}
-					}
-				}else if(ratioSizeBronze == 4){
-					String bronzeRatioStrCheckthree = bronzeRatioStr.substring(2,3);
-					System.out.println("3333");
-					if(bronzeRatioStrCheckthree.equals("0")) {
-						System.out.println("44");
-						String bronzeRatioStrCheckthreeNew = bronzeRatioStr.substring(3,4);
-						model.addAttribute("bronzeUser",bronzeRatioStrCheckthreeNew);
-					}else {
-						System.out.println("334");
-						String bronzeRatioStrCheckfour = bronzeRatioStr.substring(2,4);
-						model.addAttribute("bronzeUser",bronzeRatioStrCheckfour);
-					}
+
+		// bronzeユーザー
+		double bronzeRatio = (double) bronzeUser / (double) totalUser;
+		System.out.println("bronzeRatio" + bronzeRatio);
+		String bronzeRatioStr = String.valueOf(bronzeRatio);
+		int ratioSizeBronze = bronzeRatioStr.length();
+		System.out.println("ratioSizeBronze" + ratioSizeBronze);
+		if (ratioSizeBronze == 3) {
+			System.out.println("11");
+			String bronzeRatioStrCheck = bronzeRatioStr.substring(0, 1);
+			if (bronzeRatioStrCheck.equals("1")) {
+				System.out.println("22");
+				model.addAttribute("bronzeUser", 100);
+			} else {
+				if (bronzeRatioStr.equals("0.0")) {
+					model.addAttribute("bronzeUser", 0);
 				} else {
-					String bronzeRatioStrCheckfive = bronzeRatioStr.substring(4,5);
-					String bronzeRatioStrCheckfiveNew = "0." + bronzeRatioStrCheckfive;
-					model.addAttribute("bronzeUser",bronzeRatioStrCheckfiveNew);
+					System.out.println("33");
+					String bronzeRatioStrChecktwo = bronzeRatioStr.substring(2, 3);
+					String bronzeRatioStrChecktwoNew = bronzeRatioStrChecktwo + "0";
+					model.addAttribute("bronzeUser", bronzeRatioStrChecktwoNew);
 				}
-				
-				//sivlerユーザー
-				double silverRatio = (double)silverUser / (double)totalUser;
-				System.out.println("silverRatio"+silverRatio);
-				String silverRatioStr = String.valueOf(silverRatio);
-				int ratioSizeSilver = silverRatioStr.length();
-				System.out.println("ratioSizeSilver"+ratioSizeSilver);
-				if(ratioSizeSilver == 3) {
-					System.out.println("11");
-					String silverRatioStrCheck = silverRatioStr.substring(0,1);
-					if(silverRatioStrCheck.equals("1")) {
-						System.out.println("22");
-						model.addAttribute("silverUser",100);
-					}else {
-						if(silverRatioStr.equals("0.0")) {
-							model.addAttribute("silverUser",0);
-						}else {
-						System.out.println("33");
-						String silverRatioStrChecktwo = silverRatioStr.substring(2,3);
-						String silverRatioStrChecktwoNew = silverRatioStrChecktwo + "0";
-						model.addAttribute("silverUser",silverRatioStrChecktwoNew);
-						}
-					}
-				}else if (ratioSizeSilver == 4){
-					String silverRatioStrCheckthree = silverRatioStr.substring(2,3);
-					System.out.println("3333");
-					if(silverRatioStrCheckthree.equals("0")) {
-						System.out.println("44");
-						String silverRatioStrCheckthreeNew = silverRatioStr.substring(3,4);
-						model.addAttribute("silverUser",silverRatioStrCheckthreeNew);
-					}else {
-						System.out.println("334");
-						String silverRatioStrCheckfour = silverRatioStr.substring(2,4);
-						model.addAttribute("silverUser",silverRatioStrCheckfour);
-					}
+			}
+		} else if (ratioSizeBronze == 4) {
+			String bronzeRatioStrCheckthree = bronzeRatioStr.substring(2, 3);
+			System.out.println("3333");
+			if (bronzeRatioStrCheckthree.equals("0")) {
+				System.out.println("44");
+				String bronzeRatioStrCheckthreeNew = bronzeRatioStr.substring(3, 4);
+				model.addAttribute("bronzeUser", bronzeRatioStrCheckthreeNew);
+			} else {
+				System.out.println("334");
+				String bronzeRatioStrCheckfour = bronzeRatioStr.substring(2, 4);
+				model.addAttribute("bronzeUser", bronzeRatioStrCheckfour);
+			}
+		} else {
+			String bronzeRatioStrCheckfive = bronzeRatioStr.substring(4, 5);
+			String bronzeRatioStrCheckfiveNew = "0." + bronzeRatioStrCheckfive;
+			model.addAttribute("bronzeUser", bronzeRatioStrCheckfiveNew);
+		}
+
+		// sivlerユーザー
+		double silverRatio = (double) silverUser / (double) totalUser;
+		System.out.println("silverRatio" + silverRatio);
+		String silverRatioStr = String.valueOf(silverRatio);
+		int ratioSizeSilver = silverRatioStr.length();
+		System.out.println("ratioSizeSilver" + ratioSizeSilver);
+		if (ratioSizeSilver == 3) {
+			System.out.println("11");
+			String silverRatioStrCheck = silverRatioStr.substring(0, 1);
+			if (silverRatioStrCheck.equals("1")) {
+				System.out.println("22");
+				model.addAttribute("silverUser", 100);
+			} else {
+				if (silverRatioStr.equals("0.0")) {
+					model.addAttribute("silverUser", 0);
 				} else {
-					String silverRatioStrCheckfive = silverRatioStr.substring(4,5);
-					String silverRatioStrCheckfiveNew = "0." + silverRatioStrCheckfive;
-					model.addAttribute("silverUser",silverRatioStrCheckfiveNew);
+					System.out.println("33");
+					String silverRatioStrChecktwo = silverRatioStr.substring(2, 3);
+					String silverRatioStrChecktwoNew = silverRatioStrChecktwo + "0";
+					model.addAttribute("silverUser", silverRatioStrChecktwoNew);
 				}
-				
-				//goldユーザー
-				double goldRatio = (double)goldUser / (double)totalUser;
-				System.out.println("goldRatio"+goldRatio);
-				String goldRatioStr = String.valueOf(goldRatio);
-				int ratioSizeGold = goldRatioStr.length();
-				System.out.println("ratioSizeGold"+ratioSizeGold);
-				if(ratioSizeGold == 3) {
-					System.out.println("11");
-					String goldRatioStrCheck = goldRatioStr.substring(0,1);
-					if(goldRatioStrCheck.equals("1")) {
-						System.out.println("22");
-						model.addAttribute("goldUser",100);
-					}else {
-						if(goldRatioStr.equals("0.0")) {
-							model.addAttribute("goldUser",0);
-						}else {
-						System.out.println("33");
-						String goldRatioStrChecktwo = goldRatioStr.substring(2,3);
-						String goldRatioStrChecktwoNew = goldRatioStrChecktwo + "0";
-						model.addAttribute("goldUser",goldRatioStrChecktwoNew);
-						}
-					}
-				}else if(ratioSizeGold == 4){
-					String goldRatioStrCheckthree = goldRatioStr.substring(2,3);
-					System.out.println("3333");
-					if(goldRatioStrCheckthree.equals("0")) {
-						System.out.println("44");
-						String goldRatioStrCheckthreeNew = goldRatioStr.substring(3,4);
-						model.addAttribute("goldUser",goldRatioStrCheckthreeNew);
-					}else {
-						System.out.println("334");
-						String goldRatioStrCheckfour = goldRatioStr.substring(2,4);
-						model.addAttribute("goldUser",goldRatioStrCheckfour);
-					}
+			}
+		} else if (ratioSizeSilver == 4) {
+			String silverRatioStrCheckthree = silverRatioStr.substring(2, 3);
+			System.out.println("3333");
+			if (silverRatioStrCheckthree.equals("0")) {
+				System.out.println("44");
+				String silverRatioStrCheckthreeNew = silverRatioStr.substring(3, 4);
+				model.addAttribute("silverUser", silverRatioStrCheckthreeNew);
+			} else {
+				System.out.println("334");
+				String silverRatioStrCheckfour = silverRatioStr.substring(2, 4);
+				model.addAttribute("silverUser", silverRatioStrCheckfour);
+			}
+		} else {
+			String silverRatioStrCheckfive = silverRatioStr.substring(4, 5);
+			String silverRatioStrCheckfiveNew = "0." + silverRatioStrCheckfive;
+			model.addAttribute("silverUser", silverRatioStrCheckfiveNew);
+		}
+
+		// goldユーザー
+		double goldRatio = (double) goldUser / (double) totalUser;
+		System.out.println("goldRatio" + goldRatio);
+		String goldRatioStr = String.valueOf(goldRatio);
+		int ratioSizeGold = goldRatioStr.length();
+		System.out.println("ratioSizeGold" + ratioSizeGold);
+		if (ratioSizeGold == 3) {
+			System.out.println("11");
+			String goldRatioStrCheck = goldRatioStr.substring(0, 1);
+			if (goldRatioStrCheck.equals("1")) {
+				System.out.println("22");
+				model.addAttribute("goldUser", 100);
+			} else {
+				if (goldRatioStr.equals("0.0")) {
+					model.addAttribute("goldUser", 0);
 				} else {
-					String goldRatioStrCheckfive = goldRatioStr.substring(4,5);
-					String goldRatioStrCheckfiveNew = "0." + goldRatioStrCheckfive;
-					model.addAttribute("goldUser",goldRatioStrCheckfiveNew);
+					System.out.println("33");
+					String goldRatioStrChecktwo = goldRatioStr.substring(2, 3);
+					String goldRatioStrChecktwoNew = goldRatioStrChecktwo + "0";
+					model.addAttribute("goldUser", goldRatioStrChecktwoNew);
 				}
-				
-				//diamondユーザー
-				double diamondRatio = (double)diamondUser / (double)totalUser;
-				System.out.println("diamondRatio"+diamondRatio);
-				String diamondRatioStr = String.valueOf(diamondRatio);
-				int ratioSizeDiamond = diamondRatioStr.length();
-				System.out.println("ratioSizeDiamond"+ratioSizeDiamond);
-				if(ratioSizeDiamond == 3) {
-					System.out.println("11");
-					String diamondRatioStrCheck = diamondRatioStr.substring(0,1);
-					if(diamondRatioStrCheck.equals("1")) {
-						System.out.println("22");
-						model.addAttribute("diamondUser",100);
-					}else {
-						if(diamondRatioStr.equals("0.0")) {
-							model.addAttribute("diamondRatioUser",0);
-						}else {
-						System.out.println("33");
-						String diamondRatioStrChecktwo = diamondRatioStr.substring(2,3);
-						String diamondRatioStrChecktwoNew = diamondRatioStrChecktwo + "0";
-						model.addAttribute("diamondUser",diamondRatioStrChecktwoNew);
-						}
-					}
-				}else if (ratioSizeDiamond == 4){
-					String diamondRatioStrCheckthree = diamondRatioStr.substring(2,3);
-					System.out.println("3333");
-					if(diamondRatioStrCheckthree.equals("0")) {
-						System.out.println("44");
-						String diamondRatioStrCheckthreeNew = diamondRatioStr.substring(3,4);
-						model.addAttribute("diamondUser",diamondRatioStrCheckthreeNew);
-					}else {
-						System.out.println("334");
-						String diamondRatioStrCheckfour = diamondRatioStr.substring(2,4);
-						model.addAttribute("diamondUser",diamondRatioStrCheckfour);
-					}
+			}
+		} else if (ratioSizeGold == 4) {
+			String goldRatioStrCheckthree = goldRatioStr.substring(2, 3);
+			System.out.println("3333");
+			if (goldRatioStrCheckthree.equals("0")) {
+				System.out.println("44");
+				String goldRatioStrCheckthreeNew = goldRatioStr.substring(3, 4);
+				model.addAttribute("goldUser", goldRatioStrCheckthreeNew);
+			} else {
+				System.out.println("334");
+				String goldRatioStrCheckfour = goldRatioStr.substring(2, 4);
+				model.addAttribute("goldUser", goldRatioStrCheckfour);
+			}
+		} else {
+			String goldRatioStrCheckfive = goldRatioStr.substring(4, 5);
+			String goldRatioStrCheckfiveNew = "0." + goldRatioStrCheckfive;
+			model.addAttribute("goldUser", goldRatioStrCheckfiveNew);
+		}
+
+		// diamondユーザー
+		double diamondRatio = (double) diamondUser / (double) totalUser;
+		System.out.println("diamondRatio" + diamondRatio);
+		String diamondRatioStr = String.valueOf(diamondRatio);
+		int ratioSizeDiamond = diamondRatioStr.length();
+		System.out.println("ratioSizeDiamond" + ratioSizeDiamond);
+		if (ratioSizeDiamond == 3) {
+			System.out.println("11");
+			String diamondRatioStrCheck = diamondRatioStr.substring(0, 1);
+			if (diamondRatioStrCheck.equals("1")) {
+				System.out.println("22");
+				model.addAttribute("diamondUser", 100);
+			} else {
+				if (diamondRatioStr.equals("0.0")) {
+					model.addAttribute("diamondRatioUser", 0);
 				} else {
-					String diamondRatioStrCheckfive = diamondRatioStr.substring(4,5);
-					String diamondRatioStrCheckfiveNew = "0." + diamondRatioStrCheckfive;
-					model.addAttribute("diamondUser",diamondRatioStrCheckfiveNew);
+					System.out.println("33");
+					String diamondRatioStrChecktwo = diamondRatioStr.substring(2, 3);
+					String diamondRatioStrChecktwoNew = diamondRatioStrChecktwo + "0";
+					model.addAttribute("diamondUser", diamondRatioStrChecktwoNew);
 				}
-				
-				//platinumユーザー
-				double platinumRatio = (double)platinumUser / (double)totalUser;
-				System.out.println("platinumRatio"+platinumRatio);
-				String platinumRatioStr = String.valueOf(platinumRatio);
-				int ratioSizePlatinum = platinumRatioStr.length();
-				System.out.println("ratioSizePlatinum"+ratioSizePlatinum);
-				if(ratioSizePlatinum == 3) {
-					System.out.println("11");
-					String platinumRatioStrCheck = platinumRatioStr.substring(0,1);
-					if(platinumRatioStrCheck.equals("1")) {
-						System.out.println("22");
-						model.addAttribute("platinumUser",100);
-					}else {
-						if(platinumRatioStr.equals("0.0")) {
-							model.addAttribute("platinumUser",0);
-						}else {
-						System.out.println("33");
-						String platinumRatioStrChecktwo = platinumRatioStr.substring(2,3);
-						String platinumRatioStrChecktwoNew = platinumRatioStrChecktwo + "0";
-						model.addAttribute("platinumUser",platinumRatioStrChecktwoNew);
-						}
-					}
-				}else if (ratioSizePlatinum == 4){
-					String platinumRatioStrCheckthree = platinumRatioStr.substring(2,3);
-					System.out.println("3333");
-					if(platinumRatioStrCheckthree.equals("0")) {
-						System.out.println("44");
-						String platinumRatioStrCheckthreeNew = platinumRatioStr.substring(3,4);
-						model.addAttribute("platinumUser",platinumRatioStrCheckthreeNew);
-					}else {
-						System.out.println("334");
-						String platinumRatioStrCheckfour = platinumRatioStr.substring(2,4);
-						model.addAttribute("platinumUser",platinumRatioStrCheckfour);
-					}
-				}else  {
-					String platinumRatioStrCheckfive = platinumRatioStr.substring(4,5);
-					String platinumRatioStrCheckfiveNew = "0." + platinumRatioStrCheckfive;
-					model.addAttribute("platinumUser",platinumRatioStrCheckfiveNew);
-				}
-		
-				//alienユーザー
-				double alienRatio = (double)alienUser / (double)totalUser;
-				System.out.println("alienRatio"+alienRatio);
-				String alienRatioStr = String.valueOf(alienRatio);
-				int ratioSizeAlien = alienRatioStr.length();
-				System.out.println("ratioSizeAlien"+ratioSizeAlien);
-				if(ratioSizeAlien == 3) {
-					System.out.println("11");
-					String alienRatioStrCheck = alienRatioStr.substring(0,1);
-					if(alienRatioStrCheck.equals("1")) {
-						System.out.println("22");
-						model.addAttribute("alienUser",100);
-					}else {
-						if(alienRatioStr.equals("0.0")) {
-							model.addAttribute("alienUser",0);
-						}else {
-						System.out.println("33");
-						String alienRatioStrChecktwo = alienRatioStr.substring(2,3);
-						String alienRatioStrChecktwoNew = alienRatioStrChecktwo + "0";
-						model.addAttribute("alienUser",alienRatioStrChecktwoNew);
-						}
-					}
-				}else if (ratioSizeAlien == 4){
-					String alienRatioStrCheckthree = alienRatioStr.substring(2,3);
-					System.out.println("3333");
-					if(alienRatioStrCheckthree.equals("0")) {
-						System.out.println("44");
-						String alienRatioStrCheckthreeNew = alienRatioStr.substring(3,4);
-						model.addAttribute("alienUser",alienRatioStrCheckthreeNew);
-					}else {
-						System.out.println("334");
-						String alienRatioStrCheckfour = alienRatioStr.substring(2,4);
-						model.addAttribute("alienUser",alienRatioStrCheckfour);
-					}
+			}
+		} else if (ratioSizeDiamond == 4) {
+			String diamondRatioStrCheckthree = diamondRatioStr.substring(2, 3);
+			System.out.println("3333");
+			if (diamondRatioStrCheckthree.equals("0")) {
+				System.out.println("44");
+				String diamondRatioStrCheckthreeNew = diamondRatioStr.substring(3, 4);
+				model.addAttribute("diamondUser", diamondRatioStrCheckthreeNew);
+			} else {
+				System.out.println("334");
+				String diamondRatioStrCheckfour = diamondRatioStr.substring(2, 4);
+				model.addAttribute("diamondUser", diamondRatioStrCheckfour);
+			}
+		} else {
+			String diamondRatioStrCheckfive = diamondRatioStr.substring(4, 5);
+			String diamondRatioStrCheckfiveNew = "0." + diamondRatioStrCheckfive;
+			model.addAttribute("diamondUser", diamondRatioStrCheckfiveNew);
+		}
+
+		// platinumユーザー
+		double platinumRatio = (double) platinumUser / (double) totalUser;
+		System.out.println("platinumRatio" + platinumRatio);
+		String platinumRatioStr = String.valueOf(platinumRatio);
+		int ratioSizePlatinum = platinumRatioStr.length();
+		System.out.println("ratioSizePlatinum" + ratioSizePlatinum);
+		if (ratioSizePlatinum == 3) {
+			System.out.println("11");
+			String platinumRatioStrCheck = platinumRatioStr.substring(0, 1);
+			if (platinumRatioStrCheck.equals("1")) {
+				System.out.println("22");
+				model.addAttribute("platinumUser", 100);
+			} else {
+				if (platinumRatioStr.equals("0.0")) {
+					model.addAttribute("platinumUser", 0);
 				} else {
-					String alienRatioStrCheckfive = alienRatioStr.substring(4,5);
-					String alienRatioStrCheckfiveNew = "0." + alienRatioStrCheckfive;
-					model.addAttribute("alienUser",alienRatioStrCheckfiveNew);
+					System.out.println("33");
+					String platinumRatioStrChecktwo = platinumRatioStr.substring(2, 3);
+					String platinumRatioStrChecktwoNew = platinumRatioStrChecktwo + "0";
+					model.addAttribute("platinumUser", platinumRatioStrChecktwoNew);
 				}
-				
-				//godFoxユーザー
-				double godFoxRatio = (double)godFoxUser / (double)totalUser;
-				System.out.println("godFoxRatio"+godFoxRatio);
-				String godFoxRatioStr = String.valueOf(godFoxRatio);
-				int ratioSizegodFox = godFoxRatioStr.length();
-				System.out.println("ratioSizegodFox"+ratioSizegodFox);
-				if(ratioSizegodFox == 3) {
-					System.out.println("11");
-					String godFoxRatioStrCheck = godFoxRatioStr.substring(0,1);
-					if(godFoxRatioStrCheck.equals("1")) {
-						System.out.println("22");
-						model.addAttribute("godFoxUser",100);
-					}else {
-						if(godFoxRatioStr.equals("0.0")) {
-							model.addAttribute("godFoxUser",0);
-						}else {
-						System.out.println("33");
-						String godFoxRatioStrChecktwo = godFoxRatioStr.substring(2,3);
-						String godFoxRatioStrChecktwoNew = godFoxRatioStrChecktwo + "0";
-						model.addAttribute("godFoxUser",godFoxRatioStrChecktwoNew);
-						}
-					}
-				}else if (ratioSizegodFox == 4){
-					String godFoxRatioStrCheckthree = godFoxRatioStr.substring(2,3);
-					System.out.println("3333");
-					if(godFoxRatioStrCheckthree.equals("0")) {
-						System.out.println("44");
-						String godFoxRatioStrCheckthreeNew = godFoxRatioStr.substring(3,4);
-						model.addAttribute("godFoxUser",godFoxRatioStrCheckthreeNew);
-					}else {
-						System.out.println("334");
-						String godFoxRatioStrCheckfour = godFoxRatioStr.substring(2,4);
-						model.addAttribute("godFoxUser",godFoxRatioStrCheckfour);
-					}
+			}
+		} else if (ratioSizePlatinum == 4) {
+			String platinumRatioStrCheckthree = platinumRatioStr.substring(2, 3);
+			System.out.println("3333");
+			if (platinumRatioStrCheckthree.equals("0")) {
+				System.out.println("44");
+				String platinumRatioStrCheckthreeNew = platinumRatioStr.substring(3, 4);
+				model.addAttribute("platinumUser", platinumRatioStrCheckthreeNew);
+			} else {
+				System.out.println("334");
+				String platinumRatioStrCheckfour = platinumRatioStr.substring(2, 4);
+				model.addAttribute("platinumUser", platinumRatioStrCheckfour);
+			}
+		} else {
+			String platinumRatioStrCheckfive = platinumRatioStr.substring(4, 5);
+			String platinumRatioStrCheckfiveNew = "0." + platinumRatioStrCheckfive;
+			model.addAttribute("platinumUser", platinumRatioStrCheckfiveNew);
+		}
+
+		// alienユーザー
+		double alienRatio = (double) alienUser / (double) totalUser;
+		System.out.println("alienRatio" + alienRatio);
+		String alienRatioStr = String.valueOf(alienRatio);
+		int ratioSizeAlien = alienRatioStr.length();
+		System.out.println("ratioSizeAlien" + ratioSizeAlien);
+		if (ratioSizeAlien == 3) {
+			System.out.println("11");
+			String alienRatioStrCheck = alienRatioStr.substring(0, 1);
+			if (alienRatioStrCheck.equals("1")) {
+				System.out.println("22");
+				model.addAttribute("alienUser", 100);
+			} else {
+				if (alienRatioStr.equals("0.0")) {
+					model.addAttribute("alienUser", 0);
 				} else {
-					String godFoxRatioStrCheckfive = godFoxRatioStr.substring(4,5);
-					String godFoxRatioStrCheckfiveNew = "0." + godFoxRatioStrCheckfive;
-					model.addAttribute("godFoxUser",godFoxRatioStrCheckfiveNew);
+					System.out.println("33");
+					String alienRatioStrChecktwo = alienRatioStr.substring(2, 3);
+					String alienRatioStrChecktwoNew = alienRatioStrChecktwo + "0";
+					model.addAttribute("alienUser", alienRatioStrChecktwoNew);
 				}
-				
-				//premiumGodユーザー
-				double premiumGodRatio = (double)premiumGodUser / (double)totalUser;
-				System.out.println("premiumGodRatio"+premiumGodRatio);
-				String premiumGodRatioStr = String.valueOf(premiumGodRatio);
-				int ratioSizePremiumGod = premiumGodRatioStr.length();
-				System.out.println("ratioSizePremiumGod"+ratioSizePremiumGod);
-				if(ratioSizePremiumGod == 3) {
-					System.out.println("11");
-					String premiumGodRatioStrCheck = premiumGodRatioStr.substring(0,1);
-					if(premiumGodRatioStrCheck.equals("1")) {
-						System.out.println("22");
-						model.addAttribute("premiumGodUser",100);
-					}else {
-						if(premiumGodRatioStr.equals("0.0")) {
-							model.addAttribute("premiumGodUser",0);
-						}else {
-						System.out.println("33");
-						String premiumGodRatioStrChecktwo = premiumGodRatioStr.substring(2,3);
-						String premiumGodRatioStrChecktwoNew = premiumGodRatioStrChecktwo + "0";
-						model.addAttribute("premiumGodUser",premiumGodRatioStrChecktwoNew);
-						}
-					}
-				}else if (ratioSizePremiumGod == 4){
-					String premiumGodRatioStrCheckthree = premiumGodRatioStr.substring(2,3);
-					System.out.println("3333");
-					if(premiumGodRatioStrCheckthree.equals("0")) {
-						System.out.println("44");
-						String premiumGodRatioStrCheckthreeNew = premiumGodRatioStr.substring(3,4);
-						model.addAttribute("premiumGodUser",premiumGodRatioStrCheckthreeNew);
-					}else {
-						System.out.println("334");
-						String premiumGodRatioStrCheckfour = premiumGodRatioStr.substring(2,4);
-						model.addAttribute("premiumGodUser",premiumGodRatioStrCheckfour);
-					}
+			}
+		} else if (ratioSizeAlien == 4) {
+			String alienRatioStrCheckthree = alienRatioStr.substring(2, 3);
+			System.out.println("3333");
+			if (alienRatioStrCheckthree.equals("0")) {
+				System.out.println("44");
+				String alienRatioStrCheckthreeNew = alienRatioStr.substring(3, 4);
+				model.addAttribute("alienUser", alienRatioStrCheckthreeNew);
+			} else {
+				System.out.println("334");
+				String alienRatioStrCheckfour = alienRatioStr.substring(2, 4);
+				model.addAttribute("alienUser", alienRatioStrCheckfour);
+			}
+		} else {
+			String alienRatioStrCheckfive = alienRatioStr.substring(4, 5);
+			String alienRatioStrCheckfiveNew = "0." + alienRatioStrCheckfive;
+			model.addAttribute("alienUser", alienRatioStrCheckfiveNew);
+		}
+
+		// godFoxユーザー
+		double godFoxRatio = (double) godFoxUser / (double) totalUser;
+		System.out.println("godFoxRatio" + godFoxRatio);
+		String godFoxRatioStr = String.valueOf(godFoxRatio);
+		int ratioSizegodFox = godFoxRatioStr.length();
+		System.out.println("ratioSizegodFox" + ratioSizegodFox);
+		if (ratioSizegodFox == 3) {
+			System.out.println("11");
+			String godFoxRatioStrCheck = godFoxRatioStr.substring(0, 1);
+			if (godFoxRatioStrCheck.equals("1")) {
+				System.out.println("22");
+				model.addAttribute("godFoxUser", 100);
+			} else {
+				if (godFoxRatioStr.equals("0.0")) {
+					model.addAttribute("godFoxUser", 0);
 				} else {
-					String premiumGodRatioStrCheckfive = premiumGodRatioStr.substring(4,5);
-					String premiumGodRatioStrCheckfiveNew = "0." + premiumGodRatioStrCheckfive;
-					model.addAttribute("premiumGodUser",premiumGodRatioStrCheckfiveNew);
+					System.out.println("33");
+					String godFoxRatioStrChecktwo = godFoxRatioStr.substring(2, 3);
+					String godFoxRatioStrChecktwoNew = godFoxRatioStrChecktwo + "0";
+					model.addAttribute("godFoxUser", godFoxRatioStrChecktwoNew);
 				}
-				
-				//inductedIntoTheHalOfFameRankユーザー
-				double inductedIntoTheHalOfFameRankRatio = (double)inductedIntoTheHalOfFameUser / (double)totalUser;
-				System.out.println("inductedIntoTheHalOfFameRankRatio"+inductedIntoTheHalOfFameRankRatio);
-				String inductedIntoTheHalOfFameRankRatioStr = String.valueOf(inductedIntoTheHalOfFameRankRatio);
-				int ratioSizeInductedIntoTheHalOfFameRank = inductedIntoTheHalOfFameRankRatioStr.length();
-				System.out.println("ratioSizeInductedIntoTheHalOfFameRank"+ratioSizeInductedIntoTheHalOfFameRank);
-				if(ratioSizeInductedIntoTheHalOfFameRank == 3) {
-					System.out.println("11");
-					String inductedIntoTheHalOfFameRankRatioStrCheck = inductedIntoTheHalOfFameRankRatioStr.substring(0,1);
-					if(inductedIntoTheHalOfFameRankRatioStrCheck.equals("1")) {
-						System.out.println("22");
-						model.addAttribute("inductedIntoTheHalOfFameUser",100);
-					}else {
-						if(inductedIntoTheHalOfFameRankRatioStr.equals("0.0")) {
-							model.addAttribute("inductedIntoTheHalOfFameUser",0);
-						}else {
-						System.out.println("33");
-						String inductedIntoTheHalOfFameRankRatioStrChecktwo = inductedIntoTheHalOfFameRankRatioStr.substring(2,3);
-						String inductedIntoTheHalOfFameRankRatioStrChecktwoNew = inductedIntoTheHalOfFameRankRatioStrChecktwo + "0";
-						model.addAttribute("inductedIntoTheHalOfFameUser",inductedIntoTheHalOfFameRankRatioStrChecktwoNew);
-						}
-					}
-				}else if (ratioSizeInductedIntoTheHalOfFameRank == 4){
-					String inductedIntoTheHalOfFameRankRatioStrCheckthree = inductedIntoTheHalOfFameRankRatioStr.substring(2,3);
-					System.out.println("3333");
-					if(inductedIntoTheHalOfFameRankRatioStrCheckthree.equals("0")) {
-						System.out.println("44");
-						String inductedIntoTheHalOfFameRankRatioStrCheckthreeNew = inductedIntoTheHalOfFameRankRatioStr.substring(3,4);
-						model.addAttribute("inductedIntoTheHalOfFameUser",inductedIntoTheHalOfFameRankRatioStrCheckthreeNew);
-					}else {
-						System.out.println("334");
-						String inductedIntoTheHalOfFameRankRatioStrCheckfour = inductedIntoTheHalOfFameRankRatioStr.substring(2,4);
-						model.addAttribute("inductedIntoTheHalOfFameUser",inductedIntoTheHalOfFameRankRatioStrCheckfour);
-					}
+			}
+		} else if (ratioSizegodFox == 4) {
+			String godFoxRatioStrCheckthree = godFoxRatioStr.substring(2, 3);
+			System.out.println("3333");
+			if (godFoxRatioStrCheckthree.equals("0")) {
+				System.out.println("44");
+				String godFoxRatioStrCheckthreeNew = godFoxRatioStr.substring(3, 4);
+				model.addAttribute("godFoxUser", godFoxRatioStrCheckthreeNew);
+			} else {
+				System.out.println("334");
+				String godFoxRatioStrCheckfour = godFoxRatioStr.substring(2, 4);
+				model.addAttribute("godFoxUser", godFoxRatioStrCheckfour);
+			}
+		} else {
+			String godFoxRatioStrCheckfive = godFoxRatioStr.substring(4, 5);
+			String godFoxRatioStrCheckfiveNew = "0." + godFoxRatioStrCheckfive;
+			model.addAttribute("godFoxUser", godFoxRatioStrCheckfiveNew);
+		}
+
+		// premiumGodユーザー
+		double premiumGodRatio = (double) premiumGodUser / (double) totalUser;
+		System.out.println("premiumGodRatio" + premiumGodRatio);
+		String premiumGodRatioStr = String.valueOf(premiumGodRatio);
+		int ratioSizePremiumGod = premiumGodRatioStr.length();
+		System.out.println("ratioSizePremiumGod" + ratioSizePremiumGod);
+		if (ratioSizePremiumGod == 3) {
+			System.out.println("11");
+			String premiumGodRatioStrCheck = premiumGodRatioStr.substring(0, 1);
+			if (premiumGodRatioStrCheck.equals("1")) {
+				System.out.println("22");
+				model.addAttribute("premiumGodUser", 100);
+			} else {
+				if (premiumGodRatioStr.equals("0.0")) {
+					model.addAttribute("premiumGodUser", 0);
 				} else {
-					String inductedIntoTheHalOfFameRankRatioStrCheckfive = inductedIntoTheHalOfFameRankRatioStr.substring(4,5);
-					String inductedIntoTheHalOfFameRankRatioStrCheckfiveNew = "0." + inductedIntoTheHalOfFameRankRatioStrCheckfive;
-					model.addAttribute("inductedIntoTheHalOfFameRankUser",inductedIntoTheHalOfFameRankRatioStrCheckfiveNew);
+					System.out.println("33");
+					String premiumGodRatioStrChecktwo = premiumGodRatioStr.substring(2, 3);
+					String premiumGodRatioStrChecktwoNew = premiumGodRatioStrChecktwo + "0";
+					model.addAttribute("premiumGodUser", premiumGodRatioStrChecktwoNew);
 				}
-				
-	
-	
-		
+			}
+		} else if (ratioSizePremiumGod == 4) {
+			String premiumGodRatioStrCheckthree = premiumGodRatioStr.substring(2, 3);
+			System.out.println("3333");
+			if (premiumGodRatioStrCheckthree.equals("0")) {
+				System.out.println("44");
+				String premiumGodRatioStrCheckthreeNew = premiumGodRatioStr.substring(3, 4);
+				model.addAttribute("premiumGodUser", premiumGodRatioStrCheckthreeNew);
+			} else {
+				System.out.println("334");
+				String premiumGodRatioStrCheckfour = premiumGodRatioStr.substring(2, 4);
+				model.addAttribute("premiumGodUser", premiumGodRatioStrCheckfour);
+			}
+		} else {
+			String premiumGodRatioStrCheckfive = premiumGodRatioStr.substring(4, 5);
+			String premiumGodRatioStrCheckfiveNew = "0." + premiumGodRatioStrCheckfive;
+			model.addAttribute("premiumGodUser", premiumGodRatioStrCheckfiveNew);
+		}
+
+		// inductedIntoTheHalOfFameRankユーザー
+		double inductedIntoTheHalOfFameRankRatio = (double) inductedIntoTheHalOfFameUser / (double) totalUser;
+		System.out.println("inductedIntoTheHalOfFameRankRatio" + inductedIntoTheHalOfFameRankRatio);
+		String inductedIntoTheHalOfFameRankRatioStr = String.valueOf(inductedIntoTheHalOfFameRankRatio);
+		int ratioSizeInductedIntoTheHalOfFameRank = inductedIntoTheHalOfFameRankRatioStr.length();
+		System.out.println("ratioSizeInductedIntoTheHalOfFameRank" + ratioSizeInductedIntoTheHalOfFameRank);
+		if (ratioSizeInductedIntoTheHalOfFameRank == 3) {
+			System.out.println("11");
+			String inductedIntoTheHalOfFameRankRatioStrCheck = inductedIntoTheHalOfFameRankRatioStr.substring(0, 1);
+			if (inductedIntoTheHalOfFameRankRatioStrCheck.equals("1")) {
+				System.out.println("22");
+				model.addAttribute("inductedIntoTheHalOfFameUser", 100);
+			} else {
+				if (inductedIntoTheHalOfFameRankRatioStr.equals("0.0")) {
+					model.addAttribute("inductedIntoTheHalOfFameUser", 0);
+				} else {
+					System.out.println("33");
+					String inductedIntoTheHalOfFameRankRatioStrChecktwo = inductedIntoTheHalOfFameRankRatioStr
+							.substring(2, 3);
+					String inductedIntoTheHalOfFameRankRatioStrChecktwoNew = inductedIntoTheHalOfFameRankRatioStrChecktwo
+							+ "0";
+					model.addAttribute("inductedIntoTheHalOfFameUser", inductedIntoTheHalOfFameRankRatioStrChecktwoNew);
+				}
+			}
+		} else if (ratioSizeInductedIntoTheHalOfFameRank == 4) {
+			String inductedIntoTheHalOfFameRankRatioStrCheckthree = inductedIntoTheHalOfFameRankRatioStr.substring(2,
+					3);
+			System.out.println("3333");
+			if (inductedIntoTheHalOfFameRankRatioStrCheckthree.equals("0")) {
+				System.out.println("44");
+				String inductedIntoTheHalOfFameRankRatioStrCheckthreeNew = inductedIntoTheHalOfFameRankRatioStr
+						.substring(3, 4);
+				model.addAttribute("inductedIntoTheHalOfFameUser", inductedIntoTheHalOfFameRankRatioStrCheckthreeNew);
+			} else {
+				System.out.println("334");
+				String inductedIntoTheHalOfFameRankRatioStrCheckfour = inductedIntoTheHalOfFameRankRatioStr.substring(2,
+						4);
+				model.addAttribute("inductedIntoTheHalOfFameUser", inductedIntoTheHalOfFameRankRatioStrCheckfour);
+			}
+		} else {
+			String inductedIntoTheHalOfFameRankRatioStrCheckfive = inductedIntoTheHalOfFameRankRatioStr.substring(4, 5);
+			String inductedIntoTheHalOfFameRankRatioStrCheckfiveNew = "0."
+					+ inductedIntoTheHalOfFameRankRatioStrCheckfive;
+			model.addAttribute("inductedIntoTheHalOfFameRankUser", inductedIntoTheHalOfFameRankRatioStrCheckfiveNew);
+		}
+
 		return "shopping/productListLayout";
 	}
 
@@ -2495,21 +2495,21 @@ public class ShoppingController {
 		}
 		return "shopping/productListLayout";
 	}
-	
-	@GetMapping("/menberCouponSee") 
-	public String getMenberCouponSee(@ModelAttribute MenberCouponForm form,Model model) {
+
+	@GetMapping("/menberCouponSee")
+	public String getMenberCouponSee(@ModelAttribute MenberCouponForm form, Model model) {
 		model.addAttribute("contents", "shopping/menberCouponSee::productListLayout_contents");
-		
+
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 		String user_id = auth.getName();
 		// ログインユーザーのID取得
 		int userId = usersService.select_id(user_id);
-		
+
 		int allProductCount = 0;
 		int allTotalPrice = 0;
 		int rankNumber = 0;
-		
+
 		List<PurchaseDTO> purchasedtoList = purchaseService.selectHistory(userId);// メソッドに入ったユーザーの購入情報を取得
 		List<PurchaseDTO> allPurchaseList = new ArrayList<>();
 		PurchaseDTO customList;
@@ -2540,41 +2540,74 @@ public class ShoppingController {
 				model.addAttribute("purchaseCount", allProductCount);
 				model.addAttribute("allTotalPrice", allTotalPrice);
 
-				}
+			}
 
-		if ((allTotalPrice > 0) && (allTotalPrice < 50000)) {
-			rankNumber = 1;
-		} else if ((allTotalPrice >= 50000) && (allTotalPrice < 100000)) {
-			rankNumber = 2;
-		} else if ((allTotalPrice >= 100000) && (allTotalPrice < 200000)) {
-			rankNumber = 3;
-		} else if ((allTotalPrice >= 200000) && (allTotalPrice < 400000)) {
-			rankNumber = 4;
-		} else if ((allTotalPrice >= 400000) && (allTotalPrice < 800000)) {
-			rankNumber = 5;
-		} else if ((allTotalPrice >= 800000) && (allTotalPrice < 1000000)) {
-			rankNumber = 6;
-		} else if ((allTotalPrice >= 1000000) && (allTotalPrice < 1500000)) {
-			rankNumber = 7;
-		} else if ((allTotalPrice >= 1500000) && (allTotalPrice < 3000000)) {
-			rankNumber = 8;
-		} else if ((allTotalPrice >= 3000000) && (allTotalPrice < 5000000)) {
-			rankNumber = 9;
-		} else if ((allTotalPrice >= 5000000) && (allTotalPrice < 8000000)) {
-			rankNumber = 10;
-		} else if ((allTotalPrice >= 8000000)) {
-			rankNumber = 11;
+			if ((allTotalPrice > 0) && (allTotalPrice < 50000)) {
+				rankNumber = 1;
+			} else if ((allTotalPrice >= 50000) && (allTotalPrice < 100000)) {
+				rankNumber = 2;
+			} else if ((allTotalPrice >= 100000) && (allTotalPrice < 200000)) {
+				rankNumber = 3;
+			} else if ((allTotalPrice >= 200000) && (allTotalPrice < 400000)) {
+				rankNumber = 4;
+			} else if ((allTotalPrice >= 400000) && (allTotalPrice < 800000)) {
+				rankNumber = 5;
+			} else if ((allTotalPrice >= 800000) && (allTotalPrice < 1000000)) {
+				rankNumber = 6;
+			} else if ((allTotalPrice >= 1000000) && (allTotalPrice < 1500000)) {
+				rankNumber = 7;
+			} else if ((allTotalPrice >= 1500000) && (allTotalPrice < 3000000)) {
+				rankNumber = 8;
+			} else if ((allTotalPrice >= 3000000) && (allTotalPrice < 5000000)) {
+				rankNumber = 9;
+			} else if ((allTotalPrice >= 5000000) && (allTotalPrice < 8000000)) {
+				rankNumber = 10;
+			} else if ((allTotalPrice >= 8000000)) {
+				rankNumber = 11;
+			}
+			
+		} else {
+			rankNumber = 1;//一度も購入していない場合はアマチュアランク
 		}
+
+			List<MenberCouponDTO> menbercoupondtoList = menberCouponService.selectMany(rankNumber);
+			
+			List<MenberCouponDTO> menbercoupondtoListNew = new ArrayList<>();
+			for(int i = 0; menbercoupondtoList.size() > i; i++) {
+				MenberCouponDTO menbercoupondtoOne = menbercoupondtoList.get(i);
+				int rankNumberCheck = menbercoupondtoOne.getCouponRank();
+				if (rankNumberCheck == 1) {
+					menbercoupondtoOne.setMenberRank("アマチュアランク");
+				} else if (rankNumberCheck == 2) {
+					menbercoupondtoOne.setMenberRank("プロランク");
+				} else if (rankNumberCheck == 3) {
+					menbercoupondtoOne.setMenberRank("ブロンズランク");
+				} else if (rankNumberCheck == 4) {
+					menbercoupondtoOne.setMenberRank("シルバーランク");
+				} else if (rankNumberCheck == 5) {
+					menbercoupondtoOne.setMenberRank("ゴールドランク");
+				} else if (rankNumberCheck == 6) {
+					menbercoupondtoOne.setMenberRank("ダイヤモンドランク");
+				} else if (rankNumberCheck == 7) {
+					menbercoupondtoOne.setMenberRank("プラチナランク");
+				} else if (rankNumberCheck == 8) {
+					menbercoupondtoOne.setMenberRank("エイリアンランク");
+				} else if (rankNumberCheck == 9) {
+					menbercoupondtoOne.setMenberRank("ゴッドフォックスランク");
+				} else if (rankNumberCheck == 10) {
+					menbercoupondtoOne.setMenberRank("プレミアムゴッドランク");
+				} else if (rankNumberCheck == 11) {
+					menbercoupondtoOne.setMenberRank("InductedIntoTheHalOfFameRank");
+				}
+				menbercoupondtoListNew.add(menbercoupondtoOne);
+				model.addAttribute("menbercoupondtoList",menbercoupondtoListNew);
+			}
+			
+			return "shopping/productListLayout";
+			
+			
 		
-		menberCouponService.selectMany(rankNumber);
-		
-	
-} else {
-	rankNumber = 1;
-}
-	
-		
-		
+
 	}
 
 	@GetMapping("/couponCancel")
@@ -2647,6 +2680,70 @@ public class ShoppingController {
 
 		return "shopping/productListLayout";
 	}
+	
+	@GetMapping("/menberCouponUse/{couponId}/{productId}")
+	public String getMenberCouponUse(@ModelAttribute MenberCouponForm form, CartForm cartform,
+			@PathVariable("couponId") int couponId, @PathVariable("productId") int productId, Model model) {
+		model.addAttribute("contents", "shopping/cart::productListLayout_contents");
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println("auth" + auth.getName());
+		String getUserId = auth.getName();
+
+		int cartId = cartService.selectMaxId(productId);// cartテーブルからクーポンを使う商品IDを取得
+		cartService.updateMenberCouponId(cartId, couponId);// 商品IDでselectし、クーポン情報を加える
+
+		List<PcDataDTO> cartList = cartService.selectMany(getUserId);// ログインユーザーのみのカートの情報を取得
+		int totalPriceAll = 0;// カート全体価格
+		int totalPriceOne = 0;// 各商品価格
+		int disCountPrice = 0;// 割引数
+		if (cartList == null || cartList.size() == 0) {// カートが0の場合
+			model.addAttribute("totalPrice", 0);
+		} else {
+
+			for (int i = 0; i < cartList.size(); i++) {
+				PcDataDTO pcdatadto = cartList.get(i);
+
+				totalPriceAll = totalPriceAll
+						+ pcdatadto.getProduct_count() * (pcdatadto.getPrice() + pcdatadto.getCustomPrice());// 購入数+商品金額+カスタム金額
+
+				totalPriceOne = totalPriceOne
+						+ pcdatadto.getProduct_count() * (pcdatadto.getPrice() + pcdatadto.getCustomPrice());
+
+				disCountPrice = pcdatadto.getProduct_count() * (pcdatadto.getPrice() + pcdatadto.getCustomPrice());
+
+				if (pcdatadto.getCouponId() >= 1) {// 商品にクーポンが適用されていればtrue
+					CouponDTO coupondto = couponService.selectOne(couponId);
+					int disCount = coupondto.getDiscount();// 割引率(%)
+					System.out.println("disCount" + disCount);
+					double disCountNew = 0;
+					if (disCount < 10) {
+						disCountNew = Double.valueOf("0.0" + disCount);
+
+						double disCountPriceNew = disCountPrice * disCountNew;// 割引価格
+						int disCountPriceNewNext = (int) disCountPriceNew;
+						pcdatadto.setDisCountPriceNew(disCountPriceNewNext);
+						totalPriceOne = (int) (totalPriceOne - disCountPriceNew);
+					} else {
+						disCountNew = Double.valueOf("0." + disCount);
+
+						double disCountPriceNew = disCountPrice * disCountNew;// 割引価格
+						int disCountPriceNewNext = (int) disCountPriceNew;
+						pcdatadto.setDisCountPriceNew(disCountPriceNewNext);
+						totalPriceOne = (int) (totalPriceOne - disCountPriceNew);
+					}
+				}
+				model.addAttribute("totalPrice", totalPriceAll);
+				model.addAttribute("couponAfterPrice", totalPriceOne);
+			}
+		}
+
+		model.addAttribute("cartList", cartList);
+		// model.addAttribute("couponUseCheck","couponUse");//クーポンチェック文字をhtmlにもっていく
+		model.addAttribute("couponId", couponId);// 使用するクーポンIDをhtmlに持っていく
+
+		return "shopping/productListLayout";
+	}
 
 	@GetMapping("couponProductChoose/{id}")
 	public String getCouponProductChoose(@ModelAttribute CouponForm form, @PathVariable("id") int couponId,
@@ -2659,14 +2756,6 @@ public class ShoppingController {
 		// ログインユーザーのみのカートの情報を取得
 		List<PcDataDTO> cartList = cartService.selectMany(user_id);
 		System.out.println("cartList" + cartList);
-//			int totalPrice = 0;
-//			for (int i = 0; i < cartList.size(); i++) {
-//				PcDataDTO pcdatadto = cartList.get(i);
-//				totalPrice = totalPrice
-//						+ pcdatadto.getProduct_count() * (pcdatadto.getPrice() + pcdatadto.getCustomPrice());
-//				System.out.println("テストtotalPrice" + totalPrice);
-//				model.addAttribute("totalPrice", totalPrice);
-//				}
 
 		model.addAttribute("cartList", cartList);
 		model.addAttribute("couponId", couponId);
@@ -2674,6 +2763,26 @@ public class ShoppingController {
 		return "shopping/productListLayout";
 
 	}
+	
+	@GetMapping("menberCouponProductChoose/{id}")
+	public String getMenberCouponProductChoose(@ModelAttribute MenberCouponForm form, @PathVariable("id") int menberCouponId,
+			Model model) {
+		model.addAttribute("contents", "shopping/menberCouponProductChoose::productListLayout_contents");
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println("auth" + auth.getName());
+		String user_id = auth.getName();
+		// ログインユーザーのみのカートの情報を取得
+		List<PcDataDTO> cartList = cartService.selectMany(user_id);
+		System.out.println("cartList" + cartList);
+
+		model.addAttribute("cartList", cartList);
+		model.addAttribute("couponId", menberCouponId);
+
+		return "shopping/productListLayout";
+
+	}
+
 
 	@GetMapping("couponAdd")
 	public String getCouponAdd(@ModelAttribute CouponForm form, Model model) {
@@ -2703,15 +2812,14 @@ public class ShoppingController {
 
 		return "redirect:/couponList";
 	}
-	
+
 	@GetMapping("menberCouponAdd")
 	public String getMenberCouponAdd(@ModelAttribute MenberCouponForm form, Model model) {
 		model.addAttribute("contents", "shopping/menberCouponAdd::productListLayout_contents");
 
-		
 		return "shopping/productListLayout";
 	}
-	
+
 	@PostMapping("/menberCouponAdd")
 	public String postMenberCouponAdd(@ModelAttribute @Validated(GroupOrder.class) MenberCouponForm form,
 			BindingResult bindingResult, HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -2726,7 +2834,6 @@ public class ShoppingController {
 		session.setAttribute("purchaseCountTarget", 0);
 		session.setAttribute("purchaseTotalPriceTarget", 0);
 		session.setAttribute("couponRank", form.getCouponRank());
-		
 
 		MenberCouponDTO menbercoupondto = new MenberCouponDTO();
 
@@ -2828,7 +2935,7 @@ public class ShoppingController {
 				}
 			}
 		} else {
-			session.setAttribute("rankPoint","アマチュアランク");
+			session.setAttribute("rankPoint", "アマチュアランク");
 		}
 		return "shopping/productListLayout";
 	}

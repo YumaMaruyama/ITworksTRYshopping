@@ -1,5 +1,9 @@
 package com.example.demo.login.domail.repository.jdbc;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +31,25 @@ public class MenberCouponDaoJdbcImpl implements MenberCouponDao {
 		return result;
 	}
 	
-	public int selectMany(int rankNumber) {
+	public  List<MenberCouponDTO> selectMany(int rankNumber) {
+		 List<Map<String,Object>> map = jdbc.queryForList("select * from menber_coupon where coupon_rank <= ?",rankNumber);
+		 
+		 
+		 List<MenberCouponDTO> menbercoupondtoList = new ArrayList<>();
+		 
+		 for(Map<String,Object> oneMap : map) {
+		MenberCouponDTO menbercoupondto = new MenberCouponDTO();
+		menbercoupondto.setId((int)oneMap.get("id"));
+		menbercoupondto.setDiscount((int)oneMap.get("discount"));
+		menbercoupondto.setPurchaseCountTarget((int)oneMap.get("purchase_count_target"));
+		menbercoupondto.setPurchaseTotalPriceTarget((int)oneMap.get("purchase_total_price_target"));
+		menbercoupondto.setTitle((String)oneMap.get("title"));
+		menbercoupondto.setCouponRank((int)oneMap.get("coupon_rank"));
 		
+		menbercoupondtoList.add(menbercoupondto);
+		 }
+		 
+		 return menbercoupondtoList;
+		 
 	}
 }

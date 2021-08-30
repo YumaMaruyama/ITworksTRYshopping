@@ -1,5 +1,7 @@
 package com.example.demo.login.domail.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +20,7 @@ public class MenberCouponService {
 		return dao.menberCouponInsert(menbercoupondto, session);
 	}
 	
-	public int selectMany(int rankNumber) {
+	public List<MenberCouponDTO> selectMany(int rankNumber) {
 		return dao.selectMany(rankNumber);
 	}
 }

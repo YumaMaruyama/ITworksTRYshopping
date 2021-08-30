@@ -6,7 +6,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	
 	<div th:fragment="productListLayout_contents">
 		<header>
 			<h1 class="titleDesign">クーポン適用商品選択画面</h1>
@@ -46,13 +46,12 @@
 						th:text="'在庫数：' + ${pcdatadto.product_stock} + '個'"></p>
 					<a class="text-center detailGoCart"
 						style="margin-bottom: 0px !important"
-						th:href="@{/couponUse} + '/' + ${couponId} + '/' + ${pcdatadto.id}"><span
+						th:href="@{/menberCouponUse} + '/' + ${couponId} + '/' + ${pcdatadto.id}"><span
 						class="font">この商品に適用</span></a>
 				</form>
 			</div>
 		</div>
 		
 	</div>
-	
 </body>
 </html>

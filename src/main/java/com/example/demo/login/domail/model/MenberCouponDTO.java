@@ -19,5 +19,7 @@ public class MenberCouponDTO {
 	
 	private int couponRank;
 	
+	private String menberRank;
+	
 	private Date registration_date;
 }
