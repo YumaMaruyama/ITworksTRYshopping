@@ -52,4 +52,13 @@ public class MenberCouponDaoJdbcImpl implements MenberCouponDao {
 		 return menbercoupondtoList;
 		 
 	}
+	
+	public MenberCouponDTO selectOne(int couponId) {
+		Map<String,Object> map = jdbc.queryForMap("select * from menber_coupon where id = ?",couponId);
+		
+		MenberCouponDTO menbercoupondto = new MenberCouponDTO();
+		menbercoupondto.setDiscount((int)map.get("discount"));
+		
+		return menbercoupondto;
+	}
 }

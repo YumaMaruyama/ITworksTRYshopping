@@ -11,4 +11,6 @@ public interface MenberCouponDao {
 	public int menberCouponInsert(MenberCouponDTO menbercoupondto,HttpSession session);
 	
 	public  List<MenberCouponDTO> selectMany(int rankNumber);
+	
+	public MenberCouponDTO selectOne(int couponId);
 }

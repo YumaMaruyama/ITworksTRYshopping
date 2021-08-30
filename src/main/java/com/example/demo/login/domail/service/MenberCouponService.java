@@ -23,4 +23,8 @@ public class MenberCouponService {
 	public List<MenberCouponDTO> selectMany(int rankNumber) {
 		return dao.selectMany(rankNumber);
 	}
+	
+	public MenberCouponDTO selectOne(int couponId) {
+		return dao.selectOne(couponId);
+	}
 }

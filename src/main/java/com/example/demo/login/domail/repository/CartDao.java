@@ -37,7 +37,7 @@ public interface CartDao {
 	
 	public int couponCancelUpdate();
 	
-	
+	public int updateMenberCouponId(int cartId,int couponId);
 	
 	
 

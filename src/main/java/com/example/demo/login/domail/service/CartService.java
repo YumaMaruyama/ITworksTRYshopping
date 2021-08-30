@@ -131,6 +131,10 @@ public class CartService {
 		return dao.couponCancelUpdate();
 	}
 	
+	public int updateMenberCouponId(int cartId,int couponId) {
+		return dao.updateMenberCouponId(cartId, couponId);
+	}
+	
 	
 //	public int selectProductId(int cartId) {
 //		return dao.selectProductId(cartId);

@@ -36,6 +36,8 @@ public class PcDataDTO {
 	private int creditId;
 	
 	private int couponId;
+	
+	private String menberCouponCheck;
 
 	private int  productCount;
 	

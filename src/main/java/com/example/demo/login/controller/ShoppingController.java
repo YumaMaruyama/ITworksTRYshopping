@@ -2712,6 +2712,29 @@ public class ShoppingController {
 
 				disCountPrice = pcdatadto.getProduct_count() * (pcdatadto.getPrice() + pcdatadto.getCustomPrice());
 
+				if(pcdatadto.getMenberCouponCheck() == "会員ランク特典使用") {
+					MenberCouponDTO menbercoupondto = menberCouponService.selectOne(couponId);
+					int menberCouponDisCount = menbercoupondto.getDiscount();
+					double disCountNew = 0;
+					if (menberCouponDisCount < 10) {
+						System.out.println("test");
+						disCountNew = Double.valueOf("0.0" + menberCouponDisCount);
+
+						double disCountPriceNew = disCountPrice * disCountNew;// 割引価格
+						int disCountPriceNewNext = (int) disCountPriceNew;
+						pcdatadto.setDisCountPriceNew(disCountPriceNewNext);
+						totalPriceOne = (int) (totalPriceOne - disCountPriceNew);
+					} else {
+						disCountNew = Double.valueOf("0." + menberCouponDisCount);
+
+						double disCountPriceNew = disCountPrice * disCountNew;// 割引価格
+						int disCountPriceNewNext = (int) disCountPriceNew;
+						pcdatadto.setDisCountPriceNew(disCountPriceNewNext);
+						totalPriceOne = (int) (totalPriceOne - disCountPriceNew);
+					}
+					
+				}else {
+				
 				if (pcdatadto.getCouponId() >= 1) {// 商品にクーポンが適用されていればtrue
 					CouponDTO coupondto = couponService.selectOne(couponId);
 					int disCount = coupondto.getDiscount();// 割引率(%)
@@ -2732,6 +2755,7 @@ public class ShoppingController {
 						pcdatadto.setDisCountPriceNew(disCountPriceNewNext);
 						totalPriceOne = (int) (totalPriceOne - disCountPriceNew);
 					}
+				}
 				}
 				model.addAttribute("totalPrice", totalPriceAll);
 				model.addAttribute("couponAfterPrice", totalPriceOne);
