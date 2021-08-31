@@ -662,7 +662,7 @@ public class ShoppingController {
 				model.addAttribute("diamondUser", 100);
 			} else {
 				if (diamondRatioStr.equals("0.0")) {
-					model.addAttribute("diamondRatioUser", 0);
+					model.addAttribute("diamondUser", 0);
 				} else {
 					System.out.println("33");
 					String diamondRatioStrChecktwo = diamondRatioStr.substring(2, 3);

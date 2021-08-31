@@ -30,7 +30,7 @@
 					<td class="text-center userRankDetailTdDistribution"
 						th:if="${amateurUser} != 0" th:text="'約' + ${amateurUser} + '%'"></td>
 					<td class="text-center userRankDetailTdDistribution"
-						th:if="${amateurUser} == 0" th:text="${goldUser} + '%'"></td>
+						th:if="${amateurUser} == 0" th:text="${amateurUser} + '%'"></td>
 				</tr>
 
 				<tr class="userRankDetailTrPro">
@@ -42,7 +42,7 @@
 					<td class="text-center userRankDetailTdDistribution"
 						th:if="${proUser} != 0" th:text="'約' + ${proUser} + '%'"></td>
 					<td class="text-center userRankDetailTdDistribution"
-						th:if="${proUser} == 0" th:text="${goldUser} + '%'"></td>
+						th:if="${proUser} == 0" th:text="${proUser} + '%'"></td>
 				</tr>
 
 				<tr class="userRankDetailTrBronze">
@@ -54,7 +54,7 @@
 					<td class="text-center userRankDetailTdDistribution"
 						th:if="${bronzeUser} != 0" th:text="'約' + ${bronzeUser} + '%'"></td>
 					<td class="text-center userRankDetailTdDistribution"
-						th:if="${bronzeUser} == 0" th:text="${goldUser} + '%'"></td>
+						th:if="${bronzeUser} == 0" th:text="${bronzeUser} + '%'"></td>
 				</tr>
 
 				<tr class="userRankDetailTrSilver">
@@ -66,7 +66,7 @@
 					<td class="text-center userRankDetailTdDistribution"
 						th:if="${silverUser} != 0" th:text="'約' + ${silverUser} + '%'"></td>
 					<td class="text-center userRankDetailTdDistribution"
-						th:if="${silverUser} == 0" th:text="${goldUser} + '%'"></td>
+						th:if="${silverUser} == 0" th:text="${silverUser} + '%'"></td>
 				</tr>
 
 				<tr class="userRankDetailTrGold">
@@ -90,7 +90,7 @@
 					<td class="text-center userRankDetailTdDistribution"
 						th:if="${diamondUser} != 0" th:text="'約' + ${diamondUser} + '%'"></td>
 					<td class="text-center userRankDetailTdDistribution"
-						th:if="${diamondUser} == 0" th:text="${goldUser} + '%'"></td>
+						th:if="${diamondUser} == 0" th:text="${diamondUser} + '%'"></td>
 				</tr>
 
 				<tr class="userRankDetailTrPlatinum">
@@ -102,7 +102,7 @@
 					<td class="text-center userRankDetailTdDistribution"
 						th:if="${platinumUser} != 0" th:text="'約' + ${platinumUser} + '%'"></td>
 					<td class="text-center userRankDetailTdDistribution"
-						th:if="${platinumUser} == 0" th:text="${goldUser} + '%'"></td>
+						th:if="${platinumUser} == 0" th:text="${platinumUser} + '%'"></td>
 				</tr>
 
 				<tr class="userRankDetailTrAlien">
@@ -114,7 +114,7 @@
 					<td class="text-center userRankDetailTdDistribution"
 						th:if="${alienUser} != 0" th:text="'約' + ${alienUser} + '%'"></td>
 					<td class="text-center userRankDetailTdDistribution"
-						th:if="${alienUser} == 0" th:text="${goldUser} + '%'"></td>
+						th:if="${alienUser} == 0" th:text="${alienUser} + '%'"></td>
 				</tr>
 
 				<tr class="userRankDetailTrGodFox">
@@ -126,7 +126,7 @@
 					<td class="text-center userRankDetailTdDistribution"
 						th:if="${godFoxUser} != 0" th:text="'約' + ${godFoxUser} + '%'"></td>
 					<td class="text-center userRankDetailTdDistribution"
-						th:if="${godFoxUser} == 0" th:text="${goldUser} + '%'"></td>
+						th:if="${godFoxUser} == 0" th:text="${godFoxUser} + '%'"></td>
 				</tr>
 
 				<tr class="userRankDetailTrPremiumGod">
@@ -139,7 +139,7 @@
 						th:if="${premiumGodUser} != 0"
 						th:text="'約' + ${premiumGodUser} + '%'"></td>
 					<td class="text-center userRankDetailTdDistribution"
-						th:if="${premiumGodUser} == 0" th:text="${goldUser} + '%'"></td>
+						th:if="${premiumGodUser} == 0" th:text="${premiumGodUser} + '%'"></td>
 				</tr>
 
 				<tr class="userRankDetailTrInductedIntoTheHalOfFame">
@@ -153,7 +153,7 @@
 						th:text="'約' + ${inductedIntoTheHalOfFameUser} + '%'"></td>
 					<td class="text-center userRankDetailTdDistribution"
 						th:if="${inductedIntoTheHalOfFameUser} == 0"
-						th:text="${goldUser} + '%'"></td>
+						th:text="${inductedIntoTheHalOfFameUser} + '%'"></td>
 				</tr>
 			</table>
 		</div>
