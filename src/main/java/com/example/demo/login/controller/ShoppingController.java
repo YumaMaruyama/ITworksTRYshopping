@@ -2685,7 +2685,7 @@ public class ShoppingController {
 	public String getMenberCouponUse(@ModelAttribute MenberCouponForm form, CartForm cartform,
 			@PathVariable("couponId") int couponId, @PathVariable("productId") int productId, Model model) {
 		model.addAttribute("contents", "shopping/cart::productListLayout_contents");
-
+		System.out.println("menberCouponUse到達");
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 		String getUserId = auth.getName();
@@ -2694,6 +2694,7 @@ public class ShoppingController {
 		cartService.updateMenberCouponId(cartId, couponId);// 商品IDでselectし、クーポン情報を加える
 
 		List<PcDataDTO> cartList = cartService.selectMany(getUserId);// ログインユーザーのみのカートの情報を取得
+		System.out.println("cartList"+cartList);
 		int totalPriceAll = 0;// カート全体価格
 		int totalPriceOne = 0;// 各商品価格
 		int disCountPrice = 0;// 割引数
@@ -2712,7 +2713,10 @@ public class ShoppingController {
 
 				disCountPrice = pcdatadto.getProduct_count() * (pcdatadto.getPrice() + pcdatadto.getCustomPrice());
 
-				if(pcdatadto.getMenberCouponCheck() == "会員ランク特典使用") {
+				System.out.println("getMenberCOuponCheck"+pcdatadto.getMenberCouponCheck());
+				
+				if(pcdatadto.getMenberCouponCheck().equals("会員ランク特典使用")) {
+					System.out.println("会員ランク特典使用");
 					MenberCouponDTO menbercoupondto = menberCouponService.selectOne(couponId);
 					int menberCouponDisCount = menbercoupondto.getDiscount();
 					double disCountNew = 0;
@@ -2734,8 +2738,9 @@ public class ShoppingController {
 					}
 					
 				}else {
-				
+					System.out.println("会員ランク特典不使用");
 				if (pcdatadto.getCouponId() >= 1) {// 商品にクーポンが適用されていればtrue
+					System.out.println("test1111");
 					CouponDTO coupondto = couponService.selectOne(couponId);
 					int disCount = coupondto.getDiscount();// 割引率(%)
 					System.out.println("disCount" + disCount);

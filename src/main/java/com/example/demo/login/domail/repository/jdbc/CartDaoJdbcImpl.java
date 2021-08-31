@@ -117,7 +117,7 @@ public class CartDaoJdbcImpl implements CartDao {
 				pcdatadto.setCartId((int) map.get("cartId"));
 				pcdatadto.setProduct_count((int) map.get("product_count"));
 				pcdatadto.setCouponId(couponId);
-				pcdatadto.setMenberCouponCheck((String)map.get("menber_coupon_check"));
+				pcdatadto.setMenberCouponCheck("no");
 				pcdatadto.setId((int) map.get("id"));
 				pcdatadto.setMemory((String) map.get("memory"));
 				pcdatadto.setHardDisc((String) map.get("hard_disc"));
