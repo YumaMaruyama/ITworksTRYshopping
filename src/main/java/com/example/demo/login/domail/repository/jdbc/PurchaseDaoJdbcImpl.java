@@ -136,7 +136,7 @@ public class PurchaseDaoJdbcImpl implements PurchaseDao {
 			purchasedto.setPcImg((String)oneMap.get("pcImg"));
 			purchasedto.setProduct_count((int)oneMap.get("product_count"));
 			purchasedto.setPurchaseCheck((int)oneMap.get("cartPurchaseCheck"));
-			purchasedto.
+			purchasedto.setMenberCouponCheck((String)oneMap.get("menber_coupon_check"));
 			
 
 			purchaseList.add(purchasedto);
@@ -219,9 +219,10 @@ public class PurchaseDaoJdbcImpl implements PurchaseDao {
 				+ " product_count,"
 				+ " credit_id,"
 				+ " custom_id,"
+				+ " menber_coupon_check,"
 				+ " coupon_id)"
-				+ " value(?,?,?,?,?,?,?)", purchasedto.getId(), select_id, purchaseId, purchaseCount,
-				purchaseCreditId,customId,-1);
+				+ " value(?,?,?,?,?,?,?,?)", purchasedto.getId(), select_id, purchaseId, purchaseCount,
+				purchaseCreditId,customId,"クーポン不使用",-1);
 
 		return result;
 	}

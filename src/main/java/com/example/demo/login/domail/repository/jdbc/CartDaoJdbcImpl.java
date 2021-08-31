@@ -100,9 +100,11 @@ public class CartDaoJdbcImpl implements CartDao {
 				pcdatadto.setCustomPrice((int) map.get("custom_price"));
 				pcdatadto.setAfterCustomPrice(pcdatadto.getPrice() + pcdatadto.getCustomPrice());
 				pcdatadto.setTotalPrice(sumPrice);
+				System.out.println("try中"+pcdatadto.getMenberCouponCheck());
 			} catch (NullPointerException | EmptyResultDataAccessException e) {
 				e.printStackTrace();
 				int couponId = 0;
+				
 				pcdatadto.setId((int) map.get("id"));
 				pcdatadto.setCompany((String) map.get("company"));
 				pcdatadto.setOs((String) map.get("os"));
@@ -117,7 +119,7 @@ public class CartDaoJdbcImpl implements CartDao {
 				pcdatadto.setCartId((int) map.get("cartId"));
 				pcdatadto.setProduct_count((int) map.get("product_count"));
 				pcdatadto.setCouponId(couponId);
-				pcdatadto.setMenberCouponCheck("no");
+				pcdatadto.setMenberCouponCheck("クーポン不使用");
 				pcdatadto.setId((int) map.get("id"));
 				pcdatadto.setMemory((String) map.get("memory"));
 				pcdatadto.setHardDisc((String) map.get("hard_disc"));
@@ -125,6 +127,11 @@ public class CartDaoJdbcImpl implements CartDao {
 				pcdatadto.setCustomPrice((int) map.get("custom_price"));
 				pcdatadto.setAfterCustomPrice(pcdatadto.getPrice() + pcdatadto.getCustomPrice());
 				pcdatadto.setTotalPrice(sumPrice);
+				System.out.println("catch中"+pcdatadto.getMenberCouponCheck());
+//				if(pcdatadto.getMenberCouponCheck().equals("null")) {
+//					pcdatadto.setMenberCouponCheck("クーポン不使用");
+//				}
+				
 			}
 
 			System.out.println("couponId" + pcdatadto.getCouponId());
@@ -256,12 +263,14 @@ public class CartDaoJdbcImpl implements CartDao {
 			cartdto.setUser_id((int) oneMap.get("user_id"));
 			cartdto.setProduct_id((int) oneMap.get("product_id"));
 			cartdto.setProduct_count((int) oneMap.get("product_count"));
-			cartdto.setMenberCouponCheck((String)oneMap.get("menber_coupon_check"));
 			try {
+			cartdto.setMenberCouponCheck((String)oneMap.get("menber_coupon_check"));
 				cartdto.setCouponId((int)oneMap.get("coupon_id"));
 			}catch(NullPointerException e){
+				System.out.println("nullOK");
 				e.printStackTrace();
 				cartdto.setCouponId(-1);
+				cartdto.setMenberCouponCheck("no");
 			}
 			
 			purchaseList.add(cartdto);
