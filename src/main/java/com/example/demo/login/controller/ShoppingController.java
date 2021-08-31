@@ -3726,10 +3726,15 @@ public class ShoppingController {
 			int customId = customService.selectCustomId(productId, select_id);
 			int purchaseCount = cartdto.getProduct_count();
 			int couponCheck = cartdto.getCouponId();
+			
 
 			// customService.pruchaseIdInsertOne(productid);
 			try {
-				if (couponCheck > 0) {
+				
+				if(cartdto.getMenberCouponCheck().equals("会員ランク特典使用")) {
+					purchaseService.insertMenberCoupon(purchasedto, productid, purchaseCount, select_id, purchaseCreditId,
+							customId,couponId);
+				} else if(couponCheck > 0) {
 					System.out.println("クーポン使用");
 					purchaseService.insert(purchasedto, productid, purchaseCount, select_id, purchaseCreditId, customId,
 							couponId);
@@ -3806,6 +3811,23 @@ public class ShoppingController {
 			purchasedtoAdd.setTotalPrice(
 					purchaseOne.getProduct_count() * (customList.getCustomPrice() + purchaseOne.getPrice()));
 
+			
+			if(purchasedtoAdd.getMenberCouponCheck().equals("会員クーポン使用")) {
+				System.out.println("クーポン使用！");
+				int totalPrice = purchasedtoAdd.getTotalPrice();
+				CouponDTO coupondto = couponService.selectOne(purchasedtoAdd.getCouponId());//会員DBからとる
+				int disCount = coupondto.getDiscount();// 割引率(%)
+				if (disCount >= 10) {
+					double disCountNew = Double.valueOf("0." + disCount);
+					double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+					purchasedtoAdd.setTotalPrice((int) (totalPrice - disCountPriceNew));
+				} else {
+					double disCountNew = Double.valueOf("0.0" + disCount);
+					double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+					purchasedtoAdd.setTotalPrice((int) (totalPrice - disCountPriceNew));
+				}
+			}else {
+			
 			if (purchasedtoAdd.getCouponId() > 0) {
 				System.out.println("クーポン使用！");
 				int totalPrice = purchasedtoAdd.getTotalPrice();
@@ -3820,6 +3842,7 @@ public class ShoppingController {
 					double disCountPriceNew = totalPrice * disCountNew;// 割引価格
 					purchasedtoAdd.setTotalPrice((int) (totalPrice - disCountPriceNew));
 				}
+			}
 			}
 			// Date purchaseDate = purchasedtoAdd.getPurchase_date();
 			Calendar calendar = Calendar.getInstance();

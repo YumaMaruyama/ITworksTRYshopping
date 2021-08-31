@@ -20,6 +20,8 @@ public class PurchaseDTO {
 	private Date purchase_date;
 
 	private int purchaseCreditId;
+	
+	private String  menberCouponCheck;
 
 	private int custom_id;
 

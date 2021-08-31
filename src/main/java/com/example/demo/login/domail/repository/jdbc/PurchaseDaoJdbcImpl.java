@@ -29,12 +29,29 @@ public class PurchaseDaoJdbcImpl implements PurchaseDao {
 			//	+ " purchase_date,"
 				+ " credit_id,"
 				+ " custom_id,"
+				+ " menber_coupon_check,"
 				+ " coupon_id)"
-				+ " value(?,?,?,?,?,?,?)", purchasedto.getId(), select_id, purchaseId, purchaseCount,
-				purchaseCreditId,customId,couponId);
+				+ " value(?,?,?,?,?,?,?,?)", purchasedto.getId(), select_id, purchaseId, purchaseCount,
+				purchaseCreditId,customId,"クーポン使用",couponId);
 
 		return result;
 
+	}
+	
+	public int insertMenberCoupon(PurchaseDTO purchasedto,int purchaseId,int purchaseCount,int select_id,int purchaseCreditId,int customId,int couponId) {
+		int result = jdbc.update("insert into purchase (id,"
+				+ " user_id,"
+				+ " product_id,"
+				+ " product_count,"
+			//	+ " purchase_date,"
+				+ " credit_id,"
+				+ " custom_id,"
+				+ " menber_coupon_check,"
+				+ " coupon_id)"
+				+ " value(?,?,?,?,?,?,?,?)", purchasedto.getId(), select_id, purchaseId, purchaseCount,
+				purchaseCreditId,customId,"会員クーポン使用",couponId);
+
+		return result;
 	}
 	
 	
@@ -102,7 +119,7 @@ public class PurchaseDaoJdbcImpl implements PurchaseDao {
 
 	public List<PurchaseDTO> selectHistory(int select_id) {
 
-		List<Map<String,Object>> map = jdbc.queryForList("select purchase.id,purchase.product_id,purchase.purchase_date,purchase.product_count,purchase.cancel_check,purchase.coupon_id,pcdata.pc_name,pcdata.price,pcdata.pcImg,cart.purchase_check as cartPurchaseCheck from purchase join pcdata on purchase.product_id = pcdata.id join cart on purchase.id = cart.purchase_check where purchase.user_id = ? ",select_id);
+		List<Map<String,Object>> map = jdbc.queryForList("select purchase.id,purchase.product_id,purchase.purchase_date,purchase.product_count,purchase.cancel_check,purchase.coupon_id,purchase.menber_coupon_check,pcdata.pc_name,pcdata.price,pcdata.pcImg,cart.purchase_check as cartPurchaseCheck from purchase join pcdata on purchase.product_id = pcdata.id join cart on purchase.id = cart.purchase_check where purchase.user_id = ? ",select_id);
 
 		List<PurchaseDTO> purchaseList = new ArrayList<>();
 		for(Map<String,Object> oneMap : map) {
@@ -119,6 +136,7 @@ public class PurchaseDaoJdbcImpl implements PurchaseDao {
 			purchasedto.setPcImg((String)oneMap.get("pcImg"));
 			purchasedto.setProduct_count((int)oneMap.get("product_count"));
 			purchasedto.setPurchaseCheck((int)oneMap.get("cartPurchaseCheck"));
+			purchasedto.
 			
 
 			purchaseList.add(purchasedto);

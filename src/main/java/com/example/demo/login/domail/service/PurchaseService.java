@@ -26,6 +26,10 @@ public class PurchaseService {
 		return result;
 
 	}
+	
+	public int insertMenberCoupon(PurchaseDTO purchasedto,int purchaseId,int purchaseCount,int select_id,int purchaseCreditId,int customId,int couponId) {
+		return dao.insertMenberCoupon(purchasedto,purchaseId,purchaseCount,select_id,purchaseCreditId,customId,couponId);
+	}
 
 	public List<PcDataDTO> selectMany(int select_id,int purchaseNumber) {
 		return dao.selectMany(select_id,purchaseNumber);
