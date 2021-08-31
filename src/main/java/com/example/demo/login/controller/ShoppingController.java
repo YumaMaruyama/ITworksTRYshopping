@@ -2444,6 +2444,9 @@ public class ShoppingController {
 			}
 
 			model.addAttribute("couponList", coupondtoListAdd);
+			if(coupondtoListAdd.size() == 0) {
+				model.addAttribute("notCoupon","yes");
+				}
 		} catch (IndexOutOfBoundsException e) {
 			e.printStackTrace();
 
