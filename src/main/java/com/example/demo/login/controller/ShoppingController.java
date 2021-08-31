@@ -2713,7 +2713,6 @@ public class ShoppingController {
 
 				disCountPrice = pcdatadto.getProduct_count() * (pcdatadto.getPrice() + pcdatadto.getCustomPrice());
 
-				System.out.println("getMenberCOuponCheck"+pcdatadto.getMenberCouponCheck());
 				
 				if(pcdatadto.getMenberCouponCheck().equals("会員ランク特典使用")) {
 					System.out.println("会員ランク特典使用");
@@ -3156,11 +3155,39 @@ public class ShoppingController {
 
 			totalPriceOne = pcdatadto.getProduct_count() * pcdatadto.getAfterCustomPrice();// 各商品の金額
 
+			if(pcdatadto.getMenberCouponCheck().equals("会員ランク特典使用")) {
+				System.out.println("会員ランク特典使用");
+				MenberCouponDTO menbercoupondto = menberCouponService.selectOne(couponId);
+				int menberCouponDisCount = menbercoupondto.getDiscount();
+				double disCountNew = 0;
+				if (menberCouponDisCount < 10) {
+					System.out.println("test");
+					disCountNew = Double.valueOf("0.0" + menberCouponDisCount);
+
+					double disCountPriceNew = totalPriceOne * disCountNew;// 割引価格
+					int disCountPriceNewNext = (int) disCountPriceNew;
+					System.out.println("disCounttest"+disCountPriceNewNext);
+					System.out.println("disCounttest"+totalPriceAll);
+					pcdatadto.setDisCountPriceNew(disCountPriceNewNext);
+					totalPriceAll = (int) (totalPriceAll - disCountPriceNew);
+					System.out.println("totalPriceAll"+totalPriceAll);
+					model.addAttribute("totalPrice",totalPriceAll);
+				} else {
+					disCountNew = Double.valueOf("0." + menberCouponDisCount);
+
+					double disCountPriceNew = totalPriceOne * disCountNew;// 割引価格
+					int disCountPriceNewNext = (int) disCountPriceNew;
+					pcdatadto.setDisCountPriceNew(disCountPriceNewNext);
+					totalPriceAll = (int) (totalPriceAll - disCountPriceNew);
+					model.addAttribute("totalPrice",totalPriceAll);
+				}
+			}else {
+				System.out.println("会員ランク特典不使用");
 			if (pcdatadto.getCouponId() == 0) {
 				System.out.println("クーポン使用なし");
 				int couponAfterPrice = (int) totalPriceAll;
 				System.out.println("couponAfterPrice" + couponAfterPrice);
-				model.addAttribute("totalPrice", couponAfterPrice);
+				model.addAttribute("totalPrice", totalPriceAll);
 
 			} else {// クーポンを使用した商品はelse
 				System.out.println("クーポン使用！");
@@ -3191,6 +3218,7 @@ public class ShoppingController {
 					totalPriceAll = (int) (totalPriceAll - disCountPrice);
 					model.addAttribute("totalPrice", totalPriceAll);
 				}
+			}
 			}
 
 			// model.addAttribute("product_count",pcdatadto.getProduct_count());
@@ -3579,6 +3607,36 @@ public class ShoppingController {
 			totalPriceOne = pcdatadto.getProduct_count() * pcdatadto.getAfterCustomPrice();
 			pcdatadto.setTotalPriceOne(totalPriceOne);
 			System.out.println("totalPrice" + totalPriceAll);
+			
+			
+			if(pcdatadto.getMenberCouponCheck().equals("会員ランク特典使用")) {
+				System.out.println("会員ランク特典使用");
+				MenberCouponDTO menbercoupondto = menberCouponService.selectOne(pcdatadto.getCouponId());
+				int menberCouponDisCount = menbercoupondto.getDiscount();
+				double disCountNew = 0;
+				if (menberCouponDisCount < 10) {
+					System.out.println("test");
+					disCountNew = Double.valueOf("0.0" + menberCouponDisCount);
+
+					double disCountPriceNew = totalPriceOne * disCountNew;// 割引価格
+					int disCountPriceNewNext = (int) disCountPriceNew;
+					System.out.println("disCounttest"+disCountPriceNewNext);
+					System.out.println("disCounttest"+totalPriceAll);
+					pcdatadto.setDisCountPriceNew(disCountPriceNewNext);
+					totalPriceAll = (int) (totalPriceAll - disCountPriceNew);
+					model.addAttribute("totalPrice",(totalPriceAll - disCountPriceNewNext));
+				} else {
+					disCountNew = Double.valueOf("0." + menberCouponDisCount);
+
+					double disCountPriceNew = totalPriceOne * disCountNew;// 割引価格
+					int disCountPriceNewNext = (int) disCountPriceNew;
+					pcdatadto.setDisCountPriceNew(disCountPriceNewNext);
+					totalPriceAll = (int) (totalPriceAll - disCountPriceNew);
+					model.addAttribute("totalPrice",(totalPriceAll - disCountPriceNewNext));
+				}
+			}else {
+				System.out.println("会員ランク特典不使用");
+			
 			if (pcdatadto.getCouponId() == 0) {
 				model.addAttribute("totalPrice", totalPriceAll);
 			} else {// クーポンを使用していればelse
@@ -3597,6 +3655,7 @@ public class ShoppingController {
 					totalPriceAll = (int) (totalPriceAll - disCountPrice);
 					pcdatadto.setCouponCheck(true);
 				}
+			}
 			}
 			model.addAttribute("totalPrice", totalPriceAll);
 
