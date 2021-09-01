@@ -14,10 +14,12 @@
 			<td><h1 class="titleDesign">会員ランク特典クーポン一覧</h1></td>
 			</tr></table>
 		</header>
-		
+		<table>
+		<tr th:if="${notCoupon} == 'yes'" class="couponDetail1"><td>使用可能なクーポンはありません</td></tr>
+		</table>
 		
 		<div class="couponSeeTable">
-		<table class="table table-bordered" th:each="menberCoupondto:${menbercoupondtoList}">
+		<table class="table table-bordered" th:each="menberCoupondto:${couponList}">
 		
 			<tr class="couponListThColor">
 				<th class="text-center">クーポン名</th>

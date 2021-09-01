@@ -24,7 +24,20 @@ public class MenberCouponService {
 		return dao.selectMany(rankNumber);
 	}
 	
+	public List<MenberCouponDTO> selectMany() {
+		return dao.selectMany();
+	}
+	
 	public MenberCouponDTO selectOne(int couponId) {
 		return dao.selectOne(couponId);
+	}
+	
+	public List<Integer> selectMenberCouponId(int rankNumber) {
+		return dao.selectMenberCouponId(rankNumber);
+		
+	}
+	
+	public List<MenberCouponDTO> selectManyBeforeCoupon(int menberCouponId) {
+		return dao.selectManyBeforeCoupon(menberCouponId);
 	}
 }

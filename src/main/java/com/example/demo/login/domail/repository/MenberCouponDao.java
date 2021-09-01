@@ -13,4 +13,10 @@ public interface MenberCouponDao {
 	public  List<MenberCouponDTO> selectMany(int rankNumber);
 	
 	public MenberCouponDTO selectOne(int couponId);
+	
+	public List<Integer> selectMenberCouponId(int rankNumber);
+	
+	public List<MenberCouponDTO> selectManyBeforeCoupon(int menberCouponId);
+	
+	public List<MenberCouponDTO> selectMany();
 }

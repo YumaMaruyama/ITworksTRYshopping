@@ -54,6 +54,8 @@ public class CouponDaoJdbcImpl implements CouponDao {
 				
 	}
 	
+	
+	
 	public List<CouponDTO> beforePurchaseSelectMany() {
 		
 List<Map<String,Object>> map = jdbc.queryForList("select * from coupon");

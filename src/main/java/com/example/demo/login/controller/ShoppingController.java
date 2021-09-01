@@ -2330,6 +2330,7 @@ public class ShoppingController {
 		List<PurchaseDTO> purchasedtoList = purchaseService.selectHistory(userId);// メソッドに入ったユーザーの購入情報を取得
 		List<PurchaseDTO> allPurchaseList = new ArrayList<>();
 		List<Integer> couponUsedId = new ArrayList<>();// 使用済みクーポンIDを格納
+		List<Integer> menberCouponUsedId = new ArrayList<>();//使用済みmenberCouponIDを格納
 		PurchaseDTO customList;
 		// 購入商品を一つづつ回して値を受け取る
 		for (int i = 0; purchasedtoList.size() > i; i++) {
@@ -2341,11 +2342,19 @@ public class ShoppingController {
 			purchasedtoAdd.setProduct_count(purchaseOne.getProduct_count());
 			purchasedtoAdd.setPurchaseCheck(purchaseOne.getPurchaseCheck());
 			purchasedtoAdd.setCouponId(purchaseOne.getCouponId());// 購入者のクーポンID情報を取得
+			purchasedtoAdd.setMenberCouponCheck(purchaseOne.getMenberCouponCheck());//クーポンを使用したかどうかを判別するための値(menberCoupon or coupon　or notCoupon)
+			
+			if(purchasedtoAdd.getMenberCouponCheck().equals("会員クーポン使用")) {
+				int couponId = purchasedtoAdd.getCouponId();
+				menberCouponUsedId.add(couponId);//menberCouponリスト
+			}else {
+			
 			if (purchasedtoAdd.getCouponId() > 0) {// クーポンを使用して購入していればtrue
 				int couponId = purchasedtoAdd.getCouponId();
-				couponUsedId.add(couponId);
+				couponUsedId.add(couponId);//couponリスト
 			} else {
 				couponUsedId.add(-1);
+			}
 			}
 			int productId = purchasedtoAdd.getId();
 			// 購入商品ごとのカスタム情報も取り出す
@@ -2363,6 +2372,9 @@ public class ShoppingController {
 			model.addAttribute("allTotalPrice", allTotalPrice);
 			allPurchaseList.add(purchasedtoAdd);
 		}
+		
+		
+		
 
 		// 一度使用したクーポンは表示されないようにする
 		// 使用済みクーポンの一枚目のIDを使用して、使用前クーポンListを作成
@@ -2515,6 +2527,8 @@ public class ShoppingController {
 
 		List<PurchaseDTO> purchasedtoList = purchaseService.selectHistory(userId);// メソッドに入ったユーザーの購入情報を取得
 		List<PurchaseDTO> allPurchaseList = new ArrayList<>();
+		
+		List<Integer> menberCouponUsedId = new ArrayList<>();//使用済みmenberCouponIDを格納
 		PurchaseDTO customList;
 		// 購入商品を一つづつ回して値を受け取る
 		if (purchasedtoList.size() > 0) {
@@ -2526,6 +2540,15 @@ public class ShoppingController {
 				purchasedtoAdd.setPrice(purchaseOne.getPrice());
 				purchasedtoAdd.setProduct_count(purchaseOne.getProduct_count());
 				purchasedtoAdd.setPurchaseCheck(purchaseOne.getPurchaseCheck());
+				purchasedtoAdd.setCouponId(purchaseOne.getCouponId());// 購入者のクーポンID情報を取得
+				purchasedtoAdd.setMenberCouponCheck(purchaseOne.getMenberCouponCheck());//クーポンを使用したかどうかを判別するための値(menberCoupon or coupon　or notCoupon)
+				
+				if(purchasedtoAdd.getMenberCouponCheck().equals("会員クーポン使用")) {
+					int couponId = purchasedtoAdd.getCouponId();
+					menberCouponUsedId.add(couponId);//menberCouponリスト
+					
+				}
+			
 				// 購入商品ごとのカスタム情報も取り出す
 				int productId = purchasedtoAdd.getId();
 				// int customId = purchasedtoAdd.getCustom_id();
@@ -2544,6 +2567,8 @@ public class ShoppingController {
 				model.addAttribute("allTotalPrice", allTotalPrice);
 
 			}
+			
+			
 
 			if ((allTotalPrice > 0) && (allTotalPrice < 50000)) {
 				rankNumber = 1;
@@ -2572,6 +2597,10 @@ public class ShoppingController {
 		} else {
 			rankNumber = 1;//一度も購入していない場合はアマチュアランク
 		}
+		
+		
+	
+	
 
 			List<MenberCouponDTO> menbercoupondtoList = menberCouponService.selectMany(rankNumber);
 			
@@ -2604,6 +2633,130 @@ public class ShoppingController {
 				}
 				menbercoupondtoListNew.add(menbercoupondtoOne);
 				model.addAttribute("menbercoupondtoList",menbercoupondtoListNew);
+			}
+			
+			
+			// 一度使用したクーポンは表示されないようにする
+			// 使用済みクーポンの一枚目のIDを使用して、使用前クーポンListを作成
+			try {
+				List<Integer> menberCouponId = menberCouponService.selectMenberCouponId(rankNumber);// 全クーポン
+				System.out.println("全クーポン" + menberCouponId);
+				System.out.println("使用済みクーポン" + menberCouponUsedId);
+				List<Integer> beforeUseMenberCouponId = new ArrayList<>();// 使用前クーポン
+				for (int i = 0; menberCouponId.size() > i; i++) {// 全クーポンの数文入る
+					if (menberCouponId.get(i) != menberCouponUsedId.get(0)) {// 全クーポンと使用済みクーポンの最初に一枚を比べて、使用前クーポンならtrue
+						beforeUseMenberCouponId.add(menberCouponId.get(i));// 使用済みクーポン一枚に対しての、使用前クーポンListを構築
+					}
+					System.out.println("beforeUseMenberCouponId" + beforeUseMenberCouponId);
+				}
+
+				// 上記で使用済みクーポン一枚に対しての、使用前クーポンListを構築したため下記に移る
+				// 下記では残りの使用済みクーポンIDを上記で作成した使用前クーポンListと比べている
+
+				if (menberCouponUsedId.size() >= 2) {// 使用済みクーポンが2枚以上あればtrue
+					for (int x = 1; menberCouponUsedId.size() > x; x++) {// 上記のコードで使用した使用済みクーポン１枚を除いた使用済みクーポン文を繰り返す
+						List<Integer> dummyBeforeUseMenberCouponId = new ArrayList<>();
+						for (int i = 0; beforeUseMenberCouponId.size() > i; i++) {// 上記で構築した使用前クーポンの数文繰り返す
+							if (beforeUseMenberCouponId.get(i) != menberCouponUsedId.get(x)) {
+								dummyBeforeUseMenberCouponId.add(beforeUseMenberCouponId.get(i));
+							}
+						}
+						beforeUseMenberCouponId = dummyBeforeUseMenberCouponId;
+					}
+					System.out.println("beforeUseMenberCouponId" + beforeUseMenberCouponId);
+				}
+
+				List<MenberCouponDTO> coupondtoList = new ArrayList<>();
+
+				for (int i = 0; beforeUseMenberCouponId.size() > i; i++) {
+					List<MenberCouponDTO> dummyCoupondtoList = new ArrayList<>();
+					dummyCoupondtoList = menberCouponService.selectManyBeforeCoupon(beforeUseMenberCouponId.get(i));// couponテーブルからクーポン情報をすべて取得
+					coupondtoList.addAll(dummyCoupondtoList);
+					
+				}
+				System.out.println("coupondtoList"+coupondtoList);
+				List<MenberCouponDTO> coupondtoListAdd = new ArrayList<>();
+
+				for (int i = 0; coupondtoList.size() > i; i++) {// クーポン情報を一つづつ取り出す
+					MenberCouponDTO coupondtoOne = coupondtoList.get(i);
+					
+					int rankNumberCheck = coupondtoOne.getCouponRank();
+					if (rankNumberCheck == 1) {
+						coupondtoOne.setMenberRank("アマチュアランク");
+					} else if (rankNumberCheck == 2) {
+						coupondtoOne.setMenberRank("プロランク");
+					} else if (rankNumberCheck == 3) {
+						coupondtoOne.setMenberRank("ブロンズランク");
+					} else if (rankNumberCheck == 4) {
+						coupondtoOne.setMenberRank("シルバーランク");
+					} else if (rankNumberCheck == 5) {
+						coupondtoOne.setMenberRank("ゴールドランク");
+					} else if (rankNumberCheck == 6) {
+						coupondtoOne.setMenberRank("ダイヤモンドランク");
+					} else if (rankNumberCheck == 7) {
+						coupondtoOne.setMenberRank("プラチナランク");
+					} else if (rankNumberCheck == 8) {
+						coupondtoOne.setMenberRank("エイリアンランク");
+					} else if (rankNumberCheck == 9) {
+						coupondtoOne.setMenberRank("ゴッドフォックスランク");
+					} else if (rankNumberCheck == 10) {
+						coupondtoOne.setMenberRank("プレミアムゴッドランク");
+					} else if (rankNumberCheck == 11) {
+						coupondtoOne.setMenberRank("InductedIntoTheHalOfFameRank");
+					}
+					
+					coupondtoListAdd.add(coupondtoOne);
+					
+					model.addAttribute("couponList",coupondtoListAdd);
+				
+				}
+				if(coupondtoList.size() == 0) {
+					model.addAttribute("notCoupon","yes");
+					}
+			} catch (IndexOutOfBoundsException e) {
+				e.printStackTrace();
+
+				List<MenberCouponDTO> coupondtoListAdd = new ArrayList<>();
+				List<MenberCouponDTO> coupondtoList = menberCouponService.selectMany();
+				for (int i = 0; coupondtoList.size() > i; i++) {// クーポン情報を一つづつ取り出す
+					MenberCouponDTO coupondtoOne = coupondtoList.get(i);
+					
+					int rankNumberCheck = coupondtoOne.getCouponRank();
+					if (rankNumberCheck == 1) {
+						coupondtoOne.setMenberRank("アマチュアランク");
+					} else if (rankNumberCheck == 2) {
+						coupondtoOne.setMenberRank("プロランク");
+					} else if (rankNumberCheck == 3) {
+						coupondtoOne.setMenberRank("ブロンズランク");
+					} else if (rankNumberCheck == 4) {
+						coupondtoOne.setMenberRank("シルバーランク");
+					} else if (rankNumberCheck == 5) {
+						coupondtoOne.setMenberRank("ゴールドランク");
+					} else if (rankNumberCheck == 6) {
+						coupondtoOne.setMenberRank("ダイヤモンドランク");
+					} else if (rankNumberCheck == 7) {
+						coupondtoOne.setMenberRank("プラチナランク");
+					} else if (rankNumberCheck == 8) {
+						coupondtoOne.setMenberRank("エイリアンランク");
+					} else if (rankNumberCheck == 9) {
+						coupondtoOne.setMenberRank("ゴッドフォックスランク");
+					} else if (rankNumberCheck == 10) {
+						coupondtoOne.setMenberRank("プレミアムゴッドランク");
+					} else if (rankNumberCheck == 11) {
+						coupondtoOne.setMenberRank("InductedIntoTheHalOfFameRank");
+					}
+					
+					coupondtoListAdd.add(coupondtoOne);
+					
+					model.addAttribute("couponList",coupondtoListAdd);
+
+				
+			
+				if(coupondtoList.size() == 0) {
+					model.addAttribute("notCoupon","yes");
+					}
+
+				}
 			}
 			
 			return "shopping/productListLayout";

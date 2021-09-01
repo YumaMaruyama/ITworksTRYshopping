@@ -50,7 +50,47 @@ public class MenberCouponDaoJdbcImpl implements MenberCouponDao {
 		 }
 		 
 		 return menbercoupondtoList;
+	}
+	
+	public List<MenberCouponDTO> selectMany() {
+	List<Map<String,Object>> map = jdbc.queryForList("select * from coupon");
+	
+	List<MenberCouponDTO> coupondtoList = new ArrayList<>();
+	
+	for(Map<String,Object> oneMap : map) {
+		MenberCouponDTO coupondto = new MenberCouponDTO();
+		coupondto.setId((int)oneMap.get("id"));
+		coupondto.setDiscount((int)oneMap.get("discount"));
+		coupondto.setPurchaseCountTarget((int)oneMap.get("purchase_count_target"));
+		coupondto.setPurchaseTotalPriceTarget((int)oneMap.get("purchase_total_price_target"));
+		coupondto.setTitle((String)oneMap.get("title"));
+		coupondto.setCouponRank((int)oneMap.get("coupon_rank"));		
+		coupondtoList.add(coupondto);
+	}
+	
+	return coupondtoList;
+			
+}
+	
+	public List<MenberCouponDTO> selectManyBeforeCoupon(int menberCouponId) {
+		List<Map<String,Object>> map = jdbc.queryForList("select * from menber_coupon where id = ?",menberCouponId);
 		 
+		 
+		 List<MenberCouponDTO> menbercoupondtoList = new ArrayList<>();
+		 
+		 for(Map<String,Object> oneMap : map) {
+		MenberCouponDTO menbercoupondto = new MenberCouponDTO();
+		menbercoupondto.setId((int)oneMap.get("id"));
+		menbercoupondto.setDiscount((int)oneMap.get("discount"));
+		menbercoupondto.setPurchaseCountTarget((int)oneMap.get("purchase_count_target"));
+		menbercoupondto.setPurchaseTotalPriceTarget((int)oneMap.get("purchase_total_price_target"));
+		menbercoupondto.setTitle((String)oneMap.get("title"));
+		menbercoupondto.setCouponRank((int)oneMap.get("coupon_rank"));
+		
+		menbercoupondtoList.add(menbercoupondto);
+		 }
+		 
+		 return menbercoupondtoList;
 	}
 	
 	public MenberCouponDTO selectOne(int couponId) {
@@ -60,5 +100,12 @@ public class MenberCouponDaoJdbcImpl implements MenberCouponDao {
 		menbercoupondto.setDiscount((int)map.get("discount"));
 		
 		return menbercoupondto;
+	}
+	
+	public List<Integer> selectMenberCouponId(int rankNumber) {
+		List<Integer> menberCouponList = jdbc.queryForList("select menber_coupon.id from menber_coupon where coupon_rank <= ?",Integer.class,rankNumber);
+		return menberCouponList;
+		
+		
 	}
 }
