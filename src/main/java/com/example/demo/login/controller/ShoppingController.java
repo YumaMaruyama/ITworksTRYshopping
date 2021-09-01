@@ -4224,8 +4224,9 @@ public class ShoppingController {
 					MenberCouponDTO menbercoupondto = menberCouponService.selectOne(pcdatadto.getCouponId());
 					int menberCouponDisCount = menbercoupondto.getDiscount();
 					double disCountNew = 0;
+					pcdatadto.setCouponCheck(true);
 					if (menberCouponDisCount < 10) {
-						System.out.println("test");
+						System.out.println("testgggggggggggggggggggggg");
 						disCountNew = Double.valueOf("0.0" + menberCouponDisCount);
 
 						double disCountPriceNew = totalPriceOne * disCountNew;// 割引価格
@@ -4233,16 +4234,19 @@ public class ShoppingController {
 						System.out.println("disCounttest" + disCountPriceNewNext);
 						System.out.println("disCounttest" + totalPriceAll);
 						pcdatadto.setDisCountPriceNew(disCountPriceNewNext);
-						totalPriceAll = (int) (totalPriceAll - disCountPriceNew);
-						model.addAttribute("totalPrice", (totalPriceAll - disCountPriceNewNext));
+						totalPriceAll = totalPriceAll - disCountPriceNewNext;
+						System.out.println("disCounttest" + totalPriceAll);
+						pcdatadto.setTotalPrice(totalPriceAll);
+						model.addAttribute("totalPrice",totalPriceAll);
 					} else {
 						disCountNew = Double.valueOf("0." + menberCouponDisCount);
 
 						double disCountPriceNew = totalPriceOne * disCountNew;// 割引価格
 						int disCountPriceNewNext = (int) disCountPriceNew;
 						pcdatadto.setDisCountPriceNew(disCountPriceNewNext);
-						totalPriceAll = (int) (totalPriceAll - disCountPriceNew);
-						model.addAttribute("totalPrice", (totalPriceAll - disCountPriceNewNext));
+						totalPriceAll = totalPriceAll - disCountPriceNewNext;
+						pcdatadto.setTotalPrice(totalPriceAll);
+						model.addAttribute("totalPrice",totalPriceAll);
 					}
 				} else {
 					System.out.println("会員ランク特典不使用");
@@ -4257,12 +4261,14 @@ public class ShoppingController {
 							double disCountPrice = totalPriceOne * disCountNew;// 割引数
 							pcdatadto.setTotalPriceOne((int) (totalPriceOne - disCountPrice));
 							totalPriceAll = (int) (totalPriceAll - disCountPrice);
+							pcdatadto.setTotalPrice(totalPriceAll);
 							pcdatadto.setCouponCheck(true);
 						} else {
 							double disCountNew = Double.valueOf("0.0" + disCount);
 							double disCountPrice = totalPriceOne * disCountNew;// 割引数
 							pcdatadto.setTotalPriceOne((int) (totalPriceOne - disCountPrice));
 							totalPriceAll = (int) (totalPriceAll - disCountPrice);
+							pcdatadto.setTotalPrice(totalPriceAll);
 							pcdatadto.setCouponCheck(true);
 						}
 					}
@@ -4280,12 +4286,14 @@ public class ShoppingController {
 						double disCountPrice = totalPriceOne * disCountNew;// 割引数
 						pcdatadto.setTotalPriceOne((int) (totalPriceOne - disCountPrice));
 						totalPriceAll = (int) (totalPriceAll - disCountPrice);
+						pcdatadto.setTotalPrice(totalPriceAll);
 						pcdatadto.setCouponCheck(true);
 					} else {
 						double disCountNew = Double.valueOf("0.0" + disCount);
 						double disCountPrice = totalPriceOne * disCountNew;// 割引数
 						pcdatadto.setTotalPriceOne((int) (totalPriceOne - disCountPrice));
 						totalPriceAll = (int) (totalPriceAll - disCountPrice);
+						pcdatadto.setTotalPrice(totalPriceAll);
 						pcdatadto.setCouponCheck(true);
 					}
 				}
