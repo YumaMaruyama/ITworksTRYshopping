@@ -53,7 +53,7 @@ public class MenberCouponDaoJdbcImpl implements MenberCouponDao {
 	}
 	
 	public List<MenberCouponDTO> selectMany() {
-	List<Map<String,Object>> map = jdbc.queryForList("select * from coupon");
+	List<Map<String,Object>> map = jdbc.queryForList("select * from menber_coupon");
 	
 	List<MenberCouponDTO> coupondtoList = new ArrayList<>();
 	
@@ -71,6 +71,26 @@ public class MenberCouponDaoJdbcImpl implements MenberCouponDao {
 	return coupondtoList;
 			
 }
+	
+	public List<MenberCouponDTO> selectRankNumberCheckMany(int rankNumber) {
+		List<Map<String,Object>> map = jdbc.queryForList("select * from menber_coupon where coupon_rank <= ?",rankNumber);
+		
+		List<MenberCouponDTO> coupondtoList = new ArrayList<>();
+		
+		for(Map<String,Object> oneMap : map) {
+			MenberCouponDTO coupondto = new MenberCouponDTO();
+			coupondto.setId((int)oneMap.get("id"));
+			coupondto.setDiscount((int)oneMap.get("discount"));
+			coupondto.setPurchaseCountTarget((int)oneMap.get("purchase_count_target"));
+			coupondto.setPurchaseTotalPriceTarget((int)oneMap.get("purchase_total_price_target"));
+			coupondto.setTitle((String)oneMap.get("title"));
+			coupondto.setCouponRank((int)oneMap.get("coupon_rank"));		
+			coupondtoList.add(coupondto);
+		}
+		
+		return coupondtoList;
+				
+	}
 	
 	public List<MenberCouponDTO> selectManyBeforeCoupon(int menberCouponId) {
 		List<Map<String,Object>> map = jdbc.queryForList("select * from menber_coupon where id = ?",menberCouponId);
@@ -106,6 +126,18 @@ public class MenberCouponDaoJdbcImpl implements MenberCouponDao {
 		List<Integer> menberCouponList = jdbc.queryForList("select menber_coupon.id from menber_coupon where coupon_rank <= ?",Integer.class,rankNumber);
 		return menberCouponList;
 		
-		
 	}
+	
+	public List<Integer> selectMenberCouponId() {
+		List<Integer> menberCouponList = jdbc.queryForList("select menber_coupon.id from menber_coupon",Integer.class);
+		return menberCouponList;
+	}
+
+	@Override
+	public List<MenberCouponDTO> selectManyBeforeMenberCoupon(int menberCouponId, int rankNumber) {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
+	
+	
 }

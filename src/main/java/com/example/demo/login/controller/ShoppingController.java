@@ -2375,7 +2375,7 @@ public class ShoppingController {
 			
 			
 
-			if ((allTotalPrice > 0) && (allTotalPrice < 50000)) {
+			if ((allTotalPrice >= 0) && (allTotalPrice < 50000)) {
 				rankNumber = 1;
 			} else if ((allTotalPrice >= 50000) && (allTotalPrice < 100000)) {
 				rankNumber = 2;
@@ -2410,8 +2410,9 @@ public class ShoppingController {
 			List<MenberCouponDTO> menbercoupondtoList = menberCouponService.selectMany();//ここですべて取ってきて自分のrankNumberより上のやつはDTO新規作成変数に違う値を入れる
 			
 			List<MenberCouponDTO> menbercoupondtoListNew = new ArrayList<>();
+			MenberCouponDTO menbercoupondtoOne = new MenberCouponDTO();
 			for(int i = 0; menbercoupondtoList.size() > i; i++) {
-				MenberCouponDTO menbercoupondtoOne = menbercoupondtoList.get(i);
+				 menbercoupondtoOne = menbercoupondtoList.get(i);
 				int rankNumberCheck = menbercoupondtoOne.getCouponRank();
 				if (rankNumberCheck == 1) {
 					menbercoupondtoOne.setMenberRank("アマチュアランク");
@@ -2495,11 +2496,16 @@ public class ShoppingController {
 				model.addAttribute("menbercoupondtoList",menbercoupondtoListNew);
 			}
 			
+			if(menbercoupondtoList.size() == 0) {
+				menbercoupondtoOne.setCouponUseCheck("使用不可");
+				
+			}
+			
 			
 			// 一度使用したクーポンは表示されないようにする
 			// 使用済みクーポンの一枚目のIDを使用して、使用前クーポンListを作成
 			try {
-				List<Integer> menberCouponId = menberCouponService.selectMenberCouponId(rankNumber);// 全クーポン
+				List<Integer> menberCouponId = menberCouponService.selectMenberCouponId();// 全クーポン
 				System.out.println("全クーポン" + menberCouponId);
 				System.out.println("使用済みクーポン" + menberCouponUsedId);
 				List<Integer> beforeUseMenberCouponId = new ArrayList<>();// 使用前クーポン
@@ -2539,30 +2545,85 @@ public class ShoppingController {
 
 				for (int i = 0; coupondtoList.size() > i; i++) {// クーポン情報を一つづつ取り出す
 					MenberCouponDTO coupondtoOne = coupondtoList.get(i);
-					
+					System.out.println("couponRanktest"+coupondtoOne.getCouponRank());
 					int rankNumberCheck = coupondtoOne.getCouponRank();
 					if (rankNumberCheck == 1) {
 						coupondtoOne.setMenberRank("アマチュアランク");
+						if(coupondtoOne.getCouponRank() <= rankNumber) {
+							coupondtoOne.setCouponUseCheck("使用可能");
+						}else {
+							coupondtoOne.setCouponUseCheck("使用不可");
+						}
 					} else if (rankNumberCheck == 2) {
 						coupondtoOne.setMenberRank("プロランク");
+						if(coupondtoOne.getCouponRank() <= rankNumber) {
+							coupondtoOne.setCouponUseCheck("使用可能");
+						}else {
+							coupondtoOne.setCouponUseCheck("使用不可");
+						}
 					} else if (rankNumberCheck == 3) {
 						coupondtoOne.setMenberRank("ブロンズランク");
+						if(coupondtoOne.getCouponRank() <= rankNumber) {
+							coupondtoOne.setCouponUseCheck("使用可能");
+						}else {
+							coupondtoOne.setCouponUseCheck("使用不可");
+						}
 					} else if (rankNumberCheck == 4) {
 						coupondtoOne.setMenberRank("シルバーランク");
+						if(coupondtoOne.getCouponRank() <= rankNumber) {
+							coupondtoOne.setCouponUseCheck("使用可能");
+						}else {
+							coupondtoOne.setCouponUseCheck("使用不可");
+						}
 					} else if (rankNumberCheck == 5) {
 						coupondtoOne.setMenberRank("ゴールドランク");
+						if(coupondtoOne.getCouponRank() <= rankNumber) {
+							coupondtoOne.setCouponUseCheck("使用可能");
+						}else {
+							coupondtoOne.setCouponUseCheck("使用不可");
+						}
 					} else if (rankNumberCheck == 6) {
 						coupondtoOne.setMenberRank("ダイヤモンドランク");
+						if(coupondtoOne.getCouponRank() <= rankNumber) {
+							coupondtoOne.setCouponUseCheck("使用可能");
+						}else {
+							coupondtoOne.setCouponUseCheck("使用不可");
+						}
 					} else if (rankNumberCheck == 7) {
 						coupondtoOne.setMenberRank("プラチナランク");
+						if(coupondtoOne.getCouponRank() <= rankNumber) {
+							coupondtoOne.setCouponUseCheck("使用可能");
+						}else {
+							coupondtoOne.setCouponUseCheck("使用不可");
+						}
 					} else if (rankNumberCheck == 8) {
 						coupondtoOne.setMenberRank("エイリアンランク");
+						if(coupondtoOne.getCouponRank() <= rankNumber) {
+							coupondtoOne.setCouponUseCheck("使用可能");
+						}else {
+							coupondtoOne.setCouponUseCheck("使用不可");
+						}
 					} else if (rankNumberCheck == 9) {
 						coupondtoOne.setMenberRank("ゴッドフォックスランク");
+						if(coupondtoOne.getCouponRank() <= rankNumber) {
+							coupondtoOne.setCouponUseCheck("使用可能");
+						}else {
+							coupondtoOne.setCouponUseCheck("使用不可");
+						}
 					} else if (rankNumberCheck == 10) {
 						coupondtoOne.setMenberRank("プレミアムゴッドランク");
+						if(coupondtoOne.getCouponRank() <= rankNumber) {
+							coupondtoOne.setCouponUseCheck("使用可能");
+						}else {
+							coupondtoOne.setCouponUseCheck("使用不可");
+						}
 					} else if (rankNumberCheck == 11) {
 						coupondtoOne.setMenberRank("InductedIntoTheHalOfFameRank");
+						if(coupondtoOne.getCouponRank() <= rankNumber) {
+							coupondtoOne.setCouponUseCheck("使用可能");
+						}else {
+							coupondtoOne.setCouponUseCheck("使用不可");
+						}
 					}
 					
 					coupondtoListAdd.add(coupondtoOne);
@@ -2584,26 +2645,81 @@ public class ShoppingController {
 					int rankNumberCheck = coupondtoOne.getCouponRank();
 					if (rankNumberCheck == 1) {
 						coupondtoOne.setMenberRank("アマチュアランク");
+						if(coupondtoOne.getCouponRank() <= rankNumber) {
+							coupondtoOne.setCouponUseCheck("使用可能");
+						}else {
+							coupondtoOne.setCouponUseCheck("使用不可");
+						}
 					} else if (rankNumberCheck == 2) {
 						coupondtoOne.setMenberRank("プロランク");
+						if(coupondtoOne.getCouponRank() <= rankNumber) {
+							coupondtoOne.setCouponUseCheck("使用可能");
+						}else {
+							coupondtoOne.setCouponUseCheck("使用不可");
+						}
 					} else if (rankNumberCheck == 3) {
 						coupondtoOne.setMenberRank("ブロンズランク");
+						if(coupondtoOne.getCouponRank() <= rankNumber) {
+							coupondtoOne.setCouponUseCheck("使用可能");
+						}else {
+							coupondtoOne.setCouponUseCheck("使用不可");
+						}
 					} else if (rankNumberCheck == 4) {
 						coupondtoOne.setMenberRank("シルバーランク");
+						if(coupondtoOne.getCouponRank() <= rankNumber) {
+							coupondtoOne.setCouponUseCheck("使用可能");
+						}else {
+							coupondtoOne.setCouponUseCheck("使用不可");
+						}
 					} else if (rankNumberCheck == 5) {
 						coupondtoOne.setMenberRank("ゴールドランク");
+						if(coupondtoOne.getCouponRank() <= rankNumber) {
+							coupondtoOne.setCouponUseCheck("使用可能");
+						}else {
+							coupondtoOne.setCouponUseCheck("使用不可");
+						}
 					} else if (rankNumberCheck == 6) {
 						coupondtoOne.setMenberRank("ダイヤモンドランク");
+						if(coupondtoOne.getCouponRank() <= rankNumber) {
+							coupondtoOne.setCouponUseCheck("使用可能");
+						}else {
+							coupondtoOne.setCouponUseCheck("使用不可");
+						}
 					} else if (rankNumberCheck == 7) {
 						coupondtoOne.setMenberRank("プラチナランク");
+						if(coupondtoOne.getCouponRank() <= rankNumber) {
+							coupondtoOne.setCouponUseCheck("使用可能");
+						}else {
+							coupondtoOne.setCouponUseCheck("使用不可");
+						}
 					} else if (rankNumberCheck == 8) {
 						coupondtoOne.setMenberRank("エイリアンランク");
+						if(coupondtoOne.getCouponRank() <= rankNumber) {
+							coupondtoOne.setCouponUseCheck("使用可能");
+						}else {
+							coupondtoOne.setCouponUseCheck("使用不可");
+						}
 					} else if (rankNumberCheck == 9) {
 						coupondtoOne.setMenberRank("ゴッドフォックスランク");
+						if(coupondtoOne.getCouponRank() <= rankNumber) {
+							coupondtoOne.setCouponUseCheck("使用可能");
+						}else {
+							coupondtoOne.setCouponUseCheck("使用不可");
+						}
 					} else if (rankNumberCheck == 10) {
 						coupondtoOne.setMenberRank("プレミアムゴッドランク");
+						if(coupondtoOne.getCouponRank() <= rankNumber) {
+							coupondtoOne.setCouponUseCheck("使用可能");
+						}else {
+							coupondtoOne.setCouponUseCheck("使用不可");
+						}
 					} else if (rankNumberCheck == 11) {
 						coupondtoOne.setMenberRank("InductedIntoTheHalOfFameRank");
+						if(coupondtoOne.getCouponRank() <= rankNumber) {
+							coupondtoOne.setCouponUseCheck("使用可能");
+						}else {
+							coupondtoOne.setCouponUseCheck("使用不可");
+						}
 					}
 					
 					coupondtoListAdd.add(coupondtoOne);
@@ -2617,7 +2733,9 @@ public class ShoppingController {
 					}
 
 				}
+			
 			}
+			
 			
 			return "shopping/productListLayout";
 			
@@ -2972,7 +3090,7 @@ public class ShoppingController {
 
 			for (int i = 0; beforeUseMenberCouponId.size() > i; i++) {
 				List<MenberCouponDTO> dummyCoupondtoList = new ArrayList<>();
-				dummyCoupondtoList = menberCouponService.selectManyBeforeCoupon(beforeUseMenberCouponId.get(i));// couponテーブルからクーポン情報をすべて取得
+				dummyCoupondtoList = menberCouponService.selectManyBeforeMenberCoupon(beforeUseMenberCouponId.get(i),rankNumber);// couponテーブルからクーポン情報をすべて取得
 				coupondtoList.addAll(dummyCoupondtoList);
 
 			}
@@ -3019,7 +3137,7 @@ public class ShoppingController {
 			e.printStackTrace();
 
 			List<MenberCouponDTO> coupondtoListAdd = new ArrayList<>();
-			List<MenberCouponDTO> coupondtoList = menberCouponService.selectMany();
+			List<MenberCouponDTO> coupondtoList = menberCouponService.selectRankNumberCheckMany(rankNumber);
 			for (int i = 0; coupondtoList.size() > i; i++) {// クーポン情報を一つづつ取り出す
 				MenberCouponDTO coupondtoOne = coupondtoList.get(i);
 

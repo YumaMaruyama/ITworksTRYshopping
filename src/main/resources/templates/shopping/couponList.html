@@ -12,7 +12,7 @@
 			<table>
 			<tr>
 			<td><h1 class="titleDesign">クーポン情報</h1></td>
-			<td><a th:href="@{/menberCouponSee}">会員ランク特典クーポンを見る</a></td>
+			<td><a th:href="@{/menberCouponList}">会員ランク特典クーポン情報</a></td>
 			</tr></table>
 		</header>
 		
@@ -29,7 +29,7 @@
 				<th class="text-center couponListThPurchaseCountTarget">取得条件1(商品購入数)</th>
 				<th class="text-center couponListThPurchaseTotalPriceTarget">取得条件2(合計購入金額)</th>
 				<th class="text-center couponListThExpirationDate">期限日</th>
-				<th class="text-center couponListThCouponDetail">取得詳細</th>
+				<th class="text-center couponListThCouponDetail">利用詳細</th>
 			</tr>
 			
 			<tr class="couponListTdColor">
@@ -38,7 +38,7 @@
 				<td class="text-center couponListTdPurchaseCountTarget" th:text="${coupondto.purchaseCountTarget} + '個以上'"></td>
 				<td class="text-center couponListTdPurchaseTotalPriceTarget" th:text="${coupondto.purchaseTotalPriceTarget} + '円以上'"></td>
 				<td class="text-center couponListTdExpirationDate" th:text="${#dates.format(coupondto.expirationDate,'yyyy/MM/dd')} + 'まで'"></td>
-				<td th:if="${coupondto.couponCheck} == true" class="text-center text-danger couponListTdCouponDetail">取得済み</td>
+				<td th:if="${coupondto.couponCheck} == true" class="text-center text-danger couponListTdCouponDetail">使用可能</td>
 				<td th:if="${coupondto.couponCheck} == false" class="text-center couponListTdCouponDetail">使用不可</td>
 			</tr>
 		
