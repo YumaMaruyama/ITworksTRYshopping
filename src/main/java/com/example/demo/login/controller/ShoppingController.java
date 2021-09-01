@@ -1186,6 +1186,129 @@ public class ShoppingController {
 
 		return "shopping/productListLayout";
 	}
+	
+//	@GetMapping("/userPurchaseHistory/{id}")
+//	public String getUserPurchaseHistory(@ModelAttribute PcDataForm form,@PathVariable("id") int userId,Model model) {
+//		
+//		// 購入商品情報リスト取得
+//				List<PurchaseDTO> purchasedtoList = purchaseService.selectHistory(userId);
+//
+//				PurchaseDTO purchasedto = new PurchaseDTO();
+//
+//				List<PurchaseDTO> allPurchaseList = new ArrayList<>();
+//				PurchaseDTO customList;
+//				// 購入商品を一つづつ回して値を受け取る
+//				for (int i = 0; purchasedtoList.size() > i; i++) {
+//					PurchaseDTO purchasedtoAdd = new PurchaseDTO();
+//
+//					PurchaseDTO purchaseOne = purchasedtoList.get(i);
+//					purchasedtoAdd.setId(purchaseOne.getId());// カスタム情報取得に使用
+//					purchasedtoAdd.setPurchaseId(purchaseOne.getPurchaseId());
+//					purchasedtoAdd.setPurchase_date(purchaseOne.getPurchase_date());
+//					purchasedtoAdd.setCancelCheck(purchaseOne.getCancelCheck());
+//					purchasedtoAdd.setCouponId(purchaseOne.getCouponId());
+//					purchasedtoAdd.setPcName(purchaseOne.getPcName());
+//					purchasedtoAdd.setPrice(purchaseOne.getPrice());
+//					purchasedtoAdd.setPcImg(purchaseOne.getPcImg());
+//					purchasedtoAdd.setProduct_count(purchaseOne.getProduct_count());
+//					purchasedtoAdd.setPurchaseCheck(purchaseOne.getPurchaseCheck());
+//					purchasedtoAdd.setMenberCouponCheck(purchaseOne.getMenberCouponCheck());
+//
+//					// 購入商品ごとのカスタム情報も取り出す
+//
+//					int productId = purchasedtoAdd.getId();
+//					System.out.println("productId" + productId);
+//					System.out.println(userId);
+//					int customId = purchasedtoAdd.getCustom_id();
+//					System.out.println("customId");
+//					String nullCheck = "null";
+//					int getCustomId = customService.selectPurchaseCheck(userId, productId, purchasedtoAdd.getPurchaseCheck(),
+//							nullCheck);
+//					System.out.println("getCustomId" + getCustomId);
+//
+//					customList = customService.selectMany(getCustomId);
+//					System.out.println("costomList" + customList);
+//
+//					purchasedtoAdd.setMemory(customList.getMemory());
+//					purchasedtoAdd.setHardDisc(customList.getHardDisc());
+//					purchasedtoAdd.setCpu(customList.getCpu());
+//					purchasedtoAdd.setCustomPrice(customList.getCustomPrice());
+//					purchasedtoAdd.setTotalPrice(
+//							purchaseOne.getProduct_count() * (customList.getCustomPrice() + purchaseOne.getPrice()));
+//
+//					if (purchasedtoAdd.getMenberCouponCheck().equals("会員クーポン使用")) {
+//						System.out.println("クーポン使用！");
+//						int totalPrice = purchasedtoAdd.getTotalPrice();
+//						MenberCouponDTO menbercoupondto = menberCouponService.selectOne(purchasedtoAdd.getCouponId());// 会員DBからとる
+//						int disCount = menbercoupondto.getDiscount();// 割引率(%)
+//						if (disCount >= 10) {
+//							double disCountNew = Double.valueOf("0." + disCount);
+//							double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+//							purchasedtoAdd.setTotalPrice((int) (totalPrice - disCountPriceNew));
+//						} else {
+//							double disCountNew = Double.valueOf("0.0" + disCount);
+//							double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+//							purchasedtoAdd.setTotalPrice((int) (totalPrice - disCountPriceNew));
+//						}
+//					} else {
+//
+//						if (purchasedtoAdd.getCouponId() > 0) {
+//							System.out.println("クーポン使用！");
+//							int totalPrice = purchasedtoAdd.getTotalPrice();
+//							CouponDTO coupondto = couponService.selectOne(purchasedtoAdd.getCouponId());
+//							int disCount = coupondto.getDiscount();// 割引率(%)
+//							if (disCount >= 10) {
+//								double disCountNew = Double.valueOf("0." + disCount);
+//								double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+//								purchasedtoAdd.setTotalPrice((int) (totalPrice - disCountPriceNew));
+//							} else {
+//								double disCountNew = Double.valueOf("0.0" + disCount);
+//								double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+//								purchasedtoAdd.setTotalPrice((int) (totalPrice - disCountPriceNew));
+//							}
+//						}
+//					}
+//					// Date purchaseDate = purchasedtoAdd.getPurchase_date();
+//					Calendar calendar = Calendar.getInstance();
+//					Date now = calendar.getTime();
+//					calendar.setTime(purchasedtoAdd.getPurchase_date());
+//					Date purchaseDate = calendar.getTime();// 購入日付
+//					model.addAttribute("purchaseCheck", purchaseDate);
+//					calendar.add(Calendar.DATE, 10);
+//					Date purchaseDateAddTen = calendar.getTime();// キャンセル期間外の購入日付から10日後の日付
+//					model.addAttribute("result", purchaseDateAddTen);
+//					System.out.println("pur" + purchaseDate.getTime());
+//					System.out.println("now" + now.getTime());
+//					long d = (purchaseDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24);// 購入日と現在の日付を比べる
+//					int count = (int) -d;
+//
+//					if (count <= 10) {
+//						System.out.println("true");
+//						purchasedtoAdd.setCancelResult("true");
+//					} else {
+//						purchasedtoAdd.setCancelResult("false");
+//					}
+//
+//					System.out.println("testfalse");
+//					CancelDTO canceldto = cancelService.selectCancelCheck(purchasedtoAdd.getPurchaseId());
+//					System.out.println("testdd" + canceldto);
+//					if (canceldto.getCancelCheck() != null) {
+//						System.out.println("truefdfdfffdf");
+//						purchasedtoAdd.setCancelResult("true");
+//					}
+//
+//					System.out.println("purId" + purchasedtoAdd.getPurchaseId());
+//
+//					allPurchaseList.add(purchasedtoAdd);
+//					System.out.println("allPurchaseList" + allPurchaseList);
+//
+//				}
+//
+//				model.addAttribute("purchaseList", allPurchaseList);
+//				model.addAttribute("confirmationPending", "返品商品確認待ち");
+//				model.addAttribute("inTransaction", "キャンセル取引中");
+//				return "shopping/productListLayout";
+//	}
 
 	@GetMapping("/reviewAdd/{id}")
 	public String getReviewAdd(@ModelAttribute ReviewForm form, @PathVariable("id") int id, Model model) {
@@ -3091,8 +3214,14 @@ public class ShoppingController {
 			for (int i = 0; beforeUseMenberCouponId.size() > i; i++) {
 				List<MenberCouponDTO> dummyCoupondtoList = new ArrayList<>();
 				dummyCoupondtoList = menberCouponService.selectManyBeforeMenberCoupon(beforeUseMenberCouponId.get(i),rankNumber);// couponテーブルからクーポン情報をすべて取得
+				try {
 				coupondtoList.addAll(dummyCoupondtoList);
+				
 
+			}catch(NullPointerException e) {
+				e.printStackTrace();
+				
+			}
 			}
 			System.out.println("coupondtoList" + coupondtoList);
 			List<MenberCouponDTO> coupondtoListAdd = new ArrayList<>();
