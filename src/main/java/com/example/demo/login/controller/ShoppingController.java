@@ -2315,205 +2315,10 @@ public class ShoppingController {
 		}
 		return "shopping/productListLayout";
 	}
-
-	@GetMapping("/couponSee")
-	public String getCouponSee(@ModelAttribute CouponForm form, Model model) {
-		model.addAttribute("contents", "shopping/couponSee::productListLayout_contents");
-
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		System.out.println("auth" + auth.getName());
-		String getName = auth.getName();
-		int userId = usersService.select_id(getName);// メソッドに入ったユーザーのIDを取得
-
-		int allProductCount = 0;
-		int allTotalPrice = 0;
-		List<PurchaseDTO> purchasedtoList = purchaseService.selectHistory(userId);// メソッドに入ったユーザーの購入情報を取得
-		List<PurchaseDTO> allPurchaseList = new ArrayList<>();
-		List<Integer> couponUsedId = new ArrayList<>();// 使用済みクーポンIDを格納
-		List<Integer> menberCouponUsedId = new ArrayList<>();//使用済みmenberCouponIDを格納
-		PurchaseDTO customList;
-		// 購入商品を一つづつ回して値を受け取る
-		for (int i = 0; purchasedtoList.size() > i; i++) {
-			PurchaseDTO purchasedtoAdd = new PurchaseDTO();
-			PurchaseDTO purchaseOne = purchasedtoList.get(i);
-			purchasedtoAdd.setId(purchaseOne.getId());// カスタム情報取得に使用
-			purchasedtoAdd.setCancelCheck(purchaseOne.getCancelCheck());
-			purchasedtoAdd.setPrice(purchaseOne.getPrice());
-			purchasedtoAdd.setProduct_count(purchaseOne.getProduct_count());
-			purchasedtoAdd.setPurchaseCheck(purchaseOne.getPurchaseCheck());
-			purchasedtoAdd.setCouponId(purchaseOne.getCouponId());// 購入者のクーポンID情報を取得
-			purchasedtoAdd.setMenberCouponCheck(purchaseOne.getMenberCouponCheck());//クーポンを使用したかどうかを判別するための値(menberCoupon or coupon　or notCoupon)
-			
-			if(purchasedtoAdd.getMenberCouponCheck().equals("会員クーポン使用")) {
-				int couponId = purchasedtoAdd.getCouponId();
-				menberCouponUsedId.add(couponId);//menberCouponリスト
-			}else {
-			
-			if (purchasedtoAdd.getCouponId() > 0) {// クーポンを使用して購入していればtrue
-				int couponId = purchasedtoAdd.getCouponId();
-				couponUsedId.add(couponId);//couponリスト
-			} else {
-				couponUsedId.add(-1);
-			}
-			}
-			int productId = purchasedtoAdd.getId();
-			// 購入商品ごとのカスタム情報も取り出す
-			String nullCheck = "null";
-			int getCustomId = customService.selectPurchaseCheck(userId, productId, purchasedtoAdd.getPurchaseCheck(),
-					nullCheck);
-
-			customList = customService.selectMany(getCustomId);// customテーブルのIDでカスタム情報を取得
-			purchasedtoAdd.setCustomPrice(customList.getCustomPrice());
-			purchasedtoAdd.setTotalPrice(
-					purchaseOne.getProduct_count() * (customList.getCustomPrice() + purchaseOne.getPrice()));
-			allTotalPrice = allTotalPrice + purchasedtoAdd.getTotalPrice();// ユーザーの購入した商品の合計金額を取得
-			allProductCount = allProductCount + purchasedtoAdd.getProduct_count();// ユーザーの購入した商品の数を取得
-			model.addAttribute("purchaseCount", allProductCount);
-			model.addAttribute("allTotalPrice", allTotalPrice);
-			allPurchaseList.add(purchasedtoAdd);
-		}
-		
-		
-		
-
-		// 一度使用したクーポンは表示されないようにする
-		// 使用済みクーポンの一枚目のIDを使用して、使用前クーポンListを作成
-		try {
-			List<Integer> couponId = couponService.selectIdMany();// 全クーポン
-			System.out.println("全クーポン" + couponId);
-			System.out.println("使用済みクーポン" + couponUsedId);
-			List<Integer> beforeUseCouponId = new ArrayList<>();// 使用前クーポン
-			for (int i = 0; couponId.size() > i; i++) {// 全クーポンの数文入る
-				if (couponId.get(i) != couponUsedId.get(0)) {// 全クーポンと使用済みクーポンの最初に一枚を比べて、使用前クーポンならtrue
-					beforeUseCouponId.add(couponId.get(i));// 使用済みクーポン一枚に対しての、使用前クーポンListを構築
-				}
-				System.out.println("beforeUseCouponId" + beforeUseCouponId);
-			}
-
-			// 上記で使用済みクーポン一枚に対しての、使用前クーポンListを構築したため下記に移る
-			// 下記では残りの使用済みクーポンIDを上記で作成した使用前クーポンListと比べている
-
-			if (couponUsedId.size() >= 2) {// 使用済みクーポンが2枚以上あればtrue
-				for (int x = 1; couponUsedId.size() > x; x++) {// 上記のコードで使用した使用済みクーポン１枚を除いた使用済みクーポン文を繰り返す
-					List<Integer> dummyBeforeUseCouponId = new ArrayList<>();
-					for (int i = 0; beforeUseCouponId.size() > i; i++) {// 上記で構築した使用前クーポンの数文繰り返す
-						if (beforeUseCouponId.get(i) != couponUsedId.get(x)) {
-							dummyBeforeUseCouponId.add(beforeUseCouponId.get(i));
-						}
-					}
-					beforeUseCouponId = dummyBeforeUseCouponId;
-				}
-				System.out.println("beforeUseCouponId" + beforeUseCouponId);
-			}
-
-			List<CouponDTO> coupondtoList = new ArrayList<>();
-
-			for (int i = 0; beforeUseCouponId.size() > i; i++) {
-				List<CouponDTO> dummyCoupondtoList = new ArrayList<>();
-				dummyCoupondtoList = couponService.selectMany(beforeUseCouponId.get(i));// couponテーブルからクーポン情報をすべて取得
-				coupondtoList.addAll(dummyCoupondtoList);
-			}
-			List<CouponDTO> coupondtoListAdd = new ArrayList<>();
-
-			for (int i = 0; coupondtoList.size() > i; i++) {// クーポン情報を一つづつ取り出す
-				CouponDTO coupondtoOne = coupondtoList.get(i);
-				int allCount = coupondtoOne.getPurchaseCountTarget();
-				int allPrice = coupondtoOne.getPurchaseTotalPriceTarget();
-
-				Calendar calendar = Calendar.getInstance();
-				Date now = calendar.getTime();
-				calendar.setTime(coupondtoOne.getExpirationDate());
-				Date expirationDate = calendar.getTime();// 購入日付
-				model.addAttribute("expirationDate", expirationDate);
-				System.out.println("nw" + now);
-				System.out.println("ex" + expirationDate);
-				long d = (expirationDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24);// 購入日と現在の日付を比べる
-				int count = (int) -d;
-				System.out.println("count+++++++++++++++++++++++++++++++" + count);
-
-				boolean countCheck = false;
-				boolean priceCheck = false;
-
-				if (allProductCount >= allCount) {// ユーザーの商品購入数と、クーポンの使用条件の商品購入数を比較
-					countCheck = true;
-				}
-				if (allTotalPrice >= allPrice) {// ユーザーの全商品購入金額と、クーポンの使用条件の全商品購入金額を比較
-					priceCheck = true;
-				}
-
-				coupondtoOne.setCouponCheck(false);
-				if ((countCheck == true) && (priceCheck == true)) {// 商品購入数と全商品購入金額がクーポンの使用条件に達しているか比較
-					coupondtoOne.setCouponCheck(true);
-				}
-
-				if (coupondtoOne.isCouponCheck() == true) {// 商品購入数と全商品購入金額がクーポンの使用条件に達しているもののみList追加
-					if (count < 0) {
-						coupondtoListAdd.add(coupondtoOne);
-					}
-					System.out.println("couponCheck" + coupondtoOne.isCouponCheck());
-
-				}
-			}
-
-			model.addAttribute("couponList", coupondtoListAdd);
-			if(coupondtoListAdd.size() == 0) {
-				model.addAttribute("notCoupon","yes");
-				}
-		} catch (IndexOutOfBoundsException e) {
-			e.printStackTrace();
-
-			List<CouponDTO> coupondtoListAdd = new ArrayList<>();
-			List<CouponDTO> coupondtoList = couponService.beforePurchaseSelectMany();
-			for (int i = 0; coupondtoList.size() > i; i++) {// クーポン情報を一つづつ取り出す
-				CouponDTO coupondtoOne = coupondtoList.get(i);
-				int allCount = coupondtoOne.getPurchaseCountTarget();
-				int allPrice = coupondtoOne.getPurchaseTotalPriceTarget();
-
-				boolean countCheck = false;
-				boolean priceCheck = false;
-
-				if (allProductCount >= allCount) {// ユーザーの商品購入数と、クーポンの使用条件の商品購入数を比較
-					countCheck = true;
-				}
-				if (allTotalPrice >= allPrice) {// ユーザーの全商品購入金額と、クーポンの使用条件の全商品購入金額を比較
-					priceCheck = true;
-				}
-
-				coupondtoOne.setCouponCheck(false);
-				if ((countCheck == true) && (priceCheck == true)) {// 商品購入数と全商品購入金額がクーポンの使用条件に達しているか比較
-					coupondtoOne.setCouponCheck(true);
-				}
-				model.addAttribute("notCoupon", "yes");
-				if (coupondtoOne.isCouponCheck() == true) {
-					Calendar calendar = Calendar.getInstance();
-					Date now = calendar.getTime();
-					calendar.setTime(coupondtoOne.getExpirationDate());
-					Date expirationDate = calendar.getTime();// 購入日付
-					model.addAttribute("expirationDate", expirationDate);
-					System.out.println("nw" + now);
-					System.out.println("ex" + expirationDate);
-					long d = (expirationDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24);// 購入日と現在の日付を比べる
-					int count = (int) -d;
-					System.out.println("count+++++++++++++++++++++++++++++++" + count);
-					if (count < 0) {
-						coupondtoListAdd.add(coupondtoOne);
-					}
-					model.addAttribute("notCoupon", "no");
-				}
-
-				System.out.println("couponCheck" + coupondtoOne.isCouponCheck());
-				model.addAttribute("couponList", coupondtoListAdd);
-			}
-			model.addAttribute("purchaseCount", 0);
-			model.addAttribute("allTotalPrice", 0);
-
-		}
-		return "shopping/productListLayout";
-	}
-
-	@GetMapping("/menberCouponSee")
-	public String getMenberCouponSee(@ModelAttribute MenberCouponForm form, Model model) {
-		model.addAttribute("contents", "shopping/menberCouponSee::productListLayout_contents");
+	
+	@GetMapping("/menberCouponList")
+	public String getMenberCouponList(@ModelAttribute MenberCouponForm form, Model model) {
+		model.addAttribute("contents", "shopping/menberCouponList::productListLayout_contents");
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
@@ -2602,7 +2407,7 @@ public class ShoppingController {
 	
 	
 
-			List<MenberCouponDTO> menbercoupondtoList = menberCouponService.selectMany(rankNumber);
+			List<MenberCouponDTO> menbercoupondtoList = menberCouponService.selectMany();//ここですべて取ってきて自分のrankNumberより上のやつはDTO新規作成変数に違う値を入れる
 			
 			List<MenberCouponDTO> menbercoupondtoListNew = new ArrayList<>();
 			for(int i = 0; menbercoupondtoList.size() > i; i++) {
@@ -2610,26 +2415,81 @@ public class ShoppingController {
 				int rankNumberCheck = menbercoupondtoOne.getCouponRank();
 				if (rankNumberCheck == 1) {
 					menbercoupondtoOne.setMenberRank("アマチュアランク");
+					if(menbercoupondtoOne.getCouponRank() <= rankNumber) {
+						menbercoupondtoOne.setCouponUseCheck("使用可能");
+					}else {
+						menbercoupondtoOne.setCouponUseCheck("使用不可");
+					}
 				} else if (rankNumberCheck == 2) {
 					menbercoupondtoOne.setMenberRank("プロランク");
+					if(menbercoupondtoOne.getCouponRank() <= rankNumber) {
+						menbercoupondtoOne.setCouponUseCheck("使用可能");
+					}else {
+						menbercoupondtoOne.setCouponUseCheck("使用不可");
+					}
 				} else if (rankNumberCheck == 3) {
 					menbercoupondtoOne.setMenberRank("ブロンズランク");
+					if(menbercoupondtoOne.getCouponRank() <= rankNumber) {
+						menbercoupondtoOne.setCouponUseCheck("使用可能");
+					}else {
+						menbercoupondtoOne.setCouponUseCheck("使用不可");
+					}
 				} else if (rankNumberCheck == 4) {
 					menbercoupondtoOne.setMenberRank("シルバーランク");
+					if(menbercoupondtoOne.getCouponRank() <= rankNumber) {
+						menbercoupondtoOne.setCouponUseCheck("使用可能");
+					}else {
+						menbercoupondtoOne.setCouponUseCheck("使用不可");
+					}
 				} else if (rankNumberCheck == 5) {
 					menbercoupondtoOne.setMenberRank("ゴールドランク");
+					if(menbercoupondtoOne.getCouponRank() <= rankNumber) {
+						menbercoupondtoOne.setCouponUseCheck("使用可能");
+					}else {
+						menbercoupondtoOne.setCouponUseCheck("使用不可");
+					}
 				} else if (rankNumberCheck == 6) {
 					menbercoupondtoOne.setMenberRank("ダイヤモンドランク");
+					if(menbercoupondtoOne.getCouponRank() <= rankNumber) {
+						menbercoupondtoOne.setCouponUseCheck("使用可能");
+					}else {
+						menbercoupondtoOne.setCouponUseCheck("使用不可");
+					}
 				} else if (rankNumberCheck == 7) {
 					menbercoupondtoOne.setMenberRank("プラチナランク");
+					if(menbercoupondtoOne.getCouponRank() <= rankNumber) {
+						menbercoupondtoOne.setCouponUseCheck("使用可能");
+					}else {
+						menbercoupondtoOne.setCouponUseCheck("使用不可");
+					}
 				} else if (rankNumberCheck == 8) {
 					menbercoupondtoOne.setMenberRank("エイリアンランク");
+					if(menbercoupondtoOne.getCouponRank() <= rankNumber) {
+						menbercoupondtoOne.setCouponUseCheck("使用可能");
+					}else {
+						menbercoupondtoOne.setCouponUseCheck("使用不可");
+					}
 				} else if (rankNumberCheck == 9) {
 					menbercoupondtoOne.setMenberRank("ゴッドフォックスランク");
+					if(menbercoupondtoOne.getCouponRank() <= rankNumber) {
+						menbercoupondtoOne.setCouponUseCheck("使用可能");
+					}else {
+						menbercoupondtoOne.setCouponUseCheck("使用不可");
+					}
 				} else if (rankNumberCheck == 10) {
 					menbercoupondtoOne.setMenberRank("プレミアムゴッドランク");
+					if(menbercoupondtoOne.getCouponRank() <= rankNumber) {
+						menbercoupondtoOne.setCouponUseCheck("使用可能");
+					}else {
+						menbercoupondtoOne.setCouponUseCheck("使用不可");
+					}
 				} else if (rankNumberCheck == 11) {
 					menbercoupondtoOne.setMenberRank("InductedIntoTheHalOfFameRank");
+					if(menbercoupondtoOne.getCouponRank() <= rankNumber) {
+						menbercoupondtoOne.setCouponUseCheck("使用可能");
+					}else {
+						menbercoupondtoOne.setCouponUseCheck("使用不可");
+					}
 				}
 				menbercoupondtoListNew.add(menbercoupondtoOne);
 				model.addAttribute("menbercoupondtoList",menbercoupondtoListNew);
@@ -2766,6 +2626,443 @@ public class ShoppingController {
 
 	}
 
+	@GetMapping("/couponSee")
+	public String getCouponSee(@ModelAttribute CouponForm form, Model model) {
+		model.addAttribute("contents", "shopping/couponSee::productListLayout_contents");
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println("auth" + auth.getName());
+		String getName = auth.getName();
+		int userId = usersService.select_id(getName);// メソッドに入ったユーザーのIDを取得
+
+		int allProductCount = 0;
+		int allTotalPrice = 0;
+		List<PurchaseDTO> purchasedtoList = purchaseService.selectHistory(userId);// メソッドに入ったユーザーの購入情報を取得
+		List<PurchaseDTO> allPurchaseList = new ArrayList<>();
+		List<Integer> couponUsedId = new ArrayList<>();// 使用済みクーポンIDを格納
+		List<Integer> menberCouponUsedId = new ArrayList<>();// 使用済みmenberCouponIDを格納
+		PurchaseDTO customList;
+		// 購入商品を一つづつ回して値を受け取る
+		for (int i = 0; purchasedtoList.size() > i; i++) {
+			PurchaseDTO purchasedtoAdd = new PurchaseDTO();
+			PurchaseDTO purchaseOne = purchasedtoList.get(i);
+			purchasedtoAdd.setId(purchaseOne.getId());// カスタム情報取得に使用
+			purchasedtoAdd.setCancelCheck(purchaseOne.getCancelCheck());
+			purchasedtoAdd.setPrice(purchaseOne.getPrice());
+			purchasedtoAdd.setProduct_count(purchaseOne.getProduct_count());
+			purchasedtoAdd.setPurchaseCheck(purchaseOne.getPurchaseCheck());
+			purchasedtoAdd.setCouponId(purchaseOne.getCouponId());// 購入者のクーポンID情報を取得
+			purchasedtoAdd.setMenberCouponCheck(purchaseOne.getMenberCouponCheck());// クーポンを使用したかどうかを判別するための値(menberCoupon
+																					// or coupon or notCoupon)
+
+			if (purchasedtoAdd.getMenberCouponCheck().equals("会員クーポン使用")) {
+				int couponId = purchasedtoAdd.getCouponId();
+				menberCouponUsedId.add(couponId);// menberCouponリスト
+			} else {
+
+				if (purchasedtoAdd.getCouponId() > 0) {// クーポンを使用して購入していればtrue
+					int couponId = purchasedtoAdd.getCouponId();
+					couponUsedId.add(couponId);// couponリスト
+				} else {
+					couponUsedId.add(-1);
+				}
+			}
+			int productId = purchasedtoAdd.getId();
+			// 購入商品ごとのカスタム情報も取り出す
+			String nullCheck = "null";
+			int getCustomId = customService.selectPurchaseCheck(userId, productId, purchasedtoAdd.getPurchaseCheck(),
+					nullCheck);
+
+			customList = customService.selectMany(getCustomId);// customテーブルのIDでカスタム情報を取得
+			purchasedtoAdd.setCustomPrice(customList.getCustomPrice());
+			purchasedtoAdd.setTotalPrice(
+					purchaseOne.getProduct_count() * (customList.getCustomPrice() + purchaseOne.getPrice()));
+			allTotalPrice = allTotalPrice + purchasedtoAdd.getTotalPrice();// ユーザーの購入した商品の合計金額を取得
+			allProductCount = allProductCount + purchasedtoAdd.getProduct_count();// ユーザーの購入した商品の数を取得
+			model.addAttribute("purchaseCount", allProductCount);
+			model.addAttribute("allTotalPrice", allTotalPrice);
+			allPurchaseList.add(purchasedtoAdd);
+		}
+
+		// 一度使用したクーポンは表示されないようにする
+		// 使用済みクーポンの一枚目のIDを使用して、使用前クーポンListを作成
+		try {
+			List<Integer> couponId = couponService.selectIdMany();// 全クーポン
+			System.out.println("全クーポン" + couponId);
+			System.out.println("使用済みクーポン" + couponUsedId);
+			List<Integer> beforeUseCouponId = new ArrayList<>();// 使用前クーポン
+			for (int i = 0; couponId.size() > i; i++) {// 全クーポンの数文入る
+				if (couponId.get(i) != couponUsedId.get(0)) {// 全クーポンと使用済みクーポンの最初に一枚を比べて、使用前クーポンならtrue
+					beforeUseCouponId.add(couponId.get(i));// 使用済みクーポン一枚に対しての、使用前クーポンListを構築
+				}
+				System.out.println("beforeUseCouponId" + beforeUseCouponId);
+			}
+
+			// 上記で使用済みクーポン一枚に対しての、使用前クーポンListを構築したため下記に移る
+			// 下記では残りの使用済みクーポンIDを上記で作成した使用前クーポンListと比べている
+
+			if (couponUsedId.size() >= 2) {// 使用済みクーポンが2枚以上あればtrue
+				for (int x = 1; couponUsedId.size() > x; x++) {// 上記のコードで使用した使用済みクーポン１枚を除いた使用済みクーポン文を繰り返す
+					List<Integer> dummyBeforeUseCouponId = new ArrayList<>();
+					for (int i = 0; beforeUseCouponId.size() > i; i++) {// 上記で構築した使用前クーポンの数文繰り返す
+						if (beforeUseCouponId.get(i) != couponUsedId.get(x)) {
+							dummyBeforeUseCouponId.add(beforeUseCouponId.get(i));
+						}
+					}
+					beforeUseCouponId = dummyBeforeUseCouponId;
+				}
+				System.out.println("beforeUseCouponId" + beforeUseCouponId);
+			}
+
+			List<CouponDTO> coupondtoList = new ArrayList<>();
+
+			for (int i = 0; beforeUseCouponId.size() > i; i++) {
+				List<CouponDTO> dummyCoupondtoList = new ArrayList<>();
+				dummyCoupondtoList = couponService.selectMany(beforeUseCouponId.get(i));// couponテーブルからクーポン情報をすべて取得
+				coupondtoList.addAll(dummyCoupondtoList);
+			}
+			List<CouponDTO> coupondtoListAdd = new ArrayList<>();
+
+			for (int i = 0; coupondtoList.size() > i; i++) {// クーポン情報を一つづつ取り出す
+				CouponDTO coupondtoOne = coupondtoList.get(i);
+				int allCount = coupondtoOne.getPurchaseCountTarget();
+				int allPrice = coupondtoOne.getPurchaseTotalPriceTarget();
+
+				Calendar calendar = Calendar.getInstance();
+				Date now = calendar.getTime();
+				calendar.setTime(coupondtoOne.getExpirationDate());
+				Date expirationDate = calendar.getTime();// 購入日付
+				model.addAttribute("expirationDate", expirationDate);
+				System.out.println("nw" + now);
+				System.out.println("ex" + expirationDate);
+				long d = (expirationDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24);// 購入日と現在の日付を比べる
+				int count = (int) -d;
+				System.out.println("count+++++++++++++++++++++++++++++++" + count);
+
+				boolean countCheck = false;
+				boolean priceCheck = false;
+
+				if (allProductCount >= allCount) {// ユーザーの商品購入数と、クーポンの使用条件の商品購入数を比較
+					countCheck = true;
+				}
+				if (allTotalPrice >= allPrice) {// ユーザーの全商品購入金額と、クーポンの使用条件の全商品購入金額を比較
+					priceCheck = true;
+				}
+
+				coupondtoOne.setCouponCheck(false);
+				if ((countCheck == true) && (priceCheck == true)) {// 商品購入数と全商品購入金額がクーポンの使用条件に達しているか比較
+					coupondtoOne.setCouponCheck(true);
+				}
+
+				if (coupondtoOne.isCouponCheck() == true) {// 商品購入数と全商品購入金額がクーポンの使用条件に達しているもののみList追加
+					if (count < 0) {
+						coupondtoListAdd.add(coupondtoOne);
+					}
+					System.out.println("couponCheck" + coupondtoOne.isCouponCheck());
+
+				}
+			}
+
+			model.addAttribute("couponList", coupondtoListAdd);
+			if (coupondtoListAdd.size() == 0) {
+				model.addAttribute("notCoupon", "yes");
+			}
+		} catch (IndexOutOfBoundsException e) {
+			e.printStackTrace();
+
+			List<CouponDTO> coupondtoListAdd = new ArrayList<>();
+			List<CouponDTO> coupondtoList = couponService.beforePurchaseSelectMany();
+			for (int i = 0; coupondtoList.size() > i; i++) {// クーポン情報を一つづつ取り出す
+				CouponDTO coupondtoOne = coupondtoList.get(i);
+				int allCount = coupondtoOne.getPurchaseCountTarget();
+				int allPrice = coupondtoOne.getPurchaseTotalPriceTarget();
+
+				boolean countCheck = false;
+				boolean priceCheck = false;
+
+				if (allProductCount >= allCount) {// ユーザーの商品購入数と、クーポンの使用条件の商品購入数を比較
+					countCheck = true;
+				}
+				if (allTotalPrice >= allPrice) {// ユーザーの全商品購入金額と、クーポンの使用条件の全商品購入金額を比較
+					priceCheck = true;
+				}
+
+				coupondtoOne.setCouponCheck(false);
+				if ((countCheck == true) && (priceCheck == true)) {// 商品購入数と全商品購入金額がクーポンの使用条件に達しているか比較
+					coupondtoOne.setCouponCheck(true);
+				}
+				model.addAttribute("notCoupon", "yes");
+				if (coupondtoOne.isCouponCheck() == true) {
+					Calendar calendar = Calendar.getInstance();
+					Date now = calendar.getTime();
+					calendar.setTime(coupondtoOne.getExpirationDate());
+					Date expirationDate = calendar.getTime();// 購入日付
+					model.addAttribute("expirationDate", expirationDate);
+					System.out.println("nw" + now);
+					System.out.println("ex" + expirationDate);
+					long d = (expirationDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24);// 購入日と現在の日付を比べる
+					int count = (int) -d;
+					System.out.println("count+++++++++++++++++++++++++++++++" + count);
+					if (count < 0) {
+						coupondtoListAdd.add(coupondtoOne);
+					}
+					model.addAttribute("notCoupon", "no");
+				}
+
+				System.out.println("couponCheck" + coupondtoOne.isCouponCheck());
+				model.addAttribute("couponList", coupondtoListAdd);
+			}
+			model.addAttribute("purchaseCount", 0);
+			model.addAttribute("allTotalPrice", 0);
+
+		}
+		return "shopping/productListLayout";
+	}
+
+	@GetMapping("/menberCouponSee")
+	public String getMenberCouponSee(@ModelAttribute MenberCouponForm form, Model model) {
+		model.addAttribute("contents", "shopping/menberCouponSee::productListLayout_contents");
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println("auth" + auth.getName());
+		String user_id = auth.getName();
+		// ログインユーザーのID取得
+		int userId = usersService.select_id(user_id);
+
+		int allProductCount = 0;
+		int allTotalPrice = 0;
+		int rankNumber = 0;
+
+		List<PurchaseDTO> purchasedtoList = purchaseService.selectHistory(userId);// メソッドに入ったユーザーの購入情報を取得
+		List<PurchaseDTO> allPurchaseList = new ArrayList<>();
+
+		List<Integer> menberCouponUsedId = new ArrayList<>();// 使用済みmenberCouponIDを格納
+		PurchaseDTO customList;
+		// 購入商品を一つづつ回して値を受け取る
+		if (purchasedtoList.size() > 0) {
+			for (int i = 0; purchasedtoList.size() > i; i++) {
+				PurchaseDTO purchasedtoAdd = new PurchaseDTO();
+				PurchaseDTO purchaseOne = purchasedtoList.get(i);
+				purchasedtoAdd.setId(purchaseOne.getId());// カスタム情報取得に使用
+				purchasedtoAdd.setCancelCheck(purchaseOne.getCancelCheck());
+				purchasedtoAdd.setPrice(purchaseOne.getPrice());
+				purchasedtoAdd.setProduct_count(purchaseOne.getProduct_count());
+				purchasedtoAdd.setPurchaseCheck(purchaseOne.getPurchaseCheck());
+				purchasedtoAdd.setCouponId(purchaseOne.getCouponId());// 購入者のクーポンID情報を取得
+				purchasedtoAdd.setMenberCouponCheck(purchaseOne.getMenberCouponCheck());// クーポンを使用したかどうかを判別するための値(menberCoupon
+																						// or coupon or notCoupon)
+
+				if (purchasedtoAdd.getMenberCouponCheck().equals("会員クーポン使用")) {
+					int couponId = purchasedtoAdd.getCouponId();
+					menberCouponUsedId.add(couponId);// menberCouponリスト
+
+				}
+
+				// 購入商品ごとのカスタム情報も取り出す
+				int productId = purchasedtoAdd.getId();
+				// int customId = purchasedtoAdd.getCustom_id();
+
+				String nullCheck = "null";
+				int getCustomId = customService.selectPurchaseCheck(userId, productId,
+						purchasedtoAdd.getPurchaseCheck(), nullCheck);
+
+				customList = customService.selectMany(getCustomId);// customテーブルのIDでカスタム情報を取得
+				purchasedtoAdd.setCustomPrice(customList.getCustomPrice());
+				purchasedtoAdd.setTotalPrice(
+						purchaseOne.getProduct_count() * (customList.getCustomPrice() + purchaseOne.getPrice()));
+				allTotalPrice = allTotalPrice + purchasedtoAdd.getTotalPrice();// ユーザーの購入した商品の合計金額を取得
+				allProductCount = allProductCount + purchasedtoAdd.getProduct_count();// ユーザーの購入した商品の数を取得
+				model.addAttribute("purchaseCount", allProductCount);
+				model.addAttribute("allTotalPrice", allTotalPrice);
+
+			}
+
+			if ((allTotalPrice > 0) && (allTotalPrice < 50000)) {
+				rankNumber = 1;
+			} else if ((allTotalPrice >= 50000) && (allTotalPrice < 100000)) {
+				rankNumber = 2;
+			} else if ((allTotalPrice >= 100000) && (allTotalPrice < 200000)) {
+				rankNumber = 3;
+			} else if ((allTotalPrice >= 200000) && (allTotalPrice < 400000)) {
+				rankNumber = 4;
+			} else if ((allTotalPrice >= 400000) && (allTotalPrice < 800000)) {
+				rankNumber = 5;
+			} else if ((allTotalPrice >= 800000) && (allTotalPrice < 1000000)) {
+				rankNumber = 6;
+			} else if ((allTotalPrice >= 1000000) && (allTotalPrice < 1500000)) {
+				rankNumber = 7;
+			} else if ((allTotalPrice >= 1500000) && (allTotalPrice < 3000000)) {
+				rankNumber = 8;
+			} else if ((allTotalPrice >= 3000000) && (allTotalPrice < 5000000)) {
+				rankNumber = 9;
+			} else if ((allTotalPrice >= 5000000) && (allTotalPrice < 8000000)) {
+				rankNumber = 10;
+			} else if ((allTotalPrice >= 8000000)) {
+				rankNumber = 11;
+			}
+
+		} else {
+			rankNumber = 1;// 一度も購入していない場合はアマチュアランク
+		}
+
+		List<MenberCouponDTO> menbercoupondtoList = menberCouponService.selectMany(rankNumber);
+
+		List<MenberCouponDTO> menbercoupondtoListNew = new ArrayList<>();
+		for (int i = 0; menbercoupondtoList.size() > i; i++) {
+			MenberCouponDTO menbercoupondtoOne = menbercoupondtoList.get(i);
+			int rankNumberCheck = menbercoupondtoOne.getCouponRank();
+			if (rankNumberCheck == 1) {
+				menbercoupondtoOne.setMenberRank("アマチュアランク");
+			} else if (rankNumberCheck == 2) {
+				menbercoupondtoOne.setMenberRank("プロランク");
+			} else if (rankNumberCheck == 3) {
+				menbercoupondtoOne.setMenberRank("ブロンズランク");
+			} else if (rankNumberCheck == 4) {
+				menbercoupondtoOne.setMenberRank("シルバーランク");
+			} else if (rankNumberCheck == 5) {
+				menbercoupondtoOne.setMenberRank("ゴールドランク");
+			} else if (rankNumberCheck == 6) {
+				menbercoupondtoOne.setMenberRank("ダイヤモンドランク");
+			} else if (rankNumberCheck == 7) {
+				menbercoupondtoOne.setMenberRank("プラチナランク");
+			} else if (rankNumberCheck == 8) {
+				menbercoupondtoOne.setMenberRank("エイリアンランク");
+			} else if (rankNumberCheck == 9) {
+				menbercoupondtoOne.setMenberRank("ゴッドフォックスランク");
+			} else if (rankNumberCheck == 10) {
+				menbercoupondtoOne.setMenberRank("プレミアムゴッドランク");
+			} else if (rankNumberCheck == 11) {
+				menbercoupondtoOne.setMenberRank("InductedIntoTheHalOfFameRank");
+			}
+			menbercoupondtoListNew.add(menbercoupondtoOne);
+			model.addAttribute("menbercoupondtoList", menbercoupondtoListNew);
+		}
+
+		// 一度使用したクーポンは表示されないようにする
+		// 使用済みクーポンの一枚目のIDを使用して、使用前クーポンListを作成
+		try {
+			List<Integer> menberCouponId = menberCouponService.selectMenberCouponId(rankNumber);// 全クーポン
+			System.out.println("全クーポン" + menberCouponId);
+			System.out.println("使用済みクーポン" + menberCouponUsedId);
+			List<Integer> beforeUseMenberCouponId = new ArrayList<>();// 使用前クーポン
+			for (int i = 0; menberCouponId.size() > i; i++) {// 全クーポンの数文入る
+				if (menberCouponId.get(i) != menberCouponUsedId.get(0)) {// 全クーポンと使用済みクーポンの最初に一枚を比べて、使用前クーポンならtrue
+					beforeUseMenberCouponId.add(menberCouponId.get(i));// 使用済みクーポン一枚に対しての、使用前クーポンListを構築
+				}
+				System.out.println("beforeUseMenberCouponId" + beforeUseMenberCouponId);
+			}
+
+			// 上記で使用済みクーポン一枚に対しての、使用前クーポンListを構築したため下記に移る
+			// 下記では残りの使用済みクーポンIDを上記で作成した使用前クーポンListと比べている
+
+			if (menberCouponUsedId.size() >= 2) {// 使用済みクーポンが2枚以上あればtrue
+				for (int x = 1; menberCouponUsedId.size() > x; x++) {// 上記のコードで使用した使用済みクーポン１枚を除いた使用済みクーポン文を繰り返す
+					List<Integer> dummyBeforeUseMenberCouponId = new ArrayList<>();
+					for (int i = 0; beforeUseMenberCouponId.size() > i; i++) {// 上記で構築した使用前クーポンの数文繰り返す
+						if (beforeUseMenberCouponId.get(i) != menberCouponUsedId.get(x)) {
+							dummyBeforeUseMenberCouponId.add(beforeUseMenberCouponId.get(i));
+						}
+					}
+					beforeUseMenberCouponId = dummyBeforeUseMenberCouponId;
+				}
+				System.out.println("beforeUseMenberCouponId" + beforeUseMenberCouponId);
+			}
+
+			List<MenberCouponDTO> coupondtoList = new ArrayList<>();
+
+			for (int i = 0; beforeUseMenberCouponId.size() > i; i++) {
+				List<MenberCouponDTO> dummyCoupondtoList = new ArrayList<>();
+				dummyCoupondtoList = menberCouponService.selectManyBeforeCoupon(beforeUseMenberCouponId.get(i));// couponテーブルからクーポン情報をすべて取得
+				coupondtoList.addAll(dummyCoupondtoList);
+
+			}
+			System.out.println("coupondtoList" + coupondtoList);
+			List<MenberCouponDTO> coupondtoListAdd = new ArrayList<>();
+
+			for (int i = 0; coupondtoList.size() > i; i++) {// クーポン情報を一つづつ取り出す
+				MenberCouponDTO coupondtoOne = coupondtoList.get(i);
+
+				int rankNumberCheck = coupondtoOne.getCouponRank();
+				if (rankNumberCheck == 1) {
+					coupondtoOne.setMenberRank("アマチュアランク");
+				} else if (rankNumberCheck == 2) {
+					coupondtoOne.setMenberRank("プロランク");
+				} else if (rankNumberCheck == 3) {
+					coupondtoOne.setMenberRank("ブロンズランク");
+				} else if (rankNumberCheck == 4) {
+					coupondtoOne.setMenberRank("シルバーランク");
+				} else if (rankNumberCheck == 5) {
+					coupondtoOne.setMenberRank("ゴールドランク");
+				} else if (rankNumberCheck == 6) {
+					coupondtoOne.setMenberRank("ダイヤモンドランク");
+				} else if (rankNumberCheck == 7) {
+					coupondtoOne.setMenberRank("プラチナランク");
+				} else if (rankNumberCheck == 8) {
+					coupondtoOne.setMenberRank("エイリアンランク");
+				} else if (rankNumberCheck == 9) {
+					coupondtoOne.setMenberRank("ゴッドフォックスランク");
+				} else if (rankNumberCheck == 10) {
+					coupondtoOne.setMenberRank("プレミアムゴッドランク");
+				} else if (rankNumberCheck == 11) {
+					coupondtoOne.setMenberRank("InductedIntoTheHalOfFameRank");
+				}
+
+				coupondtoListAdd.add(coupondtoOne);
+
+				model.addAttribute("couponList", coupondtoListAdd);
+
+			}
+			if (coupondtoList.size() == 0) {
+				model.addAttribute("notCoupon", "yes");
+			}
+		} catch (IndexOutOfBoundsException e) {
+			e.printStackTrace();
+
+			List<MenberCouponDTO> coupondtoListAdd = new ArrayList<>();
+			List<MenberCouponDTO> coupondtoList = menberCouponService.selectMany();
+			for (int i = 0; coupondtoList.size() > i; i++) {// クーポン情報を一つづつ取り出す
+				MenberCouponDTO coupondtoOne = coupondtoList.get(i);
+
+				int rankNumberCheck = coupondtoOne.getCouponRank();
+				if (rankNumberCheck == 1) {
+					coupondtoOne.setMenberRank("アマチュアランク");
+				} else if (rankNumberCheck == 2) {
+					coupondtoOne.setMenberRank("プロランク");
+				} else if (rankNumberCheck == 3) {
+					coupondtoOne.setMenberRank("ブロンズランク");
+				} else if (rankNumberCheck == 4) {
+					coupondtoOne.setMenberRank("シルバーランク");
+				} else if (rankNumberCheck == 5) {
+					coupondtoOne.setMenberRank("ゴールドランク");
+				} else if (rankNumberCheck == 6) {
+					coupondtoOne.setMenberRank("ダイヤモンドランク");
+				} else if (rankNumberCheck == 7) {
+					coupondtoOne.setMenberRank("プラチナランク");
+				} else if (rankNumberCheck == 8) {
+					coupondtoOne.setMenberRank("エイリアンランク");
+				} else if (rankNumberCheck == 9) {
+					coupondtoOne.setMenberRank("ゴッドフォックスランク");
+				} else if (rankNumberCheck == 10) {
+					coupondtoOne.setMenberRank("プレミアムゴッドランク");
+				} else if (rankNumberCheck == 11) {
+					coupondtoOne.setMenberRank("InductedIntoTheHalOfFameRank");
+				}
+
+				coupondtoListAdd.add(coupondtoOne);
+
+				model.addAttribute("couponList", coupondtoListAdd);
+
+				if (coupondtoList.size() == 0) {
+					model.addAttribute("notCoupon", "yes");
+				}
+
+			}
+		}
+
+		return "shopping/productListLayout";
+
+	}
+
 	@GetMapping("/couponCancel")
 	public String getCouponCancel(@ModelAttribute CouponForm form, RedirectAttributes redirectattributes, Model model) {
 
@@ -2836,7 +3133,7 @@ public class ShoppingController {
 
 		return "shopping/productListLayout";
 	}
-	
+
 	@GetMapping("/menberCouponUse/{couponId}/{productId}")
 	public String getMenberCouponUse(@ModelAttribute MenberCouponForm form, CartForm cartform,
 			@PathVariable("couponId") int couponId, @PathVariable("productId") int productId, Model model) {
@@ -2850,7 +3147,7 @@ public class ShoppingController {
 		cartService.updateMenberCouponId(cartId, couponId);// 商品IDでselectし、クーポン情報を加える
 
 		List<PcDataDTO> cartList = cartService.selectMany(getUserId);// ログインユーザーのみのカートの情報を取得
-		System.out.println("cartList"+cartList);
+		System.out.println("cartList" + cartList);
 		int totalPriceAll = 0;// カート全体価格
 		int totalPriceOne = 0;// 各商品価格
 		int disCountPrice = 0;// 割引数
@@ -2869,8 +3166,7 @@ public class ShoppingController {
 
 				disCountPrice = pcdatadto.getProduct_count() * (pcdatadto.getPrice() + pcdatadto.getCustomPrice());
 
-				
-				if(pcdatadto.getMenberCouponCheck().equals("会員ランク特典使用")) {
+				if (pcdatadto.getMenberCouponCheck().equals("会員ランク特典使用")) {
 					System.out.println("会員ランク特典使用");
 					MenberCouponDTO menbercoupondto = menberCouponService.selectOne(couponId);
 					int menberCouponDisCount = menbercoupondto.getDiscount();
@@ -2891,31 +3187,31 @@ public class ShoppingController {
 						pcdatadto.setDisCountPriceNew(disCountPriceNewNext);
 						totalPriceOne = (int) (totalPriceOne - disCountPriceNew);
 					}
-					
-				}else {
+
+				} else {
 					System.out.println("会員ランク特典不使用");
-				if (pcdatadto.getCouponId() >= 1) {// 商品にクーポンが適用されていればtrue
-					System.out.println("test1111");
-					CouponDTO coupondto = couponService.selectOne(couponId);
-					int disCount = coupondto.getDiscount();// 割引率(%)
-					System.out.println("disCount" + disCount);
-					double disCountNew = 0;
-					if (disCount < 10) {
-						disCountNew = Double.valueOf("0.0" + disCount);
+					if (pcdatadto.getCouponId() >= 1) {// 商品にクーポンが適用されていればtrue
+						System.out.println("test1111");
+						CouponDTO coupondto = couponService.selectOne(couponId);
+						int disCount = coupondto.getDiscount();// 割引率(%)
+						System.out.println("disCount" + disCount);
+						double disCountNew = 0;
+						if (disCount < 10) {
+							disCountNew = Double.valueOf("0.0" + disCount);
 
-						double disCountPriceNew = disCountPrice * disCountNew;// 割引価格
-						int disCountPriceNewNext = (int) disCountPriceNew;
-						pcdatadto.setDisCountPriceNew(disCountPriceNewNext);
-						totalPriceOne = (int) (totalPriceOne - disCountPriceNew);
-					} else {
-						disCountNew = Double.valueOf("0." + disCount);
+							double disCountPriceNew = disCountPrice * disCountNew;// 割引価格
+							int disCountPriceNewNext = (int) disCountPriceNew;
+							pcdatadto.setDisCountPriceNew(disCountPriceNewNext);
+							totalPriceOne = (int) (totalPriceOne - disCountPriceNew);
+						} else {
+							disCountNew = Double.valueOf("0." + disCount);
 
-						double disCountPriceNew = disCountPrice * disCountNew;// 割引価格
-						int disCountPriceNewNext = (int) disCountPriceNew;
-						pcdatadto.setDisCountPriceNew(disCountPriceNewNext);
-						totalPriceOne = (int) (totalPriceOne - disCountPriceNew);
+							double disCountPriceNew = disCountPrice * disCountNew;// 割引価格
+							int disCountPriceNewNext = (int) disCountPriceNew;
+							pcdatadto.setDisCountPriceNew(disCountPriceNewNext);
+							totalPriceOne = (int) (totalPriceOne - disCountPriceNew);
+						}
 					}
-				}
 				}
 				model.addAttribute("totalPrice", totalPriceAll);
 				model.addAttribute("couponAfterPrice", totalPriceOne);
@@ -2947,10 +3243,10 @@ public class ShoppingController {
 		return "shopping/productListLayout";
 
 	}
-	
+
 	@GetMapping("menberCouponProductChoose/{id}")
-	public String getMenberCouponProductChoose(@ModelAttribute MenberCouponForm form, @PathVariable("id") int menberCouponId,
-			Model model) {
+	public String getMenberCouponProductChoose(@ModelAttribute MenberCouponForm form,
+			@PathVariable("id") int menberCouponId, Model model) {
 		model.addAttribute("contents", "shopping/menberCouponProductChoose::productListLayout_contents");
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -2966,7 +3262,6 @@ public class ShoppingController {
 		return "shopping/productListLayout";
 
 	}
-
 
 	@GetMapping("couponAdd")
 	public String getCouponAdd(@ModelAttribute CouponForm form, Model model) {
@@ -3312,72 +3607,72 @@ public class ShoppingController {
 			totalPriceOne = pcdatadto.getProduct_count() * pcdatadto.getAfterCustomPrice();// 各商品の金額
 
 			try {
-			if(pcdatadto.getMenberCouponCheck().equals("会員ランク特典使用")) {
-				System.out.println("会員ランク特典使用");
-				MenberCouponDTO menbercoupondto = menberCouponService.selectOne(couponId);
-				int menberCouponDisCount = menbercoupondto.getDiscount();
-				double disCountNew = 0;
-				if (menberCouponDisCount < 10) {
-					System.out.println("test");
-					disCountNew = Double.valueOf("0.0" + menberCouponDisCount);
+				if (pcdatadto.getMenberCouponCheck().equals("会員ランク特典使用")) {
+					System.out.println("会員ランク特典使用");
+					MenberCouponDTO menbercoupondto = menberCouponService.selectOne(couponId);
+					int menberCouponDisCount = menbercoupondto.getDiscount();
+					double disCountNew = 0;
+					if (menberCouponDisCount < 10) {
+						System.out.println("test");
+						disCountNew = Double.valueOf("0.0" + menberCouponDisCount);
 
-					double disCountPriceNew = totalPriceOne * disCountNew;// 割引価格
-					int disCountPriceNewNext = (int) disCountPriceNew;
-					System.out.println("disCounttest"+disCountPriceNewNext);
-					System.out.println("disCounttest"+totalPriceAll);
-					pcdatadto.setDisCountPriceNew(disCountPriceNewNext);
-					totalPriceAll = (int) (totalPriceAll - disCountPriceNew);
-					System.out.println("totalPriceAll"+totalPriceAll);
-					model.addAttribute("totalPrice",totalPriceAll);
+						double disCountPriceNew = totalPriceOne * disCountNew;// 割引価格
+						int disCountPriceNewNext = (int) disCountPriceNew;
+						System.out.println("disCounttest" + disCountPriceNewNext);
+						System.out.println("disCounttest" + totalPriceAll);
+						pcdatadto.setDisCountPriceNew(disCountPriceNewNext);
+						totalPriceAll = (int) (totalPriceAll - disCountPriceNew);
+						System.out.println("totalPriceAll" + totalPriceAll);
+						model.addAttribute("totalPrice", totalPriceAll);
+					} else {
+						disCountNew = Double.valueOf("0." + menberCouponDisCount);
+
+						double disCountPriceNew = totalPriceOne * disCountNew;// 割引価格
+						int disCountPriceNewNext = (int) disCountPriceNew;
+						pcdatadto.setDisCountPriceNew(disCountPriceNewNext);
+						totalPriceAll = (int) (totalPriceAll - disCountPriceNew);
+						model.addAttribute("totalPrice", totalPriceAll);
+					}
 				} else {
-					disCountNew = Double.valueOf("0." + menberCouponDisCount);
+					System.out.println("会員ランク特典不使用");
+					if (pcdatadto.getCouponId() == 0) {
+						System.out.println("クーポン使用なし");
+						int couponAfterPrice = (int) totalPriceAll;
+						System.out.println("couponAfterPrice" + couponAfterPrice);
+						model.addAttribute("totalPrice", totalPriceAll);
 
-					double disCountPriceNew = totalPriceOne * disCountNew;// 割引価格
-					int disCountPriceNewNext = (int) disCountPriceNew;
-					pcdatadto.setDisCountPriceNew(disCountPriceNewNext);
-					totalPriceAll = (int) (totalPriceAll - disCountPriceNew);
-					model.addAttribute("totalPrice",totalPriceAll);
+					} else {// クーポンを使用した商品はelse
+						System.out.println("クーポン使用！");
+						CouponDTO coupondto = couponService.selectOne(couponId);
+						int disCount = coupondto.getDiscount();
+						if (disCount >= 10) {
+							double disCountNew = Double.valueOf("0." + disCount);
+							System.out.println("discoutnnew" + disCountNew);
+							disCountPrice = totalPriceOne * disCountNew;// クーポンを使用した商品の割引数取得
+
+							System.out.println("totalAll" + totalPriceAll);
+							System.out.println("totalOne" + totalPriceOne);
+							System.out.println("Dis" + disCountPrice);
+							// ここから割引分の値が入っているのでそれをトータルからひく、小数点以下も切り捨てる
+							// model.addAttribute("totalPrice", couponAfterPrice);
+							totalPriceAll = (int) (totalPriceAll - disCountPrice);
+							model.addAttribute("totalPrice", totalPriceAll);
+						} else {
+							double disCountNew = Double.valueOf("0.0" + disCount);
+							System.out.println("discoutnnew" + disCountNew);
+							disCountPrice = totalPriceOne * disCountNew;// クーポンを使用した商品の割引数取得
+
+							System.out.println("totalAll" + totalPriceAll);
+							System.out.println("totalOne" + totalPriceOne);
+							System.out.println("Dis" + disCountPrice);
+							// ここから割引分の値が入っているのでそれをトータルからひく、小数点以下も切り捨てる
+							// model.addAttribute("totalPrice", couponAfterPrice);
+							totalPriceAll = (int) (totalPriceAll - disCountPrice);
+							model.addAttribute("totalPrice", totalPriceAll);
+						}
+					}
 				}
-			}else {
-				System.out.println("会員ランク特典不使用");
-			if (pcdatadto.getCouponId() == 0) {
-				System.out.println("クーポン使用なし");
-				int couponAfterPrice = (int) totalPriceAll;
-				System.out.println("couponAfterPrice" + couponAfterPrice);
-				model.addAttribute("totalPrice", totalPriceAll);
-
-			} else {// クーポンを使用した商品はelse
-				System.out.println("クーポン使用！");
-				CouponDTO coupondto = couponService.selectOne(couponId);
-				int disCount = coupondto.getDiscount();
-				if (disCount >= 10) {
-					double disCountNew = Double.valueOf("0." + disCount);
-					System.out.println("discoutnnew" + disCountNew);
-					disCountPrice = totalPriceOne * disCountNew;// クーポンを使用した商品の割引数取得
-
-					System.out.println("totalAll" + totalPriceAll);
-					System.out.println("totalOne" + totalPriceOne);
-					System.out.println("Dis" + disCountPrice);
-					// ここから割引分の値が入っているのでそれをトータルからひく、小数点以下も切り捨てる
-					// model.addAttribute("totalPrice", couponAfterPrice);
-					totalPriceAll = (int) (totalPriceAll - disCountPrice);
-					model.addAttribute("totalPrice", totalPriceAll);
-				} else {
-					double disCountNew = Double.valueOf("0.0" + disCount);
-					System.out.println("discoutnnew" + disCountNew);
-					disCountPrice = totalPriceOne * disCountNew;// クーポンを使用した商品の割引数取得
-
-					System.out.println("totalAll" + totalPriceAll);
-					System.out.println("totalOne" + totalPriceOne);
-					System.out.println("Dis" + disCountPrice);
-					// ここから割引分の値が入っているのでそれをトータルからひく、小数点以下も切り捨てる
-					// model.addAttribute("totalPrice", couponAfterPrice);
-					totalPriceAll = (int) (totalPriceAll - disCountPrice);
-					model.addAttribute("totalPrice", totalPriceAll);
-				}
-			}
-			}
-			}catch(NullPointerException e) {
+			} catch (NullPointerException e) {
 				e.printStackTrace();
 				if (pcdatadto.getCouponId() == 0) {
 					System.out.println("クーポン使用なし");
@@ -3415,7 +3710,7 @@ public class ShoppingController {
 						model.addAttribute("totalPrice", totalPriceAll);
 					}
 				}
-			
+
 			}
 
 			// model.addAttribute("product_count",pcdatadto.getProduct_count());
@@ -3804,58 +4099,58 @@ public class ShoppingController {
 			totalPriceOne = pcdatadto.getProduct_count() * pcdatadto.getAfterCustomPrice();
 			pcdatadto.setTotalPriceOne(totalPriceOne);
 			System.out.println("totalPrice" + totalPriceAll);
-			
+
 			try {
-			if(pcdatadto.getMenberCouponCheck().equals("会員ランク特典使用")) {
-				System.out.println("会員ランク特典使用");
-				MenberCouponDTO menbercoupondto = menberCouponService.selectOne(pcdatadto.getCouponId());
-				int menberCouponDisCount = menbercoupondto.getDiscount();
-				double disCountNew = 0;
-				if (menberCouponDisCount < 10) {
-					System.out.println("test");
-					disCountNew = Double.valueOf("0.0" + menberCouponDisCount);
+				if (pcdatadto.getMenberCouponCheck().equals("会員ランク特典使用")) {
+					System.out.println("会員ランク特典使用");
+					MenberCouponDTO menbercoupondto = menberCouponService.selectOne(pcdatadto.getCouponId());
+					int menberCouponDisCount = menbercoupondto.getDiscount();
+					double disCountNew = 0;
+					if (menberCouponDisCount < 10) {
+						System.out.println("test");
+						disCountNew = Double.valueOf("0.0" + menberCouponDisCount);
 
-					double disCountPriceNew = totalPriceOne * disCountNew;// 割引価格
-					int disCountPriceNewNext = (int) disCountPriceNew;
-					System.out.println("disCounttest"+disCountPriceNewNext);
-					System.out.println("disCounttest"+totalPriceAll);
-					pcdatadto.setDisCountPriceNew(disCountPriceNewNext);
-					totalPriceAll = (int) (totalPriceAll - disCountPriceNew);
-					model.addAttribute("totalPrice",(totalPriceAll - disCountPriceNewNext));
-				} else {
-					disCountNew = Double.valueOf("0." + menberCouponDisCount);
+						double disCountPriceNew = totalPriceOne * disCountNew;// 割引価格
+						int disCountPriceNewNext = (int) disCountPriceNew;
+						System.out.println("disCounttest" + disCountPriceNewNext);
+						System.out.println("disCounttest" + totalPriceAll);
+						pcdatadto.setDisCountPriceNew(disCountPriceNewNext);
+						totalPriceAll = (int) (totalPriceAll - disCountPriceNew);
+						model.addAttribute("totalPrice", (totalPriceAll - disCountPriceNewNext));
+					} else {
+						disCountNew = Double.valueOf("0." + menberCouponDisCount);
 
-					double disCountPriceNew = totalPriceOne * disCountNew;// 割引価格
-					int disCountPriceNewNext = (int) disCountPriceNew;
-					pcdatadto.setDisCountPriceNew(disCountPriceNewNext);
-					totalPriceAll = (int) (totalPriceAll - disCountPriceNew);
-					model.addAttribute("totalPrice",(totalPriceAll - disCountPriceNewNext));
-				}
-			}else {
-				System.out.println("会員ランク特典不使用");
-			
-			if (pcdatadto.getCouponId() == 0) {
-				model.addAttribute("totalPrice", totalPriceAll);
-			} else {// クーポンを使用していればelse
-				CouponDTO coupondto = couponService.selectOne(pcdatadto.getCouponId());// クーポン情報取得
-				int disCount = coupondto.getDiscount();// 割引％
-				if (disCount >= 10) {
-					double disCountNew = Double.valueOf("0." + disCount);
-					double disCountPrice = totalPriceOne * disCountNew;// 割引数
-					pcdatadto.setTotalPriceOne((int) (totalPriceOne - disCountPrice));
-					totalPriceAll = (int) (totalPriceAll - disCountPrice);
-					pcdatadto.setCouponCheck(true);
+						double disCountPriceNew = totalPriceOne * disCountNew;// 割引価格
+						int disCountPriceNewNext = (int) disCountPriceNew;
+						pcdatadto.setDisCountPriceNew(disCountPriceNewNext);
+						totalPriceAll = (int) (totalPriceAll - disCountPriceNew);
+						model.addAttribute("totalPrice", (totalPriceAll - disCountPriceNewNext));
+					}
 				} else {
-					double disCountNew = Double.valueOf("0.0" + disCount);
-					double disCountPrice = totalPriceOne * disCountNew;// 割引数
-					pcdatadto.setTotalPriceOne((int) (totalPriceOne - disCountPrice));
-					totalPriceAll = (int) (totalPriceAll - disCountPrice);
-					pcdatadto.setCouponCheck(true);
+					System.out.println("会員ランク特典不使用");
+
+					if (pcdatadto.getCouponId() == 0) {
+						model.addAttribute("totalPrice", totalPriceAll);
+					} else {// クーポンを使用していればelse
+						CouponDTO coupondto = couponService.selectOne(pcdatadto.getCouponId());// クーポン情報取得
+						int disCount = coupondto.getDiscount();// 割引％
+						if (disCount >= 10) {
+							double disCountNew = Double.valueOf("0." + disCount);
+							double disCountPrice = totalPriceOne * disCountNew;// 割引数
+							pcdatadto.setTotalPriceOne((int) (totalPriceOne - disCountPrice));
+							totalPriceAll = (int) (totalPriceAll - disCountPrice);
+							pcdatadto.setCouponCheck(true);
+						} else {
+							double disCountNew = Double.valueOf("0.0" + disCount);
+							double disCountPrice = totalPriceOne * disCountNew;// 割引数
+							pcdatadto.setTotalPriceOne((int) (totalPriceOne - disCountPrice));
+							totalPriceAll = (int) (totalPriceAll - disCountPrice);
+							pcdatadto.setCouponCheck(true);
+						}
+					}
 				}
-			}
-			}
-			
-			}catch (NullPointerException e){
+
+			} catch (NullPointerException e) {
 				e.printStackTrace();
 				if (pcdatadto.getCouponId() == 0) {
 					model.addAttribute("totalPrice", totalPriceAll);
@@ -3946,17 +4241,16 @@ public class ShoppingController {
 			int customId = customService.selectCustomId(productId, select_id);
 			int purchaseCount = cartdto.getProduct_count();
 			int couponCheck = cartdto.getCouponId();
-			System.out.println("menbercouponcheck?"+cartdto.getMenberCouponCheck());
-			
+			System.out.println("menbercouponcheck?" + cartdto.getMenberCouponCheck());
 
 			// customService.pruchaseIdInsertOne(productid);
 			try {
-				
-				if(cartdto.getMenberCouponCheck().equals("会員ランク特典使用")) {
-					
-					purchaseService.insertMenberCoupon(purchasedto, productid, purchaseCount, select_id, purchaseCreditId,
-							customId,couponId);
-				} else if(couponCheck > 0) {
+
+				if (cartdto.getMenberCouponCheck().equals("会員ランク特典使用")) {
+
+					purchaseService.insertMenberCoupon(purchasedto, productid, purchaseCount, select_id,
+							purchaseCreditId, customId, couponId);
+				} else if (couponCheck > 0) {
 					System.out.println("クーポン使用");
 					purchaseService.insert(purchasedto, productid, purchaseCount, select_id, purchaseCreditId, customId,
 							couponId);
@@ -3968,7 +4262,7 @@ public class ShoppingController {
 			} catch (NullPointerException e) {
 				System.out.println("purchaseInsertnot");
 				e.printStackTrace();
-				if(couponCheck > 0) {
+				if (couponCheck > 0) {
 					System.out.println("クーポン使用");
 					purchaseService.insert(purchasedto, productid, purchaseCount, select_id, purchaseCreditId, customId,
 							couponId);
@@ -4044,11 +4338,10 @@ public class ShoppingController {
 			purchasedtoAdd.setTotalPrice(
 					purchaseOne.getProduct_count() * (customList.getCustomPrice() + purchaseOne.getPrice()));
 
-			
-			if(purchasedtoAdd.getMenberCouponCheck().equals("会員クーポン使用")) {
+			if (purchasedtoAdd.getMenberCouponCheck().equals("会員クーポン使用")) {
 				System.out.println("クーポン使用！");
 				int totalPrice = purchasedtoAdd.getTotalPrice();
-				MenberCouponDTO menbercoupondto = menberCouponService.selectOne(purchasedtoAdd.getCouponId());//会員DBからとる
+				MenberCouponDTO menbercoupondto = menberCouponService.selectOne(purchasedtoAdd.getCouponId());// 会員DBからとる
 				int disCount = menbercoupondto.getDiscount();// 割引率(%)
 				if (disCount >= 10) {
 					double disCountNew = Double.valueOf("0." + disCount);
@@ -4059,23 +4352,23 @@ public class ShoppingController {
 					double disCountPriceNew = totalPrice * disCountNew;// 割引価格
 					purchasedtoAdd.setTotalPrice((int) (totalPrice - disCountPriceNew));
 				}
-			}else {
-			
-			if (purchasedtoAdd.getCouponId() > 0) {
-				System.out.println("クーポン使用！");
-				int totalPrice = purchasedtoAdd.getTotalPrice();
-				CouponDTO coupondto = couponService.selectOne(purchasedtoAdd.getCouponId());
-				int disCount = coupondto.getDiscount();// 割引率(%)
-				if (disCount >= 10) {
-					double disCountNew = Double.valueOf("0." + disCount);
-					double disCountPriceNew = totalPrice * disCountNew;// 割引価格
-					purchasedtoAdd.setTotalPrice((int) (totalPrice - disCountPriceNew));
-				} else {
-					double disCountNew = Double.valueOf("0.0" + disCount);
-					double disCountPriceNew = totalPrice * disCountNew;// 割引価格
-					purchasedtoAdd.setTotalPrice((int) (totalPrice - disCountPriceNew));
+			} else {
+
+				if (purchasedtoAdd.getCouponId() > 0) {
+					System.out.println("クーポン使用！");
+					int totalPrice = purchasedtoAdd.getTotalPrice();
+					CouponDTO coupondto = couponService.selectOne(purchasedtoAdd.getCouponId());
+					int disCount = coupondto.getDiscount();// 割引率(%)
+					if (disCount >= 10) {
+						double disCountNew = Double.valueOf("0." + disCount);
+						double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+						purchasedtoAdd.setTotalPrice((int) (totalPrice - disCountPriceNew));
+					} else {
+						double disCountNew = Double.valueOf("0.0" + disCount);
+						double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+						purchasedtoAdd.setTotalPrice((int) (totalPrice - disCountPriceNew));
+					}
 				}
-			}
 			}
 			// Date purchaseDate = purchasedtoAdd.getPurchase_date();
 			Calendar calendar = Calendar.getInstance();

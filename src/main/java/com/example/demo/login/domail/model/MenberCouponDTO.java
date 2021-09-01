@@ -21,5 +21,9 @@ public class MenberCouponDTO {
 	
 	private String menberRank;
 	
+	private String couponUseCheck;
+	
 	private Date registration_date;
+	
+	
 }
