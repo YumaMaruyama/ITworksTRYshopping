@@ -16,8 +16,8 @@ public class PurchaseService {
 	@Autowired
 	PurchaseDao dao;
 
-	public int insert(PurchaseDTO purchasedto,int purchaseId,int purchaseCount,int select_id,int purchaseCreditId,int customId,int couponId) {
-		int result = dao.insert(purchasedto,purchaseId,purchaseCount,select_id,purchaseCreditId,customId,couponId);
+	public int insert(PurchaseDTO purchasedto,int purchaseId,int purchaseCount,int select_id,int purchaseCreditId,int customId,int couponId,int point) {
+		int result = dao.insert(purchasedto,purchaseId,purchaseCount,select_id,purchaseCreditId,customId,couponId,point);
 
 		if(result > 0) {
 			System.out.println("insert成功");
@@ -27,8 +27,8 @@ public class PurchaseService {
 
 	}
 	
-	public int insertMenberCoupon(PurchaseDTO purchasedto,int purchaseId,int purchaseCount,int select_id,int purchaseCreditId,int customId,int couponId) {
-		return dao.insertMenberCoupon(purchasedto,purchaseId,purchaseCount,select_id,purchaseCreditId,customId,couponId);
+	public int insertMenberCoupon(PurchaseDTO purchasedto,int purchaseId,int purchaseCount,int select_id,int purchaseCreditId,int customId,int couponId,int point) {
+		return dao.insertMenberCoupon(purchasedto,purchaseId,purchaseCount,select_id,purchaseCreditId,customId,couponId,point);
 	}
 
 	public List<PcDataDTO> selectMany(int select_id,int purchaseNumber) {
@@ -84,9 +84,9 @@ public class PurchaseService {
 	}
 	
 	public int insertNotCoupon(PurchaseDTO purchasedto, int purchaseId, int purchaseCount, int select_id,
-			int purchaseCreditId, int customId) {
+			int purchaseCreditId, int customId,int point) {
 		return dao.insertNotCoupon(purchasedto, purchaseId, purchaseCount, select_id,
-				purchaseCreditId, customId);
+				purchaseCreditId, customId,point);
 	}
 
 

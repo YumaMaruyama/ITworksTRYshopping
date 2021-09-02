@@ -3212,6 +3212,7 @@ public class ShoppingController {
 					menberCouponUsedId.add(couponId);// menberCouponリスト
 
 				}
+				System.out.println("test2222"+menberCouponUsedId);
 
 				// 購入商品ごとのカスタム情報も取り出す
 				int productId = purchasedtoAdd.getId();
@@ -3326,15 +3327,15 @@ public class ShoppingController {
 			List<MenberCouponDTO> coupondtoList = new ArrayList<>();
 
 			for (int i = 0; beforeUseMenberCouponId.size() > i; i++) {
-				List<MenberCouponDTO> dummyCoupondtoList = new ArrayList<>();
-				dummyCoupondtoList = menberCouponService.selectManyBeforeMenberCoupon(beforeUseMenberCouponId.get(i),rankNumber);// couponテーブルからクーポン情報をすべて取得
+				MenberCouponDTO dummyCoupondtoList = new MenberCouponDTO();
+				dummyCoupondtoList = menberCouponService.selectManyBeforeMenberCoupon(beforeUseMenberCouponId.get(i));// couponテーブルからクーポン情報をすべて取得
 				try {
-				coupondtoList.addAll(dummyCoupondtoList);
+				coupondtoList.add(dummyCoupondtoList);
 				
 
 			}catch(NullPointerException e) {
 				e.printStackTrace();
-				
+				System.out.println("tigauchatch");
 			}
 			}
 			System.out.println("coupondtoList" + coupondtoList);
@@ -3371,14 +3372,14 @@ public class ShoppingController {
 				coupondtoListAdd.add(coupondtoOne);
 
 				model.addAttribute("couponList", coupondtoListAdd);
-
+				System.out.println("dkdkdkdkdkdkdk322");
 			}
 			if (coupondtoList.size() == 0) {
 				model.addAttribute("notCoupon", "yes");
 			}
 		} catch (IndexOutOfBoundsException e) {
 			e.printStackTrace();
-
+			System.out.println("dkdkdkdkdkdkdkdkdkdkdkdk");
 			List<MenberCouponDTO> coupondtoListAdd = new ArrayList<>();
 			List<MenberCouponDTO> coupondtoList = menberCouponService.selectRankNumberCheckMany(rankNumber);
 			for (int i = 0; coupondtoList.size() > i; i++) {// クーポン情報を一つづつ取り出す
@@ -4543,19 +4544,25 @@ public class ShoppingController {
 			}
 			model.addAttribute("totalPrice", totalPriceAll);
 			
-			int pointRate = pointRateService.selectOne(i);
-			double pointRateNew = (double) (0.0 + pointRate);
-			
-			
-			int point = (int) (totalPriceAll * pointRateNew);//購入金額の3%をポイントとする
+			int pointRate = pointRateService.selectOne(1);
+			String pointRateString = String.valueOf(pointRate);
+			String pointRateNew = 0.0 + pointRateString;
+			System.out.println("pointRateNew"+pointRateNew);
+			double pointRateDouble = Double.parseDouble(pointRateNew);
+			System.out.println("pointRateDouble"+pointRateDouble);
+			int point = (int) (totalPriceAll * pointRateDouble);//購入金額の3%をポイントとする
+			System.out.println("pointfinish"+point);
 			model.addAttribute("point",point);
+			
+			session.setAttribute("point",point);
+			int pointNew = (int) session.getAttribute("point");
 			
 			int getId = usersService.select_id(getName);
 
 			System.out.println("cartList " + cartList);
 			model.addAttribute("cartList", cartList);
 
-			HttpSession session = request.getSession();// クレジット情報をsessionから取得
+			// クレジット情報をsessionから取得
 			String digits_3_code = (String) session.getAttribute("digits_3_code");
 			String cardName = (String) session.getAttribute("cardName");
 			String cardNumber = (String) session.getAttribute("cardNumber");
@@ -4565,6 +4572,7 @@ public class ShoppingController {
 			model.addAttribute("cardName", cardName);
 			model.addAttribute("cardNumber", cardNumber);
 			model.addAttribute("couponId", couponId);
+			
 
 		}
 		return "shopping/productListLayout";
@@ -4584,6 +4592,9 @@ public class ShoppingController {
 		int select_id = usersService.select_id(getName);
 		// 各商品のユーザーが購入した数を取得
 		boolean result = cartService.selectProductCount(select_id);
+		
+		int point = (int) session.getAttribute("point");
+		
 
 		if (result == false) {
 			redirectattributes.addFlashAttribute("result", "在庫数が購入数より少ない商品、又は0の商品があります。再度ご確認の上決済画面へ進んでください。");
@@ -4627,15 +4638,15 @@ public class ShoppingController {
 				if (cartdto.getMenberCouponCheck().equals("会員ランク特典使用")) {
 
 					purchaseService.insertMenberCoupon(purchasedto, productid, purchaseCount, select_id,
-							purchaseCreditId, customId, couponId);
+							purchaseCreditId, customId, couponId,point);
 				} else if (couponCheck > 0) {
 					System.out.println("クーポン使用");
 					purchaseService.insert(purchasedto, productid, purchaseCount, select_id, purchaseCreditId, customId,
-							couponId);
+							couponId,point);
 				} else {
 					System.out.println("クーポン未使用");
 					purchaseService.insertNotCoupon(purchasedto, productid, purchaseCount, select_id, purchaseCreditId,
-							customId);
+							customId,point);
 				}
 			} catch (NullPointerException e) {
 				System.out.println("purchaseInsertnot");
@@ -4643,11 +4654,11 @@ public class ShoppingController {
 				if (couponCheck > 0) {
 					System.out.println("クーポン使用");
 					purchaseService.insert(purchasedto, productid, purchaseCount, select_id, purchaseCreditId, customId,
-							couponId);
+							couponId,point);
 				} else {
 					System.out.println("クーポン未使用");
 					purchaseService.insertNotCoupon(purchasedto, productid, purchaseCount, select_id, purchaseCreditId,
-							customId);
+							customId,point);
 				}
 			}
 			int purchaseId = purchaseService.selectPurchaseIdOne();

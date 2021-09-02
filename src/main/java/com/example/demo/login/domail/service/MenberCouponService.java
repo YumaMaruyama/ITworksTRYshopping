@@ -50,7 +50,7 @@ public class MenberCouponService {
 		return dao.selectManyBeforeCoupon(menberCouponId);
 	}
 	
-	public List<MenberCouponDTO> selectManyBeforeMenberCoupon(int menberCouponId,int rankNumber) {
-		return dao.selectManyBeforeMenberCoupon(menberCouponId,rankNumber);
+	public MenberCouponDTO selectManyBeforeMenberCoupon(int menberCouponId) {
+		return dao.selectManyBeforeMenberCoupon(menberCouponId);
 	}
 }

@@ -18,7 +18,7 @@ public interface MenberCouponDao {
 	
 	public List<MenberCouponDTO> selectManyBeforeCoupon(int menberCouponId);
 	
-	public List<MenberCouponDTO> selectManyBeforeMenberCoupon(int menberCouponId,int rankNumber);
+	public MenberCouponDTO selectManyBeforeMenberCoupon(int menberCouponId);
 	
 	public List<MenberCouponDTO> selectMany();
 	

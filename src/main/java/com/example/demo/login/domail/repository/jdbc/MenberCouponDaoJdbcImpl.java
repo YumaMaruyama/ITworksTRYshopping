@@ -92,6 +92,23 @@ public class MenberCouponDaoJdbcImpl implements MenberCouponDao {
 				
 	}
 	
+	public MenberCouponDTO selectManyBeforeMenberCoupon(int menberCouponId) {
+		Map<String,Object> map = jdbc.queryForMap("select * from menber_coupon where id = ?",menberCouponId);
+		
+		
+		
+		
+			MenberCouponDTO coupondto = new MenberCouponDTO();
+			coupondto.setId((int)map.get("id"));
+			coupondto.setDiscount((int)map.get("discount"));
+			coupondto.setPurchaseCountTarget((int)map.get("purchase_count_target"));
+			coupondto.setPurchaseTotalPriceTarget((int)map.get("purchase_total_price_target"));
+			coupondto.setTitle((String)map.get("title"));
+			coupondto.setCouponRank((int)map.get("coupon_rank"));
+		return coupondto;
+				
+	}
+	
 	public List<MenberCouponDTO> selectManyBeforeCoupon(int menberCouponId) {
 		List<Map<String,Object>> map = jdbc.queryForList("select * from menber_coupon where id = ?",menberCouponId);
 		 
@@ -133,11 +150,7 @@ public class MenberCouponDaoJdbcImpl implements MenberCouponDao {
 		return menberCouponList;
 	}
 
-	@Override
-	public List<MenberCouponDTO> selectManyBeforeMenberCoupon(int menberCouponId, int rankNumber) {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
-	}
-	
-	
+
+
+
 }
