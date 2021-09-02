@@ -1061,7 +1061,7 @@ public class ShoppingController {
 		session.setAttribute("pointRate",form.getPointRate());
 		pointRateService.updateOne(session);
 		
-		int pointRate = pointRateService.insertOne(1);
+		int pointRate = pointRateService.selectOne(1);
 		model.addAttribute("pointRate",pointRate);
 		
 		return "shopping/productListLayout";
@@ -4543,7 +4543,11 @@ public class ShoppingController {
 			}
 			model.addAttribute("totalPrice", totalPriceAll);
 			
-			int point = (int) (totalPriceAll * 0.03);//購入金額の3%をポイントとする
+			int pointRate = pointRateService.selectOne(i);
+			double pointRateNew = (double) (0.0 + pointRate);
+			
+			
+			int point = (int) (totalPriceAll * pointRateNew);//購入金額の3%をポイントとする
 			model.addAttribute("point",point);
 			
 			int getId = usersService.select_id(getName);

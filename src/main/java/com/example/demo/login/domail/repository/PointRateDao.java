@@ -6,6 +6,6 @@ public interface PointRateDao {
 	
 	public int updateOne(HttpSession session);
 	
-	public int insertOne(int id);
+	public int selectOne(int id);
 
 }

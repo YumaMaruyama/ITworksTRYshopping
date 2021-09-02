@@ -17,7 +17,7 @@ public class PointRateService {
 		return dao.updateOne(session);
 	}
 	
-	public int insertOne(int id) {
-		return dao.insertOne(id);
+	public int selectOne(int id) {
+		return dao.selectOne(id);
 	}
 }

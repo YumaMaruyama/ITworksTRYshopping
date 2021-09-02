@@ -19,7 +19,7 @@ public class PointRateDaoJdbcImpl implements PointRateDao {
 		return result;
 	}
 	
-	public int insertOne(int id) {
+	public int selectOne(int id) {
 		int pointRate = jdbc.queryForObject("select point_rate from point_rate where id = ?",Integer.class,id);
 		
 		return pointRate;
