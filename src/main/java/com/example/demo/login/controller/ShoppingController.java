@@ -333,7 +333,16 @@ public class ShoppingController {
 			model.addAttribute("allTotalPrice", 0);
 			model.addAttribute("rankPoint", "アマチュアランク");
 		}
-
+		
+		List<PurchaseDTO> purchasePointList = purchaseService.selectPoint(selectId);
+		List<Integer> pointAdd = new ArrayList<>();
+		for(int x = 0; purchasePointList.size() > x; x++) {
+			PurchaseDTO purchasedtoOne = purchasePointList.get(x);
+			int pointOne = purchasedtoOne.getPoint();
+			
+			//続き
+		}
+		
 		return "shopping/productListLayout";
 	}
 

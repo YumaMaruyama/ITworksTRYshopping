@@ -229,6 +229,18 @@ public class PurchaseDaoJdbcImpl implements PurchaseDao {
 
 		return result;
 	}
+	
+	public List<PurchaseDTO> selectPoint(int userId) {
+		List<Map<String,Object>> map = jdbc.queryForList("select * from purchase where user_id = ?",userId);
+		
+		List<PurchaseDTO> purchasePointList = new ArrayList<>();
+		for(Map<String,Object> oneMap : map) {
+			PurchaseDTO purchasedto = new PurchaseDTO();
+			purchasedto.setPoint((int)oneMap.get("point"));
+			purchasePointList.add(purchasedto);
+		}
+		return purchasePointList;
+	}
 
 
 

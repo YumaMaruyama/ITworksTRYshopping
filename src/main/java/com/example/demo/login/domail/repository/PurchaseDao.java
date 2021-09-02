@@ -36,5 +36,7 @@ public interface PurchaseDao {
 	
 	public int insertNotCoupon(PurchaseDTO purchasedto, int purchaseId, int purchaseCount, int select_id,
 			int purchaseCreditId, int customId,int point);
+	
+	public List<PurchaseDTO> selectPoint(int userId);
 
 }

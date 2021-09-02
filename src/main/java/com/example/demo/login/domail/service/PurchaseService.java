@@ -88,6 +88,10 @@ public class PurchaseService {
 		return dao.insertNotCoupon(purchasedto, purchaseId, purchaseCount, select_id,
 				purchaseCreditId, customId,point);
 	}
+	
+	public List<PurchaseDTO> selectPoint(int userId) {
+		return dao.selectPoint(userId);
+	}
 
 
 }

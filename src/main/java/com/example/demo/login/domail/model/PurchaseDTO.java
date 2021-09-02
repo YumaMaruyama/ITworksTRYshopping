@@ -50,5 +50,9 @@ public class PurchaseDTO {
 	private int couponId;
 	
 	private String cancelResult;
+	
+	private int point;
+	
+	private int pointAdd;
 
 }
