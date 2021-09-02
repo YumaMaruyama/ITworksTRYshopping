@@ -1040,6 +1040,12 @@ public class ShoppingController {
 
 		return getLogout();
 	}
+	
+//	@GetMapping("/pointRateChange")
+//	public String getPointRateChange(@ModelAttribute PointRateChangeForm form,Model model) {
+//		model.addAttribute("contents", "shopping/pointRateChange::productListLayout_contents");
+//		
+//	}
 
 	@GetMapping("termsOfUse")
 	public String gettermsOfUse(Model model) {
