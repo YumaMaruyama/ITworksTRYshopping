@@ -47,6 +47,7 @@ import com.example.demo.login.domail.model.PcDataDTO;
 import com.example.demo.login.domail.model.PcDataForm;
 import com.example.demo.login.domail.model.PcDetailDataDTO;
 import com.example.demo.login.domail.model.PcDetailDataForm;
+import com.example.demo.login.domail.model.PointRateChangeForm;
 import com.example.demo.login.domail.model.PurchaseDTO;
 import com.example.demo.login.domail.model.ReviewDTO;
 import com.example.demo.login.domail.model.ReviewForm;
@@ -65,6 +66,7 @@ import com.example.demo.login.domail.service.InquiryService;
 import com.example.demo.login.domail.service.MenberCouponService;
 import com.example.demo.login.domail.service.NewsService;
 import com.example.demo.login.domail.service.PcDataService;
+import com.example.demo.login.domail.service.PointRateService;
 import com.example.demo.login.domail.service.PurchaseService;
 import com.example.demo.login.domail.service.ReviewService;
 import com.example.demo.login.domail.service.Usege_usersService;
@@ -101,6 +103,8 @@ public class ShoppingController {
 	InquiryReplyService inquiryreplyService;
 	@Autowired
 	MenberCouponService menberCouponService;
+	@Autowired
+	PointRateService pointRateService;
 
 	@Autowired // Sessionが使用できる
 	HttpSession session;
@@ -1041,11 +1045,28 @@ public class ShoppingController {
 		return getLogout();
 	}
 	
-//	@GetMapping("/pointRateChange")
-//	public String getPointRateChange(@ModelAttribute PointRateChangeForm form,Model model) {
-//		model.addAttribute("contents", "shopping/pointRateChange::productListLayout_contents");
-//		
-//	}
+	@GetMapping("/pointRateChange")
+	public String getPointRateChange(@ModelAttribute PointRateChangeForm form,Model model) {
+		model.addAttribute("contents", "shopping/pointRateChange::productListLayout_contents");
+		
+		
+		return "shopping/productListLayout";
+		
+	}
+	
+	@PostMapping("/pointRateChange")
+	public String postPointRateChange(@ModelAttribute PointRateChangeForm form,Model model) {
+		model.addAttribute("contents", "shopping/pointRateChangeFinish::productListLayout_contents");
+		
+		session.setAttribute("pointRate",form.getPointRate());
+		pointRateService.updateOne(session);
+		
+		int pointRate = pointRateService.insertOne(1);
+		model.addAttribute("pointRate",pointRate);
+		
+		return "shopping/productListLayout";
+		
+	}
 
 	@GetMapping("termsOfUse")
 	public String gettermsOfUse(Model model) {
