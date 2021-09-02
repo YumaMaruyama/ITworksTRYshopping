@@ -181,65 +181,65 @@ public class ShoppingController {
 
 	}
 
-	@GetMapping("/userPurchaseHistory/{id}")
-	public String getUserPurchaseList(@ModelAttribute UsersListForm form, @PathVariable("id") int id, Model model) {
-		model.addAttribute("contents", "shopping/userPurchaseHistory::productListLayout_contents");
-
-		// ユーザーの購入商品情報リスト取得
-		List<PurchaseDTO> purchasedtoList = purchaseService.selectHistory(id);
-		System.out.println("text1");
-		PurchaseDTO purchasedto = new PurchaseDTO();
-
-		List<PurchaseDTO> allPurchaseList = new ArrayList<>();
-		PurchaseDTO customList;
-		// PurchaseDTO purchasedtoAdd;
-		// 購入商品を一つづつ回して値を受け取る
-		for (int i = 0; purchasedtoList.size() > i; i++) {
-			PurchaseDTO purchasedtoAdd = new PurchaseDTO();
-			System.out.println("test1");
-			PurchaseDTO purchaseOne = purchasedtoList.get(i);
-			purchasedtoAdd.setId(purchaseOne.getId());// カスタム情報取得に使用
-			purchasedtoAdd.setPurchase_date(purchaseOne.getPurchase_date());
-			purchasedtoAdd.setPcName(purchaseOne.getPcName());
-			purchasedtoAdd.setPrice(purchaseOne.getPrice());
-			purchasedtoAdd.setProduct_count(purchaseOne.getProduct_count());
-			purchasedtoAdd.setPurchaseCheck(purchaseOne.getPurchaseId());
-
-			System.out.println("test2");
-			// 購入商品ごとのカスタム情報を取得
-			System.out.println("test3");
-			int productId = purchasedtoAdd.getId();
-			System.out.println("productId" + productId);
-			System.out.println(id);
-			int customId = purchasedtoAdd.getCustom_id();
-			System.out.println("customId");
-			// カスタムテーブルに購入チェックをつける
-			int result = customService.purchaseCheckUpdate(id, purchasedtoAdd.getId());
-			String nullCheck = "null";
-			int getCustomId = customService.selectPurchaseCheck(id, purchasedtoAdd.getId(),
-					purchasedtoAdd.getPurchaseCheck(), nullCheck);
-			System.out.println("getCustomId" + getCustomId);
-
-			customList = customService.selectMany(getCustomId);
-			System.out.println("costomList" + customList);
-
-			purchasedtoAdd.setMemory(customList.getMemory());
-			purchasedtoAdd.setHardDisc(customList.getHardDisc());
-			purchasedtoAdd.setCpu(customList.getCpu());
-			purchasedtoAdd.setCustomPrice(customList.getCustomPrice());
-			purchasedtoAdd.setTotalPrice(
-					purchaseOne.getProduct_count() * (customList.getCustomPrice() + purchaseOne.getPrice()));
-
-			allPurchaseList.add(purchasedtoAdd);
-
-			System.out.println("allPurchaseList" + allPurchaseList);
-
-		}
-
-		model.addAttribute("purchaseList", allPurchaseList);
-
-		return "shopping/productListLayout";
-	}
+//	@GetMapping("/userPurchaseHistory/{id}")
+//	public String getUserPurchaseList(@ModelAttribute UsersListForm form, @PathVariable("id") int id, Model model) {
+//		model.addAttribute("contents", "shopping/userPurchaseHistory::productListLayout_contents");
+//
+//		// ユーザーの購入商品情報リスト取得
+//		List<PurchaseDTO> purchasedtoList = purchaseService.selectHistory(id);
+//		System.out.println("text1");
+//		PurchaseDTO purchasedto = new PurchaseDTO();
+//
+//		List<PurchaseDTO> allPurchaseList = new ArrayList<>();
+//		PurchaseDTO customList;
+//		// PurchaseDTO purchasedtoAdd;
+//		// 購入商品を一つづつ回して値を受け取る
+//		for (int i = 0; purchasedtoList.size() > i; i++) {
+//			PurchaseDTO purchasedtoAdd = new PurchaseDTO();
+//			System.out.println("test1");
+//			PurchaseDTO purchaseOne = purchasedtoList.get(i);
+//			purchasedtoAdd.setId(purchaseOne.getId());// カスタム情報取得に使用
+//			purchasedtoAdd.setPurchase_date(purchaseOne.getPurchase_date());
+//			purchasedtoAdd.setPcName(purchaseOne.getPcName());
+//			purchasedtoAdd.setPrice(purchaseOne.getPrice());
+//			purchasedtoAdd.setProduct_count(purchaseOne.getProduct_count());
+//			purchasedtoAdd.setPurchaseCheck(purchaseOne.getPurchaseId());
+//
+//			System.out.println("test2");
+//			// 購入商品ごとのカスタム情報を取得
+//			System.out.println("test3");
+//			int productId = purchasedtoAdd.getId();
+//			System.out.println("productId" + productId);
+//			System.out.println(id);
+//			int customId = purchasedtoAdd.getCustom_id();
+//			System.out.println("customId");
+//			// カスタムテーブルに購入チェックをつける
+//			int result = customService.purchaseCheckUpdate(id, purchasedtoAdd.getId());
+//			String nullCheck = "null";
+//			int getCustomId = customService.selectPurchaseCheck(id, purchasedtoAdd.getId(),
+//					purchasedtoAdd.getPurchaseCheck(), nullCheck);
+//			System.out.println("getCustomId" + getCustomId);
+//
+//			customList = customService.selectMany(getCustomId);
+//			System.out.println("costomList" + customList);
+//
+//			purchasedtoAdd.setMemory(customList.getMemory());
+//			purchasedtoAdd.setHardDisc(customList.getHardDisc());
+//			purchasedtoAdd.setCpu(customList.getCpu());
+//			purchasedtoAdd.setCustomPrice(customList.getCustomPrice());
+//			purchasedtoAdd.setTotalPrice(
+//					purchaseOne.getProduct_count() * (customList.getCustomPrice() + purchaseOne.getPrice()));
+//
+//			allPurchaseList.add(purchasedtoAdd);
+//
+//			System.out.println("allPurchaseList" + allPurchaseList);
+//
+//		}
+//
+//		model.addAttribute("purchaseList", allPurchaseList);
+//
+//		return "shopping/productListLayout";
+//	}
 
 	@GetMapping("/editYour")
 	public String getEditYour(@ModelAttribute UserEditForm form, Model model) {
@@ -453,6 +453,13 @@ public class ShoppingController {
 		System.out.println("amateurRatio" + amateurRatio);
 		String amateurRatioStr = String.valueOf(amateurRatio);
 		int ratioSize = amateurRatioStr.length();
+		if(ratioSize >= 4) {
+			String amateurRatioStrCheckNew = amateurRatioStr.substring(0,4);
+			System.out.println("334");
+			String amateurRatioStrCheckfour = amateurRatioStrCheckNew.substring(2, 4);
+			model.addAttribute("amateurUser", amateurRatioStrCheckfour);
+			
+		}else {
 		System.out.println("ratioSize" + ratioSize);
 		if (ratioSize == 3) {
 			System.out.println("11");
@@ -487,6 +494,7 @@ public class ShoppingController {
 			String amateurRatioStrCheckfiveNew = "0." + amateurRatioStrCheckfive;
 			model.addAttribute("amateurUser", amateurRatioStrCheckfiveNew);
 		}
+		}
 
 		// proユーザー
 		double proRatio = (double) proUser / (double) totalUser;
@@ -494,6 +502,13 @@ public class ShoppingController {
 		String proRatioStr = String.valueOf(proRatio);
 		int ratioSizePro = proRatioStr.length();
 		System.out.println("ratioSizePro" + ratioSizePro);
+		if(ratioSizePro >= 4) {
+			String proRatioStrCheckNew = proRatioStr.substring(0,4);
+			System.out.println("334");
+			String proRatioStrCheckfour = proRatioStrCheckNew.substring(2, 4);
+			model.addAttribute("proUser", proRatioStrCheckfour);
+			
+		}else {
 		if (ratioSizePro == 3) {
 			System.out.println("11");
 			String proRatioStrCheck = proRatioStr.substring(0, 1);
@@ -527,13 +542,20 @@ public class ShoppingController {
 			String proRatioStrCheckfiveNew = "0." + proRatioStrCheckfive;
 			model.addAttribute("proUser", proRatioStrCheckfiveNew);
 		}
-
+		}
 		// bronzeユーザー
 		double bronzeRatio = (double) bronzeUser / (double) totalUser;
 		System.out.println("bronzeRatio" + bronzeRatio);
 		String bronzeRatioStr = String.valueOf(bronzeRatio);
 		int ratioSizeBronze = bronzeRatioStr.length();
 		System.out.println("ratioSizeBronze" + ratioSizeBronze);
+		if(ratioSizeBronze >= 4) {
+			String bronzeRatioStrCheckNew = bronzeRatioStr.substring(0,4);
+			System.out.println("334");
+			String bronzeRatioStrCheckfour = bronzeRatioStrCheckNew.substring(2, 4);
+			model.addAttribute("bronzeUser", bronzeRatioStrCheckfour);
+			
+		}else {
 		if (ratioSizeBronze == 3) {
 			System.out.println("11");
 			String bronzeRatioStrCheck = bronzeRatioStr.substring(0, 1);
@@ -567,6 +589,7 @@ public class ShoppingController {
 			String bronzeRatioStrCheckfiveNew = "0." + bronzeRatioStrCheckfive;
 			model.addAttribute("bronzeUser", bronzeRatioStrCheckfiveNew);
 		}
+		}
 
 		// sivlerユーザー
 		double silverRatio = (double) silverUser / (double) totalUser;
@@ -574,6 +597,13 @@ public class ShoppingController {
 		String silverRatioStr = String.valueOf(silverRatio);
 		int ratioSizeSilver = silverRatioStr.length();
 		System.out.println("ratioSizeSilver" + ratioSizeSilver);
+		if(ratioSizeSilver >= 4) {
+			String silverRatioStrCheckNew = silverRatioStr.substring(0,4);
+			System.out.println("334");
+			String silverRatioStrCheckfour = silverRatioStrCheckNew.substring(2, 4);
+			model.addAttribute("silverUser", silverRatioStrCheckfour);
+			
+		}else {
 		if (ratioSizeSilver == 3) {
 			System.out.println("11");
 			String silverRatioStrCheck = silverRatioStr.substring(0, 1);
@@ -607,13 +637,21 @@ public class ShoppingController {
 			String silverRatioStrCheckfiveNew = "0." + silverRatioStrCheckfive;
 			model.addAttribute("silverUser", silverRatioStrCheckfiveNew);
 		}
-
+		}
+		
 		// goldユーザー
 		double goldRatio = (double) goldUser / (double) totalUser;
 		System.out.println("goldRatio" + goldRatio);
 		String goldRatioStr = String.valueOf(goldRatio);
 		int ratioSizeGold = goldRatioStr.length();
 		System.out.println("ratioSizeGold" + ratioSizeGold);
+		if(ratioSizeGold >= 4) {
+			String goldRatioStrCheckNew = goldRatioStr.substring(0,4);
+			System.out.println("334");
+			String goldRatioStrCheckfour = goldRatioStrCheckNew.substring(2, 4);
+			model.addAttribute("goldUser", goldRatioStrCheckfour);
+			
+		}else {
 		if (ratioSizeGold == 3) {
 			System.out.println("11");
 			String goldRatioStrCheck = goldRatioStr.substring(0, 1);
@@ -647,6 +685,7 @@ public class ShoppingController {
 			String goldRatioStrCheckfiveNew = "0." + goldRatioStrCheckfive;
 			model.addAttribute("goldUser", goldRatioStrCheckfiveNew);
 		}
+		}
 
 		// diamondユーザー
 		double diamondRatio = (double) diamondUser / (double) totalUser;
@@ -654,6 +693,13 @@ public class ShoppingController {
 		String diamondRatioStr = String.valueOf(diamondRatio);
 		int ratioSizeDiamond = diamondRatioStr.length();
 		System.out.println("ratioSizeDiamond" + ratioSizeDiamond);
+		if(ratioSizeDiamond >= 4) {
+			String diamondRatioStrCheckNew = diamondRatioStr.substring(0,4);
+			System.out.println("334");
+			String diamondRatioStrCheckfour = diamondRatioStrCheckNew.substring(2, 4);
+			model.addAttribute("diamondUser", diamondRatioStrCheckfour);
+			
+		}else {
 		if (ratioSizeDiamond == 3) {
 			System.out.println("11");
 			String diamondRatioStrCheck = diamondRatioStr.substring(0, 1);
@@ -687,6 +733,7 @@ public class ShoppingController {
 			String diamondRatioStrCheckfiveNew = "0." + diamondRatioStrCheckfive;
 			model.addAttribute("diamondUser", diamondRatioStrCheckfiveNew);
 		}
+		}
 
 		// platinumユーザー
 		double platinumRatio = (double) platinumUser / (double) totalUser;
@@ -694,6 +741,13 @@ public class ShoppingController {
 		String platinumRatioStr = String.valueOf(platinumRatio);
 		int ratioSizePlatinum = platinumRatioStr.length();
 		System.out.println("ratioSizePlatinum" + ratioSizePlatinum);
+		if(ratioSizePlatinum >= 4) {
+			String platinumRatioStrCheckNew = platinumRatioStr.substring(0,4);
+			System.out.println("334");
+			String platinumRatioStrCheckfour = platinumRatioStrCheckNew.substring(2, 4);
+			model.addAttribute("platinumUser", platinumRatioStrCheckfour);
+			
+		}else {
 		if (ratioSizePlatinum == 3) {
 			System.out.println("11");
 			String platinumRatioStrCheck = platinumRatioStr.substring(0, 1);
@@ -727,6 +781,7 @@ public class ShoppingController {
 			String platinumRatioStrCheckfiveNew = "0." + platinumRatioStrCheckfive;
 			model.addAttribute("platinumUser", platinumRatioStrCheckfiveNew);
 		}
+		}
 
 		// alienユーザー
 		double alienRatio = (double) alienUser / (double) totalUser;
@@ -734,6 +789,13 @@ public class ShoppingController {
 		String alienRatioStr = String.valueOf(alienRatio);
 		int ratioSizeAlien = alienRatioStr.length();
 		System.out.println("ratioSizeAlien" + ratioSizeAlien);
+		if(ratioSizeAlien >= 4) {
+			String alienRatioStrCheckNew = alienRatioStr.substring(0,4);
+			System.out.println("334");
+			String alienRatioStrCheckfour = alienRatioStrCheckNew.substring(2, 4);
+			model.addAttribute("alienUser", alienRatioStrCheckfour);
+			
+		}else {
 		if (ratioSizeAlien == 3) {
 			System.out.println("11");
 			String alienRatioStrCheck = alienRatioStr.substring(0, 1);
@@ -767,6 +829,7 @@ public class ShoppingController {
 			String alienRatioStrCheckfiveNew = "0." + alienRatioStrCheckfive;
 			model.addAttribute("alienUser", alienRatioStrCheckfiveNew);
 		}
+		}
 
 		// godFoxユーザー
 		double godFoxRatio = (double) godFoxUser / (double) totalUser;
@@ -774,6 +837,13 @@ public class ShoppingController {
 		String godFoxRatioStr = String.valueOf(godFoxRatio);
 		int ratioSizegodFox = godFoxRatioStr.length();
 		System.out.println("ratioSizegodFox" + ratioSizegodFox);
+		if(ratioSizegodFox >= 4) {
+			String godFoxRatioStrCheckNew = godFoxRatioStr.substring(0,4);
+			System.out.println("334");
+			String godFoxRatioStrCheckfour = godFoxRatioStrCheckNew.substring(2, 4);
+			model.addAttribute("godFoxUser", godFoxRatioStrCheckfour);
+			
+		}else {
 		if (ratioSizegodFox == 3) {
 			System.out.println("11");
 			String godFoxRatioStrCheck = godFoxRatioStr.substring(0, 1);
@@ -807,6 +877,7 @@ public class ShoppingController {
 			String godFoxRatioStrCheckfiveNew = "0." + godFoxRatioStrCheckfive;
 			model.addAttribute("godFoxUser", godFoxRatioStrCheckfiveNew);
 		}
+		}
 
 		// premiumGodユーザー
 		double premiumGodRatio = (double) premiumGodUser / (double) totalUser;
@@ -814,6 +885,13 @@ public class ShoppingController {
 		String premiumGodRatioStr = String.valueOf(premiumGodRatio);
 		int ratioSizePremiumGod = premiumGodRatioStr.length();
 		System.out.println("ratioSizePremiumGod" + ratioSizePremiumGod);
+		if(ratioSizePremiumGod >= 4) {
+			String premiumGodRatioStrCheckNew = premiumGodRatioStr.substring(0,4);
+			System.out.println("334");
+			String premiumGodRatioStrCheckfour = premiumGodRatioStrCheckNew.substring(2, 4);
+			model.addAttribute("premiumGodUser", premiumGodRatioStrCheckfour);
+			
+		}else {
 		if (ratioSizePremiumGod == 3) {
 			System.out.println("11");
 			String premiumGodRatioStrCheck = premiumGodRatioStr.substring(0, 1);
@@ -847,6 +925,7 @@ public class ShoppingController {
 			String premiumGodRatioStrCheckfiveNew = "0." + premiumGodRatioStrCheckfive;
 			model.addAttribute("premiumGodUser", premiumGodRatioStrCheckfiveNew);
 		}
+		}
 
 		// inductedIntoTheHalOfFameRankユーザー
 		double inductedIntoTheHalOfFameRankRatio = (double) inductedIntoTheHalOfFameUser / (double) totalUser;
@@ -854,6 +933,13 @@ public class ShoppingController {
 		String inductedIntoTheHalOfFameRankRatioStr = String.valueOf(inductedIntoTheHalOfFameRankRatio);
 		int ratioSizeInductedIntoTheHalOfFameRank = inductedIntoTheHalOfFameRankRatioStr.length();
 		System.out.println("ratioSizeInductedIntoTheHalOfFameRank" + ratioSizeInductedIntoTheHalOfFameRank);
+		if(ratioSizeInductedIntoTheHalOfFameRank >= 4) {
+			String inductedIntoTheHalOfFameRatioStrCheckNew = inductedIntoTheHalOfFameRankRatioStr.substring(0,4);
+			System.out.println("334");
+			String inductedIntoTheHalOfFameRatioStrCheckfour = inductedIntoTheHalOfFameRatioStrCheckNew.substring(2, 4);
+			model.addAttribute("inductedIntoTheHalOfFameUser", inductedIntoTheHalOfFameRatioStrCheckfour);
+			
+		}else {
 		if (ratioSizeInductedIntoTheHalOfFameRank == 3) {
 			System.out.println("11");
 			String inductedIntoTheHalOfFameRankRatioStrCheck = inductedIntoTheHalOfFameRankRatioStr.substring(0, 1);
@@ -892,6 +978,7 @@ public class ShoppingController {
 			String inductedIntoTheHalOfFameRankRatioStrCheckfiveNew = "0."
 					+ inductedIntoTheHalOfFameRankRatioStrCheckfive;
 			model.addAttribute("inductedIntoTheHalOfFameRankUser", inductedIntoTheHalOfFameRankRatioStrCheckfiveNew);
+		}
 		}
 
 		return "shopping/productListLayout";
@@ -1187,128 +1274,128 @@ public class ShoppingController {
 		return "shopping/productListLayout";
 	}
 	
-//	@GetMapping("/userPurchaseHistory/{id}")
-//	public String getUserPurchaseHistory(@ModelAttribute PcDataForm form,@PathVariable("id") int userId,Model model) {
-//		
-//		// 購入商品情報リスト取得
-//				List<PurchaseDTO> purchasedtoList = purchaseService.selectHistory(userId);
-//
-//				PurchaseDTO purchasedto = new PurchaseDTO();
-//
-//				List<PurchaseDTO> allPurchaseList = new ArrayList<>();
-//				PurchaseDTO customList;
-//				// 購入商品を一つづつ回して値を受け取る
-//				for (int i = 0; purchasedtoList.size() > i; i++) {
-//					PurchaseDTO purchasedtoAdd = new PurchaseDTO();
-//
-//					PurchaseDTO purchaseOne = purchasedtoList.get(i);
-//					purchasedtoAdd.setId(purchaseOne.getId());// カスタム情報取得に使用
-//					purchasedtoAdd.setPurchaseId(purchaseOne.getPurchaseId());
-//					purchasedtoAdd.setPurchase_date(purchaseOne.getPurchase_date());
-//					purchasedtoAdd.setCancelCheck(purchaseOne.getCancelCheck());
-//					purchasedtoAdd.setCouponId(purchaseOne.getCouponId());
-//					purchasedtoAdd.setPcName(purchaseOne.getPcName());
-//					purchasedtoAdd.setPrice(purchaseOne.getPrice());
-//					purchasedtoAdd.setPcImg(purchaseOne.getPcImg());
-//					purchasedtoAdd.setProduct_count(purchaseOne.getProduct_count());
-//					purchasedtoAdd.setPurchaseCheck(purchaseOne.getPurchaseCheck());
-//					purchasedtoAdd.setMenberCouponCheck(purchaseOne.getMenberCouponCheck());
-//
-//					// 購入商品ごとのカスタム情報も取り出す
-//
-//					int productId = purchasedtoAdd.getId();
-//					System.out.println("productId" + productId);
-//					System.out.println(userId);
-//					int customId = purchasedtoAdd.getCustom_id();
-//					System.out.println("customId");
-//					String nullCheck = "null";
-//					int getCustomId = customService.selectPurchaseCheck(userId, productId, purchasedtoAdd.getPurchaseCheck(),
-//							nullCheck);
-//					System.out.println("getCustomId" + getCustomId);
-//
-//					customList = customService.selectMany(getCustomId);
-//					System.out.println("costomList" + customList);
-//
-//					purchasedtoAdd.setMemory(customList.getMemory());
-//					purchasedtoAdd.setHardDisc(customList.getHardDisc());
-//					purchasedtoAdd.setCpu(customList.getCpu());
-//					purchasedtoAdd.setCustomPrice(customList.getCustomPrice());
-//					purchasedtoAdd.setTotalPrice(
-//							purchaseOne.getProduct_count() * (customList.getCustomPrice() + purchaseOne.getPrice()));
-//
-//					if (purchasedtoAdd.getMenberCouponCheck().equals("会員クーポン使用")) {
-//						System.out.println("クーポン使用！");
-//						int totalPrice = purchasedtoAdd.getTotalPrice();
-//						MenberCouponDTO menbercoupondto = menberCouponService.selectOne(purchasedtoAdd.getCouponId());// 会員DBからとる
-//						int disCount = menbercoupondto.getDiscount();// 割引率(%)
-//						if (disCount >= 10) {
-//							double disCountNew = Double.valueOf("0." + disCount);
-//							double disCountPriceNew = totalPrice * disCountNew;// 割引価格
-//							purchasedtoAdd.setTotalPrice((int) (totalPrice - disCountPriceNew));
-//						} else {
-//							double disCountNew = Double.valueOf("0.0" + disCount);
-//							double disCountPriceNew = totalPrice * disCountNew;// 割引価格
-//							purchasedtoAdd.setTotalPrice((int) (totalPrice - disCountPriceNew));
-//						}
-//					} else {
-//
-//						if (purchasedtoAdd.getCouponId() > 0) {
-//							System.out.println("クーポン使用！");
-//							int totalPrice = purchasedtoAdd.getTotalPrice();
-//							CouponDTO coupondto = couponService.selectOne(purchasedtoAdd.getCouponId());
-//							int disCount = coupondto.getDiscount();// 割引率(%)
-//							if (disCount >= 10) {
-//								double disCountNew = Double.valueOf("0." + disCount);
-//								double disCountPriceNew = totalPrice * disCountNew;// 割引価格
-//								purchasedtoAdd.setTotalPrice((int) (totalPrice - disCountPriceNew));
-//							} else {
-//								double disCountNew = Double.valueOf("0.0" + disCount);
-//								double disCountPriceNew = totalPrice * disCountNew;// 割引価格
-//								purchasedtoAdd.setTotalPrice((int) (totalPrice - disCountPriceNew));
-//							}
-//						}
-//					}
-//					// Date purchaseDate = purchasedtoAdd.getPurchase_date();
-//					Calendar calendar = Calendar.getInstance();
-//					Date now = calendar.getTime();
-//					calendar.setTime(purchasedtoAdd.getPurchase_date());
-//					Date purchaseDate = calendar.getTime();// 購入日付
-//					model.addAttribute("purchaseCheck", purchaseDate);
-//					calendar.add(Calendar.DATE, 10);
-//					Date purchaseDateAddTen = calendar.getTime();// キャンセル期間外の購入日付から10日後の日付
-//					model.addAttribute("result", purchaseDateAddTen);
-//					System.out.println("pur" + purchaseDate.getTime());
-//					System.out.println("now" + now.getTime());
-//					long d = (purchaseDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24);// 購入日と現在の日付を比べる
-//					int count = (int) -d;
-//
-//					if (count <= 10) {
-//						System.out.println("true");
-//						purchasedtoAdd.setCancelResult("true");
-//					} else {
-//						purchasedtoAdd.setCancelResult("false");
-//					}
-//
-//					System.out.println("testfalse");
-//					CancelDTO canceldto = cancelService.selectCancelCheck(purchasedtoAdd.getPurchaseId());
-//					System.out.println("testdd" + canceldto);
-//					if (canceldto.getCancelCheck() != null) {
-//						System.out.println("truefdfdfffdf");
-//						purchasedtoAdd.setCancelResult("true");
-//					}
-//
-//					System.out.println("purId" + purchasedtoAdd.getPurchaseId());
-//
-//					allPurchaseList.add(purchasedtoAdd);
-//					System.out.println("allPurchaseList" + allPurchaseList);
-//
-//				}
-//
-//				model.addAttribute("purchaseList", allPurchaseList);
-//				model.addAttribute("confirmationPending", "返品商品確認待ち");
-//				model.addAttribute("inTransaction", "キャンセル取引中");
-//				return "shopping/productListLayout";
-//	}
+	@GetMapping("/userPurchaseHistory/{id}")
+	public String getUserPurchaseHistory(@ModelAttribute PcDataForm form,@PathVariable("id") int userId,Model model) {
+		model.addAttribute("contents", "shopping/userPurchaseHistory::productListLayout_contents");
+		// 購入商品情報リスト取得
+				List<PurchaseDTO> purchasedtoList = purchaseService.selectHistory(userId);
+
+				PurchaseDTO purchasedto = new PurchaseDTO();
+
+				List<PurchaseDTO> allPurchaseList = new ArrayList<>();
+				PurchaseDTO customList;
+				// 購入商品を一つづつ回して値を受け取る
+				for (int i = 0; purchasedtoList.size() > i; i++) {
+					PurchaseDTO purchasedtoAdd = new PurchaseDTO();
+
+					PurchaseDTO purchaseOne = purchasedtoList.get(i);
+					purchasedtoAdd.setId(purchaseOne.getId());// カスタム情報取得に使用
+					purchasedtoAdd.setPurchaseId(purchaseOne.getPurchaseId());
+					purchasedtoAdd.setPurchase_date(purchaseOne.getPurchase_date());
+					purchasedtoAdd.setCancelCheck(purchaseOne.getCancelCheck());
+					purchasedtoAdd.setCouponId(purchaseOne.getCouponId());
+					purchasedtoAdd.setPcName(purchaseOne.getPcName());
+					purchasedtoAdd.setPrice(purchaseOne.getPrice());
+					purchasedtoAdd.setPcImg(purchaseOne.getPcImg());
+					purchasedtoAdd.setProduct_count(purchaseOne.getProduct_count());
+					purchasedtoAdd.setPurchaseCheck(purchaseOne.getPurchaseCheck());
+					purchasedtoAdd.setMenberCouponCheck(purchaseOne.getMenberCouponCheck());
+
+					// 購入商品ごとのカスタム情報も取り出す
+
+					int productId = purchasedtoAdd.getId();
+					System.out.println("productId" + productId);
+					System.out.println(userId);
+					int customId = purchasedtoAdd.getCustom_id();
+					System.out.println("customId");
+					String nullCheck = "null";
+					int getCustomId = customService.selectPurchaseCheck(userId, productId, purchasedtoAdd.getPurchaseCheck(),
+							nullCheck);
+					System.out.println("getCustomId" + getCustomId);
+
+					customList = customService.selectMany(getCustomId);
+					System.out.println("costomList" + customList);
+
+					purchasedtoAdd.setMemory(customList.getMemory());
+					purchasedtoAdd.setHardDisc(customList.getHardDisc());
+					purchasedtoAdd.setCpu(customList.getCpu());
+					purchasedtoAdd.setCustomPrice(customList.getCustomPrice());
+					purchasedtoAdd.setTotalPrice(
+							purchaseOne.getProduct_count() * (customList.getCustomPrice() + purchaseOne.getPrice()));
+
+					if (purchasedtoAdd.getMenberCouponCheck().equals("会員クーポン使用")) {
+						System.out.println("クーポン使用！");
+						int totalPrice = purchasedtoAdd.getTotalPrice();
+						MenberCouponDTO menbercoupondto = menberCouponService.selectOne(purchasedtoAdd.getCouponId());// 会員DBからとる
+						int disCount = menbercoupondto.getDiscount();// 割引率(%)
+						if (disCount >= 10) {
+							double disCountNew = Double.valueOf("0." + disCount);
+							double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+							purchasedtoAdd.setTotalPrice((int) (totalPrice - disCountPriceNew));
+						} else {
+							double disCountNew = Double.valueOf("0.0" + disCount);
+							double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+							purchasedtoAdd.setTotalPrice((int) (totalPrice - disCountPriceNew));
+						}
+					} else {
+
+						if (purchasedtoAdd.getCouponId() > 0) {
+							System.out.println("クーポン使用！");
+							int totalPrice = purchasedtoAdd.getTotalPrice();
+							CouponDTO coupondto = couponService.selectOne(purchasedtoAdd.getCouponId());
+							int disCount = coupondto.getDiscount();// 割引率(%)
+							if (disCount >= 10) {
+								double disCountNew = Double.valueOf("0." + disCount);
+								double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+								purchasedtoAdd.setTotalPrice((int) (totalPrice - disCountPriceNew));
+							} else {
+								double disCountNew = Double.valueOf("0.0" + disCount);
+								double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+								purchasedtoAdd.setTotalPrice((int) (totalPrice - disCountPriceNew));
+							}
+						}
+					}
+					// Date purchaseDate = purchasedtoAdd.getPurchase_date();
+					Calendar calendar = Calendar.getInstance();
+					Date now = calendar.getTime();
+					calendar.setTime(purchasedtoAdd.getPurchase_date());
+					Date purchaseDate = calendar.getTime();// 購入日付
+					model.addAttribute("purchaseCheck", purchaseDate);
+					calendar.add(Calendar.DATE, 10);
+					Date purchaseDateAddTen = calendar.getTime();// キャンセル期間外の購入日付から10日後の日付
+					model.addAttribute("result", purchaseDateAddTen);
+					System.out.println("pur" + purchaseDate.getTime());
+					System.out.println("now" + now.getTime());
+					long d = (purchaseDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24);// 購入日と現在の日付を比べる
+					int count = (int) -d;
+
+					if (count <= 10) {
+						System.out.println("true");
+						purchasedtoAdd.setCancelResult("true");
+					} else {
+						purchasedtoAdd.setCancelResult("false");
+					}
+
+					System.out.println("testfalse");
+					CancelDTO canceldto = cancelService.selectCancelCheck(purchasedtoAdd.getPurchaseId());
+					System.out.println("testdd" + canceldto);
+					if (canceldto.getCancelCheck() != null) {
+						System.out.println("truefdfdfffdf");
+						purchasedtoAdd.setCancelResult("true");
+					}
+
+					System.out.println("purId" + purchasedtoAdd.getPurchaseId());
+
+					allPurchaseList.add(purchasedtoAdd);
+					System.out.println("allPurchaseList" + allPurchaseList);
+
+				}
+
+				model.addAttribute("purchaseList", allPurchaseList);
+				model.addAttribute("confirmationPending", "返品商品確認待ち");
+				model.addAttribute("inTransaction", "キャンセル取引中");
+				return "shopping/productListLayout";
+	}
 
 	@GetMapping("/reviewAdd/{id}")
 	public String getReviewAdd(@ModelAttribute ReviewForm form, @PathVariable("id") int id, Model model) {
@@ -4428,7 +4515,10 @@ public class ShoppingController {
 				}
 			}
 			model.addAttribute("totalPrice", totalPriceAll);
-
+			
+			int point = (int) (totalPriceAll * 0.03);//購入金額の3%をポイントとする
+			model.addAttribute("point",point);
+			
 			int getId = usersService.select_id(getName);
 
 			System.out.println("cartList " + cartList);
@@ -4487,12 +4577,14 @@ public class ShoppingController {
 		for (int i = 0; i < cartList.size(); i++) {
 
 			CartDTO cartdto = cartList.get(i);
+			System.out.println("proIddto"+cartdto.getProduct_id());
 			int cartId = cartdto.getId();
 			// int selectProductId = cartService.selectProductId(cartId);
 			int id = cartdto.getId();
 			int productId = cartdto.getProduct_id();
 
 			int productid = cartdto.getProduct_id();
+			System.out.println("productId"+productid);
 			int customId = customService.selectCustomId(productId, select_id);
 			int purchaseCount = cartdto.getProduct_count();
 			int couponCheck = cartdto.getCouponId();
