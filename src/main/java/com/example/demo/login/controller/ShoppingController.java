@@ -336,12 +336,12 @@ public class ShoppingController {
 		
 		List<PurchaseDTO> purchasePointList = purchaseService.selectPoint(selectId);
 		List<Integer> pointAdd = new ArrayList<>();
+		int pointAll = 0;
 		for(int x = 0; purchasePointList.size() > x; x++) {
 			PurchaseDTO purchasedtoOne = purchasePointList.get(x);
 			int pointOne = purchasedtoOne.getPoint();
-			pointAdd.add(pointOne);
-			model.addAttribute("point",pointAdd);
-			
+			pointAll = pointAll + pointOne;	
+			model.addAttribute("point",pointAll);
 		}
 		
 		return "shopping/productListLayout";
@@ -3446,7 +3446,7 @@ public class ShoppingController {
 	public String getCouponUse(@ModelAttribute CouponForm form, CartForm cartform,
 			@PathVariable("couponId") int couponId, @PathVariable("productId") int productId, Model model) {
 		model.addAttribute("contents", "shopping/cart::productListLayout_contents");
-
+		System.out.println("coupon入った");
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 		String getUserId = auth.getName();
@@ -3460,8 +3460,9 @@ public class ShoppingController {
 		int disCountPrice = 0;// 割引数
 		if (cartList == null || cartList.size() == 0) {// カートが0の場合
 			model.addAttribute("totalPrice", 0);
+			
 		} else {
-
+			System.out.println("ok4");
 			for (int i = 0; i < cartList.size(); i++) {
 				PcDataDTO pcdatadto = cartList.get(i);
 
@@ -3474,11 +3475,13 @@ public class ShoppingController {
 				disCountPrice = pcdatadto.getProduct_count() * (pcdatadto.getPrice() + pcdatadto.getCustomPrice());
 
 				if (pcdatadto.getCouponId() >= 1) {// 商品にクーポンが適用されていればtrue
+					System.out.println("ok5");
 					CouponDTO coupondto = couponService.selectOne(couponId);
 					int disCount = coupondto.getDiscount();// 割引率(%)
 					System.out.println("disCount" + disCount);
 					double disCountNew = 0;
 					if (disCount < 10) {
+						System.out.println("ok6");
 						disCountNew = Double.valueOf("0.0" + disCount);
 
 						double disCountPriceNew = disCountPrice * disCountNew;// 割引価格
@@ -3515,7 +3518,9 @@ public class ShoppingController {
 		System.out.println("auth" + auth.getName());
 		String getUserId = auth.getName();
 
+		System.out.println("couponIdCheck"+couponId);
 		int cartId = cartService.selectMaxId(productId);// cartテーブルからクーポンを使う商品IDを取得
+		System.out.println("test1"+cartId);
 		cartService.updateMenberCouponId(cartId, couponId);// 商品IDでselectし、クーポン情報を加える
 
 		List<PcDataDTO> cartList = cartService.selectMany(getUserId);// ログインユーザーのみのカートの情報を取得

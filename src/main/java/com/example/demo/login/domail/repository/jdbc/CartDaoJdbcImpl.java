@@ -293,6 +293,7 @@ public class CartDaoJdbcImpl implements CartDao {
 
 	public int updateCouponId(int cartId, int couponId) {
 		int result = jdbc.update("update cart set coupon_id = ? where id = ?", couponId, cartId);
+		System.out.println("ok3");
 		return result;
 	}
 	
@@ -303,6 +304,7 @@ public class CartDaoJdbcImpl implements CartDao {
 		}
 	
 	public int updateMenberCouponId(int cartId,int couponId) {
+		System.out.println("ok2");
 		int result = jdbc.update("update cart set coupon_id = ?,menber_coupon_check = '会員ランク特典使用' where id = ?", couponId, cartId);
 		return result;
 	}

@@ -123,6 +123,7 @@ public class CartService {
 	}
 	
 	public int updateCouponId(int cartId,int couponId) {
+		System.out.println("ok");
 		return dao.updateCouponId(cartId,couponId);
 	}
 	
