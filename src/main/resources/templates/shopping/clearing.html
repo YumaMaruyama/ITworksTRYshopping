@@ -13,9 +13,11 @@
 			<h1 class="titleDesign">決済画面</h1>
 		</header>
 
+	
+		<br> <br>
+		<a class="text-center btn btn-primary" th:href="@{/pointUse}">ITPCworksポイント</a>
 		<br> <br>
 		<form method="post" th:action="@{/clearing} + '/' + ${couponId}" th:object="${creditForm}">
-
 			<div>
 				<h4 class="clearingTitle">JCBカードの情報を入力してください。</h4>
 			</div>
