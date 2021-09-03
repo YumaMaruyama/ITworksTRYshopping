@@ -48,6 +48,7 @@ import com.example.demo.login.domail.model.PcDataForm;
 import com.example.demo.login.domail.model.PcDetailDataDTO;
 import com.example.demo.login.domail.model.PcDetailDataForm;
 import com.example.demo.login.domail.model.PointRateChangeForm;
+import com.example.demo.login.domail.model.PointUseForm;
 import com.example.demo.login.domail.model.PurchaseDTO;
 import com.example.demo.login.domail.model.ReviewDTO;
 import com.example.demo.login.domail.model.ReviewForm;
@@ -3961,6 +3962,15 @@ public class ShoppingController {
 
 	}
 
+	@GetMapping("/pointUse")
+	public String getPointUse(@ModelAttribute PointUseForm form,Model model) {
+		model.addAttribute("contents", "shopping/pointUse::productListLayout_contents");
+		
+		
+		
+		return "shopping/productListLayout";
+	}
+	
 	@GetMapping("/clearing")
 	public String getCardClearing(@ModelAttribute CreditForm form, @RequestParam("couponId") int couponId,
 			Model model) {
