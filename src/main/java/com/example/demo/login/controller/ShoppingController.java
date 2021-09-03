@@ -339,8 +339,9 @@ public class ShoppingController {
 		for(int x = 0; purchasePointList.size() > x; x++) {
 			PurchaseDTO purchasedtoOne = purchasePointList.get(x);
 			int pointOne = purchasedtoOne.getPoint();
+			pointAdd.add(pointOne);
+			model.addAttribute("point",pointAdd);
 			
-			//続き
 		}
 		
 		return "shopping/productListLayout";
