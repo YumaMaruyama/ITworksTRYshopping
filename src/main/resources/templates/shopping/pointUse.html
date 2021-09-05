@@ -8,10 +8,10 @@
 <body>
 	<div th:fragment="productListLayout_contents">
 		<header>
-			<h1 class="titleDesign">ポイント倍率変更</h1>
+			<h1 class="titleDesign">ITPCworksポイント利用画面</h1>
 		</header>
 
-		<form method="post" th:action="@{/pointUse}" th:object="${pointUse}">
+		<form method="post" th:action="@{/pointUse}" th:object="${pointUseForm}">
 			<table>
 				<tr>
 					<th class="text-center">現在のITPCworksポイント</th>
@@ -28,6 +28,8 @@
 				</tr>
 
 			</table>
+			
+			<button class="text-center btn btn-primary">入力分のポイントを使用</button>
 		</form>
 	</div>
 
