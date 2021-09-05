@@ -3966,9 +3966,35 @@ public class ShoppingController {
 	public String getPointUse(@ModelAttribute PointUseForm form,Model model) {
 		model.addAttribute("contents", "shopping/pointUse::productListLayout_contents");
 		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println("auth" + auth.getName());
+		String user_id = auth.getName();
+		// ログインユーザーのID取得
+		int userId = usersService.select_id(user_id);
 		
+		List<PurchaseDTO> purchasePointList = purchaseService.selectPoint(userId);
+		List<Integer> pointAdd = new ArrayList<>();
+		int pointAll = 0;
+		for(int x = 0; purchasePointList.size() > x; x++) {
+			PurchaseDTO purchasedtoOne = purchasePointList.get(x);
+			int pointOne = purchasedtoOne.getPoint();
+			pointAll = pointAll + pointOne;	
+			model.addAttribute("point",pointAll);
+		}
 		
 		return "shopping/productListLayout";
+	}
+	
+	@PostMapping("/pointUse")
+	public String postPointUse(@ModelAttribute @Validated(GroupOrder.class) PointUseForm form,BindingResult bindingResult,Model model) {
+		model.addAttribute("contents", "shopping/pointUseNext::productListLayout_contents");
+		
+		if(bindingResult.hasErrors()) {
+			return getPointUse(form,model);
+		}
+		
+		return "shopping/productListLayout";
+		
 	}
 	
 	@GetMapping("/clearing")

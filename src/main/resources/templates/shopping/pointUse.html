@@ -10,18 +10,27 @@
 		<header>
 			<h1 class="titleDesign">ポイント倍率変更</h1>
 		</header>
-		
-		
-		<table>
-			<tr>
-				<th class="text-center">現在のITPCworksポイント</th>
-				<td class="text-center"></td>
-			</tr>
-		
-		</table>
-		
+
+		<form method="post" th:action="@{/pointUse}" th:object="${pointUse}">
+			<table>
+				<tr>
+					<th class="text-center">現在のITPCworksポイント</th>
+					<td class="text-center" th:text="${point}"></td>
+				</tr>
+
+				<tr>
+					<th class="text-center">使用ポイント</th>
+					<td th:classappend="${#fields.hasErrors('pointUse')}?'has-error'"
+						class="form-group"><input type="text" class="form-control"
+						th:field="*{pointUse}"> <span class="text-danger"
+						th:if="${#fields.hasErrors('pointUse')}" th:errors="*{pointUse}">pointUse
+							error</span></td>
+				</tr>
+
+			</table>
+		</form>
 	</div>
-	
+
 </body>
 </body>
 </html>
