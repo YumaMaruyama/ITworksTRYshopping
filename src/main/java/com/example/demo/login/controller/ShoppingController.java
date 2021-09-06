@@ -4292,7 +4292,9 @@ public class ShoppingController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 		String getName = auth.getName();
-
+		
+		model.addAttribute("pointUse",pointUse);
+		
 		List<PcDataDTO> cartList = cartService.selectMany(getName);
 		int totalPriceAll = 0;// カート全体価格
 		int totalPriceOne = 0;// 各商品価格
@@ -4436,6 +4438,7 @@ public class ShoppingController {
 		System.out.println("auth" + auth.getName());
 		String getName = auth.getName();
 
+		model.addAttribute("pointUse",0);
 		List<PcDataDTO> cartList = cartService.selectMany(getName);
 		int totalPriceAll = 0;// カート全体価格
 		int totalPriceOne = 0;// 各商品価格
@@ -4574,7 +4577,7 @@ public class ShoppingController {
 	public String getClearing(@ModelAttribute @Validated(GroupOrder.class) CreditForm form, BindingResult bindingResult,
 			RedirectAttributes redirectAttributes, @RequestParam("digits_3_code") String digits_3_code,
 			@RequestParam("cardName") String cardName, @RequestParam("cardNumber") String cardNumber,
-			@PathVariable("couponId") int couponId, HttpServletRequest request, HttpServletResponse response,
+			@PathVariable("couponId") int couponId,@RequestParam("pointUse") int pointUse, HttpServletRequest request, HttpServletResponse response,
 			Model model) {
 		// model.addAttribute("contents",
 		// "shopping/confirmation::productListLayout_contents");
@@ -4589,11 +4592,13 @@ public class ShoppingController {
 		// ログインユーザーのID取得
 		int select_id = usersService.select_id(user_id);
 
+		System.out.println("pointUse"+pointUse);
 		HttpSession session = request.getSession();
 		session.setAttribute("digits_3_code", digits_3_code);
 		session.setAttribute("cardName", cardName);
 		session.setAttribute("cardNumber", cardNumber);
 		session.setAttribute("couponId", couponId);
+		session.setAttribute("pointUse", pointUse);
 
 		return "redirect:/confirmation";
 	}
@@ -4926,7 +4931,7 @@ public class ShoppingController {
 
 	@GetMapping("/confirmation")
 	public String getConfirmation(@ModelAttribute PcDataForm from, CreditForm creditForm, HttpServletRequest request,
-			HttpServletResponse response, Model model) {
+			HttpServletResponse response, int pointUseCheck,Model model) {
 		model.addAttribute("contents", "shopping/confirmation::productListLayout_contents");
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -5048,11 +5053,14 @@ public class ShoppingController {
 			String cardName = (String) session.getAttribute("cardName");
 			String cardNumber = (String) session.getAttribute("cardNumber");
 			int couponId = (int) session.getAttribute("couponId");
-
+			int pointUse = (int) session.getAttribute("pointUse");
+			System.out.println("pointUse2"+pointUse);
+			
 			model.addAttribute("digits_3_code", digits_3_code);
 			model.addAttribute("cardName", cardName);
 			model.addAttribute("cardNumber", cardNumber);
 			model.addAttribute("couponId", couponId);
+			model.addAttribute("pointUse",pointUse);
 			
 
 		}
