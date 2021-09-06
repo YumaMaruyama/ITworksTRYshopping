@@ -12,7 +12,7 @@
 			<h1 class="titleDesign">ITPCworksポイント利用確認画面</h1>
 		</header>
 
-
+		<form method="get" th:action="@{/pointUseClearing} + '/' + ${couponId}">
 		<table>
 			<tr>
 				<th class="text-center">利用するポイント</th>
@@ -31,8 +31,9 @@
 
 		</table>
 		
-		<a class="text-center btn btn-primary">ポイントを利用</a>
-
+		<input type="hidden" name="pointUse" th:value="${pointUse}">
+		<button class="text-center btn btn-primary">ポイントを利用</button>
+</form>
 	</div>
 </body>
 </html>
