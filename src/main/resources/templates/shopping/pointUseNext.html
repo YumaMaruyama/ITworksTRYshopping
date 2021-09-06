@@ -15,18 +15,23 @@
 
 		<table>
 			<tr>
-				<th class="text-center">使用するポイント</th>
-				<td class="text-center" th:text="${pointAdd}"></td>
+				<th class="text-center">利用するポイント</th>
+				<td class="text-center" th:text="${pointUse}"></td>
 			</tr>
 			
 			<tr>
-				<th class="text-center">ポイント使用後に支払う金額</th>
+				<th class="text-center">利用後残るポイント</th>
+				<td class="text-center" th:text="${pointUseAfterPoint}"></td>
+			</tr>
+			
+			<tr>
+				<th class="text-center">ポイント利用後に支払う金額</th>
 				<td class="text-center" th:text="${pointUseAfterPrice}"></td>
 			</tr>
 
-
-
 		</table>
+		
+		<a class="text-center btn btn-primary">ポイントを利用</a>
 
 	</div>
 </body>

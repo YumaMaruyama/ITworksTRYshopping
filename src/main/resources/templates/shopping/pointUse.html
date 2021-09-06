@@ -11,15 +11,20 @@
 			<h1 class="titleDesign">ITPCworksポイント利用画面</h1>
 		</header>
 
-		<form method="post" th:action="@{/pointUse}" th:object="${pointUseForm}">
+		<form method="post" th:action="@{/pointUse} + '/' + ${couponId}" th:object="${pointUseForm}">
 			<table>
+			
+			<h3 class="text-center">1ポイント1円として利用できます。現在あるポイント以下で、合計支払金額以下のポイントを利用できます</h3>
+			
 				<tr>
 					<th class="text-center">現在のITPCworksポイント</th>
-					<td class="text-center" th:text="${point}"></td>
+					<td class="text-center" th:text="${point} + 'ポイント'"></td>
+					<th class="text-center">合計支払金額</th>
+					<td class="text-center" th:text="${totalPrice} + '円'"></td>
 				</tr>
 
 				<tr>
-					<th class="text-center">使用ポイント</th>
+					<th class="text-center">利用ポイント</th>
 					<td th:classappend="${#fields.hasErrors('pointUse')}?'has-error'"
 						class="form-group"><input type="text" class="form-control"
 						th:field="*{pointUse}"> <span class="text-danger"
