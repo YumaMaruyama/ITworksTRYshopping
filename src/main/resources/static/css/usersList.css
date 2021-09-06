@@ -7,3 +7,21 @@
 .usersListDesign {
 	font-size:11px !important;
 }
+
+.usersListThColor {
+	    background: #7cc2ff;
+}
+
+.usersListTdColor {
+	background: #cee8ff;
+}
+
+a.btn--green.btn--border-groove {
+  border: 6px groove #008039;
+  background: aquamarine;
+}
+
+a.btn--pink.btn--border-ridge {
+  border: 6px ridge #e53b4e;
+      background: #ffd2d6;
+}

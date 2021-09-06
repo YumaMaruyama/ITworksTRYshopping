@@ -10,7 +10,7 @@
 	<form method="post" th:action="@{/usersList}" th:object="${usersListForm}">
 	<h1 class="titleDesign">ユーザー編集</h1>
 	<table class="table table-hover table-bordered usersListDesign" th:each="userslistdto : ${usersDetailList}">
-		<tr>
+		<tr class="usersListDetailThColor">
 			<th class="text-center">メールアドレス</th>
 			<th class="text-center">登録名</th>
 			<th class="text-center">生年月日</th>
@@ -18,7 +18,7 @@
 			
 		</tr>
 		
-		<tr>
+		<tr class="usersListDetailTdColor">
 			<td class="text-center" th:text="${userslistdto.userId}"></td>
 			<td class="text-center" th:text="${userslistdto.userName}"></td>
 			<td class="text-center" th:text="${userslistdto.birthday}"></td>
@@ -27,7 +27,7 @@
 	</table>
 		
 		<input type="hidden" name="id" th:value="${userId}">
-		<button class="btn btn-primary" name="unsubscribe">このユーザーを退会させる</button>
+		<button class="btn btn-border" name="unsubscribe">ユーザーを退会</button>
 		
 	</form>
 	</div>

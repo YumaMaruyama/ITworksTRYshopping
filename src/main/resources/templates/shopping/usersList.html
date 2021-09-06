@@ -12,8 +12,8 @@
 	
 	<h1 class="titleDesign">ユーザーリスト</h1>
 	
-	<table class="table table-hover table-bordered usersListDesign" th:each="userslistdto : ${usersDetailManyList}">
-		<tr>
+	<table class="table  table-bordered usersListDesign" th:each="userslistdto : ${usersDetailManyList}">
+		<tr class="usersListThColor">
 			<th class="text-center">メールアドレス</th>
 			<th class="text-center">登録名</th>
 			<th class="text-center">生年月日</th>
@@ -21,13 +21,13 @@
 			<th class="text-center">管理</th>
 		</tr>
 		
-		<tr>
+		<tr  class="usersListTdColor">
 			<td class="text-center" th:text="${userslistdto.userId}"></td>
 			<td class="text-center" th:text="${userslistdto.userName}"></td>
 			<td class="text-center" th:text="${userslistdto.birthday}"></td>
 			<td class="text-center" th:text="${userslistdto.address}"></td>
-			<td class="text-center" ><a th:href="@{ '/usersListDetail' +  '/' + ${userslistdto.id}}" class="btn btn-primary btnDesign" >編集</a>
-			<a th:href="@{'/userPurchaseHistory' + '/' + ${userslistdto.id}}" class="btn btn-primary btnDesign">購入商品</a></td>
+			<td class="text-center" ><a th:href="@{ '/usersListDetail' +  '/' + ${userslistdto.id}}" class="btn btn--pink btn--border-ridge btnDesign" >編集</a>
+			<a th:href="@{'/userPurchaseHistory' + '/' + ${userslistdto.id}}" class="btn btn--green btn--border-groove btnDesign">購入商品</a></td>
 		</tr>
 	</table>
 	
