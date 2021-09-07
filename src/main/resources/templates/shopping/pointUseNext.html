@@ -9,24 +9,24 @@
 
 	<div th:fragment="productListLayout_contents">
 		<header>
-			<h1 class="titleDesign">ITPCworksポイント利用確認画面</h1>
+			<h1 class="titleDesign">ITworksTRYshoppingポイント利用確認画面</h1>
 		</header>
 
 		<form method="get" th:action="@{/pointUseClearing} + '/' + ${couponId}">
 		<table>
 			<tr>
 				<th class="text-center">利用するポイント</th>
-				<td class="text-center" th:text="${pointUse}"></td>
+				<td class="text-center" th:text="${pointUse} + 'ポイント'"></td>
 			</tr>
 			
 			<tr>
 				<th class="text-center">利用後残るポイント</th>
-				<td class="text-center" th:text="${pointUseAfterPoint}"></td>
+				<td class="text-center" th:text="${pointUseAfterPoint} + 'ポイント'"></td>
 			</tr>
 			
 			<tr>
 				<th class="text-center">ポイント利用後に支払う金額</th>
-				<td class="text-center" th:text="${pointUseAfterPrice}"></td>
+				<td class="text-center" th:text="${pointUseAfterPrice} + '円'"></td>
 			</tr>
 
 		</table>

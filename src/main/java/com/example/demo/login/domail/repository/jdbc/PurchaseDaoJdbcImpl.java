@@ -20,7 +20,7 @@ public class PurchaseDaoJdbcImpl implements PurchaseDao {
 	@Autowired
 	JdbcTemplate jdbc;
 
-	public int insert(PurchaseDTO purchasedto, int purchaseId, int purchaseCount, int select_id, int purchaseCreditId,int customId,int couponId,int point) {
+	public int insert(PurchaseDTO purchasedto, int purchaseId, int purchaseCount, int select_id, int purchaseCreditId,int customId,int couponId,int point,int pointminusTotalPrice) {
 
 		int result = jdbc.update("insert into purchase (id,"
 				+ " user_id,"
@@ -31,15 +31,16 @@ public class PurchaseDaoJdbcImpl implements PurchaseDao {
 				+ " custom_id,"
 				+ " menber_coupon_check,"
 				+ " coupon_id,"
-				+ " point)"
-				+ " value(?,?,?,?,?,?,?,?,?)", purchasedto.getId(), select_id, purchaseId, purchaseCount,
-				purchaseCreditId,customId,"クーポン使用",couponId,point);
+				+ " point,"
+				+ " point_use)"
+				+ " value(?,?,?,?,?,?,?,?,?,?)", purchasedto.getId(), select_id, purchaseId, purchaseCount,
+				purchaseCreditId,customId,"クーポン使用",couponId,point,pointminusTotalPrice);
 
 		return result;
 
 	}
 	
-	public int insertMenberCoupon(PurchaseDTO purchasedto,int purchaseId,int purchaseCount,int select_id,int purchaseCreditId,int customId,int couponId,int point) {
+	public int insertMenberCoupon(PurchaseDTO purchasedto,int purchaseId,int purchaseCount,int select_id,int purchaseCreditId,int customId,int couponId,int point,int pointminusTotalPrice) {
 		int result = jdbc.update("insert into purchase (id,"
 				+ " user_id,"
 				+ " product_id,"
@@ -49,9 +50,10 @@ public class PurchaseDaoJdbcImpl implements PurchaseDao {
 				+ " custom_id,"
 				+ " menber_coupon_check,"
 				+ " coupon_id,"
-				+ " point)"
-				+ " value(?,?,?,?,?,?,?,?,?)", purchasedto.getId(), select_id, purchaseId, purchaseCount,
-				purchaseCreditId,customId,"会員クーポン使用",couponId,point);
+				+ " point,"
+				+ " point_use)"
+				+ " value(?,?,?,?,?,?,?,?,?,?)", purchasedto.getId(), select_id, purchaseId, purchaseCount,
+				purchaseCreditId,customId,"会員クーポン使用",couponId,point,pointminusTotalPrice);
 
 		return result;
 	}
@@ -214,7 +216,7 @@ public class PurchaseDaoJdbcImpl implements PurchaseDao {
 	}
 	
 	public int insertNotCoupon(PurchaseDTO purchasedto, int purchaseId, int purchaseCount, int select_id,
-			int purchaseCreditId, int customId,int point) {
+			int purchaseCreditId, int customId,int point,int pointminusTotalPrice) {
 		int result = jdbc.update("insert into purchase (id,"
 				+ " user_id,"
 				+ " product_id,"
@@ -223,9 +225,10 @@ public class PurchaseDaoJdbcImpl implements PurchaseDao {
 				+ " custom_id,"
 				+ " menber_coupon_check,"
 				+ " coupon_id,"
-				+ " point)"
-				+ " value(?,?,?,?,?,?,?,?,?)", purchasedto.getId(), select_id, purchaseId, purchaseCount,
-				purchaseCreditId,customId,"クーポン不使用",-1,point);
+				+ " point,"
+				+ " point_use)"
+				+ " value(?,?,?,?,?,?,?,?,?,?)", purchasedto.getId(), select_id, purchaseId, purchaseCount,
+				purchaseCreditId,customId,"クーポン不使用",-1,point,pointminusTotalPrice);
 
 		return result;
 	}

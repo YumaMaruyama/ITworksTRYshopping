@@ -28,7 +28,7 @@
 				</div>
 			</div>
 			<br>
-			<table th:if="${pointUse} == 0"
+			<table th:if="${pointUseCheck} == 0"
 				class="col-sm-5 confirmationPrice table table-bordered table-hover cardTable">
 				<tr>
 					<th class="text-center clearingBackColora padding">お支払いカード名義</th>
@@ -47,12 +47,12 @@
 					<td class="priceBackColorb padding" th:text="${totalPrice} + '円'"></td>
 				</tr>
 				<tr>
-					<th class="text-center priceBackColora padding">ご購入お礼ポイント</th>
-					<td class="priceBackColorb padding" th:text="${point} + '円'"></td>
+					<th class="text-center priceBackColora padding">ITworksTRYshopping</th>
+					<td class="priceBackColorb padding" th:text="${point} + 'ポイントゲット'"></td>
 				</tr>
 			</table>
 			
-			<table th:if="${pointUse} gt 0"
+			<table th:if="${pointUseCheck} gt 0"
 				class="col-sm-5 confirmationPrice table table-bordered table-hover cardTable">
 				<tr>
 					<th class="text-center clearingBackColora padding">お支払いカード名義</th>
@@ -67,16 +67,16 @@
 					<td class="clearingBackColorb padding" th:text="${cardNumber}"></td>
 				</tr>
 				<tr>
-					<th class="text-center priceBackColora padding">お支払い合計金額</th>
+					<th class="text-center priceBackColora padding">合計金額</th>
 					<td class="priceBackColorb padding" th:text="${totalPrice} + '円'"></td>
 				</tr>
 				<tr>
-					<th class="text-center priceBackColora padding">ポイント利用後合計金額</th>
-					<td class="priceBackColorb padding" th:text="${point} + '円'"></td>
+					<th class="text-center priceBackColora padding">ポイント利用後お支払い合計金額</th>
+					<td class="priceBackColorb padding" th:text="${pointminusTotalPrice} + '円'"></td>
 				</tr>
 				<tr>
-					<th class="text-center priceBackColora padding">ご購入お礼ポイント</th>
-					<td class="priceBackColorb padding" th:text="${point} + '円'"></td>
+					<th class="text-center priceBackColora padding">ITworksTRYshopping</th>
+					<td class="priceBackColorb padding" th:text="${point} + 'ポイントゲット'"></td>
 				</tr>
 			</table>
 

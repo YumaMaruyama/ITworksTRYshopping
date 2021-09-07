@@ -8,7 +8,7 @@
 <body>
 	<div th:fragment="productListLayout_contents">
 		<header>
-			<h1 class="titleDesign">ITPCworksポイント利用画面</h1>
+			<h1 class="titleDesign">ITworksTRYshoppingポイント利用画面</h1>
 		</header>
 
 		<form method="post" th:action="@{/pointUse} + '/' + ${couponId}" th:object="${pointUseForm}">
@@ -17,8 +17,8 @@
 			<h3 class="text-center">1ポイント1円として利用できます。現在あるポイント以下で、合計支払金額以下のポイントを利用できます</h3>
 			
 				<tr>
-					<th class="text-center">現在のITPCworksポイント</th>
-					<td class="text-center" th:text="${point} + 'ポイント'"></td>
+					<th class="text-center">現在のITworksTRYshoppingポイント</th>
+					<td class="text-center" th:text="${point} + 'ポイント保持'"></td>
 					<th class="text-center">合計支払金額</th>
 					<td class="text-center" th:text="${totalPrice} + '円'"></td>
 				</tr>

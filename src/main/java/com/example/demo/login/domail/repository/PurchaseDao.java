@@ -8,9 +8,9 @@ import com.example.demo.login.domail.model.PurchaseDTO;
 
 public interface PurchaseDao {
 
-	public int insert(PurchaseDTO purchasedto,int purchaseId,int purchaseCount,int select_id,int purchaseCreditId,int customId,int couponId,int point);
+	public int insert(PurchaseDTO purchasedto,int purchaseId,int purchaseCount,int select_id,int purchaseCreditId,int customId,int couponId,int point,int pointminusTotalPrice);
 	
-	public int insertMenberCoupon(PurchaseDTO purchasedto,int purchaseId,int purchaseCount,int select_id,int purchaseCreditId,int customId,int couponId,int point);
+	public int insertMenberCoupon(PurchaseDTO purchasedto,int purchaseId,int purchaseCount,int select_id,int purchaseCreditId,int customId,int couponId,int point,int pointminusTotalPrice);
 
 	public List<PcDataDTO> selectMany(int select_id,int purchaseNumber);
 
@@ -35,7 +35,7 @@ public interface PurchaseDao {
 	public int cancelCheckUpdateNext(int purchaseId);
 	
 	public int insertNotCoupon(PurchaseDTO purchasedto, int purchaseId, int purchaseCount, int select_id,
-			int purchaseCreditId, int customId,int point);
+			int purchaseCreditId, int customId,int point,int pointminusTotalPrice);
 	
 	public List<PurchaseDTO> selectPoint(int userId);
 

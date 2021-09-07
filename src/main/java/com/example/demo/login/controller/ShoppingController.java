@@ -4931,9 +4931,11 @@ public class ShoppingController {
 
 	@GetMapping("/confirmation")
 	public String getConfirmation(@ModelAttribute PcDataForm from, CreditForm creditForm, HttpServletRequest request,
-			HttpServletResponse response, int pointUseCheck,Model model) {
+			HttpServletResponse response,Model model) {
 		model.addAttribute("contents", "shopping/confirmation::productListLayout_contents");
-
+		model.addAttribute("pointUseCheck",(int)session.getAttribute("pointUse"));
+		System.out.println("pointUseCheck"+ (int)session.getAttribute("pointUse"));
+		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 		String getName = auth.getName();
@@ -5038,7 +5040,15 @@ public class ShoppingController {
 			System.out.println("pointRateDouble"+pointRateDouble);
 			int point = (int) (totalPriceAll * pointRateDouble);//購入金額の3%をポイントとする
 			System.out.println("pointfinish"+point);
-			model.addAttribute("point",point);
+			model.addAttribute("point",point);//購入後に付くポイント
+			model.addAttribute("pointminusTotalPrice",(totalPriceAll - (int)session.getAttribute("pointUse")));//合計金額から利用ポイント分を引いた金額
+			int pointminusTotalPrice = (totalPriceAll - (int)session.getAttribute("pointUse"));
+			
+			if(pointminusTotalPrice != totalPriceAll) {//ポイントを使用していればtrue
+				session.setAttribute("pointminusTotalPrice",(int)session.getAttribute("pointUse"));
+				}else {
+					session.setAttribute("pointminusTotalPrice",0);
+				}
 			
 			session.setAttribute("point",point);
 			int pointNew = (int) session.getAttribute("point");
@@ -5074,6 +5084,8 @@ public class ShoppingController {
 			@RequestParam("couponId") int couponId, HttpServletRequest request, HttpServletResponse response,
 			Model model) {
 
+		int pointminusTotalPrice = (int) session.getAttribute("pointminusTotalPrice");
+		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 		String getName = auth.getName();
@@ -5127,15 +5139,15 @@ public class ShoppingController {
 				if (cartdto.getMenberCouponCheck().equals("会員ランク特典使用")) {
 
 					purchaseService.insertMenberCoupon(purchasedto, productid, purchaseCount, select_id,
-							purchaseCreditId, customId, couponId,point);
+							purchaseCreditId, customId, couponId,point,pointminusTotalPrice);
 				} else if (couponCheck > 0) {
 					System.out.println("クーポン使用");
 					purchaseService.insert(purchasedto, productid, purchaseCount, select_id, purchaseCreditId, customId,
-							couponId,point);
+							couponId,point,pointminusTotalPrice);
 				} else {
 					System.out.println("クーポン未使用");
 					purchaseService.insertNotCoupon(purchasedto, productid, purchaseCount, select_id, purchaseCreditId,
-							customId,point);
+							customId,point,pointminusTotalPrice);
 				}
 			} catch (NullPointerException e) {
 				System.out.println("purchaseInsertnot");
@@ -5143,11 +5155,11 @@ public class ShoppingController {
 				if (couponCheck > 0) {
 					System.out.println("クーポン使用");
 					purchaseService.insert(purchasedto, productid, purchaseCount, select_id, purchaseCreditId, customId,
-							couponId,point);
+							couponId,point,pointminusTotalPrice);
 				} else {
 					System.out.println("クーポン未使用");
 					purchaseService.insertNotCoupon(purchasedto, productid, purchaseCount, select_id, purchaseCreditId,
-							customId,point);
+							customId,point,pointminusTotalPrice);
 				}
 			}
 			int purchaseId = purchaseService.selectPurchaseIdOne();
