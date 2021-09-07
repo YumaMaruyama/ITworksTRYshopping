@@ -16,7 +16,7 @@
 
 		<br> <br>
 
-		<form method="post" th:action="@{/clearing} + '/' + ${couponId}"
+		<form th:if="${pointAfterPrice0} eq 'false'" method="post" th:action="@{/clearing} + '/' + ${couponId}"
 			th:object="${creditForm}">
 			<a class="text-center btn btn-primary"
 				th:href="@{/pointUse} + '/' + ${couponId}">ITPCworksポイント</a> <br>
@@ -64,6 +64,30 @@
 						th:errors="*{cardNumber}">cardNumber error</span></td>
 				</tr>
 
+				<tr>
+					<th class="form-group text-center thTitleDesign priceBackColora">ポイント使用後の引き落とし金額</th>
+					<td class="priceBackColorb" th:text="${totalPrice} + '円'"></td>
+				</tr>
+
+			</table>
+
+
+			<input type="hidden" name="pointUse" th:value="${pointUse}">
+			<button class="btn btn-gradient confirmationBtn">最終確認画面へ</button>
+
+		</form>
+		
+		<form th:if="${pointAfterPrice0} eq 'true'" method="post" th:action="@{/noClearing} + '/' + ${couponId}"
+			th:object="${creditForm}">
+			<a class="text-center btn btn-primary"
+				th:href="@{/pointUse} + '/' + ${couponId}">ITPCworksポイント</a> <br>
+			<br>
+			
+			<table class="table table-bordered table-hover clearingTableDesign">
+
+
+
+				
 				<tr>
 					<th class="form-group text-center thTitleDesign priceBackColora">ポイント使用後の引き落とし金額</th>
 					<td class="priceBackColorb" th:text="${totalPrice} + '円'"></td>

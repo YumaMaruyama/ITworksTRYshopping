@@ -4288,6 +4288,9 @@ public class ShoppingController {
 			return getPointUse(form,couponId,model);
 		}
 		
+		
+		
+		
 		int pointUse = Integer.parseInt(form.getPointUse());
 		
 		if((pointUse > pointAll) || (pointUse > totalPriceAll)) {
@@ -4448,6 +4451,13 @@ public class ShoppingController {
 			model.addAttribute("couponId", -1);
 		}
 		System.out.println("coId" + couponId);
+		
+		int pointUseCheck = Integer.parseInt(pointUseForm.getPointUse());
+		model.addAttribute("pointAfterPrice0","false");
+		if((totalPriceAll - pointUseCheck) == 0) {//合計支払金額　-　利用ポイントで値が0になればtrue
+			model.addAttribute("pointAfterPrice0","true");
+		}
+		
 		return "shopping/productListLayout";
 		
 	}
@@ -4623,6 +4633,30 @@ public class ShoppingController {
 		session.setAttribute("digits_3_code", digits_3_code);
 		session.setAttribute("cardName", cardName);
 		session.setAttribute("cardNumber", cardNumber);
+		session.setAttribute("couponId", couponId);
+		session.setAttribute("pointUse", pointUse);
+
+		return "redirect:/confirmation";
+	}
+	
+	@PostMapping("/noClearing/{couponId}")
+	public String getNoClearing(@ModelAttribute CreditForm form,
+			RedirectAttributes redirectAttributes,@PathVariable("couponId") int couponId,@RequestParam("pointUse") int pointUse, HttpServletRequest request, HttpServletResponse response,
+			Model model) {
+		
+		
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println("auth" + auth.getName());
+		String user_id = auth.getName();
+		// ログインユーザーのID取得
+		int select_id = usersService.select_id(user_id);
+
+		System.out.println("pointUse"+pointUse);
+		HttpSession session = request.getSession();
+		session.setAttribute("digits_3_code", "000");
+		session.setAttribute("cardName", "noClearing");
+		session.setAttribute("cardNumber", "0000000000000000");
 		session.setAttribute("couponId", couponId);
 		session.setAttribute("pointUse", pointUse);
 
@@ -5224,6 +5258,7 @@ public class ShoppingController {
 			purchasedtoAdd.setPurchaseId(purchaseOne.getPurchaseId());
 			purchasedtoAdd.setPurchase_date(purchaseOne.getPurchase_date());
 			purchasedtoAdd.setCancelCheck(purchaseOne.getCancelCheck());
+			purchasedtoAdd.setPointUse(purchaseOne.getPointUse());
 			purchasedtoAdd.setCouponId(purchaseOne.getCouponId());
 			purchasedtoAdd.setPcName(purchaseOne.getPcName());
 			purchasedtoAdd.setPrice(purchaseOne.getPrice());
