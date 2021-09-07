@@ -12,7 +12,7 @@
 	
 	<h1 class="titleDesign">ユーザーリスト</h1>
 	
-	<table class="table  table-bordered usersListDesign" th:each="userslistdto : ${usersDetailManyList}">
+	<table class="table-bordered usersListDesign" th:each="userslistdto : ${usersDetailManyList}">
 		<tr class="usersListThColor">
 			<th class="text-center">メールアドレス</th>
 			<th class="text-center">登録名</th>
@@ -29,6 +29,7 @@
 			<td class="text-center" ><a th:href="@{ '/usersListDetail' +  '/' + ${userslistdto.id}}" class="btn btn--pink btn--border-ridge btnDesign" >編集</a>
 			<a th:href="@{'/userPurchaseHistory' + '/' + ${userslistdto.id}}" class="btn btn--green btn--border-groove btnDesign">購入商品</a></td>
 		</tr>
+		<br>
 	</table>
 	
 	</div>

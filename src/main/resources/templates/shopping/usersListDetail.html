@@ -9,7 +9,7 @@
 	<div th:fragment="productListLayout_contents">
 	<form method="post" th:action="@{/usersList}" th:object="${usersListForm}">
 	<h1 class="titleDesign">ユーザー編集</h1>
-	<table class="table table-hover table-bordered usersListDesign" th:each="userslistdto : ${usersDetailList}">
+	<table class="table table-bordered usersListDesign" th:each="userslistdto : ${usersDetailList}">
 		<tr class="usersListDetailThColor">
 			<th class="text-center">メールアドレス</th>
 			<th class="text-center">登録名</th>
