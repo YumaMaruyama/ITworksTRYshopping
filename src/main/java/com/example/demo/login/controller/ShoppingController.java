@@ -335,14 +335,17 @@ public class ShoppingController {
 			model.addAttribute("rankPoint", "アマチュアランク");
 		}
 		
-		List<PurchaseDTO> purchasePointList = purchaseService.selectPoint(selectId);
-		List<Integer> pointAdd = new ArrayList<>();
+		List<PurchaseDTO> purchasePointList = purchaseService.selectPoint(selectId);//取得ポイントと利用ポイントを取得
 		int pointAll = 0;
+		int pointUseAll = 0;
 		for(int x = 0; purchasePointList.size() > x; x++) {
 			PurchaseDTO purchasedtoOne = purchasePointList.get(x);
 			int pointOne = purchasedtoOne.getPoint();
-			pointAll = pointAll + pointOne;	
-			model.addAttribute("point",pointAll);
+			int pointUseOne = purchasedtoOne.getPointUse();
+			pointAll = pointAll + pointOne;
+			pointUseAll = pointUseAll + pointUseOne;
+			model.addAttribute("point",(pointAll - pointUseAll));//取得ポイント　-　利用ポイントで現在保持しているポイントを出す
+			
 		}
 		
 		return "shopping/productListLayout";
@@ -3965,6 +3968,7 @@ public class ShoppingController {
 	@GetMapping("/pointUse/{id}")
 	public String getPointUse(@ModelAttribute PointUseForm form,@PathVariable("id") int couponId,Model model) {
 		model.addAttribute("contents", "shopping/pointUse::productListLayout_contents");
+		
 		model.addAttribute("couponId",couponId);
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
@@ -3972,19 +3976,20 @@ public class ShoppingController {
 		// ログインユーザーのID取得
 		int userId = usersService.select_id(user_id);
 		
-		List<PurchaseDTO> purchasePointList = purchaseService.selectPoint(userId);
-		List<Integer> pointAdd = new ArrayList<>();
+		List<PurchaseDTO> purchasePointList = purchaseService.selectPoint(userId);//取得ポイントと利用ポイントを取得
 		int pointAll = 0;
+		int pointUseAll = 0;
 		for(int x = 0; purchasePointList.size() > x; x++) {
 			PurchaseDTO purchasedtoOne = purchasePointList.get(x);
 			int pointOne = purchasedtoOne.getPoint();
-			pointAll = pointAll + pointOne;	
-			model.addAttribute("point",pointAll);
+			int pointUseOne = purchasedtoOne.getPointUse();
+			pointAll = pointAll + pointOne;
+			pointUseAll = pointUseAll + pointUseOne;
+			model.addAttribute("point",(pointAll - pointUseAll));//取得ポイント　-　利用ポイントで現在保持しているポイントを出す
+			
 		}
 		
 		
-		
-	
 		List<PcDataDTO> cartList = cartService.selectMany(user_id);
 		int totalPriceAll = 0;// カート全体価格
 		int totalPriceOne = 0;// 各商品価格
@@ -4127,19 +4132,21 @@ public class ShoppingController {
 			return getPointUse(form,couponId,model);
 		}
 		
-		List<PurchaseDTO> purchasePointList = purchaseService.selectPoint(userId);
-		List<Integer> pointAdd = new ArrayList<>();
+		
+		
+		List<PurchaseDTO> purchasePointList = purchaseService.selectPoint(userId);//取得ポイントと利用ポイントを取得
 		int pointAll = 0;
+		int pointUseAll = 0;
 		for(int x = 0; purchasePointList.size() > x; x++) {
 			PurchaseDTO purchasedtoOne = purchasePointList.get(x);
 			int pointOne = purchasedtoOne.getPoint();
-			pointAll = pointAll + pointOne;	
-			model.addAttribute("point",pointAll);
+			int pointUseOne = purchasedtoOne.getPointUse();
+			pointAll = pointAll + pointOne;
+			pointUseAll = pointUseAll + pointUseOne;
+			model.addAttribute("point",(pointAll - pointUseAll));//取得ポイント　-　利用ポイントで現在保持しているポイントを出す			
 		}
 		
-		
-		
-	
+
 		List<PcDataDTO> cartList = cartService.selectMany(user_id);
 		int totalPriceAll = 0;// カート全体価格
 		int totalPriceOne = 0;// 各商品価格
@@ -4263,6 +4270,22 @@ public class ShoppingController {
 			// model.addAttribute("product_count",pcdatadto.getProduct_count());
 			// form.setProduct_count(pcdatadto.getProduct_count());
 			System.out.println("form" + form);
+		}
+		
+		int pointUseCheck = Integer.parseInt(form.getPointUse());
+		model.addAttribute("errorCheck","false");
+		if(pointUseCheck > totalPriceAll) {//利用ポイントが合計支払金額より多く入力されたらtrue
+			
+			model.addAttribute("error","合計支払金額以下で入力してください");
+			model.addAttribute("errorCheck","true");
+			return getPointUse(form,couponId,model);
+		}
+		
+		if(pointUseCheck > (pointAll - pointUseAll)) {//利用ポイントが保持しているポイントより多く入力されたらtrue
+			
+			model.addAttribute("error","保持しているポイント以下で入力してください");
+			model.addAttribute("errorCheck","true");
+			return getPointUse(form,couponId,model);
 		}
 		
 		int pointUse = Integer.parseInt(form.getPointUse());
@@ -4444,6 +4467,9 @@ public class ShoppingController {
 		int totalPriceOne = 0;// 各商品価格
 		double disCountPrice = 0;
 
+		if(cartList.size() == 1) {
+			model.addAttribute("pointUseBtnCheck","true");
+		}
 		for (int i = 0; i < cartList.size(); i++) {
 			PcDataDTO pcdatadto = cartList.get(i);
 

@@ -54,5 +54,7 @@ public class PurchaseDTO {
 	private int point;
 	
 	private int pointAdd;
+	
+	private int pointUse;
 
 }

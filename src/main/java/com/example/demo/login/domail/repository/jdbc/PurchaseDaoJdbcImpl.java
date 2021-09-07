@@ -240,6 +240,7 @@ public class PurchaseDaoJdbcImpl implements PurchaseDao {
 		for(Map<String,Object> oneMap : map) {
 			PurchaseDTO purchasedto = new PurchaseDTO();
 			purchasedto.setPoint((int)oneMap.get("point"));
+			purchasedto.setPointUse((int)oneMap.get("point_use"));
 			purchasePointList.add(purchasedto);
 		}
 		return purchasePointList;
