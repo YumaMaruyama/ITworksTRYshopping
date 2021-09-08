@@ -174,7 +174,7 @@ public class PurchaseDaoJdbcImpl implements PurchaseDao {
 	
 	public PurchaseDTO reviewSelectHistory(int selectId,int purchaseId) {
 		try {
-		Map<String,Object> map = jdbc.queryForMap("select purchase.id,purchase.product_id,purchase.purchase_date,purchase.product_count,purchase.point_use,pcdata.id as pcDataId,pcdata.pc_name,pcdata.price,cart.purchase_check as cartPurchaseCheck from purchase join pcdata on purchase.product_id = pcdata.id join cart on purchase.id = cart.purchase_check where purchase.id = ? ",purchaseId);
+		Map<String,Object> map = jdbc.queryForMap("select purchase.id,purchase.product_id,purchase.purchase_date,purchase.product_count,purchase.coupon_id,purchase.menber_coupon_check,purchase.point_use,pcdata.id as pcDataId,pcdata.pc_name,pcdata.price,cart.purchase_check as cartPurchaseCheck from purchase join pcdata on purchase.product_id = pcdata.id join cart on purchase.id = cart.purchase_check where purchase.id = ? ",purchaseId);
 		
 		PurchaseDTO purchasedto = new PurchaseDTO();
 		purchasedto.setId((int)map.get("id"));
@@ -184,6 +184,8 @@ public class PurchaseDaoJdbcImpl implements PurchaseDao {
 		purchasedto.setPcName((String)map.get("pc_name"));
 		purchasedto.setPrice((int)map.get("price"));
 		purchasedto.setProduct_count((int)map.get("product_count"));
+		purchasedto.setCouponId((int)map.get("coupon_id"));
+		purchasedto.setMenberCouponCheck((String)map.get("menber_coupon_check"));
 		purchasedto.setPointUse((int)map.get("point_use"));
 		purchasedto.setPurchaseCheck((int)map.get("cartPurchaseCheck"));
 		return purchasedto;

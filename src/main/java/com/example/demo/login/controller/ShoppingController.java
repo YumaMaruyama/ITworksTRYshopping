@@ -1531,6 +1531,8 @@ public class ShoppingController {
 		purchasedto.setPrice(purchasedtoList.getPrice());
 		purchasedto.setProduct_count(purchasedtoList.getProduct_count());
 		purchasedto.setPointUse(purchasedtoList.getPointUse());
+		purchasedto.setCouponId(purchasedtoList.getCouponId());
+		purchasedto.setMenberCouponCheck(purchasedtoList.getMenberCouponCheck());
 		purchasedto.setPurchaseCheck(purchasedtoList.getPurchaseCheck());
 
 		String nullCheck = "null";
@@ -1546,11 +1548,58 @@ public class ShoppingController {
 		purchasedto.setHardDisc(customList.getHardDisc());
 		purchasedto.setCpu(customList.getCpu());
 		purchasedto.setCustomPrice(customList.getCustomPrice());
-		model.addAttribute("totalPrice",(purchasedto.getProduct_count() * (purchasedto.getPrice() + purchasedto.getCustomPrice())) - purchasedto.getPointUse());
+		
+		purchasedto.setTotalPrice((purchasedto.getProduct_count() * (purchasedto.getPrice() + purchasedto.getCustomPrice())));
+		
+		if (purchasedto.getMenberCouponCheck().equals("会員クーポン使用")) {
+			System.out.println("クーポン使用！");
+			int totalPrice = purchasedto.getTotalPrice();
+			MenberCouponDTO menbercoupondto = menberCouponService.selectOne(purchasedto.getCouponId());// 会員DBからとる
+			int disCount = menbercoupondto.getDiscount();// 割引率(%)
+			if (disCount >= 10) {
+				double disCountNew = Double.valueOf("0." + disCount);
+				double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+				int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+				System.out.println("totalPriceAll"+totalPriceAll);
+				System.out.println("purchasedtoAdd.getPointUse"+purchasedto.getPointUse());
+				purchasedto.setTotalPrice(totalPriceAll);
+			} else {
+				double disCountNew = Double.valueOf("0.0" + disCount);
+				double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+				int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+				System.out.println("totalPriceAll"+totalPriceAll);
+				System.out.println("purchasedtoAdd.getPointUse"+purchasedto.getPointUse());
+				purchasedto.setTotalPrice(totalPriceAll);
+			}
+		} else {
+
+			if (purchasedto.getCouponId() > 0) {
+				System.out.println("クーポン使用！");
+				int totalPrice = purchasedto.getTotalPrice();
+				CouponDTO coupondto = couponService.selectOne(purchasedto.getCouponId());
+				int disCount = coupondto.getDiscount();// 割引率(%)
+				if (disCount >= 10) {
+					double disCountNew = Double.valueOf("0." + disCount);
+					double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+					System.out.println("totalPrice"+totalPrice);
+					int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+					System.out.println("totalPriceAll"+totalPriceAll);
+					purchasedto.setTotalPrice(totalPriceAll);
+					System.out.println("setTotalPrice"+purchasedto.getTotalPrice());
+				} else {
+					double disCountNew = Double.valueOf("0.0" + disCount);
+					double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+					int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+					purchasedto.setTotalPrice(totalPriceAll);
+				}
+			}
+		}
+		
+		
 		model.addAttribute("purchaseId", purchaseId);
 
 		model.addAttribute("purchaseList", purchasedto);
-
+		model.addAttribute("totalPrice",(purchasedto.getTotalPrice() - purchasedto.getPointUse()));
 		return "shopping/productListLayout";
 
 	}
@@ -1590,6 +1639,8 @@ public class ShoppingController {
 		purchasedto.setPrice(purchasedtoList.getPrice());
 		purchasedto.setProduct_count(purchasedtoList.getProduct_count());
 		purchasedto.setPointUse(purchasedtoList.getPointUse());
+		purchasedto.setCouponId(purchasedtoList.getCouponId());
+		purchasedto.setMenberCouponCheck(purchasedtoList.getMenberCouponCheck());
 		purchasedto.setPurchaseCheck(purchasedtoList.getPurchaseCheck());
 
 		String nullCheck = "null";
@@ -1605,7 +1656,55 @@ public class ShoppingController {
 		purchasedto.setHardDisc(customList.getHardDisc());
 		purchasedto.setCpu(customList.getCpu());
 		purchasedto.setCustomPrice(customList.getCustomPrice());
-		model.addAttribute("totalPrice",(purchasedto.getProduct_count() * (purchasedto.getPrice() + purchasedto.getCustomPrice())) - purchasedto.getPointUse());
+		
+		
+purchasedto.setTotalPrice((purchasedto.getProduct_count() * (purchasedto.getPrice() + purchasedto.getCustomPrice())));
+		
+		if (purchasedto.getMenberCouponCheck().equals("会員クーポン使用")) {
+			System.out.println("クーポン使用！");
+			int totalPrice = purchasedto.getTotalPrice();
+			MenberCouponDTO menbercoupondto = menberCouponService.selectOne(purchasedto.getCouponId());// 会員DBからとる
+			int disCount = menbercoupondto.getDiscount();// 割引率(%)
+			if (disCount >= 10) {
+				double disCountNew = Double.valueOf("0." + disCount);
+				double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+				int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+				System.out.println("totalPriceAll"+totalPriceAll);
+				System.out.println("purchasedtoAdd.getPointUse"+purchasedto.getPointUse());
+				purchasedto.setTotalPrice(totalPriceAll);
+			} else {
+				double disCountNew = Double.valueOf("0.0" + disCount);
+				double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+				int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+				System.out.println("totalPriceAll"+totalPriceAll);
+				System.out.println("purchasedtoAdd.getPointUse"+purchasedto.getPointUse());
+				purchasedto.setTotalPrice(totalPriceAll);
+			}
+		} else {
+
+			if (purchasedto.getCouponId() > 0) {
+				System.out.println("クーポン使用！");
+				int totalPrice = purchasedto.getTotalPrice();
+				CouponDTO coupondto = couponService.selectOne(purchasedto.getCouponId());
+				int disCount = coupondto.getDiscount();// 割引率(%)
+				if (disCount >= 10) {
+					double disCountNew = Double.valueOf("0." + disCount);
+					double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+					System.out.println("totalPrice"+totalPrice);
+					int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+					System.out.println("totalPriceAll"+totalPriceAll);
+					purchasedto.setTotalPrice(totalPriceAll);
+					System.out.println("setTotalPrice"+purchasedto.getTotalPrice());
+				} else {
+					double disCountNew = Double.valueOf("0.0" + disCount);
+					double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+					int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+					purchasedto.setTotalPrice(totalPriceAll);
+				}
+			}
+		}
+	model.addAttribute("totalPrice",purchasedto.getTotalPrice() - purchasedto.getPointUse());
+		
 		model.addAttribute("purchaseId", purchaseId);
 
 		model.addAttribute("purchaseList", purchasedto);
@@ -1659,6 +1758,8 @@ public class ShoppingController {
 		purchasedto.setPrice(purchasedtoList.getPrice());
 		purchasedto.setProduct_count(purchasedtoList.getProduct_count());
 		purchasedto.setPointUse(purchasedtoList.getPointUse());
+		purchasedto.setCouponId(purchasedtoList.getCouponId());
+		purchasedto.setMenberCouponCheck(purchasedtoList.getMenberCouponCheck());
 		purchasedto.setPurchaseCheck(purchasedtoList.getPurchaseCheck());
 
 		String nullCheck = "null";
@@ -1674,7 +1775,57 @@ public class ShoppingController {
 		purchasedto.setHardDisc(customList.getHardDisc());
 		purchasedto.setCpu(customList.getCpu());
 		purchasedto.setCustomPrice(customList.getCustomPrice());
-		model.addAttribute("totalPrice", (purchasedto.getProduct_count() * (purchasedto.getPrice() + purchasedto.getCustomPrice())) - purchasedto.getPointUse());
+		
+		
+purchasedto.setTotalPrice((purchasedto.getProduct_count() * (purchasedto.getPrice() + purchasedto.getCustomPrice())));
+		
+		if (purchasedto.getMenberCouponCheck().equals("会員クーポン使用")) {
+			System.out.println("クーポン使用！");
+			int totalPrice = purchasedto.getTotalPrice();
+			MenberCouponDTO menbercoupondto = menberCouponService.selectOne(purchasedto.getCouponId());// 会員DBからとる
+			int disCount = menbercoupondto.getDiscount();// 割引率(%)
+			if (disCount >= 10) {
+				double disCountNew = Double.valueOf("0." + disCount);
+				double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+				int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+				System.out.println("totalPriceAll"+totalPriceAll);
+				System.out.println("purchasedtoAdd.getPointUse"+purchasedto.getPointUse());
+				purchasedto.setTotalPrice(totalPriceAll);
+			} else {
+				double disCountNew = Double.valueOf("0.0" + disCount);
+				double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+				int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+				System.out.println("totalPriceAll"+totalPriceAll);
+				System.out.println("purchasedtoAdd.getPointUse"+purchasedto.getPointUse());
+				purchasedto.setTotalPrice(totalPriceAll);
+			}
+		} else {
+
+			if (purchasedto.getCouponId() > 0) {
+				System.out.println("クーポン使用！");
+				int totalPrice = purchasedto.getTotalPrice();
+				CouponDTO coupondto = couponService.selectOne(purchasedto.getCouponId());
+				int disCount = coupondto.getDiscount();// 割引率(%)
+				if (disCount >= 10) {
+					double disCountNew = Double.valueOf("0." + disCount);
+					double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+					System.out.println("totalPrice"+totalPrice);
+					int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+					System.out.println("totalPriceAll"+totalPriceAll);
+					purchasedto.setTotalPrice(totalPriceAll);
+					System.out.println("setTotalPrice"+purchasedto.getTotalPrice());
+				} else {
+					double disCountNew = Double.valueOf("0.0" + disCount);
+					double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+					int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+					purchasedto.setTotalPrice(totalPriceAll);
+				}
+			}
+		}
+	model.addAttribute("totalPrice",purchasedto.getTotalPrice() - purchasedto.getPointUse());
+		
+		
+		
 		model.addAttribute("purchaseId", purchaseId);
 
 		model.addAttribute("purchaseList", purchasedto);
@@ -1711,6 +1862,9 @@ public class ShoppingController {
 		purchasedto.setPrice(purchasedtoList.getPrice());
 		purchasedto.setProduct_count(purchasedtoList.getProduct_count());
 		purchasedto.setPointUse(purchasedtoList.getPointUse());
+		purchasedto.setCouponId(purchasedtoList.getCouponId());
+		purchasedto.setMenberCouponCheck(purchasedtoList.getMenberCouponCheck());
+
 		purchasedto.setPurchaseCheck(purchasedtoList.getPurchaseCheck());
 
 		String nullCheck = "null";
@@ -1726,7 +1880,56 @@ public class ShoppingController {
 		purchasedto.setHardDisc(customList.getHardDisc());
 		purchasedto.setCpu(customList.getCpu());
 		purchasedto.setCustomPrice(customList.getCustomPrice());
-		model.addAttribute("totalPrice",(purchasedto.getProduct_count() * (purchasedto.getPrice() + purchasedto.getCustomPrice())) - purchasedto.getPointUse());
+		
+		
+purchasedto.setTotalPrice((purchasedto.getProduct_count() * (purchasedto.getPrice() + purchasedto.getCustomPrice())));
+		
+		if (purchasedto.getMenberCouponCheck().equals("会員クーポン使用")) {
+			System.out.println("クーポン使用！");
+			int totalPrice = purchasedto.getTotalPrice();
+			MenberCouponDTO menbercoupondto = menberCouponService.selectOne(purchasedto.getCouponId());// 会員DBからとる
+			int disCount = menbercoupondto.getDiscount();// 割引率(%)
+			if (disCount >= 10) {
+				double disCountNew = Double.valueOf("0." + disCount);
+				double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+				int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+				System.out.println("totalPriceAll"+totalPriceAll);
+				System.out.println("purchasedtoAdd.getPointUse"+purchasedto.getPointUse());
+				purchasedto.setTotalPrice(totalPriceAll);
+			} else {
+				double disCountNew = Double.valueOf("0.0" + disCount);
+				double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+				int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+				System.out.println("totalPriceAll"+totalPriceAll);
+				System.out.println("purchasedtoAdd.getPointUse"+purchasedto.getPointUse());
+				purchasedto.setTotalPrice(totalPriceAll);
+			}
+		} else {
+
+			if (purchasedto.getCouponId() > 0) {
+				System.out.println("クーポン使用！");
+				int totalPrice = purchasedto.getTotalPrice();
+				CouponDTO coupondto = couponService.selectOne(purchasedto.getCouponId());
+				int disCount = coupondto.getDiscount();// 割引率(%)
+				if (disCount >= 10) {
+					double disCountNew = Double.valueOf("0." + disCount);
+					double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+					System.out.println("totalPrice"+totalPrice);
+					int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+					System.out.println("totalPriceAll"+totalPriceAll);
+					purchasedto.setTotalPrice(totalPriceAll);
+					System.out.println("setTotalPrice"+purchasedto.getTotalPrice());
+				} else {
+					double disCountNew = Double.valueOf("0.0" + disCount);
+					double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+					int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+					purchasedto.setTotalPrice(totalPriceAll);
+				}
+			}
+		}
+	model.addAttribute("totalPrice",purchasedto.getTotalPrice() - purchasedto.getPointUse());
+		
+		
 		model.addAttribute("purchaseId", purchaseId);
 
 		model.addAttribute("purchaseList", purchasedto);
@@ -1806,6 +2009,8 @@ public class ShoppingController {
 		int productStock = purchasedto.getProduct_count();
 		purchasedto.setPointUse(purchasedtoList.getPointUse());
 		model.addAttribute("pointUse",purchasedto.getPointUse());
+		purchasedto.setCouponId(purchasedtoList.getCouponId());
+		purchasedto.setMenberCouponCheck(purchasedtoList.getMenberCouponCheck());
 		purchasedto.setPurchaseCheck(purchasedtoList.getPurchaseCheck());
 
 		PurchaseDTO customList = customService.selectMany(customId);// 購入した商品のcustomテーブル情報を取得
@@ -1815,7 +2020,56 @@ public class ShoppingController {
 		purchasedto.setHardDisc(customList.getHardDisc());
 		purchasedto.setCpu(customList.getCpu());
 		purchasedto.setCustomPrice(customList.getCustomPrice());
-		model.addAttribute("totalPrice", (purchasedto.getProduct_count() * (purchasedto.getPrice() + purchasedto.getCustomPrice())) - purchasedto.getPointUse());
+		
+		
+		
+purchasedto.setTotalPrice((purchasedto.getProduct_count() * (purchasedto.getPrice() + purchasedto.getCustomPrice())));
+		
+		if (purchasedto.getMenberCouponCheck().equals("会員クーポン使用")) {
+			System.out.println("クーポン使用！");
+			int totalPrice = purchasedto.getTotalPrice();
+			MenberCouponDTO menbercoupondto = menberCouponService.selectOne(purchasedto.getCouponId());// 会員DBからとる
+			int disCount = menbercoupondto.getDiscount();// 割引率(%)
+			if (disCount >= 10) {
+				double disCountNew = Double.valueOf("0." + disCount);
+				double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+				int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+				System.out.println("totalPriceAll"+totalPriceAll);
+				System.out.println("purchasedtoAdd.getPointUse"+purchasedto.getPointUse());
+				purchasedto.setTotalPrice(totalPriceAll);
+			} else {
+				double disCountNew = Double.valueOf("0.0" + disCount);
+				double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+				int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+				System.out.println("totalPriceAll"+totalPriceAll);
+				System.out.println("purchasedtoAdd.getPointUse"+purchasedto.getPointUse());
+				purchasedto.setTotalPrice(totalPriceAll);
+			}
+		} else {
+
+			if (purchasedto.getCouponId() > 0) {
+				System.out.println("クーポン使用！");
+				int totalPrice = purchasedto.getTotalPrice();
+				CouponDTO coupondto = couponService.selectOne(purchasedto.getCouponId());
+				int disCount = coupondto.getDiscount();// 割引率(%)
+				if (disCount >= 10) {
+					double disCountNew = Double.valueOf("0." + disCount);
+					double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+					System.out.println("totalPrice"+totalPrice);
+					int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+					System.out.println("totalPriceAll"+totalPriceAll);
+					purchasedto.setTotalPrice(totalPriceAll);
+					System.out.println("setTotalPrice"+purchasedto.getTotalPrice());
+				} else {
+					double disCountNew = Double.valueOf("0.0" + disCount);
+					double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+					int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+					purchasedto.setTotalPrice(totalPriceAll);
+				}
+			}
+		}
+	model.addAttribute("totalPrice",purchasedto.getTotalPrice() - purchasedto.getPointUse());
+		
 		model.addAttribute("purchaseId", purchaseId);
 
 		model.addAttribute("purchaseList", purchasedto);
@@ -1894,6 +2148,8 @@ public class ShoppingController {
 		int productStock = purchasedto.getProduct_count();
 		System.out.println("stock" + productStock);
 		purchasedto.setPointUse(purchasedtoList.getPointUse());
+		purchasedto.setCouponId(purchasedtoList.getCouponId());
+		purchasedto.setMenberCouponCheck(purchasedtoList.getMenberCouponCheck());
 		purchasedto.setPurchaseCheck(purchasedtoList.getPurchaseCheck());
 
 		PurchaseDTO customList = customService.selectMany(customId);// 購入した商品のcustomテーブル情報を取得
@@ -1903,7 +2159,57 @@ public class ShoppingController {
 		purchasedto.setHardDisc(customList.getHardDisc());
 		purchasedto.setCpu(customList.getCpu());
 		purchasedto.setCustomPrice(customList.getCustomPrice());
-		model.addAttribute("totalPrice",(purchasedto.getProduct_count() * (purchasedto.getPrice() + purchasedto.getCustomPrice())) - purchasedto.getPointUse());
+		
+		
+		
+purchasedto.setTotalPrice((purchasedto.getProduct_count() * (purchasedto.getPrice() + purchasedto.getCustomPrice())));
+		
+		if (purchasedto.getMenberCouponCheck().equals("会員クーポン使用")) {
+			System.out.println("クーポン使用！");
+			int totalPrice = purchasedto.getTotalPrice();
+			MenberCouponDTO menbercoupondto = menberCouponService.selectOne(purchasedto.getCouponId());// 会員DBからとる
+			int disCount = menbercoupondto.getDiscount();// 割引率(%)
+			if (disCount >= 10) {
+				double disCountNew = Double.valueOf("0." + disCount);
+				double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+				int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+				System.out.println("totalPriceAll"+totalPriceAll);
+				System.out.println("purchasedtoAdd.getPointUse"+purchasedto.getPointUse());
+				purchasedto.setTotalPrice(totalPriceAll);
+			} else {
+				double disCountNew = Double.valueOf("0.0" + disCount);
+				double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+				int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+				System.out.println("totalPriceAll"+totalPriceAll);
+				System.out.println("purchasedtoAdd.getPointUse"+purchasedto.getPointUse());
+				purchasedto.setTotalPrice(totalPriceAll);
+			}
+		} else {
+
+			if (purchasedto.getCouponId() > 0) {
+				System.out.println("クーポン使用！");
+				int totalPrice = purchasedto.getTotalPrice();
+				CouponDTO coupondto = couponService.selectOne(purchasedto.getCouponId());
+				int disCount = coupondto.getDiscount();// 割引率(%)
+				if (disCount >= 10) {
+					double disCountNew = Double.valueOf("0." + disCount);
+					double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+					System.out.println("totalPrice"+totalPrice);
+					int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+					System.out.println("totalPriceAll"+totalPriceAll);
+					purchasedto.setTotalPrice(totalPriceAll);
+					System.out.println("setTotalPrice"+purchasedto.getTotalPrice());
+				} else {
+					double disCountNew = Double.valueOf("0.0" + disCount);
+					double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+					int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+					purchasedto.setTotalPrice(totalPriceAll);
+				}
+			}
+		}
+	model.addAttribute("totalPrice",purchasedto.getTotalPrice() - purchasedto.getPointUse());
+	
+	
 		model.addAttribute("purchaseId", purchaseId);
 
 		model.addAttribute("purchaseList", purchasedto);
@@ -1918,7 +2224,7 @@ public class ShoppingController {
 		if (count > 10) {
 			System.out.println("true");
 			model.addAttribute("result", "購入日から10日経過したため、キャンセル期間外になりました。");
-			model.addAttribute("totalPrice", purchasedto.getPrice() + purchasedto.getCustomPrice());
+			
 			model.addAttribute("purchaseId", purchaseId);
 
 			model.addAttribute("purchaseList", purchasedto);
@@ -2030,6 +2336,8 @@ public class ShoppingController {
 		purchasedto.setProduct_count(purchasedtoList.getProduct_count());
 		purchasedto.setPointUse(purchasedtoList.getPointUse());
 		int productStock = purchasedto.getProduct_count();
+		purchasedto.setCouponId(purchasedtoList.getCouponId());
+		purchasedto.setMenberCouponCheck(purchasedtoList.getMenberCouponCheck());
 		
 		System.out.println("stock" + productStock);
 		purchasedto.setPurchaseCheck(purchasedtoList.getPurchaseCheck());
@@ -2042,7 +2350,54 @@ public class ShoppingController {
 		purchasedto.setHardDisc(customList.getHardDisc());
 		purchasedto.setCpu(customList.getCpu());
 		purchasedto.setCustomPrice(customList.getCustomPrice());
-		model.addAttribute("totalPrice", (purchasedto.getProduct_count() * (purchasedto.getPrice() + purchasedto.getCustomPrice())) - purchasedto.getPointUse());
+		
+purchasedto.setTotalPrice((purchasedto.getProduct_count() * (purchasedto.getPrice() + purchasedto.getCustomPrice())));
+		
+		if (purchasedto.getMenberCouponCheck().equals("会員クーポン使用")) {
+			System.out.println("クーポン使用！");
+			int totalPrice = purchasedto.getTotalPrice();
+			MenberCouponDTO menbercoupondto = menberCouponService.selectOne(purchasedto.getCouponId());// 会員DBからとる
+			int disCount = menbercoupondto.getDiscount();// 割引率(%)
+			if (disCount >= 10) {
+				double disCountNew = Double.valueOf("0." + disCount);
+				double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+				int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+				System.out.println("totalPriceAll"+totalPriceAll);
+				System.out.println("purchasedtoAdd.getPointUse"+purchasedto.getPointUse());
+				purchasedto.setTotalPrice(totalPriceAll);
+			} else {
+				double disCountNew = Double.valueOf("0.0" + disCount);
+				double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+				int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+				System.out.println("totalPriceAll"+totalPriceAll);
+				System.out.println("purchasedtoAdd.getPointUse"+purchasedto.getPointUse());
+				purchasedto.setTotalPrice(totalPriceAll);
+			}
+		} else {
+
+			if (purchasedto.getCouponId() > 0) {
+				System.out.println("クーポン使用！");
+				int totalPrice = purchasedto.getTotalPrice();
+				CouponDTO coupondto = couponService.selectOne(purchasedto.getCouponId());
+				int disCount = coupondto.getDiscount();// 割引率(%)
+				if (disCount >= 10) {
+					double disCountNew = Double.valueOf("0." + disCount);
+					double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+					System.out.println("totalPrice"+totalPrice);
+					int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+					System.out.println("totalPriceAll"+totalPriceAll);
+					purchasedto.setTotalPrice(totalPriceAll);
+					System.out.println("setTotalPrice"+purchasedto.getTotalPrice());
+				} else {
+					double disCountNew = Double.valueOf("0.0" + disCount);
+					double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+					int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+					purchasedto.setTotalPrice(totalPriceAll);
+				}
+			}
+		}
+	model.addAttribute("totalPrice",purchasedto.getTotalPrice() - purchasedto.getPointUse());
+	
 		model.addAttribute("pointUse",purchasedto.getPointUse());
 		model.addAttribute("purchaseId", purchaseId);
 
@@ -2127,6 +2482,9 @@ public class ShoppingController {
 		purchasedto.setPrice(purchasedtoList.getPrice());
 		purchasedto.setProduct_count(purchasedtoList.getProduct_count());
 		int productStock = purchasedto.getProduct_count();
+		purchasedto.setCouponId(purchasedtoList.getCouponId());
+		purchasedto.setPointUse(purchasedtoList.getPointUse());
+		purchasedto.setMenberCouponCheck(purchasedtoList.getMenberCouponCheck());
 		System.out.println("stock" + productStock);
 		purchasedto.setPurchaseCheck(purchasedtoList.getPurchaseCheck());
 
@@ -2138,7 +2496,55 @@ public class ShoppingController {
 		purchasedto.setHardDisc(customList.getHardDisc());
 		purchasedto.setCpu(customList.getCpu());
 		purchasedto.setCustomPrice(customList.getCustomPrice());
-		model.addAttribute("totalPrice", purchasedto.getPrice() + purchasedto.getCustomPrice());
+		
+		
+purchasedto.setTotalPrice((purchasedto.getProduct_count() * (purchasedto.getPrice() + purchasedto.getCustomPrice())));
+		
+		if (purchasedto.getMenberCouponCheck().equals("会員クーポン使用")) {
+			System.out.println("クーポン使用！");
+			int totalPrice = purchasedto.getTotalPrice();
+			MenberCouponDTO menbercoupondto = menberCouponService.selectOne(purchasedto.getCouponId());// 会員DBからとる
+			int disCount = menbercoupondto.getDiscount();// 割引率(%)
+			if (disCount >= 10) {
+				double disCountNew = Double.valueOf("0." + disCount);
+				double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+				int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+				System.out.println("totalPriceAll"+totalPriceAll);
+				System.out.println("purchasedtoAdd.getPointUse"+purchasedto.getPointUse());
+				purchasedto.setTotalPrice(totalPriceAll);
+			} else {
+				double disCountNew = Double.valueOf("0.0" + disCount);
+				double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+				int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+				System.out.println("totalPriceAll"+totalPriceAll);
+				System.out.println("purchasedtoAdd.getPointUse"+purchasedto.getPointUse());
+				purchasedto.setTotalPrice(totalPriceAll);
+			}
+		} else {
+
+			if (purchasedto.getCouponId() > 0) {
+				System.out.println("クーポン使用！");
+				int totalPrice = purchasedto.getTotalPrice();
+				CouponDTO coupondto = couponService.selectOne(purchasedto.getCouponId());
+				int disCount = coupondto.getDiscount();// 割引率(%)
+				if (disCount >= 10) {
+					double disCountNew = Double.valueOf("0." + disCount);
+					double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+					System.out.println("totalPrice"+totalPrice);
+					int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+					System.out.println("totalPriceAll"+totalPriceAll);
+					purchasedto.setTotalPrice(totalPriceAll);
+					System.out.println("setTotalPrice"+purchasedto.getTotalPrice());
+				} else {
+					double disCountNew = Double.valueOf("0.0" + disCount);
+					double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+					int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+					purchasedto.setTotalPrice(totalPriceAll);
+				}
+			}
+		}
+	model.addAttribute("totalPrice",purchasedto.getTotalPrice() - purchasedto.getPointUse());
+	
 		model.addAttribute("purchaseId", purchaseId);
 
 		model.addAttribute("purchaseList", purchasedto);
@@ -2186,6 +2592,9 @@ public class ShoppingController {
 		purchasedto.setPrice(purchasedtoList.getPrice());
 		purchasedto.setProduct_count(purchasedtoList.getProduct_count());
 		int productStock = purchasedto.getProduct_count();
+		purchasedto.setPointUse(purchasedtoList.getPointUse());
+		purchasedto.setCouponId(purchasedtoList.getCouponId());
+		purchasedto.setMenberCouponCheck(purchasedtoList.getMenberCouponCheck());
 		System.out.println("stock" + productStock);
 		purchasedto.setPurchaseCheck(purchasedtoList.getPurchaseCheck());
 
@@ -2197,7 +2606,55 @@ public class ShoppingController {
 		purchasedto.setHardDisc(customList.getHardDisc());
 		purchasedto.setCpu(customList.getCpu());
 		purchasedto.setCustomPrice(customList.getCustomPrice());
-		model.addAttribute("totalPrice", purchasedto.getPrice() + purchasedto.getCustomPrice());
+		
+		
+purchasedto.setTotalPrice((purchasedto.getProduct_count() * (purchasedto.getPrice() + purchasedto.getCustomPrice())));
+		
+		if (purchasedto.getMenberCouponCheck().equals("会員クーポン使用")) {
+			System.out.println("クーポン使用！");
+			int totalPrice = purchasedto.getTotalPrice();
+			MenberCouponDTO menbercoupondto = menberCouponService.selectOne(purchasedto.getCouponId());// 会員DBからとる
+			int disCount = menbercoupondto.getDiscount();// 割引率(%)
+			if (disCount >= 10) {
+				double disCountNew = Double.valueOf("0." + disCount);
+				double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+				int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+				System.out.println("totalPriceAll"+totalPriceAll);
+				System.out.println("purchasedtoAdd.getPointUse"+purchasedto.getPointUse());
+				purchasedto.setTotalPrice(totalPriceAll);
+			} else {
+				double disCountNew = Double.valueOf("0.0" + disCount);
+				double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+				int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+				System.out.println("totalPriceAll"+totalPriceAll);
+				System.out.println("purchasedtoAdd.getPointUse"+purchasedto.getPointUse());
+				purchasedto.setTotalPrice(totalPriceAll);
+			}
+		} else {
+
+			if (purchasedto.getCouponId() > 0) {
+				System.out.println("クーポン使用！");
+				int totalPrice = purchasedto.getTotalPrice();
+				CouponDTO coupondto = couponService.selectOne(purchasedto.getCouponId());
+				int disCount = coupondto.getDiscount();// 割引率(%)
+				if (disCount >= 10) {
+					double disCountNew = Double.valueOf("0." + disCount);
+					double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+					System.out.println("totalPrice"+totalPrice);
+					int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+					System.out.println("totalPriceAll"+totalPriceAll);
+					purchasedto.setTotalPrice(totalPriceAll);
+					System.out.println("setTotalPrice"+purchasedto.getTotalPrice());
+				} else {
+					double disCountNew = Double.valueOf("0.0" + disCount);
+					double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+					int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+					purchasedto.setTotalPrice(totalPriceAll);
+				}
+			}
+		}
+	model.addAttribute("totalPrice",purchasedto.getTotalPrice() - purchasedto.getPointUse());
+		
 		model.addAttribute("purchaseId", purchaseId);
 
 		model.addAttribute("purchaseList", purchasedto);
@@ -2230,6 +2687,9 @@ public class ShoppingController {
 		purchasedto.setPrice(purchasedtoList.getPrice());
 		purchasedto.setProduct_count(purchasedtoList.getProduct_count());
 		int productStock = purchasedto.getProduct_count();
+		purchasedto.setPointUse(purchasedtoList.getPointUse());
+		purchasedto.setCouponId(purchasedtoList.getCouponId());
+		purchasedto.setMenberCouponCheck(purchasedtoList.getMenberCouponCheck());
 		System.out.println("stock" + productStock);
 		purchasedto.setPurchaseCheck(purchasedtoList.getPurchaseCheck());
 
@@ -2245,7 +2705,54 @@ public class ShoppingController {
 		purchasedto.setHardDisc(customList.getHardDisc());
 		purchasedto.setCpu(customList.getCpu());
 		purchasedto.setCustomPrice(customList.getCustomPrice());
-		model.addAttribute("totalPrice", purchasedto.getPrice() + purchasedto.getCustomPrice());
+		
+purchasedto.setTotalPrice((purchasedto.getProduct_count() * (purchasedto.getPrice() + purchasedto.getCustomPrice())));
+		
+		if (purchasedto.getMenberCouponCheck().equals("会員クーポン使用")) {
+			System.out.println("クーポン使用！");
+			int totalPrice = purchasedto.getTotalPrice();
+			MenberCouponDTO menbercoupondto = menberCouponService.selectOne(purchasedto.getCouponId());// 会員DBからとる
+			int disCount = menbercoupondto.getDiscount();// 割引率(%)
+			if (disCount >= 10) {
+				double disCountNew = Double.valueOf("0." + disCount);
+				double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+				int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+				System.out.println("totalPriceAll"+totalPriceAll);
+				System.out.println("purchasedtoAdd.getPointUse"+purchasedto.getPointUse());
+				purchasedto.setTotalPrice(totalPriceAll);
+			} else {
+				double disCountNew = Double.valueOf("0.0" + disCount);
+				double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+				int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+				System.out.println("totalPriceAll"+totalPriceAll);
+				System.out.println("purchasedtoAdd.getPointUse"+purchasedto.getPointUse());
+				purchasedto.setTotalPrice(totalPriceAll);
+			}
+		} else {
+
+			if (purchasedto.getCouponId() > 0) {
+				System.out.println("クーポン使用！");
+				int totalPrice = purchasedto.getTotalPrice();
+				CouponDTO coupondto = couponService.selectOne(purchasedto.getCouponId());
+				int disCount = coupondto.getDiscount();// 割引率(%)
+				if (disCount >= 10) {
+					double disCountNew = Double.valueOf("0." + disCount);
+					double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+					System.out.println("totalPrice"+totalPrice);
+					int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+					System.out.println("totalPriceAll"+totalPriceAll);
+					purchasedto.setTotalPrice(totalPriceAll);
+					System.out.println("setTotalPrice"+purchasedto.getTotalPrice());
+				} else {
+					double disCountNew = Double.valueOf("0.0" + disCount);
+					double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+					int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+					purchasedto.setTotalPrice(totalPriceAll);
+				}
+			}
+		}
+	model.addAttribute("totalPrice",purchasedto.getTotalPrice() - purchasedto.getPointUse());
+	
 		model.addAttribute("purchaseId", purchaseId);
 
 		model.addAttribute("purchaseList", purchasedto);
@@ -2274,6 +2781,9 @@ public class ShoppingController {
 		purchasedto.setPcName(purchasedtoList.getPcName());
 		purchasedto.setPrice(purchasedtoList.getPrice());
 		purchasedto.setProduct_count(purchasedtoList.getProduct_count());
+		purchasedto.setPointUse(purchasedtoList.getPointUse());
+		purchasedto.setCouponId(purchasedtoList.getCouponId());
+		purchasedto.setMenberCouponCheck(purchasedtoList.getMenberCouponCheck());
 		purchasedto.setPurchaseCheck(purchasedtoList.getPurchaseCheck());
 
 		String nullCheck = "null";
@@ -2287,7 +2797,54 @@ public class ShoppingController {
 		purchasedto.setHardDisc(customList.getHardDisc());
 		purchasedto.setCpu(customList.getCpu());
 		purchasedto.setCustomPrice(customList.getCustomPrice());
-		model.addAttribute("totalPrice", purchasedto.getPrice() + purchasedto.getCustomPrice());
+		
+purchasedto.setTotalPrice((purchasedto.getProduct_count() * (purchasedto.getPrice() + purchasedto.getCustomPrice())));
+		
+		if (purchasedto.getMenberCouponCheck().equals("会員クーポン使用")) {
+			System.out.println("クーポン使用！");
+			int totalPrice = purchasedto.getTotalPrice();
+			MenberCouponDTO menbercoupondto = menberCouponService.selectOne(purchasedto.getCouponId());// 会員DBからとる
+			int disCount = menbercoupondto.getDiscount();// 割引率(%)
+			if (disCount >= 10) {
+				double disCountNew = Double.valueOf("0." + disCount);
+				double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+				int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+				System.out.println("totalPriceAll"+totalPriceAll);
+				System.out.println("purchasedtoAdd.getPointUse"+purchasedto.getPointUse());
+				purchasedto.setTotalPrice(totalPriceAll);
+			} else {
+				double disCountNew = Double.valueOf("0.0" + disCount);
+				double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+				int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+				System.out.println("totalPriceAll"+totalPriceAll);
+				System.out.println("purchasedtoAdd.getPointUse"+purchasedto.getPointUse());
+				purchasedto.setTotalPrice(totalPriceAll);
+			}
+		} else {
+
+			if (purchasedto.getCouponId() > 0) {
+				System.out.println("クーポン使用！");
+				int totalPrice = purchasedto.getTotalPrice();
+				CouponDTO coupondto = couponService.selectOne(purchasedto.getCouponId());
+				int disCount = coupondto.getDiscount();// 割引率(%)
+				if (disCount >= 10) {
+					double disCountNew = Double.valueOf("0." + disCount);
+					double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+					System.out.println("totalPrice"+totalPrice);
+					int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+					System.out.println("totalPriceAll"+totalPriceAll);
+					purchasedto.setTotalPrice(totalPriceAll);
+					System.out.println("setTotalPrice"+purchasedto.getTotalPrice());
+				} else {
+					double disCountNew = Double.valueOf("0.0" + disCount);
+					double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+					int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+					purchasedto.setTotalPrice(totalPriceAll);
+				}
+			}
+		}
+	model.addAttribute("totalPrice",purchasedto.getTotalPrice() - purchasedto.getPointUse());
+	
 		model.addAttribute("purchaseId", purchaseId);
 
 		model.addAttribute("purchaseList", purchasedto);
@@ -2364,6 +2921,8 @@ public class ShoppingController {
 		purchasedto.setProduct_count(purchasedtoList.getProduct_count());
 		int productStock = purchasedto.getProduct_count();
 		purchasedto.setPointUse(purchasedtoList.getPointUse());
+		purchasedto.setCouponId(purchasedtoList.getCouponId());
+		purchasedto.setMenberCouponCheck(purchasedtoList.getMenberCouponCheck());
 		System.out.println("stock" + productStock);
 		purchasedto.setPurchaseCheck(purchasedtoList.getPurchaseCheck());
 
@@ -2379,7 +2938,55 @@ public class ShoppingController {
 		purchasedto.setHardDisc(customList.getHardDisc());
 		purchasedto.setCpu(customList.getCpu());
 		purchasedto.setCustomPrice(customList.getCustomPrice());
-		model.addAttribute("totalPrice",(purchasedto.getProduct_count() * (purchasedto.getPrice() + purchasedto.getCustomPrice())) - purchasedto.getPointUse());
+		
+		
+purchasedto.setTotalPrice((purchasedto.getProduct_count() * (purchasedto.getPrice() + purchasedto.getCustomPrice())));
+		
+		if (purchasedto.getMenberCouponCheck().equals("会員クーポン使用")) {
+			System.out.println("クーポン使用！");
+			int totalPrice = purchasedto.getTotalPrice();
+			MenberCouponDTO menbercoupondto = menberCouponService.selectOne(purchasedto.getCouponId());// 会員DBからとる
+			int disCount = menbercoupondto.getDiscount();// 割引率(%)
+			if (disCount >= 10) {
+				double disCountNew = Double.valueOf("0." + disCount);
+				double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+				int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+				System.out.println("totalPriceAll"+totalPriceAll);
+				System.out.println("purchasedtoAdd.getPointUse"+purchasedto.getPointUse());
+				purchasedto.setTotalPrice(totalPriceAll);
+			} else {
+				double disCountNew = Double.valueOf("0.0" + disCount);
+				double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+				int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+				System.out.println("totalPriceAll"+totalPriceAll);
+				System.out.println("purchasedtoAdd.getPointUse"+purchasedto.getPointUse());
+				purchasedto.setTotalPrice(totalPriceAll);
+			}
+		} else {
+
+			if (purchasedto.getCouponId() > 0) {
+				System.out.println("クーポン使用！");
+				int totalPrice = purchasedto.getTotalPrice();
+				CouponDTO coupondto = couponService.selectOne(purchasedto.getCouponId());
+				int disCount = coupondto.getDiscount();// 割引率(%)
+				if (disCount >= 10) {
+					double disCountNew = Double.valueOf("0." + disCount);
+					double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+					System.out.println("totalPrice"+totalPrice);
+					int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+					System.out.println("totalPriceAll"+totalPriceAll);
+					purchasedto.setTotalPrice(totalPriceAll);
+					System.out.println("setTotalPrice"+purchasedto.getTotalPrice());
+				} else {
+					double disCountNew = Double.valueOf("0.0" + disCount);
+					double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+					int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+					purchasedto.setTotalPrice(totalPriceAll);
+				}
+			}
+		}
+	model.addAttribute("totalPrice",purchasedto.getTotalPrice() - purchasedto.getPointUse());
+		
 		model.addAttribute("pointUse",purchasedto.getPointUse());
 		model.addAttribute("purchaseId", purchaseId);
 
@@ -5304,7 +5911,7 @@ public class ShoppingController {
 			purchasedtoAdd.setCpu(customList.getCpu());
 			purchasedtoAdd.setCustomPrice(customList.getCustomPrice());
 			purchasedtoAdd.setTotalPrice(
-					(purchaseOne.getProduct_count() * (customList.getCustomPrice() + purchaseOne.getPrice())) - purchaseOne.getPointUse());
+					(purchaseOne.getProduct_count() * (customList.getCustomPrice() + purchaseOne.getPrice())));
 
 			if (purchasedtoAdd.getMenberCouponCheck().equals("会員クーポン使用")) {
 				System.out.println("クーポン使用！");
@@ -5314,6 +5921,7 @@ public class ShoppingController {
 				if (disCount >= 10) {
 					double disCountNew = Double.valueOf("0." + disCount);
 					double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+					System.out.println("totalPrice"+totalPrice);
 					int totalPriceAll = (int) (totalPrice - disCountPriceNew);
 					System.out.println("totalPriceAll"+totalPriceAll);
 					System.out.println("purchasedtoAdd.getPointUse"+purchasedtoAdd.getPointUse());
@@ -5349,6 +5957,9 @@ public class ShoppingController {
 					}
 				}
 			}
+			
+			purchasedtoAdd.setTotalPrice((purchasedtoAdd.getTotalPrice() - purchasedtoAdd.getPointUse()));
+			
 			// Date purchaseDate = purchasedtoAdd.getPurchase_date();
 			Calendar calendar = Calendar.getInstance();
 			Date now = calendar.getTime();
@@ -5384,7 +5995,7 @@ public class ShoppingController {
 			System.out.println("allPurchaseList" + allPurchaseList);
 
 		}
-
+		
 		model.addAttribute("purchaseList", allPurchaseList);
 		model.addAttribute("confirmationPending", "返品商品確認待ち");
 		model.addAttribute("inTransaction", "キャンセル取引中");
