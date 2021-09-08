@@ -2105,6 +2105,8 @@ purchasedto.setTotalPrice((purchasedto.getProduct_count() * (purchasedto.getPric
 			model.addAttribute("contents", "shopping/cancelInquiry::productListLayout_contents");
 			return "shopping/productListLayout";
 		}
+		
+		//return point insert
 		cancelService.cancelCompletedUpdate(purchaseId);// キャンセル完了に伴い、キャンセルチェックをキャンセル完了に変更
 		customService.deleteOne(customId);// キャンセル完了に伴い、カスタムデータ削除
 		purchaseService.deleteOne(purchaseId);// キャンセル完了に伴い、購入データ削除
