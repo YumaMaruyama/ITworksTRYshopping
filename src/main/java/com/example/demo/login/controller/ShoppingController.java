@@ -2363,6 +2363,7 @@ public class ShoppingController {
 		purchasedto.setPrice(purchasedtoList.getPrice());
 		purchasedto.setProduct_count(purchasedtoList.getProduct_count());
 		int productStock = purchasedto.getProduct_count();
+		purchasedto.setPointUse(purchasedtoList.getPointUse());
 		System.out.println("stock" + productStock);
 		purchasedto.setPurchaseCheck(purchasedtoList.getPurchaseCheck());
 
@@ -2378,7 +2379,8 @@ public class ShoppingController {
 		purchasedto.setHardDisc(customList.getHardDisc());
 		purchasedto.setCpu(customList.getCpu());
 		purchasedto.setCustomPrice(customList.getCustomPrice());
-		model.addAttribute("totalPrice", purchasedto.getPrice() + purchasedto.getCustomPrice());
+		model.addAttribute("totalPrice",(purchasedto.getProduct_count() * (purchasedto.getPrice() + purchasedto.getCustomPrice())) - purchasedto.getPointUse());
+		model.addAttribute("pointUse",purchasedto.getPointUse());
 		model.addAttribute("purchaseId", purchaseId);
 
 		model.addAttribute("purchaseList", purchasedto);
@@ -5315,14 +5317,14 @@ public class ShoppingController {
 					int totalPriceAll = (int) (totalPrice - disCountPriceNew);
 					System.out.println("totalPriceAll"+totalPriceAll);
 					System.out.println("purchasedtoAdd.getPointUse"+purchasedtoAdd.getPointUse());
-					purchasedtoAdd.setTotalPrice((totalPriceAll - purchasedtoAdd.getPointUse()));
+					purchasedtoAdd.setTotalPrice(totalPriceAll);
 				} else {
 					double disCountNew = Double.valueOf("0.0" + disCount);
 					double disCountPriceNew = totalPrice * disCountNew;// 割引価格
 					int totalPriceAll = (int) (totalPrice - disCountPriceNew);
 					System.out.println("totalPriceAll"+totalPriceAll);
 					System.out.println("purchasedtoAdd.getPointUse"+purchasedtoAdd.getPointUse());
-					purchasedtoAdd.setTotalPrice((totalPriceAll - purchasedtoAdd.getPointUse()));
+					purchasedtoAdd.setTotalPrice(totalPriceAll);
 				}
 			} else {
 
@@ -5334,13 +5336,16 @@ public class ShoppingController {
 					if (disCount >= 10) {
 						double disCountNew = Double.valueOf("0." + disCount);
 						double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+						System.out.println("totalPrice"+totalPrice);
 						int totalPriceAll = (int) (totalPrice - disCountPriceNew);
-						purchasedtoAdd.setTotalPrice((totalPriceAll - purchasedtoAdd.getPointUse()));
+						System.out.println("totalPriceAll"+totalPriceAll);
+						purchasedtoAdd.setTotalPrice(totalPriceAll);
+						System.out.println("setTotalPrice"+purchasedtoAdd.getTotalPrice());
 					} else {
 						double disCountNew = Double.valueOf("0.0" + disCount);
 						double disCountPriceNew = totalPrice * disCountNew;// 割引価格
 						int totalPriceAll = (int) (totalPrice - disCountPriceNew);
-						purchasedtoAdd.setTotalPrice((totalPriceAll - purchasedtoAdd.getPointUse()));
+						purchasedtoAdd.setTotalPrice(totalPriceAll);
 					}
 				}
 			}
