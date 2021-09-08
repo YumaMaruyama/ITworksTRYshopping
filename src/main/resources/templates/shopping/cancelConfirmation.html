@@ -22,7 +22,7 @@
 				<tr class="cancelConfirmationThDesign">
 					<th class="text-center">購入日</th>
 					<th class="text-center">商品名</th>
-					<th class="text-center">値段</th>
+					<th class="text-center">支払い</th>
 					<th class="text-center">購入数</th>
 					<th class="text-center">メモリ</th>
 					<th class="text-center">ハードディスク</th>
@@ -33,7 +33,7 @@
 					<td class="text-center"
 						th:text="${#dates.format(purchasedto.purchase_date, 'yyyy/MM/dd HH:mm')}"></td>
 					<td class="text-center" th:text="${purchasedto.pcName}"></td>
-					<td class="text-center" th:text="${totalPrice}"></td>
+					<td class="text-center" th:text="${totalPrice} + '円'"></td>
 					<td class="text-center" th:text="${purchasedto.product_count}"></td>
 					<td class="text-center" th:text="${purchasedto.memory}"></td>
 					<td class="text-center" th:text="${purchasedto.hardDisc}"></td>

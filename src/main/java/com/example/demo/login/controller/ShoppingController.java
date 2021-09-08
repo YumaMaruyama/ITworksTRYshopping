@@ -1530,6 +1530,7 @@ public class ShoppingController {
 		purchasedto.setPcName(purchasedtoList.getPcName());
 		purchasedto.setPrice(purchasedtoList.getPrice());
 		purchasedto.setProduct_count(purchasedtoList.getProduct_count());
+		purchasedto.setPointUse(purchasedtoList.getPointUse());
 		purchasedto.setPurchaseCheck(purchasedtoList.getPurchaseCheck());
 
 		String nullCheck = "null";
@@ -1545,7 +1546,7 @@ public class ShoppingController {
 		purchasedto.setHardDisc(customList.getHardDisc());
 		purchasedto.setCpu(customList.getCpu());
 		purchasedto.setCustomPrice(customList.getCustomPrice());
-		model.addAttribute("totalPrice", purchasedto.getPrice() + purchasedto.getCustomPrice());
+		model.addAttribute("totalPrice",(purchasedto.getProduct_count() * (purchasedto.getPrice() + purchasedto.getCustomPrice())) - purchasedto.getPointUse());
 		model.addAttribute("purchaseId", purchaseId);
 
 		model.addAttribute("purchaseList", purchasedto);
@@ -1588,6 +1589,7 @@ public class ShoppingController {
 		purchasedto.setPcName(purchasedtoList.getPcName());
 		purchasedto.setPrice(purchasedtoList.getPrice());
 		purchasedto.setProduct_count(purchasedtoList.getProduct_count());
+		purchasedto.setPointUse(purchasedtoList.getPointUse());
 		purchasedto.setPurchaseCheck(purchasedtoList.getPurchaseCheck());
 
 		String nullCheck = "null";
@@ -1603,7 +1605,7 @@ public class ShoppingController {
 		purchasedto.setHardDisc(customList.getHardDisc());
 		purchasedto.setCpu(customList.getCpu());
 		purchasedto.setCustomPrice(customList.getCustomPrice());
-		model.addAttribute("totalPrice", purchasedto.getPrice() + purchasedto.getCustomPrice());
+		model.addAttribute("totalPrice",(purchasedto.getProduct_count() * (purchasedto.getPrice() + purchasedto.getCustomPrice())) - purchasedto.getPointUse());
 		model.addAttribute("purchaseId", purchaseId);
 
 		model.addAttribute("purchaseList", purchasedto);
@@ -1656,6 +1658,7 @@ public class ShoppingController {
 		purchasedto.setPcName(purchasedtoList.getPcName());
 		purchasedto.setPrice(purchasedtoList.getPrice());
 		purchasedto.setProduct_count(purchasedtoList.getProduct_count());
+		purchasedto.setPointUse(purchasedtoList.getPointUse());
 		purchasedto.setPurchaseCheck(purchasedtoList.getPurchaseCheck());
 
 		String nullCheck = "null";
@@ -1671,7 +1674,7 @@ public class ShoppingController {
 		purchasedto.setHardDisc(customList.getHardDisc());
 		purchasedto.setCpu(customList.getCpu());
 		purchasedto.setCustomPrice(customList.getCustomPrice());
-		model.addAttribute("totalPrice", purchasedto.getPrice() + purchasedto.getCustomPrice());
+		model.addAttribute("totalPrice", (purchasedto.getProduct_count() * (purchasedto.getPrice() + purchasedto.getCustomPrice())) - purchasedto.getPointUse());
 		model.addAttribute("purchaseId", purchaseId);
 
 		model.addAttribute("purchaseList", purchasedto);
@@ -1707,6 +1710,7 @@ public class ShoppingController {
 		purchasedto.setPcName(purchasedtoList.getPcName());
 		purchasedto.setPrice(purchasedtoList.getPrice());
 		purchasedto.setProduct_count(purchasedtoList.getProduct_count());
+		purchasedto.setPointUse(purchasedtoList.getPointUse());
 		purchasedto.setPurchaseCheck(purchasedtoList.getPurchaseCheck());
 
 		String nullCheck = "null";
@@ -1722,7 +1726,7 @@ public class ShoppingController {
 		purchasedto.setHardDisc(customList.getHardDisc());
 		purchasedto.setCpu(customList.getCpu());
 		purchasedto.setCustomPrice(customList.getCustomPrice());
-		model.addAttribute("totalPrice", purchasedto.getPrice() + purchasedto.getCustomPrice());
+		model.addAttribute("totalPrice",(purchasedto.getProduct_count() * (purchasedto.getPrice() + purchasedto.getCustomPrice())) - purchasedto.getPointUse());
 		model.addAttribute("purchaseId", purchaseId);
 
 		model.addAttribute("purchaseList", purchasedto);
@@ -1800,7 +1804,8 @@ public class ShoppingController {
 		purchasedto.setPrice(purchasedtoList.getPrice());
 		purchasedto.setProduct_count(purchasedtoList.getProduct_count());
 		int productStock = purchasedto.getProduct_count();
-		System.out.println("stock" + productStock);
+		purchasedto.setPointUse(purchasedtoList.getPointUse());
+		model.addAttribute("pointUse",purchasedto.getPointUse());
 		purchasedto.setPurchaseCheck(purchasedtoList.getPurchaseCheck());
 
 		PurchaseDTO customList = customService.selectMany(customId);// 購入した商品のcustomテーブル情報を取得
@@ -1810,7 +1815,7 @@ public class ShoppingController {
 		purchasedto.setHardDisc(customList.getHardDisc());
 		purchasedto.setCpu(customList.getCpu());
 		purchasedto.setCustomPrice(customList.getCustomPrice());
-		model.addAttribute("totalPrice", purchasedto.getPrice() + purchasedto.getCustomPrice());
+		model.addAttribute("totalPrice", (purchasedto.getProduct_count() * (purchasedto.getPrice() + purchasedto.getCustomPrice())) - purchasedto.getPointUse());
 		model.addAttribute("purchaseId", purchaseId);
 
 		model.addAttribute("purchaseList", purchasedto);
@@ -1888,6 +1893,7 @@ public class ShoppingController {
 		purchasedto.setProduct_count(purchasedtoList.getProduct_count());
 		int productStock = purchasedto.getProduct_count();
 		System.out.println("stock" + productStock);
+		purchasedto.setPointUse(purchasedtoList.getPointUse());
 		purchasedto.setPurchaseCheck(purchasedtoList.getPurchaseCheck());
 
 		PurchaseDTO customList = customService.selectMany(customId);// 購入した商品のcustomテーブル情報を取得
@@ -1897,7 +1903,7 @@ public class ShoppingController {
 		purchasedto.setHardDisc(customList.getHardDisc());
 		purchasedto.setCpu(customList.getCpu());
 		purchasedto.setCustomPrice(customList.getCustomPrice());
-		model.addAttribute("totalPrice", purchasedto.getPrice() + purchasedto.getCustomPrice());
+		model.addAttribute("totalPrice",(purchasedto.getProduct_count() * (purchasedto.getPrice() + purchasedto.getCustomPrice())) - purchasedto.getPointUse());
 		model.addAttribute("purchaseId", purchaseId);
 
 		model.addAttribute("purchaseList", purchasedto);
@@ -2022,7 +2028,9 @@ public class ShoppingController {
 		purchasedto.setPcName(purchasedtoList.getPcName());
 		purchasedto.setPrice(purchasedtoList.getPrice());
 		purchasedto.setProduct_count(purchasedtoList.getProduct_count());
+		purchasedto.setPointUse(purchasedtoList.getPointUse());
 		int productStock = purchasedto.getProduct_count();
+		
 		System.out.println("stock" + productStock);
 		purchasedto.setPurchaseCheck(purchasedtoList.getPurchaseCheck());
 
@@ -2034,7 +2042,8 @@ public class ShoppingController {
 		purchasedto.setHardDisc(customList.getHardDisc());
 		purchasedto.setCpu(customList.getCpu());
 		purchasedto.setCustomPrice(customList.getCustomPrice());
-		model.addAttribute("totalPrice", purchasedto.getPrice() + purchasedto.getCustomPrice());
+		model.addAttribute("totalPrice", (purchasedto.getProduct_count() * (purchasedto.getPrice() + purchasedto.getCustomPrice())) - purchasedto.getPointUse());
+		model.addAttribute("pointUse",purchasedto.getPointUse());
 		model.addAttribute("purchaseId", purchaseId);
 
 		model.addAttribute("purchaseList", purchasedto);
@@ -5259,6 +5268,12 @@ public class ShoppingController {
 			purchasedtoAdd.setPurchase_date(purchaseOne.getPurchase_date());
 			purchasedtoAdd.setCancelCheck(purchaseOne.getCancelCheck());
 			purchasedtoAdd.setPointUse(purchaseOne.getPointUse());
+			model.addAttribute("pointUseCheck","false");
+			System.out.println("pointUse中身" + purchasedtoAdd.getPointUse());
+			if(purchasedtoAdd.getPointUse() > 0) {//ポイントを利用したらtrue
+				System.out.println("pointUsecheck到達");
+				model.addAttribute("pointUseCheck","true");
+			}
 			purchasedtoAdd.setCouponId(purchaseOne.getCouponId());
 			purchasedtoAdd.setPcName(purchaseOne.getPcName());
 			purchasedtoAdd.setPrice(purchaseOne.getPrice());
@@ -5287,7 +5302,7 @@ public class ShoppingController {
 			purchasedtoAdd.setCpu(customList.getCpu());
 			purchasedtoAdd.setCustomPrice(customList.getCustomPrice());
 			purchasedtoAdd.setTotalPrice(
-					purchaseOne.getProduct_count() * (customList.getCustomPrice() + purchaseOne.getPrice()));
+					(purchaseOne.getProduct_count() * (customList.getCustomPrice() + purchaseOne.getPrice())) - purchaseOne.getPointUse());
 
 			if (purchasedtoAdd.getMenberCouponCheck().equals("会員クーポン使用")) {
 				System.out.println("クーポン使用！");
@@ -5297,11 +5312,17 @@ public class ShoppingController {
 				if (disCount >= 10) {
 					double disCountNew = Double.valueOf("0." + disCount);
 					double disCountPriceNew = totalPrice * disCountNew;// 割引価格
-					purchasedtoAdd.setTotalPrice((int) (totalPrice - disCountPriceNew));
+					int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+					System.out.println("totalPriceAll"+totalPriceAll);
+					System.out.println("purchasedtoAdd.getPointUse"+purchasedtoAdd.getPointUse());
+					purchasedtoAdd.setTotalPrice((totalPriceAll - purchasedtoAdd.getPointUse()));
 				} else {
 					double disCountNew = Double.valueOf("0.0" + disCount);
 					double disCountPriceNew = totalPrice * disCountNew;// 割引価格
-					purchasedtoAdd.setTotalPrice((int) (totalPrice - disCountPriceNew));
+					int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+					System.out.println("totalPriceAll"+totalPriceAll);
+					System.out.println("purchasedtoAdd.getPointUse"+purchasedtoAdd.getPointUse());
+					purchasedtoAdd.setTotalPrice((totalPriceAll - purchasedtoAdd.getPointUse()));
 				}
 			} else {
 
@@ -5313,11 +5334,13 @@ public class ShoppingController {
 					if (disCount >= 10) {
 						double disCountNew = Double.valueOf("0." + disCount);
 						double disCountPriceNew = totalPrice * disCountNew;// 割引価格
-						purchasedtoAdd.setTotalPrice((int) (totalPrice - disCountPriceNew));
+						int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+						purchasedtoAdd.setTotalPrice((totalPriceAll - purchasedtoAdd.getPointUse()));
 					} else {
 						double disCountNew = Double.valueOf("0.0" + disCount);
 						double disCountPriceNew = totalPrice * disCountNew;// 割引価格
-						purchasedtoAdd.setTotalPrice((int) (totalPrice - disCountPriceNew));
+						int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+						purchasedtoAdd.setTotalPrice((totalPriceAll - purchasedtoAdd.getPointUse()));
 					}
 				}
 			}
