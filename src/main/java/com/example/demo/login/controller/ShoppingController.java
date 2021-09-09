@@ -338,15 +338,31 @@ public class ShoppingController {
 		List<PurchaseDTO> purchasePointList = purchaseService.selectPoint(selectId);// 取得ポイントと利用ポイントを取得
 		int pointAll = 0;
 		int pointUseAll = 0;
+		int purchasePoint = 0;
 		for (int x = 0; purchasePointList.size() > x; x++) {
 			PurchaseDTO purchasedtoOne = purchasePointList.get(x);
 			int pointOne = purchasedtoOne.getPoint();
 			int pointUseOne = purchasedtoOne.getPointUse();
 			pointAll = pointAll + pointOne;
 			pointUseAll = pointUseAll + pointUseOne;
-			model.addAttribute("point", (pointAll - pointUseAll));// 取得ポイント - 利用ポイントで現在保持しているポイントを出す
-
+			purchasePoint = pointAll - pointUseAll;// 取得ポイント - 利用ポイントで現在保持しているポイントを出す
 		}
+
+		List<CancelDTO> cancelPointList = cancelService.selectPoint(selectId);
+
+		int cancelPoint = 0;
+		for (int y = 0; cancelPointList.size() > y; y++) {
+			CancelDTO canceldtoOne = cancelPointList.get(y);
+			int returnPoint = canceldtoOne.getReturnPoint();
+			int pointRepayment = canceldtoOne.getPointRepayment();
+			cancelPoint = returnPoint - pointRepayment;// 返ってきたポイント - 購入時付加ポイントでキャンセル時の返すポイントを出す
+		}
+
+		int ITworksTRYshoppingP = purchasePoint + cancelPoint;
+		if (ITworksTRYshoppingP < 1) {
+			model.addAttribute("point", 0);
+		}
+		model.addAttribute("point", ITworksTRYshoppingP);
 
 		return "shopping/productListLayout";
 	}
@@ -2106,7 +2122,7 @@ public class ShoppingController {
 			return "shopping/productListLayout";
 		}
 
-		cancelService.cancelCompletedUpdate(purchaseId, purchasedto.getPointUse(),purchasedto.getPointRepayment());// キャンセル完了に伴い、キャンセルチェックをキャンセル完了に変更
+		cancelService.cancelCompletedUpdate(purchaseId, purchasedto.getPointUse(), purchasedto.getPointRepayment());// キャンセル完了に伴い、キャンセルチェックをキャンセル完了に変更
 		customService.deleteOne(customId);// キャンセル完了に伴い、カスタムデータ削除
 		purchaseService.deleteOne(purchaseId);// キャンセル完了に伴い、購入データ削除
 
@@ -3001,7 +3017,7 @@ public class ShoppingController {
 		model.addAttribute("cancelCheck", "返品完了");
 		System.out.println("candto" + canceldto);
 
-		cancelService.cancelCompletedUpdate(purchaseId, purchasedto.getPointUse(),purchasedto.getPointRepayment());// キャンセル完了に伴い、キャンセルチェックをキャンセル完了に変更
+		cancelService.cancelCompletedUpdate(purchaseId, purchasedto.getPointUse(), purchasedto.getPointRepayment());// キャンセル完了に伴い、キャンセルチェックをキャンセル完了に変更
 		customService.deleteOne(customId);// キャンセル完了に伴い、カスタムデータ削除
 		purchaseService.deleteOne(purchaseId);// キャンセル完了に伴い、購入データ削除
 
@@ -5715,8 +5731,6 @@ public class ShoppingController {
 
 			System.out.println("cartList " + cartList);
 			model.addAttribute("cartList", cartList);
-
-			
 
 			// クレジット情報をsessionから取得
 			String digits_3_code = (String) session.getAttribute("digits_3_code");

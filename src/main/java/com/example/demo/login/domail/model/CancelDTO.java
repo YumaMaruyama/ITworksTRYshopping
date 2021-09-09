@@ -25,5 +25,9 @@ public class CancelDTO {
 	
 	private int storeName;
 	
+	private int returnPoint;
+	
+	private int pointRepayment;
+	
 	private String cancelCheck;
 }

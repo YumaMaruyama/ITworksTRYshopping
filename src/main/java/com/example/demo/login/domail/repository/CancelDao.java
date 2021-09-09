@@ -1,6 +1,7 @@
 package com.example.demo.login.domail.repository;
 
 import java.util.Date;
+import java.util.List;
 
 import com.example.demo.login.domail.model.CancelDTO;
 
@@ -33,4 +34,6 @@ public interface CancelDao {
 	public CancelDTO selectOne(int purchaseId);
 	
 	public int cancelCompletedUpdate(int purchaseId,int pointUse,int pointRepayment);
+	
+	public List<CancelDTO> selectPoint(int selectId);
 }

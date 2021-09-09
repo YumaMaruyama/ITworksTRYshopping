@@ -1,6 +1,7 @@
 package com.example.demo.login.domail.service;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -70,5 +71,9 @@ public class CancelService {
 	
 	public int cancelCompletedUpdate(int purchaseId,int pointUse,int pointRepayment) {
 		return dao.cancelCompletedUpdate(purchaseId,pointUse,pointRepayment);
+	}
+	
+	public List<CancelDTO> selectPoint(int selectId) {
+		return dao.selectPoint(selectId);
 	}
 }

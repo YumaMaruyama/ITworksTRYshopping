@@ -1,6 +1,8 @@
 package com.example.demo.login.domail.repository.jdbc;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -143,5 +145,21 @@ public class CancelDaoJdbcImpl implements CancelDao {
 	public int cancelCompletedUpdate(int purchaseId,int pointUse,int pointRepayment) {
 		int result = jdbc.update("update cancel set cancel_check = 'キャンセル完了' , return_point = ? , point_repayment = ? where purchase_id = ?",pointUse,pointRepayment,purchaseId);
 		return result;
+	}
+	
+	public List<CancelDTO> selectPoint(int selectId) {
+		List<Map<String,Object>> map = jdbc.queryForList("select * from cancel where id = ?",selectId);
+		
+		List<CancelDTO> cancelPointList = new ArrayList<>();
+		
+		for(Map<String,Object> oneMap : map) {
+			CancelDTO canceldto = new CancelDTO();
+			canceldto.setReturnPoint((int)oneMap.get("return_point"));
+			canceldto.setPointRepayment((int)oneMap.get("point_repayment"));
+			
+			cancelPointList.add(canceldto);
+		}
+		
+		return cancelPointList;
 	}
 }
