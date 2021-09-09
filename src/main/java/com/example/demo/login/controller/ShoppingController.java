@@ -4602,15 +4602,31 @@ public class ShoppingController {
 		List<PurchaseDTO> purchasePointList = purchaseService.selectPoint(userId);// 取得ポイントと利用ポイントを取得
 		int pointAll = 0;
 		int pointUseAll = 0;
+		int purchasePoint = 0;
 		for (int x = 0; purchasePointList.size() > x; x++) {
 			PurchaseDTO purchasedtoOne = purchasePointList.get(x);
 			int pointOne = purchasedtoOne.getPoint();
 			int pointUseOne = purchasedtoOne.getPointUse();
 			pointAll = pointAll + pointOne;
 			pointUseAll = pointUseAll + pointUseOne;
-			model.addAttribute("point", (pointAll - pointUseAll));// 取得ポイント - 利用ポイントで現在保持しているポイントを出す
-
+			purchasePoint = pointAll - pointUseAll;// 取得ポイント - 利用ポイントで現在保持しているポイントを出す
 		}
+
+		List<CancelDTO> cancelPointList = cancelService.selectPoint(userId);
+
+		int cancelPoint = 0;
+		for (int y = 0; cancelPointList.size() > y; y++) {
+			CancelDTO canceldtoOne = cancelPointList.get(y);
+			int returnPoint = canceldtoOne.getReturnPoint();
+			int pointRepayment = canceldtoOne.getPointRepayment();
+			cancelPoint = returnPoint - pointRepayment;// 返ってきたポイント - 購入時付加ポイントでキャンセル時の返すポイントを出す
+		}
+
+		int ITworksTRYshoppingP = purchasePoint + cancelPoint;
+		if (ITworksTRYshoppingP < 1) {
+			model.addAttribute("point", 0);
+		}
+		model.addAttribute("point", ITworksTRYshoppingP);
 
 		List<PcDataDTO> cartList = cartService.selectMany(user_id);
 		int totalPriceAll = 0;// カート全体価格
@@ -4758,14 +4774,33 @@ public class ShoppingController {
 		List<PurchaseDTO> purchasePointList = purchaseService.selectPoint(userId);// 取得ポイントと利用ポイントを取得
 		int pointAll = 0;
 		int pointUseAll = 0;
+		int purchasePoint = 0;
 		for (int x = 0; purchasePointList.size() > x; x++) {
 			PurchaseDTO purchasedtoOne = purchasePointList.get(x);
 			int pointOne = purchasedtoOne.getPoint();
 			int pointUseOne = purchasedtoOne.getPointUse();
 			pointAll = pointAll + pointOne;
 			pointUseAll = pointUseAll + pointUseOne;
-			model.addAttribute("point", (pointAll - pointUseAll));// 取得ポイント - 利用ポイントで現在保持しているポイントを出す
+			purchasePoint = pointAll - pointUseAll;// 取得ポイント - 利用ポイントで現在保持しているポイントを出す
 		}
+
+		List<CancelDTO> cancelPointList = cancelService.selectPoint(userId);
+
+		int cancelPoint = 0;
+		for (int y = 0; cancelPointList.size() > y; y++) {
+			CancelDTO canceldtoOne = cancelPointList.get(y);
+			int returnPoint = canceldtoOne.getReturnPoint();
+			int pointRepayment = canceldtoOne.getPointRepayment();
+			cancelPoint = returnPoint - pointRepayment;// 返ってきたポイント - 購入時付加ポイントでキャンセル時の返すポイントを出す
+		}
+
+		int ITworksTRYshoppingP = purchasePoint + cancelPoint;
+		if (ITworksTRYshoppingP < 1) {
+			model.addAttribute("point", 0);
+		}
+		
+		int pointUse = Integer.parseInt(form.getPointUse());
+		model.addAttribute("point", (ITworksTRYshoppingP - pointUse));
 
 		List<PcDataDTO> cartList = cartService.selectMany(user_id);
 		int totalPriceAll = 0;// カート全体価格
@@ -4908,7 +4943,7 @@ public class ShoppingController {
 			return getPointUse(form, couponId, model);
 		}
 
-		int pointUse = Integer.parseInt(form.getPointUse());
+		
 
 		if ((pointUse > pointAll) || (pointUse > totalPriceAll)) {
 			return getPointUse(form, couponId, model);
