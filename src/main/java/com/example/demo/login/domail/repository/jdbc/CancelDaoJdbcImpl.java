@@ -140,8 +140,8 @@ public class CancelDaoJdbcImpl implements CancelDao {
 		return canceldto;
 	}
 	
-	public int cancelCompletedUpdate(int purchaseId) {
-		int result = jdbc.update("update cancel set cancel_check = 'キャンセル完了' where purchase_id = ?",purchaseId);
+	public int cancelCompletedUpdate(int purchaseId,int pointUse) {
+		int result = jdbc.update("update cancel set cancel_check = 'キャンセル完了' , return_point = ? where purchase_id = ?",pointUse,purchaseId);
 		return result;
 	}
 }

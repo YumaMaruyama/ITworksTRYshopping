@@ -68,7 +68,7 @@ public class CancelService {
 		return dao.selectOne(purchaseId);
 	}
 	
-	public int cancelCompletedUpdate(int purchaseId) {
-		return dao.cancelCompletedUpdate(purchaseId);
+	public int cancelCompletedUpdate(int purchaseId,int pointUse) {
+		return dao.cancelCompletedUpdate(purchaseId,pointUse);
 	}
 }
