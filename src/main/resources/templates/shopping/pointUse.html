@@ -12,21 +12,23 @@
 		</header>
 
 		<form method="post" th:action="@{/pointUse} + '/' + ${couponId}" th:object="${pointUseForm}">
-			<table>
-			
+			<table class="table table-bordered pointUseTableDesign">
+			<br>
 			<h3 class="text-center">1ポイント1円として利用できます。現在保持しているポイント以下で、且つ合計支払金額以下のポイントを利用できます</h3>
 			
 				<tr>
-					<th class="text-center">現在のITworksTRYshoppingポイント</th>
-					<td class="text-center" th:text="${point} + 'ポイント保持'"></td>
-					<th class="text-center">合計支払金額</th>
-					<td class="text-center" th:text="${totalPrice} + '円'"></td>
+					<th class="text-center pointUseThDesign">現在のITworksTRYshoppingポイント</th>
+					<td class="text-center pointUseTdDesign" th:text="${point} + 'ポイント保持'"></td>
+				</tr>
+				<tr>
+					<th class="text-center pointUseThDesign">合計支払金額</th>
+					<td class="text-center pointUseTdDesign" th:text="${totalPrice} + '円'"></td>
 				</tr>
 
 				<tr>
-					<th class="text-center">利用ポイント</th>
+					<th class="text-center pointUseThDesign">利用ポイント</th>
 					<td th:classappend="${#fields.hasErrors('pointUse')}?'has-error'"
-						class="form-group"><input type="text" class="form-control"
+						class="form-group pointUseTdDesign"><input type="text" class="form-control"
 						th:field="*{pointUse}"> <span class="text-danger"
 						th:if="${#fields.hasErrors('pointUse')}" th:errors="*{pointUse}">pointUse
 							error</span></td>
