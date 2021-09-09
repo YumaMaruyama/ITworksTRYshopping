@@ -32,5 +32,5 @@ public interface CancelDao {
 	
 	public CancelDTO selectOne(int purchaseId);
 	
-	public int cancelCompletedUpdate(int purchaseId,int pointUse);
+	public int cancelCompletedUpdate(int purchaseId,int pointUse,int pointRepayment);
 }

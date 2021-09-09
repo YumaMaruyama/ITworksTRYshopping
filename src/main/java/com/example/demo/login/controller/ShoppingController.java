@@ -2007,6 +2007,7 @@ public class ShoppingController {
 		purchasedto.setPrice(purchasedtoList.getPrice());
 		purchasedto.setProduct_count(purchasedtoList.getProduct_count());
 		int productStock = purchasedto.getProduct_count();
+		purchasedto.setPointRepayment(purchasedtoList.getPointRepayment());
 		purchasedto.setPointUse(purchasedtoList.getPointUse());
 		model.addAttribute("pointUse", purchasedto.getPointUse());
 		purchasedto.setCouponId(purchasedtoList.getCouponId());
@@ -2105,7 +2106,7 @@ public class ShoppingController {
 			return "shopping/productListLayout";
 		}
 
-		cancelService.cancelCompletedUpdate(purchaseId, purchasedto.getPointUse());// キャンセル完了に伴い、キャンセルチェックをキャンセル完了に変更
+		cancelService.cancelCompletedUpdate(purchaseId, purchasedto.getPointUse(),purchasedto.getPointRepayment());// キャンセル完了に伴い、キャンセルチェックをキャンセル完了に変更
 		customService.deleteOne(customId);// キャンセル完了に伴い、カスタムデータ削除
 		purchaseService.deleteOne(purchaseId);// キャンセル完了に伴い、購入データ削除
 
@@ -3000,7 +3001,7 @@ public class ShoppingController {
 		model.addAttribute("cancelCheck", "返品完了");
 		System.out.println("candto" + canceldto);
 
-		cancelService.cancelCompletedUpdate(purchaseId, purchasedto.getPointUse());// キャンセル完了に伴い、キャンセルチェックをキャンセル完了に変更
+		cancelService.cancelCompletedUpdate(purchaseId, purchasedto.getPointUse(),purchasedto.getPointRepayment());// キャンセル完了に伴い、キャンセルチェックをキャンセル完了に変更
 		customService.deleteOne(customId);// キャンセル完了に伴い、カスタムデータ削除
 		purchaseService.deleteOne(purchaseId);// キャンセル完了に伴い、購入データ削除
 
