@@ -32,11 +32,11 @@ public class ReviewDaoJdbcImpl implements ReviewDao {
 		return result;
 	}
 	
-	public int selectOne(int selectId,int pcDataId,int purchaseId) throws EmptyResultDataAccessException {
+	public int selectOne(int selectId,int purchaseId) throws EmptyResultDataAccessException {
 		int selectResult = 0;
 		
 		try {
-		int result = jdbc.queryForObject("select review.id from review where user_id = ? and product_id = ? and purchase_id = ?",Integer.class,selectId,pcDataId,purchaseId);
+		int result = jdbc.queryForObject("select review.id from review where user_id = ? and purchase_id = ?",Integer.class,selectId,purchaseId);
 		selectResult = 1;
 		}catch(EmptyResultDataAccessException e) {
 			e.printStackTrace();

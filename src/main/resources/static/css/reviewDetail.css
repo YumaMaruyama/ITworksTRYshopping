@@ -1,0 +1,11 @@
+@charset "UTF-8";
+
+.reviewDetailTableDesign {
+	font-size: 13px;
+}
+
+button.btnRS--green.btnRS--border-groove {
+  border: 6px groove #cf4fe0;
+    background: #d9b8e4;
+    margin-left:465px;
+}

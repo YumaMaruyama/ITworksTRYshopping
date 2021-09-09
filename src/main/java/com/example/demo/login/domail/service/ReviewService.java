@@ -18,9 +18,9 @@ public class ReviewService {
 		return dao.reviewInsertOne(reviewdto,selectId,pcDataId,title,content,rating,purchaseId);
 	}
 	
-	public int selectOne(int selectId,int pcDataId,int purchaseId) {
+	public int selectOne(int selectId,int purchaseId) {
 		
-		return dao.selectOne(selectId,pcDataId,purchaseId);
+		return dao.selectOne(selectId,purchaseId);
 	}
 	
 	public List<ReviewDTO> selectMany(int productId) {

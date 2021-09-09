@@ -2,15 +2,21 @@
 
 .reviewThHength {
 	width:220px;
+	background: #b38cff;
 }
 
 .reviewTdHength {
 	width:770px;
+	background: #c4b1ff;
 }
 
 .reviewTable {
 	display: block;
     overflow-y: scroll;
-    height: 565px;
-    width: 1100px;
+    height: 533px;
+    width:1100px;
+}
+
+.reviewSeeTableDesign {
+	font-size: 13px;
 }

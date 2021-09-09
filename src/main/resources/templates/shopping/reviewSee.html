@@ -12,7 +12,7 @@
 	<h1 class="titleDesign" th:text="${pcName} + 'の口コミ'"></h1>
 	
 	<div class="reviewTable">
-	<table class="table table-bordered table-hover" th:each="reviewdto : ${reviewList}" style="width:1100px;">
+	<table class="table table-bordered reviewSeeTableDesign" th:each="reviewdto : ${reviewList}">
 	<br><br>
 	<tr>
 		<th class="text-center reviewThHength">投稿ユーザー</th>
@@ -36,12 +36,12 @@
 	
 	<tr>
 		<th class="text-center reviewThHength">投稿日時</th>
-		<td  th:text="${#dates.format(reviewdto.registrationDate,'yyyy/MM/dd ah:mm')}"></td>
+		<td class="reviewTdHength" th:text="${#dates.format(reviewdto.registrationDate,'yyyy/MM/dd ah:mm')}"></td>
 	</tr>
 	
 	<tr th:if="${reviewdto.usersId} == ${#authentication.principal.username}">
 		<th class="text-center reviewThHength">管理</th>
-		<td><a th:href="@{/reviewSeeDetail} + '/' + ${reviewdto.id} + '/' + ${productId}">編集</a></td>
+		<td class="reviewTdHength"><a th:href="@{/reviewSeeDetail} + '/' + ${reviewdto.id} + '/' + ${productId}">編集</a></td>
 	</tr>
 	
 	</table>
