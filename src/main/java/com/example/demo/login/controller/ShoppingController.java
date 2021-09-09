@@ -1472,6 +1472,12 @@ public class ShoppingController {
 		// 購入商品情報取得
 		PurchaseDTO purchasedtoList = purchaseService.reviewSelectHistory(select_id, id);
 		purchasedto.setId(purchasedtoList.getId());
+		Integer reviewId = reviewService.selectManyId(purchasedto.getId());
+			model.addAttribute("reviewAdd","no");
+		if(reviewId < 1) {
+			model.addAttribute("reviewAdd","yes");
+			return "shopping/productListLayout";
+		}
 		purchasedto.setPurchaseId(purchasedtoList.getPurchaseId());
 		purchasedto.setPurchase_date(purchasedtoList.getPurchase_date());
 		purchasedto.setPcDataId(purchasedtoList.getPcDataId());

@@ -105,4 +105,19 @@ public class ReviewDaoJdbcImpl implements ReviewDao {
 		}
 		return reviewList;
 	}
+	
+	
+	public Integer selectManyId(int purchaseId) {
+		
+		Integer reviewId = 0;
+		try {
+		 reviewId = jdbc.queryForObject("select review.id from review where purchase_id = ?",Integer.class,purchaseId);
+		}catch(NullPointerException | EmptyResultDataAccessException e) {
+			e.printStackTrace();
+			
+		}
+		return reviewId;
+	}
 }
+
+

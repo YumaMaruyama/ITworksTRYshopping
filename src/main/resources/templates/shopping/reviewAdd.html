@@ -8,6 +8,11 @@
 <body>
 	<div th:fragment="productListLayout_contents">
 		<h1 class="titleDesign">口コミ投稿</h1>
+		
+		<h3 th:if="${reviewAdd} == 'yes'">すでに口コミが投稿されています。この商品の口コミ欄から前の投稿を削除すれば再度投稿が可能です。</h3>
+		
+		
+		<div th:if="${reviewAdd} == 'no'">
 		<form method="post" th:action="@{/reviewAdd}"
 			th:object="${reviewForm}">
 			<table class="table table-hover table-bordered reviewAddTable"
@@ -86,6 +91,7 @@
 				<button class="btn btn-border reviewAddBtn">口コミ投稿</button>
 			</div>
 		</form>
+		</div>
 	</div>
 </body>
 </html>

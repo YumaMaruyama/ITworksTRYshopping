@@ -38,4 +38,8 @@ public class ReviewService {
 	public List<ReviewDTO> selectRating(int productId) {
 		return dao.selectRating(productId);
 	}
+	
+	public Integer selectManyId(int purchaseId) {
+		return dao.selectManyId(purchaseId);
+	}
 }

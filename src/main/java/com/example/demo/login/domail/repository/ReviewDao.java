@@ -17,4 +17,6 @@ public interface ReviewDao {
 	public int deleteOne(int reviewId);
 	
 	public List<ReviewDTO> selectRating(int productId);
+	
+	public Integer selectManyId(int purchaseId);
 }
