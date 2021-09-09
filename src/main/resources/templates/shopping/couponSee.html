@@ -12,13 +12,13 @@
 		<header>
 		<table>
 		<tr>
-			<td><h1 class="titleDesign">使用可能なクーポン一覧</h1></td>
-			<td><a th:href="@{/menberCouponSee}">会員ランク特典クーポンを見る</a></td>
+			<td><h1 class="titleDesign">使用可能な期間限定クーポン一覧</h1></td>
+			<td class="couponSeeTd"><a class="btn btnCouS--orange btnCouS--border-solid couponSeeLink"  th:href="@{/menberCouponSee}">会員ランク特典クーポン一覧</a></td>
 			</tr></table>
 		</header>
 		
 		<table>
-		<tr th:if="${notCoupon} == 'yes'" class="couponDetail1"><td>使用可能なクーポンはありません</td></tr>
+		<tr th:if="${notCoupon} == 'yes'" class="couponDetail1"><td>使用可能な期間限定クーポンはありません</td></tr>
 		</table>
 		<div class="couponSeeTable">
 		<table class="table table-bordered" th:each="coupondto:${couponList}">

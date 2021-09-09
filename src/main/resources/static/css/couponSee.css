@@ -21,3 +21,17 @@
 .couponSeeAboutTable {
 	font-size: 15px;
 }
+
+a.btnCouS--orange.btnCouS--border-solid {
+
+  border: 2px solid #213fd4;
+}
+
+.couponSeeLink {
+	font-size:13px !important;
+	background: #cce8f9;
+}
+
+.couponSeeTd {
+	padding-left: 218px;
+}

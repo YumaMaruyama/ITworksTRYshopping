@@ -91,3 +91,17 @@
 .batu {
 	font-size:14px;
 }
+
+a.btnCouL--orange.btnCouL--border-solid {
+
+  border: 2px solid #213fd4;
+}
+
+.couponListLink {
+	font-size:13px !important;
+	background: #cce8f9;
+}
+
+.couponListTd {
+	padding-left: 338px;
+}
