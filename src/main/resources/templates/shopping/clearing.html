@@ -18,8 +18,8 @@
 
 		<form method="post" th:action="@{/clearing} + '/' + ${couponId}"
 			th:object="${creditForm}">
-			<a th:if="${pointUseBtnCheck} == 'true'" class="text-center btn btn-primary"
-				th:href="@{/pointUse} + '/' + ${couponId}">ITworksTRYshoppingポイントを利用する</a> <br>
+			<a th:if="${pointUseBtnCheck} == 'true'" class="btn btn-flat"
+				th:href="@{/pointUse} + '/' + ${couponId}"><span>ITworksTRYshoppingポイントを利用する</span></a> <br>
 			<br>
 			<div>
 				<h4 class="clearingTitle">JCBカードの情報を入力してください。</h4>
