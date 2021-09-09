@@ -1472,12 +1472,6 @@ public class ShoppingController {
 		// 購入商品情報取得
 		PurchaseDTO purchasedtoList = purchaseService.reviewSelectHistory(select_id, id);
 		purchasedto.setId(purchasedtoList.getId());
-		Integer reviewId = reviewService.selectManyId(purchasedto.getId());
-			model.addAttribute("reviewAdd","no");
-		if(reviewId < 1) {
-			model.addAttribute("reviewAdd","yes");
-			return "shopping/productListLayout";
-		}
 		purchasedto.setPurchaseId(purchasedtoList.getPurchaseId());
 		purchasedto.setPurchase_date(purchasedtoList.getPurchase_date());
 		purchasedto.setPcDataId(purchasedtoList.getPcDataId());
@@ -1486,6 +1480,13 @@ public class ShoppingController {
 		purchasedto.setProduct_count(purchasedtoList.getProduct_count());
 		purchasedto.setPurchaseCheck(purchasedtoList.getPurchaseCheck());
 
+		Integer reviewId = reviewService.selectManyId(purchasedto.getId());
+		model.addAttribute("reviewAdd","no");
+	if(reviewId > 0) {
+		model.addAttribute("reviewAdd","yes");
+		return "shopping/productListLayout";
+	}
+	
 		String nullCheck = "null";
 		int getCustomId = customService.selectPurchaseCheck(select_id, purchasedtoList.getProduct_id(),
 				purchasedtoList.getPurchaseCheck(), nullCheck);
@@ -1519,7 +1520,7 @@ public class ShoppingController {
 
 		ReviewDTO reviewdto = new ReviewDTO();
 
-		int selectResult = reviewService.selectOne(selectId, pcDataId, purchaseId);
+		int selectResult = reviewService.selectOne(selectId, purchaseId);
 
 		if (selectResult <= 0) {
 			reviewService.reviewInsertOne(reviewdto, selectId, pcDataId, form.getTitle(), form.getContent(),
