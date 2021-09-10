@@ -41,3 +41,8 @@ button.btn-border:hover {
 button.btn-border:hover:before {
   background: #fff;
 }
+
+
+.usersListDetailBtnDesign {
+	margin-left:490px;
+}

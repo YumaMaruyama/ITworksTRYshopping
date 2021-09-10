@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 .adminFormDesign {
- width:1107px;	
+ width:1100px;	
 }
 
 .tableDesign {
@@ -16,10 +16,16 @@
 
 .pcdataAddThDesign {
 	background: #55e852;
+	width:175px;
 }
 
 .pcdataAddTdDesign {
 	background: #a8ecb1;
+	width:375px;
+}
+
+.productAddBtnDesign {
+	margin-left:500px;
 }
 
 button.btn-radius-solidProductAdd {
