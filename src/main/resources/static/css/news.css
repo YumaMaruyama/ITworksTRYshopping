@@ -1,0 +1,29 @@
+@charset "UTF-8";
+
+.newsThDesign {
+	background: #ecef51;
+}
+
+.newsTdDesign {
+	background: #fafbba;
+}
+
+.newsTableDesign {
+	display: auto;
+	overflow-y: scroll;
+	height: 534px;
+	font-size:13px;
+	width:1100px;
+}
+
+.newsDesignTitle {
+	width:425px;
+}
+
+.newsDesignContent {
+	width:485px;
+}
+
+.newsDesignDate {
+	width:140px;
+}

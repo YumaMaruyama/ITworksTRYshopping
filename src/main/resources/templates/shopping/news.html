@@ -8,22 +8,22 @@
 <body>
 	<div th:fragment="productListLayout_contents">
 	<h1 class="titleDesign">管理者からのお知らせ</h1>
-	
-	<table class="table table-hover table-bordered" th:each="newsdto : ${newsdtoList}">
-		<tr>
-			<th class="text-center">タイトル</th>
-			<th class="text-center">内容</th>
-			<th class="text-center">投稿日時</th>
+	<div class="newsTableDesign">
+	<table class="table table-bordered" th:each="newsdto : ${newsdtoList}">
+		<tr class="newsThDesign">
+			<th class="text-center newsDesignTitle">タイトル</th>
+			<th class="text-center newsDesignContent">内容</th>
+			<th class="text-center newsDesignDate">投稿日時</th>
 		</tr>
 	
-		<tr>
-			<td class="text-center" th:text="${newsdto.title}"></td>
-			<td class="text-center" th:text="${newsdto.content}"></td>
-			<td class="text-center" th:text="${#dates.format(newsdto.registrationDate,'yyyy/MM/dd hh:mm')}"></td>
+		<tr class="newsTdDesign">
+			<td class="text-center newsDesignTitle" th:text="${newsdto.title}"></td>
+			<td class="text-center newsDesignContent" th:text="${newsdto.content}"></td>
+			<td class="text-center newsDesignDate" th:text="${#dates.format(newsdto.registrationDate,'yyyy/MM/dd ah:mm')}"></td>
 		</tr>
 		<br>
 	</table>
-	
+	</div>
 	</div>
 </body>
 </html>
