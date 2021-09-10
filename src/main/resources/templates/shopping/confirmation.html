@@ -18,9 +18,9 @@
 					<h4 class="card-title text-center fontdesign"
 						th:text="'商品名：' + ${pcdatadto.pc_name}"></h4>
 					<p th:if="${pcdatadto.couponCheck} == true" class="card-text text-center fontdesign"
-						th:text="'支払い値段(クーポン適用)：' + ${pcdatadto.totalPrice} + '円'"></p>
+						th:text="'値段(クーポン適用)：' + ${pcdatadto.totalPrice} + '円'"></p>
 					<p th:if="${pcdatadto.couponCheck} != true" class="card-text text-center fontdesign"
-						th:text="'支払い値段：' + ${pcdatadto.totalPriceOne} + '円'"></p>
+						th:text="'値段：' + ${pcdatadto.totalPriceOne} + '円'"></p>
 					<p class="card-text text-center fontdesign"
 						th:text="'在庫数：' + ${pcdatadto.product_stock} + '個'"></p>
 					<p class="card-text text-center fontdesign"
@@ -28,6 +28,8 @@
 				</div>
 			</div>
 			<br>
+			
+			<div class="confirmationTableDesign">
 			<table th:if="${pointUseCheck} == 0"
 				class="col-sm-5 confirmationPrice table table-bordered table-hover cardTable">
 				<tr>
@@ -93,6 +95,7 @@
 				<input type="hidden" name="couponId" th:value="${couponId}">
 				<input type="hidden" name="totalPrice" th:value="${totalPrice}">
 				<input class="submit clearing" type="submit" id="submit" value="購入" />
+			</div>
 			</div>
 		</form>
 		<script>

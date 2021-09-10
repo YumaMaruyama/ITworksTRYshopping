@@ -105,3 +105,48 @@ a.btn-flat:hover:before {
 
   transform: translateX(-1%) translateY(-175px);
 }
+
+
+
+
+
+button.btn-flat {
+  overflow: hidden;
+
+  padding: 0.5rem 3rem;
+
+  color: #fff;
+  border-radius: 0;
+  background: #000;
+}
+
+button.btn-flat span {
+  position: relative;
+}
+
+button.btn-flat:before {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100px;
+  height: 100px;
+
+  content: '';
+  -webkit-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;
+  -webkit-transform: translateX(-80%) translateY(-25px);
+  transform: translateX(-80%) translateY(-25px);
+
+  border-radius: 50%;
+   background: #e786f3;
+}
+
+button.btn-flat:hover:before {
+  width: 400px;
+  height: 400px;
+
+  -webkit-transform: translateX(-1%) translateY(-175px);
+
+  transform: translateX(-1%) translateY(-175px);
+}
