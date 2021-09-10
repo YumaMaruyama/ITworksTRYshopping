@@ -27,94 +27,101 @@
 		<form method="post" th:action="@{/admin}" th:object="${pcDataForm}" class="adminFormDesign">
 			<table class="table table-bordered table-hover tableDesign">
 				<tr>
-					<th class="text-center">会社名</th>
+					<th class="text-center pcdataAddThDesign">会社名</th>
 					<td th:classappend="${#fields.hasErrors('company')}?'has-error'"
-						class="form-group"><input type="text" class="form-control"
+						class="form-group pcdataAddTdDesign"><input type="text" class="form-control"
 						th:field="*{company}"> <span class="text-danger"
 						th:if="${#fields.hasErrors('company')}" th:errors="*{company}">company
 							error</span></td>
 
-					<th class="text-center">OS</th>
+					<th class="text-center pcdataAddThDesign">OS</th>
 					<td th:classappend="${#fields.hasErrors('os')}?'has-error'"
-						class="form-group"><input type="text" class="form-control"
+						class="form-group pcdataAddTdDesign"><input type="text" class="form-control"
 						th:field="*{os}"> <span class="text-danger"
 						th:if="${#fields.hasErrors('os')}" th:errors="*{os}">os
 							error</span></td>
 				</tr>
-
+				</table>
+				<table class="table table-bordered table-hover tableDesign">
 				<tr>
-					<th class="text-center">PcName</th>
+					<th class="text-center pcdataAddThDesign">PcName</th>
 					<td th:classappend="${#fields.hasErrors('pc_name')}?'has-error'"
-						class="form-group"><input type="text" class="form-control"
+						class="form-group pcdataAddTdDesign"><input type="text" class="form-control"
 						th:field="*{pc_name}"> <span class="text-danger"
 						th:if="${#fields.hasErrors('pc_name')}" th:errors="*{pc_name}">pc_name
 							error</span>
 					</td>
-					<th class="text-center">画面サイズ</th>
+					<th class="text-center pcdataAddThDesign">画面サイズ</th>
 					<td th:classappend="${#fields.hasErrors('pc_size')}?'has-error'"
-						class="form-group"><input type="text" class="form-control"
+						class="form-group pcdataAddTdDesign"><input type="text" class="form-control"
 						th:field="*{pc_size}"> <span class="text-danger"
 						th:if="${#fields.hasErrors('pc_size')}" th:errors="*{pc_size}">pc_size
 							error</span></td>
 				</tr>
-
+				</table>
+				
+				<table class="table table-bordered table-hover tableDesign">
 				<tr>
-					<th class="text-center">値段</th>
+					<th class="text-center pcdataAddThDesign">値段</th>
 					<td th:classappend="${#fields.hasErrors('price')}?'has-error'"
-						class="form-group"><input type="text" class="form-control"
+						class="form-group pcdataAddTdDesign"><input type="text" class="form-control"
 						th:field="*{price}"> <span class="text-danger"
 						th:if="${#fields.hasErrors('price')}" th:errors="*{price}">price
 							error</span></td>
 
-					<th class="text-center">その他詳細欄</th>
+					<th class="text-center pcdataAddThDesign">その他詳細欄</th>
 					<td th:classappend="${#fields.hasErrors('detail')}?'has-error'"
-						class="form-group"><input type="text" class="form-control"
+						class="form-group pcdataAddTdDesign"><input type="text" class="form-control"
 						th:field="*{detail}"> <span class="text-danger"
 						th:if="${#fields.hasErrors('detail')}" th:errors="*{detail}">detail
 							error</span></td>
 				</tr>
-
+				</table>
+				
+				<table class="table table-bordered table-hover tableDesign">
 				<tr>
-					<th class="text-center">在庫数</th>
+					<th class="text-center pcdataAddThDesign">在庫数</th>
 					<td
 						th:classappend="${#fields.hasErrors('product_stock')}?'has-error'"
-						class="form-group"><input type="text" class="form-control"
+						class="form-group pcdataAddTdDesign"><input type="text" class="form-control"
 						th:field="*{product_stock}"> <span class="text-danger"
 						th:if="${#fields.hasErrors('product_stock')}"
 						th:errors="*{product_stock}">product_stock error</span></td>
 
-					<th class="text-center">商品画像1(JPEG形式)</th>
+					<th class="text-center pcdataAddThDesign">商品画像1(JPEG形式)</th>
 					<td th:classappend="${#fields.hasErrors('pcImg')}?'has-error'"
-						class="form-group"><input type="text" class="form-control"
+						class="form-group pcdataAddTdDesign"><input type="text" class="form-control"
 						th:field="*{pcImg}"> <span class="text-danger"
 						th:if="${#fields.hasErrors('pcImg')}" th:errors="*{pcImg}">pcImg
 							error</span>
 							<span class="errorFontDesign" th:text="${imgResult1}"></span>
 							</td>
 				</tr>
-
+				</table>
+				
+				<table class="table table-bordered table-hover tableDesign">
 				<tr>
-					<th class="text-center">商品画像2(JPEG形式)</th>
+					<th class="text-center pcdataAddThDesign">商品画像2(JPEG形式)</th>
 					<td th:classappend="${#fields.hasErrors('pcImg2')}?'has-error'"
-						class="form-group"><input type="text" class="form-control"
+						class="form-group pcdataAddTdDesign"><input type="text" class="form-control"
 						th:field="*{pcImg2}"> <span class="text-danger"
 						th:if="${#fields.hasErrors('pcImg2')}" th:errors="*{pcImg2}">pcImg2
 							error</span>
 						<span class="errorFontDesign" th:text="${imgResult2}"></span></td>
 
-					<th class="text-center">商品画像3(JPEG形式)</th>
+					<th class="text-center pcdataAddThDesign">商品画像3(JPEG形式)</th>
 					<td th:classappend="${#fields.hasErrors('pcImg3')}?'has-error'"
-						class="form-group"><input type="text" class="form-control"
+						class="form-group pcdataAddTdDesign"><input type="text" class="form-control"
 						th:field="*{pcImg3}"> <span class="text-danger"
 						th:if="${#fields.hasErrors('pcImg3')}" th:errors="*{pcImg3}">pcImg3
 							error</span>
 						<span class="errorFontDesign" th:text="${imgResult3}"></span>
 						</td>
 				</tr>
+				</table>
+			
 
-			</table>
-
-			<button class="btn btn-primary" type="submit">商品追加決定</button>
+			<button class="btn btn-radius-solidProductAdd btn--shadow" type="submit">商品追加決定</button>
 		</form>
 	</div>
 </body>
