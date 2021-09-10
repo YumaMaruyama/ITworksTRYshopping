@@ -8,15 +8,15 @@
 <body>
 
 	<div th:fragment="productListLayout_contents">
-		<h1>あなたの情報編集</h1>
+		<h1 class="titleDesign">あなたの情報編集</h1>
 
 		<form method="post" th:action="@{/editYourDetail}"
 			th:object="${usersListForm}">
-		<table class="table table-hover table-bordered">
+		<table class="table table-hover table-bordered editYourDetailDesign">
 			<tr>
-				<th class="text-center">登録名</th>
-				<td class="text-center">
-					<div class="form-group">
+				<th class="text-center editYourThDesign">登録名</th>
+				<td class="text-center editYourTdDesign">
+					<div class="form-group editYourFormDesign">
 						<input type="text" class="form-control" th:field="*{userName}"> 
 						<span
 							class="text-danger" th:if="${#fields.hasErrors('userName')}"
@@ -26,9 +26,9 @@
 			</tr>
 			
 			<tr>
-				<th class="text-center">商品受け取り住所</th>
-				<td class="text-center">
-					<div class="form-group">
+				<th class="text-center editYourThDesign">商品受け取り住所</th>
+				<td class="text-center editYourTdDesign">
+					<div class="form-group editYourFormDesign">
 						<input type="text" class="form-control" th:field="*{address}"> 
 						<span
 							class="text-danger" th:if="${#fields.hasErrors('address')}"
@@ -39,8 +39,8 @@
 		</table>
 		<div>
 		<input type="hidden" name="id" th:value="${id}">
-		<button class="btn btn-primary" name="update">変更する</button>
-		<button class="btn btn-danger" name="delete">退会する</button>
+		<button class="btn btnEYD--blue btnEYD--radius btnEYD--cubic editYourDetailChange" name="update">変更する</button>
+		<button class="btn btnEYDout--red btnEYDout--radius btnEYDout--cubic editYoutDetailUnsubscribe" name="delete">退会する</button>
 		</div>
 		</form>
 	</div>

@@ -138,3 +138,24 @@ a.btnEY-radius-solid:hover {
 .rankIconDesign {
 	font-size:50px !important;
 }
+
+a.btn--blue.btn--border-double {
+  border: 8px double #0090bb;
+}
+
+.rankDetailBtnDesing {
+	margin-top:10px;
+}
+
+.purchaseInfoCountDesign {
+	background: #f7e0c1;
+}
+
+.purchaseInfoPriceDesign {
+	background: #e7efab;
+}
+
+.purchaseInfoPointDesign {
+	background: #bdecd0;
+}
+

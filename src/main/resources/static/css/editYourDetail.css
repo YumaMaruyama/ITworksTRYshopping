@@ -1,0 +1,53 @@
+@charset "UTF-8";
+
+.editYourFormDesign {
+	    margin-top: 10px;
+}
+
+.editYourDetailDesign {
+	font-size:14px;
+	width:1000px;
+}
+
+.editYourThDesign {
+padding-top: 20px !important;
+}
+
+button.btnEYD--blue.btnEYD--cubic {
+  border-bottom: 5px solid #7ba8bd;
+}
+
+button.btnEYD--blue.btnEYD--cubic:hover {
+  margin-top: 3px;
+  border-bottom: 5px solid #7ba8bd;
+}
+
+button.btnEYD--radius {
+  border-radius: 100vh;
+}
+
+.editYourDetailChange {
+	background: #75beff;
+	margin-left: 333px;
+}
+
+
+
+
+button.btnEYDout--red.btnEYDout--cubic {
+  border-bottom: 5px solid #c15b69
+}
+
+button.btnEYDout--red.btnEYDout--cubic:hover {
+  margin-top: 3px;
+  border-bottom: 5px solid #c15b69
+}
+
+button.btnEYDout--radius {
+  border-radius: 100vh;
+}
+
+.editYoutDetailUnsubscribe {
+	background: #ff709e;
+	margin-left: 180px;
+}

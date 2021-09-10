@@ -34,15 +34,15 @@
 		<h2>購入情報</h2>
 		<table class="table table-hover table-bordered userPurchaseInfoTableDesign">
 			<tr>
-				<td class="text-center" th:text="'商品購入数:' + ${purchaseCount} + '個'"></td>
-				<td class="text-center" th:text="'合計購入金額:' + ${allTotalPrice} + '円'"></td>
-				<td class="text-center" th:text="'ITworksTRYshopping:' + ${point} + 'ポイント保持'"></td>
+				<td class="text-center purchaseInfoCountDesign" th:text="'商品購入数:' + ${purchaseCount} + '個'"></td>
+				<td class="text-center purchaseInfoPriceDesign" th:text="'合計購入金額:' + ${allTotalPrice} + '円'"></td>
+				<td class="text-center purchaseInfoPointDesign" th:text="'ITworksTRYshopping:' + ${point} + 'ポイント保持'"></td>
 				
 			</tr>
 		</table>
 		
 		<h2>会員ランク</h2>
-		<table class="table table-hover table-bordered userRankTableDesign">
+		<table class="table userRankTableDesign">
 			<tr>
 			<td>
 			<h3 class="text-center" th:text="${rankPoint}"></h3>
@@ -59,7 +59,7 @@
 				<p th:if="${rankPoint} == 'プレミアムゴッドランク'"class="text-center" ><i class="fa fa-graduation-cap rank10 rankIconDesign"></i></p>
 				<p th:if="${rankPoint} == 'InductedIntoTheHalOfFameRank'"class="text-center" ><i class="fa fa-optin-monster rank11 rankIconDesign"></i></p>
 				</td>
-				<td><a th:href="@{/userRankDetail}" class="btn btn-primary">会員ランクの詳細</a></td>
+				<td><a th:href="@{/userRankDetail}" class="btn btn--blue btn--border-double rankDetailBtnDesing">会員ランクの詳細</a></td>
 				
 			</tr>
 		</table>
