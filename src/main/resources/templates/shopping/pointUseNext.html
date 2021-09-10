@@ -13,26 +13,26 @@
 		</header>
 
 		<form method="get" th:action="@{/pointUseClearing} + '/' + ${couponId}">
-		<table>
+		<table class="table table-bordered pointUseTableDesign">
 			<tr>
-				<th class="text-center">利用するポイント</th>
-				<td class="text-center" th:text="${pointUse} + 'ポイント'"></td>
+				<th class="text-center pointUseThDesign">利用するポイント</th>
+				<td class="text-center pointUseTdDesign" th:text="${pointUse} + 'ポイント'"></td>
 			</tr>
 			
 			<tr>
-				<th class="text-center">利用後残るポイント</th>
-				<td class="text-center" th:text="${point} + 'ポイント'"></td>
+				<th class="text-center pointUseThDesign">利用後残るポイント</th>
+				<td class="text-center pointUseTdDesign" th:text="${point} + 'ポイント'"></td>
 			</tr>
 			
 			<tr>
-				<th class="text-center">ポイント利用後に支払う金額</th>
-				<td class="text-center" th:text="${pointUseAfterPrice} + '円'"></td>
+				<th class="text-center pointUseThDesign">ポイント利用後に支払う金額</th>
+				<td class="text-center pointUseTdDesign" th:text="${pointUseAfterPrice} + '円'"></td>
 			</tr>
 
 		</table>
 		
 		<input type="hidden" name="pointUse" th:value="${pointUse}">
-		<button class="text-center btn btn-primary">ポイントを利用</button>
+		<button class="text-center btn btnPU--red btnPu--radius btnPU--cubic pointUseNextBtnDesign">ポイントを利用</button>
 </form>
 	</div>
 </body>

@@ -11,3 +11,27 @@
 .pointUseTdDesign {
 	background: #aec9ca;
 }
+
+button.btnPU--red.btnPU--cubic {
+  border-bottom: 5px solid #6ab9a7;
+}
+
+button.btnPU--red.btnPU--cubic:hover {
+  margin-top: 3px;
+  border-bottom: 5px solid #6ab9a7;
+}
+
+button.btnPu--radius {
+  border-radius: 100vh;
+}
+
+.pointUseBtnDesign {
+	background: #60cdd8;
+	margin-left: 400px;
+}
+
+
+.pointUseNextBtnDesign {
+	background: #60cdd8;
+	margin-left: 425px;
+}

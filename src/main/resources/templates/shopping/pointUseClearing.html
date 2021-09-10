@@ -16,11 +16,16 @@
 
 		<br> <br>
 
+		<form method="get" th:action="@{/clearing}">
+		<input type="hidden" name="couponId" th:value="${couponId}">
+			<button  class="btn btn-flat"
+				><span>ポイント利用解除</span></button> <br>
+			<br>
+		</form>
+
 		<form th:if="${pointAfterPrice0} eq 'false'" method="post" th:action="@{/clearing} + '/' + ${couponId}"
 			th:object="${creditForm}">
-			<a class="text-center btn btn-primary"
-				th:href="@{/pointUse} + '/' + ${couponId}">ITPCworksポイント</a> <br>
-			<br>
+			
 			<div>
 				<h4 class="clearingTitle">JCBカードの情報を入力してください。</h4>
 			</div>
