@@ -1,7 +1,18 @@
 @charset "UTF-8";
 
 
+a.btnEY-radius-solid {
+  background: #f1e767;
+  background: -webkit-gradient(linear, left top, left bottom, from(#f1e767), to(#feb645));
+  background: -webkit-linear-gradient(top, #f1e767 0%, #feb645 100%);
+  background: linear-gradient(to bottom, #33ff00 0%, #c3ffd5 100%);
+}
 
+a.btnEY-radius-solid:hover {
+  background: -webkit-gradient(linear, left bottom, left top, from(#f1e767), to(#feb645));
+  background: -webkit-linear-gradient(bottom, #f1e767 0%, #feb645 100%);
+  background: linear-gradient(to top, #33ff00 0%, #c3ffd5 100%);
+}
 
 
 .rank1 {
