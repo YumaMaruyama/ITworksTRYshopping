@@ -27,3 +27,31 @@
 .newsDesignDate {
 	width:140px;
 }
+
+.newsAddThDesign {
+    background: #665cff;
+    font-size:15px;
+}  
+
+ 
+.newsAddTdDesign {
+	background: #b0b3fb;
+	font-size:15px;
+}
+
+.newsAddBtnDesign {
+	margin-left:500px;
+}
+
+button.btn-radius-solidNewsAdd {
+  background: #f1e767;
+  background: -webkit-gradient(linear, left top, left bottom, from(#f1e767), to(#feb645));
+  background: -webkit-linear-gradient(top, #f1e767 0%, #feb645 100%);
+  background: linear-gradient(to bottom, #b6bcf9 0%, #264afb 100%);
+}
+
+button.btn-radius-solidNewsAdd:hover {
+  background: -webkit-gradient(linear, left bottom, left top, from(#f1e767), to(#feb645));
+  background: -webkit-linear-gradient(bottom, #f1e767 0%, #feb645 100%);
+  background: linear-gradient(to top, #b6bcf9 0%, #264afb 100%);
+}

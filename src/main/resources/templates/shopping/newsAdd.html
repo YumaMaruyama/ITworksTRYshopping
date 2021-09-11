@@ -13,8 +13,8 @@
 			<table class="table table-bordered table-hover">
 
 				<tr>
-					<th>タイトル</th>
-					<td>
+					<th class="newsAddThDesign">タイトル</th>
+					<td class="newsAddTdDesign">
 						<div class="form-group"
 							th:classappend="${#fields.hasErrors('title')} ? 'hasError'">
 							<input type="text" class="form-control" th:field="*{title}">
@@ -24,8 +24,8 @@
 				</tr>
 				
 				<tr>
-					<th>内容</th>
-					<td>
+					<th class="newsAddThDesign">内容</th>
+					<td class="newsAddTdDesign">
 						<div class="form-group"
 							th:classappend="${#fields.hasErrors('content')} ? 'hasError'">
 							<input type="text" class="form-control" th:field="*{content}">
@@ -35,7 +35,7 @@
 				</tr>
 			</table>
 			
-			<button class="btn btn-primary">おしらせ投稿</button>
+			<button class="btn btn-radius-solidNewsAdd btn--shadow newsAddBtnDesign">おしらせ投稿</button>
 		</form>
 	</div>
 
