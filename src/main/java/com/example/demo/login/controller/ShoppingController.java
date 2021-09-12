@@ -1114,7 +1114,13 @@ public class ShoppingController {
 
 		return "shopping/productListLayout";
 	}
-
+	
+	@GetMapping("/privacyPolicyBeforeLogin")
+	public String getPrivacyPolicyBeforeLogin(Model model) {
+		model.addAttribute("contents","shopping/privacyPolicyBeforeLogin::loginLayout_contents");
+		
+		return "shopping/loginLayout";
+	}
 	@GetMapping("/inquiry")
 	public String getInquiry(@ModelAttribute InquiryForm form, Model model) {
 		model.addAttribute("contents", "shopping/inquiry::productListLayout_contents");

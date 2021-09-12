@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+.privacyPolicyBeforeLogin {
+	display: block;
+	overflow-y: scroll;
+	height: 469px;
+	font-size:13px !important;
+}
+
+.priPoliBefLogThColor {
+	background: #e0a47a;	
+}
+
+.priPoliBefLogTdColor {
+	background: #ffe5d2;	
+}
