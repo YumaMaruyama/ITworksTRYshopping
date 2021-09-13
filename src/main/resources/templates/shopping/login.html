@@ -22,7 +22,16 @@
 <div th:fragment="loginLayout_contents">
 
 	<div class="text-center  design">
-		<h1 class="h1">Login</h1>
+		<!--  <h1 class="h1">Login</h1>-->
+	<div class="foo">
+  <span class="letter" data-letter="L">L</span>
+  <span class="letter" data-letter="o">o</span>
+  <span class="letter" data-letter="g">g</span>
+  <span class="letter" data-letter="i">i</span>
+  <span class="letter" data-letter="n">n</span>
+
+</div>
+		
 		<br>
 		<form class="loginFormDesign" method="post" th:action="@{/login}" th:object="${loginForm}">
 			<!-- ログインエラーメッセージの表示 -->
@@ -34,15 +43,15 @@
 				
 
 			<div class="cp_iptxt">
-				<label class="ef"> <input type="text" name="user_id"
+				<input type="text" name="user_id"
 					placeholder="UserId">
-				</label>
+				
 			</div>
 			
 			<div class="cp_iptxt">
-				<label class="ef"> <input type="text" name="password"
+				 <input type="text" name="password"
 					placeholder="Password">
-				</label>
+				
 			</div>
 		
 			<!-- CSRF対策用トークン  hiddenでCSRF対策用のトークンをサーバーに送る CSRF多作をしている場合下記のコードを書かないとSpringが応答しなくなる-->
@@ -51,7 +60,7 @@
 
 
 			<!-- ログインボタン -->
-			<button class="btn btn-3d-flip">
+			<button class="btn btn-3d-flip loginBtnDesign">
   <span class="btn-3d-flip-box">
     <span class="btn-3d-flip-box-face btn-3d-flip-box-face--front">login<i ></i></span>
     <span class="btn-3d-flip-box-face btn-3d-flip-box-face--back">Let's go<i ></i></span>
