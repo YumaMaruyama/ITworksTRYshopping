@@ -119,3 +119,12 @@ a.btn-radius-solid:hover {
   background: -webkit-linear-gradient(bottom, #fdfbfb 0%, #ebedee 100%);
   background: linear-gradient(to top, #fdfbfb 0%, #ebedee 100%);
 }
+
+.loginGoBtn {
+	color:#dcdcdc !important; 
+	font-size: 18px;
+}
+
+.jpeg {
+	background-size: 467px;
+}
