@@ -22,17 +22,17 @@
 	<div th:fragment="loginLayout_contents">
 	<div class="col-sm-10">
 		<div class="page-header">
-			<h1>ユーザー新規登録</h1>
+			<h1 class="titleDesign">ユーザー新規登録</h1>
 		</div>
 
 		<p class="singupDesign" th:text="${result}"></p>
 
 		<form method="post" th:action="@{/signup}" th:object="${signupForm}">
-			<table class="table table-bordered table-hover">
+			<table class="table table-bordered table-hover singupTableDesign">
 
 				<tr>
-					<th>ユーザーID</th>
-					<td>
+					<th class="signupThDesign">ユーザーID</th>
+					<td class="signupTdDesign">
 						<div class="form-group" th:classappend="${#fields.hasErrors('user_id')} ? 'hasError'">
 							<input type="text" class="form-control" th:field="*{user_id}">
 						</div>
@@ -41,8 +41,8 @@
 				</tr>
 
 				<tr>
-					<th>パスワード</th>
-					<td>
+					<th class="signupThDesign">パスワード</th>
+					<td class="signupTdDesign">
 						<div class="form-group" th:classappend="${#fields.hasErrors('password')} ? 'hasError'">
 							<input type="text" class="form-control" th:field="*{password}">
 						</div>
@@ -51,8 +51,8 @@
 				</tr>
 
 				<tr>
-					<th>ユーザー名</th>
-					<td>
+					<th class="signupThDesign">ユーザー名</th>
+					<td class="signupTdDesign">
 						<div class="form-group" th:classappend="${#fields.hasErrors('user_name')} ? 'hasError'">
 							<input type="text" class="form-control" th:field="*{user_name}">
 						</div>
@@ -61,8 +61,8 @@
 				</tr>
 
 				<tr>
-					<th>生年月日</th>
-					<td>
+					<th class="signupThDesign">生年月日</th>
+					<td class="signupTdDesign">
 						<div class="form-group" th:classappend="${#fields.hasErrors('birthday')} ? 'hasError'">
 							<input type="date" class="form-control" th:field="*{birthday}">
 						</div>
@@ -71,8 +71,8 @@
 				</tr>
 
 				<tr>
-					<th>商品受け取り住所</th>
-					<td>
+					<th class="signupThDesign">商品受け取り住所</th>
+					<td class="signupTdDesign">
 						<div class="form-group" th:classappend="${#fields.hasErrors('address')} ? 'hasError'">
 							<input type="text" class="form-control" th:field="*{address}">
 						</div>
@@ -85,7 +85,7 @@
 			</table>
 
 
-		<button class="btn btn-primary" type="submit">ユーザー登録</button>
+		<button class="btn btn-border signupBtnDesign" type="submit">ユーザー登録</button>
 		</form>
 	</div>
 </div>

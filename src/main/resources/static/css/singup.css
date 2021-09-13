@@ -5,3 +5,56 @@
 	padding-left: 336px;
 	font-size:15px;
 }
+
+.signupThDesign {
+	background: #b6d8f7;
+}
+
+.signupTdDesign {
+	background: aliceblue;
+}
+
+.singupTableDesign {
+	font-size:14px;
+	width:1100px;
+}
+
+.signupBtnDesign {
+	padding-left:461px;
+}
+
+
+button.btn-border {
+  border-radius: 0;
+}
+
+button.btn-border:before,
+button.btn-border:after {
+  position: absolute;
+
+  width: 23%;
+  height: 2px;
+
+  content: '';
+  -webkit-transition: all .3s;
+  transition: all .3s;
+
+  background: #000;
+}
+
+button.btn-border:before {
+  top: 0;
+  left: 446px;
+}
+
+button.btn-border:after {
+  right: 0;
+  bottom: 0;
+  left: 446px;
+}
+
+button.btn-border:hover:before,
+button.btn-border:hover:after {
+  width: 0;
+}
+
