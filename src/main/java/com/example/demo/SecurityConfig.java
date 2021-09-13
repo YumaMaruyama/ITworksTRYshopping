@@ -51,9 +51,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.authorizeRequests()
 			.antMatchers("/webjars/**").permitAll()
 			.antMatchers("/css/**").permitAll()
+			.antMatchers("/no").permitAll()
 			.antMatchers("/login").permitAll()
 			.antMatchers("/signup").permitAll()
 			.antMatchers("/privacyPolicyBeforeLogin").permitAll()
+			.antMatchers("/termsOfUseBeforeLogin").permitAll()
+			.antMatchers("/appDetail").permitAll()
 			.anyRequest().authenticated();
 
 
@@ -62,7 +65,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.formLogin()
 			.loginProcessingUrl("/login")//ログイン処理を行う場所
 			.loginPage("/login")//ログインページ
-			.failureUrl("/login")//ログイン失敗時の推移先
+			.failureUrl("/no")//ログイン失敗時の推移先
 			.usernameParameter("user_id")//ログインページのuser_id
 			.passwordParameter("password")//ログインページのpassword
 			.defaultSuccessUrl("/productList",true);//ログイン成功後の推移先

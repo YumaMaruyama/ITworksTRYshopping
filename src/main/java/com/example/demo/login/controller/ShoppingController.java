@@ -39,6 +39,7 @@ import com.example.demo.login.domail.model.InquiryAllDTO;
 import com.example.demo.login.domail.model.InquiryDTO;
 import com.example.demo.login.domail.model.InquiryForm;
 import com.example.demo.login.domail.model.InquiryReplyDTO;
+import com.example.demo.login.domail.model.LoginForm;
 import com.example.demo.login.domail.model.MenberCouponDTO;
 import com.example.demo.login.domail.model.MenberCouponForm;
 import com.example.demo.login.domail.model.NewsDTO;
@@ -1262,7 +1263,7 @@ public class ShoppingController {
 	}
 
 	@PostMapping("/admin")
-	public String postAdmin(@ModelAttribute @Validated(GroupOrder.class) PcDataForm form, BindingResult bindingResult,
+	public String postAdmin(@ModelAttribute @Validated(GroupOrder.class) PcDataForm form, BindingResult bindingResult,RedirectAttributes redirectAttributes,
 			Model model) {
 
 		if (bindingResult.hasErrors()) {
@@ -1315,7 +1316,8 @@ public class ShoppingController {
 		if (result < 1) {// 同じ商品がなければdtoの情報をpdcataテーブルに格納する
 			int pcData = pcdataService.insertOne(pcdatadto);
 		}
-		return getProductList(form, model);
+		LoginForm loginForm = new LoginForm();
+		return getProductList(form,redirectAttributes,model);
 	}
 
 	@GetMapping("/news")
@@ -4406,7 +4408,10 @@ public class ShoppingController {
 	}
 
 	@GetMapping("/productList")
-	public String getProductList(@ModelAttribute PcDataForm form, Model model) {
+	public String getProductList(@ModelAttribute PcDataForm form,RedirectAttributes redirectAttributes, Model model) {
+		
+		
+		
 		model.addAttribute("contents", "shopping/productList::productListLayout_contents");
 		List<PcDataDTO> productList = pcdataService.selectMany();
 
@@ -4650,7 +4655,7 @@ public class ShoppingController {
 	}
 
 	@PostMapping("credit")
-	public String postCredit(@ModelAttribute CreditForm form, PcDataForm pcdataform, Model model,
+	public String postCredit(@ModelAttribute CreditForm form, PcDataForm pcdataform, BindingResult bindingResult,RedirectAttributes redirectAttributes,Model model,
 			@PathVariable("totalPrice") int totalPrice) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
@@ -4664,7 +4669,8 @@ public class ShoppingController {
 
 		int result = creditService.insertOne(creditdto, getName);
 
-		return getProductList(pcdataform, model);
+		LoginForm loginForm = new LoginForm();
+		return getProductList(pcdataform,redirectAttributes,model);
 
 	}
 

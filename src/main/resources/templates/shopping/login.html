@@ -24,30 +24,39 @@
 	<div class="text-center  design">
 		<h1 class="h1">Login</h1>
 		<br>
-		<form method="post" th:action="@{/login}">
+		<form class="loginFormDesign" method="post" th:action="@{/login}" th:object="${loginForm}">
 			<!-- ログインエラーメッセージの表示 -->
-			<p th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']} !=null"
+		  <p th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']} !=null"
 				th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"
 				class="text-danger errorSize">ログインエラーメッセージ</p>
+
+
+				
 
 			<div class="cp_iptxt">
 				<label class="ef"> <input type="text" name="user_id"
 					placeholder="UserId">
 				</label>
 			</div>
-			<!-- パスワード -->
+			
 			<div class="cp_iptxt">
 				<label class="ef"> <input type="text" name="password"
 					placeholder="Password">
 				</label>
 			</div>
+		
 			<!-- CSRF対策用トークン  hiddenでCSRF対策用のトークンをサーバーに送る CSRF多作をしている場合下記のコードを書かないとSpringが応答しなくなる-->
 			<input type="hidden" th:name="${_csrf.parameterName}"
 				th:value="${_csrf.token}" />
 
 
 			<!-- ログインボタン -->
-			<button class="btn-gradient-flat btn btn-primary" type="submit">ログイン</button>
+			<button class="btn btn-3d-flip">
+  <span class="btn-3d-flip-box">
+    <span class="btn-3d-flip-box-face btn-3d-flip-box-face--front">login<i ></i></span>
+    <span class="btn-3d-flip-box-face btn-3d-flip-box-face--back">Let's go<i ></i></span>
+  </span>
+</button>
 		</form>
 		<br />
 		<!-- ポイント2：th：href タイムリーフを使ってアンカータグを使う　コントローラークラスの＠GetMappingアノテーションの値を指定するだけ-->
