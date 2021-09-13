@@ -1107,6 +1107,13 @@ public class ShoppingController {
 
 		return "shopping/productListLayout";
 	}
+	
+	@GetMapping("termsOfUseBeforeLogin")
+	public String gettermsOfUseBeforeLogin(Model model) {
+		model.addAttribute("contents","shopping/termsOfUseBeforeLogin::loginLayout_contents");
+
+		return "shopping/loginLayout";
+	}
 
 	@GetMapping("privacyPolicy")
 	public String getPrivacyPolicy(Model model) {
@@ -1121,6 +1128,14 @@ public class ShoppingController {
 		
 		return "shopping/loginLayout";
 	}
+	
+	@GetMapping("/appDetail")
+	public String getAppDetail(Model model) {
+		model.addAttribute("contents","shopping/appDetail::loginLayout_contents");
+		
+		return "shopping/loginLayout";
+	}
+	
 	@GetMapping("/inquiry")
 	public String getInquiry(@ModelAttribute InquiryForm form, Model model) {
 		model.addAttribute("contents", "shopping/inquiry::productListLayout_contents");
