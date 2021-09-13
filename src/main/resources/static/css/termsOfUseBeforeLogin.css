@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+
+.termsOfUse {
+	display: block;
+	overflow-y: scroll;
+	height: 452px;
+	font-size:13px;
+}
+
+.termsBefLogThColor {
+	background: #e0a47a;
+}
+
+.termsBefLogTdColor {
+	background: #ffe5d2;
+}
