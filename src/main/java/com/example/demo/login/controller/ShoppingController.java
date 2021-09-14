@@ -1085,6 +1085,9 @@ public class ShoppingController {
 	public String getPointRateChange(@ModelAttribute PointRateChangeForm form, Model model) {
 		model.addAttribute("contents", "shopping/pointRateChange::productListLayout_contents");
 
+		int pointRate = pointRateService.selectOne(1);
+		model.addAttribute("pointRate", pointRate);
+		
 		return "shopping/productListLayout";
 
 	}
