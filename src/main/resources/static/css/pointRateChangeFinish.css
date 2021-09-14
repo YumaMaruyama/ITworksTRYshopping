@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+.pointRateChangeFinishTableDesign {
+	font-size:14px;
+	margin-left: 236px;
+    margin-top: 78px;
+}
+
+.pointRateChangeFinishThDesign {
+	background: #ff874e;
+}
+
+.pointRateChangeFinishTdDesign {
+	background: #ffc0a2;
+}
