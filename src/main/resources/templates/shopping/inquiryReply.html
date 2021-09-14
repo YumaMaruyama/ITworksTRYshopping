@@ -12,8 +12,8 @@
 		</header>
 		
 		<form method="post" th:action="@{/inquiry}" th:object="${inquiryForm}">
-		<table class="table table-hover table-bordered" th:each="inquirydto : ${inquiryList}">
-			<tr>
+		<table class="table table-bordered inquiryReplyTableDesign" th:each="inquirydto : ${inquiryList}">
+			<tr class="inquiryReplyThDesign">
 				 <th class="text-center">問い合わせユーザー</th>
 				 <th class="text-center">タイトル</th>
 				 <th class="text-center">内容</th>
@@ -21,7 +21,7 @@
 				  
 			</tr>
 			
-			<tr>
+			<tr class="inquiryReplyTdDesign">
 				<th class="text-center" th:text="${inquirydto.userName}"></th>
 				<th class="text-center" th:text="${inquirydto.title}"></th>
 				<th class="text-center" th:text="${inquirydto.content}"></th>
@@ -30,25 +30,25 @@
 		</table>
 		
 		<h3>返信内容</h3>
-		<table class="table table-hover table-bordered" th:each="inquirydto : ${inquiryList}">
+		<table class="table table-bordered inquiryReplyNextTableDesign" th:each="inquirydto : ${inquiryList}">
 			<tr>
 				
-				 <th class="text-center">タイトル</th>
-				 <th class="text-center">内容</th>
+				 <th class="text-center inquiryReplyNextThDesign">タイトル</th>
+				 <th class="text-center inquiryReplyNextThDesign">内容</th>
 
 			</tr>
 			
 			<tr>
 			
-				<th class="text-center"><input type="text" class="form-control" th:field="*{title}"></th>
-				<th class="text-center"><input type="text" class="form-control" th:field="*{content}"></th>
+				<th class="text-center inquiryReplyNextTdDesign"><input type="text" class="form-control" th:field="*{title}"></th>
+				<th class="text-center inquiryReplyNextTdDesign"><input type="text" class="form-control" th:field="*{content}"></th>
 				
 			</tr>
 			
 		</table>
 		<div>
 		<input type="hidden" name="id" th:value="${id}">
-		<button class="btn btn-primary" name="return">返信する</button>
+		<button class="btn btninquiryReply-border inquiryReplyBtn" name="return">返信する</button>
 		</div>
 		</form>
 	</div>

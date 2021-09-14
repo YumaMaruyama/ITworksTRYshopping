@@ -11,9 +11,9 @@
 			<h1 class="titleDesign">問い合わせ編集</h1>
 		</header>
 		<form method="post" th:action="@{/inquiryDetail}" th:object="${inquiryForm}">
-			<table class="table table-hover table-bordered"
+			<table class="table table-bordered inquiryDetailTableDesign"
 				th:each="inquirydto : ${inquiryList}">
-				<tr>
+				<tr class="inquiryDetailThDesign">
 					<th class="text-center">問い合わせユーザー</th>
 					<th class="text-center">タイトル</th>
 					<th class="text-center">内容</th>
@@ -21,7 +21,7 @@
 
 				</tr>
 
-				<tr>
+				<tr class="inquiryDetailTdDesign">
 					<th class="text-center" th:text="${inquirydto.userName}"></th>
 					<th class="text-center" th:text="${inquirydto.title}"></th>
 					<th class="text-center" th:text="${inquirydto.content}"></th>
@@ -30,7 +30,7 @@
 			</table>
 			<div>
 			<input type="hidden" name="id" th:value="${id}">
-			<button class="btn btn-primary">問い合わせ削除</button>
+			<button class="btn btninquiryDetail-border inquiryDeleteBtn">問い合わせ削除</button>
 			</div>
 		</form>
 	</div>
