@@ -30,17 +30,21 @@
 
 .newsAddThDesign {
     background: #665cff;
-    font-size:15px;
+    font-size:14px;
 }  
 
  
 .newsAddTdDesign {
 	background: #b0b3fb;
-	font-size:15px;
+	font-size:14px;
 }
 
 .newsAddBtnDesign {
 	margin-left:500px;
+}
+
+.newsAddTableDesign {
+	width:1100px;
 }
 
 button.btn-radius-solidNewsAdd {

@@ -10,10 +10,10 @@
 		<h1 class="titleDesign">お知らせ追加</h1>
 
 		<form method="post" th:action="@{/newsAdd}" th:object="${newsForm}">
-			<table class="table table-bordered table-hover">
+			<table class="table table-bordered table-hover newsAddTableDesign">
 
 				<tr>
-					<th class="newsAddThDesign">タイトル</th>
+					<th class="text-center newsAddThDesign">タイトル</th>
 					<td class="newsAddTdDesign">
 						<div class="form-group"
 							th:classappend="${#fields.hasErrors('title')} ? 'hasError'">
@@ -24,7 +24,7 @@
 				</tr>
 				
 				<tr>
-					<th class="newsAddThDesign">内容</th>
+					<th class="text-center newsAddThDesign">内容</th>
 					<td class="newsAddTdDesign">
 						<div class="form-group"
 							th:classappend="${#fields.hasErrors('content')} ? 'hasError'">
