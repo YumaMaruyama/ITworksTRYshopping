@@ -1,0 +1,33 @@
+@charset "UTF-8";
+
+
+.menberCouponAddTableDesign {
+	width:1100px;
+	font-size:14px;
+}
+
+.menberCouponAddThDesign {
+	background: #ff3765;
+}
+
+.menberCouponAddTdDesign {
+	background: #ffa3ab;
+}
+
+.menberCouponAddBtnDesign {
+	margin-left:500px;
+}
+
+
+button.btn-radius-solidMenberCouponAdd {
+  background: #f1e767;
+  background: -webkit-gradient(linear, left top, left bottom, from(#f1e767), to(#feb645));
+  background: -webkit-linear-gradient(top, #f1e767 0%, #feb645 100%);
+  background: linear-gradient(to bottom, #ffb4b4 0%, #ff3737 100%);
+}
+
+button.btn-radius-solidMenberCouponAdd:hover {
+  background: -webkit-gradient(linear, left bottom, left top, from(#f1e767), to(#feb645));
+  background: -webkit-linear-gradient(bottom, #f1e767 0%, #feb645 100%);
+  background: linear-gradient(to top, #ffb4b4 0%, #ff3737 100%);
+}

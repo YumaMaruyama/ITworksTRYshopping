@@ -15,29 +15,29 @@
 		<form method="post" th:action="@{/menberCouponAdd}"
 			th:object=${menberCouponForm}>
 
-			<table class="table table-hover table-bordered">
+			<table class="table table-hover table-bordered menberCouponAddTableDesign">
 
 				<tr>
-					<th class="text-center">クーポン名</th>
+					<th class="text-center menberCouponAddThDesign">クーポン名</th>
 					<td th:classappend="${#fields.hasErrors('title')}?'has-error'"
-						class="form-group"><input type="text" class="form-control"
+						class="form-group menberCouponAddTdDesign"><input type="text" class="form-control"
 						th:field="*{title}"> <span class="text-danger"
 						th:if="${#fields.hasErrors('title')}" th:errors="*{title}">title
 							error</span></td>
 				</tr>
 
 				<tr>
-					<th class="text-center">割引パーセント</th>
+					<th class="text-center menberCouponAddThDesign">割引パーセント</th>
 					<td th:classappend="${#fields.hasErrors('discount')}?'has-error'"
-						class="form-group"><input type="text" class="form-control"
+						class="form-group menberCouponAddTdDesign"><input type="text" class="form-control"
 						th:field="*{discount}"> <span class="text-danger"
 						th:if="${#fields.hasErrors('discount')}" th:errors="*{discount}">discount
 							error</span></td>
 				</tr>
 
 				<tr>
-					<th class="text-center">特典付加ランク(入力したランク以上の方に付与)</th>
-					<td class="text-center">
+					<th class="text-center menberCouponAddThDesign">特典付加ランク(入力したランク以上の方に付与)</th>
+					<td class="text-center menberCouponAddTdDesign">
 						<div class="text-center form-group"
 							th:classappend="${#fields.hasErrors('couponRank')}?'has-error'">
 							<select th:field="*{couponRank}"><option value="1">アマチュアランク</option>
@@ -63,7 +63,7 @@
 
 			</table>
 
-			<button class="btn btn-primary">クーポン配布</button>
+			<button class="btn btn-radius-solidMenberCouponAdd btn--shadow menberCouponAddBtnDesign">クーポン配布</button>
 		</form>
 
 

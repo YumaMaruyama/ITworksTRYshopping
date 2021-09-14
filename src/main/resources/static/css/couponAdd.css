@@ -1,0 +1,35 @@
+@charset "UTF-8";
+
+.couponAddThDesign {
+background: #ff3765;
+width:700px;
+}
+
+.couponAddTdDesign {
+background: #ffa3ab;
+width:400px;
+}
+
+.couponAddBtnDesign {
+	margin-left:500px;
+}
+
+.couponAddTableDesign {
+	font-size:14px;
+	width:1100px;
+}
+
+
+
+button.btn-radius-solidCouponAdd {
+  background: #f1e767;
+  background: -webkit-gradient(linear, left top, left bottom, from(#f1e767), to(#feb645));
+  background: -webkit-linear-gradient(top, #f1e767 0%, #feb645 100%);
+  background: linear-gradient(to bottom, #ffb4b4 0%, #ff3737 100%);
+}
+
+button.btn-radius-solidCouponAdd:hover {
+  background: -webkit-gradient(linear, left bottom, left top, from(#f1e767), to(#feb645));
+  background: -webkit-linear-gradient(bottom, #f1e767 0%, #feb645 100%);
+  background: linear-gradient(to top, #ffb4b4 0%, #ff3737 100%);
+}
