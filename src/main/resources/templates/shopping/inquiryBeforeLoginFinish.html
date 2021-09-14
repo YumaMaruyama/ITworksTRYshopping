@@ -1,10 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
-
+	
+		<div th:fragment="productListLayout_contents">
+		<header>
+			<h1 class="titleDesign">問い合わせ完了画面</h1>
+		</header>
+		
+		<br>
+		<h3>お問い合わせありがとうございます。下記の内容を送信しました。</h3>
+		
+		<table class="table table-hover table-bordered inquiryFinishTableDesign">
+		
+		<tr>
+			<th class="text-center inquiryFinishThTitle">タイトル</th>
+			<td class="text-center inquiryFinishTdTitle" th:text="${title}"></td>
+		</tr>
+		
+		<tr>
+			<th class="text-center inquiryFinishThContent">内容</th>
+			<td class="text-center inquiryFinishTdContent" th:text="${content}"></td>
+		</tr>
+		
+		
+	</table>
+	
+	<a th:href="@{/inquiry}" class="btn btn-primary">お問い合わせ画面へ</a>
+	</div>
 </body>
 </html>
