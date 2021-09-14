@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -26,6 +28,16 @@ public class InquiryJdbcDaoImpl implements InquiryDao {
 				+ " content)"
 				+ " value(?,?,?,?)",inquirydto.getId(),select_id,inquirydto.getTitle(),inquirydto.getContent());
 				
+		return result;
+	}
+	
+	public int beforLoginInquiryInsertOne(InquiryDTO inquirydto,HttpSession session) {
+		int result = jdbc.update("insert into inquiry (id,"
+				+ " mail_address,"
+				+ " user_id,"
+				+ " title,"
+				+ " content)"
+				+ " value(?,?,?,?,?)",inquirydto.getId(),session.getAttribute("mailAddress"),-1,session.getAttribute("title"),session.getAttribute("content"));
 		return result;
 	}
 	

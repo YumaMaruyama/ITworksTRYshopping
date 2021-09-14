@@ -36,6 +36,7 @@ import com.example.demo.login.domail.model.CreditForm;
 import com.example.demo.login.domail.model.CustomDTO;
 import com.example.demo.login.domail.model.GroupOrder;
 import com.example.demo.login.domail.model.InquiryAllDTO;
+import com.example.demo.login.domail.model.InquiryBeforeLoginForm;
 import com.example.demo.login.domail.model.InquiryDTO;
 import com.example.demo.login.domail.model.InquiryForm;
 import com.example.demo.login.domail.model.InquiryReplyDTO;
@@ -1137,12 +1138,55 @@ public class ShoppingController {
 		return "shopping/loginLayout";
 	}
 	
+	@GetMapping("/inquiryBeforeLogin")
+	public String getInquiry(@ModelAttribute InquiryBeforeLoginForm form, Model model) {
+		model.addAttribute("contents", "shopping/inquiryBeforeLogin::loginLayout_contents");
+		
+		return "shopping/loginLayout";
+	}
+	
+	@PostMapping(value = "inquiryBeforeLogin", params = "sending")
+	public String postInquirySending(@ModelAttribute @Validated(GroupOrder.class) InquiryBeforeLoginForm form,
+			BindingResult bindingResult, HttpServletRequest request, HttpServletResponse response,
+			Model model) {
+
+		model.addAttribute("contents", "shopping/inquiryBeforeLoginFinish::loginLayout_contents");
+
+		if (bindingResult.hasErrors()) {// 入力内容がおかしい場合はtrue
+			System.out.println("バリデーションエラー到達");
+			return getInquiry(form, model);// もう一度入力画面に遷移させる
+		}
+
+		
+
+		InquiryDTO inquirydto = new InquiryDTO();
+		
+
+		HttpSession session = request.getSession();
+		session.setAttribute("title", form.getTitle());
+		session.setAttribute("content", form.getContent());
+		session.setAttribute("mailAddress", form.getMailAddress());
+		model.addAttribute("title", (String) session.getAttribute("title"));
+		model.addAttribute("content", (String) session.getAttribute("content"));
+		model.addAttribute("mailAddress", (String) session.getAttribute("mailAddress"));
+
+		InquiryReplyDTO inquiryreplydto = new InquiryReplyDTO();
+		int result = inquiryService.beforLoginInquiryInsertOne(inquirydto,session);// dtoとusersテーブルのidでお問い合わせの情報を格納する
+		
+
+		return "shopping/loginLayout";
+
+	}
+	
+	
+	
 	@GetMapping("/inquiry")
 	public String getInquiry(@ModelAttribute InquiryForm form, Model model) {
 		model.addAttribute("contents", "shopping/inquiry::productListLayout_contents");
 
 		return "shopping/productListLayout";
 	}
+	
 
 	@PostMapping(value = "inquiry", params = "sending")
 	public String postInquirySending(@ModelAttribute @Validated(GroupOrder.class) InquiryForm form,
