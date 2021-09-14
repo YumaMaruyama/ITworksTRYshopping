@@ -11,42 +11,55 @@
 		<header>
 			<h1 class="titleDesign">管理者画面</h1>
 		</header>
-		
-		<table class="table table-bordered">
-			
-			
+
+		<table class="administratorTopTableDesign">
+
+
 			<tr>
-				<td class="text-center"><a th:href="@{/usersList}" class="btn btn-radius-solid btn--shadow">ユーザーリスト</a></td>
-				<td class="text-center"><a th:href="@{/admin}" class="btn btn-radius-solidProductAdd btn--shadow">商品追加</a></td>
-				<td class="text-center"><a th:href="@{/newsAdd}" class="btn btn-radius-solidNewsAdd btn--shadow">お知らせ追加</a></td>
-				<td class="text-center"><a th:href="@{/couponAdd}" class="btn btn-radius-solidCouponAdd btn--shadow">クーポン追加</a></td>
-				<td class="text-center"><a th:href="@{/menberCouponAdd}" class="btn btn-radius-solidCouponAdd btn--shadow">会員ランク特典クーポン追加</a></td>
-				<td class="text-center"><a th:href="@{/pointRateChange}" class="btn btn-radius-solidPointRate btn--shadow">ポイント倍率変更</a></td>
+				<td class="text-center"><a th:href="@{/usersList}"
+					class="btn btn-radius-solid btn--shadow">ユーザーリスト</a></td>
+				<td class="text-center"><a th:href="@{/admin}"
+					class="btn btn-radius-solidProductAdd btn--shadow">商品追加</a></td>
+				<td class="text-center"><a th:href="@{/newsAdd}"
+					class="btn btn-radius-solidNewsAdd btn--shadow">お知らせ追加</a></td>
+				<td class="text-center"><a th:href="@{/couponAdd}"
+					class="btn btn-radius-solidCouponAdd btn--shadow">クーポン追加</a></td>
+				<td class="text-center"><a th:href="@{/menberCouponAdd}"
+					class="btn btn-radius-solidCouponAdd btn--shadow">会員ランク特典クーポン追加</a></td>
+				<td class="text-center"><a th:href="@{/pointRateChange}"
+					class="btn btn-radius-solidPointRate btn--shadow">ポイント倍率変更</a></td>
 			</tr>
 		</table>
-		
+
 		<h3>お問い合わせ内容</h3>
 		<form method="post" th:action="@{/inquiry}" th:object="${inquiryForm}">
-		<table class="table table-hover table-bordered" th:each="inquirydto : ${inquiryList}">
-			<tr>
-				 <th class="text-center">問い合わせユーザー</th>
-				 <th class="text-center">タイトル</th>
-				 <th class="text-center">内容</th>
-				 <th class="text-center">問い合わせ日時</th>
-				  <th class="text-center">管理</th>
-			</tr>
-			
-			<tr>
-				<th class="text-center" th:text="${inquirydto.userName}"></th>
-				<th class="text-center" th:text="${inquirydto.title}"></th>
-				<th class="text-center" th:text="${inquirydto.content}"></th>
-				<th class="text-center" th:text="${#dates.format(inquirydto.registrationDate,'yyyy/MM/dd hh:mm')}"></th>
-				<th class="text-center"><input type=hidden name="id" th:value=${inquirydto.id}><a th:href="@{'/inquiryDetail' + '/' + ${inquirydto.id}}" class="btn btn-primary" >編集</a><a th:href="@{'/inquiryReplay' + '/' + ${inquirydto.id}}" class="btn btn-primary">返信</a></th>
-			</tr>
-			
-		</table>
+			<table class="table  table-bordered administratorTableDesign"
+				th:each="inquirydto : ${inquiryList}">
+				<tr class="administratorThDesign">
+					<th class="text-center">問い合わせユーザー</th>
+					<th class="text-center ">タイトル</th>
+					<th class="text-center ">内容</th>
+					<th class="text-center ">問い合わせ日時</th>
+					<th class="text-center ">管理</th>
+				</tr>
+
+				<tr class="administratorTdDesign">
+					<th class="text-center" th:text="${inquirydto.userName}"></th>
+					<th class="text-center" th:text="${inquirydto.title}"></th>
+					<th class="text-center" th:text="${inquirydto.content}"></th>
+					<th class="text-center"
+						th:text="${#dates.format(inquirydto.registrationDate,'yyyy/MM/dd ah:mm')}"></th>
+					<th class="text-center"><input type=hidden name="id"
+						th:value=${inquirydto.id}><a
+						th:href="@{'/inquiryDetail' + '/' + ${inquirydto.id}}"
+						class="btn btnAdministrator-border">編集</a><a
+						th:href="@{'/inquiryReplay' + '/' + ${inquirydto.id}}"
+						class="btn btnAdministrator-border">返信</a></th>
+				</tr>
+
+			</table>
 		</form>
-		
+
 	</div>
 </body>
 </html>
