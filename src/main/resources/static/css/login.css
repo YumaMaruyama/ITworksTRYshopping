@@ -122,7 +122,7 @@ button.btn-3d-flip.btn-3d-flip2:hover .btn-3d-flip-box2 {
 }
 
 .btn-3d-flip-box-face--front {
-	background: #66adea;
+	    background: #459ce6;
 }
 
 .btn-3d-flip-box-face--back {
@@ -241,7 +241,7 @@ body {
 }
 
 .letter:before {
-	color: #fff1f1;;
+	color: #bceffb;
 	text-shadow: -1px 0px 1px rgba(255, 255, 255, .8), 1px 0px 1px
 		rgba(0, 0, 0, .8);
 	z-index: 3;
@@ -256,7 +256,7 @@ body {
 }
 
 .letter:hover:before {
-	color: #fafafa;
+	color: #bceffb;
 	transform: rotateX(0deg) rotateY(-40deg) rotateZ(0deg);
 }
 

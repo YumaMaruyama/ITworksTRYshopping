@@ -22,6 +22,7 @@
 <link th:href="@{/css/privacyPolicyBeforeLogin.css}" rel="stylesheet"></link>
 <link th:href="@{/css/termsOfUseBeforeLogin.css}" rel="stylesheet"></link>
 <link th:href="@{/css/appDetail.css}" rel="stylesheet"></link>
+<link th:href="@{/css/inquiryBeforeLogin.css}" rel="stylesheet"></link>
 
 
 
@@ -57,7 +58,7 @@
     <div class="col-sm-3 col-md-2 sidebar">
         <ul class="nav nav-sidebar">
             <li class="flexDetail"><a class="btn btn-gradient desiginBtn topBtn" th:href="@{/signup}"><span>新規ユーザー登録</span></a></li>
-            <li><a class="btn btn-gradient desiginBtn" href=""><span>お問い合わせ</span></a></li>
+            <li><a class="btn btn-gradient desiginBtn" th:href="@{/inquiryBeforeLogin}"><span>お問い合わせ</span></a></li>
             <li><a class="btn btn-gradient desiginBtn" th:href="@{/privacyPolicyBeforeLogin}"><span>プライバシーポリシー</span></a></li>
             <li><a class="btn btn-gradient desiginBtn" th:href="@{/termsOfUseBeforeLogin}"><span>利用規約</span></a></li>
             <li><a class="btn btn-gradient desiginBtn" th:href="@{/appDetail}"><span>アプリ詳細</span></a></li>
