@@ -28,6 +28,22 @@
 	width:140px;
 }
 
+.adminNewsDesignTitle {
+	width:320px;
+}
+
+.adminNewsDesignContent {
+	width:540px;
+}
+
+.adminNewsDesignDate {
+	width:140px;
+}
+
+.adminNewsDesignMane {
+	width:60px;
+}
+
 .newsAddThDesign {
     background: #665cff;
     font-size:14px;
