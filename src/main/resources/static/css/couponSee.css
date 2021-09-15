@@ -35,3 +35,19 @@ a.btnCouS--orange.btnCouS--border-solid {
 .couponSeeTd {
 	padding-left: 218px;
 }
+
+.couponSeeName {
+	width:700px;
+}
+
+.couponSeeDisCount {
+	width:120px;
+}
+
+.couponSeeRegistration_date {
+	width:120px;
+}
+
+.couponSeeDetail {
+	width:120px;
+}

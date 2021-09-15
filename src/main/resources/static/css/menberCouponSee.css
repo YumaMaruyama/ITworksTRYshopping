@@ -1,1 +1,17 @@
 @charset "UTF-8";
+
+.menberCouponSeeName {
+	width:425px;
+}
+
+.menberCouponSeeDisCount {
+	width:105px;
+}
+
+.menberCouponSeeRank {
+	width:425px;
+}
+
+.menberCouponSeeDetail {
+	width:105px;
+}

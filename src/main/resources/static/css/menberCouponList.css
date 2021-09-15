@@ -1,0 +1,33 @@
+@charset "UTF-8";
+
+.menberCouponListName {
+	width:425px;
+}
+
+.menberCouponListDisCount {
+	width:105px;
+}
+
+.menberCouponListRank {
+	width:425px;
+}
+
+.menberCouponListDetail {
+	width:105px;
+}
+
+.menberCouponAboutTable {
+	font-size: 15px;
+	margin-top: 10px;
+	margin-left:345px;
+}
+
+.menberCouponAboutTh {
+	width: 140px;
+	background: #f7eb64;
+}
+
+.menberCouponAboutTd {
+	width: 300px;
+	background: #fffdb8;
+}
