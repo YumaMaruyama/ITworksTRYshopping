@@ -3420,26 +3420,37 @@ public class ShoppingController {
 
 			if ((allTotalPrice >= 0) && (allTotalPrice < 50000)) {
 				rankNumber = 1;
+				model.addAttribute("rank","アマチュアランク");
 			} else if ((allTotalPrice >= 50000) && (allTotalPrice < 100000)) {
 				rankNumber = 2;
+				model.addAttribute("rank","プロランク");
 			} else if ((allTotalPrice >= 100000) && (allTotalPrice < 200000)) {
 				rankNumber = 3;
+				model.addAttribute("rank","ブロンズランク");
 			} else if ((allTotalPrice >= 200000) && (allTotalPrice < 400000)) {
 				rankNumber = 4;
+				model.addAttribute("rank","シルバーランク");
 			} else if ((allTotalPrice >= 400000) && (allTotalPrice < 800000)) {
 				rankNumber = 5;
+				model.addAttribute("rank","ゴールドランク");
 			} else if ((allTotalPrice >= 800000) && (allTotalPrice < 1000000)) {
 				rankNumber = 6;
+				model.addAttribute("rank","ダイヤモンドランク");
 			} else if ((allTotalPrice >= 1000000) && (allTotalPrice < 1500000)) {
 				rankNumber = 7;
+				model.addAttribute("rank","プラチナランク");
 			} else if ((allTotalPrice >= 1500000) && (allTotalPrice < 3000000)) {
 				rankNumber = 8;
+				model.addAttribute("rank","エイリアンランク");
 			} else if ((allTotalPrice >= 3000000) && (allTotalPrice < 5000000)) {
 				rankNumber = 9;
+				model.addAttribute("rank","ゴッドフォックスランク");
 			} else if ((allTotalPrice >= 5000000) && (allTotalPrice < 8000000)) {
 				rankNumber = 10;
+				model.addAttribute("rank","プレミアムゴッドランク");
 			} else if ((allTotalPrice >= 8000000)) {
 				rankNumber = 11;
+				model.addAttribute("rank","InductedIntoTheHalOfFameRank");
 			}
 
 		} else {
