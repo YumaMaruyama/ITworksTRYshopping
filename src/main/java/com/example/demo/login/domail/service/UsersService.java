@@ -72,4 +72,10 @@ public class UsersService {
 	public List<UsersDTO> selectMany() {
 		return dao.selectMany();
 	}
+	
+	public String selectRole(int userId) {
+		return dao.selectRole(userId);
+	}
+	
+	
 }

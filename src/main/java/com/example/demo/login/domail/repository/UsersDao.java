@@ -29,4 +29,8 @@ public interface UsersDao {
 	public int updateOne(UsersDTO usersdto);
 	
 	public List<UsersDTO> selectMany();
+	
+	public String selectRole(int userId);
+	
+	
 }
