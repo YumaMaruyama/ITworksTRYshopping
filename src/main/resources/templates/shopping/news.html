@@ -10,6 +10,8 @@
 	<h1 class="titleDesign">管理者からのお知らせ</h1>
 	<div class="newsTableDesign">
 	<table class="table table-bordered" th:each="newsdto : ${newsdtoList}">
+	
+		<div th:if="${role} neq 'admin'">
 		<tr class="newsThDesign">
 			<th class="text-center newsDesignTitle">タイトル</th>
 			<th class="text-center newsDesignContent">内容</th>
@@ -22,6 +24,24 @@
 			<td class="text-center newsDesignDate" th:text="${#dates.format(newsdto.registrationDate,'yyyy/MM/dd ah:mm')}"></td>
 		</tr>
 		<br>
+		</div>
+		
+		<div th:if="${role} eq 'admin'">
+		<tr class="newsThDesign">
+			<th class="text-center adminNewsDesignTitle">タイトル</th>
+			<th class="text-center adminNewsDesignContent">内容</th>
+			<th class="text-center adminNewsDesignDate">投稿日時</th>
+			<th class="text-center adminNewsDesignMane">管理</th>
+		</tr>
+	
+		<tr class="newsTdDesign">
+			<td class="text-center adminNewsDesignTitle" th:text="${newsdto.title}"></td>
+			<td class="text-center adminNewsDesignContent" th:text="${newsdto.content}"></td>
+			<td class="text-center adminNewsDesignDate" th:text="${#dates.format(newsdto.registrationDate,'yyyy/MM/dd ah:mm')}"></td>
+			<td class="text-center adminNewsDesignMane"><a th:href="@{/newsDetail} + '/' + ${newsdto.id}">編集</a></td>
+		</tr>
+		<br>
+		</div>
 	</table>
 	</div>
 	</div>

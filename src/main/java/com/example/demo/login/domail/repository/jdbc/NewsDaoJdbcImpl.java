@@ -40,5 +40,24 @@ public class NewsDaoJdbcImpl implements NewsDao {
 			newsdtoList.add(newsdto);
 	}
 		return newsdtoList;
-}
+	}
+	
+	public NewsDTO selectOne(int newsId) {
+		Map<String,Object> map = jdbc.queryForMap("select * from news where id = ?",newsId);
+			
+			NewsDTO newsDtoOne = new NewsDTO();
+			newsDtoOne.setId((int)map.get("id"));
+			newsDtoOne.setTitle((String)map.get("title"));
+			newsDtoOne.setContent((String)map.get("content"));
+			newsDtoOne.setRegistrationDate((Date)map.get("registration_date"));
+			
+			return newsDtoOne;
+		
+	}
+	
+	public int deleteOne(int newsId) {
+		int result = jdbc.update("delete from news where id = ?",newsId);
+		
+		return result;
+	}
 }

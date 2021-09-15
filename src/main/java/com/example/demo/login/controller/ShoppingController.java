@@ -1142,7 +1142,7 @@ public class ShoppingController {
 	}
 	
 	@GetMapping("/inquiryBeforeLogin")
-	public String getInquiry(@ModelAttribute InquiryBeforeLoginForm form, Model model) {
+	public String getInquiryBeforeLogin(@ModelAttribute InquiryBeforeLoginForm form, Model model) {
 		model.addAttribute("contents", "shopping/inquiryBeforeLogin::loginLayout_contents");
 		
 		return "shopping/loginLayout";
@@ -1157,7 +1157,7 @@ public class ShoppingController {
 
 		if (bindingResult.hasErrors()) {// 入力内容がおかしい場合はtrue
 			System.out.println("バリデーションエラー到達");
-			return getInquiry(form, model);// もう一度入力画面に遷移させる
+			return getInquiryBeforeLogin(form, model);// もう一度入力画面に遷移させる
 		}
 
 		
@@ -1193,13 +1193,13 @@ public class ShoppingController {
 
 	@PostMapping(value = "inquiry", params = "sending")
 	public String postInquirySending(@ModelAttribute @Validated(GroupOrder.class) InquiryForm form,
-			BindingResult bindingResult, InquiryForm form2, HttpServletRequest request, HttpServletResponse response,
+			BindingResult bindingResult, HttpServletRequest request, HttpServletResponse response,
 			Model model) {
 
 		model.addAttribute("contents", "shopping/inquiryFinish::productListLayout_contents");
 
 		if (bindingResult.hasErrors()) {// 入力内容がおかしい場合はtrue
-			System.out.println("バリデーションエラー到達");
+			System.out.println("バリデーションエラー到達1");
 			return getInquiry(form, model);// もう一度入力画面に遷移させる
 		}
 
@@ -1371,11 +1371,39 @@ public class ShoppingController {
 	public String getNews(@ModelAttribute NewsForm form, Model model) {
 		model.addAttribute("contents", "shopping/news::productListLayout_contents");
 
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println("auth" + auth.getName());
+		String getName = auth.getName();
+		int userId = usersService.select_id(getName);
+		
+		String userRole = usersService.selectRole(userId);
+		model.addAttribute("role",userRole);
+		
 		List<NewsDTO> newsdtoList = newsService.selectMany();
 
 		model.addAttribute("newsdtoList", newsdtoList);
 
 		return "shopping/productListLayout";
+	}
+	
+	@GetMapping("/newsDetail/{id}")
+	public String getNewsDetail(@ModelAttribute NewsForm form,@PathVariable("id") int newsId,Model model) {
+		model.addAttribute("contents", "shopping/newsDetail::productListLayout_contents");
+		
+		NewsDTO newsDtoOne = newsService.selectOne(newsId); 
+		model.addAttribute("newsdto",newsDtoOne);
+		
+		return "shopping/productListLayout";
+		
+	}
+	
+	@GetMapping("/newsDelete/{id}")
+	public String getNewsDelete(@ModelAttribute NewsForm form,@PathVariable("id") int newsId,RedirectAttributes redirectAttributes,Model model) {
+		model.addAttribute("contents", "shopping/news::productListLayout_contents");
+		
+		newsService.deleteOne(newsId);
+		
+		return "redirect:/news";
 	}
 
 	@GetMapping("/newsAdd")

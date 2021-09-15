@@ -21,4 +21,13 @@ public class NewsService {
 	public List<NewsDTO> selectMany() {
 		return dao.selectMany();
 	}
+	
+	public NewsDTO selectOne(int newsId) {
+		return dao.selectOne(newsId);
+		
+	}
+	
+	public int deleteOne(int newsId) {
+		return dao.deleteOne(newsId);
+	}
 }
