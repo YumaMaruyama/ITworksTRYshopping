@@ -141,5 +141,11 @@ public class UsersDaoJdbcImpl implements UsersDao {
 		return usersIdList;
 	}
 	
+	public String selectRole(int userId) {
+		String userRole = jdbc.queryForObject("select users.role from users where id = ?",String.class,userId);
+		
+		return userRole;
+	}
+	
 
 }
