@@ -14,19 +14,19 @@
 	
 	<table class="table-bordered usersListDesign" th:each="userslistdto : ${usersDetailManyList}">
 		<tr class="usersListThColor">
-			<th class="text-center">メールアドレス</th>
-			<th class="text-center">登録名</th>
-			<th class="text-center">生年月日</th>
-			<th class="text-center">商品受け取り住所</th>
-			<th class="text-center">管理</th>
+			<th class="text-center usersListMail">メールアドレス</th>
+			<th class="text-center usersListName">登録名</th>
+			<th class="text-center usersListBirthDate">生年月日</th>
+			<th class="text-center usersListAddress">商品受け取り住所</th>
+			<th class="text-center usersListDetail">管理</th>
 		</tr>
 		
 		<tr  class="usersListTdColor">
-			<td class="text-center" th:text="${userslistdto.userId}"></td>
-			<td class="text-center" th:text="${userslistdto.userName}"></td>
-			<td class="text-center" th:text="${userslistdto.birthday}"></td>
-			<td class="text-center" th:text="${userslistdto.address}"></td>
-			<td class="text-center" ><a th:href="@{ '/usersListDetail' +  '/' + ${userslistdto.id}}" class="btn btn--pink btn--border-ridge btnDesign" >編集</a>
+			<td class="text-center usersListMail" th:text="${userslistdto.userId}"></td>
+			<td class="text-center usersListName" th:text="${userslistdto.userName}"></td>
+			<td class="text-center usersListBirthDate" th:text="${userslistdto.birthday}"></td>
+			<td class="text-center usersListAddress" th:text="${userslistdto.address}"></td>
+			<td class="text-center usersListDetail" ><a th:href="@{ '/usersListDetail' +  '/' + ${userslistdto.id}}" class="btn btn--pink btn--border-ridge btnDesign" >編集</a>
 			<a th:href="@{'/userPurchaseHistory' + '/' + ${userslistdto.id}}" class="btn btn--green btn--border-groove btnDesign">購入商品</a></td>
 		</tr>
 		<br>

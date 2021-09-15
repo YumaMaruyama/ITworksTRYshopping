@@ -17,6 +17,26 @@
 	background: #cee8ff;
 }
 
+.usersListMail {
+	width:250px;
+}
+
+.usersListName {
+	width:190px;
+}
+
+.usersListBirthDate {
+	width:110px;
+}
+
+.usersListAddress {
+	width:380px;
+}
+
+.usersListDetail {
+	width:155px;
+}
+
 a.btn--green.btn--border-groove {
   border: 6px groove #008039;
   background: aquamarine;
