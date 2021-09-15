@@ -14,19 +14,19 @@
 		<table class="table table-hover table-bordered userInfoTableDesign"
 			th:each="userslistdto : ${usersList}">
 			<tr class="editYourThDesign">
-				<th class="text-center">メールアドレス</th>
-				<th class="text-center">登録名</th>
-				<th class="text-center">生年月日</th>
-				<th class="text-center">商品受け取り住所</th>
-				<th class="text-center">管理</th>
+				<th class="text-center editYourMail">メールアドレス</th>
+				<th class="text-center editYourName">登録名</th>
+				<th class="text-center editYourBirthDate">生年月日</th>
+				<th class="text-center editYourAddress">商品受け取り住所</th>
+				<th class="text-center editYourDetail">管理</th>
 			</tr>
 
 			<tr class="editYourTdDesign">
-				<td class="text-center" th:text="${userslistdto.userId}"></td>
-				<td class="text-center" th:text="${userslistdto.userName}"></td>
-				<td class="text-center" th:text="${userslistdto.birthday}"></td>
-				<td class="text-center" th:text="${userslistdto.address}"></td>
-				<td class="text-center"><a
+				<td class="text-center editYourMail" th:text="${userslistdto.userId}"></td>
+				<td class="text-center editYourName" th:text="${userslistdto.userName}"></td>
+				<td class="text-center editYourBirthDate" th:text="${userslistdto.birthday}"></td>
+				<td class="text-center editYourAddress" th:text="${userslistdto.address}"></td>
+				<td class="text-center editYourDetail"><a
 					th:href="@{ '/editYourDetail' +  '/' + ${id}}"
 					class="btn btnEY-radius-solid btnEY--shadow btnDesign">編集</a></td>
 			</tr>

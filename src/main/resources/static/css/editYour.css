@@ -117,6 +117,7 @@ a.btnEY-radius-solid:hover {
 
 .userInfoTableDesign {
 	font-size:14px;
+	width:1100px;
 }
 
 .editYourThDesign {
@@ -129,10 +130,13 @@ a.btnEY-radius-solid:hover {
 
 .userPurchaseInfoTableDesign {
 	font-size:16px;
+	width:1100px;
+	
 }
 
 .userRankTableDesign {
 	font-size:16px;
+	width:1100px;
 }
 
 .rankIconDesign {
@@ -159,3 +163,22 @@ a.btn--blue.btn--border-double {
 	background: #bdecd0;
 }
 
+.editYourMail {
+	width:250px;
+}
+
+.editYourName {
+	width:250px;
+}
+
+.editYourBirthDate {
+	width:100px;
+}
+
+.editYourAddress {
+	width:350px;
+}
+
+.editYourDetail {
+	width:65px;
+}
