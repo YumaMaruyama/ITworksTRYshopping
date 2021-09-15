@@ -33,23 +33,24 @@
 
 		<h3>お問い合わせ内容</h3>
 		<form method="post" th:action="@{/inquiry}" th:object="${inquiryForm}">
+		<div class="administratorTable">
 			<table class="table  table-bordered administratorTableDesign"
 				th:each="inquirydto : ${inquiryList}">
 				<tr class="administratorThDesign">
-					<th class="text-center">問い合わせユーザー</th>
-					<th class="text-center ">タイトル</th>
-					<th class="text-center ">内容</th>
-					<th class="text-center ">問い合わせ日時</th>
-					<th class="text-center ">管理</th>
+					<th class="text-center administratorUser">問い合わせユーザー</th>
+					<th class="text-center administratorTitle">タイトル</th>
+					<th class="text-center administratorContent">内容</th>
+					<th class="text-center administratorDate">問い合わせ日時</th>
+					<th class="text-center administratorDetail">管理</th>
 				</tr>
 
 				<tr class="administratorTdDesign">
-					<th class="text-center" th:text="${inquirydto.userName}"></th>
-					<th class="text-center" th:text="${inquirydto.title}"></th>
-					<th class="text-center" th:text="${inquirydto.content}"></th>
-					<th class="text-center"
+					<th class="text-center administratorUser" th:text="${inquirydto.userName}"></th>
+					<th class="text-center administratorTitle" th:text="${inquirydto.title}"></th>
+					<th class="text-center administratorContent" th:text="${inquirydto.content}"></th>
+					<th class="text-center administratorDate"
 						th:text="${#dates.format(inquirydto.registrationDate,'yyyy/MM/dd ah:mm')}"></th>
-					<th class="text-center"><input type=hidden name="id"
+					<th class="text-center administratorDetail"><input type=hidden name="id"
 						th:value=${inquirydto.id}><a
 						th:href="@{'/inquiryDetail' + '/' + ${inquirydto.id}}"
 						class="btn btnAdministrator-border">編集</a><a
@@ -58,6 +59,7 @@
 				</tr>
 
 			</table>
+			</div>
 		</form>
 
 	</div>

@@ -19,6 +19,34 @@
 	margin:15px 0px;
 }
 
+.administratorUser {
+	width:200px;
+}
+
+.administratorTitle {
+	width:150px;
+}
+
+.administratorContent {
+	width:350px;
+}
+
+.administratorDate {
+	width:160px;
+}
+
+.administratorDetail {
+	width:140px;
+}
+
+.administratorTable {
+	display: block;
+	overflow-y: scroll;
+	height: 445px;
+	width:1118px;
+	
+}
+
 a.btn-radius-solid {
 	background: #f1e767;
 	background: -webkit-gradient(linear, left top, left bottom, from(#f1e767),
