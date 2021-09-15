@@ -25,20 +25,20 @@
 		</tr>
 	</table>
 
-	<table class="col-sm-10 table table-borderd table-hover after_purchaseTableDesign2 afterPurchaseList" style="width:1100px;">
+	<table class="table after_purchaseTableDesignNext afterPurchaseList">
 		<h2 class="h2">発送商品一覧</h2>
-		<tr>
-			<th class="text-center">商品名</th>
-			<th class="text-center">個数</th>
+		<tr class="afPurThDesign">
+			<th class="text-center afPurName">商品名</th>
+			<th class="text-center afPurCount">個数</th>
 		</tr>
 
-		<tr  th:each="pcdatadto : ${purchaseList}">
-			<td class="text-center" th:text=${pcdatadto.pc_name}></td>
-			<td class="text-center" th:text=${pcdatadto.product_count}></td>
+		<tr  class="afPurTdDesign" th:each="pcdatadto : ${purchaseList}">
+			<td class="text-center afPurName" th:text=${pcdatadto.pc_name}></td>
+			<td class="text-center afPurCount" th:text=${pcdatadto.product_count}></td>
 		</tr>
 	</table>
 	
-	<a th:href="@{/productList}" class="btn btnAfPu-gradient af_PuProductListBtn" ><span>商品一覧へ</span></a>
+	<a th:href="@{/productList}" class="btn btnAfPu-gradient af_PuProductListBtn"><span>商品一覧へ</span></a>
 
 
 </div>

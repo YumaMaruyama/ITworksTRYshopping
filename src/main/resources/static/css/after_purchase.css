@@ -5,10 +5,25 @@
     margin: 34px 0px 0px 153px;
 }
 
-.after_purchaseTableDesign2 {
+.after_purchaseTableDesignNext {
 	font-size: 18px;
-    margin: 20px 0px 0px 155px;
-    padding-left: 114px;
+    margin-left:75px;
+}
+
+.afPurThDesign {
+	background: #ffcb86;
+}
+
+.afPurTdDesign {
+	background: #ffeda4;
+}
+
+.afPurName {
+	width:700px;
+}
+
+.afPurCount {
+	width:280px;
 }
 
 .h2 {
@@ -31,6 +46,14 @@
 	margin-top: 32px;
     margin-left: 416px;
     font-size: 21px !important;	
+}
+
+.afPurName {
+	
+}
+
+.afPurCount {
+	
 }
 
 a.btnAfPu-gradient {
