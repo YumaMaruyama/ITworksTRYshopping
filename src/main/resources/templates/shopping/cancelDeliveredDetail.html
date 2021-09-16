@@ -33,7 +33,7 @@
 						th:text="${#dates.format(purchasedto.purchase_date, 'yyyy/MM/dd HH:mm')}"></td>
 					<td class="text-center" th:text="${purchasedto.pcName}"></td>
 					<td class="text-center" th:text="${totalPrice} + '円'"></td>
-					<td class="text-center" th:text="${purchasedto.product_count}"></td>
+					<td class="text-center" th:text="${purchasedto.product_count} + '個'"></td>
 					<td class="text-center" th:text="${purchasedto.memory}"></td>
 					<td class="text-center" th:text="${purchasedto.hardDisc}"></td>
 					<td class="text-center" th:text="${purchasedto.cpu}"></td>

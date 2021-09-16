@@ -22,5 +22,23 @@ width: 412px !important;
     font-size: 14px;
 }
 
+button.btnCancel--red.btnCancel--cubic {
+  border-bottom: 5px solid #9c434a;
+}
+
+button.btnCancel--red.btnCancel--cubic:hover {
+  margin-top: 3px;
+  border-bottom: 2px solid #9c434a;
+}
+
+button.btnCancel--radius {
+  border-radius: 100vh;
+}
+
+.cancelBtnDesign {
+	background:#f15555;
+	width: 55px;
+    margin-left: 503px;
+}
 	
     

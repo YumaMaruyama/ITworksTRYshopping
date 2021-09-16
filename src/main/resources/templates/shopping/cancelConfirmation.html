@@ -34,7 +34,7 @@
 						th:text="${#dates.format(purchasedto.purchase_date, 'yyyy/MM/dd HH:mm')}"></td>
 					<td class="text-center" th:text="${purchasedto.pcName}"></td>
 					<td class="text-center" th:text="${totalPrice} + '円'"></td>
-					<td class="text-center" th:text="${purchasedto.product_count}"></td>
+					<td class="text-center" th:text="${purchasedto.product_count} + '個'"></td>
 					<td class="text-center" th:text="${purchasedto.memory}"></td>
 					<td class="text-center" th:text="${purchasedto.hardDisc}"></td>
 					<td class="text-center" th:text="${purchasedto.cpu}"></td>
@@ -58,7 +58,7 @@
 			<br>
 			<div th:each="purchasedto : ${purchaseList}">
 			<input type="hidden" name="id" th:value="${purchasedto.id}">
-			<button class="btn btn-primary" name="detail">上記の理由を確認して次へ</button>
+			<button class="btn btnCancel--red btnCancel--radius btnCancel--cubic cancelConfirmationBtnDesign" name="detail">上記の理由を確認して次へ</button>
 			</div>
 			</form>
 </body>
