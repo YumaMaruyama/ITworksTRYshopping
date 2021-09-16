@@ -15,7 +15,7 @@
 		<div th:if="${reviewAdd} == 'no'">
 		<form method="post" th:action="@{/reviewAdd}"
 			th:object="${reviewForm}">
-			<table class="table table-hover table-bordered reviewAddTable"
+			<table class="table table-bordered reviewAddTable"
 				th:each="purchasedto : ${purchaseList}">
 
 				<tr class="reviewAddThDesign">
@@ -32,8 +32,8 @@
 					<td class="text-center"
 						th:text="${#dates.format(purchasedto.purchase_date, 'yyyy/MM/dd HH:mm')}"></td>
 					<td class="text-center" th:text="${purchasedto.pcName}"></td>
-					<td class="text-center" th:text="${totalPrice}"></td>
-					<td class="text-center" th:text="${purchasedto.product_count}"></td>
+					<td class="text-center" th:text="${totalPrice} + '円'"></td>
+					<td class="text-center" th:text="${purchasedto.product_count} + '個'"></td>
 					<td class="text-center" th:text="${purchasedto.memory}"></td>
 					<td class="text-center" th:text="${purchasedto.hardDisc}"></td>
 					<td class="text-center" th:text="${purchasedto.cpu}"></td>

@@ -1659,9 +1659,13 @@ public class ShoppingController {
 	}
 
 	@PostMapping("/reviewAdd")
-	public String postReviewAdd(@ModelAttribute ReviewForm form, @RequestParam("pcDataId") int pcDataId,
+	public String postReviewAdd(@ModelAttribute @Validated(GroupOrder.class) ReviewForm form,BindingResult bindingResult, @RequestParam("pcDataId") int pcDataId,
 			@RequestParam("purchaseId") int purchaseId, RedirectAttributes redirectAttributes, Model model) {
 
+		if(bindingResult.hasErrors()) {
+			return getReviewAdd(form,purchaseId,model);
+		}
+		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 		String getName = auth.getName();
