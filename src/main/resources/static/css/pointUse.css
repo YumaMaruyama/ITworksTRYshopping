@@ -13,6 +13,11 @@
 	background: #aec9ca;
 }
 
+.pointUseErrorDesign {
+	padding-left: 703px;
+    font-size: 17px;
+}
+
 button.btnPU--red.btnPU--cubic {
   border-bottom: 5px solid #6ab9a7;
 }
