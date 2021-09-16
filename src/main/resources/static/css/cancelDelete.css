@@ -11,3 +11,42 @@
 .cancelDeleteTdDesign {
 	background: #ffbcbf;
 }
+
+button.btnCancelDelete--blue.btnCancelDelete--cubic {
+  border-bottom: 5px solid #9c434a;
+}
+
+button.btnCancelDelete--blue.btnCancelDelete--cubic:hover {
+  margin-top: 3px;
+  border-bottom: 2px solid #9c434a;
+}
+
+button.btnCancelDelete--radius {
+  border-radius: 100vh;
+}
+
+.cancelDeleteYesCompletedBtnDesign {
+	background:#f15555;
+	width: 90px;
+    margin-left: 338px;
+}
+
+
+button.btnCancelDelete--red.btnCancelDelete--cubic {
+  border-bottom: 5px solid #5c6075;
+}
+
+button.btnCancelDelete--red.btnCancelDelete--cubic:hover {
+  margin-top: 3px;
+  border-bottom: 2px solid #5c6075;
+}
+
+button.btnCancelDelete--radius {
+  border-radius: 100vh;
+}
+
+.cancelDeleteNoBtnDesign {
+	background: #4e83e4;
+    width: 170px;
+    margin-left: 200px;
+}

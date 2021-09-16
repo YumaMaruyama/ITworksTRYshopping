@@ -33,7 +33,7 @@
 						th:text="${#dates.format(purchasedto.purchase_date, 'yyyy/MM/dd HH:mm')}"></td>
 					<td class="text-center" th:text="${purchasedto.pcName}"></td>
 					<td class="text-center" th:text="${totalPrice} + '円'"></td>
-					<td class="text-center" th:text="${purchasedto.product_count}"></td>
+					<td class="text-center" th:text="${purchasedto.product_count} + '個'"></td>
 					<td class="text-center" th:text="${purchasedto.memory}"></td>
 					<td class="text-center" th:text="${purchasedto.hardDisc}"></td>
 					<td class="text-center" th:text="${purchasedto.cpu}"></td>
@@ -67,12 +67,39 @@
 			</tr>
 			
 			</table>
-			<div th:each="purchasedto : ${purchaseList}">
+			
+				<div th:each="purchasedto : ${purchaseList}">
 			<input type="hidden" name="id" th:value="${purchasedto.id}">
 			<input type="hidden" name="customId" th:value="${purchasedto.custom_id}">
-			<button class="btn btn-primary" name="completed">キャンセル確定</button>
-			</div>
+				
+				<div class="btn-wrapper cancelCheckDesign"> 
+				 <div class="check-box" >
+        <label><input class="check" type="checkbox" name="check" autocomplete="off" id="agree"><span><a ></a>口座情報を確定し、キャンセルに同意する</span></label>
+    </div>
+	 <input class="submit" type="submit" id="submit" value="返金画面へ" />
+</div>
+	
 		</form>
+		
+		<script>
+		$(function() {
+
+  $('.submit').attr('disabled', 'disabled');
+
+  $('#agree').on('click', function() {
+      if ($(this).prop('checked') == false) {
+        $('.submit').attr('disabled', 'disabled');
+      } else {
+        $('.submit').removeAttr('disabled');
+      }
+    });
+ 
+ });
+		</script>
+				
+			
+		
 	
 	</div>
+	</body>
 </html>

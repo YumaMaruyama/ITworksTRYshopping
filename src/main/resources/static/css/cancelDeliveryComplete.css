@@ -1,7 +1,9 @@
 @charset "UTF-8";
 
 .cancelDeliveryCompleteTableDesign {
-	font-size:14px;
+	font-size:16px;
+	width:1100px;
+	
 }
 
 .cancelDeliveryCompleteThDesign {
@@ -22,4 +24,61 @@
 
 .cancelDeliveryCompleteNextTableDesign {
 	font-size:15px;
+	width:1100px;
+}
+
+.thDesign {
+	font-size:14px;
+}
+
+.cancelDeliveryCompleteTableDesign {
+	width:1100px;
+}
+
+.cancelDeliveryCompleteNextThDesign {
+	background: #cb79ff;
+}
+
+.cancelDeliveryCompleteNextTdDesign {
+	background: #dbb6f3;
+}
+
+
+button.btnCancelDeliveryComplete--blue.btnCancelDeliveryComplete--cubic {
+  border-bottom: 5px solid #5c6075;
+}
+
+button.btnCancelDeliveryComplete--blue.btnCancelDeliveryComplete--cubic:hover {
+  margin-top: 3px;
+  border-bottom: 2px solid #5c6075;
+}
+
+button.btnCancelDeliveryComplete--radius {
+  border-radius: 100vh;
+}
+
+.cancelDeliveryCompletedBtnDesign {
+	background:#4e83e4;
+	width: 90px;
+    margin-left: 338px;
+}
+
+
+button.btnCancelDeliveryComplete--red.btnCancelDeliveryComplete--cubic {
+  border-bottom: 5px solid #9c434a;
+}
+
+button.btnCancelDeliveryComplete--red.btnCancelDeliveryComplete--cubic:hover {
+  margin-top: 3px;
+  border-bottom: 2px solid #9c434a;
+}
+
+button.btnCancelDeliveryComplete--radius {
+  border-radius: 100vh;
+}
+
+.cancelCancelBtnDesign {
+	background: #f15555;
+    width: 180px;
+    margin-left: 200px;
 }

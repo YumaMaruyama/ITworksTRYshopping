@@ -28,7 +28,7 @@
 					th:text="${#dates.format(purchasedto.purchase_date, 'yyyy/MM/dd HH:mm')}"></td>
 				<td class="text-center" th:text="${purchasedto.pcName}"></td>
 				<td class="text-center" th:text="${totalPrice} + '円'"></td>
-				<td class="text-center" th:text="${purchasedto.product_count}"></td>
+				<td class="text-center" th:text="${purchasedto.product_count} + '個'"></td>
 				<td class="text-center" th:text="${purchasedto.memory}"></td>
 				<td class="text-center" th:text="${purchasedto.hardDisc}"></td>
 				<td class="text-center" th:text="${purchasedto.cpu}"></td>
@@ -37,7 +37,7 @@
 
 		<h3>上記の商品は購入日から10日間経過したため、キャンセル期間外となりました。ご了承ください。</h3>
 	
-		<a th:href="@{/purchaseHistory}" class="btn btn-primary">商品購入履歴へ戻る</a>
+		<a th:href="@{/purchaseHistory}" class="btn btnCancel--blue btnCancel--radius btnCancel--cubic cancelInquiryBtnDesign">商品購入履歴へ戻る</a>
 	</div>
 </body>
 </html>

@@ -12,5 +12,24 @@
 	background: #ffbcbf;	
 }
 
+a.btnCancel--blue.btnCancel--cubic {
+  border-bottom: 5px solid #9c434a;
+}
+
+a.btnCancel--blue.btnCancel--cubic:hover {
+  margin-top: 3px;
+  border-bottom: 2px solid #9c434a;
+}
+
+a.btnCancel--radius {
+  border-radius: 100vh;
+}
+
+.cancelInquiryBtnDesign {
+	background:#f15555;
+	    width: 180px;
+    margin-left: 435px;
+}
+
 
 

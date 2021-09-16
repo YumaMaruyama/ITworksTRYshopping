@@ -16,8 +16,9 @@
 		</div>
 
 
-		<table class="table table-hover table-bordered cancelDeliveryCompleteTableDesign"
-			th:each="purchasedto : ${purchaseList}" style="width: 1100px;">
+		<table
+			class="table table-bordered cancelDeliveryCompleteTableDesign"
+			th:each="purchasedto : ${purchaseList}">
 			<tr class="cancelDeliveryCompleteThDesign">
 				<th class="text-center">購入日</th>
 				<th class="text-center">商品名</th>
@@ -33,7 +34,7 @@
 					th:text="${#dates.format(purchasedto.purchase_date, 'yyyy/MM/dd HH:mm')}"></td>
 				<td class="text-center" th:text="${purchasedto.pcName}"></td>
 				<td class="text-center" th:text="${totalPrice} + '円'"></td>
-				<td class="text-center" th:text="${purchasedto.product_count}"></td>
+				<td class="text-center" th:text="${purchasedto.product_count} +'個'"></td>
 				<td class="text-center" th:text="${purchasedto.memory}"></td>
 				<td class="text-center" th:text="${purchasedto.hardDisc}"></td>
 				<td class="text-center" th:text="${purchasedto.cpu}"></td>
@@ -46,10 +47,11 @@
 		</h3>
 
 		<br>
-		<h4>発送に必要な詳細情報</h4>
+		<h3>発送に必要な詳細情報</h3>
 
-		<table class="tabel table-bordered canDeliDetaTableDesign cancelDeliveryCompleteNextTableDesign"
-			style="width: 1000px;">
+		<table
+			class="tabel table-bordered canDeliDetaTableDesign cancelDeliveryCompleteNextTableDesign"
+			>
 
 			<tr>
 				<th class="cancelDeliveryCompleteNextThDesign">商品管理室住所</th>
@@ -69,19 +71,19 @@
 
 
 		<br>
-		<h4>
+		<h3>
 			発送が完了したあと下記に進んでください。<br> 発送をした場所を詳しく記載してください。(例 丸山宅急便枚方4番店舗
 			コンビニエンスストア枚方1号店など)
-		</h4>
+		</h3>
 		<h3 th:text="${result}" class="text-danger"></h3>
 
 		<form method="post" th:action="@{/cancelDeliveryComplete}"
 			th:object="${cancelInTransactionForm}">
-			<table>
+			<table class="table cancelDeliveryCompleteTableDesign">
 
 				<tr th:if="${notCancel} != 'notCancel'">
-					<th>発送場所</th>
-					<td>
+					<th class="thDesign text-center cancelDeliveryCompleteNextThDesign">発送場所</th>
+					<td class="cancelDeliveryCompleteNextTdDesign">
 						<div class="form-group"
 							th:classappend="${#fields.hasErrors('deliveryAddress')} ? 'hasError'">
 							<input type="text" class="form-control"
@@ -95,16 +97,16 @@
 
 
 
-			<div th:each="purchasedto : ${purchaseList}" >
+			<div th:each="purchasedto : ${purchaseList}">
 				<input type="hidden" name="id" th:value="${purchasedto.id}">
 				<input type="hidden" name="customId"
 					th:value="${purchasedto.custom_id}">
-			<table>
-				<tr  th:if="${notCancel} != 'notCancel'">
-				<td><button class="btn btn-primary" name="deliveredCompleted">発送完了</button></td>
-				<td><button class="btn btn-primary" name="cancelDelete">キャンセル取り消し</button></td>
-				</tr>
-			</table>
+				<table>
+					<tr th:if="${notCancel} != 'notCancel'">
+						<td><button class="btn btnCancelDeliveryComplete--blue btnCancelDeliveryComplete--radius btnCancelDeliveryComplete--cubic cancelDeliveryCompletedBtnDesign" name="deliveredCompleted">発送完了</button></td>
+						<td><button class="btn btnCancelDeliveryComplete--red btnCancelDeliveryComplete--radius btnCancelDeliveryComplete--cubic cancelCancelBtnDesign" name="cancelDelete">キャンセル取り消し</button></td>
+					</tr>
+				</table>
 			</div>
 		</form>
 	</div>

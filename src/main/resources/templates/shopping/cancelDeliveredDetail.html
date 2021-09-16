@@ -56,7 +56,7 @@
 						<div class="form-group" th:classappend="${#fields.hasErrors('bankNumber')} ? 'hasError'">
 							<input type="text" class="form-control" th:field="*{bankNumber}">
 						</div>
-						<span class="text-danger" th:if="${#fields.hasErrors('bankNumber')}" th:errors="*{bankNumber}">bankNumber error</span>
+						<span class="text-danger cancelDeliveredDetailErrorDesign" th:if="${#fields.hasErrors('bankNumber')}" th:errors="*{bankNumber}">bankNumber error</span>
 					</td>
 			</tr>
 			
@@ -66,7 +66,7 @@
 						<div class="form-group" th:classappend="${#fields.hasErrors('storeName')} ? 'hasError'">
 							<input type="text" class="form-control" th:field="*{storeName}">
 						</div>
-						<span class="text-danger" th:if="${#fields.hasErrors('storeName')}" th:errors="*{storeName}">storeName error</span>
+						<span class="text-danger cancelDeliveredDetailErrorDesign" th:if="${#fields.hasErrors('storeName')}" th:errors="*{storeName}">storeName error</span>
 					</td>
 			</tr>
 			
