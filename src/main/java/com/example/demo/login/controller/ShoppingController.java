@@ -1791,6 +1791,9 @@ public class ShoppingController {
 		model.addAttribute("contents", "shopping/cancelNext::productListLayout_contents");
 
 		System.out.println("formnai" + form.getTitle());
+		
+		
+		
 		try {
 			if (form.getTitle().equals("0")) {
 				System.out.println("バリデーションエラー到達");
@@ -1918,7 +1921,7 @@ public class ShoppingController {
 			System.out.println("バリデーションエラー到達");
 			// model.addAttribute("result","キャンセル詳細を入力してください");
 			String titleNew = (String) session.getAttribute("title");
-			return postCancelCancelNext(form, nextform, purchaseId, request, response, model, titleNew);
+			return postCancelCancelNext(form, nextform,purchaseId, request, response, model, titleNew);
 		}
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -2018,8 +2021,7 @@ public class ShoppingController {
 	}
 
 	@PostMapping(value = "/cancel", params = "detail")
-	public String postCancelDetail(@ModelAttribute CancelForm form, @RequestParam("id") int purchaseId, Model model) {
-
+	public String postCancelDetail(@ModelAttribute CancelForm form,@RequestParam("id") int purchaseId, Model model) {
 		model.addAttribute("contents", "shopping/cancelDetail::productListLayout_contents");
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -2300,11 +2302,15 @@ public class ShoppingController {
 	}
 
 	@PostMapping("/cancelDeliveryComplete")
-	public String postCancelDeliveryComplete(@ModelAttribute CancelForm form, CancelInTransactionForm intransactionform,
+	public String postCancelDeliveryComplete(@ModelAttribute @Validated(GroupOrder.class) CancelForm form,BindingResult bindingResult, CancelInTransactionForm intransactionform,
 			@RequestParam("id") int purchaseId, @RequestParam("customId") int customId, HttpServletRequest request,
 			HttpServletResponse response, Model model) {
 		model.addAttribute("contents", "shopping/cancelDeliveryComplete::productListLayout_contents");
 
+		if(bindingResult.hasErrors()) {
+			return postCancelDetail(form,purchaseId,model);
+		}
+		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 		String getName = auth.getName();
@@ -2469,6 +2475,121 @@ public class ShoppingController {
 		return "shopping/productListLayout";
 
 	}
+	
+
+	@GetMapping("/cancelDeliveryComplete")
+	public String getCancelDeliveryCompleteValidation(@ModelAttribute @Validated(GroupOrder.class) CancelForm form,BindingResult bindingResult, CancelInTransactionForm intransactionform,
+			@RequestParam("id") int purchaseId, @RequestParam("customId") int customId, HttpServletRequest request,
+			HttpServletResponse response, Model model) {
+		model.addAttribute("contents", "shopping/cancelDeliveryComplete::productListLayout_contents");
+
+	
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println("auth" + auth.getName());
+		String getName = auth.getName();
+		int userId = usersService.select_id(getName);// メソッドに入ったユーザーのIDを取得
+
+		PurchaseDTO purchasedto = new PurchaseDTO();
+
+		// 購入商品情報取得
+		PurchaseDTO purchasedtoList = purchaseService.reviewSelectHistory(userId, purchaseId);// Pathで取得した購入IDでpurchaseテーブルの情報を取得
+		purchasedto.setId(purchasedtoList.getId());
+		purchasedto.setPurchaseId(purchasedtoList.getPurchaseId());
+		purchasedto.setPurchase_date(purchasedtoList.getPurchase_date());
+		purchasedto.setPcDataId(purchasedtoList.getPcDataId());
+		purchasedto.setProduct_id(purchasedtoList.getProduct_id());
+		int productId = purchasedto.getProduct_id();
+		purchasedto.setPcName(purchasedtoList.getPcName());
+		purchasedto.setPrice(purchasedtoList.getPrice());
+		purchasedto.setProduct_count(purchasedtoList.getProduct_count());
+		int productStock = purchasedto.getProduct_count();
+		System.out.println("stock" + productStock);
+		purchasedto.setPointUse(purchasedtoList.getPointUse());
+		purchasedto.setCouponId(purchasedtoList.getCouponId());
+		purchasedto.setMenberCouponCheck(purchasedtoList.getMenberCouponCheck());
+		purchasedto.setPurchaseCheck(purchasedtoList.getPurchaseCheck());
+
+		PurchaseDTO customList = customService.selectMany(customId);// 購入した商品のcustomテーブル情報を取得
+		System.out.println("costomList" + customList);
+		purchasedto.setCustom_id(customId);
+		purchasedto.setMemory(customList.getMemory());
+		purchasedto.setHardDisc(customList.getHardDisc());
+		purchasedto.setCpu(customList.getCpu());
+		purchasedto.setCustomPrice(customList.getCustomPrice());
+
+		purchasedto.setTotalPrice(
+				(purchasedto.getProduct_count() * (purchasedto.getPrice() + purchasedto.getCustomPrice())));
+
+		if (purchasedto.getMenberCouponCheck().equals("会員クーポン使用")) {
+			System.out.println("クーポン使用！");
+			int totalPrice = purchasedto.getTotalPrice();
+			MenberCouponDTO menbercoupondto = menberCouponService.selectOne(purchasedto.getCouponId());// 会員DBからとる
+			int disCount = menbercoupondto.getDiscount();// 割引率(%)
+			if (disCount >= 10) {
+				double disCountNew = Double.valueOf("0." + disCount);
+				double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+				int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+				System.out.println("totalPriceAll" + totalPriceAll);
+				System.out.println("purchasedtoAdd.getPointUse" + purchasedto.getPointUse());
+				purchasedto.setTotalPrice(totalPriceAll);
+			} else {
+				double disCountNew = Double.valueOf("0.0" + disCount);
+				double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+				int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+				System.out.println("totalPriceAll" + totalPriceAll);
+				System.out.println("purchasedtoAdd.getPointUse" + purchasedto.getPointUse());
+				purchasedto.setTotalPrice(totalPriceAll);
+			}
+		} else {
+
+			if (purchasedto.getCouponId() > 0) {
+				System.out.println("クーポン使用！");
+				int totalPrice = purchasedto.getTotalPrice();
+				CouponDTO coupondto = couponService.selectOne(purchasedto.getCouponId());
+				int disCount = coupondto.getDiscount();// 割引率(%)
+				if (disCount >= 10) {
+					double disCountNew = Double.valueOf("0." + disCount);
+					double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+					System.out.println("totalPrice" + totalPrice);
+					int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+					System.out.println("totalPriceAll" + totalPriceAll);
+					purchasedto.setTotalPrice(totalPriceAll);
+					System.out.println("setTotalPrice" + purchasedto.getTotalPrice());
+				} else {
+					double disCountNew = Double.valueOf("0.0" + disCount);
+					double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+					int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+					purchasedto.setTotalPrice(totalPriceAll);
+				}
+			}
+		}
+		model.addAttribute("totalPrice", purchasedto.getTotalPrice() - purchasedto.getPointUse());
+
+		model.addAttribute("purchaseId", purchaseId);
+
+		model.addAttribute("purchaseList", purchasedto);
+
+		Calendar calendar = Calendar.getInstance();
+		Date now = calendar.getTime();
+		calendar.setTime(purchasedto.getPurchase_date());
+		Date purchaseDate = calendar.getTime();// 購入日付
+		long d = (purchaseDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24);// 購入日と現在の日付を比べる
+		int count = (int) -d;
+
+		if (count > 10) {
+			System.out.println("true");
+			model.addAttribute("result", "購入日から10日経過したため、キャンセル期間外になりました。");
+
+			model.addAttribute("purchaseId", purchaseId);
+
+			model.addAttribute("purchaseList", purchasedto);
+			model.addAttribute("contents", "shopping/cancelInquiry::productListLayout_contents");
+			return "shopping/productListLayout";
+		}
+		
+		return "shopping/productListLayout";
+	}
 
 	@PostMapping(value = "/cancelDeliveryComplete", params = "deliveredCompleted")
 	public String postCancelDeliveryCompleteDeliveredCompleted(@ModelAttribute CancelForm form,
@@ -2479,7 +2600,7 @@ public class ShoppingController {
 
 		if (bindingResult.hasErrors()) {
 			System.out.println("1");
-			return postCancelDeliveryComplete(form, intransactionform, purchaseId, customId, request, response, model);
+			return getCancelDeliveryCompleteValidation(form,bindingResult,intransactionform,purchaseId, customId, request, response, model);
 		}
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
