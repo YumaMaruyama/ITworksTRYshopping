@@ -1303,19 +1303,19 @@ public class ShoppingController {
 		return "shopping/productListLayout";
 	}
 
-	@GetMapping("/admin")
-	public String getAdmin(@ModelAttribute PcDataForm form, Model model) {
-		model.addAttribute("contents", "shopping/admin::productListLayout_contents");
+	@GetMapping("/productAdd")
+	public String getProductAdd(@ModelAttribute PcDataForm form, Model model) {
+		model.addAttribute("contents", "shopping/productAdd::productListLayout_contents");
 		return "shopping/productListLayout";
 	}
 
-	@PostMapping("/admin")
-	public String postAdmin(@ModelAttribute @Validated(GroupOrder.class) PcDataForm form, BindingResult bindingResult,RedirectAttributes redirectAttributes,
+	@PostMapping("/productAdd")
+	public String postProductAdd(@ModelAttribute @Validated(GroupOrder.class) PcDataForm form, BindingResult bindingResult,RedirectAttributes redirectAttributes,
 			Model model) {
 
 		if (bindingResult.hasErrors()) {
 			System.out.println("バリデーションエラー到達");
-			return getAdmin(form, model);
+			return getProductAdd(form, model);
 		}
 
 		String img1 = form.getPcImg();// 画像アドレスを変数に入れる
@@ -1328,17 +1328,17 @@ public class ShoppingController {
 		String jpg = ".jpg";
 		if (!imgCheck1.equals(jpg)) {
 			model.addAttribute("imgResult1", "商品画像1はJPEG形式（最後が「.jpg」のもの）で入力してください");
-			return getAdmin(form, model);
+			return getProductAdd(form, model);
 		}
 
 		if (!imgCheck2.equals(jpg)) {
 			model.addAttribute("imgResult2", "商品画像2はJPEG形式（最後が「.jpg」のもの）で入力してください");
-			return getAdmin(form, model);
+			return getProductAdd(form, model);
 		}
 
 		if (!imgCheck3.equals(jpg)) {
 			model.addAttribute("imgResult3", "商品画像3はJPEG形式（最後が「.jpg」のもの）で入力してください");
-			return getAdmin(form, model);
+			return getProductAdd(form, model);
 		}
 
 		// バリデーションエラーにならなければ入力した情報をdtoにいれる
@@ -1346,10 +1346,13 @@ public class ShoppingController {
 		pcdatadto.setCompany(form.getCompany());
 		pcdatadto.setOs(form.getOs());
 		pcdatadto.setPc_name(form.getPc_name());
-		pcdatadto.setPc_size(form.getPc_size());
-		pcdatadto.setPrice(form.getPrice());
+		int pcSize = Integer.parseInt(form.getPc_size());
+		pcdatadto.setPc_size(pcSize);
+		int pcdataPrice = Integer.parseInt(form.getPrice());
+		pcdatadto.setPrice(pcdataPrice);
 		pcdatadto.setDetail(form.getDetail());
-		pcdatadto.setProduct_stock(form.getProduct_stock());
+		int productStock = Integer.parseInt(form.getProduct_stock());
+		pcdatadto.setProduct_stock(productStock);
 		pcdatadto.setPcImg(form.getPcImg());
 		pcdatadto.setPcImg2(form.getPcImg2());
 		pcdatadto.setPcImg3(form.getPcImg3());

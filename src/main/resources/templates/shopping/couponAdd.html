@@ -35,7 +35,7 @@
 				</tr>
 				
 				<tr>
-					<th class="text-center couponAddThDesign">クーポン付与(商品購入数※これまでの合計購入数が入力した値以上の方のみクーポン付与)</th>
+					<th class="text-center couponAddThDesign">商品購入数(これまでの合計購入数が入力した値以上の方のみクーポン付与 ※1)</th>
 					<td th:classappend="${#fields.hasErrors('purchaseCountTarget')}?'has-error'"
 						class="form-group couponAddTdDesign"><input type="text" class="form-control"
 						th:field="*{purchaseCountTarget}"> <span class="text-danger"
@@ -44,7 +44,7 @@
 				</tr>
 				
 				<tr>
-					<th class="text-center couponAddThDesign">クーポン付与(商品値段※これまでの合計価格が入力した値以上の方のみクーポン付与)</th>
+					<th class="text-center couponAddThDesign">合計購入金額(これまでの合計購入金額が入力した値以上の方のみクーポン付与 ※2)</th>
 					<td th:classappend="${#fields.hasErrors('purchaseTotalPriceTarget')}?'has-error'"
 						class="form-group couponAddTdDesign"><input type="text" class="form-control"
 						th:field="*{purchaseTotalPriceTarget}"> <span class="text-danger"
@@ -63,7 +63,7 @@
 				
 			
 			</table>
-			
+			<h3>※1と※2の両方の条件を達している方にクーポンが付与されます。</h3>
 			<button class="btn btn-radius-solidCouponAdd btn--shadow couponAddBtnDesign" name="distribution">クーポン配布</button>
 		</form>
 		
