@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+.table th,td {
+	    vertical-align: inherit !important;
+}
+
 .headerDesign {
 	background: #094479;
 }
