@@ -1093,9 +1093,13 @@ public class ShoppingController {
 	}
 
 	@PostMapping("/pointRateChange")
-	public String postPointRateChange(@ModelAttribute PointRateChangeForm form, Model model) {
+	public String postPointRateChange(@ModelAttribute @Validated(GroupOrder.class)PointRateChangeForm form,BindingResult bindingResult, Model model) {
 		model.addAttribute("contents", "shopping/pointRateChangeFinish::productListLayout_contents");
 
+		if(bindingResult.hasErrors()) {
+			return getPointRateChange(form,model);
+		}
+		
 		session.setAttribute("pointRate", form.getPointRate());
 		pointRateService.updateOne(session);
 
@@ -6042,6 +6046,7 @@ public class ShoppingController {
 			model.addAttribute("totalPrice", totalPriceAll);
 
 			int pointRate = pointRateService.selectOne(1);
+			model.addAttribute("pointRate",pointRate);
 			String pointRateString = String.valueOf(pointRate);
 			String pointRateNew = 0.0 + pointRateString;
 			System.out.println("pointRateNew" + pointRateNew);

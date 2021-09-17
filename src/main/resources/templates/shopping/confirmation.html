@@ -49,7 +49,7 @@
 					<td class="priceBackColorb padding" th:text="${totalPrice} + '円'"></td>
 				</tr>
 				<tr>
-					<th class="text-center priceBackColora padding">ITworksTRYshopping</th>
+					<th class="text-center priceBackColora padding" th:text="'ITworksTRYshopping' + '(付与倍率' +  ${pointRate} + '%)'"></th>
 					<td class="priceBackColorb padding" th:text="${point} + 'ポイントゲット'"></td>
 				</tr>
 			</table>
@@ -78,7 +78,7 @@
 					<td class="priceBackColorb padding" th:text="${pointminusTotalPrice} + '円'"></td>
 				</tr>
 				<tr>
-					<th class="text-center priceBackColora padding">ITworksTRYshopping</th>
+					<th class="text-center priceBackColora padding" th:text="'ITworksTRYshopping' + '(付与倍率' + ${pointRate} + '%)'"></th>
 					<td class="priceBackColorb padding" th:text="${point} + 'ポイントゲット'"></td>
 				</tr>
 			</table>
