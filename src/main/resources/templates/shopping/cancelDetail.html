@@ -52,7 +52,7 @@
 						<div class="form-group" th:classappend="${#fields.hasErrors('bankNumber')} ? 'hasError'">
 							<input type="text" class="form-control" th:field="*{bankNumber}">
 						</div>
-						<span class="text-danger" th:if="${#fields.hasErrors('bankNumber')}" th:errors="*{bankNumber}">bankNumber error</span>
+						<span class="text-danger cancelDetailErrorDesign" th:if="${#fields.hasErrors('bankNumber')}" th:errors="*{bankNumber}">bankNumber error</span>
 					</td>
 			</tr>
 			
@@ -62,22 +62,30 @@
 						<div class="form-group" th:classappend="${#fields.hasErrors('storeName')} ? 'hasError'">
 							<input type="text" class="form-control" th:field="*{storeName}">
 						</div>
-						<span class="text-danger" th:if="${#fields.hasErrors('storeName')}" th:errors="*{storeName}">storeName error</span>
+						<span class="text-danger cancelDetailErrorDesign" th:if="${#fields.hasErrors('storeName')}" th:errors="*{storeName}">storeName error</span>
 					</td>
 			</tr>
 			
 			</table>
 			
 				<div th:each="purchasedto : ${purchaseList}">
-			<input type="hidden" name="id" th:value="${purchasedto.id}">
+				<input type="hidden" name="id" th:value="${purchasedto.id}">
 			<input type="hidden" name="customId" th:value="${purchasedto.custom_id}">
-				
-				<div class="btn-wrapper cancelCheckDesign"> 
-				 <div class="check-box" >
-        <label><input class="check" type="checkbox" name="check" autocomplete="off" id="agree"><span><a ></a>口座情報を確定し、キャンセルに同意する</span></label>
+			
+			
+			
+			<!-- 
+			<button class="btn btn-primary" name="completed">キャンセル確定</button>
+			-->
+			
+			<div class="btn-wrapper cancelCheckDesign"> 
+    <div class="check-box">
+        <label><input class="check" type="checkbox" name="check" autocomplete="off" id="agree"><span><a>キャンセルに同意する</a></span></label>
     </div>
-	 <input class="submit" type="submit" id="submit" value="返金画面へ" />
+    <input class="submit" type="submit" id="submit" name="completed" value="キャンセル確定" />
 </div>
+
+			</div>
 	
 		</form>
 		

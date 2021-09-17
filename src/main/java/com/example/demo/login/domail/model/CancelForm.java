@@ -18,7 +18,7 @@ public class CancelForm {
 	private String bankNumber;
 	@NotBlank(groups = ValidGroup1.class)
 	@Pattern(regexp = "[0-9]+$",groups = ValidGroup2.class)
-	@Length(min = 1, max = 3, groups = ValidGroup3.class)
+	@Length(min = 3, max = 3, groups = ValidGroup3.class)
 	private String storeName;
 	
 
