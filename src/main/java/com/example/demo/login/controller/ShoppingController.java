@@ -40,6 +40,7 @@ import com.example.demo.login.domail.model.InquiryBeforeLoginForm;
 import com.example.demo.login.domail.model.InquiryDTO;
 import com.example.demo.login.domail.model.InquiryForm;
 import com.example.demo.login.domail.model.InquiryReplyDTO;
+import com.example.demo.login.domail.model.InquiryReplyForm;
 import com.example.demo.login.domail.model.LoginForm;
 import com.example.demo.login.domail.model.MenberCouponDTO;
 import com.example.demo.login.domail.model.MenberCouponForm;
@@ -1232,10 +1233,11 @@ public class ShoppingController {
 	}
 
 	@GetMapping("/inquiryReplay/{id}")
-	public String getInquiryReply(@ModelAttribute InquiryForm form, @PathVariable("id") int inquiryId, Model model) {
+	public String getInquiryReply(@ModelAttribute InquiryReplyForm form, @PathVariable("id") int inquiryId, Model model) {
 		model.addAttribute("contents", "shopping/inquiryReply::productListLayout_contents");
 		InquiryDTO inquirydto = inquiryService.selectOne(inquiryId);// inquiryテーブルのIdをもとにinquiryテーブルの情報を取得
 		model.addAttribute("inquiryList", inquirydto);
+		model.addAttribute("inquiryId",inquirydto.getId());
 		model.addAttribute("inquiryId", inquiryId);
 
 		return "shopping/productListLayout";
@@ -1261,9 +1263,14 @@ public class ShoppingController {
 	}
 
 	@PostMapping(value = "inquiry", params = "return")
-	public String postInquiryReturn(@ModelAttribute InquiryForm form, @RequestParam("id") int id,
+	public String postInquiryReturn(@ModelAttribute @Validated(GroupOrder.class)InquiryReplyForm inquiryreplyform,BindingResult bindingResult,InquiryForm form,@RequestParam("id") int id,
 			HttpServletRequest request, HttpServletResponse response, Model model) {
 
+		if(bindingResult.hasErrors()) {
+			System.out.println("id" + id);
+			return getInquiryReply(inquiryreplyform,id,model);
+		}
+		
 		InquiryReplyDTO inquiryreplydto = new InquiryReplyDTO();
 		inquiryreplydto.setInquiryId(id);
 		inquiryreplydto.setTitle(form.getTitle());// 問い合わせの返信タイトルをdtoに入れる
