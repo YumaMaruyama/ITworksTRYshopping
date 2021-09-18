@@ -11,7 +11,7 @@
 			<h1 class="titleDesign">問い合わせ返信</h1>
 		</header>
 		
-		<form method="post" th:action="@{/inquiry}" th:object="${inquiryForm}">
+		<form method="post" th:action="@{/inquiry}" th:object="${inquiryReplyForm}">
 		<table class="table table-bordered inquiryReplyTableDesign" th:each="inquirydto : ${inquiryList}">
 			<tr class="inquiryReplyThDesign">
 				 <th class="text-center">問い合わせユーザー</th>
@@ -30,26 +30,31 @@
 		</table>
 		
 		<h3>返信内容</h3>
-		<table class="table table-bordered inquiryReplyNextTableDesign" th:each="inquirydto : ${inquiryList}">
-			<tr>
-				
-				 <th class="text-center inquiryReplyNextThDesign">タイトル</th>
-				 <th class="text-center inquiryReplyNextThDesign">内容</th>
-
-			</tr>
+		<table class="table table-bordered inquiryReplyNextTableDesign">
+		
+				<tr>
+					<th class="text-center inquiryReplyNextThDesign">title</th>
+					<td th:classappend="${#fields.hasErrors('title')}?'has-error'"
+						class="form-group inquiryReplyNextTdDesign"><input type="text" class="form-control"
+						th:field="*{title}"><span class="text-danger"
+						th:if="${#fields.hasErrors('title')}" th:errors="*{title}">title
+							error</span></td>
+				</tr>
+			
 			
 			<tr>
-			
-				<th class="text-center inquiryReplyNextTdDesign"><input type="text" class="form-control" th:field="*{title}"></th>
-				<th class="text-center inquiryReplyNextTdDesign"><input type="text" class="form-control" th:field="*{content}"></th>
-				
-			</tr>
-			
+					<th class="text-center inquiryReplyNextThDesign">内容</th>
+					<td th:classappend="${#fields.hasErrors('content')}?'has-error'"
+						class="form-group inquiryReplyNextTdDesign"><input type="text" class="form-control"
+						th:field="*{content}"><span class="text-danger"
+						th:if="${#fields.hasErrors('content')}" th:errors="*{content}">content
+							error</span></td>
+				</tr>
 		</table>
-		<div>
-		<input type="hidden" name="id" th:value="${id}">
+		
+		
+		<input type="hidden" name="id" th:value="${inquiryId}">
 		<button class="btn btninquiryReply-border inquiryReplyBtn" name="return">返信する</button>
-		</div>
 		</form>
 	</div>
 </body>
