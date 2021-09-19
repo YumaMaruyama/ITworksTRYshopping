@@ -30,6 +30,17 @@
 		<button class="btn btn-border usersListDetailBtnDesign" name="unsubscribe">ユーザーを退会</button>
 		
 	</form>
+	
+	<script>
+			$('.usersListDetailBtnDesign').click(function() {
+				if (confirm('本当にこのユーザーを退会させますか？')) {
+					/* キャンセルの時の処理 */
+					return true;
+				}
+				return false;
+			});
+		</script>
+		
 	</div>
 </body>
 </html>
