@@ -7,18 +7,22 @@
 
 .inquiryFinishThTitle {
 	background: #ff6c73;
+	width:300px;
 }
 
 .inquiryFinishThContent {
 	background: #ff6c73;
+	width:800px;
 }
 
 .inquiryFinishTdTitle {
 	background: #ffbcbf;
+	width:300px;
 }
 
 .inquiryFinishTdContent {
 	background: #ffbcbf;
+	width:800px;
 }
 
 .btnInquiryFinish-gradient {

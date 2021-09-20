@@ -14,7 +14,9 @@
 }
 
 .inquiryDeleteBtn {
-	margin-left:500px !important;
+	margin-left:455px !important;
+	margin-top: 60px !important;
+    font-size: 18px !important;
 }
 
 button.btninquiryDetail-border {

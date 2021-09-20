@@ -14,7 +14,7 @@
 		 
 		 <div class="contactReplyTableScrollBar">
 		<table class="tabel table-bordered contactReplyTable" th:each="inquiryAlldto : ${inquiryAllDto}" >
-			<tr class="inquiryTr1">
+			<tr class="contactReplyTh">
 				<th class="text-center contactReplyTitleDesign">問い合わせタイトル</th>
 				<th class="text-center contactReplyContentDesign">問い合わせ内容</th>
 				<th class="text-center contactReplyDateDesign">問い合わせ日時</th>
@@ -22,11 +22,11 @@
 				
 			</tr>
 			
-			<tr class="inquiryTr2">
+			<tr class="contactReplyTd">
 				<td class="text-center contactReplyTitleDesign" th:text="${inquiryAlldto.title}"></td>
 				<td class="text-center contactReplyContentDesign" th:text="${inquiryAlldto.content}"></td>
-				<td class="text-center contactReplyDateDesign" th:text="${#dates.format(inquiryAlldto.registrationDate,'yyyy/MM/dd hh:mm')}"></td>
-				<td class="text-center contactReplyManeDesign"><a >編集</a></td>
+				<td class="text-center contactReplyDateDesign" th:text="${#dates.format(inquiryAlldto.registrationDate,'yyyy/MM/dd ah:mm')}"></td>
+				<td class="text-center contactReplyManeDesign"><a th:href="@{/inquiryUserDeletion} + '/' + ${inquiryAlldto.id}">編集</a></td>
 			</tr>
 			<br>
 			
@@ -41,13 +41,13 @@
 			
 			<br>
 			<div th:if="${inquiryAlldto.adminTitle} != '返信なし'">
-			<tr class="inquiryReplyTr1">
+			<tr class="contactReplyNextTh">
 				<th class="text-center contactReplyThAdminTitle">返信タイトル</th>
 				<th class="text-center contactReplyThAdminContent">返信内容</th>
 				<th class="text-center contactReplyThAdminDate">返信日時</th>
 			</tr>
 			
-			<tr class="inquiryReplyTr2">
+			<tr class="contactReplyNextTd">
 				<td class="text-center contactReplyTdAdminTitle" th:text="${inquiryAlldto.adminTitle}"></td>
 				<td class="text-center contactReplyTdAdminContent" th:text="${inquiryAlldto.adminContent}"></td>
 				<td class="text-center contactReplyTdAdminDate" th:text="${#dates.format(inquiryAlldto.adminRegistrationDate,'yyyy/MM/dd hh:mm')}"></td>
