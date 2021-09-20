@@ -1,5 +1,10 @@
 package com.example.demo.login.domail.repository.jdbc;
 
+
+
+import java.util.Date;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +32,24 @@ public class InquiryReplyDaoJdbcImpl implements InquiryReplyDao {
 	
 	public int replyUpdateOne(HttpSession session,InquiryReplyDTO inquiryreplydto) {
 		int result = jdbc.update("update inquiry_reply set title = ?,content = ? where inquiry_id = ?",session.getAttribute("title"),session.getAttribute("content"),session.getAttribute("id"));
+		return result;
+	}
+	
+	public InquiryReplyDTO selectOne(int inquiryId) {
+		Map<String,Object> map = jdbc.queryForMap("select * from inquiry_reply where inquiry_id = ?",inquiryId);
+		
+		InquiryReplyDTO inquiryreplydto = new InquiryReplyDTO();
+		inquiryreplydto.setId((int)map.get("id"));
+		inquiryreplydto.setTitle((String)map.get("title"));
+		inquiryreplydto.setContent((String)map.get("content"));
+		inquiryreplydto.setRegistrationDate((Date)map.get("registration_date"));
+		
+		return inquiryreplydto;	
+	}
+	
+	public int deleteOne(int inquiryId) {
+		int result = jdbc.update("delete from inquiry_reply where inquiry_id = ?",inquiryId);
+		
 		return result;
 	}
 }

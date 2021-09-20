@@ -50,17 +50,23 @@
 					<th class="text-center administratorContent" th:text="${inquirydto.content}"></th>
 					<th class="text-center administratorDate"
 						th:text="${#dates.format(inquirydto.registrationDate,'yyyy/MM/dd ah:mm')}"></th>
-					<th class="text-center administratorDetail"><input type=hidden name="id"
+					<th th:if="${inquirydto.replyTitle} == '返信なし'" class="text-center administratorDetail"><input type=hidden name="id"
 						th:value=${inquirydto.id}><a
 						th:href="@{'/inquiryDetail' + '/' + ${inquirydto.id}}"
 						class="btn btnAdministrator-border">編集</a><a
 						th:href="@{'/inquiryReplay' + '/' + ${inquirydto.id}}"
 						class="btn btnAdministrator-border">返信</a></th>
+					<th th:if="${inquirydto.replyTitle} neq '返信なし'" class="text-center administratorDetail"><input type=hidden name="id"
+						th:value=${inquirydto.id}><a
+						th:href="@{'/inquiryDetail' + '/' + ${inquirydto.id}}"
+						class="btn btnAdministrator-border">編集</a><a>返信済</a></th>
+					
 				</tr>
 
 			</table>
 			</div>
 		</form>
+		
 
 	</div>
 </body>

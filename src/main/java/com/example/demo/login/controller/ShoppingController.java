@@ -104,7 +104,7 @@ public class ShoppingController {
 	@Autowired
 	CouponService couponService;
 	@Autowired
-	InquiryReplyService inquiryreplyService;
+	InquiryReplyService inquiryReplyService;
 	@Autowired
 	MenberCouponService menberCouponService;
 	@Autowired
@@ -1226,7 +1226,7 @@ public class ShoppingController {
 		InquiryReplyDTO inquiryreplydto = new InquiryReplyDTO();
 		int result = inquiryService.insertOne(inquirydto, select_id);// dtoとusersテーブルのidでお問い合わせの情報を格納する
 		int maxId = inquiryService.selectMaxId();
-		inquiryreplyService.insertOne(inquiryreplydto, maxId);
+		inquiryReplyService.insertOne(inquiryreplydto, maxId);
 
 		return "shopping/productListLayout";
 
@@ -1241,6 +1241,34 @@ public class ShoppingController {
 		model.addAttribute("inquiryId", inquiryId);
 
 		return "shopping/productListLayout";
+	}
+	
+	
+	@GetMapping("inquiryUserDeletion/{id}")
+	public String getInquiryUserDeletion(@ModelAttribute InquiryForm form,@PathVariable("id") int inquiryId,Model model) {
+		model.addAttribute("contents", "shopping/inquiryUserDeletion::productListLayout_contents");
+	
+		InquiryDTO inquirydto = inquiryService.selectOne(inquiryId);
+		
+		InquiryReplyDTO inquiryreplydto = inquiryReplyService.selectOne(inquiryId);
+		
+		model.addAttribute("inquiryId",inquiryId);
+		model.addAttribute("inquiryDTO",inquirydto);
+		model.addAttribute("inquiryReplyDTO",inquiryreplydto);
+		
+		return "shopping/productListLayout";
+	}
+	
+	@PostMapping("inquiryUserDeletion")
+	public String postInquiryUserDeletion(@ModelAttribute InquiryForm form,@RequestParam("inquiryId") int inquiryId,Model model) {
+		model.addAttribute("contents", "shopping/inquiryUserDeletion::productListLayout_contents");
+		
+		inquiryService.userDeletionOne(inquiryId);
+		
+		inquiryReplyService.deleteOne(inquiryId);
+		
+		return getContactReply(form,model);
+		
 	}
 
 	@GetMapping("/inquiryDetail/{id}")
@@ -1257,7 +1285,8 @@ public class ShoppingController {
 	@PostMapping("/inquiryDetail")
 	public String postInquiryDetail(@ModelAttribute InquiryForm form, @RequestParam("id") int id, Model model) {
 		System.out.println("inquiryDetail到達");
-		int result = inquiryService.deleteOne(id);// inquiryテーブルのIdをもとにinquiryテーブルの情報を削除
+		inquiryService.deleteOne(id);// inquiryテーブルのIdをもとにinquiryテーブルの情報を削除
+		inquiryReplyService.deleteOne(id);
 
 		return getAdministrator(form, model);
 	}
@@ -1281,7 +1310,7 @@ public class ShoppingController {
 		session.setAttribute("title", form.getTitle());
 		session.setAttribute("content", form.getContent());
 
-		int result = inquiryreplyService.replyUpdateOne(session, inquiryreplydto);// dtoの情報をinquiry_replyテーブルに格納
+		int result = inquiryReplyService.replyUpdateOne(session, inquiryreplydto);// dtoの情報をinquiry_replyテーブルに格納
 
 		return getAdministrator(form, model);
 
@@ -1309,7 +1338,17 @@ public class ShoppingController {
 		model.addAttribute("contents", "shopping/administrator::productListLayout_contents");
 
 		List<InquiryDTO> inquirydtolist = inquiryService.selectMany();// inquiryテーブル情報をすべて取得
-		model.addAttribute("inquiryList", inquirydtolist);
+		List<InquiryDTO> inquirynewdtolist = new ArrayList<>();
+		
+		for(int i = 0; inquirydtolist.size() > i; i++) {
+			InquiryDTO inquirydto = inquirydtolist.get(i);
+			int inquiryId = inquirydto.getId();
+			InquiryReplyDTO inquiryreplydto = inquiryReplyService.selectOne(inquiryId);
+			inquirydto.setReplyTitle(inquiryreplydto.getTitle());
+			
+			inquirynewdtolist.add(inquirydto);
+		}
+		model.addAttribute("inquiryList", inquirynewdtolist);
 
 		return "shopping/productListLayout";
 	}
