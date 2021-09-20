@@ -1,16 +1,22 @@
 @charset "UTF-8";
 
-.th1 {
-	width: 300px;
+.contactReplyTitleDesign {
+	width: 250px;
 }
 
-.th2 {
-	width: 700px;
+.contactReplyContentDesign {
+	width: 600px;
 }
 
-.th3 {
-	width: 100px;
+.contactReplyDateDesign {
+	width: 170px;
 }
+
+.contactReplyManeDesign {
+	width: 80px;
+}
+
+
 
 .inquiryTr1 {
 	background: #8cc3f3;

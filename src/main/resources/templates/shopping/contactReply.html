@@ -15,28 +15,32 @@
 		 <div class="contactReplyTableScrollBar">
 		<table class="tabel table-bordered contactReplyTable" th:each="inquiryAlldto : ${inquiryAllDto}" >
 			<tr class="inquiryTr1">
-				<th class="text-center th1">問い合わせタイトル</th>
-				<th class="text-center th2">問い合わせ内容</th>
-				<th class="text-center th3">問い合わせ日時</th>
+				<th class="text-center contactReplyTitleDesign">問い合わせタイトル</th>
+				<th class="text-center contactReplyContentDesign">問い合わせ内容</th>
+				<th class="text-center contactReplyDateDesign">問い合わせ日時</th>
+				<th class="text-center contactReplyManeDesign">管理</th>
+				
 			</tr>
 			
 			<tr class="inquiryTr2">
-				<td class="text-center th1" th:text="${inquiryAlldto.title}"></td>
-				<td class="text-center th2" th:text="${inquiryAlldto.content}"></td>
-				<td class="text-center th3" th:text="${#dates.format(inquiryAlldto.registrationDate,'yyyy/MM/dd hh:mm')}"></td>
+				<td class="text-center contactReplyTitleDesign" th:text="${inquiryAlldto.title}"></td>
+				<td class="text-center contactReplyContentDesign" th:text="${inquiryAlldto.content}"></td>
+				<td class="text-center contactReplyDateDesign" th:text="${#dates.format(inquiryAlldto.registrationDate,'yyyy/MM/dd hh:mm')}"></td>
+				<td class="text-center contactReplyManeDesign"><a >編集</a></td>
 			</tr>
+			<br>
 			
 			<div th:if="${inquiryAlldto.adminTitle} == '返信なし'">
-			<br>
-			<tr>
-			<td>上記のお問い合わせに対して、<br>返信はありません。</td>
-			</tr>
+			
+			<tr><th class="text-center">上記のお問い合わせに対して、<br>返信はありません。</th></tr>
 			</div>
 			
 			<div th:if="${inquiryAlldto.adminTitle} != '返信なし'">
-			<br>
-			<tr><th>上記のお問い合わせに対して、<br>管理者から返信がありました。</th></tr>
+			<tr><th class="text-center">上記のお問い合わせに対して、<br>管理者から返信がありました</th></tr>
+			</div>
 			
+			<br>
+			<div th:if="${inquiryAlldto.adminTitle} != '返信なし'">
 			<tr class="inquiryReplyTr1">
 				<th class="text-center contactReplyThAdminTitle">返信タイトル</th>
 				<th class="text-center contactReplyThAdminContent">返信内容</th>
@@ -49,6 +53,7 @@
 				<td class="text-center contactReplyTdAdminDate" th:text="${#dates.format(inquiryAlldto.adminRegistrationDate,'yyyy/MM/dd hh:mm')}"></td>
 			</tr>
 			</div>
+			
 			
 			<br>
 		</table>
