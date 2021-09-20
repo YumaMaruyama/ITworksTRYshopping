@@ -19,6 +19,8 @@ public interface InquiryDao {
 	
 	public List<InquiryAllDTO> everyUserSelectMany(int select_id);
 	
+	public int userDeletionOne(int inquiryId);
+	
 	public int deleteOne(int id);
 	
 	public int selectMaxId();

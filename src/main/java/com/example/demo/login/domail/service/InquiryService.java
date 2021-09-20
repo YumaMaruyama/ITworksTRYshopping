@@ -35,7 +35,9 @@ public class InquiryService {
 		return dao.selectOne(id);
 	}
 	
-	
+	public int userDeletionOne(int inquiryId) {
+		return dao.userDeletionOne(inquiryId);
+	}
 	
 	public List<InquiryAllDTO> everyUserSelectMany(int select_id) {
 		return dao.everyUserSelectMany(select_id);

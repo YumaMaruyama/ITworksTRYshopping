@@ -23,5 +23,13 @@ public class InquiryReplyService {
 		return dao.replyUpdateOne(session,inquiryreplydto);
 	}
 	
+	public InquiryReplyDTO selectOne(int inquiryId) {
+		return dao.selectOne(inquiryId);
+	}
+	
+	public int deleteOne(int inquiryId) {
+		return dao.deleteOne(inquiryId);
+	}
+	
 	
 }

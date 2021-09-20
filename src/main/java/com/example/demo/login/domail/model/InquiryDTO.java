@@ -21,4 +21,8 @@ public class InquiryDTO {
 	private Date finishedDate;
 	
 	private String userName;
+	
+	private int inquiryReplyId;
+	
+	private String replyTitle;
 }

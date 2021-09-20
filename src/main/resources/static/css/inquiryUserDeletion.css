@@ -1,0 +1,77 @@
+@charset "UTF-8";
+
+.inquiryUserDeletionTitleDesign {
+	width: 280px;
+}
+
+.inquiryUserDeletionContentDesign {
+	width: 650px;
+}
+
+.inquiryUserDeletionDateDesign {
+	width: 170px;
+}
+
+
+
+.inquiryUserDeletionTh {
+	background: #8cc3f3;
+}
+
+.inquiryUserDeletionTd {
+	background: #c1e1fd;
+}
+
+.inquiryUserDeletionNextTh {
+	background: #ff8a8a;
+}
+
+.inquiryUserDeletionNextTd {
+	background: #f9b3b3;
+}
+
+.inquiryUserDeletionTable {
+	font-size: 16px;
+	width:1100px;
+}
+
+.inquiryUserDeletionTableScrollBar {
+	display: block;
+	overflow-y: scroll;
+	height: 525px;
+	width: 1100px;
+}
+
+
+.inquiryUserDeletionBtn {
+	margin-top:100px !important;
+	margin-left:460px !important;
+	font-size: 20px !important;
+}
+
+button.btninquiryUserDeletion-border {
+	padding: 0px 4px;
+	margin: 0px 3px;
+	-webkit-transform: skew(-15deg);
+	transform: skew(-15deg);
+	color: #fff;
+	border: 3px solid #724fff;
+	border-radius: 0;
+	background: #bab3f3;
+}
+
+button.btninquiryUserDeletion-border:hover:before {
+	top: -3px;
+	background: #724fff;
+}
+
+button.btninquiryUserDeletion-border:hover:after {
+	bottom: -3px;
+	background: #724fff;
+}
+
+button.btninquiryUserDeletion-border:hover {
+	-webkit-transform: skew(-5deg);
+	transform: skew(-5deg);
+	color: #fff;
+}

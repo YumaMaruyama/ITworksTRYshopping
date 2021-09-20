@@ -75,11 +75,12 @@ public class InquiryJdbcDaoImpl implements InquiryDao {
 	
 	
 	public List<InquiryAllDTO> everyUserSelectMany(int select_id) {
-		List<Map<String,Object>> map = jdbc.queryForList("select inquiry.title,inquiry.content,inquiry.registration_date,inquiry_reply.title as adminTitle,inquiry_reply.content as adminContent,inquiry_reply.registration_date as adminRegistration_date from inquiry join inquiry_reply on inquiry.id = inquiry_reply.inquiry_id");
+		List<Map<String,Object>> map = jdbc.queryForList("select inquiry.id,inquiry.title,inquiry.content,inquiry.registration_date,inquiry_reply.title as adminTitle,inquiry_reply.content as adminContent,inquiry_reply.registration_date as adminRegistration_date from inquiry join inquiry_reply on inquiry.id = inquiry_reply.inquiry_id");
 		
 		List<InquiryAllDTO> inquiryList = new ArrayList<>();
 		for(Map<String,Object> oneMap: map) {
 			InquiryAllDTO inquiryalldto = new InquiryAllDTO();
+			inquiryalldto.setId((int)oneMap.get("id"));
 			inquiryalldto.setTitle((String)oneMap.get("title"));
 			inquiryalldto.setContent((String)oneMap.get("content"));
 			inquiryalldto.setRegistrationDate((Date)oneMap.get("registration_date"));
@@ -92,6 +93,12 @@ public class InquiryJdbcDaoImpl implements InquiryDao {
 		return inquiryList;
 				
 				
+	}
+	
+	public int userDeletionOne(int inquiryId) {
+		int result = jdbc.update("delete from inquiry where id = ?",inquiryId);
+		
+		return result;
 	}
 	
 	public int deleteOne(int id) {

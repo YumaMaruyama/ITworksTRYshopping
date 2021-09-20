@@ -33,6 +33,18 @@
 			<button class="btn btninquiryDetail-border inquiryDeleteBtn">問い合わせ削除</button>
 			</div>
 		</form>
+		
+		<script>
+			$('.inquiryDeleteBtn').click(function() {
+				if (confirm('本当に削除しますか？')) {
+					
+					return true;
+				}
+				return false;
+			});
+			
+		</script>
+		
 	</div>
 </body>
 </html>

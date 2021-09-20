@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	
+	<div th:fragment="productListLayout_contents">
+		<header>
+			<h1 class="titleDesign">問い合わせの返信</h1>
+		</header>
+		 
+		
+		 <form method="post" th:action="@{/inquiryUserDeletion}">
+		<table class="tabel table-bordered inquiryUserDeletionTable" th:each="inquirydto : ${inquiryDTO}" >
+			<tr class="inquiryUserDeletionTh">
+				<th class="text-center inquiryUserDeletionTitleDesign">問い合わせタイトル</th>
+				<th class="text-center inquiryUserDeletionContentDesign">問い合わせ内容</th>
+				<th class="text-center inquiryUserDeletionDateDesign">問い合わせ日時</th>
+				
+				
+			</tr>
+			
+			<tr class="inquiryUserDeletionTd">
+				<td class="text-center inquiryUserDeletionTitleDesign" th:text="${inquirydto.title}"></td>
+				<td class="text-center inquiryUserDeletionContentDesign" th:text="${inquirydto.content}"></td>
+				<td class="text-center inquiryUserDeletionDateDesign" th:text="${#dates.format(inquirydto.registrationDate,'yyyy/MM/dd ah:mm')}"></td>
+				
+			</tr>
+			
+		</table>
+		<br>
+		<table th:if="${inquiryreplydto.title} != '返信なし'" class="tabel table-bordered inquiryUserDeletionTable" th:each="inquiryreplydto : ${inquiryReplyDTO}" >
+			<tr class="inquiryUserDeletionNextTh">
+				<th class="text-center inquiryUserDeletionTitleDesign">返信タイトル</th>
+				<th class="text-center inquiryUserDeletionContentDesign">返信内容</th>
+				<th class="text-center inquiryUserDeletionDateDesign">返信日時</th>
+				
+				
+			</tr>
+			
+			<tr class="inquiryUserDeletionNextTd">
+				<td class="text-center inquiryUserDeletionTitleDesign" th:text="${inquiryreplydto.title}"></td>
+				<td class="text-center inquiryUserDeletionContentDesign" th:text="${inquiryreplydto.content}"></td>
+				<td class="text-center inquiryUserDeletionDateDesign" th:text="${#dates.format(inquiryreplydto.registrationDate,'yyyy/MM/dd ah:mm')}"></td>
+				
+			</tr>
+			
+		</table>
+		<input type="hidden" name="inquiryId" th:value="${inquiryId}">
+		<button class="btn btninquiryUserDeletion-border inquiryUserDeletionBtn">上記の内容を削除</button>
+		</form>
+		
+		<script>
+			$('.inquiryUserDeletionBtn').click(function() {
+				if (confirm('本当に削除しますか？')) {
+					return true;
+				}
+				return false;
+			});
+			
+		</script>
+		
+	</div>
+	
+	
+</body>
+</html>
