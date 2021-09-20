@@ -66,7 +66,16 @@
 			<button class="btn btn-radius-solidMenberCouponAdd btn--shadow menberCouponAddBtnDesign">クーポン配布</button>
 		</form>
 
-
+		<script>
+			$('.menberCouponAddBtnDesign').click(function() {
+				if (confirm('本当にこの内容で更新しますか？')) {
+					/* キャンセルの時の処理 */
+					return true;
+				}
+				return false;
+			});
+			
+		</script>
 
 	</div>
 </body>

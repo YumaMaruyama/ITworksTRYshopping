@@ -112,7 +112,7 @@
 					<th class="text-center pcdataAddThDesign">商品画像3(JPEG形式)</th>
 					<td th:classappend="${#fields.hasErrors('pcImg3')}?'has-error'"
 						class="form-group pcdataAddTdDesign"><input type="text" class="form-control"
-						th:field="*{pcImg3}"> <span class="text-danger"
+						th:field="*{pcImg3}">  <span class="text-danger"
 						th:if="${#fields.hasErrors('pcImg3')}" th:errors="*{pcImg3}">pcImg3
 							error</span>
 						<span class="errorFontDesign" th:text="${imgResult3}"></span>
@@ -123,6 +123,17 @@
 
 			<button class="btn btn-radius-solidProductAdd btn--shadow productAddBtnDesign" type="submit">商品追加決定</button>
 		</form>
+		
+		<script>
+			$('.productAddBtnDesign').click(function() {
+				if (confirm('本当にこの内容で更新しますか？')) {
+					/* キャンセルの時の処理 */
+					return true;
+				}
+				return false;
+			});
+			
+		</script>
 	</div>
 </body>
 </html>

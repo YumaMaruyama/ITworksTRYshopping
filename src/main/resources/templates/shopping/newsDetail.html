@@ -25,9 +25,21 @@
 			<td class="text-center newsDesignDate" th:text="${#dates.format(newsdto.registrationDate,'yyyy/MM/dd ah:mm')}"></td>
 		</tr>
 	</table>
-	<a class="btn btnND--yellow btnND--border-groove" th:href="@{/newsDelete} + '/' + ${newsdto.id}"><span>お知らせ削除</span></a>
+	<a class="btn btnND--yellow btnND--border-groove newsDelete" th:href="@{/newsDelete} + '/' + ${newsdto.id}"><span>お知らせ削除</span></a>
 	
 	</div>
+	
+	<script>
+			$('.newsDelete').click(function() {
+				if (confirm('本当にこの内容で更新しますか？')) {
+					/* キャンセルの時の処理 */
+					return true;
+				}
+				return false;
+			});
+			
+		</script>
+		
 	</div>
 </body>
 </html>
