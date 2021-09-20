@@ -43,6 +43,25 @@
 		<button class="btn btnEYDout--red btnEYDout--radius btnEYDout--cubic editYoutDetailUnsubscribe" name="delete">退会する</button>
 		</div>
 		</form>
+		
+		<script>
+			$('.editYourDetailChange').click(function() {
+				if (confirm('本当にこの内容で更新しますか？')) {
+					/* キャンセルの時の処理 */
+					return true;
+				}
+				return false;
+			});
+			
+			$('.editYoutDetailUnsubscribe').click(function() {
+				if (confirm('本当に退会しますか？')) {
+					/* キャンセルの時の処理 */
+					return true;
+				}
+				return false;
+			});
+			
+		</script>
 	</div>
 </body>
 </html>

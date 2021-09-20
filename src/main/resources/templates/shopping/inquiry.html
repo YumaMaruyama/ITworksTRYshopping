@@ -39,6 +39,16 @@
 		<br><br>
 		<a th:href="@{/contactReply}" class="btn btn--orange btn--cubic btn--shadow inquiryreplyGoBtn">問い合わせの返信を確認</a>
 
+		<script>
+			$('.inquirySendingBtn').click(function() {
+				if (confirm('本当にこの内容で更新しますか？')) {
+					/* キャンセルの時の処理 */
+					return true;
+				}
+				return false;
+			});
+			
+		</script>
 		
 	</div>
 </body>
