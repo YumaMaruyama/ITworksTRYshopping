@@ -1351,6 +1351,24 @@ public class ShoppingController {
 			model.addAttribute("imgResult3", "商品画像3はJPEG形式（最後が「.jpg」のもの）で入力してください");
 			return getProductAdd(form, model);
 		}
+		
+		if(!img1.startsWith("https://")) {
+			model.addAttribute("imgResult1", "商品画像3はhttps://から始まる画像アドレスを入力してください");
+			return getProductAdd(form, model);
+			
+		}
+		
+		if(!img2.startsWith("https://")) {
+			model.addAttribute("imgResult1", "商品画像3はhttps://から始まる画像アドレスを入力してください");
+			return getProductAdd(form, model);
+			
+		}
+		
+		if(!img2.startsWith("https://")) {
+			model.addAttribute("imgResult1", "商品画像3はhttps://から始まる画像アドレスを入力してください");
+			return getProductAdd(form, model);
+			
+		}
 
 		// バリデーションエラーにならなければ入力した情報をdtoにいれる
 		PcDataDTO pcdatadto = new PcDataDTO();
@@ -1441,9 +1459,9 @@ public class ShoppingController {
 		newsdto.setTitle(form.getTitle());
 		newsdto.setContent(form.getContent());
 
-		int result = newsService.insertOne(newsdto);
+		newsService.insertOne(newsdto);
 
-		return "shopping/productListLayout";
+		return getNews(form,model);
 	}
 
 	@GetMapping("/userPurchaseHistory/{id}")
@@ -4629,7 +4647,7 @@ public class ShoppingController {
 
 		menberCouponService.menberCouponInsert(menbercoupondto, session);// couponテーブルにsessionに保存したデータを格納
 
-		return "redirect:/couponList";
+		return "redirect:/menberCouponList";
 	}
 
 	@GetMapping("/productList")
