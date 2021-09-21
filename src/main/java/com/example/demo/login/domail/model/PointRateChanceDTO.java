@@ -6,6 +6,6 @@ import lombok.Data;
 public class PointRateChanceDTO {
 
 	private int id;
-	
+
 	private int pointRate;
 }

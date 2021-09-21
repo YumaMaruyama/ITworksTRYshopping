@@ -12,4 +12,5 @@ public class PcDetailDataForm {
 	private String cpu;
 
 	private int customFee;
+	
 }

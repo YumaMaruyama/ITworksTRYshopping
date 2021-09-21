@@ -1,7 +1,5 @@
 package com.example.demo.login.domail.model;
 
-
-
 import java.util.Date;
 
 import lombok.Data;
@@ -10,13 +8,13 @@ import lombok.Data;
 public class UsersListDTO {
 
 	private int id;
-	
+
 	private String userId;
-	
+
 	private String userName;
-	
+
 	private Date birthday;
-	
+
 	private String address;
-	
+
 }

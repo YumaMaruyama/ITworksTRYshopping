@@ -8,22 +8,21 @@ import lombok.Data;
 public class MenberCouponDTO {
 
 	private int id;
-	
+
 	private int discount;
-	
+
 	private int purchaseCountTarget;
-	
+
 	private int purchaseTotalPriceTarget;
-	
+
 	private String title;
-	
+
 	private int couponRank;
-	
+
 	private String menberRank;
-	
+
 	private String couponUseCheck;
-	
+
 	private Date registration_date;
-	
-	
+
 }

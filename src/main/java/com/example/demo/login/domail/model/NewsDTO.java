@@ -8,10 +8,10 @@ import lombok.Data;
 public class NewsDTO {
 
 	private int id;
-	
+
 	private String title;
-	
+
 	private String content;
-	
+
 	private Date registrationDate;
 }

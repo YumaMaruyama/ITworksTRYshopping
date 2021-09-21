@@ -20,4 +20,5 @@ public class CreditDTO {
 	private String user_id;
 
 	private int payment_price;
+	
 }

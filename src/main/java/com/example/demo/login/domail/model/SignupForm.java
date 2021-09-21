@@ -14,23 +14,23 @@ import lombok.Data;
 @Data
 public class SignupForm {
 	@NotBlank(groups = ValidGroup1.class)
-	@Length(max = 80,groups = ValidGroup2.class)
+	@Length(max = 80, groups = ValidGroup2.class)
 	@Email(groups = ValidGroup3.class)
 	private String user_id;
 
 	@NotBlank(groups = ValidGroup1.class)
-	@Length(min = 8,max = 80,groups = ValidGroup2.class)
-	@Pattern(regexp = "^[a-zA-Z0-9]+$",groups = ValidGroup3.class)
+	@Length(min = 8, max = 80, groups = ValidGroup2.class)
+	@Pattern(regexp = "^[a-zA-Z0-9]+$", groups = ValidGroup3.class)
 	private String password;
 
-    @NotBlank(groups = ValidGroup1.class)
-    @Length(max = 30,groups = ValidGroup2.class)
+	@NotBlank(groups = ValidGroup1.class)
+	@Length(max = 30, groups = ValidGroup2.class)
 	private String user_name;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birthday;
 
 	@NotBlank(groups = ValidGroup1.class)
-	@Length(max = 100,groups = ValidGroup2.class)
+	@Length(max = 100, groups = ValidGroup2.class)
 	private String address;
 }

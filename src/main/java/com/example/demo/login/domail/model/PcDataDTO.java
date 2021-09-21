@@ -31,18 +31,18 @@ public class PcDataDTO {
 
 	private String pcImg3;
 
-	private int cartId;//modelで渡す
+	private int cartId;
 
 	private int creditId;
-	
+
 	private int couponId;
-	
+
 	private String menberCouponCheck;
 
-	private int  productCount;
-	
-    private int customId;
-	
+	private int productCount;
+
+	private int customId;
+
 	private String memory;
 
 	private String hardDisc;
@@ -50,13 +50,13 @@ public class PcDataDTO {
 	private String cpu;
 
 	private int customPrice;
-	
+
 	private int afterCustomPrice;
-	
+
 	private int disCountPriceNew;
-	
+
 	private int totalPriceOne;
-	
+
 	private boolean couponCheck;
 
 }

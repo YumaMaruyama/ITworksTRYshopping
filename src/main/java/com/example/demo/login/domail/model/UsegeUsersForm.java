@@ -6,4 +6,5 @@ import lombok.Data;
 public class UsegeUsersForm {
 
 	private String address;
+	
 }

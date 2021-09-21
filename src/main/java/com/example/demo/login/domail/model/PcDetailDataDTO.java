@@ -6,11 +6,11 @@ import lombok.Data;
 public class PcDetailDataDTO {
 
 	private int id;
-	
+
 	private int purduct_id;
-	
+
 	private int user_id;
-	
+
 	private String memory;
 
 	private String hardDisc;

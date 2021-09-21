@@ -12,13 +12,12 @@ import lombok.Data;
 public class LoginForm {
 
 	@NotBlank(groups = ValidGroup1.class)
-	@Length(max = 80,groups = ValidGroup2.class)
+	@Length(max = 80, groups = ValidGroup2.class)
 	@Email(groups = ValidGroup3.class)
 	private String user_id;
-	
-	
+
 	@NotBlank(groups = ValidGroup1.class)
-	@Length(min = 8,max = 80,groups = ValidGroup2.class)
-	@Pattern(regexp = "^[a-zA-Z0-9]+$",groups = ValidGroup3.class)
+	@Length(min = 8, max = 80, groups = ValidGroup2.class)
+	@Pattern(regexp = "^[a-zA-Z0-9]+$", groups = ValidGroup3.class)
 	private String password;
 }

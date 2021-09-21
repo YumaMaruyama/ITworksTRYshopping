@@ -7,9 +7,9 @@ import lombok.Data;
 @Data
 public class Usege_usersDTO {
 
-	private int id;//usege_usersId
+	private int id;
 
-	private int user_id;//usersId
+	private int user_id;
 
 	private Date birthday;
 

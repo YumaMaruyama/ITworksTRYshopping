@@ -12,7 +12,7 @@ public class PointRateChangeForm {
 
 	private int id;
 	@NotBlank(groups = ValidGroup1.class)
-	@Pattern(regexp = "[1-9]+$",groups = ValidGroup2.class)
+	@Pattern(regexp = "[1-9]+$", groups = ValidGroup2.class)
 	@Length(min = 1, max = 1, groups = ValidGroup3.class)
 	private String pointRate;
 }

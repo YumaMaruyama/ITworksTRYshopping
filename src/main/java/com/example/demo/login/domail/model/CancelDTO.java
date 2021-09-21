@@ -8,26 +8,26 @@ import lombok.Data;
 public class CancelDTO {
 
 	private int id;
-	
+
 	private int userId;
-	
+
 	private int productId;
-	
+
 	private int purchaseId;
-	
+
 	private String content;
-	
+
 	private Date registrationDate;
-	
+
 	private Date deliveryDate;
-	
+
 	private int bankNumber;
-	
+
 	private int storeName;
-	
+
 	private int returnPoint;
-	
+
 	private int pointRepayment;
-	
+
 	private String cancelCheck;
 }

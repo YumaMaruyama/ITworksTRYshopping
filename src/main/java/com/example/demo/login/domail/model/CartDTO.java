@@ -16,4 +16,5 @@ public class CartDTO {
 	private int couponId;
 	
 	private String menberCouponCheck;
+	
 }

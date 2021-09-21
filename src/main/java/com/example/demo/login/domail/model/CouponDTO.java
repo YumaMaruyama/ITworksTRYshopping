@@ -8,18 +8,18 @@ import lombok.Data;
 public class CouponDTO {
 
 	private int id;
-	
+
 	private int discount;
-	
+
 	private int purchaseCountTarget;
-	
+
 	private int purchaseTotalPriceTarget;
-	
+
 	private String title;
-	
+
 	private Date expirationDate;
-	
+
 	private Date registratonDate;
-	
+
 	private boolean couponCheck;
 }

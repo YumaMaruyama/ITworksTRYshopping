@@ -28,4 +28,5 @@ public class ReviewForm {
 	private String content;
 	
 	private Date registrationDate;
+	
 }

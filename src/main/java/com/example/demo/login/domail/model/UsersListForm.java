@@ -12,6 +12,7 @@ public class UsersListForm {
 	@NotBlank(groups = ValidGroup1.class)
 	@Length(max = 30, groups = ValidGroup2.class)
 	private String userName;
+	
 	@NotBlank(groups = ValidGroup1.class)
 	@Length(max = 80, groups = ValidGroup2.class)
 	private String address;

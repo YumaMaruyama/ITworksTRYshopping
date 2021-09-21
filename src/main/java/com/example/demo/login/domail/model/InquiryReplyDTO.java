@@ -8,12 +8,13 @@ import lombok.Data;
 public class InquiryReplyDTO {
 
 	private int id;
-	
+
 	private int inquiryId;
-	
+
 	private String title;
-	
+
 	private String content;
-	
+
 	private Date RegistrationDate;
+	
 }
