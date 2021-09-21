@@ -1088,19 +1088,20 @@ public class ShoppingController {
 
 		int pointRate = pointRateService.selectOne(1);
 		model.addAttribute("pointRate", pointRate);
-		
+
 		return "shopping/productListLayout";
 
 	}
 
 	@PostMapping("/pointRateChange")
-	public String postPointRateChange(@ModelAttribute @Validated(GroupOrder.class)PointRateChangeForm form,BindingResult bindingResult, Model model) {
+	public String postPointRateChange(@ModelAttribute @Validated(GroupOrder.class) PointRateChangeForm form,
+			BindingResult bindingResult, Model model) {
 		model.addAttribute("contents", "shopping/pointRateChangeFinish::productListLayout_contents");
 
-		if(bindingResult.hasErrors()) {
-			return getPointRateChange(form,model);
+		if (bindingResult.hasErrors()) {
+			return getPointRateChange(form, model);
 		}
-		
+
 		session.setAttribute("pointRate", form.getPointRate());
 		pointRateService.updateOne(session);
 
@@ -1117,10 +1118,10 @@ public class ShoppingController {
 
 		return "shopping/productListLayout";
 	}
-	
+
 	@GetMapping("termsOfUseBeforeLogin")
 	public String gettermsOfUseBeforeLogin(Model model) {
-		model.addAttribute("contents","shopping/termsOfUseBeforeLogin::loginLayout_contents");
+		model.addAttribute("contents", "shopping/termsOfUseBeforeLogin::loginLayout_contents");
 
 		return "shopping/loginLayout";
 	}
@@ -1131,32 +1132,31 @@ public class ShoppingController {
 
 		return "shopping/productListLayout";
 	}
-	
+
 	@GetMapping("/privacyPolicyBeforeLogin")
 	public String getPrivacyPolicyBeforeLogin(Model model) {
-		model.addAttribute("contents","shopping/privacyPolicyBeforeLogin::loginLayout_contents");
-		
+		model.addAttribute("contents", "shopping/privacyPolicyBeforeLogin::loginLayout_contents");
+
 		return "shopping/loginLayout";
 	}
-	
+
 	@GetMapping("/appDetail")
 	public String getAppDetail(Model model) {
-		model.addAttribute("contents","shopping/appDetail::loginLayout_contents");
-		
+		model.addAttribute("contents", "shopping/appDetail::loginLayout_contents");
+
 		return "shopping/loginLayout";
 	}
-	
+
 	@GetMapping("/inquiryBeforeLogin")
 	public String getInquiryBeforeLogin(@ModelAttribute InquiryBeforeLoginForm form, Model model) {
 		model.addAttribute("contents", "shopping/inquiryBeforeLogin::loginLayout_contents");
-		
+
 		return "shopping/loginLayout";
 	}
-	
+
 	@PostMapping(value = "inquiryBeforeLogin", params = "sending")
 	public String postInquirySending(@ModelAttribute @Validated(GroupOrder.class) InquiryBeforeLoginForm form,
-			BindingResult bindingResult, HttpServletRequest request, HttpServletResponse response,
-			Model model) {
+			BindingResult bindingResult, HttpServletRequest request, HttpServletResponse response, Model model) {
 
 		model.addAttribute("contents", "shopping/inquiryBeforeLoginFinish::loginLayout_contents");
 
@@ -1165,10 +1165,7 @@ public class ShoppingController {
 			return getInquiryBeforeLogin(form, model);// もう一度入力画面に遷移させる
 		}
 
-		
-
 		InquiryDTO inquirydto = new InquiryDTO();
-		
 
 		HttpSession session = request.getSession();
 		session.setAttribute("title", form.getTitle());
@@ -1179,27 +1176,22 @@ public class ShoppingController {
 		model.addAttribute("mailAddress", (String) session.getAttribute("mailAddress"));
 
 		InquiryReplyDTO inquiryreplydto = new InquiryReplyDTO();
-		int result = inquiryService.beforLoginInquiryInsertOne(inquirydto,session);// dtoとusersテーブルのidでお問い合わせの情報を格納する
-		
+		int result = inquiryService.beforLoginInquiryInsertOne(inquirydto, session);// dtoとusersテーブルのidでお問い合わせの情報を格納する
 
 		return "shopping/loginLayout";
 
 	}
-	
-	
-	
+
 	@GetMapping("/inquiry")
 	public String getInquiry(@ModelAttribute InquiryForm form, Model model) {
 		model.addAttribute("contents", "shopping/inquiry::productListLayout_contents");
 
 		return "shopping/productListLayout";
 	}
-	
 
 	@PostMapping(value = "inquiry", params = "sending")
 	public String postInquirySending(@ModelAttribute @Validated(GroupOrder.class) InquiryForm form,
-			BindingResult bindingResult, HttpServletRequest request, HttpServletResponse response,
-			Model model) {
+			BindingResult bindingResult, HttpServletRequest request, HttpServletResponse response, Model model) {
 
 		model.addAttribute("contents", "shopping/inquiryFinish::productListLayout_contents");
 
@@ -1233,42 +1225,44 @@ public class ShoppingController {
 	}
 
 	@GetMapping("/inquiryReplay/{id}")
-	public String getInquiryReply(@ModelAttribute InquiryReplyForm form, @PathVariable("id") int inquiryId, Model model) {
+	public String getInquiryReply(@ModelAttribute InquiryReplyForm form, @PathVariable("id") int inquiryId,
+			Model model) {
 		model.addAttribute("contents", "shopping/inquiryReply::productListLayout_contents");
 		InquiryDTO inquirydto = inquiryService.selectOne(inquiryId);// inquiryテーブルのIdをもとにinquiryテーブルの情報を取得
 		model.addAttribute("inquiryList", inquirydto);
-		model.addAttribute("inquiryId",inquirydto.getId());
+		model.addAttribute("inquiryId", inquirydto.getId());
 		model.addAttribute("inquiryId", inquiryId);
 
 		return "shopping/productListLayout";
 	}
-	
-	
+
 	@GetMapping("inquiryUserDeletion/{id}")
-	public String getInquiryUserDeletion(@ModelAttribute InquiryForm form,@PathVariable("id") int inquiryId,Model model) {
+	public String getInquiryUserDeletion(@ModelAttribute InquiryForm form, @PathVariable("id") int inquiryId,
+			Model model) {
 		model.addAttribute("contents", "shopping/inquiryUserDeletion::productListLayout_contents");
-	
+
 		InquiryDTO inquirydto = inquiryService.selectOne(inquiryId);
-		
+
 		InquiryReplyDTO inquiryreplydto = inquiryReplyService.selectOne(inquiryId);
-		
-		model.addAttribute("inquiryId",inquiryId);
-		model.addAttribute("inquiryDTO",inquirydto);
-		model.addAttribute("inquiryReplyDTO",inquiryreplydto);
-		
+
+		model.addAttribute("inquiryId", inquiryId);
+		model.addAttribute("inquiryDTO", inquirydto);
+		model.addAttribute("inquiryReplyDTO", inquiryreplydto);
+
 		return "shopping/productListLayout";
 	}
-	
+
 	@PostMapping("inquiryUserDeletion")
-	public String postInquiryUserDeletion(@ModelAttribute InquiryForm form,@RequestParam("inquiryId") int inquiryId,Model model) {
+	public String postInquiryUserDeletion(@ModelAttribute InquiryForm form, @RequestParam("inquiryId") int inquiryId,
+			Model model) {
 		model.addAttribute("contents", "shopping/inquiryUserDeletion::productListLayout_contents");
-		
+
 		inquiryService.userDeletionOne(inquiryId);
-		
+
 		inquiryReplyService.deleteOne(inquiryId);
-		
-		return getContactReply(form,model);
-		
+
+		return getContactReply(form, model);
+
 	}
 
 	@GetMapping("/inquiryDetail/{id}")
@@ -1292,14 +1286,15 @@ public class ShoppingController {
 	}
 
 	@PostMapping(value = "inquiry", params = "return")
-	public String postInquiryReturn(@ModelAttribute @Validated(GroupOrder.class)InquiryReplyForm inquiryreplyform,BindingResult bindingResult,InquiryForm form,@RequestParam("id") int id,
-			HttpServletRequest request, HttpServletResponse response, Model model) {
+	public String postInquiryReturn(@ModelAttribute @Validated(GroupOrder.class) InquiryReplyForm inquiryreplyform,
+			BindingResult bindingResult, InquiryForm form, @RequestParam("id") int id, HttpServletRequest request,
+			HttpServletResponse response, Model model) {
 
-		if(bindingResult.hasErrors()) {
+		if (bindingResult.hasErrors()) {
 			System.out.println("id" + id);
-			return getInquiryReply(inquiryreplyform,id,model);
+			return getInquiryReply(inquiryreplyform, id, model);
 		}
-		
+
 		InquiryReplyDTO inquiryreplydto = new InquiryReplyDTO();
 		inquiryreplydto.setInquiryId(id);
 		inquiryreplydto.setTitle(form.getTitle());// 問い合わせの返信タイトルをdtoに入れる
@@ -1339,13 +1334,13 @@ public class ShoppingController {
 
 		List<InquiryDTO> inquirydtolist = inquiryService.selectMany();// inquiryテーブル情報をすべて取得
 		List<InquiryDTO> inquirynewdtolist = new ArrayList<>();
-		
-		for(int i = 0; inquirydtolist.size() > i; i++) {
+
+		for (int i = 0; inquirydtolist.size() > i; i++) {
 			InquiryDTO inquirydto = inquirydtolist.get(i);
 			int inquiryId = inquirydto.getId();
 			InquiryReplyDTO inquiryreplydto = inquiryReplyService.selectOne(inquiryId);
 			inquirydto.setReplyTitle(inquiryreplydto.getTitle());
-			
+
 			inquirynewdtolist.add(inquirydto);
 		}
 		model.addAttribute("inquiryList", inquirynewdtolist);
@@ -1360,8 +1355,8 @@ public class ShoppingController {
 	}
 
 	@PostMapping("/productAdd")
-	public String postProductAdd(@ModelAttribute @Validated(GroupOrder.class) PcDataForm form, BindingResult bindingResult,RedirectAttributes redirectAttributes,
-			Model model) {
+	public String postProductAdd(@ModelAttribute @Validated(GroupOrder.class) PcDataForm form,
+			BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
 
 		if (bindingResult.hasErrors()) {
 			System.out.println("バリデーションエラー到達");
@@ -1390,23 +1385,23 @@ public class ShoppingController {
 			model.addAttribute("imgResult3", "商品画像3はJPEG形式（最後が「.jpg」のもの）で入力してください");
 			return getProductAdd(form, model);
 		}
-		
-		if(!img1.startsWith("https://")) {
+
+		if (!img1.startsWith("https://")) {
 			model.addAttribute("imgResult1", "商品画像3はhttps://から始まる画像アドレスを入力してください");
 			return getProductAdd(form, model);
-			
+
 		}
-		
-		if(!img2.startsWith("https://")) {
+
+		if (!img2.startsWith("https://")) {
 			model.addAttribute("imgResult1", "商品画像3はhttps://から始まる画像アドレスを入力してください");
 			return getProductAdd(form, model);
-			
+
 		}
-		
-		if(!img2.startsWith("https://")) {
+
+		if (!img2.startsWith("https://")) {
 			model.addAttribute("imgResult1", "商品画像3はhttps://から始まる画像アドレスを入力してください");
 			return getProductAdd(form, model);
-			
+
 		}
 
 		// バリデーションエラーにならなければ入力した情報をdtoにいれる
@@ -1435,7 +1430,7 @@ public class ShoppingController {
 			int pcData = pcdataService.insertOne(pcdatadto);
 		}
 		LoginForm loginForm = new LoginForm();
-		return getProductList(form,redirectAttributes,model);
+		return getProductList(form, redirectAttributes, model);
 	}
 
 	@GetMapping("/news")
@@ -1446,34 +1441,35 @@ public class ShoppingController {
 		System.out.println("auth" + auth.getName());
 		String getName = auth.getName();
 		int userId = usersService.select_id(getName);
-		
+
 		String userRole = usersService.selectRole(userId);
-		model.addAttribute("role",userRole);
-		
+		model.addAttribute("role", userRole);
+
 		List<NewsDTO> newsdtoList = newsService.selectMany();
 
 		model.addAttribute("newsdtoList", newsdtoList);
 
 		return "shopping/productListLayout";
 	}
-	
+
 	@GetMapping("/newsDetail/{id}")
-	public String getNewsDetail(@ModelAttribute NewsForm form,@PathVariable("id") int newsId,Model model) {
+	public String getNewsDetail(@ModelAttribute NewsForm form, @PathVariable("id") int newsId, Model model) {
 		model.addAttribute("contents", "shopping/newsDetail::productListLayout_contents");
-		
-		NewsDTO newsDtoOne = newsService.selectOne(newsId); 
-		model.addAttribute("newsdto",newsDtoOne);
-		
+
+		NewsDTO newsDtoOne = newsService.selectOne(newsId);
+		model.addAttribute("newsdto", newsDtoOne);
+
 		return "shopping/productListLayout";
-		
+
 	}
-	
+
 	@GetMapping("/newsDelete/{id}")
-	public String getNewsDelete(@ModelAttribute NewsForm form,@PathVariable("id") int newsId,RedirectAttributes redirectAttributes,Model model) {
+	public String getNewsDelete(@ModelAttribute NewsForm form, @PathVariable("id") int newsId,
+			RedirectAttributes redirectAttributes, Model model) {
 		model.addAttribute("contents", "shopping/news::productListLayout_contents");
-		
+
 		newsService.deleteOne(newsId);
-		
+
 		return "redirect:/news";
 	}
 
@@ -1500,7 +1496,7 @@ public class ShoppingController {
 
 		newsService.insertOne(newsdto);
 
-		return getNews(form,model);
+		return getNews(form, model);
 	}
 
 	@GetMapping("/userPurchaseHistory/{id}")
@@ -1653,12 +1649,12 @@ public class ShoppingController {
 		purchasedto.setPurchaseCheck(purchasedtoList.getPurchaseCheck());
 
 		Integer reviewId = reviewService.selectManyId(purchasedto.getId());
-		model.addAttribute("reviewAdd","no");
-	if(reviewId > 0) {
-		model.addAttribute("reviewAdd","yes");
-		return "shopping/productListLayout";
-	}
-	
+		model.addAttribute("reviewAdd", "no");
+		if (reviewId > 0) {
+			model.addAttribute("reviewAdd", "yes");
+			return "shopping/productListLayout";
+		}
+
 		String nullCheck = "null";
 		int getCustomId = customService.selectPurchaseCheck(select_id, purchasedtoList.getProduct_id(),
 				purchasedtoList.getPurchaseCheck(), nullCheck);
@@ -1673,7 +1669,7 @@ public class ShoppingController {
 		purchasedto.setCustomPrice(customList.getCustomPrice());
 		purchasedto.setTotalPrice(
 				(purchasedto.getProduct_count() * (purchasedto.getPrice() + purchasedto.getCustomPrice())));
-		
+
 		if (purchasedto.getMenberCouponCheck().equals("会員クーポン使用")) {
 			System.out.println("クーポン使用！");
 			int totalPrice = purchasedto.getTotalPrice();
@@ -1717,10 +1713,9 @@ public class ShoppingController {
 				}
 			}
 		}
-		
-		
+
 		model.addAttribute("totalPrice", (purchasedto.getTotalPrice() - purchasedto.getPointUse()));
-		
+
 		model.addAttribute("purchaseId", id);
 
 		model.addAttribute("purchaseList", purchasedto);
@@ -1730,13 +1725,14 @@ public class ShoppingController {
 	}
 
 	@PostMapping("/reviewAdd")
-	public String postReviewAdd(@ModelAttribute @Validated(GroupOrder.class) ReviewForm form,BindingResult bindingResult, @RequestParam("pcDataId") int pcDataId,
+	public String postReviewAdd(@ModelAttribute @Validated(GroupOrder.class) ReviewForm form,
+			BindingResult bindingResult, @RequestParam("pcDataId") int pcDataId,
 			@RequestParam("purchaseId") int purchaseId, RedirectAttributes redirectAttributes, Model model) {
 
-		if(bindingResult.hasErrors()) {
-			return getReviewAdd(form,purchaseId,model);
+		if (bindingResult.hasErrors()) {
+			return getReviewAdd(form, purchaseId, model);
 		}
-		
+
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 		String getName = auth.getName();
@@ -1862,9 +1858,7 @@ public class ShoppingController {
 		model.addAttribute("contents", "shopping/cancelNext::productListLayout_contents");
 
 		System.out.println("formnai" + form.getTitle());
-		
-		
-		
+
 		try {
 			if (form.getTitle().equals("0")) {
 				System.out.println("バリデーションエラー到達");
@@ -1992,7 +1986,7 @@ public class ShoppingController {
 			System.out.println("バリデーションエラー到達");
 			// model.addAttribute("result","キャンセル詳細を入力してください");
 			String titleNew = (String) session.getAttribute("title");
-			return postCancelCancelNext(form, nextform,purchaseId, request, response, model, titleNew);
+			return postCancelCancelNext(form, nextform, purchaseId, request, response, model, titleNew);
 		}
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -2092,7 +2086,7 @@ public class ShoppingController {
 	}
 
 	@PostMapping(value = "/cancel", params = "detail")
-	public String postCancelDetail(@ModelAttribute CancelForm form,@RequestParam("id") int purchaseId, Model model) {
+	public String postCancelDetail(@ModelAttribute CancelForm form, @RequestParam("id") int purchaseId, Model model) {
 		model.addAttribute("contents", "shopping/cancelDetail::productListLayout_contents");
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -2373,15 +2367,16 @@ public class ShoppingController {
 	}
 
 	@PostMapping("/cancelDeliveryComplete")
-	public String postCancelDeliveryComplete(@ModelAttribute @Validated(GroupOrder.class) CancelForm form,BindingResult bindingResult, CancelInTransactionForm intransactionform,
-			@RequestParam("id") int purchaseId, @RequestParam("customId") int customId, HttpServletRequest request,
-			HttpServletResponse response, Model model) {
+	public String postCancelDeliveryComplete(@ModelAttribute @Validated(GroupOrder.class) CancelForm form,
+			BindingResult bindingResult, CancelInTransactionForm intransactionform, @RequestParam("id") int purchaseId,
+			@RequestParam("customId") int customId, HttpServletRequest request, HttpServletResponse response,
+			Model model) {
 		model.addAttribute("contents", "shopping/cancelDeliveryComplete::productListLayout_contents");
 
-		if(bindingResult.hasErrors()) {
-			return postCancelDetail(form,purchaseId,model);
+		if (bindingResult.hasErrors()) {
+			return postCancelDetail(form, purchaseId, model);
 		}
-		
+
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 		String getName = auth.getName();
@@ -2546,16 +2541,14 @@ public class ShoppingController {
 		return "shopping/productListLayout";
 
 	}
-	
 
 	@GetMapping("/cancelDeliveryComplete")
-	public String getCancelDeliveryCompleteValidation(@ModelAttribute @Validated(GroupOrder.class) CancelForm form,BindingResult bindingResult, CancelInTransactionForm intransactionform,
-			@RequestParam("id") int purchaseId, @RequestParam("customId") int customId, HttpServletRequest request,
-			HttpServletResponse response, Model model) {
+	public String getCancelDeliveryCompleteValidation(@ModelAttribute @Validated(GroupOrder.class) CancelForm form,
+			BindingResult bindingResult, CancelInTransactionForm intransactionform, @RequestParam("id") int purchaseId,
+			@RequestParam("customId") int customId, HttpServletRequest request, HttpServletResponse response,
+			Model model) {
 		model.addAttribute("contents", "shopping/cancelDeliveryComplete::productListLayout_contents");
 
-	
-		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 		String getName = auth.getName();
@@ -2658,7 +2651,7 @@ public class ShoppingController {
 			model.addAttribute("contents", "shopping/cancelInquiry::productListLayout_contents");
 			return "shopping/productListLayout";
 		}
-		
+
 		return "shopping/productListLayout";
 	}
 
@@ -2671,7 +2664,8 @@ public class ShoppingController {
 
 		if (bindingResult.hasErrors()) {
 			System.out.println("1");
-			return getCancelDeliveryCompleteValidation(form,bindingResult,intransactionform,purchaseId, customId, request, response, model);
+			return getCancelDeliveryCompleteValidation(form, bindingResult, intransactionform, purchaseId, customId,
+					request, response, model);
 		}
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -3616,37 +3610,37 @@ public class ShoppingController {
 
 			if ((allTotalPrice >= 0) && (allTotalPrice < 50000)) {
 				rankNumber = 1;
-				model.addAttribute("rank","アマチュアランク");
+				model.addAttribute("rank", "アマチュアランク");
 			} else if ((allTotalPrice >= 50000) && (allTotalPrice < 100000)) {
 				rankNumber = 2;
-				model.addAttribute("rank","プロランク");
+				model.addAttribute("rank", "プロランク");
 			} else if ((allTotalPrice >= 100000) && (allTotalPrice < 200000)) {
 				rankNumber = 3;
-				model.addAttribute("rank","ブロンズランク");
+				model.addAttribute("rank", "ブロンズランク");
 			} else if ((allTotalPrice >= 200000) && (allTotalPrice < 400000)) {
 				rankNumber = 4;
-				model.addAttribute("rank","シルバーランク");
+				model.addAttribute("rank", "シルバーランク");
 			} else if ((allTotalPrice >= 400000) && (allTotalPrice < 800000)) {
 				rankNumber = 5;
-				model.addAttribute("rank","ゴールドランク");
+				model.addAttribute("rank", "ゴールドランク");
 			} else if ((allTotalPrice >= 800000) && (allTotalPrice < 1000000)) {
 				rankNumber = 6;
-				model.addAttribute("rank","ダイヤモンドランク");
+				model.addAttribute("rank", "ダイヤモンドランク");
 			} else if ((allTotalPrice >= 1000000) && (allTotalPrice < 1500000)) {
 				rankNumber = 7;
-				model.addAttribute("rank","プラチナランク");
+				model.addAttribute("rank", "プラチナランク");
 			} else if ((allTotalPrice >= 1500000) && (allTotalPrice < 3000000)) {
 				rankNumber = 8;
-				model.addAttribute("rank","エイリアンランク");
+				model.addAttribute("rank", "エイリアンランク");
 			} else if ((allTotalPrice >= 3000000) && (allTotalPrice < 5000000)) {
 				rankNumber = 9;
-				model.addAttribute("rank","ゴッドフォックスランク");
+				model.addAttribute("rank", "ゴッドフォックスランク");
 			} else if ((allTotalPrice >= 5000000) && (allTotalPrice < 8000000)) {
 				rankNumber = 10;
-				model.addAttribute("rank","プレミアムゴッドランク");
+				model.addAttribute("rank", "プレミアムゴッドランク");
 			} else if ((allTotalPrice >= 8000000)) {
 				rankNumber = 11;
-				model.addAttribute("rank","InductedIntoTheHalOfFameRank");
+				model.addAttribute("rank", "InductedIntoTheHalOfFameRank");
 			}
 
 		} else {
@@ -4690,10 +4684,8 @@ public class ShoppingController {
 	}
 
 	@GetMapping("/productList")
-	public String getProductList(@ModelAttribute PcDataForm form,RedirectAttributes redirectAttributes, Model model) {
-		
-		
-		
+	public String getProductList(@ModelAttribute PcDataForm form, RedirectAttributes redirectAttributes, Model model) {
+
 		model.addAttribute("contents", "shopping/productList::productListLayout_contents");
 		List<PcDataDTO> productList = pcdataService.selectMany();
 
@@ -4937,8 +4929,8 @@ public class ShoppingController {
 	}
 
 	@PostMapping("credit")
-	public String postCredit(@ModelAttribute CreditForm form, PcDataForm pcdataform, BindingResult bindingResult,RedirectAttributes redirectAttributes,Model model,
-			@PathVariable("totalPrice") int totalPrice) {
+	public String postCredit(@ModelAttribute CreditForm form, PcDataForm pcdataform, BindingResult bindingResult,
+			RedirectAttributes redirectAttributes, Model model, @PathVariable("totalPrice") int totalPrice) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 		String getName = auth.getName();
@@ -4952,7 +4944,7 @@ public class ShoppingController {
 		int result = creditService.insertOne(creditdto, getName);
 
 		LoginForm loginForm = new LoginForm();
-		return getProductList(pcdataform,redirectAttributes,model);
+		return getProductList(pcdataform, redirectAttributes, model);
 
 	}
 
@@ -5166,7 +5158,7 @@ public class ShoppingController {
 		if (ITworksTRYshoppingP < 1) {
 			model.addAttribute("point", 0);
 		}
-		
+
 		int pointUse = Integer.parseInt(form.getPointUse());
 		model.addAttribute("point", (ITworksTRYshoppingP - pointUse));
 
@@ -5310,8 +5302,6 @@ public class ShoppingController {
 			model.addAttribute("errorCheck", "true");
 			return getPointUse(form, couponId, model);
 		}
-
-		
 
 		if ((pointUse > pointAll) || (pointUse > totalPriceAll)) {
 			return getPointUse(form, couponId, model);
@@ -6110,7 +6100,7 @@ public class ShoppingController {
 			model.addAttribute("totalPrice", totalPriceAll);
 
 			int pointRate = pointRateService.selectOne(1);
-			model.addAttribute("pointRate",pointRate);
+			model.addAttribute("pointRate", pointRate);
 			String pointRateString = String.valueOf(pointRate);
 			String pointRateNew = 0.0 + pointRateString;
 			System.out.println("pointRateNew" + pointRateNew);

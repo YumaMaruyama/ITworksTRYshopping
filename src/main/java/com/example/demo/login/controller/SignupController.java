@@ -48,15 +48,16 @@ public class SignupController {
 		usersdto.setUser_name(form.getUser_name());
 		usersdto.setRole("notAdmin");
 		String user_id = usersdto.getUser_id();
-
+		
+		//新規ユーザー登録時にすでに登録されているユーザーIDを入力された場合ははじく
 		String result = usersService.check(user_id);
 		if(result.equals("1")) {
 			model.addAttribute("result","入力されたユーザーIDはすでに使用されています。");
 			return getSignup(form,model);
 		}
 
-		int usersList = usersService.insertOne(usersdto);
-		System.out.println("user_id" + user_id);
+		//ユーザー情報をDBに格納
+		usersService.insertOne(usersdto);
 
 		String id = usersService.selectId(user_id);
 		int getId = Integer.parseInt(id);
@@ -66,7 +67,7 @@ public class SignupController {
 		usegedto.setBirthday(form.getBirthday());
 		usegedto.setAddress(form.getAddress());
 
-		int usegeList = usegeService.insertOne(usegedto);
+		usegeService.insertOne(usegedto);
 
 		return "shopping/loginLayout";
 	}
