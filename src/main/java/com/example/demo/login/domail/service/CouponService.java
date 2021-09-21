@@ -15,25 +15,25 @@ public class CouponService {
 
 	@Autowired
 	CouponDao dao;
-	
-	public int couponInsert(CouponDTO coupondto,HttpSession session) {
-		return dao.couponInsert(coupondto,session);
+
+	public int couponInsert(CouponDTO coupondto, HttpSession session) {
+		return dao.couponInsert(coupondto, session);
 	}
-	
+
 	public List<CouponDTO> selectMany(int beforeUseCouponId) {
 		return dao.selectMany(beforeUseCouponId);
 	}
-	
+
 	public List<CouponDTO> beforePurchaseSelectMany() {
 		return dao.beforePurchaseSelectMany();
 	}
-	
+
 	public CouponDTO selectOne(int couponId) {
 		return dao.selectOne(couponId);
 	}
-	
+
 	public List<Integer> selectIdMany() {
 		return dao.selectIdMany();
 	}
-	
+
 }

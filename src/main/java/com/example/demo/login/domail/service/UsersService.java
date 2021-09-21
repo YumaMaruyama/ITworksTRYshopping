@@ -16,14 +16,7 @@ public class UsersService {
 	UsersDao dao;
 
 	public int insertOne(UsersDTO usersdto) {
-
-		int rowNumber =  dao.insertOne(usersdto);
-
-		if(rowNumber > 0) {
-		System.out.println("insert成功");
-		}
-
-		return rowNumber;
+		return dao.insertOne(usersdto);
 	}
 
 	public String selectId(String user_id) {
@@ -42,40 +35,34 @@ public class UsersService {
 	public String check(String user_id) {
 		return dao.check(user_id);
 	}
-	
+
 	public List<UsersListDTO> selectMany(String adminCheck) {
 		return dao.selectMany(adminCheck);
 	}
-	
+
 	public UsersListDTO selectOne(int id) {
 		return dao.selectOne(id);
 	}
-	
+
 	public int deleteOne(int id) {
-		int result = dao.deleteOne(id);
-		if(result > 0) {
-			System.out.println("deleteOne(usersService)成功");
-		}
-		
-		return result;
+		return dao.deleteOne(id);
 	}
-	
+
 	public UsersDTO userInformationSelectOne(int selectId) {
 		return dao.userInformationSelectOne(selectId);
-		
+
 	}
-	
+
 	public int updateOne(UsersDTO usersDTO) {
 		return dao.updateOne(usersDTO);
 	}
-	
+
 	public List<UsersDTO> selectMany() {
 		return dao.selectMany();
 	}
-	
+
 	public String selectRole(int userId) {
 		return dao.selectRole(userId);
 	}
-	
-	
+
 }

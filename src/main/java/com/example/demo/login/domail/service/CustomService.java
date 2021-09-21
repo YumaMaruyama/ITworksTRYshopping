@@ -26,44 +26,40 @@ public class CustomService {
 		return dao.selectCustomProduct_id(id, select_id);
 	}
 
-	public int insertCustomData(int id, int select_id, String defaultMemory, String defaultHardDisc,
-			String defaultCpu,int customPrice) {
-		return dao.insertCustomData(id, select_id, defaultMemory, defaultHardDisc, defaultCpu,customPrice);
+	public int insertCustomData(int id, int select_id, String defaultMemory, String defaultHardDisc, String defaultCpu,
+			int customPrice) {
+		return dao.insertCustomData(id, select_id, defaultMemory, defaultHardDisc, defaultCpu, customPrice);
 	}
 
-	public int deleteCustomOne(int id,int getId) {
-		return dao.deleteCustomOne(id,getId);
+	public int deleteCustomOne(int id, int getId) {
+		return dao.deleteCustomOne(id, getId);
 	}
-	public int selectCustomId(int productId,int select_id) {
-		return dao.selectCustomId(productId,select_id);
+
+	public int selectCustomId(int productId, int select_id) {
+		return dao.selectCustomId(productId, select_id);
 	}
 
 	public PurchaseDTO selectMany(int customId) {
 		return dao.selectMany(customId);
 	}
-	
-	public int purchaseCheckUpdate(int select_id,int product_id) {
-		int result = dao.purchaseCheckUpdate(select_id,product_id);
-		if(result > 0) {
-			System.out.println("purchaseCheckUpdate成功");
-		}
-		
-		return result;
+
+	public int purchaseCheckUpdate(int select_id, int product_id) {
+		return dao.purchaseCheckUpdate(select_id, product_id);
 	}
-	
-	public int selectPurchaseCheck(int select_id,int product_id,int purchaseCheck,String nullCheck) {
-		return dao.selectPurchaseCheck(select_id,product_id,purchaseCheck,nullCheck);
+
+	public int selectPurchaseCheck(int select_id, int product_id, int purchaseCheck, String nullCheck) {
+		return dao.selectPurchaseCheck(select_id, product_id, purchaseCheck, nullCheck);
 	}
-	
+
 	public int pruchaseIdInsertOne(int purchaseId) {
 		return dao.pruchaseIdInsertOne(purchaseId);
 	}
-	
-	public int pruchaseIdUpdate(int purchaseId,int productId,int userId) {
-		return dao.purchaseIdUpdate(purchaseId,productId,userId);
-		
+
+	public int pruchaseIdUpdate(int purchaseId, int productId, int userId) {
+		return dao.purchaseIdUpdate(purchaseId, productId, userId);
+
 	}
-	
+
 	public int deleteOne(int customId) {
 		return dao.deleteOne(customId);
 	}

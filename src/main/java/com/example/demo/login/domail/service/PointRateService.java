@@ -12,11 +12,11 @@ public class PointRateService {
 
 	@Autowired
 	PointRateDao dao;
-	
+
 	public int updateOne(HttpSession session) {
 		return dao.updateOne(session);
 	}
-	
+
 	public int selectOne(int id) {
 		return dao.selectOne(id);
 	}

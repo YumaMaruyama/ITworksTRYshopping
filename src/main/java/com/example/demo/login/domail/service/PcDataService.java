@@ -18,7 +18,7 @@ public class PcDataService {
 	public int insertOne(PcDataDTO pcdatadto) {
 		int rowNumber = dao.insertOne(pcdatadto);
 
-		if(rowNumber > 0) {
+		if (rowNumber > 0) {
 			System.out.println("insert成功");
 		}
 
@@ -27,7 +27,7 @@ public class PcDataService {
 
 	public List<PcDataDTO> selectMany() {
 
-	return dao.selectMany();
+		return dao.selectMany();
 	}
 
 	public PcDataDTO selectOne(int id) {
@@ -40,14 +40,13 @@ public class PcDataService {
 		return dao.insertCheckSelectOne(pcdatadto);
 
 	}
-	
+
 	public PcDataDTO selectPcName(int productId) {
 		return dao.selectPcName(productId);
 	}
-	
-	public int updateOne(PurchaseDTO purchasedto,int productStock) {
-		return dao.updateOne(purchasedto,productStock);
-	}
 
+	public int updateOne(PurchaseDTO purchasedto, int productStock) {
+		return dao.updateOne(purchasedto, productStock);
+	}
 
 }

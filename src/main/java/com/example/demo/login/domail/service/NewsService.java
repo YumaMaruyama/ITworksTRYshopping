@@ -13,20 +13,20 @@ public class NewsService {
 
 	@Autowired
 	NewsDao dao;
-	
+
 	public int insertOne(NewsDTO newsdto) {
 		return dao.insertOne(newsdto);
 	}
-	
+
 	public List<NewsDTO> selectMany() {
 		return dao.selectMany();
 	}
-	
+
 	public NewsDTO selectOne(int newsId) {
 		return dao.selectOne(newsId);
-		
+
 	}
-	
+
 	public int deleteOne(int newsId) {
 		return dao.deleteOne(newsId);
 	}

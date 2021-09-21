@@ -20,10 +20,6 @@ public class CartService {
 	public int insertOne(CartDTO cartdto, int product_id, int select_id) {
 		int result = dao.insertOne(cartdto, product_id, select_id);
 
-		if (result > 0) {
-			System.out.println("insert成功");
-		}
-
 		return result;
 	}
 
@@ -35,56 +31,40 @@ public class CartService {
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
-		String getName = auth.getName();
+		String userId = auth.getName();
 
-		return dao.cartDataSelectMany(getName);
+		return dao.cartDataSelectMany(userId);
 	}
 
 	public int selectOne(CartDTO cartdto, int product_id, int select_id) {
-		int result = dao.selectOne(cartdto, product_id, select_id);
+		return selectOne(cartdto, product_id, select_id);
 
-		if (result > 0) {
-			System.out.println("select成功");
-		}
-		return result;
 	}
 
 	public int deleteOne(int id, int getId) {
 
-		int result = dao.deleteOne(id, getId);
+		return dao.deleteOne(id, getId);
 
-		if (result > 0) {
-			System.out.println("delete成功");
-		}
-		return result;
 	}
 
 	public int updateOne(int productId, int newProductCount, int userId) {
-		int result = dao.updateOne(productId, newProductCount, userId);
+		return dao.updateOne(productId, newProductCount, userId);
 
-		if (result > 0) {
-			System.out.println("update成功");
-		} else {
-			System.out.println("update失敗");
-		}
-		return result;
 	}
 
 	public boolean selectProductCount(int select_id) {
-		//ログインユーザーの購入商品と購入数を取得
+		// ログインユーザーの購入商品と購入数を取得
 		List<CartDTO> checkProductCountList = dao.selectProductCount(select_id);
-		System.out.println("productCountList " + checkProductCountList);
+
 		for (int i = 0; i < checkProductCountList.size(); i++) {
 			CartDTO cartdto = checkProductCountList.get(i);
 			int productId = cartdto.getProduct_id();
-			System.out.println("productId " + productId);
+
 			int productCount = cartdto.getProduct_count();
-			System.out.println("productCount " + productCount);
 
 			int productStock = dao.productStockCheck(productId);
 			int updateCheck = productStock - productCount;
-			System.out.println("test" + updateCheck +" " + productStock + " " +  productCount);
-			if(updateCheck < 0) {
+			if (updateCheck < 0) {
 				return false;
 			}
 		}
@@ -94,16 +74,12 @@ public class CartService {
 		for (int i = 0; i < productCountList.size(); i++) {
 			CartDTO cartdto = productCountList.get(i);
 			int productId = cartdto.getProduct_id();
-			System.out.println("productId " + productId);
+
 			int productCount = cartdto.getProduct_count();
-			System.out.println("productCount " + productCount);
-			//各商品ごとに、在庫数から購入数を引く
-			int result = dao.productStockUpdate(productId, productCount);
-			if (result > 0) {
-				System.out.println("update成功");
-			} else {
-				System.out.println("update失敗");
-			}
+
+			// 各商品ごとに、在庫数から購入数を引く
+			dao.productStockUpdate(productId, productCount);
+
 		}
 
 		return true;
@@ -113,31 +89,27 @@ public class CartService {
 	public List<CartDTO> purchaseSelectMany(int select_id) {
 		return dao.purchaseSelectMany(select_id);
 	}
-	
-	public int idInsertOne(int id,int product_id ,int select_id) {
-		return dao.idInsertOne(id,product_id,select_id);
+
+	public int idInsertOne(int id, int product_id, int select_id) {
+		return dao.idInsertOne(id, product_id, select_id);
 	}
-	
+
 	public int selectMaxId(int productId) {
 		return dao.selectMaxId(productId);
 	}
-	
-	public int updateCouponId(int cartId,int couponId) {
-		System.out.println("ok");
-		return dao.updateCouponId(cartId,couponId);
+
+	public int updateCouponId(int cartId, int couponId) {
+
+		return dao.updateCouponId(cartId, couponId);
 	}
-	
+
 	public int couponCancelUpdate() {
-		System.out.println("service到達");
+
 		return dao.couponCancelUpdate();
 	}
-	
-	public int updateMenberCouponId(int cartId,int couponId) {
+
+	public int updateMenberCouponId(int cartId, int couponId) {
 		return dao.updateMenberCouponId(cartId, couponId);
 	}
-	
-	
-//	public int selectProductId(int cartId) {
-//		return dao.selectProductId(cartId);
-//	}
+
 }

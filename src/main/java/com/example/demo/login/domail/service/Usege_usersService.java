@@ -16,12 +16,7 @@ public class Usege_usersService {
 	Usege_usersDao dao;
 
 	public int insertOne(Usege_usersDTO usegedto) {
-		int result = dao.insertOne(usegedto);
-
-		if(result > 0) {
-			System.out.println("insert成功");
-		}
-		return result;
+		return dao.insertOne(usegedto);
 	}
 
 	public String selectAddress(int select_id) {
@@ -37,11 +32,7 @@ public class Usege_usersService {
 	}
 	
 	public int deleteOne(int id) {
-		int result = dao.deleteOne(id);
-		if(result > 0) {
-			System.out.println("deleteOne(usege_usersService)成功");
-		}
-		return result;
+		return dao.deleteOne(id);
 	}
 	
 	public Usege_usersDTO userInformationSelectOne(int selectId) {

@@ -13,23 +13,22 @@ public class InquiryReplyService {
 
 	@Autowired
 	InquiryReplyDao dao;
-	
-	public int insertOne(InquiryReplyDTO inquiryreplydto,int maxId) {
-		
-		return dao.insertOne(inquiryreplydto,maxId);
+
+	public int insertOne(InquiryReplyDTO inquiryreplydto, int maxId) {
+
+		return dao.insertOne(inquiryreplydto, maxId);
 	}
-	
-	public int replyUpdateOne(HttpSession session,InquiryReplyDTO inquiryreplydto) {
-		return dao.replyUpdateOne(session,inquiryreplydto);
+
+	public int replyUpdateOne(HttpSession session, InquiryReplyDTO inquiryreplydto) {
+		return dao.replyUpdateOne(session, inquiryreplydto);
 	}
-	
+
 	public InquiryReplyDTO selectOne(int inquiryId) {
 		return dao.selectOne(inquiryId);
 	}
-	
+
 	public int deleteOne(int inquiryId) {
 		return dao.deleteOne(inquiryId);
 	}
-	
-	
+
 }

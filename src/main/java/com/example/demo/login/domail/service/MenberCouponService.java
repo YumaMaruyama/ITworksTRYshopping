@@ -19,37 +19,37 @@ public class MenberCouponService {
 	public int menberCouponInsert(MenberCouponDTO menbercoupondto, HttpSession session) {
 		return dao.menberCouponInsert(menbercoupondto, session);
 	}
-	
+
 	public List<MenberCouponDTO> selectMany(int rankNumber) {
 		return dao.selectMany(rankNumber);
 	}
-	
+
 	public List<MenberCouponDTO> selectMany() {
 		return dao.selectMany();
 	}
-	
+
 	public List<MenberCouponDTO> selectRankNumberCheckMany(int rankNumber) {
 		return dao.selectRankNumberCheckMany(rankNumber);
 	}
-	
+
 	public MenberCouponDTO selectOne(int couponId) {
 		return dao.selectOne(couponId);
 	}
-	
+
 	public List<Integer> selectMenberCouponId(int rankNumber) {
 		return dao.selectMenberCouponId(rankNumber);
-		
+
 	}
-	
+
 	public List<Integer> selectMenberCouponId() {
 		return dao.selectMenberCouponId();
-		
+
 	}
-	
+
 	public List<MenberCouponDTO> selectManyBeforeCoupon(int menberCouponId) {
 		return dao.selectManyBeforeCoupon(menberCouponId);
 	}
-	
+
 	public MenberCouponDTO selectManyBeforeMenberCoupon(int menberCouponId) {
 		return dao.selectManyBeforeMenberCoupon(menberCouponId);
 	}
