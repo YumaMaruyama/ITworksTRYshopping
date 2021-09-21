@@ -2,12 +2,12 @@
 
 .after_purchaseTableDesign {
 	font-size: 19px;
-    margin: 34px 0px 0px 153px;
+	margin: 34px 0px 0px 153px;
 }
 
 .after_purchaseTableDesignNext {
 	font-size: 18px;
-    margin-left:75px;
+	margin-left: 75px;
 }
 
 .afPurThDesign {
@@ -19,59 +19,52 @@
 }
 
 .afPurName {
-	width:700px;
+	width: 700px;
 }
 
 .afPurCount {
-	width:280px;
+	width: 280px;
 }
 
 .h2 {
-	margin-top:25px;
+	margin-top: 25px;
 }
 
 .fontDesign {
-	font-size:25px;
+	font-size: 25px;
 	margin-top: 25px;
 }
 
 .afterPurchaseList {
 	display: block;
-    overflow-y: scroll;
-    height: 230px;
-   
+	overflow-y: scroll;
+	height: 230px;
 }
 
 .af_PuProductListBtn {
 	margin-top: 32px;
-    margin-left: 416px;
-    font-size: 21px !important;	
+	margin-left: 416px;
+	font-size: 21px !important;
 }
 
-.afPurName {
-	
-}
-
-.afPurCount {
-	
-}
 
 a.btnAfPu-gradient {
-  -webkit-transform: skew(-15deg);
-  transform: skew(-15deg);
-  color: #fff;
-  border-radius: 0;
-  background-image: -webkit-gradient(linear, left top, right top, from(#2af598), to(#009efd));
-  background-image: -webkit-linear-gradient(left, #2af598 0%, #009efd 100%);
-  background-image: linear-gradient(90deg, #2af598 0%, #009efd 100%);
-  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, .1);
-  box-shadow: 0 5px 10px rgba(0, 0, 0, .1);
+	-webkit-transform: skew(-15deg);
+	transform: skew(-15deg);
+	color: #fff;
+	border-radius: 0;
+	background-image: -webkit-gradient(linear, left top, right top, from(#2af598),
+		to(#009efd));
+	background-image: -webkit-linear-gradient(left, #2af598 0%, #009efd 100%);
+	background-image: linear-gradient(90deg, #2af598 0%, #009efd 100%);
+	-webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, .1);
+	box-shadow: 0 5px 10px rgba(0, 0, 0, .1);
 }
 
 a.btnAfPu-gradient:hover {
-  -webkit-transform: skew(0);
-  transform: skew(0);
-  color: #fff;
-  -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, .1);
-  box-shadow: 0 2px 3px rgba(0, 0, 0, .1);
+	-webkit-transform: skew(0);
+	transform: skew(0);
+	color: #fff;
+	-webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, .1);
+	box-shadow: 0 2px 3px rgba(0, 0, 0, .1);
 }
