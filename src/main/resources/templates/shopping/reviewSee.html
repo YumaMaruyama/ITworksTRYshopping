@@ -6,46 +6,52 @@
 <title>Insert title here</title>
 </head>
 <body>
-	
+
 	<div th:fragment="productListLayout_contents">
-	
-	<h1 class="titleDesign" th:text="${pcName} + 'の口コミ'"></h1>
-	
-	<div class="reviewTable">
-	<table class="table table-bordered reviewSeeTableDesign" th:each="reviewdto : ${reviewList}">
-	<br><br>
-	<tr>
-		<th class="text-center reviewThHength">投稿ユーザー</th>
-		<td class="reviewTdHength" th:text="${reviewdto.userName}"></td>
-	</tr>
-	
-	<tr>
-		<th class="text-center reviewThHength">レーティング</th>
-		<td class="reviewTdHength" th:text="'５段階評価中　' + ${reviewdto.rating}"></td>
-	</tr>
-	
-	<tr>
-		<th class="text-center reviewThHength">タイトル</th>
-		<td  class="reviewTdHength" th:text="${reviewdto.title}"></td>
-	</tr>
-	
-	<tr>
-		<th class="text-center reviewThHength">内容</th>
-		<td class="reviewTdHength" th:text="${reviewdto.content}"></td>
-	</tr>
-	
-	<tr>
-		<th class="text-center reviewThHength">投稿日時</th>
-		<td class="reviewTdHength" th:text="${#dates.format(reviewdto.registrationDate,'yyyy/MM/dd ah:mm')}"></td>
-	</tr>
-	
-	<tr th:if="${reviewdto.usersId} == ${#authentication.principal.username}">
-		<th class="text-center reviewThHength">管理</th>
-		<td class="reviewTdHength"><a th:href="@{/reviewSeeDetail} + '/' + ${reviewdto.id} + '/' + ${productId}">編集</a></td>
-	</tr>
-	
-	</table>
-	</div>
+
+		<h1 class="titleDesign" th:text="${pcName} + 'の口コミ'"></h1>
+
+		<div class="reviewTable">
+			<table class="table table-bordered reviewSeeTableDesign"
+				th:each="reviewdto : ${reviewList}">
+				<br>
+				<br>
+				<tr>
+					<th class="text-center reviewThHength">投稿ユーザー</th>
+					<td class="reviewTdHength" th:text="${reviewdto.userName}"></td>
+				</tr>
+
+				<tr>
+					<th class="text-center reviewThHength">レーティング</th>
+					<td class="reviewTdHength"
+						th:text="'５段階評価中　' + ${reviewdto.rating}"></td>
+				</tr>
+
+				<tr>
+					<th class="text-center reviewThHength">タイトル</th>
+					<td class="reviewTdHength" th:text="${reviewdto.title}"></td>
+				</tr>
+
+				<tr>
+					<th class="text-center reviewThHength">内容</th>
+					<td class="reviewTdHength" th:text="${reviewdto.content}"></td>
+				</tr>
+
+				<tr>
+					<th class="text-center reviewThHength">投稿日時</th>
+					<td class="reviewTdHength"
+						th:text="${#dates.format(reviewdto.registrationDate,'yyyy/MM/dd ah:mm')}"></td>
+				</tr>
+
+				<tr
+					th:if="${reviewdto.usersId} == ${#authentication.principal.username}">
+					<th class="text-center reviewThHength">管理</th>
+					<td class="reviewTdHength"><a
+						th:href="@{/reviewSeeDetail} + '/' + ${reviewdto.id} + '/' + ${productId}">編集</a></td>
+				</tr>
+
+			</table>
+		</div>
 	</div>
 
 </body>

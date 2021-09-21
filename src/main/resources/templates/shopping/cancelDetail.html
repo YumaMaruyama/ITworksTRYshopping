@@ -8,15 +8,16 @@
 <body>
 
 	<div th:fragment="productListLayout_contents">
-	
-	<h1 class="titleDesign" style="width:1100px;">キャンセル前詳細</h1>
-	<div class="progress">
-  <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 65%;" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
-</div>
-		<form method="post" th:action="@{/cancel}"
-			th:object="${cancelForm}">
+
+		<h1 class="titleDesign" style="width: 1100px;">キャンセル前詳細</h1>
+		<div class="progress">
+			<div class="progress-bar progress-bar-striped" role="progressbar"
+				style="width: 65%;" aria-valuenow="65" aria-valuemin="0"
+				aria-valuemax="100"></div>
+		</div>
+		<form method="post" th:action="@{/cancel}" th:object="${cancelForm}">
 			<table class="table  table-bordered calcelDetailTableDesign"
-				th:each="purchasedto : ${purchaseList}" style="width:1100px;">
+				th:each="purchasedto : ${purchaseList}" style="width: 1100px;">
 
 				<tr class="cancelDetailThDesign">
 					<th class="text-center">購入日</th>
@@ -33,81 +34,89 @@
 						th:text="${#dates.format(purchasedto.purchase_date, 'yyyy/MM/dd HH:mm')}"></td>
 					<td class="text-center" th:text="${purchasedto.pcName}"></td>
 					<td class="text-center" th:text="${totalPrice} + '円'"></td>
-					<td class="text-center" th:text="${purchasedto.product_count} + '個'"></td>
+					<td class="text-center"
+						th:text="${purchasedto.product_count} + '個'"></td>
 					<td class="text-center" th:text="${purchasedto.memory}"></td>
 					<td class="text-center" th:text="${purchasedto.hardDisc}"></td>
 					<td class="text-center" th:text="${purchasedto.cpu}"></td>
 				</tr>
 			</table>
-			
+
 			<h2 th:text="${result}" class="canDetaResultDesign"></h2>
 			<br>
 			<h3>上記商品はまだ発送がされていないことが確認できたため、こちらで発送を取りやめます。返金をするための口座情報を入力してください。</h3>
-			
-			
-		<table>
-			<tr>
-			<th class="cancelDetailThNextDesign">口座番号</th>
-			<td>
-						<div class="form-group" th:classappend="${#fields.hasErrors('bankNumber')} ? 'hasError'">
+
+
+			<table>
+				<tr>
+					<th class="cancelDetailThNextDesign">口座番号</th>
+					<td>
+						<div class="form-group"
+							th:classappend="${#fields.hasErrors('bankNumber')} ? 'hasError'">
 							<input type="text" class="form-control" th:field="*{bankNumber}">
-						</div>
-						<span class="text-danger cancelDetailErrorDesign" th:if="${#fields.hasErrors('bankNumber')}" th:errors="*{bankNumber}">bankNumber error</span>
+						</div> <span class="text-danger cancelDetailErrorDesign"
+						th:if="${#fields.hasErrors('bankNumber')}"
+						th:errors="*{bankNumber}">bankNumber error</span>
 					</td>
-			</tr>
-			
-			<tr>
-			<th class="cancelDetailThNextDesign">店舗番号</th>
-			<td>
-						<div class="form-group" th:classappend="${#fields.hasErrors('storeName')} ? 'hasError'">
+				</tr>
+
+				<tr>
+					<th class="cancelDetailThNextDesign">店舗番号</th>
+					<td>
+						<div class="form-group"
+							th:classappend="${#fields.hasErrors('storeName')} ? 'hasError'">
 							<input type="text" class="form-control" th:field="*{storeName}">
-						</div>
-						<span class="text-danger cancelDetailErrorDesign" th:if="${#fields.hasErrors('storeName')}" th:errors="*{storeName}">storeName error</span>
+						</div> <span class="text-danger cancelDetailErrorDesign"
+						th:if="${#fields.hasErrors('storeName')}" th:errors="*{storeName}">storeName
+							error</span>
 					</td>
-			</tr>
-			
+				</tr>
+
 			</table>
-			
-				<div th:each="purchasedto : ${purchaseList}">
+
+			<div th:each="purchasedto : ${purchaseList}">
 				<input type="hidden" name="id" th:value="${purchasedto.id}">
-			<input type="hidden" name="customId" th:value="${purchasedto.custom_id}">
-			
-			
-			
-			<!-- 
+				<input type="hidden" name="customId"
+					th:value="${purchasedto.custom_id}">
+
+
+
+				<!-- 
 			<button class="btn btn-primary" name="completed">キャンセル確定</button>
 			-->
-			
-			<div class="btn-wrapper cancelCheckDesign"> 
-    <div class="check-box">
-        <label><input class="check" type="checkbox" name="check" autocomplete="off" id="agree"><span><a>キャンセルに同意する</a></span></label>
-    </div>
-    <input class="submit" type="submit" id="submit" name="completed" value="キャンセル確定" />
-</div>
+
+				<div class="btn-wrapper cancelCheckDesign">
+					<div class="check-box">
+						<label><input class="check" type="checkbox" name="check"
+							autocomplete="off" id="agree"><span><a>キャンセルに同意する</a></span></label>
+					</div>
+					<input class="submit" type="submit" id="submit" name="completed"
+						value="キャンセル確定" />
+				</div>
 
 			</div>
-	
+
 		</form>
-		
+
 		<script>
-		$(function() {
+			$(function() {
 
-  $('.submit').attr('disabled', 'disabled');
+				$('.submit').attr('disabled', 'disabled');
 
-  $('#agree').on('click', function() {
-      if ($(this).prop('checked') == false) {
-        $('.submit').attr('disabled', 'disabled');
-      } else {
-        $('.submit').removeAttr('disabled');
-      }
-    });
- 
- });
+				$('#agree').on('click', function() {
+					if ($(this).prop('checked') == false) {
+						$('.submit').attr('disabled', 'disabled');
+					} else {
+						$('.submit').removeAttr('disabled');
+					}
+				});
+
+			});
 		</script>
-				
-			
-		
-	
+
+
+
+
 	</div>
-	</body>
+</body>
 </html>

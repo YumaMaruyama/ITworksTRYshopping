@@ -16,8 +16,7 @@
 		</div>
 
 
-		<table
-			class="table table-bordered cancelDeliveryCompleteTableDesign"
+		<table class="table table-bordered cancelDeliveryCompleteTableDesign"
 			th:each="purchasedto : ${purchaseList}">
 			<tr class="cancelDeliveryCompleteThDesign">
 				<th class="text-center">購入日</th>
@@ -50,8 +49,7 @@
 		<h3>発送に必要な詳細情報</h3>
 
 		<table
-			class="tabel table-bordered canDeliDetaTableDesign cancelDeliveryCompleteNextTableDesign"
-			>
+			class="tabel table-bordered canDeliDetaTableDesign cancelDeliveryCompleteNextTableDesign">
 
 			<tr>
 				<th class="cancelDeliveryCompleteNextThDesign">商品管理室住所</th>
@@ -103,8 +101,12 @@
 					th:value="${purchasedto.custom_id}">
 				<table>
 					<tr th:if="${notCancel} != 'notCancel'">
-						<td><button class="btn btnCancelDeliveryComplete--blue btnCancelDeliveryComplete--radius btnCancelDeliveryComplete--cubic cancelDeliveryCompletedBtnDesign" name="deliveredCompleted">発送完了</button></td>
-						<td><button class="btn btnCancelDeliveryComplete--red btnCancelDeliveryComplete--radius btnCancelDeliveryComplete--cubic cancelCancelBtnDesign" name="cancelDelete">キャンセル取り消し</button></td>
+						<td><button
+								class="btn btnCancelDeliveryComplete--blue btnCancelDeliveryComplete--radius btnCancelDeliveryComplete--cubic cancelDeliveryCompletedBtnDesign"
+								name="deliveredCompleted">発送完了</button></td>
+						<td><button
+								class="btn btnCancelDeliveryComplete--red btnCancelDeliveryComplete--radius btnCancelDeliveryComplete--cubic cancelCancelBtnDesign"
+								name="cancelDelete">キャンセル取り消し</button></td>
 					</tr>
 				</table>
 			</div>

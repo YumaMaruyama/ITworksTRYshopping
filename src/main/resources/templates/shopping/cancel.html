@@ -7,15 +7,16 @@
 </head>
 <body>
 	<div th:fragment="productListLayout_contents">
-	
-	<h1 class="titleDesign">キャンセル画面</h1>
-	<div class="progress" style="width:1100px;">
-  <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 1%;" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100"></div>
-</div>
-		<form method="post" th:action="@{/cancel}"
-			th:object="${cancelForm}">
+
+		<h1 class="titleDesign">キャンセル画面</h1>
+		<div class="progress" style="width: 1100px;">
+			<div class="progress-bar progress-bar-striped" role="progressbar"
+				style="width: 1%;" aria-valuenow="1" aria-valuemin="0"
+				aria-valuemax="100"></div>
+		</div>
+		<form method="post" th:action="@{/cancel}" th:object="${cancelForm}">
 			<table class="table table-bordered cancelTableDesign"
-				th:each="purchasedto : ${purchaseList}" style="width:1100px;">
+				th:each="purchasedto : ${purchaseList}" style="width: 1100px;">
 
 				<tr class="cancelThDesign">
 					<th class="text-center">購入日</th>
@@ -32,25 +33,27 @@
 						th:text="${#dates.format(purchasedto.purchase_date, 'yyyy/MM/dd HH:mm')}"></td>
 					<td class="text-center" th:text="${purchasedto.pcName}"></td>
 					<td class="text-center" th:text="${totalPrice} + '円'"></td>
-					<td class="text-center" th:text="${purchasedto.product_count} + '個'"></td>
+					<td class="text-center"
+						th:text="${purchasedto.product_count} + '個'"></td>
 					<td class="text-center" th:text="${purchasedto.memory}"></td>
 					<td class="text-center" th:text="${purchasedto.hardDisc}"></td>
 					<td class="text-center" th:text="${purchasedto.cpu}"></td>
 				</tr>
 			</table>
-			
-		<table>
-			<br>
-			<h3>上記商品のキャンセルを行いたと思わせてしまい誠に申し訳ございません。この商品の何が気に入らなかったでしょうか？</h3>
-			
-			<tr>
-			
-			<br>
-			<h3 th:text="${result}" class="text-danger"></h3>
-			<br>
-			<th class="text-center" style="font-size:20px;">理由選択</th>
-					<td class="text-center" style="font-size:17px;"><select class="cancelSelect" th:field="*{title}">
-					<option value="0">‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐</option>
+
+			<table>
+				<br>
+				<h3>上記商品のキャンセルを行いたと思わせてしまい誠に申し訳ございません。この商品の何が気に入らなかったでしょうか？</h3>
+
+				<tr>
+
+					<br>
+					<h3 th:text="${result}" class="text-danger"></h3>
+					<br>
+					<th class="text-center" style="font-size: 20px;">理由選択</th>
+					<td class="text-center" style="font-size: 17px;"><select
+						class="cancelSelect" th:field="*{title}">
+							<option value="0">‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐</option>
 							<option value="購入した商品画像と違うものだった">購入した商品画像と違うものだった</option>
 							<option value="壊れた状態で送られてきた">壊れた状態で送られてきた</option>
 							<option value="自分の気が変わった">自分の気が変わった</option>
@@ -59,11 +62,15 @@
 					</select></td>
 			</table>
 			<div th:each="purchasedto : ${purchaseList}">
-			<input type="hidden" name="id" th:value="${purchasedto.id}">
-			<button class="btn btnCancel--red btnCancel--radius btnCancel--cubic cancelBtnDesign" name="cancelNext"><i>次へ</i></button>
+				<input type="hidden" name="id" th:value="${purchasedto.id}">
+				<button
+					class="btn btnCancel--red btnCancel--radius btnCancel--cubic cancelBtnDesign"
+					name="cancelNext">
+					<i>次へ</i>
+				</button>
 			</div>
 		</form>
-	
+
 	</div>
 </body>
 </html>

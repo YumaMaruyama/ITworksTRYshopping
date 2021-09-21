@@ -77,22 +77,31 @@
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container-fluid headerDesign">
 			<div class="navbar-header col-sm-4">
-			<i th:if="${session.rankPoint} == 'アマチュアランク'" class="fa fa-glass rank1 fa-spin"></i>
-			<i th:if="${session.rankPoint} == 'プロランク'" class="fa fa-glass rank2 fa-spin"></i>
-			<i th:if="${session.rankPoint} == 'ブロンズランク'" class="fa fa-trophy rank3 fa-spin"></i>
-			<i th:if="${session.rankPoint} == 'シルバーランク'" class="fa fa-trophy rank4 fa-spin"></i>
-			<i th:if="${session.rankPoint} == 'ゴールドランク'" class="fa fa-trophy rank5 fa-spin"></i>
-			<i th:if="${session.rankPoint} == 'ダイヤモンドランク'" class="fa fa-trophy rank6 fa-spin"></i>
-			<i th:if="${session.rankPoint} == 'プラチナランク'" class="fa fa-trophy rank7 fa-spin"></i>
-			<i th:if="${session.rankPoint} == 'エイリアンランク'" class="fa  fa-drupal rank8 fa-spin"></i>
-			<i th:if="${session.rankPoint} == 'ゴッドフォックスランク'" class="fa fa-firefox rank9 fa-spin"></i>
-			<i th:if="${session.rankPoint} == 'プレミアムゴッドランク'" class="fa fa-graduation-cap rank10 fa-spin"></i>
-			<i th:if="${session.rankPoint} == 'InductedIntoTheHalOfFameRank'" class="fa fa-optin-monster rank11 fa-spin"></i>
-			
-			
-				<a class="navbar-brand" th:href="@{/productList}"
+				<i th:if="${session.rankPoint} == 'アマチュアランク'"
+					class="fa fa-glass rank1 fa-spin"></i> <i
+					th:if="${session.rankPoint} == 'プロランク'"
+					class="fa fa-glass rank2 fa-spin"></i> <i
+					th:if="${session.rankPoint} == 'ブロンズランク'"
+					class="fa fa-trophy rank3 fa-spin"></i> <i
+					th:if="${session.rankPoint} == 'シルバーランク'"
+					class="fa fa-trophy rank4 fa-spin"></i> <i
+					th:if="${session.rankPoint} == 'ゴールドランク'"
+					class="fa fa-trophy rank5 fa-spin"></i> <i
+					th:if="${session.rankPoint} == 'ダイヤモンドランク'"
+					class="fa fa-trophy rank6 fa-spin"></i> <i
+					th:if="${session.rankPoint} == 'プラチナランク'"
+					class="fa fa-trophy rank7 fa-spin"></i> <i
+					th:if="${session.rankPoint} == 'エイリアンランク'"
+					class="fa  fa-drupal rank8 fa-spin"></i> <i
+					th:if="${session.rankPoint} == 'ゴッドフォックスランク'"
+					class="fa fa-firefox rank9 fa-spin"></i> <i
+					th:if="${session.rankPoint} == 'プレミアムゴッドランク'"
+					class="fa fa-graduation-cap rank10 fa-spin"></i> <i
+					th:if="${session.rankPoint} == 'InductedIntoTheHalOfFameRank'"
+					class="fa fa-optin-monster rank11 fa-spin"></i> <a
+					class="navbar-brand" th:href="@{/productList}"
 					title="アプリ名をクリックするとLogin画面に推移します"><span
-					style="color: #a4f7cb !important; font-size:20px">ITworksTRYshopping</span></a>
+					style="color: #a4f7cb !important; font-size: 20px">ITworksTRYshopping</span></a>
 
 
 			</div>
@@ -115,16 +124,28 @@
 			<div class="clearfix"></div>
 			<div class="col-sm-3 col-md-2 sidebar">
 				<ul class="nav nav-sidebar">
-					<li><a class="btn btn-gradient desiginBtn topBtn"th:href="@{/productList}"><i class="fa fa-cart-arrow-down"></i><span>商品一覧</span></a></li>
-					<li class="flexDetail"><a class="btn btn-gradient desiginBtn" th:href="@{/cart}"><i class="fa fa-cart-plus"></i><span>カート一覧</span></a></li>
-					<li><a class="btn btn-gradient desiginBtn" th:href="@{/purchaseHistory}"><i class="fa fa-history"></i><span>商品購入履歴</span></a></li>
-					<li><a class="btn btn-gradient desiginBtn" th:href="@{/couponList}"><i class="fa fa-ticket"></i><span>クーポン情報</span></a></li>
-					<li><a class="btn btn-gradient desiginBtn" th:href="@{/editYour}"><i class="fa fa-info"></i><span>あなたの情報</span></a></li>
-					<li><a class="btn btn-gradient desiginBtn" th:href="@{/news}"><i class="fa fa-envelope"></i><span>お知らせ</span></a></li>
-					<li><a class="btn btn-gradient desiginBtn" th:href="@{/inquiry}"><i class="fa fa-question"></i><span>お問い合わせ</span></a></li>
-					<li><a class="btn btn-gradient desiginBtn" th:href="@{/privacyPolicy}"><i class="fa fa-eye"></i><span style="font-size:12px;">プライバシーポリシー</span></a></li>
-					<li><a class="btn btn-gradient desiginBtn" th:href="@{/termsOfUse}"><i class="fa fa-eye"></i><span>利用規約</span></a></li>
-					<li th:if="${session.sessionGetRole} == 'admin'"><a class="btn btn-gradient desiginBtn" th:href="@{/administrator}"><i class="fa fa-cogs"></i><span style="font-size:12px;">管理者専用画面</span></a></li>
+					<li><a class="btn btn-gradient desiginBtn topBtn"
+						th:href="@{/productList}"><i class="fa fa-cart-arrow-down"></i><span>商品一覧</span></a></li>
+					<li class="flexDetail"><a class="btn btn-gradient desiginBtn"
+						th:href="@{/cart}"><i class="fa fa-cart-plus"></i><span>カート一覧</span></a></li>
+					<li><a class="btn btn-gradient desiginBtn"
+						th:href="@{/purchaseHistory}"><i class="fa fa-history"></i><span>商品購入履歴</span></a></li>
+					<li><a class="btn btn-gradient desiginBtn"
+						th:href="@{/couponList}"><i class="fa fa-ticket"></i><span>クーポン情報</span></a></li>
+					<li><a class="btn btn-gradient desiginBtn"
+						th:href="@{/editYour}"><i class="fa fa-info"></i><span>あなたの情報</span></a></li>
+					<li><a class="btn btn-gradient desiginBtn" th:href="@{/news}"><i
+							class="fa fa-envelope"></i><span>お知らせ</span></a></li>
+					<li><a class="btn btn-gradient desiginBtn"
+						th:href="@{/inquiry}"><i class="fa fa-question"></i><span>お問い合わせ</span></a></li>
+					<li><a class="btn btn-gradient desiginBtn"
+						th:href="@{/privacyPolicy}"><i class="fa fa-eye"></i><span
+							style="font-size: 12px;">プライバシーポリシー</span></a></li>
+					<li><a class="btn btn-gradient desiginBtn"
+						th:href="@{/termsOfUse}"><i class="fa fa-eye"></i><span>利用規約</span></a></li>
+					<li th:if="${session.sessionGetRole} == 'admin'"><a
+						class="btn btn-gradient desiginBtn" th:href="@{/administrator}"><i
+							class="fa fa-cogs"></i><span style="font-size: 12px;">管理者専用画面</span></a></li>
 
 				</ul>
 			</div>

@@ -7,45 +7,41 @@
 </head>
 <body>
 
-		<div th:fragment="productListLayout_contents">
+	<div th:fragment="productListLayout_contents">
 
 		<h1 class="titleDesign">商品購入履歴</h1>
 
-		
-
-			<div class="flex purHisTable" style="width: 1100px;">
-				<div class="item" 
-			 th:each="purchasedto : ${purchaseList}">
-			 <form>
-						<img class="size" th:src="${purchasedto.pcImg}">
-						<h5  class="card-title purHisfontdesign"
-							th:text="'購入日：' + ${#dates.format(purchasedto.purchase_date, 'yyyy/MM/dd HH:mm')}"></h5>
-						<p class="card-title purHisfontdesign"
-							th:text="'商品名：' + ${purchasedto.pcName}"></p>
-						<p  th:if="${purchasedto.couponId} == -1"class="card-title purHisfontdesign"
-							th:text="'値段：' + ${purchasedto.totalPrice}"></p>
-						<p th:if="${purchasedto.couponId} gt 0" class="card-title purHisfontdesign"
-							th:text="'値段：' + ${purchasedto.totalPrice} + '(クーポン適用)'"></p>
-						<p class="card-text purHisfontdesign cartmemory"
-							style="margin-bottom: 0px !important"
-							th:text="'メモリー：' + ${purchasedto.memory}"></p>
-						<p class="card-text purHisfontdesign cartharddisc"
-							style="margin-bottom: 0px !important"
-							th:text="'ハードディスク：' + ${purchasedto.hardDisc}"></p>
-						<p class="card-text purHisfontdesign cartcpu"
-							style="margin-bottom: 0px !important"
-							th:text="'CPU：' + ${purchasedto.cpu}"></p>
-						<p class="card-text purHisfontdesign cartcpu"
-							style="margin-bottom: 0px !important"
-							th:text="'購入数：' + ${purchasedto.product_count}"></p>
-						
-					
 
 
-
-				</div>
-				</form>
+		<div class="flex purHisTable" style="width: 1100px;">
+			<div class="item" th:each="purchasedto : ${purchaseList}">
+				<form>
+					<img class="size" th:src="${purchasedto.pcImg}">
+					<h5 class="card-title purHisfontdesign"
+						th:text="'購入日：' + ${#dates.format(purchasedto.purchase_date, 'yyyy/MM/dd HH:mm')}"></h5>
+					<p class="card-title purHisfontdesign"
+						th:text="'商品名：' + ${purchasedto.pcName}"></p>
+					<p th:if="${purchasedto.couponId} == -1"
+						class="card-title purHisfontdesign"
+						th:text="'値段：' + ${purchasedto.totalPrice}"></p>
+					<p th:if="${purchasedto.couponId} gt 0"
+						class="card-title purHisfontdesign"
+						th:text="'値段：' + ${purchasedto.totalPrice} + '(クーポン適用)'"></p>
+					<p class="card-text purHisfontdesign cartmemory"
+						style="margin-bottom: 0px !important"
+						th:text="'メモリー：' + ${purchasedto.memory}"></p>
+					<p class="card-text purHisfontdesign cartharddisc"
+						style="margin-bottom: 0px !important"
+						th:text="'ハードディスク：' + ${purchasedto.hardDisc}"></p>
+					<p class="card-text purHisfontdesign cartcpu"
+						style="margin-bottom: 0px !important"
+						th:text="'CPU：' + ${purchasedto.cpu}"></p>
+					<p class="card-text purHisfontdesign cartcpu"
+						style="margin-bottom: 0px !important"
+						th:text="'購入数：' + ${purchasedto.product_count}"></p>
 			</div>
-			</div>
+			</form>
+		</div>
+	</div>
 </body>
 </html>

@@ -11,32 +11,34 @@
 			<h1 class="titleDesign">ITworksTRYshoppingポイント利用画面</h1>
 		</header>
 
-		<form method="post" th:action="@{/pointUse} + '/' + ${couponId}" th:object="${pointUseForm}">
+		<form method="post" th:action="@{/pointUse} + '/' + ${couponId}"
+			th:object="${pointUseForm}">
 			<table class="table table-bordered pointUseTableDesign">
-			<br>
-			<h3 class="text-center">1ポイント1円として利用できます。現在保持しているポイント以下で、且つ合計支払金額以下のポイントを利用できます</h3>
+				<br>
+				<h3 class="text-center">1ポイント1円として利用できます。現在保持しているポイント以下で、且つ合計支払金額以下のポイントを利用できます</h3>
 				<tr>
 					<th class="text-center pointUseThDesign">現在のITworksTRYshoppingポイント</th>
-					<td class="text-center pointUseTdDesign" th:text="${point} + 'ポイント保持'"></td>
+					<td class="text-center pointUseTdDesign"
+						th:text="${point} + 'ポイント保持'"></td>
 				</tr>
 				<tr>
 					<th class="text-center pointUseThDesign">合計支払金額</th>
-					<td class="text-center pointUseTdDesign" th:text="${totalPrice} + '円'"></td>
+					<td class="text-center pointUseTdDesign"
+						th:text="${totalPrice} + '円'"></td>
 				</tr>
 
 				<tr>
 					<th class="text-center pointUseThDesign">利用ポイント</th>
 					<td th:classappend="${#fields.hasErrors('pointUse')}?'has-error'"
-						class="form-group pointUseTdDesign"><input type="text" class="form-control"
-						th:field="*{pointUse}"> <span class="text-danger"
-						th:if="${#fields.hasErrors('pointUse')}" th:errors="*{pointUse}">pointUse
-							error</span></td>
-				
-					
-			
+						class="form-group pointUseTdDesign"><input type="text"
+						class="form-control" th:field="*{pointUse}"> <span
+						class="text-danger" th:if="${#fields.hasErrors('pointUse')}"
+						th:errors="*{pointUse}">pointUse error</span></td>
 			</table>
-			<h4 class="text-danger pointUseErrorDesign" th:if="${errorCheck} == 'true'" th:text="${error}"></h4>
-			<button class="text-center btn btnPU--red btnPu--radius btnPU--cubic pointUseBtnDesign">入力分のポイントを使用</button>
+			<h4 class="text-danger pointUseErrorDesign"
+				th:if="${errorCheck} == 'true'" th:text="${error}"></h4>
+			<button
+				class="text-center btn btnPU--red btnPu--radius btnPU--cubic pointUseBtnDesign">入力分のポイントを使用</button>
 		</form>
 	</div>
 

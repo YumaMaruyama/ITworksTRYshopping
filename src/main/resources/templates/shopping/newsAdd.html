@@ -22,7 +22,7 @@
 						th:errors="*{title}">title error</span>
 					</td>
 				</tr>
-				
+
 				<tr>
 					<th class="text-center newsAddThDesign">内容</th>
 					<td class="newsAddTdDesign">
@@ -34,21 +34,21 @@
 					</td>
 				</tr>
 			</table>
-			
-			<button class="btn btn-radius-solidNewsAdd btn--shadow newsAddBtnDesign">おしらせ投稿</button>
+
+			<button
+				class="btn btn-radius-solidNewsAdd btn--shadow newsAddBtnDesign">おしらせ投稿</button>
 		</form>
-		
+
 		<script>
 			$('.newsAddBtnDesign').click(function() {
 				if (confirm('本当にこの内容で投稿しますか？')) {
-					
+
 					return true;
 				}
 				return false;
 			});
-			
 		</script>
-		
+
 	</div>
 
 </body>

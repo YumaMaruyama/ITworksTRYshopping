@@ -6,22 +6,23 @@
 <title>Insert title here</title>
 </head>
 <body>
-	
+
 	<div th:fragment="productListLayout_contents">
 		<header>
 			<h1 class="titleDesign">ポイント倍率変更</h1>
 		</header>
-		
-		
+
+
 		<table class="table col-sm-6 pointRateChangeFinishTableDesign">
 			<tr>
 				<th class="text-center pointRateChangeFinishThDesign">変更後の倍率</th>
-				<td class="text-center pointRateChangeFinishTdDesign" th:text="${pointRate} + '%付与'"></td>
+				<td class="text-center pointRateChangeFinishTdDesign"
+					th:text="${pointRate} + '%付与'"></td>
 			</tr>
-		
+
 		</table>
-		
+
 	</div>
-	
+
 </body>
 </html>

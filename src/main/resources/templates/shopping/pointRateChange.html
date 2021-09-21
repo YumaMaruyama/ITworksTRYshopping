@@ -11,36 +11,28 @@
 		<header>
 			<h1 class="titleDesign">ポイント倍率変更</h1>
 		</header>
-		
-		<form method="post" th:action="@{/pointRateChange}" th:object=${pointRateChangeForm}>
-		
-			<table class="table col-sm-6 table-bordered pointRateChangeTableDesign">
-			
-			
+		<form method="post" th:action="@{/pointRateChange}"
+			th:object=${pointRateChangeForm}>
+			<table
+				class="table col-sm-6 table-bordered pointRateChangeTableDesign">
 				<tr>
 					<th class="text-center pointRateChangeThDesign">現在のポイント倍率</th>
-					<td class="text-center pointRateChangeTdDesign" th:text="${pointRate} + '%付与'"></td>
+					<td class="text-center pointRateChangeTdDesign"
+						th:text="${pointRate} + '%付与'"></td>
 				</tr>
-			
+
 				<tr>
 					<th class="text-center pointRateChangeThDesign">倍率変更</th>
 					<td th:classappend="${#fields.hasErrors('pointRate')}?'has-error'"
-						class="form-group pointRateChangeTdDesign"><input type="text" class="form-control"
-						th:field="*{pointRate}"> <span class="text-danger"
-						th:if="${#fields.hasErrors('pointRate')}" th:errors="*{pointRate}">pointRate
-							error</span></td>
+						class="form-group pointRateChangeTdDesign"><input type="text"
+						class="form-control" th:field="*{pointRate}"> <span
+						class="text-danger" th:if="${#fields.hasErrors('pointRate')}"
+						th:errors="*{pointRate}">pointRate error</span></td>
 				</tr>
-				
-				
-				
-			
 			</table>
-			
-			<button class="btn btn-radius-solidPointRateChange btn--shadow pointRateChangeBtnDesign" >倍率変更</button>
+			<button
+				class="btn btn-radius-solidPointRateChange btn--shadow pointRateChangeBtnDesign">倍率変更</button>
 		</form>
-		
-		
-		
 	</div>
 </body>
 </html>

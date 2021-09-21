@@ -6,12 +6,12 @@
 <title>cancelInquiry</title>
 </head>
 <body>
-	
+
 	<div th:fragment="productListLayout_contents">
-	
-	<h1 class="titleDesign">キャンセル期間外について</h1>
-	
-	<table class="table table-bordered cancelInquiryTableDesign"
+
+		<h1 class="titleDesign">キャンセル期間外について</h1>
+
+		<table class="table table-bordered cancelInquiryTableDesign"
 			th:each="purchasedto : ${purchaseList}" style="width: 1100px;">
 			<tr class="cancelInquiryThDesign">
 				<th class="text-center">購入日</th>
@@ -36,8 +36,9 @@
 		</table>
 
 		<h3>上記の商品は購入日から10日間経過したため、キャンセル期間外となりました。ご了承ください。</h3>
-	
-		<a th:href="@{/purchaseHistory}" class="btn btnCancel--blue btnCancel--radius btnCancel--cubic cancelInquiryBtnDesign">商品購入履歴へ戻る</a>
+
+		<a th:href="@{/purchaseHistory}"
+			class="btn btnCancel--blue btnCancel--radius btnCancel--cubic cancelInquiryBtnDesign">商品購入履歴へ戻る</a>
 	</div>
 </body>
 </html>

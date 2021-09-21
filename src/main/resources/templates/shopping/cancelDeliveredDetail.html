@@ -7,16 +7,19 @@
 </head>
 <body>
 	<div th:fragment="productListLayout_contents">
-	
-	<h1 class="titleDesign" >キャンセル前詳細</h1>
-	<div class="progress" style="width:1100px;">
-  <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 60%;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-</div>
 
-<form method="post" th:action="@{/cancelDeliveryComplete}"
+		<h1 class="titleDesign">キャンセル前詳細</h1>
+		<div class="progress" style="width: 1100px;">
+			<div class="progress-bar progress-bar-striped" role="progressbar"
+				style="width: 60%;" aria-valuenow="60" aria-valuemin="0"
+				aria-valuemax="100"></div>
+		</div>
+
+		<form method="post" th:action="@{/cancelDeliveryComplete}"
 			th:object="${cancelForm}">
-			<table class="table table-hover table-bordered cancelDeliveredDetailTableDesign"
-				th:each="purchasedto : ${purchaseList}" style="width:1100px;">
+			<table
+				class="table table-hover table-bordered cancelDeliveredDetailTableDesign"
+				th:each="purchasedto : ${purchaseList}" style="width: 1100px;">
 
 				<tr class="cancelDeliveredDetailThDesign">
 					<th class="text-center">購入日</th>
@@ -33,75 +36,82 @@
 						th:text="${#dates.format(purchasedto.purchase_date, 'yyyy/MM/dd HH:mm')}"></td>
 					<td class="text-center" th:text="${purchasedto.pcName}"></td>
 					<td class="text-center" th:text="${totalPrice} + '円'"></td>
-					<td class="text-center" th:text="${purchasedto.product_count} + '個'"></td>
+					<td class="text-center"
+						th:text="${purchasedto.product_count} + '個'"></td>
 					<td class="text-center" th:text="${purchasedto.memory}"></td>
 					<td class="text-center" th:text="${purchasedto.hardDisc}"></td>
 					<td class="text-center" th:text="${purchasedto.cpu}"></td>
 				</tr>
 			</table>
-			
-			<h3 style="width:1100px;">上記商品は発送済みのためお客様のお手元に届いたキャンセル商品をこのサイトの商品管理室へ着払いで発送をお願いいたします。<br>
-			発送方法はキャンセルを確定した後の商品発送詳細画面でご覧になれます。</h3>
-		
-			
+
+			<h3 style="width: 1100px;">
+				上記商品は発送済みのためお客様のお手元に届いたキャンセル商品をこのサイトの商品管理室へ着払いで発送をお願いいたします。<br>
+				発送方法はキャンセルを確定した後の商品発送詳細画面でご覧になれます。
+			</h3>
+
+
 			<table>
-			<br>
-			<h3>返金をするための口座情報を入力してください。</h3>
-			
-			<h2 class="text-danger" th:text="${result}"></h2>
-			
-			<tr>
-			<th class="cancelDeliveredDetailThNextDesign">口座番号</th>
-			<td>
-						<div class="form-group" th:classappend="${#fields.hasErrors('bankNumber')} ? 'hasError'">
+				<br>
+				<h3>返金をするための口座情報を入力してください。</h3>
+
+				<h2 class="text-danger" th:text="${result}"></h2>
+
+				<tr>
+					<th class="cancelDeliveredDetailThNextDesign">口座番号</th>
+					<td>
+						<div class="form-group"
+							th:classappend="${#fields.hasErrors('bankNumber')} ? 'hasError'">
 							<input type="text" class="form-control" th:field="*{bankNumber}">
-						</div>
-						<span class="text-danger cancelDeliveredDetailErrorDesign" th:if="${#fields.hasErrors('bankNumber')}" th:errors="*{bankNumber}">bankNumber error</span>
+						</div> <span class="text-danger cancelDeliveredDetailErrorDesign"
+						th:if="${#fields.hasErrors('bankNumber')}"
+						th:errors="*{bankNumber}">bankNumber error</span>
 					</td>
-			</tr>
-			
-			<tr>
-			<th class="cancelDeliveredDetailThNextDesign">店舗番号</th>
-			<td>
-						<div class="form-group" th:classappend="${#fields.hasErrors('storeName')} ? 'hasError'">
+				</tr>
+
+				<tr>
+					<th class="cancelDeliveredDetailThNextDesign">店舗番号</th>
+					<td>
+						<div class="form-group"
+							th:classappend="${#fields.hasErrors('storeName')} ? 'hasError'">
 							<input type="text" class="form-control" th:field="*{storeName}">
-						</div>
-						<span class="text-danger cancelDeliveredDetailErrorDesign" th:if="${#fields.hasErrors('storeName')}" th:errors="*{storeName}">storeName error</span>
+						</div> <span class="text-danger cancelDeliveredDetailErrorDesign"
+						th:if="${#fields.hasErrors('storeName')}" th:errors="*{storeName}">storeName
+							error</span>
 					</td>
-			</tr>
-			
+				</tr>
+
 			</table>
-			
-				<div class="btn-wrapper cancelCheckDesign" th:if="${check} != '再入力不可'"> 
-    <div class="check-box" >
-        <label><input class="check" type="checkbox" name="check" autocomplete="off" id="agree"><span><a ></a>口座情報を確定し、キャンセルに同意する</span></label>
-    </div>
-    <div th:each="purchasedto : ${purchaseList}">
-    <input type="hidden" name="id" th:value="${purchasedto.id}">
-			<input type="hidden" name="customId" th:value="${purchasedto.custom_id}">
-    <input class="submit" type="submit" id="submit" value="発送詳細ページへ" />
-</div></div>
-			
-			<!--  <div th:each="purchasedto : ${purchaseList}">
-			<input type="hidden" name="id" th:value="${purchasedto.id}">
-			<input type="hidden" name="customId" th:value="${purchasedto.custom_id}">
-			<a class="btn btn-primary">発送詳細ページへ</a>
-			</div>-->
+
+			<div class="btn-wrapper cancelCheckDesign"
+				th:if="${check} != '再入力不可'">
+				<div class="check-box">
+					<label><input class="check" type="checkbox" name="check"
+						autocomplete="off" id="agree"><span><a></a>口座情報を確定し、キャンセルに同意する</span></label>
+				</div>
+				<div th:each="purchasedto : ${purchaseList}">
+					<input type="hidden" name="id" th:value="${purchasedto.id}">
+					<input type="hidden" name="customId"
+						th:value="${purchasedto.custom_id}"> <input class="submit"
+						type="submit" id="submit" value="発送詳細ページへ" />
+				</div>
+			</div>
+
+
 		</form>
 		<script>
-		$(function() {
+			$(function() {
 
-  $('.submit').attr('disabled', 'disabled');
+				$('.submit').attr('disabled', 'disabled');
 
-  $('#agree').on('click', function() {
-      if ($(this).prop('checked') == false) {
-        $('.submit').attr('disabled', 'disabled');
-      } else {
-        $('.submit').removeAttr('disabled');
-      }
-    });
- 
- });
+				$('#agree').on('click', function() {
+					if ($(this).prop('checked') == false) {
+						$('.submit').attr('disabled', 'disabled');
+					} else {
+						$('.submit').removeAttr('disabled');
+					}
+				});
+
+			});
 		</script>
 	</div>
 </body>

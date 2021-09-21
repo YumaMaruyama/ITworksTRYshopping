@@ -7,40 +7,43 @@
 </head>
 <body>
 	<div th:fragment="productListLayout_contents">
-	<form method="post" th:action="@{/usersList}" th:object="${usersListForm}">
-	<h1 class="titleDesign">ユーザー編集</h1>
-	<table class="table table-bordered usersListDesign" th:each="userslistdto : ${usersDetailList}">
-		<tr class="usersListDetailThColor">
-			<th class="text-center">メールアドレス</th>
-			<th class="text-center">登録名</th>
-			<th class="text-center">生年月日</th>
-			<th class="text-center">商品受け取り住所</th>
-			
-		</tr>
-		
-		<tr class="usersListDetailTdColor">
-			<td class="text-center" th:text="${userslistdto.userId}"></td>
-			<td class="text-center" th:text="${userslistdto.userName}"></td>
-			<td class="text-center" th:text="${userslistdto.birthday}"></td>
-			<td class="text-center" th:text="${userslistdto.address}"></td>
-		</tr>
-	</table>
-		
-		<input type="hidden" name="id" th:value="${userId}">
-		<button class="btn btn-border usersListDetailBtnDesign" name="unsubscribe">ユーザーを退会</button>
-		
-	</form>
-	
-	<script>
+		<form method="post" th:action="@{/usersList}"
+			th:object="${usersListForm}">
+			<h1 class="titleDesign">ユーザー編集</h1>
+			<table class="table table-bordered usersListDesign"
+				th:each="userslistdto : ${usersDetailList}">
+				<tr class="usersListDetailThColor">
+					<th class="text-center">メールアドレス</th>
+					<th class="text-center">登録名</th>
+					<th class="text-center">生年月日</th>
+					<th class="text-center">商品受け取り住所</th>
+
+				</tr>
+
+				<tr class="usersListDetailTdColor">
+					<td class="text-center" th:text="${userslistdto.userId}"></td>
+					<td class="text-center" th:text="${userslistdto.userName}"></td>
+					<td class="text-center" th:text="${userslistdto.birthday}"></td>
+					<td class="text-center" th:text="${userslistdto.address}"></td>
+				</tr>
+			</table>
+
+			<input type="hidden" name="id" th:value="${userId}">
+			<button class="btn btn-border usersListDetailBtnDesign"
+				name="unsubscribe">ユーザーを退会</button>
+
+		</form>
+
+		<script>
 			$('.usersListDetailBtnDesign').click(function() {
 				if (confirm('本当にこのユーザーを退会させますか？')) {
-					/* キャンセルの時の処理 */
+
 					return true;
 				}
 				return false;
 			});
 		</script>
-		
+
 	</div>
 </body>
 </html>

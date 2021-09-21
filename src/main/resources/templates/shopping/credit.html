@@ -18,30 +18,33 @@
 </head>
 <body>
 	<div th:fragment="productListLayout_contents">
-<header>
-	<h1 class="titleDesign">JCBカード登録</h1>
-</header>
+		<header>
+			<h1 class="titleDesign">JCBカード登録</h1>
+		</header>
 
-	<form method="post" th:action="@{/credit}" th:object="${creditForm}">
-		<table class="table table-bordered table-hover">
-			<tr>
-				<th class="form-group">クレジット有効期限</th>
-				<td><input type="text" class="form-control" th:field="*{expire_date}" placeholder="月年の4桁で入力してください"></td>
-			</tr>
+		<form method="post" th:action="@{/credit}" th:object="${creditForm}">
+			<table class="table table-bordered table-hover">
+				<tr>
+					<th class="form-group">クレジット有効期限</th>
+					<td><input type="text" class="form-control"
+						th:field="*{expire_date}" placeholder="月年の4桁で入力してください"></td>
+				</tr>
 
-			<tr>
-				<th class="form-group">クレジット記載ネーム</th>
-				<td><input type="text" class="form-control" th:field="*{cardName}" placeholder="ローマ字記載の名前を入力してください。"></td>
-			</tr>
+				<tr>
+					<th class="form-group">クレジット記載ネーム</th>
+					<td><input type="text" class="form-control"
+						th:field="*{cardName}" placeholder="ローマ字記載の名前を入力してください。"></td>
+				</tr>
 
-			<tr>
-				<th class="form-group">クレジット番号</th>
-				<td><input type="tel" class="form-control" th:field="*{cardNumber}" placeholder="16桁の番号を入力してください。"></td>
-			</tr>
-		</table>
+				<tr>
+					<th class="form-group">クレジット番号</th>
+					<td><input type="tel" class="form-control"
+						th:field="*{cardNumber}" placeholder="16桁の番号を入力してください。"></td>
+				</tr>
+			</table>
 
-	<button class="btn btn-primary">カード登録</button>
-	</form>
+			<button class="btn btn-primary">カード登録</button>
+		</form>
 	</div>
 </body>
 </html>

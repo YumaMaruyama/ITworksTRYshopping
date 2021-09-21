@@ -11,73 +11,83 @@
 		<header>
 			<h1 class="titleDesign">期間限定クーポン追加</h1>
 		</header>
-		
+
 		<form method="post" th:action="@{/couponAdd}" th:object=${couponForm}>
-		
+
 			<table class="table table-hover table-bordered couponAddTableDesign">
-			
+
 				<tr>
 					<th class="text-center couponAddThDesign">クーポン名</th>
 					<td th:classappend="${#fields.hasErrors('title')}?'has-error'"
-						class="form-group couponAddTdDesign"><input type="text" class="form-control"
-						th:field="*{title}"><span class="text-danger"
-						th:if="${#fields.hasErrors('title')}" th:errors="*{title}">title
-							error</span></td>
+						class="form-group couponAddTdDesign"><input type="text"
+						class="form-control" th:field="*{title}"><span
+						class="text-danger" th:if="${#fields.hasErrors('title')}"
+						th:errors="*{title}">title error</span></td>
 				</tr>
-				
+
 				<tr>
 					<th class="text-center couponAddThDesign">割引パーセント</th>
 					<td th:classappend="${#fields.hasErrors('discount')}?'has-error'"
-						class="form-group couponAddTdDesign"><input type="text" class="form-control"
-						th:field="*{discount}"> <span class="text-danger"
-						th:if="${#fields.hasErrors('discount')}" th:errors="*{discount}">discount
-							error</span></td>
+						class="form-group couponAddTdDesign"><input type="text"
+						class="form-control" th:field="*{discount}"> <span
+						class="text-danger" th:if="${#fields.hasErrors('discount')}"
+						th:errors="*{discount}">discount error</span></td>
 				</tr>
-				
+
 				<tr>
-					<th class="text-center couponAddThDesign">商品購入数(これまでの合計購入数が入力した値以上の方のみクーポン付与 ※1)</th>
-					<td th:classappend="${#fields.hasErrors('purchaseCountTarget')}?'has-error'"
-						class="form-group couponAddTdDesign"><input type="text" class="form-control"
-						th:field="*{purchaseCountTarget}"> <span class="text-danger"
-						th:if="${#fields.hasErrors('purchaseCountTarget')}" th:errors="*{purchaseCountTarget}">purchaseCountTarget
+					<th class="text-center couponAddThDesign">商品購入数(これまでの合計購入数が入力した値以上の方のみクーポン付与
+						※1)</th>
+					<td
+						th:classappend="${#fields.hasErrors('purchaseCountTarget')}?'has-error'"
+						class="form-group couponAddTdDesign"><input type="text"
+						class="form-control" th:field="*{purchaseCountTarget}"> <span
+						class="text-danger"
+						th:if="${#fields.hasErrors('purchaseCountTarget')}"
+						th:errors="*{purchaseCountTarget}">purchaseCountTarget
 							error</span></td>
 				</tr>
-				
+
 				<tr>
-					<th class="text-center couponAddThDesign">合計購入金額(これまでの合計購入金額が入力した値以上の方のみクーポン付与 ※2)</th>
-					<td th:classappend="${#fields.hasErrors('purchaseTotalPriceTarget')}?'has-error'"
-						class="form-group couponAddTdDesign"><input type="text" class="form-control"
-						th:field="*{purchaseTotalPriceTarget}"> <span class="text-danger"
-						th:if="${#fields.hasErrors('purchaseTotalPriceTarget')}" th:errors="*{purchaseTotalPriceTarget}">purchaseTotalPriceTarget
+					<th class="text-center couponAddThDesign">合計購入金額(これまでの合計購入金額が入力した値以上の方のみクーポン付与
+						※2)</th>
+					<td
+						th:classappend="${#fields.hasErrors('purchaseTotalPriceTarget')}?'has-error'"
+						class="form-group couponAddTdDesign"><input type="text"
+						class="form-control" th:field="*{purchaseTotalPriceTarget}">
+						<span class="text-danger"
+						th:if="${#fields.hasErrors('purchaseTotalPriceTarget')}"
+						th:errors="*{purchaseTotalPriceTarget}">purchaseTotalPriceTarget
 							error</span></td>
 				</tr>
-				
-					<tr>
-					<th  class="text-center couponAddThDesign">クーポン期限日</th>
-					<td  th:classappend="${#fields.hasErrors('expirationDate')}?'has-error'"
-						class="form-group couponAddTdDesign">
-							<input type="date" class="form-control" th:field="*{expirationDate}">
-						<span class="text-danger" th:if="${#fields.hasErrors('expirationDate')}" th:errors="*{expirationDate}">expirationDate error</span>
-					</td>
+
+				<tr>
+					<th class="text-center couponAddThDesign">クーポン期限日</th>
+					<td
+						th:classappend="${#fields.hasErrors('expirationDate')}?'has-error'"
+						class="form-group couponAddTdDesign"><input type="date"
+						class="form-control" th:field="*{expirationDate}"> <span
+						class="text-danger" th:if="${#fields.hasErrors('expirationDate')}"
+						th:errors="*{expirationDate}">expirationDate error</span></td>
 				</tr>
-				
-			
+
+
 			</table>
 			<h3>※1と※2の両方の条件を達している方にクーポンが付与されます。</h3>
-			<button class="btn btn-radius-solidCouponAdd btn--shadow couponAddBtnDesign" name="distribution">クーポン配布</button>
+			<button
+				class="btn btn-radius-solidCouponAdd btn--shadow couponAddBtnDesign"
+				name="distribution">クーポン配布</button>
 		</form>
-		
+
 		<script>
 			$('.couponAddBtnDesign').click(function() {
 				if (confirm('本当にこの内容で配布しますか？')) {
-					
+
 					return true;
 				}
 				return false;
 			});
-			
 		</script>
-		
+
 	</div>
 </body>
 </html>

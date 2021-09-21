@@ -6,50 +6,55 @@
 <title>cancelDelete</title>
 </head>
 <body>
-	
+
 	<div th:fragment="productListLayout_contents">
-	<h1 class="titleDesign">商品発送詳細</h1>
-		
+		<h1 class="titleDesign">商品発送詳細</h1>
+
 		<form method="post" th:action="@{/cancelDelete}">
-		<table class="table table-bordered cancelDeleteTableDesign"
-			th:each="purchasedto : ${purchaseList}" style="width: 1100px;">
-			<tr class="cancelDeleteThDesign">
-				<th class="text-center">購入日</th>
-				<th class="text-center">商品名</th>
-				<th class="text-center">支払い</th>
-				<th class="text-center">購入数</th>
-				<th class="text-center">メモリ</th>
-				<th class="text-center">ハードディスク</th>
-				<th class="text-center">CPU</th>
-			</tr>
+			<table class="table table-bordered cancelDeleteTableDesign"
+				th:each="purchasedto : ${purchaseList}" style="width: 1100px;">
+				<tr class="cancelDeleteThDesign">
+					<th class="text-center">購入日</th>
+					<th class="text-center">商品名</th>
+					<th class="text-center">支払い</th>
+					<th class="text-center">購入数</th>
+					<th class="text-center">メモリ</th>
+					<th class="text-center">ハードディスク</th>
+					<th class="text-center">CPU</th>
+				</tr>
 
-			<tr class="cancelDeleteTdDesign">
-				<td class="text-center"
-					th:text="${#dates.format(purchasedto.purchase_date, 'yyyy/MM/dd HH:mm')}"></td>
-				<td class="text-center" th:text="${purchasedto.pcName}"></td>
-				<td class="text-center" th:text="${totalPrice} + '円'"></td>
-				<td class="text-center" th:text="${purchasedto.product_count}"></td>
-				<td class="text-center" th:text="${purchasedto.memory}"></td>
-				<td class="text-center" th:text="${purchasedto.hardDisc}"></td>
-				<td class="text-center" th:text="${purchasedto.cpu}"></td>
-			</tr>
-		</table>
+				<tr class="cancelDeleteTdDesign">
+					<td class="text-center"
+						th:text="${#dates.format(purchasedto.purchase_date, 'yyyy/MM/dd HH:mm')}"></td>
+					<td class="text-center" th:text="${purchasedto.pcName}"></td>
+					<td class="text-center" th:text="${totalPrice} + '円'"></td>
+					<td class="text-center" th:text="${purchasedto.product_count}"></td>
+					<td class="text-center" th:text="${purchasedto.memory}"></td>
+					<td class="text-center" th:text="${purchasedto.hardDisc}"></td>
+					<td class="text-center" th:text="${purchasedto.cpu}"></td>
+				</tr>
+			</table>
 
-		<h3>上記の商品のキャンセル取り消しをしますか？</h3>
+			<h3>上記の商品のキャンセル取り消しをしますか？</h3>
 
-		<table th:each="purchasedto : ${purchaseList}">
-		<input type="hidden" name="id" th:value="${purchasedto.id}">
-			<input type="hidden" name="customId" th:value="${purchasedto.custom_id}">
-			<tr>
-				<td><button class="btn btnCancelDelete--blue btnCancelDelete--radius btnCancelDelete--cubic cancelDeleteYesCompletedBtnDesign" name="yes">はい</button></td>
-				
-				<td><button class="btn btnCancelDelete--red btnCancelDelete--radius btnCancelDelete--cubic cancelDeleteNoBtnDesign" name="no">取り消ししないで前のページに戻る</button></td>
-			</tr>
-		</table>
-		
+			<table th:each="purchasedto : ${purchaseList}">
+				<input type="hidden" name="id" th:value="${purchasedto.id}">
+				<input type="hidden" name="customId"
+					th:value="${purchasedto.custom_id}">
+				<tr>
+					<td><button
+							class="btn btnCancelDelete--blue btnCancelDelete--radius btnCancelDelete--cubic cancelDeleteYesCompletedBtnDesign"
+							name="yes">はい</button></td>
+
+					<td><button
+							class="btn btnCancelDelete--red btnCancelDelete--radius btnCancelDelete--cubic cancelDeleteNoBtnDesign"
+							name="no">取り消ししないで前のページに戻る</button></td>
+				</tr>
+			</table>
+
 		</form>
 
-	
+
 	</div>
 </body>
 </html>

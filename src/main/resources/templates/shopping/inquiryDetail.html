@@ -10,7 +10,8 @@
 		<header>
 			<h1 class="titleDesign">問い合わせ編集</h1>
 		</header>
-		<form method="post" th:action="@{/inquiryDetail}" th:object="${inquiryForm}">
+		<form method="post" th:action="@{/inquiryDetail}"
+			th:object="${inquiryForm}">
 			<table class="table table-bordered inquiryDetailTableDesign"
 				th:each="inquirydto : ${inquiryList}">
 				<tr class="inquiryDetailThDesign">
@@ -25,26 +26,26 @@
 					<th class="text-center" th:text="${inquirydto.userName}"></th>
 					<th class="text-center" th:text="${inquirydto.title}"></th>
 					<th class="text-center" th:text="${inquirydto.content}"></th>
-					<th class="text-center" th:text="${#dates.format(inquirydto.registrationDate,'yyyy/MM/dd ah:mm')}"></th>
+					<th class="text-center"
+						th:text="${#dates.format(inquirydto.registrationDate,'yyyy/MM/dd ah:mm')}"></th>
 				</tr>
 			</table>
 			<div>
-			<input type="hidden" name="id" th:value="${id}">
-			<button class="btn btninquiryDetail-border inquiryDeleteBtn">問い合わせ削除</button>
+				<input type="hidden" name="id" th:value="${id}">
+				<button class="btn btninquiryDetail-border inquiryDeleteBtn">問い合わせ削除</button>
 			</div>
 		</form>
-		
+
 		<script>
 			$('.inquiryDeleteBtn').click(function() {
 				if (confirm('本当に削除しますか？')) {
-					
+
 					return true;
 				}
 				return false;
 			});
-			
 		</script>
-		
+
 	</div>
 </body>
 </html>

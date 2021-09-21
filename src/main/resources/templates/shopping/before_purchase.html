@@ -22,7 +22,8 @@
 			<h1>購入前詳細画面</h1>
 		</header>
 
-		<form method="get" th:each="pcdatadto:${pcdatadtoOne}" th:action="@{/clearing} + '/' + ${pcdatadto.id}">
+		<form method="get" th:each="pcdatadto:${pcdatadtoOne}"
+			th:action="@{/clearing} + '/' + ${pcdatadto.id}">
 			<table class="table table-bordered table-hover">
 				<tr th:each="pcdatadto:${pcdatadtoOne}">
 					<th class="text-center">会社名</th>

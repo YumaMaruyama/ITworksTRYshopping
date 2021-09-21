@@ -6,49 +6,60 @@
 <title>Insert title here</title>
 </head>
 <body>
-	
+
 	<div th:fragment="productListLayout_contents">
 		<header>
-		<table>
-		<tr>
-			<td><h1 class="titleDesign">会員ランク特典クーポン一覧</h1></td>
-			</tr></table>
+			<table>
+				<tr>
+					<td><h1 class="titleDesign">会員ランク特典クーポン一覧</h1></td>
+				</tr>
+			</table>
 		</header>
 		<table>
-		<tr th:if="${notCoupon} == 'yes'" class="couponDetail1"><td>使用可能な会員ランク特典クーポンはありません</td></tr>
+			<tr th:if="${notCoupon} == 'yes'" class="couponDetail1">
+				<td>使用可能な会員ランク特典クーポンはありません</td>
+			</tr>
 		</table>
-		
+
 		<div class="couponSeeTable">
-		<table class="table table-bordered" th:each="menberCoupondto:${couponList}">
-		
-			<tr class="couponListThColor">
-				<th class="text-center menberCouponListName">クーポン名</th>
-				<th class="text-center menberCouponListDisCount">割引パーセント</th>
-				<th class="text-center menberCouponListRank">ランク詳細</th>
-				<th class="text-center menberCouponListDetail">利用詳細</th>
-			</tr>
-			
-			<tr class="couponListTdColor">
-				<td class="text-center menberCouponListName" th:text="${menberCoupondto.title}"></td>
-				<td class="text-center menberCouponListDisCount" th:text="${menberCoupondto.discount} + '%割り'"></td>
-				<td class="text-center menberCouponListRank" th:text="${menberCoupondto.menberRank} + '到達時に取得'"></td>
-				<td th:if="${menberCoupondto.couponUseCheck} == '使用可能'" class="text-center menberCouponListDetail text-danger" th:text="${menberCoupondto.couponUseCheck}"></td>
-				<td th:if="${menberCoupondto.couponUseCheck} == '使用不可'" class="text-center menberCouponListDetail" th:text="${menberCoupondto.couponUseCheck}"></td>
-			</tr>
-		
-		</table>
+			<table class="table table-bordered"
+				th:each="menberCoupondto:${couponList}">
+
+				<tr class="couponListThColor">
+					<th class="text-center menberCouponListName">クーポン名</th>
+					<th class="text-center menberCouponListDisCount">割引パーセント</th>
+					<th class="text-center menberCouponListRank">ランク詳細</th>
+					<th class="text-center menberCouponListDetail">利用詳細</th>
+				</tr>
+
+				<tr class="couponListTdColor">
+					<td class="text-center menberCouponListName"
+						th:text="${menberCoupondto.title}"></td>
+					<td class="text-center menberCouponListDisCount"
+						th:text="${menberCoupondto.discount} + '%割り'"></td>
+					<td class="text-center menberCouponListRank"
+						th:text="${menberCoupondto.menberRank} + '到達時に取得'"></td>
+					<td th:if="${menberCoupondto.couponUseCheck} == '使用可能'"
+						class="text-center menberCouponListDetail text-danger"
+						th:text="${menberCoupondto.couponUseCheck}"></td>
+					<td th:if="${menberCoupondto.couponUseCheck} == '使用不可'"
+						class="text-center menberCouponListDetail"
+						th:text="${menberCoupondto.couponUseCheck}"></td>
+				</tr>
+
+			</table>
 		</div>
-		
+
 		<br>
 		<table class="menberCouponAboutTable">
 			<tr>
 				<th class="menberCouponAboutTh text-center">あなたの会員ランク</th>
 				<td class="menberCouponAboutTd text-center" th:text="${rank}"></td>
 			</tr>
-		
+
 		</table>
-		
-		
+
+
 	</div>
 </body>
 </html>

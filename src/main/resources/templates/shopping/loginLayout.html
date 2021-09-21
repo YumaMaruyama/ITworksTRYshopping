@@ -31,7 +31,8 @@
 
 <title>ITworksTRYshopping</title>
 </head>
-<body class="jpeg" background="/css/925ca13e264f720ee8725fed06ca53a2_t.jpeg">
+<body class="jpeg"
+	background="/css/925ca13e264f720ee8725fed06ca53a2_t.jpeg">
 
 
 	<nav class="navbar navbar-inverse navbar-fixed-top">
@@ -40,37 +41,44 @@
 				<a class="navbar-brand" th:href="@{/login}"
 					title="アプリ名をクリックするとLogin画面に推移します"><i
 					class="fa fa-android fa-spin fa-colorLogin fa-size"></i><span
-					style="color: #a4f7cb !important; font-size:20px">ITworksTRYshopping</span></a>
+					style="color: #a4f7cb !important; font-size: 20px">ITworksTRYshopping</span></a>
 
 
 			</div>
 			<div class="col-sm-6">
-			<h3
-				style="color: #fff; padding: 0px 0px 0px 102px !important; margin: 14px 0px;font-size:20px;">PCを買ってプログラマーになろう</h3>
+				<h3
+					style="color: #fff; padding: 0px 0px 0px 102px !important; margin: 14px 0px; font-size: 20px;">PCを買ってプログラマーになろう</h3>
 			</div>
 
 			<div class="col-sm-2">
-				<h4 style="margin:15px 0px !important;"><a th:href="@{'/loginLayout'}" class="loginGoBtn">Login画面に推移</a></h4>
+				<h4 style="margin: 15px 0px !important;">
+					<a th:href="@{'/loginLayout'}" class="loginGoBtn">Login画面に推移</a>
+				</h4>
 			</div>
 		</div>
 	</nav>
-<div class="container-fluid">
-    <div class="row">
-    <div class="clearfix"></div>
-    <div class="col-sm-3 col-md-2 sidebar">
-        <ul class="nav nav-sidebar">
-            <li class="flexDetail"><a class="btn btn-gradient desiginBtn topBtn" th:href="@{/signup}"><span>新規ユーザー登録</span></a></li>
-            <li><a class="btn btn-gradient desiginBtn" th:href="@{/inquiryBeforeLogin}"><span>お問い合わせ</span></a></li>
-            <li><a class="btn btn-gradient desiginBtn" th:href="@{/privacyPolicyBeforeLogin}"><span>プライバシーポリシー</span></a></li>
-            <li><a class="btn btn-gradient desiginBtn" th:href="@{/termsOfUseBeforeLogin}"><span>利用規約</span></a></li>
-            <li><a class="btn btn-gradient desiginBtn" th:href="@{/appDetail}"><span>アプリ詳細</span></a></li>
-        </ul>
-    </div>
-    <div class="col-sm-9">
-     	<div th:include="__${contents}__"></div>
-    </div>
-</div>
-</div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="clearfix"></div>
+			<div class="col-sm-3 col-md-2 sidebar">
+				<ul class="nav nav-sidebar">
+					<li class="flexDetail"><a
+						class="btn btn-gradient desiginBtn topBtn" th:href="@{/signup}"><span>新規ユーザー登録</span></a></li>
+					<li><a class="btn btn-gradient desiginBtn"
+						th:href="@{/inquiryBeforeLogin}"><span>お問い合わせ</span></a></li>
+					<li><a class="btn btn-gradient desiginBtn"
+						th:href="@{/privacyPolicyBeforeLogin}"><span>プライバシーポリシー</span></a></li>
+					<li><a class="btn btn-gradient desiginBtn"
+						th:href="@{/termsOfUseBeforeLogin}"><span>利用規約</span></a></li>
+					<li><a class="btn btn-gradient desiginBtn"
+						th:href="@{/appDetail}"><span>アプリ詳細</span></a></li>
+				</ul>
+			</div>
+			<div class="col-sm-9">
+				<div th:include="__${contents}__"></div>
+			</div>
+		</div>
+	</div>
 
 </body>
 </html>

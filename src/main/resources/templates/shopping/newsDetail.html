@@ -6,40 +6,42 @@
 <title>Insert title here</title>
 </head>
 <body>
-	
+
 	<div th:fragment="productListLayout_contents">
-	<h1 class="titleDesign">お知らせ編集</h1>
-	<div class="newsTableDesign">
-	<table class="table table-bordered" th:each="newsdto : ${newsdto}">
-	
-		
-		<tr class="newsThDesign">
-			<th class="text-center newsDesignTitle">タイトル</th>
-			<th class="text-center newsDesignContent">内容</th>
-			<th class="text-center newsDesignDate">投稿日時</th>
-		</tr>
-	
-		<tr class="newsTdDesign">
-			<td class="text-center newsDesignTitle" th:text="${newsdto.title}"></td>
-			<td class="text-center newsDesignContent" th:text="${newsdto.content}"></td>
-			<td class="text-center newsDesignDate" th:text="${#dates.format(newsdto.registrationDate,'yyyy/MM/dd ah:mm')}"></td>
-		</tr>
-	</table>
-	<a class="btn btnND--yellow btnND--border-groove newsDelete" th:href="@{/newsDelete} + '/' + ${newsdto.id}"><span>お知らせ削除</span></a>
-	
-	</div>
-	
-	<script>
+		<h1 class="titleDesign">お知らせ編集</h1>
+		<div class="newsTableDesign">
+			<table class="table table-bordered" th:each="newsdto : ${newsdto}">
+
+
+				<tr class="newsThDesign">
+					<th class="text-center newsDesignTitle">タイトル</th>
+					<th class="text-center newsDesignContent">内容</th>
+					<th class="text-center newsDesignDate">投稿日時</th>
+				</tr>
+
+				<tr class="newsTdDesign">
+					<td class="text-center newsDesignTitle" th:text="${newsdto.title}"></td>
+					<td class="text-center newsDesignContent"
+						th:text="${newsdto.content}"></td>
+					<td class="text-center newsDesignDate"
+						th:text="${#dates.format(newsdto.registrationDate,'yyyy/MM/dd ah:mm')}"></td>
+				</tr>
+			</table>
+			<a class="btn btnND--yellow btnND--border-groove newsDelete"
+				th:href="@{/newsDelete} + '/' + ${newsdto.id}"><span>お知らせ削除</span></a>
+
+		</div>
+
+		<script>
 			$('.newsDelete').click(function() {
 				if (confirm('本当に削除しますか？')) {
-					
+
 					return true;
 				}
 				return false;
 			});
-			
 		</script>
-		
+
 	</div>
 </body>
 </html>

@@ -11,15 +11,17 @@
 		<header>
 			<h1 class="titleDesign">最終確認画面</h1>
 		</header>
-		<form method="post" th:action="@{confirmation}" style="width:1100px;">
+		<form method="post" th:action="@{confirmation}" style="width: 1100px;">
 			<div class="flex confirmationList">
 				<div class="item" th:each="pcdatadto : ${cartList}">
 					<img class="size" th:src="${pcdatadto.pcImg}">
 					<h4 class="card-title text-center fontdesign"
 						th:text="'商品名：' + ${pcdatadto.pc_name}"></h4>
-					<p th:if="${pcdatadto.couponCheck} == true" class="card-text text-center fontdesign"
+					<p th:if="${pcdatadto.couponCheck} == true"
+						class="card-text text-center fontdesign"
 						th:text="'値段(クーポン適用)：' + ${pcdatadto.totalPrice} + '円'"></p>
-					<p th:if="${pcdatadto.couponCheck} != true" class="card-text text-center fontdesign"
+					<p th:if="${pcdatadto.couponCheck} != true"
+						class="card-text text-center fontdesign"
 						th:text="'値段：' + ${pcdatadto.totalPriceOne} + '円'"></p>
 					<p class="card-text text-center fontdesign"
 						th:text="'在庫数：' + ${pcdatadto.product_stock} + '個'"></p>
@@ -28,74 +30,80 @@
 				</div>
 			</div>
 			<br>
-			
-			<div class="confirmationTableDesign">
-			<table th:if="${pointUseCheck} == 0"
-				class="col-sm-5 confirmationPrice table table-bordered table-hover cardTable">
-				<tr>
-					<th class="text-center clearingBackColora padding">お支払いカード名義</th>
-					<td class="clearingBackColorb padding" th:text="${cardName}"></td>
-				</tr>
-				<tr>
-					<th class="text-center clearingBackColora padding">お支払い三桁コード</th>
-					<td class="clearingBackColorb padding" th:text="${digits_3_code}"></td>
-				</tr>
-				<tr>
-					<th class="text-center clearingBackColora padding">お支払い番号</th>
-					<td class="clearingBackColorb padding" th:text="${cardNumber}"></td>
-				</tr>
-				<tr>
-					<th class="text-center priceBackColora padding">お支払い合計金額</th>
-					<td class="priceBackColorb padding" th:text="${totalPrice} + '円'"></td>
-				</tr>
-				<tr>
-					<th class="text-center priceBackColora padding" th:text="'ITworksTRYshopping' + '(付与倍率' +  ${pointRate} + '%)'"></th>
-					<td class="priceBackColorb padding" th:text="${point} + 'ポイントゲット'"></td>
-				</tr>
-			</table>
-			
-			<table th:if="${pointUseCheck} gt 0"
-				class="col-sm-5 confirmationPrice table table-bordered table-hover cardTable">
-				<tr th:if="${cardName} neq 'noClearing'">
-					<th class="text-center clearingBackColora padding">お支払いカード名義</th>
-					<td class="clearingBackColorb padding" th:text="${cardName}"></td>
-				</tr>
-				
-				<tr th:if="${cardName} neq 'noClearing'">
-					<th class="text-center clearingBackColora padding">お支払い三桁コード</th>
-					<td class="clearingBackColorb padding" th:text="${digits_3_code}"></td>
-				</tr>
-				<tr th:if="${cardName} neq 'noClearing'">
-					<th class="text-center clearingBackColora padding">お支払い番号</th>
-					<td class="clearingBackColorb padding" th:text="${cardNumber}"></td>
-				</tr>
-				<tr>
-					<th class="text-center priceBackColora padding">合計金額</th>
-					<td class="priceBackColorb padding" th:text="${totalPrice} + '円'"></td>
-				</tr>
-				<tr>
-					<th class="text-center priceBackColora padding">ポイント利用後お支払い合計金額</th>
-					<td class="priceBackColorb padding" th:text="${pointminusTotalPrice} + '円'"></td>
-				</tr>
-				<tr>
-					<th class="text-center priceBackColora padding" th:text="'ITworksTRYshopping' + '(付与倍率' + ${pointRate} + '%)'"></th>
-					<td class="priceBackColorb padding" th:text="${point} + 'ポイントゲット'"></td>
-				</tr>
-			</table>
 
-			<div class="btn-wrapper">
-			<br><br>
-				<div class="check-box">
-					<label class="text-danger"><input class="check"
-						type="checkbox" name="check" autocomplete="off" id="agree"><span class="confirmation_statement"><a></a>カート内の全ての商品を確認し、商品内容に同意した上で購入します。</span></label>
+			<div class="confirmationTableDesign">
+				<table th:if="${pointUseCheck} == 0"
+					class="col-sm-5 confirmationPrice table table-bordered table-hover cardTable">
+					<tr>
+						<th class="text-center clearingBackColora padding">お支払いカード名義</th>
+						<td class="clearingBackColorb padding" th:text="${cardName}"></td>
+					</tr>
+					<tr>
+						<th class="text-center clearingBackColora padding">お支払い三桁コード</th>
+						<td class="clearingBackColorb padding" th:text="${digits_3_code}"></td>
+					</tr>
+					<tr>
+						<th class="text-center clearingBackColora padding">お支払い番号</th>
+						<td class="clearingBackColorb padding" th:text="${cardNumber}"></td>
+					</tr>
+					<tr>
+						<th class="text-center priceBackColora padding">お支払い合計金額</th>
+						<td class="priceBackColorb padding" th:text="${totalPrice} + '円'"></td>
+					</tr>
+					<tr>
+						<th class="text-center priceBackColora padding"
+							th:text="'ITworksTRYshopping' + '(付与倍率' +  ${pointRate} + '%)'"></th>
+						<td class="priceBackColorb padding" th:text="${point} + 'ポイントゲット'"></td>
+					</tr>
+				</table>
+
+				<table th:if="${pointUseCheck} gt 0"
+					class="col-sm-5 confirmationPrice table table-bordered table-hover cardTable">
+					<tr th:if="${cardName} neq 'noClearing'">
+						<th class="text-center clearingBackColora padding">お支払いカード名義</th>
+						<td class="clearingBackColorb padding" th:text="${cardName}"></td>
+					</tr>
+
+					<tr th:if="${cardName} neq 'noClearing'">
+						<th class="text-center clearingBackColora padding">お支払い三桁コード</th>
+						<td class="clearingBackColorb padding" th:text="${digits_3_code}"></td>
+					</tr>
+					<tr th:if="${cardName} neq 'noClearing'">
+						<th class="text-center clearingBackColora padding">お支払い番号</th>
+						<td class="clearingBackColorb padding" th:text="${cardNumber}"></td>
+					</tr>
+					<tr>
+						<th class="text-center priceBackColora padding">合計金額</th>
+						<td class="priceBackColorb padding" th:text="${totalPrice} + '円'"></td>
+					</tr>
+					<tr>
+						<th class="text-center priceBackColora padding">ポイント利用後お支払い合計金額</th>
+						<td class="priceBackColorb padding"
+							th:text="${pointminusTotalPrice} + '円'"></td>
+					</tr>
+					<tr>
+						<th class="text-center priceBackColora padding"
+							th:text="'ITworksTRYshopping' + '(付与倍率' + ${pointRate} + '%)'"></th>
+						<td class="priceBackColorb padding" th:text="${point} + 'ポイントゲット'"></td>
+					</tr>
+				</table>
+
+				<div class="btn-wrapper">
+					<br>
+					<br>
+					<div class="check-box">
+						<label class="text-danger"><input class="check"
+							type="checkbox" name="check" autocomplete="off" id="agree"><span
+							class="confirmation_statement"><a></a>カート内の全ての商品を確認し、商品内容に同意した上で購入します。</span></label>
+					</div>
+					<input type="hidden" name="digits_3_code"
+						th:value="${digits_3_code}"> <input type="hidden"
+						name="cardName" th:value="${cardName}"> <input
+						type="hidden" name="cardNumber" th:value="${cardNumber}">
+					<input type="hidden" name="couponId" th:value="${couponId}">
+					<input type="hidden" name="totalPrice" th:value="${totalPrice}">
+					<input class="submit clearing" type="submit" id="submit" value="購入" />
 				</div>
-				<input type="hidden" name="digits_3_code" th:value="${digits_3_code}">
-				<input type="hidden" name="cardName" th:value="${cardName}">
-				<input type="hidden" name="cardNumber" th:value="${cardNumber}">
-				<input type="hidden" name="couponId" th:value="${couponId}">
-				<input type="hidden" name="totalPrice" th:value="${totalPrice}">
-				<input class="submit clearing" type="submit" id="submit" value="購入" />
-			</div>
 			</div>
 		</form>
 		<script>

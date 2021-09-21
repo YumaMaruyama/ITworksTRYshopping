@@ -12,10 +12,10 @@
 		</header>
 
 		<p class="cartDesign" th:text="${result}"></p>
-		
-		
 
-		<div class="flex cartList" style="width:1100px;">
+
+
+		<div class="flex cartList" style="width: 1100px;">
 			<div class="item" th:each="pcdatadto : ${cartList}">
 				<form method="post" th:action="@{/cart} + '/' + ${pcdatadto.id}"
 					th:object="${cartForm}">
@@ -43,7 +43,8 @@
 					<p class="card-text text-center fontdesign cartprice"
 						style="margin-bottom: 0px !important"
 						th:text="'カスタム後値段：' + ${pcdatadto.afterCustomPrice} + '円'"></p>
-					<p th:if="${pcdatadto.couponId} ge 1" class="card-text text-center text-danger fontdesign cartprice"
+					<p th:if="${pcdatadto.couponId} ge 1"
+						class="card-text text-center text-danger fontdesign cartprice"
 						style="margin-bottom: 0px !important"
 						th:text="'クーポン効果：' + ${pcdatadto.disCountPriceNew} + '円引き！'"></p>
 					<p class="card-text text-center fontdesign cartstock"
@@ -53,13 +54,15 @@
 						style="margin-bottom: 0px !important"
 						th:href="@{/productDetail} + '/' + ${pcdatadto.id}"><span
 						class="font">詳細画面に行く</span></a>
-					<p style="margin-bottom: 0px !important" th:classappend="${#fields.hasErrors('product_count')}?'has-error'"
+					<p style="margin-bottom: 0px !important"
+						th:classappend="${#fields.hasErrors('product_count')}?'has-error'"
 						class="form-group">
-						<span class="purchaseCount">購入数</span><input type="text" class="form-control formdesign"
+						<span class="purchaseCount">購入数</span><input type="text"
+							class="form-control formdesign"
 							th:value="${pcdatadto.product_count}" name="product_count"
-							style="width: 48%; margin-left: 51px;"><span class="text-danger"
-						th:if="${#fields.hasErrors('product_count')}" th:errors="*{product_count}">product_count
-							error</span>
+							style="width: 48%; margin-left: 51px;"><span
+							class="text-danger" th:if="${#fields.hasErrors('product_count')}"
+							th:errors="*{product_count}">product_count error</span>
 					</p>
 					<table>
 						<tr>
@@ -80,44 +83,48 @@
 		</div>
 
 
-
-
 		<form th:action="@{/clearing}">
-		
-		
-		<table th:if="${notProduct} == 'yes'" class="notProductCartPrice table table-bordered table-hover notProductCartTable">
+
+
+			<table th:if="${notProduct} == 'yes'"
+				class="notProductCartPrice table table-bordered table-hover notProductCartTable">
 				<tr class="cartdetailtableDesign">
 					<td style="width: 214px;"><a th:href="@{/productList}"
 						class="btn btn2 btn--blue btn--cubic btn--shadow notProductListBtn">カートに追加してみよう！</a></td>
-					<td style="width: 284px; font-size:24px;" class="text-center " th:text="'カート合計金額' + ${totalPrice} + '円'"></td>
+					<td style="width: 284px; font-size: 24px;" class="text-center "
+						th:text="'カート合計金額' + ${totalPrice} + '円'"></td>
 				</tr>
 			</table>
-		
-			<table th:if="${couponAfterPrice} == '-1' and ${notProduct} != 'yes'" class="cartPrice table table-bordered table-hover cartTable">
+
+			<table th:if="${couponAfterPrice} == '-1' and ${notProduct} != 'yes'"
+				class="cartPrice table table-bordered table-hover cartTable">
 				<tr class="cartdetailtableDesign">
 					<td style="width: 214px;"><a th:href="@{/productList}"
 						class="btn btn2 btn--blue btn--cubic btn--shadow productListBtn">買い物を続ける</a></td>
-					<td style="width: 156px;" class="text-center " th:text="'カート合計金額' + ${totalPrice} + '円'"></td>
+					<td style="width: 156px;" class="text-center "
+						th:text="'カート合計金額' + ${totalPrice} + '円'"></td>
 					<td><button
 							class="btn btn2 btn--orange btn--cubic btn--shadow clearingBtn">決済画面へ</button></td>
 					<td><a th:href="@{/couponSee}"
-							class="btn btn2 btn--orange btn--cubic btn--shadow couponBtn">クーポンを見る</a></td>
+						class="btn btn2 btn--orange btn--cubic btn--shadow couponBtn">クーポンを見る</a></td>
 				</tr>
 			</table>
-			
-			<table th:if="${couponAfterPrice} != '-1' and ${notProduct} != 'yes'" class="cartPrice table table-bordered table-hover cartTable">
+
+			<table th:if="${couponAfterPrice} != '-1' and ${notProduct} != 'yes'"
+				class="cartPrice table table-bordered table-hover cartTable">
 				<tr class="cartdetailtableDesign">
 					<td style="width: 214px;"><a th:href="@{/productList}"
 						class="btn btn2 btn--blue btn--cubic btn--shadow productListBtn">買い物を続ける</a></td>
-					<td style="width: 156px;" class="text-center lineAdd" th:text="'カート合計金額' + ${totalPrice} + '円'"></td>
+					<td style="width: 156px;" class="text-center lineAdd"
+						th:text="'カート合計金額' + ${totalPrice} + '円'"></td>
 					<td class=" card-text text-center fontdesignNew textDesign2"
 						th:text="'クーポン使用後' + ${couponAfterPrice} + '円'"></td>
 
 					<td><button
 							class="btn btn2 btn--orange btn--cubic btn--shadow clearingBtnAfter">決済画面へ</button></td>
-							
+
 					<td><a th:href="@{/couponCancel}"
-							class="btn btn2 btn--orange btn--cubic btn--shadow clearingBtnAfter">クーポンを外す</a></td>
+						class="btn btn2 btn--orange btn--cubic btn--shadow clearingBtnAfter">クーポンを外す</a></td>
 				</tr>
 			</table>
 			<input type="hidden" name="couponId" th:value="${couponId}">

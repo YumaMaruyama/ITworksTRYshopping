@@ -11,53 +11,67 @@
 		<header>
 			<h1 class="titleDesign">問い合わせの返信</h1>
 		</header>
-		 
-		 <div class="contactReplyTableScrollBar">
-		<table class="tabel table-bordered contactReplyTable" th:each="inquiryAlldto : ${inquiryAllDto}" >
-			<tr class="contactReplyTh">
-				<th class="text-center contactReplyTitleDesign">問い合わせタイトル</th>
-				<th class="text-center contactReplyContentDesign">問い合わせ内容</th>
-				<th class="text-center contactReplyDateDesign">問い合わせ日時</th>
-				<th class="text-center contactReplyManeDesign">管理</th>
-				
-			</tr>
-			
-			<tr class="contactReplyTd">
-				<td class="text-center contactReplyTitleDesign" th:text="${inquiryAlldto.title}"></td>
-				<td class="text-center contactReplyContentDesign" th:text="${inquiryAlldto.content}"></td>
-				<td class="text-center contactReplyDateDesign" th:text="${#dates.format(inquiryAlldto.registrationDate,'yyyy/MM/dd ah:mm')}"></td>
-				<td class="text-center contactReplyManeDesign"><a th:href="@{/inquiryUserDeletion} + '/' + ${inquiryAlldto.id}">編集</a></td>
-			</tr>
-			<br>
-			
-			<div th:if="${inquiryAlldto.adminTitle} == '返信なし'">
-			
-			<tr><th class="text-center">上記のお問い合わせに対して、<br>返信はありません。</th></tr>
-			</div>
-			
-			<div th:if="${inquiryAlldto.adminTitle} != '返信なし'">
-			<tr><th class="text-center">上記のお問い合わせに対して、<br>管理者から返信がありました</th></tr>
-			</div>
-			
-			<br>
-			<div th:if="${inquiryAlldto.adminTitle} != '返信なし'">
-			<tr class="contactReplyNextTh">
-				<th class="text-center contactReplyThAdminTitle">返信タイトル</th>
-				<th class="text-center contactReplyThAdminContent">返信内容</th>
-				<th class="text-center contactReplyThAdminDate">返信日時</th>
-			</tr>
-			
-			<tr class="contactReplyNextTd">
-				<td class="text-center contactReplyTdAdminTitle" th:text="${inquiryAlldto.adminTitle}"></td>
-				<td class="text-center contactReplyTdAdminContent" th:text="${inquiryAlldto.adminContent}"></td>
-				<td class="text-center contactReplyTdAdminDate" th:text="${#dates.format(inquiryAlldto.adminRegistrationDate,'yyyy/MM/dd hh:mm')}"></td>
-			</tr>
-			</div>
-			
-			
-			<br>
-		</table>
-	</div>
+
+		<div class="contactReplyTableScrollBar">
+			<table class="tabel table-bordered contactReplyTable"
+				th:each="inquiryAlldto : ${inquiryAllDto}">
+				<tr class="contactReplyTh">
+					<th class="text-center contactReplyTitleDesign">問い合わせタイトル</th>
+					<th class="text-center contactReplyContentDesign">問い合わせ内容</th>
+					<th class="text-center contactReplyDateDesign">問い合わせ日時</th>
+					<th class="text-center contactReplyManeDesign">管理</th>
+
+				</tr>
+
+				<tr class="contactReplyTd">
+					<td class="text-center contactReplyTitleDesign"
+						th:text="${inquiryAlldto.title}"></td>
+					<td class="text-center contactReplyContentDesign"
+						th:text="${inquiryAlldto.content}"></td>
+					<td class="text-center contactReplyDateDesign"
+						th:text="${#dates.format(inquiryAlldto.registrationDate,'yyyy/MM/dd ah:mm')}"></td>
+					<td class="text-center contactReplyManeDesign"><a
+						th:href="@{/inquiryUserDeletion} + '/' + ${inquiryAlldto.id}">編集</a></td>
+				</tr>
+				<br>
+
+				<div th:if="${inquiryAlldto.adminTitle} == '返信なし'">
+
+					<tr>
+						<th class="text-center">上記のお問い合わせに対して、<br>返信はありません。
+						</th>
+					</tr>
+				</div>
+
+				<div th:if="${inquiryAlldto.adminTitle} != '返信なし'">
+					<tr>
+						<th class="text-center">上記のお問い合わせに対して、<br>管理者から返信がありました
+						</th>
+					</tr>
+				</div>
+
+				<br>
+				<div th:if="${inquiryAlldto.adminTitle} != '返信なし'">
+					<tr class="contactReplyNextTh">
+						<th class="text-center contactReplyThAdminTitle">返信タイトル</th>
+						<th class="text-center contactReplyThAdminContent">返信内容</th>
+						<th class="text-center contactReplyThAdminDate">返信日時</th>
+					</tr>
+
+					<tr class="contactReplyNextTd">
+						<td class="text-center contactReplyTdAdminTitle"
+							th:text="${inquiryAlldto.adminTitle}"></td>
+						<td class="text-center contactReplyTdAdminContent"
+							th:text="${inquiryAlldto.adminContent}"></td>
+						<td class="text-center contactReplyTdAdminDate"
+							th:text="${#dates.format(inquiryAlldto.adminRegistrationDate,'yyyy/MM/dd hh:mm')}"></td>
+					</tr>
+				</div>
+
+
+				<br>
+			</table>
+		</div>
 	</div>
 </body>
 </html>

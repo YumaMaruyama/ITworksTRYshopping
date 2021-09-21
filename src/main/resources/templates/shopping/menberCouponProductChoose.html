@@ -6,14 +6,14 @@
 <title>Insert title here</title>
 </head>
 <body>
-	
+
 	<div th:fragment="productListLayout_contents">
 		<header>
 			<h1 class="titleDesign">クーポン適用商品選択画面</h1>
 		</header>
-		
-		
-		<div class="flex cartList" style="width:1100px;">
+
+
+		<div class="flex cartList" style="width: 1100px;">
 			<div class="item" th:each="pcdatadto : ${cartList}">
 				<form method="post" th:action="@{/cart} + '/' + ${pcdatadto.id}"
 					th:object="${cartForm}">
@@ -51,7 +51,7 @@
 				</form>
 			</div>
 		</div>
-		
+
 	</div>
 </body>
 </html>

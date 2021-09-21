@@ -8,39 +8,44 @@
 <body>
 	<div th:fragment="productListLayout_contents">
 
-	<header>
-		<h1 class="titleDesign">購入後詳細画面</h1>
-	</header>
+		<header>
+			<h1 class="titleDesign">購入後詳細画面</h1>
+		</header>
 
-	<p class="text-center fontDesign">ご購入いただき誠にありがとうございます</p>
-	<table class="col-sm-10 tabel table-bordered table-hover after_purchaseTableDesign" style="width:1100px !important;">
-		<tr>
-			<th class="text-center afPuThDesign">商品お届け住所</th>
-			<td class="text-center afPuTdDesign" th:text="${receivingAddress}"></td>
-		</tr>
+		<p class="text-center fontDesign">ご購入いただき誠にありがとうございます</p>
+		<table
+			class="col-sm-10 tabel table-bordered table-hover after_purchaseTableDesign"
+			style="width: 1100px !important;">
+			<tr>
+				<th class="text-center afPuThDesign">商品お届け住所</th>
+				<td class="text-center afPuTdDesign" th:text="${receivingAddress}"></td>
+			</tr>
 
-		<tr>
-			<th class="text-center afPuThDesign">商品発送予定日</th>
-			<td class="text-center afPuTdDesign" th:text="${#dates.format(purchaseDate, 'yyyy/MM/dd') + ' ～ ' + #dates.format(purchaseDateNext, 'yyyy/MM/dd') + 'の間に発送予定になります。'}"></td>
-		</tr>
-	</table>
+			<tr>
+				<th class="text-center afPuThDesign">商品発送予定日</th>
+				<td class="text-center afPuTdDesign"
+					th:text="${#dates.format(purchaseDate, 'yyyy/MM/dd') + ' ～ ' + #dates.format(purchaseDateNext, 'yyyy/MM/dd') + 'の間に発送予定になります。'}"></td>
+			</tr>
+		</table>
 
-	<table class="table after_purchaseTableDesignNext afterPurchaseList">
-		<h2 class="h2">発送商品一覧</h2>
-		<tr class="afPurThDesign">
-			<th class="text-center afPurName">商品名</th>
-			<th class="text-center afPurCount">個数</th>
-		</tr>
+		<table class="table after_purchaseTableDesignNext afterPurchaseList">
+			<h2 class="h2">発送商品一覧</h2>
+			<tr class="afPurThDesign">
+				<th class="text-center afPurName">商品名</th>
+				<th class="text-center afPurCount">個数</th>
+			</tr>
 
-		<tr  class="afPurTdDesign" th:each="pcdatadto : ${purchaseList}">
-			<td class="text-center afPurName" th:text=${pcdatadto.pc_name}></td>
-			<td class="text-center afPurCount" th:text=${pcdatadto.product_count}></td>
-		</tr>
-	</table>
-	
-	<a th:href="@{/productList}" class="btn btnAfPu-gradient af_PuProductListBtn"><span>商品一覧へ</span></a>
+			<tr class="afPurTdDesign" th:each="pcdatadto : ${purchaseList}">
+				<td class="text-center afPurName" th:text=${pcdatadto.pc_name}></td>
+				<td class="text-center afPurCount"
+					th:text=${pcdatadto.product_count}></td>
+			</tr>
+		</table>
+
+		<a th:href="@{/productList}"
+			class="btn btnAfPu-gradient af_PuProductListBtn"><span>商品一覧へ</span></a>
 
 
-</div>
+	</div>
 </body>
 </html>
