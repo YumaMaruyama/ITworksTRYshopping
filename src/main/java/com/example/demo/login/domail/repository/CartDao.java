@@ -9,38 +9,36 @@ import com.example.demo.login.domail.model.PcDataDTO;
 
 public interface CartDao {
 
-	public int insertOne(CartDTO cartdto,int product_id,int select_id);
+	public int insertOne(CartDTO cartdto, int product_id, int select_id);
 
 	public List<PcDataDTO> selectMany(String getName);
 
 	public List<PcDataDTO> cartDataSelectMany(String user_id);
 
-	public int deleteOne(int id,int getId);
+	public int deleteOne(int id, int getId);
 
-	public int updateOne(int productId,int newProductCount,int userId);
+	public int updateOne(int productId, int newProductCount, int userId);
 
-	public int selectOne(CartDTO cartdto,int product_id,int select_id) throws EmptyResultDataAccessException;
+	public int selectOne(CartDTO cartdto, int product_id, int select_id) throws EmptyResultDataAccessException;
 
 	public List<CartDTO> selectProductCount(int select_id);
 
-	public int productStockUpdate(int productId,int productCount);
+	public int productStockUpdate(int productId, int productCount);
 
 	public int productStockCheck(int productId);
 
 	public List<CartDTO> purchaseSelectMany(int select_id);
-	
-	public int idInsertOne(int id,int product_id ,int select_id);
-	
-	public int selectMaxId(int productId);
-	
-	public int updateCouponId(int cartId,int couponId);
-	
-	public int couponCancelUpdate();
-	
-	public int updateMenberCouponId(int cartId,int couponId);
-	
-	
 
-	//public int selectProductId(int cartId);
+	public int idInsertOne(int id, int product_id, int select_id);
+
+	public int selectMaxId(int productId);
+
+	public int updateCouponId(int cartId, int couponId);
+
+	public int couponCancelUpdate();
+
+	public int updateMenberCouponId(int cartId, int couponId);
+
+	// public int selectProductId(int cartId);
 
 }

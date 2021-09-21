@@ -10,14 +10,14 @@ public interface Usege_usersDao {
 	public int insertOne(Usege_usersDTO usegedto);
 
 	public String selectAddress(int select_id);
-	
+
 	public List<UsersListDTO> selectMany();
-	
+
 	public UsersListDTO selectOne(int id);
-	
+
 	public int deleteOne(int id);
-	
+
 	public Usege_usersDTO userInformationSelectOne(int selectId);
-	
+
 	public int updateOne(Usege_usersDTO usegeusersdto);
 }

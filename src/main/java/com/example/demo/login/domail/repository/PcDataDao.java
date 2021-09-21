@@ -14,8 +14,8 @@ public interface PcDataDao {
 	public PcDataDTO selectOne(int id);
 
 	public int insertCheckSelectOne(PcDataDTO pcdatadto);
-	
+
 	public PcDataDTO selectPcName(int productId);
-	
-	public int updateOne(PurchaseDTO purchasedto,int productStock);
+
+	public int updateOne(PurchaseDTO purchasedto, int productStock);
 }

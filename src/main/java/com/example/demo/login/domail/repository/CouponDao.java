@@ -8,13 +8,13 @@ import com.example.demo.login.domail.model.CouponDTO;
 
 public interface CouponDao {
 
-	public int couponInsert(CouponDTO coupondto,HttpSession session);
-	
+	public int couponInsert(CouponDTO coupondto, HttpSession session);
+
 	public List<CouponDTO> selectMany(int beforeUseCouponId);
-	
+
 	public CouponDTO selectOne(int couponId);
-	
+
 	public List<Integer> selectIdMany();
-	
+
 	public List<CouponDTO> beforePurchaseSelectMany();
 }
