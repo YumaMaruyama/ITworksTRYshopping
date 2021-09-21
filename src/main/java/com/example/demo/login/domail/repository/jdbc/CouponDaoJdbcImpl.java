@@ -19,77 +19,74 @@ public class CouponDaoJdbcImpl implements CouponDao {
 
 	@Autowired
 	JdbcTemplate jdbc;
-	
-	public int couponInsert(CouponDTO coupondto,HttpSession session) {
-		int result = jdbc.update("insert into coupon (id,"
-				+ " discount,"
-				+ " purchase_count_target,"
-				+ " purchase_total_price_target,"
-				+ " title,"
-				+ " expiration_date)"
-				+ " value(?,?,?,?,?,?)",coupondto.getId(),session.getAttribute("discount"),session.getAttribute("purchaseCountTarget"),session.getAttribute("purchaseTotalPriceTarget"),session.getAttribute("title"),session.getAttribute("expirationDate"));
-		
+
+	public int couponInsert(CouponDTO coupondto, HttpSession session) {
+		int result = jdbc.update(
+				"insert into coupon (id," + " discount," + " purchase_count_target," + " purchase_total_price_target,"
+						+ " title," + " expiration_date)" + " value(?,?,?,?,?,?)",
+				coupondto.getId(), session.getAttribute("discount"), session.getAttribute("purchaseCountTarget"),
+				session.getAttribute("purchaseTotalPriceTarget"), session.getAttribute("title"),
+				session.getAttribute("expirationDate"));
+
 		return result;
 	}
-	
+
 	public List<CouponDTO> selectMany(int beforeUseCouponId) {
-		
-		List<Map<String,Object>> map = jdbc.queryForList("select * from coupon where id = ?",beforeUseCouponId);
-		
+
+		List<Map<String, Object>> map = jdbc.queryForList("select * from coupon where id = ?", beforeUseCouponId);
+
 		List<CouponDTO> coupondtoList = new ArrayList<>();
-		
-		for(Map<String,Object> oneMap : map) {
+
+		for (Map<String, Object> oneMap : map) {
 			CouponDTO coupondto = new CouponDTO();
-			coupondto.setId((int)oneMap.get("id"));
-			coupondto.setDiscount((int)oneMap.get("discount"));
-			coupondto.setPurchaseCountTarget((int)oneMap.get("purchase_count_target"));
-			coupondto.setPurchaseTotalPriceTarget((int)oneMap.get("purchase_total_price_target"));
-			coupondto.setTitle((String)oneMap.get("title"));
-			coupondto.setRegistratonDate((Date)oneMap.get("registration_date"));
-			coupondto.setExpirationDate((Date)oneMap.get("expiration_date"));			
+			coupondto.setId((int) oneMap.get("id"));
+			coupondto.setDiscount((int) oneMap.get("discount"));
+			coupondto.setPurchaseCountTarget((int) oneMap.get("purchase_count_target"));
+			coupondto.setPurchaseTotalPriceTarget((int) oneMap.get("purchase_total_price_target"));
+			coupondto.setTitle((String) oneMap.get("title"));
+			coupondto.setRegistratonDate((Date) oneMap.get("registration_date"));
+			coupondto.setExpirationDate((Date) oneMap.get("expiration_date"));
 			coupondtoList.add(coupondto);
 		}
-		
+
 		return coupondtoList;
-				
+
 	}
-	
-	
-	
+
 	public List<CouponDTO> beforePurchaseSelectMany() {
-		
-List<Map<String,Object>> map = jdbc.queryForList("select * from coupon");
-		
+
+		List<Map<String, Object>> map = jdbc.queryForList("select * from coupon");
+
 		List<CouponDTO> coupondtoList = new ArrayList<>();
-		
-		for(Map<String,Object> oneMap : map) {
+
+		for (Map<String, Object> oneMap : map) {
 			CouponDTO coupondto = new CouponDTO();
-			coupondto.setId((int)oneMap.get("id"));
-			coupondto.setDiscount((int)oneMap.get("discount"));
-			coupondto.setPurchaseCountTarget((int)oneMap.get("purchase_count_target"));
-			coupondto.setPurchaseTotalPriceTarget((int)oneMap.get("purchase_total_price_target"));
-			coupondto.setTitle((String)oneMap.get("title"));
-			coupondto.setRegistratonDate((Date)oneMap.get("registration_date"));
-			coupondto.setExpirationDate((Date)oneMap.get("expiration_date"));	
-			
+			coupondto.setId((int) oneMap.get("id"));
+			coupondto.setDiscount((int) oneMap.get("discount"));
+			coupondto.setPurchaseCountTarget((int) oneMap.get("purchase_count_target"));
+			coupondto.setPurchaseTotalPriceTarget((int) oneMap.get("purchase_total_price_target"));
+			coupondto.setTitle((String) oneMap.get("title"));
+			coupondto.setRegistratonDate((Date) oneMap.get("registration_date"));
+			coupondto.setExpirationDate((Date) oneMap.get("expiration_date"));
+
 			coupondtoList.add(coupondto);
 		}
-		
+
 		return coupondtoList;
 	}
-	
+
 	public CouponDTO selectOne(int couponId) {
-		Map<String,Object> map = jdbc.queryForMap("select * from coupon where id = ?",couponId);
+		Map<String, Object> map = jdbc.queryForMap("select * from coupon where id = ?", couponId);
 		CouponDTO coupondto = new CouponDTO();
-		
-		coupondto.setDiscount((int)map.get("discount"));
-		
+
+		coupondto.setDiscount((int) map.get("discount"));
+
 		return coupondto;
 	}
-	
+
 	public List<Integer> selectIdMany() {
-		List<Integer> couponId = jdbc.queryForList("select coupon.id from coupon",Integer.class);
+		List<Integer> couponId = jdbc.queryForList("select coupon.id from coupon", Integer.class);
 		return couponId;
-		
+
 	}
 }

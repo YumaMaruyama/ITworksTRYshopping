@@ -24,7 +24,7 @@ public class PurchaseDaoJdbcImpl implements PurchaseDao {
 			int customId, int couponId, int point, int pointminusTotalPrice) {
 
 		int result = jdbc.update("insert into purchase (id," + " user_id," + " product_id," + " product_count,"
-		// + " purchase_date,"
+
 				+ " credit_id," + " custom_id," + " menber_coupon_check," + " coupon_id," + " point," + " point_use)"
 				+ " value(?,?,?,?,?,?,?,?,?,?)", purchasedto.getId(), select_id, purchaseId, purchaseCount,
 				purchaseCreditId, customId, "クーポン使用", couponId, point, pointminusTotalPrice);
@@ -36,7 +36,7 @@ public class PurchaseDaoJdbcImpl implements PurchaseDao {
 	public int insertMenberCoupon(PurchaseDTO purchasedto, int purchaseId, int purchaseCount, int select_id,
 			int purchaseCreditId, int customId, int couponId, int point, int pointminusTotalPrice) {
 		int result = jdbc.update("insert into purchase (id," + " user_id," + " product_id," + " product_count,"
-		// + " purchase_date,"
+
 				+ " credit_id," + " custom_id," + " menber_coupon_check," + " coupon_id," + " point," + " point_use)"
 				+ " value(?,?,?,?,?,?,?,?,?,?)", purchasedto.getId(), select_id, purchaseId, purchaseCount,
 				purchaseCreditId, customId, "会員クーポン使用", couponId, point, pointminusTotalPrice);
@@ -58,7 +58,6 @@ public class PurchaseDaoJdbcImpl implements PurchaseDao {
 		int sumPrins = 0;
 		List<Map<String, Object>> user_productIdList = new ArrayList<>();
 		for (int i = 0; 1 > i; i++) {
-			int productIdOne = productIdList.get(i);
 			List<Map<String, Object>> purchaseList = jdbc.queryForList(
 					"select pcdata.id,pcdata.company,pcdata.os,pcdata.pc_name,pcdata.pc_size,pcdata.price,pcdata.detail,pcdata.product_stock,pcdata.pcimg,pcdata.pcimg2,pcdata.pcimg3,purchase.credit_id,purchase.product_count from pcdata JOIN purchase ON pcdata.id = purchase.product_id and purchase.credit_id = ?",
 					purchaseNumber);
@@ -83,7 +82,6 @@ public class PurchaseDaoJdbcImpl implements PurchaseDao {
 			pcdatadto.setPcImg((String) map.get("pcImg"));
 			pcdatadto.setPcImg2((String) map.get("pcImg2"));
 			pcdatadto.setPcImg3((String) map.get("pcImg3"));
-			// pcdatadto.setCartId((int) map.get("cartId"));
 			pcdatadto.setCreditId((int) map.get("credit_id"));
 			pcdatadto.setProduct_count((int) map.get("product_count"));
 
@@ -180,7 +178,7 @@ public class PurchaseDaoJdbcImpl implements PurchaseDao {
 			purchasedto.setProduct_count((int) map.get("product_count"));
 			purchasedto.setCouponId((int) map.get("coupon_id"));
 			purchasedto.setMenberCouponCheck((String) map.get("menber_coupon_check"));
-			purchasedto.setPointRepayment((int)map.get("point"));
+			purchasedto.setPointRepayment((int) map.get("point"));
 			purchasedto.setPointUse((int) map.get("point_use"));
 			purchasedto.setPurchaseCheck((int) map.get("cartPurchaseCheck"));
 			return purchasedto;

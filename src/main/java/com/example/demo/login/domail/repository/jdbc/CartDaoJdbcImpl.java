@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 
 import com.example.demo.login.domail.model.CartDTO;
 import com.example.demo.login.domail.model.PcDataDTO;
-import com.example.demo.login.domail.model.PcDetailDataDTO;
 import com.example.demo.login.domail.repository.CartDao;
 
 @Repository
@@ -21,9 +20,6 @@ public class CartDaoJdbcImpl implements CartDao {
 	JdbcTemplate jdbc;
 
 	public int insertOne(CartDTO cartdto, int product_id, int select_id) {
-
-		// int getId = jdbc.queryForObject("select users.id from users where user_id =
-		// ?", Integer.class, select_id);
 
 		int result = jdbc.update(
 				"insert into cart (id," + "user_id," + "product_id," + "product_count)" + " value(?,?,?,?)",
@@ -50,34 +46,26 @@ public class CartDaoJdbcImpl implements CartDao {
 		List<Map<String, Object>> user_productList = new ArrayList<>();
 		for (int i = 0; i < product_idList.size(); i++) {
 			int pcdatadtoOne = product_idList.get(i);
-			System.out.println("pcdatadtoOne" + pcdatadtoOne);
+
 			List<Map<String, Object>> productList = jdbc.queryForList(
 					"select pcdata.id,pcdata.company,pcdata.os,pcdata.pc_name,pcdata.pc_size,pcdata.price,pcdata.detail,pcdata.product_stock,pcdata.pcimg,pcdata.pcimg2,pcdata.pcimg3,cart.id AS cartId,cart.product_count,cart.purchase_check,cart.coupon_id,cart.menber_coupon_check,custom.id AS customId,custom.memory,custom.hard_disc,custom.cpu,custom.custom_price from pcdata JOIN cart ON pcdata.id = cart.product_id JOIN custom ON pcdata.id = custom.product_id where pcdata.id = ? and custom.user_id = ? and cart.user_id = ? and cart.purchase_check is null and custom.purchase_check is null",
 					pcdatadtoOne, getId, getId);
 
 			user_productList.addAll(productList);
-			System.out.println("productList" + productList);
 
 			// カート内剛健値段を出すためにユーザーのカート内のpriceを全て足していく
-
 			List<Integer> priceList = new ArrayList<>();
 			for (Map<String, Object> map : productList) {
 				int getPrice = (int) map.get("price");
 				sumPrice = sumPrice + getPrice;
-				System.out.println("sumPrice" + sumPrice);
 			}
-			// PcDataDTO pcdatadto = new PcDataDTO();
-			// pcdatadto.setTotalPrice(sumPrice);
-			// System.out.println("pcdatadto.totalPrice" + pcdatadto.getTotalPrice());
 
 		}
 		List<PcDataDTO> pcdataList = new ArrayList<>();
 		for (Map<String, Object> map : user_productList) {
 
 			PcDataDTO pcdatadto = new PcDataDTO();
-			PcDetailDataDTO pcdetaildatadto = new PcDetailDataDTO();
 			try {
-				int couponIdCheck = (int) map.get("coupon_id");
 				pcdatadto.setId((int) map.get("id"));
 				pcdatadto.setCompany((String) map.get("company"));
 				pcdatadto.setOs((String) map.get("os"));
@@ -92,7 +80,7 @@ public class CartDaoJdbcImpl implements CartDao {
 				pcdatadto.setCartId((int) map.get("cartId"));
 				pcdatadto.setProduct_count((int) map.get("product_count"));
 				pcdatadto.setCouponId((int) map.get("coupon_id"));
-				pcdatadto.setMenberCouponCheck((String)map.get("menber_coupon_check"));
+				pcdatadto.setMenberCouponCheck((String) map.get("menber_coupon_check"));
 				pcdatadto.setId((int) map.get("id"));
 				pcdatadto.setMemory((String) map.get("memory"));
 				pcdatadto.setHardDisc((String) map.get("hard_disc"));
@@ -100,11 +88,11 @@ public class CartDaoJdbcImpl implements CartDao {
 				pcdatadto.setCustomPrice((int) map.get("custom_price"));
 				pcdatadto.setAfterCustomPrice(pcdatadto.getPrice() + pcdatadto.getCustomPrice());
 				pcdatadto.setTotalPrice(sumPrice);
-				System.out.println("try中"+pcdatadto.getMenberCouponCheck());
+
 			} catch (NullPointerException | EmptyResultDataAccessException e) {
 				e.printStackTrace();
 				int couponId = 0;
-				
+
 				pcdatadto.setId((int) map.get("id"));
 				pcdatadto.setCompany((String) map.get("company"));
 				pcdatadto.setOs((String) map.get("os"));
@@ -127,14 +115,9 @@ public class CartDaoJdbcImpl implements CartDao {
 				pcdatadto.setCustomPrice((int) map.get("custom_price"));
 				pcdatadto.setAfterCustomPrice(pcdatadto.getPrice() + pcdatadto.getCustomPrice());
 				pcdatadto.setTotalPrice(sumPrice);
-				System.out.println("catch中"+pcdatadto.getMenberCouponCheck());
-//				if(pcdatadto.getMenberCouponCheck().equals("null")) {
-//					pcdatadto.setMenberCouponCheck("クーポン不使用");
-//				}
-				
+
 			}
 
-			System.out.println("couponId" + pcdatadto.getCouponId());
 			pcdataList.add(pcdatadto);
 
 		}
@@ -152,32 +135,28 @@ public class CartDaoJdbcImpl implements CartDao {
 
 			int id = (int) map.get("product_id");
 			idList.add(id);
-			System.out.println("id" + id);
-		}
-		System.out.println("idList" + idList);
 
-		System.out.println("jcbcCartList " + cartList);
+		}
+
 		List<Map<String, Object>> user_productList = new ArrayList<>();
 
 		for (int i = 0; i < idList.size(); i++) {
 			int pcdatadtoOne = idList.get(i);
-			System.out.println("pcdatadtoOne" + pcdatadtoOne);
+
 			List<Map<String, Object>> productList = jdbc.queryForList("select * from pcdata where id = ?",
 					pcdatadtoOne);
 			user_productList.addAll(productList);
-			System.out.println("productList" + productList);
 
 			int sum = 0;
 			List<Integer> priceList = new ArrayList<>();
 			for (Map<String, Object> map : productList) {
-				// sum = sum + (int) map.get("price");
+
 				int getPrice = (int) map.get("price");
 				priceList.add(getPrice);
-				System.out.println("priceList" + priceList);
+
 			}
 			PcDataDTO pcdatadto = new PcDataDTO();
 			pcdatadto.setTotalPrice(sum);
-			System.out.println("pcdatadto.totalPrice" + pcdatadto.getTotalPrice());
 
 		}
 		List<PcDataDTO> pcdataList = new ArrayList<>();
@@ -210,7 +189,7 @@ public class CartDaoJdbcImpl implements CartDao {
 	}
 
 	public int deleteOne(int id, int getId) {
-		System.out.println("deleteOne文到達");
+
 		int result = jdbc.update("delete from cart where product_id = ? AND user_id = ? and purchase_check is null", id,
 				getId);
 
@@ -218,7 +197,7 @@ public class CartDaoJdbcImpl implements CartDao {
 	}
 
 	public int updateOne(int productId, int newProductCount, int userId) {
-		System.out.println("daoUpdate到達");
+
 		int result = jdbc.update(
 				"update cart set product_count = ? where product_id = ? AND user_id = ? and purchase_check is null",
 				newProductCount, productId, userId);
@@ -264,15 +243,15 @@ public class CartDaoJdbcImpl implements CartDao {
 			cartdto.setProduct_id((int) oneMap.get("product_id"));
 			cartdto.setProduct_count((int) oneMap.get("product_count"));
 			try {
-			cartdto.setMenberCouponCheck((String)oneMap.get("menber_coupon_check"));
-				cartdto.setCouponId((int)oneMap.get("coupon_id"));
-			}catch(NullPointerException e){
-				System.out.println("nullOK");
+				cartdto.setMenberCouponCheck((String) oneMap.get("menber_coupon_check"));
+				cartdto.setCouponId((int) oneMap.get("coupon_id"));
+			} catch (NullPointerException e) {
+				
 				e.printStackTrace();
 				cartdto.setCouponId(-1);
 				cartdto.setMenberCouponCheck("no");
 			}
-			
+
 			purchaseList.add(cartdto);
 		}
 		return purchaseList;
@@ -293,23 +272,21 @@ public class CartDaoJdbcImpl implements CartDao {
 
 	public int updateCouponId(int cartId, int couponId) {
 		int result = jdbc.update("update cart set coupon_id = ? where id = ?", couponId, cartId);
-		System.out.println("ok3");
-		return result;
-	}
 	
-	public int couponCancelUpdate() {
-		int result = jdbc.update("update cart set coupon_id = null and purchase_check is null");
-		System.out.println("updatetest"+result);
-		return result;
-		}
-	
-	public int updateMenberCouponId(int cartId,int couponId) {
-		System.out.println("ok2");
-		int result = jdbc.update("update cart set coupon_id = ?,menber_coupon_check = '会員ランク特典使用' where id = ?", couponId, cartId);
 		return result;
 	}
 
-//	public int selectProductId(int cartId) {
-//		int result = 
-//	}
+	public int couponCancelUpdate() {
+		int result = jdbc.update("update cart set coupon_id = null and purchase_check is null");
+		
+		return result;
+	}
+
+	public int updateMenberCouponId(int cartId, int couponId) {
+		
+		int result = jdbc.update("update cart set coupon_id = ?,menber_coupon_check = '会員ランク特典使用' where id = ?",
+				couponId, cartId);
+		return result;
+	}
+
 }
