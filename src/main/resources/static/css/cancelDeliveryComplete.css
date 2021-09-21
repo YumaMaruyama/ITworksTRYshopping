@@ -1,17 +1,16 @@
 @charset "UTF-8";
 
 .cancelDeliveryCompleteTableDesign {
-	font-size:16px;
-	width:1100px;
-	
+	font-size: 16px;
+	width: 1100px;
 }
 
 .cancelDeliveryCompleteThDesign {
-	background:#ff6c73;
+	background: #ff6c73;
 }
 
 .cancelDeliveryCompleteTdDesign {
-	background:#ffbcbf;
+	background: #ffbcbf;
 }
 
 .cancelDeliveryCompleteNextThDesign {
@@ -23,16 +22,16 @@
 }
 
 .cancelDeliveryCompleteNextTableDesign {
-	font-size:15px;
-	width:1100px;
+	font-size: 15px;
+	width: 1100px;
 }
 
 .thDesign {
-	font-size:14px;
+	font-size: 14px;
 }
 
 .cancelDeliveryCompleteTableDesign {
-	width:1100px;
+	width: 1100px;
 }
 
 .cancelDeliveryCompleteNextThDesign {
@@ -43,42 +42,43 @@
 	background: #dbb6f3;
 }
 
-
-button.btnCancelDeliveryComplete--blue.btnCancelDeliveryComplete--cubic {
-  border-bottom: 5px solid #5c6075;
+button.btnCancelDeliveryComplete--blue.btnCancelDeliveryComplete--cubic
+	{
+	border-bottom: 5px solid #5c6075;
 }
 
-button.btnCancelDeliveryComplete--blue.btnCancelDeliveryComplete--cubic:hover {
-  margin-top: 3px;
-  border-bottom: 2px solid #5c6075;
+button.btnCancelDeliveryComplete--blue.btnCancelDeliveryComplete--cubic:hover
+	{
+	margin-top: 3px;
+	border-bottom: 2px solid #5c6075;
 }
 
 button.btnCancelDeliveryComplete--radius {
-  border-radius: 100vh;
+	border-radius: 100vh;
 }
 
 .cancelDeliveryCompletedBtnDesign {
-	background:#4e83e4;
+	background: #4e83e4;
 	width: 90px;
-    margin-left: 338px;
+	margin-left: 338px;
 }
-
 
 button.btnCancelDeliveryComplete--red.btnCancelDeliveryComplete--cubic {
-  border-bottom: 5px solid #9c434a;
+	border-bottom: 5px solid #9c434a;
 }
 
-button.btnCancelDeliveryComplete--red.btnCancelDeliveryComplete--cubic:hover {
-  margin-top: 3px;
-  border-bottom: 2px solid #9c434a;
+button.btnCancelDeliveryComplete--red.btnCancelDeliveryComplete--cubic:hover
+	{
+	margin-top: 3px;
+	border-bottom: 2px solid #9c434a;
 }
 
 button.btnCancelDeliveryComplete--radius {
-  border-radius: 100vh;
+	border-radius: 100vh;
 }
 
 .cancelCancelBtnDesign {
 	background: #f15555;
-    width: 180px;
-    margin-left: 200px;
+	width: 180px;
+	margin-left: 200px;
 }

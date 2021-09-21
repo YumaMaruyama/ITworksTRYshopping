@@ -1,20 +1,20 @@
 @charset "UTF-8";
 
 .reviewThHength {
-	width:220px;
+	width: 220px;
 	background: #b38cff;
 }
 
 .reviewTdHength {
-	width:770px;
+	width: 770px;
 	background: #c4b1ff;
 }
 
 .reviewTable {
 	display: block;
-    overflow-y: scroll;
-    height: 533px;
-    width:1100px;
+	overflow-y: scroll;
+	height: 533px;
+	width: 1100px;
 }
 
 .reviewSeeTableDesign {

@@ -1,23 +1,23 @@
 @charset "UTF-8";
 
 .inquiryThTitle {
-	background: antiquewhite;	
+	background: antiquewhite;
 }
 
 .inquiryTdTitle {
-	background: #f3dfdf;	
+	background: #f3dfdf;
 }
 
 .inquiryThContent {
-	background: antiquewhite;	
+	background: antiquewhite;
 }
 
 .inquiryTdContent {
-	background: #f3dfdf;	
+	background: #f3dfdf;
 }
 
 .inquirySendingBtn {
-		margin-left: 444px;
+	margin-left: 444px;
 }
 
 .inquiryreplyGoBtn {
@@ -26,41 +26,40 @@
 
 .inquiryTable {
 	font-size: 14px;
-	width:1100px;
+	width: 1100px;
 }
 
 button.btn--circle {
-  border-radius: 50%;
-  line-height: 100px;
-  width: 142px;
-  height: 100px;
-  padding: 0;
-  -webkit-box-shadow: 0 5px 0 #e6d900;
-  box-shadow: 0 5px 0 #e6d900;
+	border-radius: 50%;
+	line-height: 100px;
+	width: 142px;
+	height: 100px;
+	padding: 0;
+	-webkit-box-shadow: 0 5px 0 #e6d900;
+	box-shadow: 0 5px 0 #e6d900;
 }
 
 button.btn--circle:hover {
-  -webkit-transform: translate(0, 3px);
-  transform: translate(0, 3px);
-  -webkit-box-shadow: 0 2px 0 #e6d900;
-  box-shadow: 0 2px 0 #e6d900;
+	-webkit-transform: translate(0, 3px);
+	transform: translate(0, 3px);
+	-webkit-box-shadow: 0 2px 0 #e6d900;
+	box-shadow: 0 2px 0 #e6d900;
 }
 
 a.btn--orange {
-  color: #fff;
-  background-color: #eb6100;
-  border-bottom: 5px solid #b84c00;
+	color: #fff;
+	background-color: #eb6100;
+	border-bottom: 5px solid #b84c00;
 }
+
 a.btn--orange:hover {
-  margin-top: 3px;
-  color: #fff;
-  background: #f56500;
-  border-bottom: 2px solid #b84c00;
+	margin-top: 3px;
+	color: #fff;
+	background: #f56500;
+	border-bottom: 2px solid #b84c00;
 }
+
 a.btn--shadow {
-  -webkit-box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
-  box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
+	-webkit-box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
+	box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
 }
-
-
-

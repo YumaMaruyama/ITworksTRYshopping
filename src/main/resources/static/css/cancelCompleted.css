@@ -1,15 +1,15 @@
 @charset "UTF-8";
 
 .cancelCompleted {
-	font-size:14px;
+	font-size: 14px;
 }
 
 .cancelCompletedThDesign {
-	background:#ff6c73;
+	background: #ff6c73;
 }
 
 .cancelCompletedTdDesign {
-	background:#ffbcbf;
+	background: #ffbcbf;
 }
 
 .cancelCompletedThNextDesign {
@@ -17,5 +17,5 @@
 }
 
 .cancelCompletedTdNextDesign {
-	 background: #acd6aa;
+	background: #acd6aa;
 }

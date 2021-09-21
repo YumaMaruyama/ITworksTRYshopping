@@ -1,13 +1,13 @@
 @charset "UTF-8";
 
 .inquiryReplyTableDesign {
-	font-size:14px;
-	width:1100px;
+	font-size: 14px;
+	width: 1100px;
 }
 
 .inquiryReplyNextTableDesign {
-	font-size:14px;
-	width:1100px;
+	font-size: 14px;
+	width: 1100px;
 }
 
 .inquiryReplyThDesign {
@@ -19,15 +19,15 @@
 }
 
 .inquiryReplyNextThDesign {
-background: #c8ffed;
+	background: #c8ffed;
 }
 
 .inquiryReplyNextTdDesign {
-background: #f3fbf8;
+	background: #f3fbf8;
 }
 
 .inquiryReplyBtn {
-	margin-left:500px !important;
+	margin-left: 500px !important;
 }
 
 button.btninquiryReply-border {

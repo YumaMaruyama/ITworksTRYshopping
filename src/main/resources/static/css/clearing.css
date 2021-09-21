@@ -1,24 +1,21 @@
 @charset "UTF-8";
 
-
-
-
 .clearingTableDesign {
-	font-size:15px;
-	width:1100px;
+	font-size: 15px;
+	width: 1100px;
 }
 
 .inputDesign {
-	font-size:16px;
+	font-size: 16px;
 }
 
 .thTitleDesign {
-	padding-top:14px !important;
+	padding-top: 14px !important;
 }
 
 .confirmationBtn {
 	margin-left: 445px !important;
-	font-size:19px !important;
+	font-size: 19px !important;
 }
 
 .clearingBackColora {
@@ -38,115 +35,94 @@
 }
 
 .clearingTitle {
-	font-size:20px !important;
+	font-size: 20px !important;
 }
 
-   
-
-
 button.btn-gradient {
-  -webkit-transform: skew(-15deg);
-  transform: skew(-15deg);
-  color: #fff;
-  border-radius: 0;
-  background-image: -webkit-gradient(linear, left top, right top, from(#2af598), to(#009efd));
-  background-image: -webkit-linear-gradient(left, #2af598 0%, #009efd 100%);
-  background-image: linear-gradient(90deg, #2af598 0%, #009efd 100%);
-  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, .1);
-  box-shadow: 0 5px 10px rgba(0, 0, 0, .1);
+	-webkit-transform: skew(-15deg);
+	transform: skew(-15deg);
+	color: #fff;
+	border-radius: 0;
+	background-image: -webkit-gradient(linear, left top, right top, from(#2af598),
+		to(#009efd));
+	background-image: -webkit-linear-gradient(left, #2af598 0%, #009efd 100%);
+	background-image: linear-gradient(90deg, #2af598 0%, #009efd 100%);
+	-webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, .1);
+	box-shadow: 0 5px 10px rgba(0, 0, 0, .1);
 }
 
 button.btn-gradient:hover {
-  -webkit-transform: skew(0);
-  transform: skew(0);
-  color: #fff;
-  -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, .1);
-  box-shadow: 0 2px 3px rgba(0, 0, 0, .1);
+	-webkit-transform: skew(0);
+	transform: skew(0);
+	color: #fff;
+	-webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, .1);
+	box-shadow: 0 2px 3px rgba(0, 0, 0, .1);
 }
 
-
 a.btn-flat {
-  overflow: hidden;
-
-  padding: 0.5rem 3rem;
-
-  color: #fff;
-  border-radius: 0;
-  background: #000;
+	overflow: hidden;
+	padding: 0.5rem 3rem;
+	color: #fff;
+	border-radius: 0;
+	background: #000;
 }
 
 a.btn-flat span {
-  position: relative;
+	position: relative;
 }
 
 a.btn-flat:before {
-  position: absolute;
-  top: 0;
-  left: 0;
-
-  width: 100px;
-  height: 100px;
-
-  content: '';
-  -webkit-transition: all .5s ease-in-out;
-  transition: all .5s ease-in-out;
-  -webkit-transform: translateX(-80%) translateY(-25px);
-  transform: translateX(-80%) translateY(-25px);
-
-  border-radius: 50%;
-   background: #e786f3;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100px;
+	height: 100px;
+	content: '';
+	-webkit-transition: all .5s ease-in-out;
+	transition: all .5s ease-in-out;
+	-webkit-transform: translateX(-80%) translateY(-25px);
+	transform: translateX(-80%) translateY(-25px);
+	border-radius: 50%;
+	background: #e786f3;
 }
 
 a.btn-flat:hover:before {
-  width: 400px;
-  height: 400px;
-
-  -webkit-transform: translateX(-1%) translateY(-175px);
-
-  transform: translateX(-1%) translateY(-175px);
+	width: 400px;
+	height: 400px;
+	-webkit-transform: translateX(-1%) translateY(-175px);
+	transform: translateX(-1%) translateY(-175px);
 }
 
-
-
-
-
 button.btn-flat {
-  overflow: hidden;
-
-  padding: 0.5rem 3rem;
-
-  color: #fff;
-  border-radius: 0;
-  background: #000;
+	overflow: hidden;
+	padding: 0.5rem 3rem;
+	color: #fff;
+	border-radius: 0;
+	background: #000;
 }
 
 button.btn-flat span {
-  position: relative;
+	position: relative;
 }
 
 button.btn-flat:before {
-  position: absolute;
-  top: 0;
-  left: 0;
-
-  width: 100px;
-  height: 100px;
-
-  content: '';
-  -webkit-transition: all .5s ease-in-out;
-  transition: all .5s ease-in-out;
-  -webkit-transform: translateX(-80%) translateY(-25px);
-  transform: translateX(-80%) translateY(-25px);
-
-  border-radius: 50%;
-   background: #e786f3;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100px;
+	height: 100px;
+	content: '';
+	-webkit-transition: all .5s ease-in-out;
+	transition: all .5s ease-in-out;
+	-webkit-transform: translateX(-80%) translateY(-25px);
+	transform: translateX(-80%) translateY(-25px);
+	border-radius: 50%;
+	background: #e786f3;
 }
 
 button.btn-flat:hover:before {
-  width: 400px;
-  height: 400px;
-
-  -webkit-transform: translateX(-1%) translateY(-175px);
-
-  transform: translateX(-1%) translateY(-175px);
+	width: 400px;
+	height: 400px;
+	-webkit-transform: translateX(-1%) translateY(-175px);
+	transform: translateX(-1%) translateY(-175px);
 }

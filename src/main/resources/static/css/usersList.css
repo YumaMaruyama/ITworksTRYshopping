@@ -1,16 +1,16 @@
 @charset "UTF-8";
 
 .btnDesign {
-	font-size:13px !important;
+	font-size: 13px !important;
 }
 
 .usersListDesign {
-	font-size:13px !important;
-	width:1100px;
+	font-size: 13px !important;
+	width: 1100px;
 }
 
 .usersListThColor {
-	    background: #7cc2ff;
+	background: #7cc2ff;
 }
 
 .usersListTdColor {
@@ -18,31 +18,31 @@
 }
 
 .usersListMail {
-	width:250px;
+	width: 250px;
 }
 
 .usersListName {
-	width:190px;
+	width: 190px;
 }
 
 .usersListBirthDate {
-	width:110px;
+	width: 110px;
 }
 
 .usersListAddress {
-	width:380px;
+	width: 380px;
 }
 
 .usersListDetail {
-	width:155px;
+	width: 155px;
 }
 
 a.btn--green.btn--border-groove {
-  border: 6px groove #008039;
-  background: aquamarine;
+	border: 6px groove #008039;
+	background: aquamarine;
 }
 
 a.btn--pink.btn--border-ridge {
-  border: 6px ridge #e53b4e;
-      background: #ffd2d6;
+	border: 6px ridge #e53b4e;
+	background: #ffd2d6;
 }

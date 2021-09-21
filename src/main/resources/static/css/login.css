@@ -122,13 +122,12 @@ button.btn-3d-flip.btn-3d-flip2:hover .btn-3d-flip-box2 {
 }
 
 .btn-3d-flip-box-face--front {
-	    background: #459ce6;
+	background: #459ce6;
 }
 
 .btn-3d-flip-box-face--back {
 	position: absolute;
 	top: 100%;
-	/*left: 0;*/
 	-webkit-transform: translateY(-1px) rotateX(-90deg);
 	transform: translateY(-1px) rotateX(-90deg);
 	-webkit-transform-origin: 50% 0;
@@ -190,7 +189,8 @@ button.btn-3d-flip.btn-3d-flip2:hover .btn-3d-flip-box2 {
 
 .cp_iptxt::after {
 	margin-left: 324px;
-	margin-bottom: 10px; display : block;
+	margin-bottom: 10px;
+	display: block;
 	width: 100%;
 	height: 8px;
 	margin-top: -1px;
@@ -201,7 +201,6 @@ button.btn-3d-flip.btn-3d-flip2:hover .btn-3d-flip-box2 {
 	display: block;
 }
 
-/**/
 @import url(https://fonts.googleapis.com/css?family=Lato:900);
 
 *, *:before, *:after {

@@ -1,9 +1,9 @@
 @charset "UTF-8";
 
 .singupDesign {
-	color:red;
+	color: red;
 	padding-left: 336px;
-	font-size:15px;
+	font-size: 15px;
 }
 
 .signupThDesign {
@@ -15,46 +15,39 @@
 }
 
 .singupTableDesign {
-	font-size:14px;
-	width:1100px;
+	font-size: 14px;
+	width: 1100px;
 }
 
 .signupBtnDesign {
-	padding-left:461px !important;
+	padding-left: 461px !important;
 }
-
 
 button.btn-border {
-  border-radius: 0;
+	border-radius: 0;
 }
 
-button.btn-border:before,
-button.btn-border:after {
-  position: absolute;
-
-  width: 23%;
-  height: 2px;
-
-  content: '';
-  -webkit-transition: all .3s;
-  transition: all .3s;
-
-  background: #000;
+button.btn-border:before, button.btn-border:after {
+	position: absolute;
+	width: 23%;
+	height: 2px;
+	content: '';
+	-webkit-transition: all .3s;
+	transition: all .3s;
+	background: #000;
 }
 
 button.btn-border:before {
-  top: 0;
-  left: 446px;
+	top: 0;
+	left: 446px;
 }
 
 button.btn-border:after {
-  right: 0;
-  bottom: 0;
-  left: 446px;
+	right: 0;
+	bottom: 0;
+	left: 446px;
 }
 
-button.btn-border:hover:before,
-button.btn-border:hover:after {
-  width: 0;
+button.btn-border:hover:before, button.btn-border:hover:after {
+	width: 0;
 }
-

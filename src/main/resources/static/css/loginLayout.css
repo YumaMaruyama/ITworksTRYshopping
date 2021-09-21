@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
-.table th,td {
-	    vertical-align: inherit !important;
+.table th, td {
+	vertical-align: inherit !important;
 }
 
 .headerDesign {
@@ -9,17 +9,15 @@
 }
 
 .navbar {
-	padding:0px !important;
+	padding: 0px !important;
 }
 
 .nav-sidebar {
 	height: 570px;
-	/*background: #73abda;
-	display: list-item !important; /*flexが効いてるのでSidebarのアイテムが均等な幅になっている*/
 }
 
 .sidebar {
-	    background: #73abda !important;
+	background: #73abda !important;
 }
 
 .topBtn {
@@ -27,14 +25,13 @@
 }
 
 .desiginBtn {
-
-	margin-bottom:15px;
-	width:197px;
+	margin-bottom: 15px;
+	width: 197px;
 }
 
 .titleDesign {
 	color: #1e0fff99;
-    font-family: system-ui;
+	font-family: system-ui;
 }
 
 *, *:before, *:after {
@@ -107,25 +104,26 @@ a.btn-gradient:hover:after {
 	opacity: 0;
 }
 
-
 a.btn-radius-solid {
-  border: 1px solid #ccc;
-  background: #f1e767;
-  background: -webkit-gradient(linear, left top, left bottom, from(#fdfbfb), to(#ebedee));
-  background: -webkit-linear-gradient(top, #fdfbfb 0%, #ebedee 100%);
-  background: linear-gradient(to bottom, #fdfbfb 0%, #ebedee 100%);
-  -webkit-box-shadow: inset 1px 1px 1px #fff;
-  box-shadow: inset 1px 1px 1px #fff;
+	border: 1px solid #ccc;
+	background: #f1e767;
+	background: -webkit-gradient(linear, left top, left bottom, from(#fdfbfb),
+		to(#ebedee));
+	background: -webkit-linear-gradient(top, #fdfbfb 0%, #ebedee 100%);
+	background: linear-gradient(to bottom, #fdfbfb 0%, #ebedee 100%);
+	-webkit-box-shadow: inset 1px 1px 1px #fff;
+	box-shadow: inset 1px 1px 1px #fff;
 }
 
 a.btn-radius-solid:hover {
-  background: -webkit-gradient(linear, left bottom, left top, from(#fdfbfb), to(#ebedee));
-  background: -webkit-linear-gradient(bottom, #fdfbfb 0%, #ebedee 100%);
-  background: linear-gradient(to top, #fdfbfb 0%, #ebedee 100%);
+	background: -webkit-gradient(linear, left bottom, left top, from(#fdfbfb),
+		to(#ebedee));
+	background: -webkit-linear-gradient(bottom, #fdfbfb 0%, #ebedee 100%);
+	background: linear-gradient(to top, #fdfbfb 0%, #ebedee 100%);
 }
 
 .loginGoBtn {
-	color:#dcdcdc !important; 
+	color: #dcdcdc !important;
 	font-size: 18px;
 }
 

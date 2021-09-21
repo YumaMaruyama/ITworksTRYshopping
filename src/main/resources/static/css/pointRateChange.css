@@ -1,9 +1,9 @@
 @charset "UTF-8";
 
 .pointRateChangeTableDesign {
-	font-size:14px;
+	font-size: 14px;
 	margin-left: 236px;
-    margin-top: 78px;
+	margin-top: 78px;
 }
 
 .pointRateChangeThDesign {
@@ -15,19 +15,20 @@
 }
 
 .pointRateChangeBtnDesign {
-	margin-left:462px;
+	margin-left: 462px;
 }
 
 button.btn-radius-solidPointRateChange {
-  background: #f1e767;
-  background: -webkit-gradient(linear, left top, left bottom, from(#f1e767), to(#feb645));
-  background: -webkit-linear-gradient(top, #f1e767 0%, #feb645 100%);
-  background: linear-gradient(to bottom, #fb9a47 0%, #e48c1f 100%);
+	background: #f1e767;
+	background: -webkit-gradient(linear, left top, left bottom, from(#f1e767),
+		to(#feb645));
+	background: -webkit-linear-gradient(top, #f1e767 0%, #feb645 100%);
+	background: linear-gradient(to bottom, #fb9a47 0%, #e48c1f 100%);
 }
 
 button.btn-radius-solidPointRateChange:hover {
-  background: -webkit-gradient(linear, left bottom, left top, from(#f1e767), to(#feb645));
-  background: -webkit-linear-gradient(bottom, #f1e767 0%, #feb645 100%);
-  background: linear-gradient(to top, #fb9a47 0%, #e48c1f 100%);
+	background: -webkit-gradient(linear, left bottom, left top, from(#f1e767),
+		to(#feb645));
+	background: -webkit-linear-gradient(bottom, #f1e767 0%, #feb645 100%);
+	background: linear-gradient(to top, #fb9a47 0%, #e48c1f 100%);
 }
-

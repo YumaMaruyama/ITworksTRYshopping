@@ -1,11 +1,11 @@
 @charset "UTF-8";
 
 .inquiryBeforeLoginThDesign {
-	background: antiquewhite;	
+	background: antiquewhite;
 }
 
 .inquiryBeforeLoginTdDesign {
-	background: #f3dfdf;	
+	background: #f3dfdf;
 }
 
 .inquirySendingBtn {
@@ -20,67 +20,64 @@
 	font-size: 15px;
 }
 
-*,
-*:before,
-*:after {
-  -webkit-box-sizing: inherit;
-  box-sizing: inherit;
+*, *:before, *:after {
+	-webkit-box-sizing: inherit;
+	box-sizing: inherit;
 }
 
 html {
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  font-size: 62.5%;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	font-size: 62.5%;
 }
 
-
 button.btn {
-  font-size: 1.6rem;
-  font-weight: 700;
-  line-height: 1.5;
-  position: relative;
-  display: inline-block;
-  padding: 1rem 4rem;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-  text-align: center;
-  vertical-align: middle;
-  text-decoration: none;
-  letter-spacing: 0.1em;
-  color: #212529;
-  border-radius: 0.5rem;
+	font-size: 1.6rem;
+	font-weight: 700;
+	line-height: 1.5;
+	position: relative;
+	display: inline-block;
+	padding: 1rem 4rem;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	-webkit-transition: all 0.3s;
+	transition: all 0.3s;
+	text-align: center;
+	vertical-align: middle;
+	text-decoration: none;
+	letter-spacing: 0.1em;
+	color: #212529;
+	border-radius: 0.5rem;
 }
 
 button.btn--circle {
-  width: 140px;
-  height: 140px;
-  padding: 20px 0 0;
-  border-radius: 50%;
-  color: #fff;
-  background: #ef8b44;
-  -webkit-box-shadow: 0 7px 0 #e53b4e;
-  box-shadow: 0 7px 0 #d47551;
+	width: 140px;
+	height: 140px;
+	padding: 20px 0 0;
+	border-radius: 50%;
+	color: #fff;
+	background: #ef8b44;
+	-webkit-box-shadow: 0 7px 0 #e53b4e;
+	box-shadow: 0 7px 0 #d47551;
 }
 
 button.btn--circle i {
-  font-size: 150%;
+	font-size: 150%;
 }
 
 .fa-position-bottom {
-  position: absolute;
-  bottom: 1rem;
-  left: calc(50% - 0.5rem);
+	position: absolute;
+	bottom: 1rem;
+	left: calc(50% - 0.5rem);
 }
 
 button.btn--circle:hover {
-  -webkit-transform: translate(0, 4px);
-  transform: translate(0, 4px);
-  color: #fff;
-  -webkit-box-shadow: 0 3px 0 #e53b4e;
-  box-shadow: 0 3px 0 #d47551;
+	-webkit-transform: translate(0, 4px);
+	transform: translate(0, 4px);
+	color: #fff;
+	-webkit-box-shadow: 0 3px 0 #e53b4e;
+	box-shadow: 0 3px 0 #d47551;
 }

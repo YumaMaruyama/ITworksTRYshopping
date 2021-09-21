@@ -1,44 +1,42 @@
 @charset "UTF-8";
 
 select.cancelSelect {
-width: 412px !important; 
+	width: 412px !important;
 }
 
 .progress {
-	margin-top:20px;
-	margin-bottom:20px;
+	margin-top: 20px;
+	margin-bottom: 20px;
 }
 
 .cancelThDesign {
-	background:#ff6c73;
+	background: #ff6c73;
 }
 
 .cancelTdDesign {
-	background:#ffbcbf;
+	background: #ffbcbf;
 }
 
 .cancelTableDesign {
 	width: 1100px;
-    font-size: 14px;
+	font-size: 14px;
 }
 
 button.btnCancel--red.btnCancel--cubic {
-  border-bottom: 5px solid #9c434a;
+	border-bottom: 5px solid #9c434a;
 }
 
 button.btnCancel--red.btnCancel--cubic:hover {
-  margin-top: 3px;
-  border-bottom: 2px solid #9c434a;
+	margin-top: 3px;
+	border-bottom: 2px solid #9c434a;
 }
 
 button.btnCancel--radius {
-  border-radius: 100vh;
+	border-radius: 100vh;
 }
 
 .cancelBtnDesign {
-	background:#f15555;
+	background: #f15555;
 	width: 55px;
-    margin-left: 503px;
+	margin-left: 503px;
 }
-	
-    

@@ -1,19 +1,19 @@
 @charset "UTF-8";
 
-
 a.btnEY-radius-solid {
-  background: #f1e767;
-  background: -webkit-gradient(linear, left top, left bottom, from(#f1e767), to(#feb645));
-  background: -webkit-linear-gradient(top, #f1e767 0%, #feb645 100%);
-  background: linear-gradient(to bottom, #33ff00 0%, #c3ffd5 100%);
+	background: #f1e767;
+	background: -webkit-gradient(linear, left top, left bottom, from(#f1e767),
+		to(#feb645));
+	background: -webkit-linear-gradient(top, #f1e767 0%, #feb645 100%);
+	background: linear-gradient(to bottom, #33ff00 0%, #c3ffd5 100%);
 }
 
 a.btnEY-radius-solid:hover {
-  background: -webkit-gradient(linear, left bottom, left top, from(#f1e767), to(#feb645));
-  background: -webkit-linear-gradient(bottom, #f1e767 0%, #feb645 100%);
-  background: linear-gradient(to top, #33ff00 0%, #c3ffd5 100%);
+	background: -webkit-gradient(linear, left bottom, left top, from(#f1e767),
+		to(#feb645));
+	background: -webkit-linear-gradient(bottom, #f1e767 0%, #feb645 100%);
+	background: linear-gradient(to top, #33ff00 0%, #c3ffd5 100%);
 }
-
 
 .rank1 {
 	color: #b3b1ba;
@@ -33,95 +33,87 @@ a.btnEY-radius-solid:hover {
 
 .rank5 {
 	color: #9c942f;
-	
 }
 
 .rank6 {
 	color: #00000008;
-    background: linear-gradient(
-45deg
-, #d2f7ff 25%, transparent 25%, transparent 75%, #d7e8ea 75%), linear-gradient(
-45deg
-, #bcdbde 25%, transparent 25%, transparent 75%, #91d2ea 75%);
-    background-color: #60b4e4;
-    background-size: 24px 24px;
-    background-position: 0 0, 12px 12px;
-    -webkit-background-clip: text;
+	background: linear-gradient(45deg, #d2f7ff 25%, transparent 25%, transparent 75%,
+		#d7e8ea 75%),
+		linear-gradient(45deg, #bcdbde 25%, transparent 25%, transparent 75%,
+		#91d2ea 75%);
+	background-color: #60b4e4;
+	background-size: 24px 24px;
+	background-position: 0 0, 12px 12px;
+	-webkit-background-clip: text;
 }
 
 .rank7 {
 	color: #00000008;
-    background: linear-gradient(
-45deg
-, #b7b1a6 25%, transparent 25%, transparent 75%, #a4a6a7 75%), linear-gradient(
-45deg
-, #e0e0e0 25%, transparent 25%, transparent 75%, #d0c3cf 75%);
-    background-color: #bcd4c3;
-    background-size: 24px 24px;
-    background-position: 0 0, 12px 12px;
-    -webkit-background-clip: text;
-
+	background: linear-gradient(45deg, #b7b1a6 25%, transparent 25%, transparent 75%,
+		#a4a6a7 75%),
+		linear-gradient(45deg, #e0e0e0 25%, transparent 25%, transparent 75%,
+		#d0c3cf 75%);
+	background-color: #bcd4c3;
+	background-size: 24px 24px;
+	background-position: 0 0, 12px 12px;
+	-webkit-background-clip: text;
 }
 
 .rank8 {
 	color: #00000008;
-    background: linear-gradient( 
-45deg
- , #90944a 25%, transparent 25%, transparent 75%, #a7b6bd 75%), linear-gradient( 
-45deg
- , #e6923b 25%, transparent 25%, transparent 75%, #ea9be4 75%);
-    background-color: #aedabb;
-    background-size: 24px 24px;
-    background-position: 0 0, 12px 12px;
-    -webkit-background-clip: text;
+	background: linear-gradient(45deg, #90944a 25%, transparent 25%, transparent 75%,
+		#a7b6bd 75%),
+		linear-gradient(45deg, #e6923b 25%, transparent 25%, transparent 75%,
+		#ea9be4 75%);
+	background-color: #aedabb;
+	background-size: 24px 24px;
+	background-position: 0 0, 12px 12px;
+	-webkit-background-clip: text;
 }
 
 .rank9 {
 	color: #00000008;
-    background: linear-gradient( 
-45deg
- , #a7af21 25%, #ff7b7b00 25%, transparent 75%, #ff0c0c 75%), linear-gradient( 
-45deg
- , #b5c364 25%, transparent 25%, transparent 75%, #ff0000 75%);
-    background-color: #564b4b;
-    background-size: 24px 24px;
-    background-position: 0 0, 12px 12px;
-    -webkit-background-clip: text;
+	background: linear-gradient(45deg, #a7af21 25%, #ff7b7b00 25%, transparent 75%,
+		#ff0c0c 75%),
+		linear-gradient(45deg, #b5c364 25%, transparent 25%, transparent 75%,
+		#ff0000 75%);
+	background-color: #564b4b;
+	background-size: 24px 24px;
+	background-position: 0 0, 12px 12px;
+	-webkit-background-clip: text;
 }
 
 .rank10 {
 	color: #00000008;
-    background: linear-gradient( 
-45deg
- , #a7af21 25%, #ff7b7b00 25%, transparent 75%, #d8c434c7 75%), linear-gradient( 
-45deg
- , #ded930d1 25%, transparent 25%, transparent 75%, #a4bdb6 75%);
-    background-color: #bdd24b;
-    background-size: 24px 24px;
-    background-position: 0 0, 12px 12px;
-    -webkit-background-clip: text;
+	background: linear-gradient(45deg, #a7af21 25%, #ff7b7b00 25%, transparent 75%,
+		#d8c434c7 75%),
+		linear-gradient(45deg, #ded930d1 25%, transparent 25%, transparent 75%,
+		#a4bdb6 75%);
+	background-color: #bdd24b;
+	background-size: 24px 24px;
+	background-position: 0 0, 12px 12px;
+	-webkit-background-clip: text;
 }
 
 .rank11 {
 	color: #00000008;
-    background: linear-gradient( 
-178deg
- , #9b9c8c 25%, #ff7b7b00 25%, transparent 75%, #d8c434c7 75%), linear-gradient( 
-29deg
- , #ded930d1 25%, transparent 25%, transparent 75%, #09543f 75%);
-    background-color: #bfbda2c4;
-    background-size: 24px 24px;
-    background-position: 0 0, 12px 12px;
-    -webkit-background-clip: text;
+	background: linear-gradient(178deg, #9b9c8c 25%, #ff7b7b00 25%, transparent 75%,
+		#d8c434c7 75%),
+		linear-gradient(29deg, #ded930d1 25%, transparent 25%, transparent 75%,
+		#09543f 75%);
+	background-color: #bfbda2c4;
+	background-size: 24px 24px;
+	background-position: 0 0, 12px 12px;
+	-webkit-background-clip: text;
 }
 
 .userInfoTableDesign {
-	font-size:14px;
-	width:1100px;
+	font-size: 14px;
+	width: 1100px;
 }
 
 .editYourThDesign {
-	background:#7bf1cb;
+	background: #7bf1cb;
 }
 
 .editYourTdDesign {
@@ -129,26 +121,25 @@ a.btnEY-radius-solid:hover {
 }
 
 .userPurchaseInfoTableDesign {
-	font-size:16px;
-	width:1100px;
-	
+	font-size: 16px;
+	width: 1100px;
 }
 
 .userRankTableDesign {
-	font-size:16px;
-	width:1100px;
+	font-size: 16px;
+	width: 1100px;
 }
 
 .rankIconDesign {
-	font-size:50px !important;
+	font-size: 50px !important;
 }
 
 a.btn--blue.btn--border-double {
-  border: 8px double #0090bb;
+	border: 8px double #0090bb;
 }
 
 .rankDetailBtnDesing {
-	margin-top:10px;
+	margin-top: 10px;
 }
 
 .purchaseInfoCountDesign {
@@ -164,21 +155,21 @@ a.btn--blue.btn--border-double {
 }
 
 .editYourMail {
-	width:250px;
+	width: 250px;
 }
 
 .editYourName {
-	width:250px;
+	width: 250px;
 }
 
 .editYourBirthDate {
-	width:100px;
+	width: 100px;
 }
 
 .editYourAddress {
-	width:350px;
+	width: 350px;
 }
 
 .editYourDetail {
-	width:65px;
+	width: 65px;
 }

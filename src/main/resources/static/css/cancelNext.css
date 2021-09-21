@@ -1,21 +1,21 @@
 @charset "UTF-8";
 
 .form-control-lg {
-	width:1100px !important;
+	width: 1100px !important;
 }
 
 .cancelNextThDesign {
-	background:#ff6c73;
+	background: #ff6c73;
 }
 
 .cancelNextTdDesign {
-	background:#ffbcbf;
+	background: #ffbcbf;
 }
 
 .cancelNextTableDesign {
-	font-size:14px;
+	font-size: 14px;
 }
 
 .cancelNextErrorDesign {
-	font-size:18px;
+	font-size: 18px;
 }

@@ -1,32 +1,32 @@
 @charset "UTF-8";
 
 .size {
-	width:135px !important;
-	height:135px !important;
-	margin-left:25px;
+	width: 135px !important;
+	height: 135px !important;
+	margin-left: 25px;
 }
 
 .productListGo {
-	padding-left:52px;
+	padding-left: 52px;
 }
 
 .font {
-	font-size:10px important;
+	font-size: 10px important;
 }
 
 .DetailRyncDesigin {
-	font-size:13px;
+	font-size: 13px;
 }
 
 .flex {
-  display: flex !important;
-  flex-wrap: wrap !important;
-  widht:30%;
-  hegth:20%;
+	display: flex !important;
+	flex-wrap: wrap !important;
+	widht: 30%;
+	hegth: 20%;
 }
 
 .flex .item {
-	width:20%;
+	width: 20%;
 }
 
 .productList {
@@ -36,22 +36,21 @@
 }
 
 .fontdesign {
-	font-size:15px ;
+	font-size: 15px;
 }
 
 .os {
-	padding-right:31px;
+	padding-right: 31px;
 }
 
 .pcsize {
-	padding-right:23px;
+	padding-right: 23px;
 }
 
 .price {
-	padding-right:39px;
+	padding-right: 39px;
 }
 
 .stock {
-	padding-right:44px;
+	padding-right: 44px;
 }
-

@@ -23,12 +23,11 @@
 }
 
 a.btnCouS--orange.btnCouS--border-solid {
-
-  border: 2px solid #213fd4;
+	border: 2px solid #213fd4;
 }
 
 .couponSeeLink {
-	font-size:13px !important;
+	font-size: 13px !important;
 	background: #cce8f9;
 }
 
@@ -37,17 +36,17 @@ a.btnCouS--orange.btnCouS--border-solid {
 }
 
 .couponSeeName {
-	width:700px;
+	width: 700px;
 }
 
 .couponSeeDisCount {
-	width:120px;
+	width: 120px;
 }
 
 .couponSeeRegistration_date {
-	width:120px;
+	width: 120px;
 }
 
 .couponSeeDetail {
-	width:120px;
+	width: 120px;
 }

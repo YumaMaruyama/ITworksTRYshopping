@@ -1,51 +1,15 @@
 @charset "UTF-8";
 
-.fa-size {
-	/*font-size: 20px;*/
-}
 .fa-spin {
 	font-size: 27px !important;
-	    color: #16ff33;
+	color: #16ff33;
 }
-    
 
 .fa {
-	font-size:21px;
+	font-size: 21px;
 	padding-right: 10px;
 }
 
 .fa-eye {
-	font-size:18px !Important;
-}
-
-
-fa-cart-arrow-down {
-	
-}
-fa-cart-plus {
-	
-}
-fa-history {
-	
-}
-fa-ticket {
-	
-}
-fa-info {
-	
-}
-fa-envelope {
-	
-}
-fa-question {
-	
-}
-fa-eye {
-	
-}
-fa-eye {
-	
-}
-fa-cogs {
-	
+	font-size: 18px !Important;
 }
