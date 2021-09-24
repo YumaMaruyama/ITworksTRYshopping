@@ -109,7 +109,6 @@ public class CancelDaoJdbcImpl implements CancelDao {
 		try {
 			String deliveryAddress = jdbc.queryForObject(
 					"select cancel.delivery_address from cancel where purchase_id = ?", String.class, purchaseId);
-			System.out.println("deliadd" + deliveryAddress);
 			if (deliveryAddress != null) {
 				result = 1;
 			}
@@ -121,7 +120,6 @@ public class CancelDaoJdbcImpl implements CancelDao {
 	public String deriveredCheckSelect(int purchaseId) {
 		String deriveredCheck = jdbc.queryForObject("select cancel.cancel_check from cancel where purchase_id = ?",
 				String.class, purchaseId);
-		System.out.println("deriveredCheck" + deriveredCheck);
 		return deriveredCheck;
 	}
 

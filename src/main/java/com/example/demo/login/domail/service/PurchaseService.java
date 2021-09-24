@@ -49,8 +49,8 @@ public class PurchaseService {
 		return dao.selectOne(id);
 	}
 
-	public int selectPurchaseIdOne() {
-		return dao.selectPurchaseIdOne();
+	public int selectMaxPurchaseId() {
+		return dao.selectMaxPurchaseId();
 	}
 
 	public PurchaseDTO reviewSelectHistory(int selectId, int purchaseId) {

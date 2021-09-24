@@ -155,7 +155,7 @@ public class PurchaseDaoJdbcImpl implements PurchaseDao {
 
 	}
 
-	public int selectPurchaseIdOne() {
+	public int selectMaxPurchaseId() {
 		int id = jdbc.queryForObject("select max(id) from purchase", Integer.class);
 
 		return id;

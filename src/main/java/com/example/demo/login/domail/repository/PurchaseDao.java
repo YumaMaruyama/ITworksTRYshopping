@@ -24,7 +24,7 @@ public interface PurchaseDao {
 
 	public PurchaseDTO selectOne(int id);
 
-	public int selectPurchaseIdOne();
+	public int selectMaxPurchaseId();
 
 	public PurchaseDTO reviewSelectHistory(int selectId, int purchaseId);
 
