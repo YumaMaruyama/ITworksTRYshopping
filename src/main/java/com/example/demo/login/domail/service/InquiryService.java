@@ -54,4 +54,12 @@ public class InquiryService {
 	public int beforLoginInquiryInsertOne(InquiryDTO inquirydto, HttpSession session) {
 		return dao.beforLoginInquiryInsertOne(inquirydto, session);
 	}
+	
+	public List<InquiryDTO> beforeLoginSelectMany(String userIdCheck) {
+		return dao.beforeLoginSelectMany(userIdCheck);
+	}
+	
+	public InquiryDTO beforeLoginSelectOne(int inquiryId) {
+		return dao.beforeLoginSelectOne(inquiryId);
+	}
 }

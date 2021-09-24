@@ -24,4 +24,8 @@ public interface InquiryDao {
 	public int deleteOne(int id);
 
 	public int selectMaxId();
+	
+	public List<InquiryDTO> beforeLoginSelectMany(String userIdCheck);
+	
+	public InquiryDTO beforeLoginSelectOne(int inquiryId);
 }

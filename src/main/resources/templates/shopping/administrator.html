@@ -45,9 +45,9 @@
 					</tr>
 
 					<tr class="administratorTdDesign">
-						<th th:if="${inquirydto.userName} neq 'ログイン前ユーザーから'" class="text-center administratorUser"
+						<th th:if="${inquirydto.userName} neq -1" class="text-center administratorUser"
 							th:text="${inquirydto.userName}"></th>
-						<th th:if="${inquirydto.userName} eq 'ログイン前ユーザーから'" class="text-center administratorUser"
+						<th th:if="${inquirydto.userName} eq -1" class="text-center administratorUser"
 							>ログイン前ユーザーから</th>
 						<th class="text-center administratorTitle"
 							th:text="${inquirydto.title}"></th>
@@ -55,18 +55,23 @@
 							th:text="${inquirydto.content}"></th>
 						<th class="text-center administratorDate"
 							th:text="${#dates.format(inquirydto.registrationDate,'yyyy/MM/dd ah:mm')}"></th>
-						<th th:if="${inquirydto.replyTitle} == '返信なし'"
+						<th th:if="${inquirydto.replyTitle} == '返信なし' and ${inquirydto.userName} neq -1"
 							class="text-center administratorDetail"><input type=hidden
 							name="id" th:value=${inquirydto.id}><a
 							th:href="@{'/inquiryDetail' + '/' + ${inquirydto.id}}"
 							class="btn btnAdministrator-border">編集</a><a
 							th:href="@{'/inquiryReplay' + '/' + ${inquirydto.id}}"
 							class="btn btnAdministrator-border">返信</a></th>
-						<th th:if="${inquirydto.replyTitle} neq '返信なし'"
+						<th th:if="${inquirydto.replyTitle} neq '返信なし' and ${inquirydto.userName} neq -1"
 							class="text-center administratorDetail"><input type=hidden
 							name="id" th:value=${inquirydto.id}><a
 							th:href="@{'/inquiryDetail' + '/' + ${inquirydto.id}}"
 							class="btn btnAdministrator-border">編集</a><a>返信済</a></th>
+						<th th:if="${inquirydto.userName} eq -1"
+							class="text-center administratorDetail"><input type=hidden
+							name="id" th:value=${inquirydto.id}><a
+							th:href="@{'/inquiryDetail' + '/' + ${inquirydto.id}}"
+							class="btn btnAdministrator-border">編集</a><a>返信用↓</a><h5 th:text="${inquirydto.mailAddress}"></h5></th>
 
 					</tr>
 

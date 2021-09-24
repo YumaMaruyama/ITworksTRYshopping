@@ -112,5 +112,40 @@ public class InquiryJdbcDaoImpl implements InquiryDao {
 
 		return maxId;
 	}
+	
+	public List<InquiryDTO> beforeLoginSelectMany(String userIdCheck) {
+		List<Map<String,Object>> map = jdbc.queryForList("select * from inquiry where user_id = ?",userIdCheck);
+		
+		List<InquiryDTO> inquiryBeforeLoginList = new ArrayList<>();
+		
+		for(Map<String,Object> oneMap : map) {
+			InquiryDTO inquirydto = new InquiryDTO();
+			
+			inquirydto.setId((int) oneMap.get("id"));
+			inquirydto.setUser_id((int) oneMap.get("user_id"));
+			inquirydto.setTitle((String) oneMap.get("title"));
+			inquirydto.setContent((String) oneMap.get("content"));
+			inquirydto.setRegistrationDate((Date) oneMap.get("registration_date"));
+			inquirydto.setMailAddress((String)oneMap.get("mail_address"));
+			
+			inquiryBeforeLoginList.add(inquirydto);
+		}
+		
+		return inquiryBeforeLoginList;
+	}
+	
+	public InquiryDTO beforeLoginSelectOne(int inquiryId) {
+		Map<String,Object> map = jdbc.queryForMap("select * from inquiry where id = ?",inquiryId);
+		
+		InquiryDTO inquirydto = new InquiryDTO();
+		inquirydto.setId((int) map.get("id"));
+		inquirydto.setUser_id((int) map.get("user_id"));
+		inquirydto.setTitle((String) map.get("title"));
+		inquirydto.setContent((String) map.get("content"));
+		inquirydto.setRegistrationDate((Date) map.get("registration_date"));
+		inquirydto.setMailAddress((String)map.get("mail_address"));
+		
+		return inquirydto;
+	}
 
 }
