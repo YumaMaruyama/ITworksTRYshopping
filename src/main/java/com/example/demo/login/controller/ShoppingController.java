@@ -162,10 +162,6 @@ public class ShoppingController {
 	public String GetUsersListDetail(@ModelAttribute UsersListForm form, @PathVariable("id") int id, Model model) {
 		model.addAttribute("contents", "shopping/usersListDetail::productListLayout_contents");
 
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		System.out.println("auth" + auth.getName());
-		String user_id = auth.getName();
-		int select_id = usersService.select_id(user_id);
 
 		UsersListDTO getUsers = usersService.selectOne(id);// 管理者以外のusersテーブル情報取得
 		UsersListDTO getUsegeUsers = usegeService.selectOne(id);
@@ -333,7 +329,7 @@ public class ShoppingController {
 			int allTotalPrice = 0;
 
 			List<PurchaseDTO> purchasedtoList = purchaseService.selectHistory(userId);// メソッドに入ったユーザーの購入情報を取得
-			List<PurchaseDTO> allPurchaseList = new ArrayList<>();
+		
 			PurchaseDTO customList;
 			// 購入商品を一つづつ回して値を受け取る
 			if (purchasedtoList.size() > 0) {
@@ -954,10 +950,6 @@ public class ShoppingController {
 			@PathVariable("id") int id, Model model) {
 		model.addAttribute("contents", "shopping/editYourDetail::productListLayout_contents");
 
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		System.out.println("auth" + auth.getName());
-		String userId = auth.getName();
-		int selectId = usersService.select_id(userId);
 
 		UsersDTO usersdto = usersService.userInformationSelectOne(id);// usersテーブルから情報を取得
 		Usege_usersDTO usegeusersdto = usegeService.userInformationSelectOne(id);// usege_usersテーブルから情報を取得
@@ -1226,7 +1218,7 @@ public class ShoppingController {
 		session.setAttribute("title", form.getTitle());
 		session.setAttribute("content", form.getContent());
 
-		int result = inquiryReplyService.replyUpdateOne(session, inquiryreplydto);// dtoの情報をinquiry_replyテーブルに格納
+		inquiryReplyService.replyUpdateOne(session, inquiryreplydto);// dtoの情報をinquiry_replyテーブルに格納
 
 		return getAdministrator(form, model);
 
@@ -2097,12 +2089,9 @@ public class ShoppingController {
 			model.addAttribute("contents", "shopping/cancelDeliveredDetail::productListLayout_contents");
 			int maxId = cancelService.selectCancelCheck(purchaseId, select_id);
 			if (maxId != 0) {
-				System.out.println("maxid" + maxId);
 				CancelDTO canceldtoNext = cancelService.cancelCheckSelect(maxId);
-				System.out.println("canceldtocancelCheck" + canceldtoNext.getCancelCheck());
-				String checkName = canceldtoNext.getCancelCheck();
+				
 				if (canceldtoNext.getCancelCheck() != "null") {
-					System.out.println("2");
 					return postCancelDeliveredDetail(form, model);
 				}
 
@@ -2913,15 +2902,12 @@ public class ShoppingController {
 		purchasedto.setPurchase_date(purchasedtoList.getPurchase_date());
 		purchasedto.setPcDataId(purchasedtoList.getPcDataId());
 		purchasedto.setProduct_id(purchasedtoList.getProduct_id());
-		int productId = purchasedto.getProduct_id();
 		purchasedto.setPcName(purchasedtoList.getPcName());
 		purchasedto.setPrice(purchasedtoList.getPrice());
 		purchasedto.setProduct_count(purchasedtoList.getProduct_count());
-		int productStock = purchasedto.getProduct_count();
 		purchasedto.setPointUse(purchasedtoList.getPointUse());
 		purchasedto.setCouponId(purchasedtoList.getCouponId());
 		purchasedto.setMenberCouponCheck(purchasedtoList.getMenberCouponCheck());
-		System.out.println("stock" + productStock);
 		purchasedto.setPurchaseCheck(purchasedtoList.getPurchaseCheck());
 
 		String nullCheck = "null";
@@ -2929,7 +2915,6 @@ public class ShoppingController {
 				purchasedtoList.getPurchaseCheck(), nullCheck); // 購入した商品のcustomテーブルIDを取得
 
 		PurchaseDTO customList = customService.selectMany(customId);// 購入した商品のcustomテーブル情報を取得
-		System.out.println("costomList" + customList);
 
 		purchasedto.setCustom_id(customId);
 		purchasedto.setMemory(customList.getMemory());
@@ -4036,8 +4021,7 @@ public class ShoppingController {
 		int rankNumber = 0;
 
 		List<PurchaseDTO> purchasedtoList = purchaseService.selectHistory(userId);// メソッドに入ったユーザーの購入情報を取得
-		List<PurchaseDTO> allPurchaseList = new ArrayList<>();
-
+		
 		List<Integer> menberCouponUsedId = new ArrayList<>();// 使用済みmenberCouponIDを格納
 		PurchaseDTO customList;
 		// 購入商品を一つづつ回して値を受け取る
@@ -4988,7 +4972,6 @@ public class ShoppingController {
 					System.out.println("会員ランク特典不使用");
 					if (pcdatadto.getCouponId() == 0) {
 						System.out.println("クーポン使用なし");
-						int couponAfterPrice = (int) totalPriceAll;
 						model.addAttribute("totalPrice", totalPriceAll);
 
 					} else {// クーポンを使用した商品はelse
@@ -5661,7 +5644,7 @@ public class ShoppingController {
 		System.out.println("auth" + auth.getName());
 		String getName = auth.getName();
 
-		List<PcDataDTO> cartList = cartService.selectMany(getName);
+		List<PcDataDTO> cartList = cartService.selectMany(getName);//ログインユーザーのカート情報をすべて取得
 		int totalPriceAll = 0;// カート全体価格
 		int totalPriceOne = 0;// 各商品価格
 		for (int i = 0; i < cartList.size(); i++) {
@@ -5669,26 +5652,21 @@ public class ShoppingController {
 			totalPriceAll = totalPriceAll + pcdatadto.getProduct_count() * pcdatadto.getAfterCustomPrice();
 			totalPriceOne = pcdatadto.getProduct_count() * pcdatadto.getAfterCustomPrice();
 			pcdatadto.setTotalPriceOne(totalPriceOne);
-			System.out.println("totalPrice" + totalPriceAll);
 
 			try {
 				if (pcdatadto.getMenberCouponCheck().equals("会員ランク特典使用")) {
 					System.out.println("会員ランク特典使用");
-					MenberCouponDTO menbercoupondto = menberCouponService.selectOne(pcdatadto.getCouponId());
+					MenberCouponDTO menbercoupondto = menberCouponService.selectOne(pcdatadto.getCouponId());//カート情報のクーポンIDをもとに利用クーポン情報を取得
 					int menberCouponDisCount = menbercoupondto.getDiscount();
 					double disCountNew = 0;
 					pcdatadto.setCouponCheck(true);
 					if (menberCouponDisCount < 10) {
-						System.out.println("testgggggggggggggggggggggg");
 						disCountNew = Double.valueOf("0.0" + menberCouponDisCount);
 
 						double disCountPriceNew = totalPriceOne * disCountNew;// 割引価格
 						int disCountPriceNewNext = (int) disCountPriceNew;
-						System.out.println("disCounttest" + disCountPriceNewNext);
-						System.out.println("disCounttest" + totalPriceAll);
 						pcdatadto.setDisCountPriceNew(disCountPriceNewNext);
 						totalPriceAll = totalPriceAll - disCountPriceNewNext;
-						System.out.println("disCounttest" + totalPriceAll);
 						pcdatadto.setTotalPrice(totalPriceAll);
 						model.addAttribute("totalPrice", totalPriceAll);
 					} else {
@@ -5757,11 +5735,8 @@ public class ShoppingController {
 			model.addAttribute("pointRate", pointRate);
 			String pointRateString = String.valueOf(pointRate);
 			String pointRateNew = 0.0 + pointRateString;
-			System.out.println("pointRateNew" + pointRateNew);
 			double pointRateDouble = Double.parseDouble(pointRateNew);
-			System.out.println("pointRateDouble" + pointRateDouble);
 			int point = (int) (totalPriceAll * pointRateDouble);
-			System.out.println("pointfinish" + point);
 			model.addAttribute("point", point);// 購入後に付くポイント
 			model.addAttribute("pointminusTotalPrice", (totalPriceAll - (int) session.getAttribute("pointUse")));// 合計金額から利用ポイント分を引いた金額
 			int pointminusTotalPrice = (totalPriceAll - (int) session.getAttribute("pointUse"));
@@ -5773,11 +5748,6 @@ public class ShoppingController {
 			}
 
 			session.setAttribute("point", point);
-			int pointNew = (int) session.getAttribute("point");
-
-			int getId = usersService.select_id(getName);
-
-			System.out.println("cartList " + cartList);
 			model.addAttribute("cartList", cartList);
 
 			// クレジット情報をsessionから取得
@@ -5812,8 +5782,8 @@ public class ShoppingController {
 		String getName = auth.getName();
 
 		int select_id = usersService.select_id(getName);
-		// 各商品のユーザーが購入した数を取得
-		boolean result = cartService.selectProductCount(select_id);
+		
+		boolean result = cartService.selectProductCount(select_id);// ユーザーが購入した、各商品の購入数を取得
 
 		int point = (int) session.getAttribute("point");
 
@@ -5826,69 +5796,68 @@ public class ShoppingController {
 		creditdto.setDigits_3_code(digits_3_code);
 		creditdto.setCardName(cardName);
 		creditdto.setCardNumber(cardNumber);
-		// ここに商品購入したらその商品IDを入れる(customDBに（あらたにcolumnつくってね）)
-		// そうしたらnewcolumn > 0でカスタムDBからカスタムしているだけの奴をのぞいた列を取得できる
 
-		int insertResult = creditService.clearingInsertOne(creditdto, select_id, totalPrice);
+		creditService.clearingInsertOne(creditdto, select_id, totalPrice);//creditテーブルにクレジット情報を格納
 
-		int purchaseCreditId = creditService.selectMaxId();
+		int creditId = creditService.selectMaxId();//上記で格納した情報のクレジットIDを取得
 
-		List<CartDTO> cartList = cartService.purchaseSelectMany(select_id);
+		List<CartDTO> cartList = cartService.purchaseSelectMany(select_id);//ログインユーザーのカート情報を取得
 
 		PurchaseDTO purchasedto = new PurchaseDTO();
 
 		for (int i = 0; i < cartList.size(); i++) {
 
 			CartDTO cartdto = cartList.get(i);
-			System.out.println("proIddto" + cartdto.getProduct_id());
-			int cartId = cartdto.getId();
-			// int selectProductId = cartService.selectProductId(cartId);
-			int id = cartdto.getId();
+					
 			int productId = cartdto.getProduct_id();
-
-			int productid = cartdto.getProduct_id();
-			System.out.println("productId" + productid);
+			int productid = cartdto.getProduct_id();	
 			int customId = customService.selectCustomId(productId, select_id);
 			int purchaseCount = cartdto.getProduct_count();
 			int couponCheck = cartdto.getCouponId();
-			System.out.println("menbercouponcheck?" + cartdto.getMenberCouponCheck());
 
-			// customService.pruchaseIdInsertOne(productid);
+		
 			try {
 
 				if (cartdto.getMenberCouponCheck().equals("会員ランク特典使用")) {
 
+					//purchaseテーブルに購入データを格納(会員ランククーポンを利用して購入した場合)
 					purchaseService.insertMenberCoupon(purchasedto, productid, purchaseCount, select_id,
-							purchaseCreditId, customId, couponId, point, pointminusTotalPrice);
+							creditId, customId, couponId, point, pointminusTotalPrice);
 				} else if (couponCheck > 0) {
 					System.out.println("クーポン使用");
-					purchaseService.insert(purchasedto, productid, purchaseCount, select_id, purchaseCreditId, customId,
+					
+					//purchaseテーブルに購入データを格納(期間限定クーポンを利用して購入した場合)
+					purchaseService.insert(purchasedto, productid, purchaseCount, select_id, creditId, customId,
 							couponId, point, pointminusTotalPrice);
 				} else {
 					System.out.println("クーポン未使用");
-					purchaseService.insertNotCoupon(purchasedto, productid, purchaseCount, select_id, purchaseCreditId,
+					
+					//purchaseテーブルに購入データを格納(クーポンを利用せず購入した場合)
+					purchaseService.insertNotCoupon(purchasedto, productid, purchaseCount, select_id, creditId,
 							customId, point, pointminusTotalPrice);
 				}
 			} catch (NullPointerException e) {
-				System.out.println("purchaseInsertnot");
 				e.printStackTrace();
 				if (couponCheck > 0) {
 					System.out.println("クーポン使用");
-					purchaseService.insert(purchasedto, productid, purchaseCount, select_id, purchaseCreditId, customId,
+					
+					//purchaseテーブルに購入データを格納(期間限定クーポンを利用して購入した場合)
+					purchaseService.insert(purchasedto, productid, purchaseCount, select_id, creditId, customId,
 							couponId, point, pointminusTotalPrice);
 				} else {
 					System.out.println("クーポン未使用");
-					purchaseService.insertNotCoupon(purchasedto, productid, purchaseCount, select_id, purchaseCreditId,
+					
+					//purchaseテーブルに購入データを格納(クーポンを利用せず購入した場合)
+					purchaseService.insertNotCoupon(purchasedto, productid, purchaseCount, select_id, creditId,
 							customId, point, pointminusTotalPrice);
 				}
 			}
-			int purchaseId = purchaseService.selectPurchaseIdOne();
-			System.out.println("purchaseId" + purchaseId);
-			customService.pruchaseIdUpdate(purchaseId, productId, select_id);
-			cartService.idInsertOne(purchaseId, productId, select_id);
+			int purchaseId = purchaseService.selectMaxPurchaseId();//上記で格納した購入データのIDを取得
+			customService.pruchaseIdUpdate(purchaseId, productId, select_id);//customテーブルの購入チェックをアップデート
+			cartService.idInsertOne(purchaseId, productId, select_id);//cartテーブルの購入チェックをアップデート
 		}
 
-		// return "redirect:/after_purchase";
+
 		return getAfter_purchase(model);
 	}
 
@@ -5903,9 +5872,8 @@ public class ShoppingController {
 		int select_id = usersService.select_id(getName);
 
 		// 購入商品情報リスト取得
-		List<PurchaseDTO> purchasedtoList = purchaseService.selectHistory(select_id);
+		List<PurchaseDTO> purchasedtoList = purchaseService.selectHistory(select_id);//ログインユーザーの購入商品情報をすべて取得
 
-		PurchaseDTO purchasedto = new PurchaseDTO();
 
 		List<PurchaseDTO> allPurchaseList = new ArrayList<>();
 		PurchaseDTO customList;
@@ -5920,9 +5888,7 @@ public class ShoppingController {
 			purchasedtoAdd.setCancelCheck(purchaseOne.getCancelCheck());
 			purchasedtoAdd.setPointUse(purchaseOne.getPointUse());
 			model.addAttribute("pointUseCheck", "false");
-			System.out.println("pointUse中身" + purchasedtoAdd.getPointUse());
-			if (purchasedtoAdd.getPointUse() > 0) {// ポイントを利用したらtrue
-				System.out.println("pointUsecheck到達");
+			if (purchasedtoAdd.getPointUse() > 0) {// ポイントを利用していたらtrue
 				model.addAttribute("pointUseCheck", "true");
 			}
 			purchasedtoAdd.setCouponId(purchaseOne.getCouponId());
@@ -5934,19 +5900,11 @@ public class ShoppingController {
 			purchasedtoAdd.setMenberCouponCheck(purchaseOne.getMenberCouponCheck());
 
 			// 購入商品ごとのカスタム情報も取り出す
-
 			int productId = purchasedtoAdd.getId();
-			System.out.println("productId" + productId);
-			System.out.println(select_id);
-			int customId = purchasedtoAdd.getCustom_id();
-			System.out.println("customId");
 			String nullCheck = "null";
-			int getCustomId = customService.selectPurchaseCheck(select_id, productId, purchasedtoAdd.getPurchaseCheck(),
+			int getCustomId = customService.selectPurchaseCheck(select_id, productId, purchasedtoAdd.getPurchaseCheck(),//ログインユーザーが購入した商品のカスタム情報の入ったカスタムIDを取得
 					nullCheck);
-			System.out.println("getCustomId" + getCustomId);
-
-			customList = customService.selectMany(getCustomId);
-			System.out.println("costomList" + customList);
+			customList = customService.selectMany(getCustomId);//カスタムIDに基づいてcustomテーブルから
 
 			purchasedtoAdd.setMemory(customList.getMemory());
 			purchasedtoAdd.setHardDisc(customList.getHardDisc());
@@ -5958,22 +5916,17 @@ public class ShoppingController {
 			if (purchasedtoAdd.getMenberCouponCheck().equals("会員クーポン使用")) {
 				System.out.println("クーポン使用！");
 				int totalPrice = purchasedtoAdd.getTotalPrice();
-				MenberCouponDTO menbercoupondto = menberCouponService.selectOne(purchasedtoAdd.getCouponId());// 会員DBからとる
+				MenberCouponDTO menbercoupondto = menberCouponService.selectOne(purchasedtoAdd.getCouponId());//会員ランククーポンのIDをもとにmenber_couponテーブルから会員ランククーポン情報を取得
 				int disCount = menbercoupondto.getDiscount();// 割引率(%)
 				if (disCount >= 10) {
 					double disCountNew = Double.valueOf("0." + disCount);
 					double disCountPriceNew = totalPrice * disCountNew;// 割引価格
-					System.out.println("totalPrice" + totalPrice);
 					int totalPriceAll = (int) (totalPrice - disCountPriceNew);
-					System.out.println("totalPriceAll" + totalPriceAll);
-					System.out.println("purchasedtoAdd.getPointUse" + purchasedtoAdd.getPointUse());
 					purchasedtoAdd.setTotalPrice(totalPriceAll);
 				} else {
 					double disCountNew = Double.valueOf("0.0" + disCount);
 					double disCountPriceNew = totalPrice * disCountNew;// 割引価格
 					int totalPriceAll = (int) (totalPrice - disCountPriceNew);
-					System.out.println("totalPriceAll" + totalPriceAll);
-					System.out.println("purchasedtoAdd.getPointUse" + purchasedtoAdd.getPointUse());
 					purchasedtoAdd.setTotalPrice(totalPriceAll);
 				}
 			} else {
@@ -5981,16 +5934,13 @@ public class ShoppingController {
 				if (purchasedtoAdd.getCouponId() > 0) {
 					System.out.println("クーポン使用！");
 					int totalPrice = purchasedtoAdd.getTotalPrice();
-					CouponDTO coupondto = couponService.selectOne(purchasedtoAdd.getCouponId());
+					CouponDTO coupondto = couponService.selectOne(purchasedtoAdd.getCouponId());//期間限定クーポンのIDをもとにcouponテーブルから期間限定クーポン情報を取得
 					int disCount = coupondto.getDiscount();// 割引率(%)
 					if (disCount >= 10) {
 						double disCountNew = Double.valueOf("0." + disCount);
 						double disCountPriceNew = totalPrice * disCountNew;// 割引価格
-						System.out.println("totalPrice" + totalPrice);
 						int totalPriceAll = (int) (totalPrice - disCountPriceNew);
-						System.out.println("totalPriceAll" + totalPriceAll);
 						purchasedtoAdd.setTotalPrice(totalPriceAll);
-						System.out.println("setTotalPrice" + purchasedtoAdd.getTotalPrice());
 					} else {
 						double disCountNew = Double.valueOf("0.0" + disCount);
 						double disCountPriceNew = totalPrice * disCountNew;// 割引価格
@@ -6002,7 +5952,6 @@ public class ShoppingController {
 
 			purchasedtoAdd.setTotalPrice((purchasedtoAdd.getTotalPrice() - purchasedtoAdd.getPointUse()));
 
-			// Date purchaseDate = purchasedtoAdd.getPurchase_date();
 			Calendar calendar = Calendar.getInstance();
 			Date now = calendar.getTime();
 			calendar.setTime(purchasedtoAdd.getPurchase_date());
@@ -6011,31 +5960,20 @@ public class ShoppingController {
 			calendar.add(Calendar.DATE, 10);
 			Date purchaseDateAddTen = calendar.getTime();// キャンセル期間外の購入日付から10日後の日付
 			model.addAttribute("result", purchaseDateAddTen);
-			System.out.println("pur" + purchaseDate.getTime());
-			System.out.println("now" + now.getTime());
 			long d = (purchaseDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24);// 購入日と現在の日付を比べる
 			int count = (int) -d;
 
 			if (count <= 10) {
-				System.out.println("true");
 				purchasedtoAdd.setCancelResult("true");
 			} else {
 				purchasedtoAdd.setCancelResult("false");
 			}
 
-			System.out.println("testfalse");
-			CancelDTO canceldto = cancelService.selectCancelCheck(purchasedtoAdd.getPurchaseId());
-			System.out.println("testdd" + canceldto);
+			CancelDTO canceldto = cancelService.selectCancelCheck(purchasedtoAdd.getPurchaseId());//購入IDをもとにcancelテーブルからcancelCheck
 			if (canceldto.getCancelCheck() != null) {
-				System.out.println("truefdfdfffdf");
 				purchasedtoAdd.setCancelResult("true");
 			}
-
-			System.out.println("purId" + purchasedtoAdd.getPurchaseId());
-
 			allPurchaseList.add(purchasedtoAdd);
-			System.out.println("allPurchaseList" + allPurchaseList);
-
 		}
 
 		model.addAttribute("purchaseList", allPurchaseList);
