@@ -45,8 +45,10 @@
 					</tr>
 
 					<tr class="administratorTdDesign">
-						<th class="text-center administratorUser"
+						<th th:if="${inquirydto.userName} neq 'ログイン前ユーザーから'" class="text-center administratorUser"
 							th:text="${inquirydto.userName}"></th>
+						<th th:if="${inquirydto.userName} eq 'ログイン前ユーザーから'" class="text-center administratorUser"
+							>ログイン前ユーザーから</th>
 						<th class="text-center administratorTitle"
 							th:text="${inquirydto.title}"></th>
 						<th class="text-center administratorContent"

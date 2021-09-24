@@ -1246,16 +1246,24 @@ public class ShoppingController {
 		model.addAttribute("contents", "shopping/administrator::productListLayout_contents");
 
 		List<InquiryDTO> inquirydtolist = inquiryService.selectMany();// inquiryテーブル情報をすべて取得
+		System.out.println("inquirydtolist" + inquirydtolist);
 		List<InquiryDTO> inquirynewdtolist = new ArrayList<>();
 
 		for (int i = 0; inquirydtolist.size() > i; i++) {
 			InquiryDTO inquirydto = inquirydtolist.get(i);
+			int userId = inquirydto.getUser_id();
+			String userIdNew = String.valueOf(userId);
+			if(userIdNew.equals("-1")) {
+				inquirydto.setUserName("ログイン前ユーザーから");
+			}
 			int inquiryId = inquirydto.getId();
 			InquiryReplyDTO inquiryreplydto = inquiryReplyService.selectOne(inquiryId);
 			inquirydto.setReplyTitle(inquiryreplydto.getTitle());// inquiryテーブルから取得した問い合わせ情報に返信情報を加える
 
 			inquirynewdtolist.add(inquirydto);
 		}
+		
+		
 		model.addAttribute("inquiryList", inquirynewdtolist);
 
 		return "shopping/productListLayout";

@@ -39,7 +39,7 @@ public class InquiryJdbcDaoImpl implements InquiryDao {
 
 	public List<InquiryDTO> selectMany() {
 		List<Map<String, Object>> map = jdbc.queryForList(
-				"select inquiry.id,inquiry.user_id,inquiry.title,inquiry.content,inquiry.registration_date,users.user_name  from inquiry join users on inquiry.user_id = users.id");
+				"select inquiry.id,inquiry.user_id,inquiry.title,inquiry.content,inquiry.registration_date,inquiry.mail_address,users.user_name  from inquiry join users on inquiry.user_id = users.id");
 
 		List<InquiryDTO> inquiryList = new ArrayList<>();
 		for (Map<String, Object> oneMap : map) {
@@ -49,6 +49,7 @@ public class InquiryJdbcDaoImpl implements InquiryDao {
 			inquirydto.setTitle((String) oneMap.get("title"));
 			inquirydto.setContent((String) oneMap.get("content"));
 			inquirydto.setRegistrationDate((Date) oneMap.get("registration_date"));
+			inquirydto.setMailAddress((String)oneMap.get("mail_address"));
 			inquirydto.setUserName((String) oneMap.get("user_name"));
 
 			inquiryList.add(inquirydto);
