@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -1181,10 +1182,19 @@ public class ShoppingController {
 	@GetMapping("/inquiryDetail/{id}")
 	public String getInquiryDetail(@ModelAttribute InquiryForm form, @PathVariable("id") int inquiryId, Model model) {
 		model.addAttribute("contents", "shopping/inquiryDetail::productListLayout_contents");
-
+		
+		try {
 		InquiryDTO inquirydto = inquiryService.selectOne(inquiryId);// inquiryテーブルのIdをもとにinquiryテーブルの情報を取得
 		model.addAttribute("id", inquirydto.getId());
 		model.addAttribute("inquiryList", inquirydto);
+		}catch(EmptyResultDataAccessException e) {
+			e.printStackTrace();
+		InquiryDTO inquiryBeforeLoginDTO = inquiryService.beforeLoginSelectOne(inquiryId);	
+		inquiryBeforeLoginDTO.setUserName("ログイン前ユーザーから");
+		model.addAttribute("id", inquiryBeforeLoginDTO.getId());
+		model.addAttribute("inquiryList", inquiryBeforeLoginDTO);
+		}
+		
 
 		return "shopping/productListLayout";
 	}
@@ -1251,11 +1261,6 @@ public class ShoppingController {
 
 		for (int i = 0; inquirydtolist.size() > i; i++) {
 			InquiryDTO inquirydto = inquirydtolist.get(i);
-			int userId = inquirydto.getUser_id();
-			String userIdNew = String.valueOf(userId);
-			if(userIdNew.equals("-1")) {
-				inquirydto.setUserName("ログイン前ユーザーから");
-			}
 			int inquiryId = inquirydto.getId();
 			InquiryReplyDTO inquiryreplydto = inquiryReplyService.selectOne(inquiryId);
 			inquirydto.setReplyTitle(inquiryreplydto.getTitle());// inquiryテーブルから取得した問い合わせ情報に返信情報を加える
@@ -1263,6 +1268,14 @@ public class ShoppingController {
 			inquirynewdtolist.add(inquirydto);
 		}
 		
+		List<InquiryDTO> inquiryBeforeLoginList = inquiryService.beforeLoginSelectMany("-1");
+		for(int y = 0; inquiryBeforeLoginList.size() > y; y++) {
+			InquiryDTO inquirydtoNext = inquiryBeforeLoginList.get(y);
+			int userId = inquirydtoNext.getUser_id();
+			String userIdNew = String.valueOf(userId);
+			inquirydtoNext.setUserName(userIdNew);
+			inquirynewdtolist.add(inquirydtoNext);
+			}
 		
 		model.addAttribute("inquiryList", inquirynewdtolist);
 
