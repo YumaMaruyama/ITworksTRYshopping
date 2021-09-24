@@ -101,7 +101,7 @@ public class PurchaseDaoJdbcImpl implements PurchaseDao {
 		return purchaseDate;
 	}
 
-	public int selectPurchaseNumber(int select_id) {
+	public int selectCreditId(int select_id) {
 		int purchaseNumber = jdbc.queryForObject(
 				"select purchase.credit_id from purchase where purchase.credit_id = (select max(credit_id) from purchase) and user_id = ? limit 1",
 				Integer.class, select_id);

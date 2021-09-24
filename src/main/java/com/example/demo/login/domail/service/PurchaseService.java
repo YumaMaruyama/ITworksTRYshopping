@@ -18,15 +18,8 @@ public class PurchaseService {
 
 	public int insert(PurchaseDTO purchasedto, int purchaseId, int purchaseCount, int select_id, int purchaseCreditId,
 			int customId, int couponId, int point, int pointminusTotalPrice) {
-		int result = dao.insert(purchasedto, purchaseId, purchaseCount, select_id, purchaseCreditId, customId, couponId,
+		return dao.insert(purchasedto, purchaseId, purchaseCount, select_id, purchaseCreditId, customId, couponId,
 				point, pointminusTotalPrice);
-
-		if (result > 0) {
-			System.out.println("insert成功");
-		}
-
-		return result;
-
 	}
 
 	public int insertMenberCoupon(PurchaseDTO purchasedto, int purchaseId, int purchaseCount, int select_id,
@@ -44,14 +37,8 @@ public class PurchaseService {
 
 	}
 
-	public int selectPurchaseNumber(int select_id) {
-		int result = dao.selectPurchaseNumber(select_id);
-
-		if (result > 0) {
-			System.out.println("selectPurchaseNumber insert成功");
-		}
-
-		return result;
+	public int selectCreditId(int select_id) {
+		return dao.selectCreditId(select_id);
 	}
 
 	public List<PurchaseDTO> selectHistory(int select_id) {

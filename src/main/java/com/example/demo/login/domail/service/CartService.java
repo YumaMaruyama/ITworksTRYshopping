@@ -37,12 +37,10 @@ public class CartService {
 	}
 
 	public int selectOne(CartDTO cartdto, int product_id, int select_id) {
-		return selectOne(cartdto, product_id, select_id);
-
+		return dao.selectOne(cartdto, product_id, select_id);
 	}
 
 	public int deleteOne(int id, int getId) {
-
 		return dao.deleteOne(id, getId);
 
 	}
