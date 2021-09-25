@@ -1,18 +1,19 @@
 # SpringBoot_Shopping
  
-[DB設計(Google スプレッドシートで作成)]
+<h3>[DB設計(Google スプレッドシートで作成)]</h3>
 https://docs.google.com/spreadsheets/d/1nZIzJ4DxDax34mMemlDDlxrMyzPACwVXFYjqFpDzCVo/edit?usp=sharing
 
-[要件定義]
+<h3>[要件定義]</h3>
 ///
 
-[画面設計図]
+<h3>[画面設計図]</h3>
 ///
 
-[画面遷移図]
+<h3>[画面遷移図]</h3>
 ///
 
-[アプリ説明]
+
+<h3>[アプリ説明]</h3>
 
 管理者が商品を追加し、ユーザー登録をした会員ユーザーが商品を購入できるシステムです。
 実際にユーザー登録をして、機能を堪能することが可能です。
@@ -26,9 +27,9 @@ https://docs.google.com/spreadsheets/d/1nZIzJ4DxDax34mMemlDDlxrMyzPACwVXFYjqFpDz
 ※管理者専用画面は会員様には表示されません。
 
 
-管理者専用画面は開発者専用IDとパスワードで表示されます。
-管理者専用画面の機能は下記で紹介します。
+3.管理者専用画面は開発者専用IDとパスワードで表示されます。管理者専用画面の機能は下記で紹介します。
 
+3.1
 
 
 
