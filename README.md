@@ -32,6 +32,14 @@ https://docs.google.com/spreadsheets/d/1nZIzJ4DxDax34mMemlDDlxrMyzPACwVXFYjqFpDz
 
 3.1 ユーザー管理機能
 
+3.2 商品追加機能
+
+3.3 クーポン追加機能
+
+3.4 ポイント倍率変更機能
+
+3.5 お問い合わせ内容管理機能
+
 
 
 
