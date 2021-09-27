@@ -14,7 +14,7 @@
 <h4>ログイン画面:<br>https://user-images.githubusercontent.com/83486993/134848668-a1b16281-5d27-43ba-986f-90d2bccf9a55.jpg</h4>
 <br>
 
-<h3>[画面遷移図]</h3>
+<h3>[画面遷移図(draw.io)]</h3>
 プログラム前にログイン画面から購入までの流れの画面遷移図を作成しました。<br>現在のアプリは画面遷移図の状態から修正を加えているため変化している場所もあります。
 <h4>遷移図:<br>https://user-images.githubusercontent.com/83486993/134855522-eab3cebd-279c-41f1-b992-8786d43c81b3.jpg</h4>
 <h4>遷移図詳細:<br>https://user-images.githubusercontent.com/83486993/134855490-9ebac49c-8863-416c-bf2e-845dc2ce8615.jpg</h4>
