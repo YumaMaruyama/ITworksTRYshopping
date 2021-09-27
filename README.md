@@ -1,16 +1,15 @@
 # SpringBoot_Shopping
  
 <h3>[DB設計(MySql)]</h3>
-プログラム前に必要なテーブルを考え作成しました。<br>新規テーブルを追加する際には、必要なカラムを考え既存テーブルとの関係を理解した上で作成しました。<br>
-####ITworksTRYshopping(Googleスプレッドシート):<br>
-https://docs.google.com/spreadsheets/d/1nZIzJ4DxDax34mMemlDDlxrMyzPACwVXFYjqFpDzCVo/edit?usp=sharing
+プログラム前に必要なテーブルを考え作成しました。<br>新規テーブルを追加する際には、必要なカラムを考え既存テーブルとの関係を理解した上で作成しました。
+<h4>ITworksTRYshopping(Googleスプレッドシート):<br>https://docs.google.com/spreadsheets/d/1nZIzJ4DxDax34mMemlDDlxrMyzPACwVXFYjqFpDzCVo/edit?usp=sharing</h4>
 
-<h3>[要件定義]</h3>
-///
+<h3>[要件定義(XMind)]</h3>
+プログラム前に必要なデータや機能を考え作成しました。<br>現在は初期要件定義より多くの機能が追加されています。
 
-<h3>[画面設計図]</h3>
-プログラム前にログイン画面から購入までの流れの画面設計図を作成しました。<br><div class="text-danger">※現在の機能は初期設計図から修正を加えているため変化しています。</div>
-画面設計図　ログイン画面(https://user-images.githubusercontent.com/83486993/134848668-a1b16281-5d27-43ba-986f-90d2bccf9a55.jpg)
+<h3>[画面設計図(draw.io)]</h3>
+プログラム前にログイン画面から購入までの流れの画面設計図を作成しました。<br>現在のアプリは初期設計図から修正を加えているため変化しています。
+<h4><ログイン画面:(https://user-images.githubusercontent.com/83486993/134848668-a1b16281-5d27-43ba-986f-90d2bccf9a55.jpg)</h4>
 
 
 <h3>[画面遷移図]</h3>
