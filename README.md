@@ -1,13 +1,16 @@
 # SpringBoot_Shopping
  
 <h3>[DB設計(Google スプレッドシートで作成)]</h3>
+作成前に必要なテーブルを考え作成し、新規テーブルを追加する際には、必要なカラムを考え既存テーブルとの関係を理解した上で作成しました。
 https://docs.google.com/spreadsheets/d/1nZIzJ4DxDax34mMemlDDlxrMyzPACwVXFYjqFpDzCVo/edit?usp=sharing
 
 <h3>[要件定義]</h3>
 ///
 
 <h3>[画面設計図]</h3>
-///
+はじめにログイン画面から購入までの流れの画面設計図を作成しました。※現在の機能は初期設計図から修正を加えているため変化しています。
+![初期画面設計図　ログイン画面 ](https://user-images.githubusercontent.com/83486993/134848668-a1b16281-5d27-43ba-986f-90d2bccf9a55.jpg)
+
 
 <h3>[画面遷移図]</h3>
 ///
