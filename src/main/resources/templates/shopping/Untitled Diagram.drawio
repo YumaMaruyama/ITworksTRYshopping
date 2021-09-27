@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-09-27T05:12:15.867Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.61 Safari/537.36 Edg/94.0.992.31" etag="UdJmbb56eVaZEz9ttDSs" version="15.1.0" type="github" pages="33">
+<mxfile host="app.diagrams.net" modified="2021-09-27T06:20:29.871Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.61 Safari/537.36 Edg/94.0.992.31" etag="n_Hdjt2H0Y22QFH3sRrE" version="15.1.0" type="github" pages="33">
   <diagram id="3dSM1hKOwx3oM_8oYQWr" name="ログイン画面">
     <mxGraphModel dx="1268" dy="482" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -3450,7 +3450,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="IRBNtwaOhIiUud6yYiPG" name="画面遷移図">
-    <mxGraphModel dx="1865" dy="1748" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2274" dy="1972" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <object label="" id="ojHFKheA9-TPT79kkEcd-0">
           <mxCell />
@@ -3690,7 +3690,7 @@
         <mxCell id="T-fR_GdOGI0f-uXZ7Nqs-5" value="" style="group;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" parent="ojHFKheA9-TPT79kkEcd-1" vertex="1" connectable="0">
           <mxGeometry x="700" y="25" width="240" height="125" as="geometry" />
         </mxCell>
-        <mxCell id="T-fR_GdOGI0f-uXZ7Nqs-9" value="&lt;span style=&quot;color: rgb(0 , 0 , 0) ; font-size: 14px&quot;&gt;PCショップYM&lt;/span&gt;" style="text;html=1;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#FFFF00;strokeColor=#808080;strokeWidth=3;" parent="ojHFKheA9-TPT79kkEcd-1" vertex="1">
+        <mxCell id="T-fR_GdOGI0f-uXZ7Nqs-9" value="&lt;font color=&quot;#000000&quot;&gt;&lt;span style=&quot;font-size: 14px&quot;&gt;アプリ名&lt;/span&gt;&lt;/font&gt;" style="text;html=1;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#FFFF00;strokeColor=#808080;strokeWidth=3;" parent="ojHFKheA9-TPT79kkEcd-1" vertex="1">
           <mxGeometry x="765" y="82.5" width="110" height="20" as="geometry" />
         </mxCell>
         <mxCell id="T-fR_GdOGI0f-uXZ7Nqs-10" value="&lt;font color=&quot;#000000&quot;&gt;ログアウト&lt;/font&gt;" style="text;html=1;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#FFFF00;strokeColor=#808080;strokeWidth=3;" parent="ojHFKheA9-TPT79kkEcd-1" vertex="1">
@@ -4156,10 +4156,10 @@
         <mxCell id="1J5ItF_UUNjEhdBIjUh8-3" value="post" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;" parent="1J5ItF_UUNjEhdBIjUh8-0" vertex="1">
           <mxGeometry x="351" width="84" height="51" as="geometry" />
         </mxCell>
-        <mxCell id="1J5ItF_UUNjEhdBIjUh8-4" value="商品ID" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;" parent="1J5ItF_UUNjEhdBIjUh8-0" vertex="1">
+        <mxCell id="1J5ItF_UUNjEhdBIjUh8-4" value="商品ID、カスタム情報の値" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;" parent="1J5ItF_UUNjEhdBIjUh8-0" vertex="1">
           <mxGeometry x="435" width="145" height="51" as="geometry" />
         </mxCell>
-        <mxCell id="1J5ItF_UUNjEhdBIjUh8-5" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;" parent="1J5ItF_UUNjEhdBIjUh8-0" vertex="1">
+        <mxCell id="1J5ItF_UUNjEhdBIjUh8-5" value="商品IDの商品に対してカスタム情報の値に更新し、金額計算をした後、商品一覧画面に遷移する。" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;" parent="1J5ItF_UUNjEhdBIjUh8-0" vertex="1">
           <mxGeometry x="580" width="490" height="51" as="geometry" />
         </mxCell>
       </root>
