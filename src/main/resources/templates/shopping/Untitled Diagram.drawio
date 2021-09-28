@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-09-28T02:31:19.861Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.61 Safari/537.36 Edg/94.0.992.31" etag="dSY2qLrUraq2SgatNQ7t" version="15.3.4" type="github" pages="33">
+<mxfile host="app.diagrams.net" modified="2021-09-28T02:31:55.834Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.61 Safari/537.36 Edg/94.0.992.31" etag="J2XYLeYK6jeKMTJbJ7sP" version="15.3.4" type="github" pages="33">
   <diagram id="3dSM1hKOwx3oM_8oYQWr" name="ログイン画面">
     <mxGraphModel dx="1268" dy="482" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -508,7 +508,7 @@
             <mxRectangle width="115" height="60" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="DdT7IqfG2uEd_ifyWw3R-3" value="&lt;span&gt;　&lt;/span&gt;&lt;span&gt; 全ての画面にヘッダーがついている&lt;/span&gt;&lt;span&gt;「PCショップYM」リンクをクリックすると商品一覧画面に推移する。&lt;/span&gt;&lt;span&gt;&lt;br&gt;&lt;/span&gt;&lt;span&gt;「ログアウト」リンクをクリックするとログイン画面に推移する。&lt;/span&gt;&lt;br&gt;&lt;span&gt;　真ん中にログインしたユーザーの名前が表示される。&lt;/span&gt;" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;hachureGap=4;align=left;" vertex="1" parent="DdT7IqfG2uEd_ifyWw3R-1">
+        <mxCell id="DdT7IqfG2uEd_ifyWw3R-3" value="&lt;span&gt;　&lt;/span&gt;&lt;span&gt; 全ての画面にヘッダーがついている&lt;/span&gt;&lt;span&gt;「shopping」リンクをクリックすると商品一覧画面に推移する。&lt;/span&gt;&lt;span&gt;&lt;br&gt;&lt;/span&gt;&lt;span&gt;「ログアウト」リンクをクリックするとログイン画面に推移する。&lt;/span&gt;&lt;br&gt;&lt;span&gt;　真ん中にログインしたユーザーの名前が表示される。&lt;/span&gt;" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;hachureGap=4;align=left;" vertex="1" parent="DdT7IqfG2uEd_ifyWw3R-1">
           <mxGeometry x="115" width="690" height="60" as="geometry">
             <mxRectangle width="690" height="60" as="alternateBounds" />
           </mxGeometry>
@@ -521,7 +521,7 @@
             <mxRectangle width="115" height="50" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="DdT7IqfG2uEd_ifyWw3R-6" value="&lt;span&gt;「商品一覧画面&lt;/span&gt;&lt;span&gt;」リンクをクリックすると商品一覧画面に推移する。&lt;/span&gt;&lt;br&gt;&lt;div style=&quot;&quot;&gt;&lt;span&gt;「カート一覧画面」リンクをクリックするとカート一覧画面に推移する。&lt;/span&gt;&lt;/div&gt;&lt;span&gt;　　　　　　　　　　　　　　　　　　　　&lt;/span&gt;" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;hachureGap=4;align=left;" vertex="1" parent="DdT7IqfG2uEd_ifyWw3R-4">
+        <mxCell id="DdT7IqfG2uEd_ifyWw3R-6" value="&lt;span&gt;「商品一覧&lt;/span&gt;&lt;span&gt;」リンクをクリックすると商品一覧画面に推移する。&lt;/span&gt;&lt;br&gt;&lt;div&gt;&lt;span&gt;「カート一覧」リンクをクリックするとカート一覧画面に推移する。&lt;/span&gt;&lt;/div&gt;&lt;span&gt;　　　　　　　　　　　　　　　　　　　　&lt;/span&gt;" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;hachureGap=4;align=left;" vertex="1" parent="DdT7IqfG2uEd_ifyWw3R-4">
           <mxGeometry x="115" width="690" height="50" as="geometry">
             <mxRectangle width="690" height="50" as="alternateBounds" />
           </mxGeometry>
