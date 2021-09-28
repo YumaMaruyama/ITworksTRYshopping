@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-09-28T02:26:36.700Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.61 Safari/537.36 Edg/94.0.992.31" etag="ydIbLBIGKnA8Gw8w7f9R" version="15.3.4" type="github" pages="33">
+<mxfile host="app.diagrams.net" modified="2021-09-28T02:31:19.861Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.61 Safari/537.36 Edg/94.0.992.31" etag="dSY2qLrUraq2SgatNQ7t" version="15.3.4" type="github" pages="33">
   <diagram id="3dSM1hKOwx3oM_8oYQWr" name="ログイン画面">
     <mxGraphModel dx="1268" dy="482" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -375,7 +375,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="5CTPpFv_Z3beS6MB6_ip" name="商品一覧画面">
-    <mxGraphModel dx="1695" dy="1651" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1848" dy="1736" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="k7DcC9-xTyRANAfgs7Ub-0" />
         <mxCell id="k7DcC9-xTyRANAfgs7Ub-1" parent="k7DcC9-xTyRANAfgs7Ub-0" />
@@ -443,9 +443,6 @@
             <Array as="points" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="9ESFDEVBv100IZ-h6OBX-0" value="&lt;b&gt;商品&lt;/b&gt;&lt;span style=&quot;white-space: pre&quot;&gt; &lt;span style=&quot;white-space: pre&quot;&gt; 　　　　　　　商品データが入っているテーブルから全商品を表示する。&lt;br&gt;　　　　　　　　　　　　　　　　　　　　　　　　　「詳細画面へ行く」リンクをクリックするとクリックした商品の詳細画面が表示される&lt;br&gt;&lt;/span&gt;&lt;/span&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="k7DcC9-xTyRANAfgs7Ub-1" vertex="1">
-          <mxGeometry x="-20" y="625" width="800" height="40" as="geometry" />
-        </mxCell>
         <mxCell id="h1WSdMK-_9vmsngSMWmZ-0" value="商品" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;strokeColor=#99FF33;" parent="k7DcC9-xTyRANAfgs7Ub-1" vertex="1">
           <mxGeometry x="750" y="70" width="60" height="30" as="geometry" />
         </mxCell>
@@ -457,12 +454,6 @@
             <mxPoint x="890" y="130" as="sourcePoint" />
             <mxPoint x="860" y="160" as="targetPoint" />
           </mxGeometry>
-        </mxCell>
-        <mxCell id="U09n4OyZJejqV9eToaXD-0" value="&lt;b&gt;　ヘッダー&lt;/b&gt;　&lt;span style=&quot;white-space: pre&quot;&gt; 全ての画面にヘッダーがついている&lt;br/&gt;&lt;/span&gt;　　　　　　　　　　　　　　　　　　　　「PCショップYM」リンクをクリックすると商品一覧画面に推移する。&lt;br&gt;　　　　　　　　　　　　　　　　　　「ログアウト」リンクをクリックするとログイン画面に推移する。&lt;br&gt;　　　　　　　　　　　　　真ん中にログインしたユーザーの名前が表示される。" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="k7DcC9-xTyRANAfgs7Ub-1" vertex="1">
-          <mxGeometry x="-280" y="530" width="1120" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="U09n4OyZJejqV9eToaXD-1" value="&lt;b&gt;サイドバー&lt;/b&gt;　&lt;span style=&quot;white-space: pre&quot;&gt; &lt;span style=&quot;white-space: pre&quot;&gt; &lt;/span&gt;「商品一覧画面&lt;/span&gt;」リンクをクリックすると商品一覧画面に推移する。&lt;br&gt;　　　　　　　　　「カート一覧画面」リンクをクリックするとカート一覧画面に推移する。&lt;br&gt;　　　　　　　　　　　　　　　　　　　　" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="k7DcC9-xTyRANAfgs7Ub-1" vertex="1">
-          <mxGeometry x="-352" y="585" width="1470" height="40" as="geometry" />
         </mxCell>
         <mxCell id="ISycGaOy9urT1P5Eg3Ta-2" value="&lt;span&gt;商品名&lt;/span&gt;&lt;br&gt;&lt;span&gt;会社名&lt;/span&gt;&lt;br&gt;&lt;span&gt;OS&lt;/span&gt;&lt;br&gt;&lt;span&gt;画面サイズ&lt;/span&gt;&lt;br&gt;&lt;span&gt;値段&lt;br&gt;&lt;/span&gt;在庫数&lt;br&gt;&lt;font color=&quot;#66b2ff&quot;&gt;詳細画面へ行く&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="k7DcC9-xTyRANAfgs7Ub-1" vertex="1">
           <mxGeometry x="390" y="190" width="90" height="100" as="geometry" />
@@ -505,6 +496,48 @@
         </mxCell>
         <mxCell id="l23xTZ-i8vvkSBj6K1xo-1" value="カート一覧" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="k7DcC9-xTyRANAfgs7Ub-1" vertex="1">
           <mxGeometry x="15" y="120" width="70" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="DdT7IqfG2uEd_ifyWw3R-0" value="" style="shape=table;startSize=0;container=1;collapsible=0;childLayout=tableLayout;hachureGap=4;pointerEvents=0;" vertex="1" parent="k7DcC9-xTyRANAfgs7Ub-1">
+          <mxGeometry x="60" y="610" width="805" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="DdT7IqfG2uEd_ifyWw3R-1" value="" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;hachureGap=4;" vertex="1" parent="DdT7IqfG2uEd_ifyWw3R-0">
+          <mxGeometry width="805" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DdT7IqfG2uEd_ifyWw3R-2" value="ヘッダー" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;hachureGap=4;" vertex="1" parent="DdT7IqfG2uEd_ifyWw3R-1">
+          <mxGeometry width="115" height="60" as="geometry">
+            <mxRectangle width="115" height="60" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="DdT7IqfG2uEd_ifyWw3R-3" value="&lt;span&gt;　&lt;/span&gt;&lt;span&gt; 全ての画面にヘッダーがついている&lt;/span&gt;&lt;span&gt;「PCショップYM」リンクをクリックすると商品一覧画面に推移する。&lt;/span&gt;&lt;span&gt;&lt;br&gt;&lt;/span&gt;&lt;span&gt;「ログアウト」リンクをクリックするとログイン画面に推移する。&lt;/span&gt;&lt;br&gt;&lt;span&gt;　真ん中にログインしたユーザーの名前が表示される。&lt;/span&gt;" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;hachureGap=4;align=left;" vertex="1" parent="DdT7IqfG2uEd_ifyWw3R-1">
+          <mxGeometry x="115" width="690" height="60" as="geometry">
+            <mxRectangle width="690" height="60" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="DdT7IqfG2uEd_ifyWw3R-4" value="" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;hachureGap=4;" vertex="1" parent="DdT7IqfG2uEd_ifyWw3R-0">
+          <mxGeometry y="60" width="805" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="DdT7IqfG2uEd_ifyWw3R-5" value="サイドバー" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;hachureGap=4;" vertex="1" parent="DdT7IqfG2uEd_ifyWw3R-4">
+          <mxGeometry width="115" height="50" as="geometry">
+            <mxRectangle width="115" height="50" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="DdT7IqfG2uEd_ifyWw3R-6" value="&lt;span&gt;「商品一覧画面&lt;/span&gt;&lt;span&gt;」リンクをクリックすると商品一覧画面に推移する。&lt;/span&gt;&lt;br&gt;&lt;div style=&quot;&quot;&gt;&lt;span&gt;「カート一覧画面」リンクをクリックするとカート一覧画面に推移する。&lt;/span&gt;&lt;/div&gt;&lt;span&gt;　　　　　　　　　　　　　　　　　　　　&lt;/span&gt;" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;hachureGap=4;align=left;" vertex="1" parent="DdT7IqfG2uEd_ifyWw3R-4">
+          <mxGeometry x="115" width="690" height="50" as="geometry">
+            <mxRectangle width="690" height="50" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="DdT7IqfG2uEd_ifyWw3R-7" value="" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;hachureGap=4;" vertex="1" parent="DdT7IqfG2uEd_ifyWw3R-0">
+          <mxGeometry y="110" width="805" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DdT7IqfG2uEd_ifyWw3R-8" value="商品" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;hachureGap=4;" vertex="1" parent="DdT7IqfG2uEd_ifyWw3R-7">
+          <mxGeometry width="115" height="60" as="geometry">
+            <mxRectangle width="115" height="60" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="DdT7IqfG2uEd_ifyWw3R-9" value="&lt;div style=&quot;&quot;&gt;&lt;span&gt;商品データが入っているテーブルから全商品を表示する。&lt;/span&gt;&lt;/div&gt;&lt;span&gt;「詳細画面へ行く」リンクをクリックするとクリックした商品の詳細画面が表示される&lt;/span&gt;" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;hachureGap=4;align=left;" vertex="1" parent="DdT7IqfG2uEd_ifyWw3R-7">
+          <mxGeometry x="115" width="690" height="60" as="geometry">
+            <mxRectangle width="690" height="60" as="alternateBounds" />
+          </mxGeometry>
         </mxCell>
       </root>
     </mxGraphModel>
