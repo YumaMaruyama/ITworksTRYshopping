@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2021-09-29T14:14:53.008Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.61 Safari/537.36 Edg/94.0.992.31" etag="inbH__euA8OhgFM0gzcF" version="15.0.6" type="github" pages="33">
+<mxfile host="app.diagrams.net" modified="2021-09-29T14:36:57.876Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.61 Safari/537.36 Edg/94.0.992.31" etag="mcBdOLa0uQrFOrYrXvGL" version="15.0.6" type="github" pages="33">
   <diagram id="3dSM1hKOwx3oM_8oYQWr" name="ログイン画面">
-    <mxGraphModel dx="1438" dy="579" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2130" dy="965" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -70,9 +70,6 @@
         <mxCell id="eSkkDwupQhdsQIechKpc-15" value="ユーザーID入力&lt;br&gt;フォーム" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;strokeColor=#33FF33;" parent="1" vertex="1">
           <mxGeometry x="710" y="200" width="100" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="eSkkDwupQhdsQIechKpc-18" value="&lt;b&gt;ユーザーID&lt;/b&gt;　　　　　　&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;span style=&quot;white-space: pre&quot;&gt;新規ユーザー登録&lt;/span&gt;で作成したユーザーIDを8文字以上80文字以下で入力する。&lt;br&gt;　　　　" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="-93" y="630" width="1058" height="40" as="geometry" />
-        </mxCell>
         <mxCell id="eSkkDwupQhdsQIechKpc-20" value="ログインボタン" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;strokeColor=#FF3333;" parent="1" vertex="1">
           <mxGeometry x="560" y="330" width="100" height="30" as="geometry" />
         </mxCell>
@@ -84,15 +81,6 @@
               <mxPoint x="470" y="370" />
             </Array>
           </mxGeometry>
-        </mxCell>
-        <mxCell id="eSkkDwupQhdsQIechKpc-22" value="&lt;b&gt;ログインボタン&lt;/b&gt;　　　　　ログインすれば商品一覧画面に推移する。&lt;br&gt;　　　　　　　　　　　　　　　　バリデーションエラーならエラーメッセージを出す" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="-150" y="740" width="980" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="zF0CrVGW_TOVX7tvU9kC-1" value="&lt;b&gt;　ヘッダー&lt;/b&gt;　&lt;span style=&quot;white-space: pre&quot;&gt;                       アプリの画面すべてにヘッダーがついている&lt;br&gt;&lt;/span&gt;　　　　　　　　　　　　　　　　　　　　　　　　　　　　　&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; 「PCショップYM」リンクと「ログイン画面へ」リンクをクリックするとログイン画面に推移する。" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="-300" y="530" width="1280" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="zF0CrVGW_TOVX7tvU9kC-2" value="&lt;b&gt;サイドバー&lt;/b&gt;　&lt;span style=&quot;white-space: pre&quot;&gt; &lt;span style=&quot;white-space: pre&quot;&gt;                     アプリの画面すべてにサイドバーがついている&lt;br&gt;&lt;/span&gt;　　　　　　　　　　　　　　　　　　　　　　               「新規ユーザー登録&lt;/span&gt;」リンクをクリックすると新規ユーザー登録画面に推移する。" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="-67" y="580" width="840" height="40" as="geometry" />
         </mxCell>
         <mxCell id="Jo7CDaI7B2h4xt6UbUf_-1" value="" style="shape=table;startSize=0;container=1;collapsible=0;childLayout=tableLayout;strokeWidth=2;" parent="1" vertex="1">
           <mxGeometry x="204" y="200" width="420" height="80" as="geometry" />
@@ -156,14 +144,59 @@
         <mxCell id="ATvtVX9z4BPf8MiGo0w7-4" value="パスワード入力&lt;br&gt;フォーム" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;strokeColor=#33FF33;" parent="1" vertex="1">
           <mxGeometry x="710" y="240" width="100" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="ATvtVX9z4BPf8MiGo0w7-5" value="&lt;b&gt;パスワード&lt;/b&gt;　　　　　　　　&lt;span&gt;新規ユーザー登録&lt;/span&gt;で作成したパスワードを8文字以上15文字以下で入力する。" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="-65.5" y="680" width="1011" height="40" as="geometry" />
+        <mxCell id="L_vYDbIdDky1f0jDOwUF-1" value="" style="shape=table;startSize=0;container=1;collapsible=0;childLayout=tableLayout;" vertex="1" parent="1">
+          <mxGeometry x="44" y="540" width="740" height="280" as="geometry" />
+        </mxCell>
+        <mxCell id="L_vYDbIdDky1f0jDOwUF-23" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="L_vYDbIdDky1f0jDOwUF-1">
+          <mxGeometry width="740" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="L_vYDbIdDky1f0jDOwUF-24" value="ヘッダー" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;" vertex="1" parent="L_vYDbIdDky1f0jDOwUF-23">
+          <mxGeometry width="164" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="L_vYDbIdDky1f0jDOwUF-25" value="&lt;span style=&quot;text-align: center&quot;&gt;アプリの画面すべてにヘッダーがついている&lt;br&gt;&lt;/span&gt;&lt;span style=&quot;text-align: center&quot;&gt;「shopping」リンクと「ログイン画面へ」リンクをクリックするとログイン画面に推移する。&lt;/span&gt;" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;align=left;verticalAlign=middle;spacing=1;" vertex="1" parent="L_vYDbIdDky1f0jDOwUF-23">
+          <mxGeometry x="164" width="576" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="L_vYDbIdDky1f0jDOwUF-20" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="L_vYDbIdDky1f0jDOwUF-1">
+          <mxGeometry y="56" width="740" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="L_vYDbIdDky1f0jDOwUF-21" value="サードバー" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;" vertex="1" parent="L_vYDbIdDky1f0jDOwUF-20">
+          <mxGeometry width="164" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="L_vYDbIdDky1f0jDOwUF-22" value="&lt;span style=&quot;text-align: center&quot;&gt;アプリの画面すべてにサイドバーがついている&amp;nbsp;&lt;br&gt;「新規ユーザー登録&lt;/span&gt;&lt;span style=&quot;text-align: center&quot;&gt;」リンクをクリックすると新規ユーザー登録画面に推移する。&lt;/span&gt;" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;align=left;" vertex="1" parent="L_vYDbIdDky1f0jDOwUF-20">
+          <mxGeometry x="164" width="576" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="L_vYDbIdDky1f0jDOwUF-2" value="" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="L_vYDbIdDky1f0jDOwUF-1">
+          <mxGeometry y="112" width="740" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="L_vYDbIdDky1f0jDOwUF-3" value="ユーザーID" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;" vertex="1" parent="L_vYDbIdDky1f0jDOwUF-2">
+          <mxGeometry width="164" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="L_vYDbIdDky1f0jDOwUF-4" value="&lt;span style=&quot;text-align: center&quot;&gt;ユーザーIDを8文字以上80文字以下で入力する。&lt;/span&gt;" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;align=left;" vertex="1" parent="L_vYDbIdDky1f0jDOwUF-2">
+          <mxGeometry x="164" width="576" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="L_vYDbIdDky1f0jDOwUF-5" value="" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="L_vYDbIdDky1f0jDOwUF-1">
+          <mxGeometry y="168" width="740" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="L_vYDbIdDky1f0jDOwUF-6" value="パスワード" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;" vertex="1" parent="L_vYDbIdDky1f0jDOwUF-5">
+          <mxGeometry width="164" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="L_vYDbIdDky1f0jDOwUF-7" value="&lt;span style=&quot;font-family: &amp;quot;helvetica&amp;quot;&quot;&gt;パスワード&lt;/span&gt;&lt;span style=&quot;background-color: rgb(255 , 255 , 255)&quot;&gt;を半角英数字8文字以上15文字以下で入力する。&lt;/span&gt;" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;align=left;" vertex="1" parent="L_vYDbIdDky1f0jDOwUF-5">
+          <mxGeometry x="164" width="576" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="L_vYDbIdDky1f0jDOwUF-8" value="" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="L_vYDbIdDky1f0jDOwUF-1">
+          <mxGeometry y="224" width="740" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="L_vYDbIdDky1f0jDOwUF-9" value="ログインボタン" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;" vertex="1" parent="L_vYDbIdDky1f0jDOwUF-8">
+          <mxGeometry width="164" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="L_vYDbIdDky1f0jDOwUF-10" value="&lt;span style=&quot;text-align: center&quot;&gt;ログインすれば商品一覧画面に推移する。&lt;/span&gt;&lt;br style=&quot;text-align: center&quot;&gt;&lt;span style=&quot;text-align: center&quot;&gt;バリデーションエラーならエラーメッセージを出す&lt;/span&gt;" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;align=left;" vertex="1" parent="L_vYDbIdDky1f0jDOwUF-8">
+          <mxGeometry x="164" width="576" height="56" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
   <diagram id="D4Jqtlhcq23bAkMAanE2" name="新規ユーザー登録">
-    <mxGraphModel dx="1865" dy="1748" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="3422" dy="2617" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="04y9C_qfE-yw2NYUlJ8l-0" />
         <mxCell id="04y9C_qfE-yw2NYUlJ8l-1" parent="04y9C_qfE-yw2NYUlJ8l-0" />
@@ -354,7 +387,7 @@
           <mxGeometry x="-10" width="840" height="60" as="geometry" />
         </mxCell>
         <mxCell id="DXvnoN9e4r_0HyU4ebH--0" value="" style="shape=table;startSize=0;container=1;collapsible=0;childLayout=tableLayout;" vertex="1" parent="04y9C_qfE-yw2NYUlJ8l-1">
-          <mxGeometry x="130" y="515" width="670" height="240" as="geometry" />
+          <mxGeometry x="110" y="520" width="670" height="240" as="geometry" />
         </mxCell>
         <mxCell id="DXvnoN9e4r_0HyU4ebH--1" value="" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="DXvnoN9e4r_0HyU4ebH--0">
           <mxGeometry width="670" height="40" as="geometry" />
@@ -414,7 +447,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="5CTPpFv_Z3beS6MB6_ip" name="商品一覧画面">
-    <mxGraphModel dx="1865" dy="1748" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="3793" dy="2823" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="k7DcC9-xTyRANAfgs7Ub-0" />
         <mxCell id="k7DcC9-xTyRANAfgs7Ub-1" parent="k7DcC9-xTyRANAfgs7Ub-0" />
@@ -537,7 +570,7 @@
           <mxGeometry x="15" y="120" width="70" height="20" as="geometry" />
         </mxCell>
         <mxCell id="DdT7IqfG2uEd_ifyWw3R-0" value="" style="shape=table;startSize=0;container=1;collapsible=0;childLayout=tableLayout;hachureGap=4;pointerEvents=0;" parent="k7DcC9-xTyRANAfgs7Ub-1" vertex="1">
-          <mxGeometry x="60" y="610" width="805" height="170" as="geometry" />
+          <mxGeometry x="21" y="610" width="805" height="170" as="geometry" />
         </mxCell>
         <mxCell id="DdT7IqfG2uEd_ifyWw3R-1" value="" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;hachureGap=4;" parent="DdT7IqfG2uEd_ifyWw3R-0" vertex="1">
           <mxGeometry width="805" height="60" as="geometry" />
@@ -582,7 +615,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="-XdkB_I12ZBeUp8brPbb" name="商品詳細">
-    <mxGraphModel dx="2048" dy="1850" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="3422" dy="2617" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="rLezNqufWG3nxAGzAW-u-0" />
         <mxCell id="rLezNqufWG3nxAGzAW-u-1" parent="rLezNqufWG3nxAGzAW-u-0" />
@@ -856,7 +889,7 @@
           <mxGeometry x="330" y="426" width="100" height="24" as="geometry" />
         </mxCell>
         <mxCell id="iH023CuDNSO_Sm5NJw4b-0" value="" style="shape=table;startSize=0;container=1;collapsible=0;childLayout=tableLayout;hachureGap=4;pointerEvents=0;" parent="rLezNqufWG3nxAGzAW-u-1" vertex="1">
-          <mxGeometry x="50" y="530" width="805" height="330" as="geometry" />
+          <mxGeometry x="23" y="530" width="805" height="330" as="geometry" />
         </mxCell>
         <mxCell id="iH023CuDNSO_Sm5NJw4b-7" value="" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;hachureGap=4;" parent="iH023CuDNSO_Sm5NJw4b-0" vertex="1">
           <mxGeometry width="805" height="60" as="geometry" />
@@ -3594,7 +3627,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="IRBNtwaOhIiUud6yYiPG" name="画面遷移図">
-    <mxGraphModel dx="2274" dy="1972" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1865" dy="1748" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <object label="" id="ojHFKheA9-TPT79kkEcd-0">
           <mxCell />
@@ -4029,7 +4062,7 @@
     </mxGraphModel>
   </diagram>
   <diagram name="画面遷移図詳細" id="R1FeNcPUKJwQBws9kYJ9">
-    <mxGraphModel dx="1447" dy="1972" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1038" dy="1748" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="SbLYa5rocRPiW1M29l-_-0" />
         <mxCell id="SbLYa5rocRPiW1M29l-_-1" parent="SbLYa5rocRPiW1M29l-_-0" />
