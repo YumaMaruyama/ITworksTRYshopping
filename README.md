@@ -22,10 +22,10 @@
 * apache 4.0.0
 * font-awesome 4.7.0
 * springsecurity5
-* lombok
-* Devtools
-* JDBC
-* web
+* lombok 1.2.3
+* Devtools 2.4.2
+* JDBC 5.3.3
+* web 5.3.3
 
 
 
