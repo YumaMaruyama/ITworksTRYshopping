@@ -19,7 +19,7 @@
 * GitHub 2.27.0
 ##### 「機能」
 * tomcat 9.0.41
-* apache　4.0.0
+* apache 4.0.0
 * font-awesome 4.7.0
 * springsecurity5
 * lombok
