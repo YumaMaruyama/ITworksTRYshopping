@@ -1,5 +1,31 @@
-# SpringBoot_Shopping
- 
+# ITworksTRYshopping
+
+## [アプリ概要]
+オンラインでPCを販売できるシステムです。  
+会員登録を済ませた会員ユーザーがショッピングを楽しめます。
+
+## [主な使用技術・機能・ツール]
+##### 「技術」
+* Java
+* HTML
+* CSS 
+* spring boot
+* thymeleaf
+* bootstrap 4.2.1
+* jQuery 3.5.1
+##### 「ツール」
+* Eclipse 4.20.0
+* * MySql
+##### 「機能」
+* apache　4.0.0
+* springsecurity5
+* lombok
+* Devtools
+* JDBC
+* web
+
+
+
  ## [設計書類]
  
  
