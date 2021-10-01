@@ -1,32 +1,37 @@
 # SpringBoot_Shopping
  
-<h3>[DB設計書(MySql)]</h3>
-プログラム前に必要なテーブルを考え作成しました。<br>新規テーブルを追加する際には、必要なカラムを考え既存テーブルとの関係を理解した上で作成しました。
-<h4>DB設計書(Googleスプレッドシート):<br>https://docs.google.com/spreadsheets/d/1nZIzJ4DxDax34mMemlDDlxrMyzPACwVXFYjqFpDzCVo/edit?usp=sharing</h4>
-<br>
+ ## [設計書類]
+ 
+ 
+### 1.[DB設計書(MySql)]  
+プログラム前に必要なテーブルを考え作成しました。  
+新規テーブルを追加する際には、必要なカラムを考え既存テーブルとの関係を理解した上で作成しました。
 
-<h3>[要件定義書(XMind)]</h3>
-プログラム前に必要なデータや機能を考え作成しました。<br>現在のアプリは要件定義書の状態から、修正を加えているためデータや機能が追加されています。
-<h4>要件定義書:<br>https://user-images.githubusercontent.com/83486993/135418067-ed2f9605-ec3a-4c18-aadd-f737787f550e.jpg
-</h4>
-<br>
+* #### DB設計書(Googleスプレッドシート): https://docs.google.com/spreadsheets/d/1nZIzJ4DxDax34mMemlDDlxrMyzPACwVXFYjqFpDzCVo/edit?usp=sharing
 
-<h3>[画面設計図(draw.io)]</h3>
-プログラム前にログイン画面から購入までの流れの画面設計図を作成しました。<br>現在のアプリは設計図の状態から、修正を加えているため変化しています。
-<h4>ログイン画面:<br>https://user-images.githubusercontent.com/83486993/134848668-a1b16281-5d27-43ba-986f-90d2bccf9a55.jpg</h4>
-<br>
+### 2.[要件定義書(XMind)]  
+プログラム前に必要なデータや機能を考え作成しました。  
+現在のアプリは要件定義書の状態から、修正を加えているためデータや機能が追加されています。  
+* #### 要件定義書: https://user-images.githubusercontent.com/83486993/135418067-ed2f9605-ec3a-4c18-aadd-f737787f550e.jpg
 
-<h3>[画面遷移図(draw.io)]</h3>
-プログラム前にログイン画面から購入までの流れの画面遷移図を作成しました。<br>現在のアプリは画面遷移図の状態から修正を加えているため変化している場所もあります。
-<h4>遷移図:<br>https://user-images.githubusercontent.com/83486993/134855522-eab3cebd-279c-41f1-b992-8786d43c81b3.jpg</h4>
-<h4>遷移図詳細:<br>https://user-images.githubusercontent.com/83486993/134855490-9ebac49c-8863-416c-bf2e-845dc2ce8615.jpg</h4>
+### 3.[画面設計図(draw.io)]  
+プログラム前にログイン画面から購入までの流れの画面設計図を作成しました。  
+現在のアプリは設計図の状態から、修正を加えているため変化しています。
+* #### ログイン画面: https://user-images.githubusercontent.com/83486993/134848668-a1b16281-5d27-43ba-986f-90d2bccf9a55.jpg
 
-
-
-
+### 4.[画面遷移図(draw.io)]  
+プログラム前にログイン画面から購入までの流れの画面遷移図を作成しました。  
+現在のアプリは画面遷移図の状態から、修正を加えているため変化している所もあります。
+* #### 遷移図: https://user-images.githubusercontent.com/83486993/134855522-eab3cebd-279c-41f1-b992-8786d43c81b3.jpg
+* #### 遷移図詳細: https://user-images.githubusercontent.com/83486993/134855490-9ebac49c-8863-416c-bf2e-845dc2ce8615.jpg
 
 
-<h3>[アプリ説明]</h3>
+
+
+
+
+
+## [アプリ説明] ##
 
 管理者が商品を追加し、ユーザー登録をした会員ユーザーが商品を購入できるシステムです。
 実際にユーザー登録をして、機能を堪能することが可能です。
