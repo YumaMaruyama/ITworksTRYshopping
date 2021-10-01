@@ -6,18 +6,20 @@
 
 ## [主な使用技術・機能・ツール]
 ##### 「技術」
-* Java
-* HTML
-* CSS 
-* spring boot
-* thymeleaf
+* Java8
+* HTML5
+* CSS3
+* spring boot 2.4.2
+* thymeleaf 3.0.4
 * bootstrap 4.2.1
 * jQuery 3.5.1
 ##### 「ツール」
 * Eclipse 4.20.0
-* * MySql
+* MySql 8.0.25
 ##### 「機能」
+* tomcat 9.0.41
 * apache　4.0.0
+* font-awesome 4.7.0
 * springsecurity5
 * lombok
 * Devtools
