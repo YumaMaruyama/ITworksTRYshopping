@@ -13,10 +13,10 @@
 * thymeleaf 3.0.4
 * bootstrap 4.2.1
 * jQuery 3.5.1
-##### 「環境」
+##### 「作成環境」
 * Eclipse 4.20.0
 * MySql 8.0.25
-* GitHub
+* GitHub 2.27.0
 ##### 「機能」
 * tomcat 9.0.41
 * apache　4.0.0
