@@ -1,7 +1,7 @@
 # ITworksTRYshopping
 
 ## [アプリ概要]
-オンラインでPCを販売できるシステムです。  
+管理者がオンラインでPCを販売できるシステムです。  
 会員登録を済ませた会員ユーザーがショッピングを楽しめます。
 
 ## [主な使用技術]
@@ -20,12 +20,12 @@
 ##### 「機能」
 * tomcat 9.0.41
 * apache 4.0.0
-* font-awesome 4.7.0
 * springsecurity5
 * lombok 1.2.3
 * Devtools 2.4.2
 * JDBC 5.3.3
 * web 5.3.3
+* font-awesome 4.7.0
 
 
 
@@ -52,11 +52,7 @@
 プログラム前にログイン画面から購入までの流れの画面遷移図を作成しました。  
 現在のアプリは画面遷移図の状態から、修正を加えているため変化している所もあります。
 * #### 遷移図: https://user-images.githubusercontent.com/83486993/134855522-eab3cebd-279c-41f1-b992-8786d43c81b3.jpg
-* #### 遷移図詳細: https://user-images.githubusercontent.com/83486993/134855490-9ebac49c-8863-416c-bf2e-845dc2ce8615.jpg
-
-
-
-
+* #### 遷移図詳細: https://user-images.githubusercontent.com/83486993/134855490-9ebac49c-8863-416c-bf2e-845dc2ce8615.jpg  
 
 
 
