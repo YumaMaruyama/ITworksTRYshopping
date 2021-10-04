@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2021-09-29T14:36:57.876Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.61 Safari/537.36 Edg/94.0.992.31" etag="mcBdOLa0uQrFOrYrXvGL" version="15.0.6" type="github" pages="33">
+<mxfile host="app.diagrams.net" modified="2021-10-04T01:09:42.528Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.61 Safari/537.36 Edg/94.0.992.31" etag="iWS5R-Gvue9HUNWfIB-t" version="15.3.5" type="github" pages="33">
   <diagram id="3dSM1hKOwx3oM_8oYQWr" name="ログイン画面">
-    <mxGraphModel dx="2130" dy="965" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1268" dy="482" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -144,52 +144,52 @@
         <mxCell id="ATvtVX9z4BPf8MiGo0w7-4" value="パスワード入力&lt;br&gt;フォーム" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;strokeColor=#33FF33;" parent="1" vertex="1">
           <mxGeometry x="710" y="240" width="100" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="L_vYDbIdDky1f0jDOwUF-1" value="" style="shape=table;startSize=0;container=1;collapsible=0;childLayout=tableLayout;" vertex="1" parent="1">
+        <mxCell id="L_vYDbIdDky1f0jDOwUF-1" value="" style="shape=table;startSize=0;container=1;collapsible=0;childLayout=tableLayout;" parent="1" vertex="1">
           <mxGeometry x="44" y="540" width="740" height="280" as="geometry" />
         </mxCell>
-        <mxCell id="L_vYDbIdDky1f0jDOwUF-23" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="L_vYDbIdDky1f0jDOwUF-1">
+        <mxCell id="L_vYDbIdDky1f0jDOwUF-23" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="L_vYDbIdDky1f0jDOwUF-1" vertex="1">
           <mxGeometry width="740" height="56" as="geometry" />
         </mxCell>
-        <mxCell id="L_vYDbIdDky1f0jDOwUF-24" value="ヘッダー" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;" vertex="1" parent="L_vYDbIdDky1f0jDOwUF-23">
+        <mxCell id="L_vYDbIdDky1f0jDOwUF-24" value="ヘッダー" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;" parent="L_vYDbIdDky1f0jDOwUF-23" vertex="1">
           <mxGeometry width="164" height="56" as="geometry" />
         </mxCell>
-        <mxCell id="L_vYDbIdDky1f0jDOwUF-25" value="&lt;span style=&quot;text-align: center&quot;&gt;アプリの画面すべてにヘッダーがついている&lt;br&gt;&lt;/span&gt;&lt;span style=&quot;text-align: center&quot;&gt;「shopping」リンクと「ログイン画面へ」リンクをクリックするとログイン画面に推移する。&lt;/span&gt;" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;align=left;verticalAlign=middle;spacing=1;" vertex="1" parent="L_vYDbIdDky1f0jDOwUF-23">
+        <mxCell id="L_vYDbIdDky1f0jDOwUF-25" value="&lt;span style=&quot;text-align: center&quot;&gt;アプリの画面すべてにヘッダーがついている。&lt;br&gt;&lt;/span&gt;&lt;span style=&quot;text-align: center&quot;&gt;「shopping」リンクと「ログイン画面へ」リンクをクリックするとログイン画面に推移する。&lt;/span&gt;" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;align=left;verticalAlign=middle;spacing=1;" parent="L_vYDbIdDky1f0jDOwUF-23" vertex="1">
           <mxGeometry x="164" width="576" height="56" as="geometry" />
         </mxCell>
-        <mxCell id="L_vYDbIdDky1f0jDOwUF-20" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="L_vYDbIdDky1f0jDOwUF-1">
+        <mxCell id="L_vYDbIdDky1f0jDOwUF-20" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="L_vYDbIdDky1f0jDOwUF-1" vertex="1">
           <mxGeometry y="56" width="740" height="56" as="geometry" />
         </mxCell>
-        <mxCell id="L_vYDbIdDky1f0jDOwUF-21" value="サードバー" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;" vertex="1" parent="L_vYDbIdDky1f0jDOwUF-20">
+        <mxCell id="L_vYDbIdDky1f0jDOwUF-21" value="サードバー" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;" parent="L_vYDbIdDky1f0jDOwUF-20" vertex="1">
           <mxGeometry width="164" height="56" as="geometry" />
         </mxCell>
-        <mxCell id="L_vYDbIdDky1f0jDOwUF-22" value="&lt;span style=&quot;text-align: center&quot;&gt;アプリの画面すべてにサイドバーがついている&amp;nbsp;&lt;br&gt;「新規ユーザー登録&lt;/span&gt;&lt;span style=&quot;text-align: center&quot;&gt;」リンクをクリックすると新規ユーザー登録画面に推移する。&lt;/span&gt;" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;align=left;" vertex="1" parent="L_vYDbIdDky1f0jDOwUF-20">
+        <mxCell id="L_vYDbIdDky1f0jDOwUF-22" value="&lt;span style=&quot;text-align: center&quot;&gt;アプリの画面すべてにサイドバーがついている&amp;nbsp;&lt;br&gt;「新規ユーザー登録&lt;/span&gt;&lt;span style=&quot;text-align: center&quot;&gt;」リンクをクリックすると新規ユーザー登録画面に推移する。&lt;/span&gt;" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;align=left;" parent="L_vYDbIdDky1f0jDOwUF-20" vertex="1">
           <mxGeometry x="164" width="576" height="56" as="geometry" />
         </mxCell>
-        <mxCell id="L_vYDbIdDky1f0jDOwUF-2" value="" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="L_vYDbIdDky1f0jDOwUF-1">
+        <mxCell id="L_vYDbIdDky1f0jDOwUF-2" value="" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="L_vYDbIdDky1f0jDOwUF-1" vertex="1">
           <mxGeometry y="112" width="740" height="56" as="geometry" />
         </mxCell>
-        <mxCell id="L_vYDbIdDky1f0jDOwUF-3" value="ユーザーID" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;" vertex="1" parent="L_vYDbIdDky1f0jDOwUF-2">
+        <mxCell id="L_vYDbIdDky1f0jDOwUF-3" value="ユーザーID" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;" parent="L_vYDbIdDky1f0jDOwUF-2" vertex="1">
           <mxGeometry width="164" height="56" as="geometry" />
         </mxCell>
-        <mxCell id="L_vYDbIdDky1f0jDOwUF-4" value="&lt;span style=&quot;text-align: center&quot;&gt;ユーザーIDを8文字以上80文字以下で入力する。&lt;/span&gt;" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;align=left;" vertex="1" parent="L_vYDbIdDky1f0jDOwUF-2">
+        <mxCell id="L_vYDbIdDky1f0jDOwUF-4" value="&lt;span style=&quot;text-align: center&quot;&gt;ユーザーIDを8文字以上80文字以下で入力する。&lt;/span&gt;" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;align=left;" parent="L_vYDbIdDky1f0jDOwUF-2" vertex="1">
           <mxGeometry x="164" width="576" height="56" as="geometry" />
         </mxCell>
-        <mxCell id="L_vYDbIdDky1f0jDOwUF-5" value="" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="L_vYDbIdDky1f0jDOwUF-1">
+        <mxCell id="L_vYDbIdDky1f0jDOwUF-5" value="" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="L_vYDbIdDky1f0jDOwUF-1" vertex="1">
           <mxGeometry y="168" width="740" height="56" as="geometry" />
         </mxCell>
-        <mxCell id="L_vYDbIdDky1f0jDOwUF-6" value="パスワード" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;" vertex="1" parent="L_vYDbIdDky1f0jDOwUF-5">
+        <mxCell id="L_vYDbIdDky1f0jDOwUF-6" value="パスワード" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;" parent="L_vYDbIdDky1f0jDOwUF-5" vertex="1">
           <mxGeometry width="164" height="56" as="geometry" />
         </mxCell>
-        <mxCell id="L_vYDbIdDky1f0jDOwUF-7" value="&lt;span style=&quot;font-family: &amp;quot;helvetica&amp;quot;&quot;&gt;パスワード&lt;/span&gt;&lt;span style=&quot;background-color: rgb(255 , 255 , 255)&quot;&gt;を半角英数字8文字以上15文字以下で入力する。&lt;/span&gt;" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;align=left;" vertex="1" parent="L_vYDbIdDky1f0jDOwUF-5">
+        <mxCell id="L_vYDbIdDky1f0jDOwUF-7" value="&lt;span style=&quot;font-family: &amp;quot;helvetica&amp;quot;&quot;&gt;パスワード&lt;/span&gt;&lt;span style=&quot;background-color: rgb(255 , 255 , 255)&quot;&gt;を半角英数字8文字以上15文字以下で入力する。&lt;/span&gt;" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;align=left;" parent="L_vYDbIdDky1f0jDOwUF-5" vertex="1">
           <mxGeometry x="164" width="576" height="56" as="geometry" />
         </mxCell>
-        <mxCell id="L_vYDbIdDky1f0jDOwUF-8" value="" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="L_vYDbIdDky1f0jDOwUF-1">
+        <mxCell id="L_vYDbIdDky1f0jDOwUF-8" value="" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="L_vYDbIdDky1f0jDOwUF-1" vertex="1">
           <mxGeometry y="224" width="740" height="56" as="geometry" />
         </mxCell>
-        <mxCell id="L_vYDbIdDky1f0jDOwUF-9" value="ログインボタン" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;" vertex="1" parent="L_vYDbIdDky1f0jDOwUF-8">
+        <mxCell id="L_vYDbIdDky1f0jDOwUF-9" value="ログインボタン" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;" parent="L_vYDbIdDky1f0jDOwUF-8" vertex="1">
           <mxGeometry width="164" height="56" as="geometry" />
         </mxCell>
-        <mxCell id="L_vYDbIdDky1f0jDOwUF-10" value="&lt;span style=&quot;text-align: center&quot;&gt;ログインすれば商品一覧画面に推移する。&lt;/span&gt;&lt;br style=&quot;text-align: center&quot;&gt;&lt;span style=&quot;text-align: center&quot;&gt;バリデーションエラーならエラーメッセージを出す&lt;/span&gt;" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;align=left;" vertex="1" parent="L_vYDbIdDky1f0jDOwUF-8">
+        <mxCell id="L_vYDbIdDky1f0jDOwUF-10" value="&lt;span style=&quot;text-align: center&quot;&gt;ログインすれば商品一覧画面に推移する。&lt;/span&gt;&lt;br style=&quot;text-align: center&quot;&gt;&lt;span style=&quot;text-align: center&quot;&gt;バリデーションエラーならエラーメッセージを出す。&lt;/span&gt;" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;align=left;" parent="L_vYDbIdDky1f0jDOwUF-8" vertex="1">
           <mxGeometry x="164" width="576" height="56" as="geometry" />
         </mxCell>
       </root>
