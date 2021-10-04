@@ -34,8 +34,7 @@
  
  
 ### 1.[DB設計書(MySql)]  
-プログラム前に必要なテーブルを考え作成しました。  
-新規テーブルを追加する際には、必要なカラムを考え既存テーブルとの関係を理解した上で作成しました。
+アプリのDB情報が確認できます。
 
 * #### DB設計書(Googleスプレッドシート): https://docs.google.com/spreadsheets/d/1nZIzJ4DxDax34mMemlDDlxrMyzPACwVXFYjqFpDzCVo/edit?usp=sharing
 
