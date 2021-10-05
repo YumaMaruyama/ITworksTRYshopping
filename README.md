@@ -46,13 +46,27 @@
 ### 3.[画面設計図(draw.io)]  
 プログラム前にログイン画面から購入までの流れの画面設計図を作成しました。  
 現在のアプリは設計図の状態から、修正を加えているため変化しています。
-* #### ログイン画面: https://user-images.githubusercontent.com/83486993/134848668-a1b16281-5d27-43ba-986f-90d2bccf9a55.jpg
+* #### ログイン画面:  https://user-images.githubusercontent.com/83486993/135964539-2284b77c-23a6-431e-ada1-a0d7b3f92aa7.jpg
+* #### 新規ユーザー登録画面: https://user-images.githubusercontent.com/83486993/135964366-345714b8-f62c-4a92-b705-4f14f9c42d3c.jpg
+* #### 商品一覧画面: https://user-images.githubusercontent.com/83486993/135964749-a724d55c-d237-4304-b64a-d2d08720ab69.jpg
+* #### 商品詳細画面: https://user-images.githubusercontent.com/83486993/135965041-e2296cea-c468-4e58-8424-33a6c85e63fb.jpg
+* #### カート画面: https://user-images.githubusercontent.com/83486993/135965547-99b9b620-49b0-4a70-b326-0c53a65b5172.jpg
+* #### 決済画面: https://user-images.githubusercontent.com/83486993/135965606-ad78fc07-c19d-48be-9d8d-d371a3fe6385.jpg
+* #### 最終確認画面: https://user-images.githubusercontent.com/83486993/135965720-30eaee43-b8e5-413b-94ce-588c53ae9bfb.jpg
+* #### 購入後詳細画面: https://user-images.githubusercontent.com/83486993/135965761-cd47b116-eb67-4cb1-a69c-dcbb04e7951c.jpg
+
+
+
+
+
+
+
 
 ### 4.[画面遷移図(draw.io)]  
 プログラム前にログイン画面から購入までの流れの画面遷移図を作成しました。  
 現在のアプリは画面遷移図の状態から、修正を加えているため変化している所もあります。
 * #### 遷移図: https://user-images.githubusercontent.com/83486993/134855522-eab3cebd-279c-41f1-b992-8786d43c81b3.jpg
-* #### 遷移図詳細: https://user-images.githubusercontent.com/83486993/134855490-9ebac49c-8863-416c-bf2e-845dc2ce8615.jpg  
+* #### 遷移図詳細書: https://user-images.githubusercontent.com/83486993/134855490-9ebac49c-8863-416c-bf2e-845dc2ce8615.jpg  
 
 
 
