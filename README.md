@@ -48,7 +48,7 @@
 現在のアプリは設計図の状態から、修正を加えているため変化しています。
 * #### ログイン画面:  https://user-images.githubusercontent.com/83486993/135964539-2284b77c-23a6-431e-ada1-a0d7b3f92aa7.jpg
 * #### 新規ユーザー登録画面: https://user-images.githubusercontent.com/83486993/135964366-345714b8-f62c-4a92-b705-4f14f9c42d3c.jpg
-* #### 商品一覧画面: https://user-images.githubusercontent.com/83486993/135964749-a724d55c-d237-4304-b64a-d2d08720ab69.jpg
+* #### 商品一覧画面: https://user-images.githubusercontent.com/83486993/135966112-00a6de49-7095-4b28-bebf-cfd305d0c47c.jpg
 * #### 商品詳細画面: https://user-images.githubusercontent.com/83486993/135965041-e2296cea-c468-4e58-8424-33a6c85e63fb.jpg
 * #### カート画面: https://user-images.githubusercontent.com/83486993/135965547-99b9b620-49b0-4a70-b326-0c53a65b5172.jpg
 * #### 決済画面: https://user-images.githubusercontent.com/83486993/135965606-ad78fc07-c19d-48be-9d8d-d371a3fe6385.jpg
