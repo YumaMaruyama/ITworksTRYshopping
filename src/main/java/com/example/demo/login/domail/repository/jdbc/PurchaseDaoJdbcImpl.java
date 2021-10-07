@@ -55,7 +55,7 @@ public class PurchaseDaoJdbcImpl implements PurchaseDao {
 			productIdList.add(productIdOne);
 		}
 
-		int sumPrins = 0;
+		
 		List<Map<String, Object>> user_productIdList = new ArrayList<>();
 		for (int i = 0; 1 > i; i++) {
 			List<Map<String, Object>> purchaseList = jdbc.queryForList(
