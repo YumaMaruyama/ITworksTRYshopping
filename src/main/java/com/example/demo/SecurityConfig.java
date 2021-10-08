@@ -27,10 +27,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private DataSource dataSource;
 
-	private static final String USER_SQL = "SELECT" + " user_id," + " password," + " true" + " FROM" + " Users"
-			+ " WHERE" + " user_id = ?";
+	private static final String USER_SQL = "select" + " user_id," + " password," + " true" + " from" + " users"
+			+ " where" + " user_id = ?";
 
-	private static final String ROLE_SQL = "SELECT" + " user_id," + " role" + " FROM" + " Users" + " WHERE"
+	private static final String ROLE_SQL = "select" + " user_id," + " role" + " from" + " users" + " where"
 			+ " user_id = ?";
 
 	@Override
