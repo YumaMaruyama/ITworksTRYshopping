@@ -17,8 +17,7 @@ public class CreditForm {
 	private String digits_3_code;
 
 	@NotBlank(groups = ValidGroup1.class)
-	@Pattern(regexp = "^[a-zA-Z0-9]+$", groups = ValidGroup2.class)
-	@Length(min = 4, max = 30, groups = ValidGroup3.class)
+	@Length(min = 4, max = 30, groups = ValidGroup2.class)
 	private String cardName;
 
 	@NotBlank(groups = ValidGroup1.class)
