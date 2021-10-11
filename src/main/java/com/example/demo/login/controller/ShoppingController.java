@@ -3507,6 +3507,7 @@ public class ShoppingController {
 
 		} else {
 			rankNumber = 1;// 一度も購入していない場合はアマチュアランク
+			model.addAttribute("rank", "アマチュアランク");
 		}
 
 		//ランクが確定したらランクによって使用できるクーポンのチェックを行う
@@ -4920,6 +4921,11 @@ public class ShoppingController {
 		int userId = usersService.select_id(user_id);
 
 		if (bindingResult.hasErrors()) {
+			return getPointUse(form, couponId, model);
+		}
+		
+		if(form.getPointUse().equals("0")) {
+			model.addAttribute("errormessage","0のみは入力できません");
 			return getPointUse(form, couponId, model);
 		}
 

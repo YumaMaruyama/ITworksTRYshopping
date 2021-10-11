@@ -15,7 +15,7 @@
 			th:object="${pointUseForm}">
 			<table class="table table-bordered pointUseTableDesign">
 				<br>
-				<h3 class="text-center">1ポイント1円として利用できます。現在保持しているポイント以下で、且つ合計支払金額以下のポイントを利用できます</h3>
+				<h3>一種類のみの購入の場合にポイントが利用できます。<br>1ポイント1円として利用できます。現在保持しているポイント以下で、且つ合計支払金額以下のポイントを利用できます</h3>
 				<tr>
 					<th class="text-center pointUseThDesign">現在のITworksTRYshoppingポイント</th>
 					<td class="text-center pointUseTdDesign"
@@ -33,7 +33,10 @@
 						class="form-group pointUseTdDesign"><input type="text"
 						class="form-control" th:field="*{pointUse}"> <span
 						class="text-danger" th:if="${#fields.hasErrors('pointUse')}"
-						th:errors="*{pointUse}">pointUse error</span></td>
+						th:errors="*{pointUse}">pointUse error</span><span
+						class="text-danger" th:if="${errormessage} == '0のみは入力できません'"
+						th:text=${errormessage}></span></td>
+						
 			</table>
 			<h4 class="text-danger pointUseErrorDesign"
 				th:if="${errorCheck} == 'true'" th:text="${error}"></h4>
