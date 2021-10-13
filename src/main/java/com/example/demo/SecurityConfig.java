@@ -38,9 +38,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 		http.authorizeRequests().antMatchers("/webjars/**").permitAll().antMatchers("/css/**").permitAll()
 				.antMatchers("/no").permitAll().antMatchers("/login").permitAll().antMatchers("/signup").permitAll()
-				.antMatchers("/inquiryBeforeLogin").permitAll().antMatchers("/inquiryBeforeLoginFinish").permitAll()
-				.antMatchers("/privacyPolicyBeforeLogin").permitAll().antMatchers("/termsOfUseBeforeLogin").permitAll()
-				.antMatchers("/appDetail").permitAll().anyRequest().authenticated();
+				.antMatchers("/productListBeforeLogin").permitAll().antMatchers("/inquiryBeforeLogin").permitAll()
+				.antMatchers("/inquiryBeforeLoginFinish").permitAll().antMatchers("/privacyPolicyBeforeLogin")
+				.permitAll().antMatchers("/termsOfUseBeforeLogin").permitAll().antMatchers("/appDetail").permitAll()
+				.anyRequest().authenticated();
 
 		http.formLogin().loginProcessingUrl("/login")// ログイン処理を行う場所
 				.loginPage("/login")// ログインページ

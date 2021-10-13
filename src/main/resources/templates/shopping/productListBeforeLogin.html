@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+
+<!-- Bootstrap　 jQuery Bootstrapの読み込み必要がある-->
+<!--　cssファイル タイムリーフでファイル読み込み　 -->
+<link th:href="@{/webjars/bootstrap/4.2.1/css/bootstrap.min.css}"
+	rel="stylesheet"></link>
+<!--　jQueryのjsファイル タイムリーフでファイル読み込み　 -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!--　Bootstrap のjsファイル（jQueryの後に読み込む） タイムリーフでファイル読み込み　 -->
+<script th:src="@{/webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
+
+
+
+<title>productList</title>
+</head>
+<body class="img">
+	<div th:fragment="loginLayout_contents">
+		<header>
+			<h1 class="titleDesign">会員ユーザーになると、この商品を購入できるようになります。</h1>
+		</header>
+		<div class="flex productListBeforeLogin">
+			<div class="item" th:each="pcdatadto : ${productList}">
+				<img class="size" th:src="${pcdatadto.pcImg}">
+				<h4 class="card-title text-center fontdesign"
+					style="margin-bottom: 0px !important"
+					th:text="'商品名：' + ${pcdatadto.pc_name}"></h4>
+				<p class="card-text text-center fontdesign"
+					style="margin-bottom: 0px !important"
+					th:text="'会社名：' + ${pcdatadto.company}"></p>
+				<p class="card-text text-center fontdesign os"
+					style="margin-bottom: 0px !important"
+					th:text="'OS：' + ${pcdatadto.os}"></p>
+				<p th:if="${pcdatadto.pc_size} neq 0" class="card-text text-center fontdesign pcsize"
+					style="margin-bottom: 0px !important"
+					th:text="'画面サイズ：' + ${pcdatadto.pc_size} + '型'"></p>
+				<p th:if="${pcdatadto.pc_size} == 0" class="card-text text-center fontdesign pcsize"
+					style="margin-bottom: 0px !important"
+					th:text="'画面サイズ： 画面なし'"></p>
+				<p class="card-text text-center fontdesign price"
+					style="margin-bottom: 0px !important"
+					th:text="'値段：' + ${pcdatadto.price} + '円'"></p>
+				<p class="card-text text-center fontdesign stock"
+					style="margin-bottom: 0px !important"
+					th:text="'在庫数：' + ${pcdatadto.product_stock} + '個'"></p>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

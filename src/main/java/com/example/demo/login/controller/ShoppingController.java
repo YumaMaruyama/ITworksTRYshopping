@@ -1054,6 +1054,18 @@ public class ShoppingController {
 
 		return "shopping/loginLayout";
 	}
+	
+	@GetMapping("/productListBeforeLogin")
+		public String getProductListBeforeLogin(Model model) {
+			model.addAttribute("contents", "shopping/productListBeforeLogin::loginLayout_contents");
+			
+			List<PcDataDTO> productList = pcdataService.selectMany();
+			model.addAttribute("productList", productList);
+			model.addAttribute("productListCheck","yes");
+			
+			return "shopping/loginLayout";
+		}
+	
 
 	@GetMapping("/appDetail")
 	public String getAppDetail(Model model) {

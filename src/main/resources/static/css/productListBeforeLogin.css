@@ -1,0 +1,62 @@
+@charset "UTF-8";
+
+.size {
+	width: 135px !important;
+	height: 135px !important;
+	margin-left: 25px;
+}
+
+.productListGo {
+	padding-left: 52px;
+}
+
+.font {
+	font-size: 10px important;
+}
+
+.DetailRyncDesigin {
+	font-size: 13px;
+}
+
+.flex {
+	display: flex !important;
+	flex-wrap: wrap !important;
+	widht: 30%;
+	hegth: 20%;
+}
+
+.flex .item {
+	width: 20%;
+}
+
+.productListBeforeLogin {
+	display: auto !important;
+	overflow-y: scroll;
+	height: 526px;
+	width: 1100px;
+	background: #f6fafd;
+}
+
+.fontdesign {
+	font-size: 13px;
+}
+
+.os {
+	padding-right: 31px;
+}
+
+.pcsize {
+	padding-right: 23px;
+}
+
+.price {
+	padding-right: 39px;
+}
+
+.stock {
+	padding-right: 44px;
+}
+
+.img {
+	background: aliceblue !important;
+}
