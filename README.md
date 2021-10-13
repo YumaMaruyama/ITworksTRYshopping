@@ -5,47 +5,32 @@
 会員登録を済ませた会員ユーザーが買い物をすることができます。  
 * アプリURL： http://133.167.92.108:8082/login
 
-## [主な使用技術]
-##### 「プログラミング」
+## [使用技術]
 * Java8
 * HTML5
 * CSS3
 * spring boot 2.4.2
 * thymeleaf 3.0.4
 * bootstrap 4.2.1
-* jQuery 3.5.1
-##### 「作成環境」
-* Eclipse 4.20.0
-* MySql 8.0.25
-* GitHub 2.27.0
-##### 「機能」
-* tomcat 9.0.41
+
+## [動作環境]
+* MariaDB  
 * apache 4.0.0
-* springsecurity5
-* lombok 1.2.3
-* Devtools 2.4.2
-* JDBC 5.3.3
-* web 5.3.3
-* font-awesome 4.7.0
-
-
+* firewall
 
  ## [設計書類]
  
  
 ### 1.[DB設計書(MySql)]  
-アプリのDB情報が確認できます。
 
 * #### DB設計書(Googleスプレッドシート): https://docs.google.com/spreadsheets/d/1nZIzJ4DxDax34mMemlDDlxrMyzPACwVXFYjqFpDzCVo/edit?usp=sharing
 
 ### 2.[要件定義書(XMind)]  
-プログラム前に必要なデータや機能を考え作成しました。  
-現在のアプリは要件定義書の状態から、修正を加えているためデータや機能が追加されています。  
+  
 * #### 要件定義書: https://user-images.githubusercontent.com/83486993/135418067-ed2f9605-ec3a-4c18-aadd-f737787f550e.jpg
 
 ### 3.[画面設計図(draw.io)]  
-プログラム前にログイン画面から購入までの流れの画面設計図を作成しました。  
-現在のアプリは設計図の状態から、修正を加えているため変化しています。
+
 * #### ログイン画面:  https://user-images.githubusercontent.com/83486993/135964539-2284b77c-23a6-431e-ada1-a0d7b3f92aa7.jpg
 * #### 新規ユーザー登録画面: https://user-images.githubusercontent.com/83486993/135964366-345714b8-f62c-4a92-b705-4f14f9c42d3c.jpg
 * #### 商品一覧画面: https://user-images.githubusercontent.com/83486993/135966112-00a6de49-7095-4b28-bebf-cfd305d0c47c.jpg
@@ -57,14 +42,8 @@
 
 
 
-
-
-
-
-
 ### 4.[画面遷移図(draw.io)]  
-プログラム前にログイン画面から購入までの流れの画面遷移図を作成しました。  
-現在のアプリは画面遷移図の状態から、修正を加えているため変化している所もあります。
+
 * #### 遷移図: https://user-images.githubusercontent.com/83486993/134855522-eab3cebd-279c-41f1-b992-8786d43c81b3.jpg
 * #### 遷移図詳細書: https://user-images.githubusercontent.com/83486993/134855490-9ebac49c-8863-416c-bf2e-845dc2ce8615.jpg  
 
