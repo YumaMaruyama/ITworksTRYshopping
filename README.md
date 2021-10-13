@@ -14,7 +14,7 @@
 * bootstrap 4.2.1
 
 ## [動作環境]
-* MariaDB  
+* MariaDB 10.3.28
 * apache 4.0.0
 * firewall
 
