@@ -30,6 +30,7 @@ import com.example.demo.login.domail.model.CancelInTransactionForm;
 import com.example.demo.login.domail.model.CancelNextForm;
 import com.example.demo.login.domail.model.CartDTO;
 import com.example.demo.login.domail.model.CartForm;
+import com.example.demo.login.domail.model.ChallengeProgrammingForm;
 import com.example.demo.login.domail.model.CouponDTO;
 import com.example.demo.login.domail.model.CouponForm;
 import com.example.demo.login.domail.model.CreditDTO;
@@ -5898,6 +5899,20 @@ public class ShoppingController {
 
 
 		return getAfter_purchase(model);
+	}
+	
+	
+	@GetMapping("/challengeProgramming")
+	public String getChallengeProgramming(@ModelAttribute ChallengeProgrammingForm form,Model model) {
+		model.addAttribute("contents", "shopping/challengeProgramming::productListLayout_contents");
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String getName = auth.getName();
+		int userId = usersService.select_id(getName);
+		
+		
+		
+		return "shopping/productListLayout";
 	}
 
 	@GetMapping("/purchaseHistory")

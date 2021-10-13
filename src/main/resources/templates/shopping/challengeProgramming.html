@@ -15,44 +15,40 @@
 <script th:src="@{/webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
 
 <link th:href="@{/css/productList.css}" rel="stylesheet"></link>
-
-
-<title>productList</title>
+<title></title>
 </head>
 <body>
 	<div th:fragment="productListLayout_contents">
 		<header>
-			<h1 class="titleDesign">PC一覧</h1>
+			<h1 class="titleDesign">チャレンジプログラミング</h1>
 		</header>
 		<div class="flex productList" style="width: 1100px;">
-			<div class="item" th:each="pcdatadto : ${productList}">
-				<img class="size" th:src="${pcdatadto.pcImg}">
+			<div class="item" th:each="productdto : ${productList}">
+				<img class="size" th:src="${productdto.pcImg}">
 				<h4 class="card-title text-center fontdesign"
 					style="margin-bottom: 0px !important"
-					th:text="'商品名：' + ${pcdatadto.pc_name}"></h4>
+					th:text="'題：' + ${productdto.title}"></h4>
 				<p class="card-text text-center fontdesign"
 					style="margin-bottom: 0px !important"
-					th:text="'会社名：' + ${pcdatadto.company}"></p>
+					th:text="'内容：' + ${productdto.content}"></p>
 				<p class="card-text text-center fontdesign os"
 					style="margin-bottom: 0px !important"
-					th:text="'OS：' + ${pcdatadto.os}"></p>
-				<p th:if="${pcdatadto.pc_size} neq 0" class="card-text text-center fontdesign pcsize"
-					style="margin-bottom: 0px !important"
-					th:text="'画面サイズ：' + ${pcdatadto.pc_size} + '型'"></p>
-				<p th:if="${pcdatadto.pc_size} == 0" class="card-text text-center fontdesign pcsize"
-					style="margin-bottom: 0px !important"
-					th:text="'画面サイズ： 画面なし'"></p>
+					th:text="'値段：' + ${productdto.price}"></p>
 				<p class="card-text text-center fontdesign price"
 					style="margin-bottom: 0px !important"
-					th:text="'値段：' + ${pcdatadto.price} + '円'"></p>
+					th:text="'利用時間：' + ${productdto.workingTimes}"></p>
 				<p class="card-text text-center fontdesign stock"
 					style="margin-bottom: 0px !important"
-					th:text="'在庫数：' + ${pcdatadto.product_stock} + '個'"></p>
+					th:text="'勤務可能時間：' + ${productdto.fixable_timeFrom} + 'から'"></p>
+				<p class="card-text text-center fontdesign stock"
+					style="margin-bottom: 0px !important"
+					th:text="${productdto.fixable_timeTo} + 'まで'"></p>
 				<a class="text-center productListGo"
-					th:href="@{/productDetail} + '/' + ${pcdatadto.id}"><span
+					th:href="@{/productDetail} + '/' + ${productdto.id}"><span
 					class="DetailRyncDesigin">詳細画面に行く</span></a>
 			</div>
 		</div>
 	</div>
+
 </body>
 </html>
