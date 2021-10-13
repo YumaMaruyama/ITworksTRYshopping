@@ -36,9 +36,12 @@
 				<p class="card-text text-center fontdesign os"
 					style="margin-bottom: 0px !important"
 					th:text="'OS：' + ${pcdatadto.os}"></p>
-				<p class="card-text text-center fontdesign pcsize"
+				<p th:if="${pcdatadto.pc_size} neq 0" class="card-text text-center fontdesign pcsize"
 					style="margin-bottom: 0px !important"
 					th:text="'画面サイズ：' + ${pcdatadto.pc_size} + '型'"></p>
+				<p th:if="${pcdatadto.pc_size} == 0" class="card-text text-center fontdesign pcsize"
+					style="margin-bottom: 0px !important"
+					th:text="'画面サイズ： 画面なし'"></p>
 				<p class="card-text text-center fontdesign price"
 					style="margin-bottom: 0px !important"
 					th:text="'値段：' + ${pcdatadto.price} + '円'"></p>
