@@ -20,4 +20,10 @@ public class ChallengeProgrammingDTO {
 	private Date fixableTimeFrom;//勤務可能時間
 	
 	private Date fixableTimeTo;
+	
+	private String img;
+	
+	private String fixableTimeFromGetTime;
+	
+	private String fixableTimeToGetTime;
 }

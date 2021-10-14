@@ -33,6 +33,7 @@ public class ChallengeProgrammingDaoJdbcImpl implements ChallengeProgrammingDao 
 			challengeProgrammingdto.setWorkingTimes((int)oneMap.get("workingTime"));
 			challengeProgrammingdto.setFixableTimeFrom((Date)oneMap.get("fixable_time_from"));
 			challengeProgrammingdto.setFixableTimeTo((Date)oneMap.get("fixable_time_to"));
+			challengeProgrammingdto.setImg((String)oneMap.get("img"));;
 			
 			challengeProgrammingList.add(challengeProgrammingdto);
 		}

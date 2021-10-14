@@ -1,5 +1,6 @@
 package com.example.demo.login.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -5915,6 +5916,18 @@ public class ShoppingController {
 		int userId = usersService.select_id(getName);
 		
 		List<ChallengeProgrammingDTO> challengeProgrammingdto = challengeProgrammingService.projectSelectMany();
+		
+		
+		for(int x = 0; challengeProgrammingdto.size() > x; x++) {
+			ChallengeProgrammingDTO challengeProgrammingOne = challengeProgrammingdto.get(x);
+			String fixableTimeFromGetTime = new SimpleDateFormat("ah:mm").format(challengeProgrammingOne.getFixableTimeFrom());
+			String fixableTimeToGetTime = new SimpleDateFormat("ah:mm").format(challengeProgrammingOne.getFixableTimeTo());
+			challengeProgrammingOne.setFixableTimeFromGetTime(fixableTimeFromGetTime);
+			challengeProgrammingOne.setFixableTimeToGetTime(fixableTimeToGetTime);
+			
+		}
+		
+		
 		model.addAttribute("challengeProgrammingList",challengeProgrammingdto);
 		
 		return "shopping/productListLayout";
