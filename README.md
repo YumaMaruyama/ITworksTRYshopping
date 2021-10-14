@@ -15,8 +15,7 @@
 
 ## [動作環境]
 * MariaDB 10.3.28
-* apache 4.0.0
-* firewall
+* apache 2.4.37
 
  ## [設計書類]
  
