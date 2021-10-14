@@ -23,8 +23,8 @@
 			<h1 class="titleDesign">チャレンジプログラミング</h1>
 		</header>
 		<div class="flex productList" style="width: 1100px;">
-			<div class="item" th:each="productdto : ${productList}">
-				<img class="size" th:src="${productdto.pcImg}">
+			<div class="item" th:each="productdto : ${challengeProgrammingList}">
+				<!-- <img class="size" th:src="${productdto.pcImg}"> -->
 				<h4 class="card-title text-center fontdesign"
 					style="margin-bottom: 0px !important"
 					th:text="'題：' + ${productdto.title}"></h4>
@@ -39,10 +39,10 @@
 					th:text="'利用時間：' + ${productdto.workingTimes}"></p>
 				<p class="card-text text-center fontdesign stock"
 					style="margin-bottom: 0px !important"
-					th:text="'勤務可能時間：' + ${productdto.fixable_timeFrom} + 'から'"></p>
+					th:text="'勤務可能時間：' + ${productdto.fixableTimeFrom} + 'から'"></p>
 				<p class="card-text text-center fontdesign stock"
 					style="margin-bottom: 0px !important"
-					th:text="${productdto.fixable_timeTo} + 'まで'"></p>
+					th:text="${productdto.fixableTimeTo} + 'まで'"></p>
 				<a class="text-center productListGo"
 					th:href="@{/productDetail} + '/' + ${productdto.id}"><span
 					class="DetailRyncDesigin">詳細画面に行く</span></a>

@@ -15,9 +15,9 @@ public class ChallengeProgrammingDTO {
 	
 	private int price;
 	
-	private String workingTimes;
+	private int workingTimes;
 	
-	private Date fixable_timeFrom;//勤務可能時間
+	private Date fixableTimeFrom;//勤務可能時間
 	
-	private Date fixable_timeTo;
+	private Date fixableTimeTo;
 }

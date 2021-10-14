@@ -30,6 +30,7 @@ import com.example.demo.login.domail.model.CancelInTransactionForm;
 import com.example.demo.login.domail.model.CancelNextForm;
 import com.example.demo.login.domail.model.CartDTO;
 import com.example.demo.login.domail.model.CartForm;
+import com.example.demo.login.domail.model.ChallengeProgrammingDTO;
 import com.example.demo.login.domail.model.ChallengeProgrammingForm;
 import com.example.demo.login.domail.model.CouponDTO;
 import com.example.demo.login.domail.model.CouponForm;
@@ -63,6 +64,7 @@ import com.example.demo.login.domail.model.UsersListDTO;
 import com.example.demo.login.domail.model.UsersListForm;
 import com.example.demo.login.domail.service.CancelService;
 import com.example.demo.login.domail.service.CartService;
+import com.example.demo.login.domail.service.ChallengeProgrammingService;
 import com.example.demo.login.domail.service.CouponService;
 import com.example.demo.login.domail.service.CreditService;
 import com.example.demo.login.domail.service.CustomService;
@@ -110,6 +112,8 @@ public class ShoppingController {
 	MenberCouponService menberCouponService;
 	@Autowired
 	PointRateService pointRateService;
+	@Autowired
+	ChallengeProgrammingService challengeProgrammingService;
 
 	@Autowired // Sessionが使用できる
 	HttpSession session;
@@ -5910,7 +5914,8 @@ public class ShoppingController {
 		String getName = auth.getName();
 		int userId = usersService.select_id(getName);
 		
-		
+		List<ChallengeProgrammingDTO> challengeProgrammingdto = challengeProgrammingService.projectSelectMany();
+		model.addAttribute("challengeProgrammingList",challengeProgrammingdto);
 		
 		return "shopping/productListLayout";
 	}
