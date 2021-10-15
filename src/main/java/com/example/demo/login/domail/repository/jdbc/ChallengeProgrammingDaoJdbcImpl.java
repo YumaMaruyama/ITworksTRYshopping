@@ -21,16 +21,19 @@ public class ChallengeProgrammingDaoJdbcImpl implements ChallengeProgrammingDao 
 		
 		List<Map<String,Object>> map = jdbc.queryForList("select * from challenge_programming");
 		
-		ChallengeProgrammingDTO challengeProgrammingdto = new ChallengeProgrammingDTO();
+		
 		
 		List<ChallengeProgrammingDTO> challengeProgrammingList = new ArrayList<>();
 		
 		for(Map<String,Object> oneMap : map) {
+			ChallengeProgrammingDTO challengeProgrammingdto = new ChallengeProgrammingDTO();
 			challengeProgrammingdto.setId((int)oneMap.get("id"));
 			challengeProgrammingdto.setTitle((String)oneMap.get("title"));
 			challengeProgrammingdto.setContent((String)oneMap.get("content"));
 			challengeProgrammingdto.setPrice((int)oneMap.get("price"));
 			challengeProgrammingdto.setWorkingTimes((int)oneMap.get("workingTime"));
+			challengeProgrammingdto.setMyName((String)oneMap.get("my_name"));
+			challengeProgrammingdto.setPosition((String)oneMap.get("position"));
 			challengeProgrammingdto.setFixableTimeFrom((Date)oneMap.get("fixable_time_from"));
 			challengeProgrammingdto.setFixableTimeTo((Date)oneMap.get("fixable_time_to"));
 			challengeProgrammingdto.setImg((String)oneMap.get("img"));;

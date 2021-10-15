@@ -17,6 +17,10 @@ public class ChallengeProgrammingDTO {
 	
 	private int workingTimes;
 	
+	private String myName;
+	
+	private String position;
+	
 	private Date fixableTimeFrom;//勤務可能時間
 	
 	private Date fixableTimeTo;

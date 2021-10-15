@@ -5920,6 +5920,7 @@ public class ShoppingController {
 		
 		for(int x = 0; challengeProgrammingdto.size() > x; x++) {
 			ChallengeProgrammingDTO challengeProgrammingOne = challengeProgrammingdto.get(x);
+			System.out.println("test" +challengeProgrammingOne);
 			String fixableTimeFromGetTime = new SimpleDateFormat("ah:mm").format(challengeProgrammingOne.getFixableTimeFrom());
 			String fixableTimeToGetTime = new SimpleDateFormat("ah:mm").format(challengeProgrammingOne.getFixableTimeTo());
 			challengeProgrammingOne.setFixableTimeFromGetTime(fixableTimeFromGetTime);
