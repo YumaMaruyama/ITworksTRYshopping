@@ -22,30 +22,33 @@
 		<header>
 			<h1 class="titleDesign">チャレンジプログラミング</h1>
 		</header>
-		<div class="flex productList" style="width: 1100px;">
-			<div class="item" th:each="productdto : ${challengeProgrammingList}">
+		<div class="flex challengeProgrammingList" style="width: 1100px;">
+			<div class="item cardDesign" th:each="productdto : ${challengeProgrammingList}">
 				<img class="size" th:src="${productdto.img}">
-				<h4 class="card-title text-center fontdesign"
+				<h4 class="card-title  fontdesign"
 					style="margin-bottom: 0px !important"
-					th:text="'講座名：' + ${productdto.title}"></h4>
-				<p class="card-text text-center fontdesign"
+					th:text="'[講座名]：' + ${productdto.title}"></h4>
+				<p class="card-text  fontdesign"
 					style="margin-bottom: 0px !important"
-					th:text="'内容：' + ${productdto.content}"></p>
-				<p class="card-text text-center fontdesign os"
+					th:text="'[内容]：' + ${productdto.content}"></p>
+				<p class="card-text  fontdesign os"
 					style="margin-bottom: 0px !important"
-					th:text="'値段：' + ${productdto.price} + '円'"></p>
-				<p class="card-text text-center fontdesign price"
+					th:text="'[値段]：' + ${productdto.price} + '円'"></p>
+				<p class="card-text  fontdesign os"
 					style="margin-bottom: 0px !important"
-					th:text="'講座時間：' + ${productdto.workingTimes} + '時間'"></p>
-				<p class="card-text text-center fontdesign stock"
+					th:text="'[マイネーム]：' + ${productdto.myName}"></p>
+				<p class="card-text  fontdesign os"
 					style="margin-bottom: 0px !important"
-					th:text="'勤務可能時間：' + ${productdto.fixableTimeFromGetTime} + 'から'"></p>
-				<p class="card-text text-center fontdesign stock"
+					th:text="'[ポジション]：' + ${productdto.position}"></p>
+				<p class="card-text  fontdesign price"
 					style="margin-bottom: 0px !important"
-					th:text="${productdto.fixableTimeToGetTime} + 'までの間'"></p>
-				<a class="text-center productListGo"
+					th:text="'[講座時間]：' + ${productdto.workingTimes} + '時間'"></p>
+				<p class="card-text  fontdesign stock"
+					style="margin-bottom: 0px !important"
+					th:text="'[勤務可能時間]：' + ${productdto.fixableTimeFromGetTime} + '-' + ${productdto.fixableTimeToGetTime}"></p>
+				<a class="text-center productDetailLync"
 					th:href="@{/productDetail} + '/' + ${productdto.id}"><span
-					class="DetailRyncDesigin">詳細画面に行く</span></a>
+					class="productDetailDesigin">詳細画面に行く</span></a>
 			</div>
 		</div>
 	</div>
