@@ -8,4 +8,5 @@ public interface ChallengeProgrammingDao {
 
 	public List<ChallengeProgrammingDTO> projectSelectMany();
 	
+	public ChallengeProgrammingDTO projectSelectOne(int projectId);
 }

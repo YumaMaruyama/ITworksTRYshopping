@@ -5933,6 +5933,18 @@ public class ShoppingController {
 		
 		return "shopping/productListLayout";
 	}
+	
+	@GetMapping("/challengeProgrammingDetail/{id}")
+	public String getChallengeProgrammingDetail(@ModelAttribute ChallengeProgrammingForm form,@PathVariable("id") int projectId,Model model) {
+		model.addAttribute("contents", "shopping/purchaseHistory::productListLayout_contents");
+		
+		ChallengeProgrammingDTO challengeProgrammingdtoOne = challengeProgrammingService.projectSelectOne(projectId);
+		model.addAttribute("challengeProgrammingOne",challengeProgrammingdtoOne);		
+		
+		
+		
+		return "shopping/productListLayout";
+	}
 
 	@GetMapping("/purchaseHistory")
 	public String getPurchaseHistory(@ModelAttribute PcDataForm form, Model model) {

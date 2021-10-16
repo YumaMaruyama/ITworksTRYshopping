@@ -36,12 +36,30 @@ public class ChallengeProgrammingDaoJdbcImpl implements ChallengeProgrammingDao 
 			challengeProgrammingdto.setPosition((String)oneMap.get("position"));
 			challengeProgrammingdto.setFixableTimeFrom((Date)oneMap.get("fixable_time_from"));
 			challengeProgrammingdto.setFixableTimeTo((Date)oneMap.get("fixable_time_to"));
-			challengeProgrammingdto.setImg((String)oneMap.get("img"));;
+			challengeProgrammingdto.setImg((String)oneMap.get("img"));
 			
 			challengeProgrammingList.add(challengeProgrammingdto);
 		}
 		
 		return challengeProgrammingList;
+	}
+	
+	public ChallengeProgrammingDTO projectSelectOne(int projectId) {
+		Map<String,Object> map = jdbc.queryForMap("select * from challenge_programming where id = ?",projectId);
+		
+		ChallengeProgrammingDTO challengeProgrammingdto = new ChallengeProgrammingDTO();
+		challengeProgrammingdto.setId((int)map.get("id"));
+		challengeProgrammingdto.setTitle((String)map.get("title"));
+		challengeProgrammingdto.setContent((String)map.get("content"));
+		challengeProgrammingdto.setPrice((int)map.get("price"));
+		challengeProgrammingdto.setWorkingTimes((int)map.get("workingTime"));
+		challengeProgrammingdto.setMyName((String)map.get("my_name"));
+		challengeProgrammingdto.setPosition((String)map.get("position"));
+		challengeProgrammingdto.setFixableTimeFrom((Date)map.get("fixable_time_from"));
+		challengeProgrammingdto.setFixableTimeTo((Date)map.get("fixable_time_to"));
+		challengeProgrammingdto.setImg((String)map.get("img"));
+		
+		return challengeProgrammingdto;
 	}
 	
 	

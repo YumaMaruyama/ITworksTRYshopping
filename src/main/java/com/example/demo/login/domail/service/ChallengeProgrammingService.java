@@ -17,4 +17,8 @@ public class ChallengeProgrammingService {
 	public List<ChallengeProgrammingDTO> projectSelectMany() {
 		return dao.projectSelectMany();
 	}
+	
+	public ChallengeProgrammingDTO projectSelectOne(int projectId) {
+		return dao.projectSelectOne(projectId);
+	}
 }
