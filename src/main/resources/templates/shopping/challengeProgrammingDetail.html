@@ -21,8 +21,26 @@
 
 	<div th:fragment="productListLayout_contents">
 		<header>
-			<h1 class="titleDesign">チャレンジプログラミング</h1>
+			<h1 class="titleDesign">プロジェクト詳細</h1>
 		</header>
+		
+		<table class="table table-bordered projectDetailTableDesigin">
+				<tr >
+					<th class="text-center padding">マイネーム</th>
+					<th class="text-center padding">ポジション</th>
+					<th class="text-center padding">講座時間</th>
+					<th class="text-center padding">勤務可能時間</th>
+					<th class="text-center padding">値段</th>
+				</tr>
+				<tr th:each="projectdto : ${challengeProgrammingOne}" >
+					<td class="text-center padding" th:text="${projectdto.myName}"></td>
+					<td class="text-center padding" th:text="${projectdto.position}"></td>
+					<td class="text-center padding" th:text="${projectdto.workingTimes}"></td>
+					<td class="text-center padding" th:text="${projectdto.fixableTimeFrom} + ${projectdtofixableTimeTo}"></td>
+					<td class="text-center padding" th:text="${projectdto.price} + '円'"></td>
+				</tr>
+			</table>
+		
 		
 	</div>
 
