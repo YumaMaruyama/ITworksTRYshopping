@@ -21,6 +21,12 @@ public class ChallengeProgrammingDTO {
 	
 	private String position;
 	
+	private String birthplace;
+	
+	private String nationality;
+	
+	private String educationalBackground;
+	
 	private Date fixableTimeFrom;//勤務可能時間
 	
 	private Date fixableTimeTo;
