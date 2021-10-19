@@ -5915,9 +5915,9 @@ public class ShoppingController {
 		String getName = auth.getName();
 		int userId = usersService.select_id(getName);
 		
-		List<ChallengeProgrammingDTO> challengeProgrammingdto = challengeProgrammingService.projectSelectMany();
+		List<ChallengeProgrammingDTO> challengeProgrammingdto = challengeProgrammingService.projectSelectMany();//商品の情報をすべて取得
 		
-		
+		//時間をhh:mm表記に変更する
 		for(int x = 0; challengeProgrammingdto.size() > x; x++) {
 			ChallengeProgrammingDTO challengeProgrammingOne = challengeProgrammingdto.get(x);
 			System.out.println("test" +challengeProgrammingOne);
@@ -5936,12 +5936,16 @@ public class ShoppingController {
 	
 	@GetMapping("/challengeProgrammingDetail/{id}")
 	public String getChallengeProgrammingDetail(@ModelAttribute ChallengeProgrammingForm form,@PathVariable("id") int projectId,Model model) {
-		model.addAttribute("contents", "shopping/projectDetail::productListLayout_contents");
+		model.addAttribute("contents", "shopping/challengeProgrammingDetail::productListLayout_contents");
 		
-		ChallengeProgrammingDTO challengeProgrammingdtoOne = challengeProgrammingService.projectSelectOne(projectId);
+		ChallengeProgrammingDTO challengeProgrammingdtoOne = challengeProgrammingService.projectSelectOne(projectId);//選択した商品の情報をすべて取得
+		
+		//時間をhh:mm表記に変更する
+		String fixableTimeFromGetTime = new SimpleDateFormat("ah:mm").format(challengeProgrammingdtoOne.getFixableTimeFrom());
+		String fixableTimeToGetTime = new SimpleDateFormat("ah:mm").format(challengeProgrammingdtoOne.getFixableTimeTo());
+		challengeProgrammingdtoOne.setFixableTimeFromGetTime(fixableTimeFromGetTime);
+		challengeProgrammingdtoOne.setFixableTimeToGetTime(fixableTimeToGetTime);
 		model.addAttribute("challengeProgrammingOne",challengeProgrammingdtoOne);		
-		
-		
 		
 		return "shopping/productListLayout";
 	}

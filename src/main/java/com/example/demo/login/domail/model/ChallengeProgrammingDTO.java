@@ -33,6 +33,10 @@ public class ChallengeProgrammingDTO {
 	
 	private String img;
 	
+	private String belongings;
+	
+	private String setup;
+	
 	private String fixableTimeFromGetTime;
 	
 	private String fixableTimeToGetTime;

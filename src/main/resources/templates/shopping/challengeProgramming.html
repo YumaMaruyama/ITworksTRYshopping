@@ -27,16 +27,13 @@
 				<img class="size" th:src="${productdto.img}">
 				<h4 class="card-title  fontdesign"
 					style="margin-bottom: 0px !important"
-					th:text="'[講座名]：' + ${productdto.title}"></h4>
-				<p class="card-text  fontdesign"
-					style="margin-bottom: 0px !important"
-					th:text="'[内容]：' + ${productdto.content}"></p>
+					th:text="'[題名]：' + ${productdto.title}"></h4>
 				<p class="card-text  fontdesign os"
 					style="margin-bottom: 0px !important"
 					th:text="'[値段]：' + ${productdto.price} + '円'"></p>
 				<p class="card-text  fontdesign os"
 					style="margin-bottom: 0px !important"
-					th:text="'[マイネーム]：' + ${productdto.myName}"></p>
+					th:text="'[ネーム]：' + ${productdto.myName}"></p>
 				<p class="card-text  fontdesign os"
 					style="margin-bottom: 0px !important"
 					th:text="'[ポジション]：' + ${productdto.position}"></p>
@@ -47,7 +44,7 @@
 					style="margin-bottom: 0px !important"
 					th:text="'[勤務可能時間]：' + ${productdto.fixableTimeFromGetTime} + '-' + ${productdto.fixableTimeToGetTime}"></p>
 				<a class="text-center productDetailLync"
-					th:href="@{/projectDetail} + '/' + ${productdto.id}"><span
+					th:href="@{/challengeProgrammingDetail} + '/' + ${productdto.id}"><span
 					class="productDetailDesigin">詳細画面に行く</span></a>
 			</div>
 		</div>

@@ -55,6 +55,9 @@ public class ChallengeProgrammingDaoJdbcImpl implements ChallengeProgrammingDao 
 		challengeProgrammingdto.setWorkingTimes((int)map.get("workingTime"));
 		challengeProgrammingdto.setMyName((String)map.get("my_name"));
 		challengeProgrammingdto.setPosition((String)map.get("position"));
+		challengeProgrammingdto.setBirthplace((String)map.get("birthplace"));
+		challengeProgrammingdto.setNationality((String)map.get("nationality"));
+		challengeProgrammingdto.setEducationalBackground((String)map.get("educational_background"));
 		challengeProgrammingdto.setFixableTimeFrom((Date)map.get("fixable_time_from"));
 		challengeProgrammingdto.setFixableTimeTo((Date)map.get("fixable_time_to"));
 		challengeProgrammingdto.setImg((String)map.get("img"));
