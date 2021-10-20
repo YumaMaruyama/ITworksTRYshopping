@@ -1,0 +1,25 @@
+@charset "UTF-8";
+
+.size {
+	width: 135px !important;
+	height: 135px !important;
+	margin-left: 60px;
+}
+
+.productDetailLync {
+	padding-left: 52px;
+}
+
+
+.productDetailDesigin {
+	font-size: 13px;
+	padding-left: 32px;
+}
+
+
+.challengeProgrammingList {
+	display: auto !important;
+	overflow-y: scroll;
+	height: 526px;
+	margin-right: 60px;
+}
