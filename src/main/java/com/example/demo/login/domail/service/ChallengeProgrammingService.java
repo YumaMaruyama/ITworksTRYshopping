@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.login.domail.model.ChallengeProgrammingDTO;
-import com.example.demo.login.domail.repository.jdbc.ChallengeProgrammingDao;
+import com.example.demo.login.domail.repository.ChallengeProgrammingDao;
 
 @Service
 public class ChallengeProgrammingService {

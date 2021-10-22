@@ -35,7 +35,11 @@ public class ChallengeProgrammingDTO {
 	
 	private String belongings;
 	
-	private String setup;
+	private String steup;
+	
+	private String voiceTeacher;
+	
+	private String learnSpace;
 	
 	private String fixableTimeFromGetTime;
 	

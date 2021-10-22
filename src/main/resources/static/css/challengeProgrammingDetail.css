@@ -1,25 +1,270 @@
 @charset "UTF-8";
 
-.size {
+.productDetailImgSize {
 	width: 135px !important;
 	height: 135px !important;
-	margin-left: 60px;
-}
-
-.productDetailLync {
-	padding-left: 52px;
+	margin-left: 240px;
 }
 
 
-.productDetailDesigin {
-	font-size: 13px;
-	padding-left: 32px;
+.projectDetailTableDesigin {
+	    width: 1100px;
+    font-size: 13px;
+    border: 2px solid #96d1f3;
+}
+
+.challeProTitleThDesign {
+	width:300px;
+}
+
+.challeProContentThDesign {
+	width:800px;
+}
+
+.projectDetailTwoTableDesigin {
+	    width: 1100px;
+    font-size: 13px;
+    border: 2px solid #96d1f3;
+}
+
+.challeProLearnSpaceThDesign {
+	width:800px;
+}
+
+.challeProWorkingTimesThDesign {
+	width:75px;
+}
+
+.challeProFixableTimeFromToGetTimeThDesignng {
+	width:125px;
+}
+
+.challeProPriceThDesign {
+	width:100px;
+}
+
+.projectDetailThreeTableDesigin {
+	    width: 1100px;
+    font-size: 13px;
+    border: 2px solid #96d1f3;
+}
+
+.challeProMyNameThDesign {
+	width: 300px;
+}
+
+.challeProBirthplaceThDesign {
+	width: 250px;
+}
+
+.challeProNationalityThDesign {
+	width: 150px;
+}
+
+.challeProEducationalBackgroundThDesign {
+	width: 200px;
+}
+
+.challeProPositionThDesign {
+	width: 200px;
 }
 
 
-.challengeProgrammingList {
-	display: auto !important;
-	overflow-y: scroll;
-	height: 526px;
-	margin-right: 60px;
+
+.projectDetailFourTableDesigin {
+	    width: 1100px;
+    font-size: 13px;
+    border: 2px solid #96d1f3;
+}
+
+.challeProBelongingsThDesign {
+	width: 450px;
+}
+
+.challeProSteupThDesign {
+	width: 650px;
+}
+
+.projectDetailFiveTableDesigin {
+	    width: 1100px;
+    font-size: 13px;
+    border: 2px solid #96d1f3;
+}
+
+.projectDetailSixTableDesigin {
+	    width: 1100px;
+    font-size: 13px;
+    
+}
+
+.challeProThDesign {
+	background: #c5e2f9;
+}
+
+.challeProTdDesign {
+	background: aliceblue;
+}
+
+
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: inherit;
+  box-sizing: inherit;
+}
+
+html {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+
+
+a.Btn
+ {
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.5;
+  position: relative;
+  display: inline-block;
+  padding: 1rem 4rem;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  text-align: center;
+  vertical-align: middle;
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  color: #212529;
+  border-radius: 0.5rem;
+}
+
+a.btn-coupon {
+  line-height: 1.2;
+
+  display: -webkit-box;
+
+  display: -ms-flexbox;
+
+  display: flex;
+
+  width: 320px;
+  padding: 0;
+
+  color: #fa4141;
+  border-radius: 0;
+}
+
+a.btn-coupon:before {
+  position: absolute;
+  top: 0;
+  left: 118px;
+
+  width: 2px;
+  height: 10%;
+
+  content: "";
+  -webkit-transition: all 1s;
+  transition: all 1s;
+
+  background: #f8f8f8;
+}
+
+a.btn-coupon .left {
+  font-size: 3rem;
+  line-height: 1;
+
+  width: 120px;
+  padding: 1rem 0;
+
+  -webkit-transition: all 0.3s;
+
+  transition: all 0.3s;
+
+  color: #000;
+  border-right: 2px dashed #fff;
+  background: #d3bf2f;
+}
+
+a.btn-coupon .left span {
+  font-family: "Roboto", sans-serif;
+  font-size: 3rem;
+
+  color: #000;
+}
+
+a.btn-coupon .right {
+  font-size: 1.5rem;
+  line-height: 1.5;
+
+  padding: 1rem 0;
+
+  -webkit-transition: all 0.3s;
+
+  transition: all 0.3s;
+
+  color: #8f374f;
+  background: #f1e767;
+
+  -webkit-box-flex: 1;
+
+  -ms-flex: 1;
+
+  flex: 1;
+}
+
+a.btn-coupon .right span {
+  font-size: 1.1rem;
+
+  display: inline-block;
+
+  padding: 0.2rem 1rem;
+
+  letter-spacing: 0.05rem;
+
+  color: #fff;
+  border-radius: 100vh;
+  background: #242211;;
+}
+
+a.btn-coupon i {
+  position: absolute;
+  top: 0;
+  left: calc(120px - 0.5rem);
+
+  width: 1rem;
+
+  -webkit-transition: all 1s;
+
+  transition: all 1s;
+  -webkit-transform: rotate(90deg) translateX(0.5rem) translateY(0);
+  transform: rotate(90deg) translateX(0.5rem) translateY(0);
+  text-align: right;
+
+  color: #ff0c0c;
+}
+
+a.btn-coupon:hover {
+  color: #d3bf2f;
+}
+
+a.btn-coupon:hover:before {
+  height: calc(100% - 1rem);
+}
+
+a.btn-coupon:hover i {
+  -webkit-transform: rotate(90deg) translateX(7rem) translateY(0);
+  transform: rotate(90deg) translateX(7rem) translateY(0);
+}
+
+a.btn-coupon:hover .left {
+  background: #d3bf2f;
+}
+
+a.btn-coupon:hover .right {
+  background: #f1e767;
 }

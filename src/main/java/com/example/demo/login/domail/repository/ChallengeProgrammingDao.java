@@ -1,4 +1,4 @@
-package com.example.demo.login.domail.repository.jdbc;
+package com.example.demo.login.domail.repository;
 
 import java.util.List;
 

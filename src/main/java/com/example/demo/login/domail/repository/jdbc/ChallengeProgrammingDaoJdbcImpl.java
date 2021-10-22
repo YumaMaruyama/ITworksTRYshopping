@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.login.domail.model.ChallengeProgrammingDTO;
+import com.example.demo.login.domail.repository.ChallengeProgrammingDao;
 
 @Repository
 public class ChallengeProgrammingDaoJdbcImpl implements ChallengeProgrammingDao {
@@ -58,6 +59,10 @@ public class ChallengeProgrammingDaoJdbcImpl implements ChallengeProgrammingDao 
 		challengeProgrammingdto.setBirthplace((String)map.get("birthplace"));
 		challengeProgrammingdto.setNationality((String)map.get("nationality"));
 		challengeProgrammingdto.setEducationalBackground((String)map.get("educational_background"));
+		challengeProgrammingdto.setBelongings((String)map.get("belongings"));
+		challengeProgrammingdto.setSteup((String)map.get("steup"));
+		challengeProgrammingdto.setVoiceTeacher((String)map.get("voice_teacher"));
+		challengeProgrammingdto.setLearnSpace((String)map.get("learn_space"));
 		challengeProgrammingdto.setFixableTimeFrom((Date)map.get("fixable_time_from"));
 		challengeProgrammingdto.setFixableTimeTo((Date)map.get("fixable_time_to"));
 		challengeProgrammingdto.setImg((String)map.get("img"));
