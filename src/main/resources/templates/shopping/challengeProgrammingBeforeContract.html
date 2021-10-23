@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	
+	<div th:fragment="productListLayout_contents">
+		<header>
+			<h1 class="titleDesign">プロジェクト契約前画面</h1>
+		</header>
+		
+		<form method="post" th:action="@{/challenge_programmingContract}" th:object=${challengeProgrammingContractForm}>
+		<table class="table table-bordered text-center">
+			<br><br>
+			<h3>登録をする前に担当者と連絡を取る情報を入力してください。</h3>
+			<tr>
+				<th class="text-center">携帯電話番号</th>
+				<td th:classappend="${#fields.hasErrors('phoneNumber')}?'has-error'"
+						class="form-group"><input type="text"
+						class="form-control" th:field="*{phoneNumber}"> <span
+						class="text-danger" th:if="${#fields.hasErrors('phoneNumber')}"
+						th:errors="*{phoneNumber}">phoneNumber error</span></td>
+			</tr>
+			
+			<tr>		
+				<th class="text-center">メールアドレス</th>
+				<td th:classappend="${#fields.hasErrors('mailAddress')}?'has-error'"
+						class="form-group"><input type="text"
+						class="form-control" th:field="*{mailAddress}"> <span
+						class="text-danger" th:if="${#fields.hasErrors('mailAddress')}"
+						th:errors="*{mailAddress}">mailAddress error</span></td>
+			</tr>
+		</table>
+		
+		<input type="hidden" name="productId" th:value="${productId}">
+		<div class="btn-wrapper"> 
+    <div class="check-box">
+        <label><input class="check" type="checkbox" name="check" autocomplete="off" id="agree"><span>前のページの条件に同意して契約をする</span></label>
+    </div>
+    <input class="submit" type="submit" id="submit" value="送信" />
+</div>
+		
+		
+		</form>
+	
+	<script>
+		$(function() {
+
+  $('.submit').attr('disabled', 'disabled');
+
+  $('#agree').on('click', function() {
+      if ($(this).prop('checked') == false) {
+        $('.submit').attr('disabled', 'disabled');
+      } else {
+        $('.submit').removeAttr('disabled');
+      }
+    });
+ 
+ });
+	</script>
+	</div>
+</body>
+</html>

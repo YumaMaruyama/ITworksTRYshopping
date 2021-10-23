@@ -92,7 +92,7 @@
 					
 					<td><img class="productDetailImgSize text-center" th:src="${product.img}"></td>
 					
-					<td><a ht:href="@{/challengeProgramming}" class="Btn btn-coupon"><i class="fa fa-cut"></i>
+					<td><a th:href="@{/challengeProgrammingBeforeContract} + '/' + ${product.id}" class="Btn btn-coupon"><i class="fa fa-cut"></i>
   <div class="left"><span>早い人</span><br>勝ち!</div>
   <div class="right">契約詳細は<br>こちらをクリック！<span>このボタンを押しても契約完了<br>ではありません。</span></div>
 </a></td>			

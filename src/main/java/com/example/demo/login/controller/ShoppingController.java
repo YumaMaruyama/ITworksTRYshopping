@@ -31,6 +31,7 @@ import com.example.demo.login.domail.model.CancelInTransactionForm;
 import com.example.demo.login.domail.model.CancelNextForm;
 import com.example.demo.login.domail.model.CartDTO;
 import com.example.demo.login.domail.model.CartForm;
+import com.example.demo.login.domail.model.ChallengeProgrammingContractForm;
 import com.example.demo.login.domail.model.ChallengeProgrammingDTO;
 import com.example.demo.login.domail.model.ChallengeProgrammingForm;
 import com.example.demo.login.domail.model.CouponDTO;
@@ -5946,6 +5947,15 @@ public class ShoppingController {
 		challengeProgrammingdtoOne.setFixableTimeFromGetTime(fixableTimeFromGetTime);
 		challengeProgrammingdtoOne.setFixableTimeToGetTime(fixableTimeToGetTime);
 		model.addAttribute("challengeProgrammingOne",challengeProgrammingdtoOne);		
+		
+		return "shopping/productListLayout";
+	}
+	
+	@GetMapping("/challengeProgrammingBeforeContract/{id}")
+	public String getChallengeProgrammingBeforeContract(@ModelAttribute ChallengeProgrammingContractForm form,@PathVariable("id") int productId,Model model) {
+		model.addAttribute("contents", "shopping/challengeProgrammingBeforeContract::productListLayout_contents");
+		
+		model.addAttribute("productId",productId);
 		
 		return "shopping/productListLayout";
 	}
