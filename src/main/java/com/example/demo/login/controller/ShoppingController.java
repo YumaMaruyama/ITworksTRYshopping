@@ -5960,6 +5960,19 @@ public class ShoppingController {
 		return "shopping/productListLayout";
 	}
 	
+	@PostMapping("/challenge_programmingContract")
+	public String postChallenge_programmingContract(@ModelAttribute @Validated(GroupOrder.class) ChallengeProgrammingContractForm form, BindingResult bindingResult,@RequestParam("productId") int productId,Model model) {
+		model.addAttribute("contents", "shopping/challengeProgrammingContract::productListLayout_contents");
+		
+		if(bindingResult.hasErrors()) {
+			return getChallengeProgrammingBeforeContract(form,productId,model);
+		}
+		
+		
+		
+		return "shopping/productListLayout";
+	}
+	
 
 
 	@GetMapping("/purchaseHistory")

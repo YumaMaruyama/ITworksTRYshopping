@@ -13,7 +13,7 @@ public class ChallengeProgrammingContractForm {
 
 	@NotBlank(groups = ValidGroup1.class)
 	@Pattern(regexp = "[0-9]+$", groups = ValidGroup2.class)
-	@Length(min = 16, max = 16, groups = ValidGroup3.class)
+	@Length(min = 11, max = 11, groups = ValidGroup3.class)
 	private String phoneNumber;
 	
 	@NotBlank(groups = ValidGroup1.class)
