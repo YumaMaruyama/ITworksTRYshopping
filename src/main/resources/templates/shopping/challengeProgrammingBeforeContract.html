@@ -13,23 +13,24 @@
 		</header>
 		
 		<form method="post" th:action="@{/challenge_programmingContract}" th:object=${challengeProgrammingContractForm}>
-		<table class="table table-bordered text-center">
+		<table class="table table-bordered text-center challengeProgrammingBeforeContractTableDesign">
 			<br><br>
 			<h3>登録をする前に担当者と連絡を取る情報を入力してください。</h3>
+			<h3 class="text-danger" th:text="${errorMessage}"></h3>
 			<tr>
-				<th class="text-center">携帯電話番号</th>
+				<th class="text-center challengeProgrammingBeforeContractThDesign">携帯電話番号</th>
 				<td th:classappend="${#fields.hasErrors('phoneNumber')}?'has-error'"
-						class="form-group"><input type="text"
+						class="form-group challengeProgrammingBeforeContractTdDesign"><input type="text"
 						class="form-control" th:field="*{phoneNumber}"> <span
 						class="text-danger" th:if="${#fields.hasErrors('phoneNumber')}"
 						th:errors="*{phoneNumber}">phoneNumber error</span></td>
 			</tr>
 			
 			<tr>		
-				<th class="text-center">メールアドレス</th>
+				<th class="text-center challengeProgrammingBeforeContractThDesign">メールアドレス</th>
 				<td th:classappend="${#fields.hasErrors('mailAddress')}?'has-error'"
-						class="form-group"><input type="text"
-						class="form-control" th:field="*{mailAddress}"> <span
+						class="form-group challengeProgrammingBeforeContractTdDesign"><input type="text"
+						class="form-control" th:field="*{mailAddress}"><span
 						class="text-danger" th:if="${#fields.hasErrors('mailAddress')}"
 						th:errors="*{mailAddress}">mailAddress error</span></td>
 			</tr>

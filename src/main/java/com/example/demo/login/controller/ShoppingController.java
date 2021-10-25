@@ -31,6 +31,7 @@ import com.example.demo.login.domail.model.CancelInTransactionForm;
 import com.example.demo.login.domail.model.CancelNextForm;
 import com.example.demo.login.domail.model.CartDTO;
 import com.example.demo.login.domail.model.CartForm;
+import com.example.demo.login.domail.model.ChallengeProgrammingContractDTO;
 import com.example.demo.login.domail.model.ChallengeProgrammingContractForm;
 import com.example.demo.login.domail.model.ChallengeProgrammingDTO;
 import com.example.demo.login.domail.model.ChallengeProgrammingForm;
@@ -66,6 +67,7 @@ import com.example.demo.login.domail.model.UsersListDTO;
 import com.example.demo.login.domail.model.UsersListForm;
 import com.example.demo.login.domail.service.CancelService;
 import com.example.demo.login.domail.service.CartService;
+import com.example.demo.login.domail.service.ChallengeProgrammingContractService;
 import com.example.demo.login.domail.service.ChallengeProgrammingService;
 import com.example.demo.login.domail.service.CouponService;
 import com.example.demo.login.domail.service.CreditService;
@@ -116,6 +118,9 @@ public class ShoppingController {
 	PointRateService pointRateService;
 	@Autowired
 	ChallengeProgrammingService challengeProgrammingService;
+	
+	@Autowired
+	ChallengeProgrammingContractService challengeProgrammingContractService;
 
 	@Autowired // Sessionが使用できる
 	HttpSession session;
@@ -5964,9 +5969,30 @@ public class ShoppingController {
 	public String postChallenge_programmingContract(@ModelAttribute @Validated(GroupOrder.class) ChallengeProgrammingContractForm form, BindingResult bindingResult,@RequestParam("productId") int productId,Model model) {
 		model.addAttribute("contents", "shopping/challengeProgrammingContract::productListLayout_contents");
 		
+		//バリデーションに引っかかると前のページに戻る
 		if(bindingResult.hasErrors()) {
 			return getChallengeProgrammingBeforeContract(form,productId,model);
 		}
+		
+		//契約したユーザーのDBのuserIDを取得
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String getName = auth.getName();
+		int userId = usersService.select_id(getName);
+		
+		//すでに契約していないかチェックする
+		int duplicateCheck = challengeProgrammingContractService.duplicateCheck(userId);
+		if(duplicateCheck > 0) {
+			model.addAttribute("errorMessage","すでに何らかの契約をされています。同時進行は１つの契約までになります。");
+			return getChallengeProgrammingBeforeContract(form,productId,model);
+		}
+		
+		ChallengeProgrammingContractDTO challengeProgrammingContractdto = new ChallengeProgrammingContractDTO();
+		
+		String mailAddress = form.getMailAddress();
+		String phoneNumber = form.getPhoneNumber();
+
+		//入力された情報と契約者情報をDBに格納
+		challengeProgrammingContractService.insertOne(challengeProgrammingContractdto,mailAddress,phoneNumber,userId,productId);
 		
 		
 		
