@@ -31,10 +31,10 @@ public class ChallengeProgrammingContractDaoJdbcImpl implements ChallengeProgram
 		int result = 0;
 		
 		try {
-			int selectUserId = jdbc.queryForObject("select challenge_programming_contract.user_id from challenge_programming_contract where id = ?",Integer.class,userId);
+			int selectUserId = jdbc.queryForObject("select challenge_programming_contract.user_id from challenge_programming_contract where user_id = ?",Integer.class,userId);
+			result = 1;
 		}catch(NullPointerException | EmptyResultDataAccessException e) {
 			e.printStackTrace();
-			result = 1;
 		}
 		
 	return result;

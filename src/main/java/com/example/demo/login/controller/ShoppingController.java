@@ -35,6 +35,7 @@ import com.example.demo.login.domail.model.ChallengeProgrammingContractDTO;
 import com.example.demo.login.domail.model.ChallengeProgrammingContractForm;
 import com.example.demo.login.domail.model.ChallengeProgrammingDTO;
 import com.example.demo.login.domail.model.ChallengeProgrammingForm;
+import com.example.demo.login.domail.model.ChallengeProgrammingTradeForm;
 import com.example.demo.login.domail.model.CouponDTO;
 import com.example.demo.login.domail.model.CouponForm;
 import com.example.demo.login.domail.model.CreditDTO;
@@ -5941,10 +5942,10 @@ public class ShoppingController {
 	}
 	
 	@GetMapping("/challengeProgrammingDetail/{id}")
-	public String getChallengeProgrammingDetail(@ModelAttribute ChallengeProgrammingForm form,@PathVariable("id") int projectId,Model model) {
+	public String getChallengeProgrammingDetail(@ModelAttribute ChallengeProgrammingForm form,@PathVariable("id") int productId,Model model) {
 		model.addAttribute("contents", "shopping/challengeProgrammingDetail::productListLayout_contents");
-		
-		ChallengeProgrammingDTO challengeProgrammingdtoOne = challengeProgrammingService.projectSelectOne(projectId);//選択した商品の情報をすべて取得
+				
+		ChallengeProgrammingDTO challengeProgrammingdtoOne = challengeProgrammingService.projectSelectOne(productId);//選択した商品の情報をすべて取得
 		
 		//時間をhh:mm表記に変更する
 		String fixableTimeFromGetTime = new SimpleDateFormat("ah:mm").format(challengeProgrammingdtoOne.getFixableTimeFrom());
@@ -5952,6 +5953,13 @@ public class ShoppingController {
 		challengeProgrammingdtoOne.setFixableTimeFromGetTime(fixableTimeFromGetTime);
 		challengeProgrammingdtoOne.setFixableTimeToGetTime(fixableTimeToGetTime);
 		model.addAttribute("challengeProgrammingOne",challengeProgrammingdtoOne);		
+		
+		//html(challengeProgrammingDetail)に契約productIDを渡す
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String getName = auth.getName();
+		int userId = usersService.select_id(getName);
+		//契約したユーザーのDBのuserIDを取得
+		model.addAttribute("userId",userId);
 		
 		return "shopping/productListLayout";
 	}
@@ -5993,11 +6001,25 @@ public class ShoppingController {
 
 		//入力された情報と契約者情報をDBに格納
 		challengeProgrammingContractService.insertOne(challengeProgrammingContractdto,mailAddress,phoneNumber,userId,productId);
-		
+		//契約された情報を更新
+		challengeProgrammingService.contractUpdate(userId,productId);
 		
 		
 		return "shopping/productListLayout";
 	}
+	
+	@GetMapping("/challengeProgrammingTrade")
+	public String getChallengeProgrammingTrade(@ModelAttribute ChallengeProgrammingTradeForm form,Model model) {
+		model.addAttribute("contents", "shopping/challengeProgrammingTrade::productListLayout_contents");
+		
+		//test
+		model.addAttribute("teacherName","testName");
+		model.addAttribute("teacherMessage1","はじめまして、一緒に頑張りましょう");
+		
+		return "shopping/productListLayout";
+	}
+	
+	
 	
 
 

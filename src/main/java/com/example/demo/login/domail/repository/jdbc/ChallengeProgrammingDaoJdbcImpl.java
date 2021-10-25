@@ -66,8 +66,20 @@ public class ChallengeProgrammingDaoJdbcImpl implements ChallengeProgrammingDao 
 		challengeProgrammingdto.setFixableTimeFrom((Date)map.get("fixable_time_from"));
 		challengeProgrammingdto.setFixableTimeTo((Date)map.get("fixable_time_to"));
 		challengeProgrammingdto.setImg((String)map.get("img"));
-		
+		try {
+		challengeProgrammingdto.setContractUserId((int)map.get("contract_user_id"));
+		}catch(NullPointerException e) {
+			System.out.println("testcatch");
+			e.printStackTrace();
+			challengeProgrammingdto.setContractUserId(0);
+		}
 		return challengeProgrammingdto;
+	}
+	
+	public int contractUpdate(int userId,int productId) {
+		int result = jdbc.update("update challenge_programming set contract_user_id = ? where id = ?",userId,productId);
+		
+		return result;
 	}
 	
 	

@@ -21,4 +21,8 @@ public class ChallengeProgrammingService {
 	public ChallengeProgrammingDTO projectSelectOne(int projectId) {
 		return dao.projectSelectOne(projectId);
 	}
+	
+	public int contractUpdate(int userId,int productId) {
+		return dao.contractUpdate(userId,productId);
+	}
 }

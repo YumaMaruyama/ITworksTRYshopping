@@ -1,0 +1,22 @@
+@charset "UTF-8";
+
+.flex {
+	display: flex !important;
+	flex-wrap: wrap !important;
+	widht: 30%;
+	hegth: 20%;
+	margin-right: 60px !important;
+}
+
+.challengeProgrammingTradeCardDesign {
+	margin-left:55px;
+	width: 450px !important;
+}
+
+.challengeProgrammingTradeList {
+	display: auto !important;
+	overflow-y: scroll;
+	height: 526px;
+	margin-right: 60px;
+	width:1100px;
+}
