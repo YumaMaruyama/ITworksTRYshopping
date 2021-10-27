@@ -9,8 +9,24 @@
 	
 	<div th:fragment="productListLayout_contents">
 		<header>
-			<h1 class="titleDesign">プロジェクト契約完了</h1>
+			<h1 class="titleDesign">取引画面</h1>
 		</header>
+		
+		<div class="flex challengeProgrammingTradeList">
+			<div class="item challengeProgrammingTradeCardDesign">
+					<h3>契約相手とあいさつしましょう</h3>
+					<h4 class="text-primary" th:text="${teacherName} + '：' + ${teacherMessage1}"></h4>
+					<h4><a th:href="@{/chatReturn1}">挨拶を返す</a></h4>
+					<h4 class="text-danger" th:text="${myName} + '：' + ${MyMessage1}"></h4>
+					
+			</div>
+			<div class="item challengeProgrammingTradeCardDesign" >
+					<h3>進行状況</h3>
+			</div>
+		</div>
+		
+
+		
 		
 	</div>
 	

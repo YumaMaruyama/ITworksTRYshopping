@@ -6009,17 +6009,30 @@ public class ShoppingController {
 	}
 	
 	@GetMapping("/challengeProgrammingTrade")
-	public String getChallengeProgrammingTrade(@ModelAttribute ChallengeProgrammingTradeForm form,Model model) {
+	public String getChallengeProgrammingTrade(@ModelAttribute ChallengeProgrammingTradeForm form,HttpServletRequest request, HttpServletResponse response,Model model) {
 		model.addAttribute("contents", "shopping/challengeProgrammingTrade::productListLayout_contents");
 		
 		//test
 		model.addAttribute("teacherName","testName");
 		model.addAttribute("teacherMessage1","はじめまして、一緒に頑張りましょう");
+		model.addAttribute("myName",session.getAttribute("myName"));
+		model.addAttribute("MyMessage1",session.getAttribute("MyMessage1"));
 		
 		return "shopping/productListLayout";
 	}
 	
-	
+	@GetMapping("/chatReturn1")
+	public String getChatReturn(HttpServletRequest request, HttpServletResponse response,Model model) {
+		
+		//test
+		HttpSession session = request.getSession();
+		session.setAttribute("myName","tester");
+		session.setAttribute("MyMessage1", "よろしくお願いします！");	
+		
+		ChallengeProgrammingTradeForm form = new ChallengeProgrammingTradeForm();
+		
+		return getChallengeProgrammingTrade(form,request,response,model);
+	}
 	
 
 
