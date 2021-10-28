@@ -13,7 +13,7 @@
 		</header>
 		
 		<div class="flex challengeProgrammingTradeList">
-			<div class="item challengeProgrammingTradeCardDesign">
+			<div class="item challengeProgrammingTradeCardDesign" th:each="chatContents :: ${chatContents}">
 					<h3>契約相手とあいさつしましょう</h3>
 					<h4 class="text-primary" th:text="${teacherName} + '：' + ${teacherMessage1}"></h4>
 					<h4><a th:href="@{/chatReturn1}">挨拶を返す</a></h4>

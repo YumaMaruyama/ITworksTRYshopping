@@ -35,6 +35,7 @@ import com.example.demo.login.domail.model.ChallengeProgrammingContractDTO;
 import com.example.demo.login.domail.model.ChallengeProgrammingContractForm;
 import com.example.demo.login.domail.model.ChallengeProgrammingDTO;
 import com.example.demo.login.domail.model.ChallengeProgrammingForm;
+import com.example.demo.login.domail.model.ChallengeProgrammingMessageDTO;
 import com.example.demo.login.domail.model.ChallengeProgrammingTradeForm;
 import com.example.demo.login.domail.model.CouponDTO;
 import com.example.demo.login.domail.model.CouponForm;
@@ -69,6 +70,7 @@ import com.example.demo.login.domail.model.UsersListForm;
 import com.example.demo.login.domail.service.CancelService;
 import com.example.demo.login.domail.service.CartService;
 import com.example.demo.login.domail.service.ChallengeProgrammingContractService;
+import com.example.demo.login.domail.service.ChallengeProgrammingMessageService;
 import com.example.demo.login.domail.service.ChallengeProgrammingService;
 import com.example.demo.login.domail.service.CouponService;
 import com.example.demo.login.domail.service.CreditService;
@@ -119,6 +121,8 @@ public class ShoppingController {
 	PointRateService pointRateService;
 	@Autowired
 	ChallengeProgrammingService challengeProgrammingService;
+	@Autowired
+	ChallengeProgrammingMessageService challengeProgrammingMessageService;
 	
 	@Autowired
 	ChallengeProgrammingContractService challengeProgrammingContractService;
@@ -5998,11 +6002,18 @@ public class ShoppingController {
 		
 		String mailAddress = form.getMailAddress();
 		String phoneNumber = form.getPhoneNumber();
-
+		
+		//チャットメッセージをすべて取得
+		ChallengeProgrammingMessageDTO challengeProgrammingMessagedto = challengeProgrammingMessageService.selectOne();
+		
 		//入力された情報と契約者情報をDBに格納
-		challengeProgrammingContractService.insertOne(challengeProgrammingContractdto,mailAddress,phoneNumber,userId,productId);
+		challengeProgrammingContractService.insertOne(challengeProgrammingContractdto,mailAddress,phoneNumber,userId,productId,challengeProgrammingMessagedto);
 		//契約された情報を更新
 		challengeProgrammingService.contractUpdate(userId,productId);
+		
+		//初めに表示されるメッセージを取得
+		ChallengeProgrammingContractDTO challengeProgrammingContractTeacherMessage = challengeProgrammingContractService.teacherMessege1Select(productId);
+		model.addAttribute("chatContents",challengeProgrammingContractTeacherMessage);
 		
 		
 		return "shopping/productListLayout";
@@ -6011,6 +6022,8 @@ public class ShoppingController {
 	@GetMapping("/challengeProgrammingTrade")
 	public String getChallengeProgrammingTrade(@ModelAttribute ChallengeProgrammingTradeForm form,HttpServletRequest request, HttpServletResponse response,Model model) {
 		model.addAttribute("contents", "shopping/challengeProgrammingTrade::productListLayout_contents");
+		
+		
 		
 		//test
 		model.addAttribute("teacherName","testName");
