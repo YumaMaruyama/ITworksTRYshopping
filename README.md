@@ -12,6 +12,7 @@
 * spring boot 2.4.2
 * thymeleaf 3.0.4
 * bootstrap 4.2.1
+* jQuery 3.5.1
 
 ## [動作環境]
 * MariaDB 10.3.28
