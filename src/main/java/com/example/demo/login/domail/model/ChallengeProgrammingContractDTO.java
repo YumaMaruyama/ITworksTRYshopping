@@ -10,6 +10,8 @@ public class ChallengeProgrammingContractDTO {
 	
 	private int userId;
 	
+	private int productId;
+	
 	private String phoneNumber;
 	
 	private String mailAddress;
@@ -29,4 +31,8 @@ public class ChallengeProgrammingContractDTO {
 	private String myMessage3;
 	
 	private String teacherName;
+	
+	private String userName;
+	
+	
 }

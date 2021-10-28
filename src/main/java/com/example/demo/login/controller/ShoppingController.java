@@ -5956,7 +5956,10 @@ public class ShoppingController {
 		String fixableTimeToGetTime = new SimpleDateFormat("ah:mm").format(challengeProgrammingdtoOne.getFixableTimeTo());
 		challengeProgrammingdtoOne.setFixableTimeFromGetTime(fixableTimeFromGetTime);
 		challengeProgrammingdtoOne.setFixableTimeToGetTime(fixableTimeToGetTime);
-		model.addAttribute("challengeProgrammingOne",challengeProgrammingdtoOne);		
+		model.addAttribute("challengeProgrammingOne",challengeProgrammingdtoOne);	
+		
+		//契約productIdを取得
+		model.addAttribute("productId",challengeProgrammingdtoOne.getId());
 		
 		//html(challengeProgrammingDetail)に契約productIDを渡す
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -6019,32 +6022,29 @@ public class ShoppingController {
 		return "shopping/productListLayout";
 	}
 	
-	@GetMapping("/challengeProgrammingTrade")
-	public String getChallengeProgrammingTrade(@ModelAttribute ChallengeProgrammingTradeForm form,HttpServletRequest request, HttpServletResponse response,Model model) {
+	@PostMapping("/challengeProgrammingTrade")
+	public String postChallengeProgrammingTrade(@ModelAttribute ChallengeProgrammingTradeForm form,@RequestParam("productId") int productId,HttpServletRequest request, HttpServletResponse response,Model model) {
 		model.addAttribute("contents", "shopping/challengeProgrammingTrade::productListLayout_contents");
 		
 		
-		
-		//test
-		model.addAttribute("teacherName","testName");
-		model.addAttribute("teacherMessage1","はじめまして、一緒に頑張りましょう");
-		model.addAttribute("myName",session.getAttribute("myName"));
-		model.addAttribute("MyMessage1",session.getAttribute("MyMessage1"));
+		//初めに表示されるメッセージを取得
+				ChallengeProgrammingContractDTO challengeProgrammingContractTeacherMessage = challengeProgrammingContractService.teacherMessege1Select(productId);
+				model.addAttribute("chatContents",challengeProgrammingContractTeacherMessage);
+				
+				challengeProgrammingContractTeacherMessage.setProductId(productId);
+				
 		
 		return "shopping/productListLayout";
 	}
 	
-	@GetMapping("/chatReturn1")
-	public String getChatReturn(HttpServletRequest request, HttpServletResponse response,Model model) {
+	@GetMapping("/chatReturn1/{id}")
+	public String getChatReturn(@PathVariable("id") int productId,HttpServletRequest request, HttpServletResponse response,Model model) {
+		model.addAttribute("contents", "shopping/challengeProgrammingTrade::productListLayout_contents");
 		
-		//test
-		HttpSession session = request.getSession();
-		session.setAttribute("myName","tester");
-		session.setAttribute("MyMessage1", "よろしくお願いします！");	
-		
-		ChallengeProgrammingTradeForm form = new ChallengeProgrammingTradeForm();
-		
-		return getChallengeProgrammingTrade(form,request,response,model);
+		ChallengeProgrammingContractDTO challengeProgrammingContractTmMm = challengeProgrammingContractService.tm1Mm1Select(productId);
+		model.addAttribute("chatContents",challengeProgrammingContractTmMm);
+	
+		return "shopping/productListLayout";
 	}
 	
 

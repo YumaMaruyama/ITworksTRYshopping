@@ -10,4 +10,6 @@ public interface ChallengeProgrammingContractDao {
 	public int duplicateCheck(int userId);
 
 	public ChallengeProgrammingContractDTO teacherMessege1Select(int productId);
+	
+	public ChallengeProgrammingContractDTO tm1Mm1Select(int productId);
 }

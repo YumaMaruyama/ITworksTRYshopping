@@ -93,7 +93,7 @@
 					
 					<td><img class="productDetailImgSize text-center" th:src="${product.img}"></td>
 					<td th:if="${product.contractUserId} > 0 and ${product.contractUserId} != ${userId}"><span>現在ほかの契約者がいます。</span></td>
-					<td th:if="${product.contractUserId} > 0 and ${product.contractUserId} == ${userId}"><span><a th:href="@{/challengeProgrammingTrade}">取引画面へ</a></span></td>			
+					<td th:if="${product.contractUserId} > 0 and ${product.contractUserId} == ${userId}"><form method="post" th:action="@{/challengeProgrammingTrade}"><input type="hidden" name="productId" th:value="${productId}"><button>取引画面へ</button></form></td>			
 					<td th:if="${product.contractUserId} lt 1"><a th:href="@{/challengeProgrammingBeforeContract} + '/' + ${product.id}" class="Btn btn-coupon"><i class="fa fa-cut"></i>
   <div class="left"><span>早い人</span><br>勝ち!</div>
   <div class="right">契約詳細は<br>こちらをクリック！<span>このボタンを押しても契約完了<br>ではありません。</span></div>

@@ -24,4 +24,8 @@ public class ChallengeProgrammingContractService {
 	public ChallengeProgrammingContractDTO teacherMessege1Select(int productId) {
 		return dao.teacherMessege1Select(productId);
 	}
+	
+	public ChallengeProgrammingContractDTO tm1Mm1Select(int productId) {
+		return dao.tm1Mm1Select(productId);
+	}
 }
