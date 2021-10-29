@@ -69,7 +69,48 @@ public class ChallengeProgrammingContractDaoJdbcImpl implements ChallengeProgram
 		challengeProgrammingContractdto.setMyMessage1((String)map.get("my_message1"));
 		challengeProgrammingContractdto.setTeacherName((String)map.get("my_name"));
 		challengeProgrammingContractdto.setUserName((String)map.get("user_name"));
+		challengeProgrammingContractdto.setProductId((int)map.get("contract_project_id"));
+		
 		
 		return challengeProgrammingContractdto;
+	}
+	
+	public ChallengeProgrammingContractDTO tm2Mm2Select(int productId) {
+		Map<String,Object> map = jdbc.queryForMap("select challenge_programming_contract.id,challenge_programming_contract.user_id,challenge_programming_contract.phone_number,challenge_programming_contract.contract_date,challenge_programming_contract.contract_project_id,challenge_programming_contract.mail_address,challenge_programming_contract.Teacher_message1,challenge_programming_contract.Teacher_message2,challenge_programming_contract.Teacher_message3,challenge_programming_contract.my_message1,challenge_programming_contract.my_message2,challenge_programming_contract.my_message3,users.user_name,challenge_programming.my_name from challenge_programming_contract join users on challenge_programming_contract.user_id = users.id join challenge_programming on challenge_programming_contract.contract_project_id = challenge_programming.id where contract_project_id = ?",productId);
+		
+		ChallengeProgrammingContractDTO challengeProgrammingContractdto = new ChallengeProgrammingContractDTO();
+		challengeProgrammingContractdto.setTeacherMessage1((String)map.get("teacher_message1"));
+		challengeProgrammingContractdto.setTeacherMessage2((String)map.get("teacher_message2"));
+		challengeProgrammingContractdto.setTeacherMessage3((String)map.get("teacher_message3"));
+		challengeProgrammingContractdto.setMyMessage1((String)map.get("my_message1"));
+		challengeProgrammingContractdto.setMyMessage2((String)map.get("my_message2"));
+		challengeProgrammingContractdto.setTeacherName((String)map.get("my_name"));
+		challengeProgrammingContractdto.setUserName((String)map.get("user_name"));
+		challengeProgrammingContractdto.setProductId((int)map.get("contract_project_id"));
+		
+		return challengeProgrammingContractdto;
+	}
+	
+	public ChallengeProgrammingContractDTO tm3Mm3select(int productId) {
+		Map<String,Object> map = jdbc.queryForMap("select challenge_programming_contract.id,challenge_programming_contract.user_id,challenge_programming_contract.phone_number,challenge_programming_contract.contract_date,challenge_programming_contract.contract_project_id,challenge_programming_contract.mail_address,challenge_programming_contract.Teacher_message1,challenge_programming_contract.Teacher_message2,challenge_programming_contract.Teacher_message3,challenge_programming_contract.my_message1,challenge_programming_contract.my_message2,challenge_programming_contract.my_message3,users.user_name,challenge_programming.my_name from challenge_programming_contract join users on challenge_programming_contract.user_id = users.id join challenge_programming on challenge_programming_contract.contract_project_id = challenge_programming.id where contract_project_id = ?",productId);
+		
+		ChallengeProgrammingContractDTO challengeProgrammingContractdto = new ChallengeProgrammingContractDTO();
+		challengeProgrammingContractdto.setTeacherMessage1((String)map.get("teacher_message1"));
+		challengeProgrammingContractdto.setTeacherMessage2((String)map.get("teacher_message2"));
+		challengeProgrammingContractdto.setTeacherMessage3((String)map.get("teacher_message3"));
+		challengeProgrammingContractdto.setMyMessage1((String)map.get("my_message1"));
+		challengeProgrammingContractdto.setMyMessage2((String)map.get("my_message2"));
+		challengeProgrammingContractdto.setMyMessage3((String)map.get("my_message3"));
+		challengeProgrammingContractdto.setTeacherName((String)map.get("my_name"));
+		challengeProgrammingContractdto.setUserName((String)map.get("user_name"));
+		challengeProgrammingContractdto.setProductId((int)map.get("contract_project_id"));
+		
+		return challengeProgrammingContractdto;
+	}
+	
+	public int chatComplete(int productId) {
+		int chatCompleteResult = jdbc.update("update challenge_programming_contract set chat_check = 'チャット完了' where contract_project_id = ?",productId);
+		
+		return chatCompleteResult;
 	}
 }

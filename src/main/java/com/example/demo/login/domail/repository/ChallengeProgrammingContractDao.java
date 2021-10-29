@@ -12,4 +12,10 @@ public interface ChallengeProgrammingContractDao {
 	public ChallengeProgrammingContractDTO teacherMessege1Select(int productId);
 	
 	public ChallengeProgrammingContractDTO tm1Mm1Select(int productId);
+	
+	public ChallengeProgrammingContractDTO tm2Mm2Select(int productId);
+	
+	public ChallengeProgrammingContractDTO tm3Mm3select(int productId);
+	
+	public int chatComplete(int productId);
 }

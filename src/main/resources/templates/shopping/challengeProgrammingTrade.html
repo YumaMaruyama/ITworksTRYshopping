@@ -19,15 +19,59 @@
 					<h4 th:if="${chatContents.myMessage1} == null"><a th:href="@{/chatReturn1} + '/' + ${chatContents.productId}">挨拶を返す</a></h4>
 					<h4 th:if="${chatContents.myMessage1} != null" class="text-danger chatTextDesign" th:text="${chatContents.myMessage1} + '：' + '[' +  ${chatContents.userName} + ']'"></h4>
 					<h4 th:if="${chatContents.myMessage1} != null" class="text-primary" th:text="'[' + ${chatContents.teacherName} + ']' + '：' + ${chatContents.teacherMessage2}"></h4>
+					<h4 th:if="${chatContents.teacherMessage2} != null and ${chatContents.myMessage2} == null"><a th:href="@{/chatReturn2} + '/' + ${chatContents.productId}">返信する</a></h4>
+					<h4 th:if="${chatContents.myMessage1} != null and ${chatContents.myMessage2} != null" class="text-danger longChatTextDesign" th:text="${chatContents.myMessage2} + '：' + '[' +  ${chatContents.userName} + ']'"></h4>
+					<h4 th:if="${chatContents.teacherMessage2} != null and ${chatContents.teacherMessage3} != null " class="text-primary" th:text="'[' + ${chatContents.teacherName} + ']' + '：' + ${chatContents.teacherMessage3}"></h4>
+					<h4 th:if="${chatContents.teacherMessage3} != null and ${chatContents.myMessage3} == null"><a th:href="@{/chatReturn3} + '/' + ${chatContents.productId}">返信する</a></h4>
+					<h4 th:if="${chatContents.myMessage3} != null" class="text-danger longChatTextDesign" th:text="${chatContents.myMessage3} + '：' + '[' +  ${chatContents.userName} + ']'"></h4>
+					<h4 th:if="${chatContents.teacherMessage3} != null and ${chatContents.myMessage3} != null"><a th:href="@{/progressStatus} + '/' + ${chatContents.productId}">進行状態を表示する</a></h4>
 			</div>
 			<div class="item challengeProgrammingTradeCardDesign" >
 					<h3>進行状況</h3>
+					
 			</div>
 		</div>
-		
+		<h3>進行状況</h3>
+					<ul class="progressbar" >
+			<li class="active">あいさつ</li>
+			<li>日程設定</li>
+			<li>目的地周辺郵便局へ輸送中</li>
+			<li>目的地周辺郵便局へ到着</li>
+			<li>目的地へ持ち出し中</li>
+			<li>目的地へ配達完了</li>
+		</ul>
 
-		
-		
+		  <!-- 地図を表示する div 要素 -->
+        <div id="map"></div>
+        <script>
+          var map;
+          function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+              center: {lat: -34.397, lng: 150.644},
+              zoom: 10
+            });
+          }
+        </script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAdZSnAW89DpXllrN7Hxb198lIbUAp2Hqg&libraries=places&callback=initMap" defer></script>
+        
+        
+        
+        
+        
+       
+        
+    <p><button onclick="getMyPlace()">現在位置を取得</button></p>
+<div id="result"></div>
+<div id="map" style="width:100%;height:300px;"></div>
+
+
+ 
+<!-- 地図の埋め込み表示 -->
+<div id="map_canvas" style="height:300px;width:550px;"></div>
+ 
+        <script th:src="@{/js/MapsJavaScriptCurrentLocationSearch.js}">
+    </script>
+
 	</div>
 	
 </body>

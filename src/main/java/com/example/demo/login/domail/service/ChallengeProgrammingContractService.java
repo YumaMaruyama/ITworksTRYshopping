@@ -28,4 +28,16 @@ public class ChallengeProgrammingContractService {
 	public ChallengeProgrammingContractDTO tm1Mm1Select(int productId) {
 		return dao.tm1Mm1Select(productId);
 	}
+	
+	public ChallengeProgrammingContractDTO tm2Mm2Select(int productId) {
+		return dao.tm2Mm2Select(productId);
+	}
+	
+	public ChallengeProgrammingContractDTO tm3Mm3select(int productId) {
+		return dao.tm3Mm3select(productId);
+	}
+	
+	public int chatComplete(int productId) {
+		return dao.chatComplete(productId);
+	}
 }

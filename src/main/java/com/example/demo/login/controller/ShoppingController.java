@@ -6047,6 +6047,35 @@ public class ShoppingController {
 		return "shopping/productListLayout";
 	}
 	
+	@GetMapping("/chatReturn2/{id}")
+	public String getChatReturn2(@PathVariable("id") int productId,HttpServletRequest request, HttpServletResponse response,Model model) {
+		model.addAttribute("contents", "shopping/challengeProgrammingTrade::productListLayout_contents");
+		
+		ChallengeProgrammingContractDTO challengeProgrammingContractTmMm = challengeProgrammingContractService.tm2Mm2Select(productId);
+		model.addAttribute("chatContents",challengeProgrammingContractTmMm);
+	
+		return "shopping/productListLayout";
+	}
+	
+	@GetMapping("/chatReturn3/{id}")
+	public String getChatReturn3(@PathVariable("id") int productId,HttpServletRequest request, HttpServletResponse response,Model model) {
+		model.addAttribute("contents", "shopping/challengeProgrammingTrade::productListLayout_contents");
+		
+		ChallengeProgrammingContractDTO challengeProgrammingContractTmMm = challengeProgrammingContractService.tm3Mm3select(productId);
+		model.addAttribute("chatContents",challengeProgrammingContractTmMm);
+	
+		return "shopping/productListLayout";
+	}
+	
+	@GetMapping("/progressStatus/{id}")
+	public String getProgressStatus(@PathVariable("id") int productId,Model model) {
+		model.addAttribute("contents", "shopping/challengeProgrammingTrade::productListLayout_contents");
+		challengeProgrammingContractService.chatComplete(productId);
+		
+		
+		return "shopping/productListLayout";
+	}
+	
 
 
 	@GetMapping("/purchaseHistory")
