@@ -139,6 +139,7 @@
 				<button class="btn btn-gradient cartAddBtn" name="cartAdd">
 					<span>カートに追加する</span>
 				</button>
+				<a th:if="${adminCheck} == 'admin'" th:href="@{/productEdit} + '/' + ${pcdatadto.id}">商品の編集</a>
 			</div>
 
 		</form>

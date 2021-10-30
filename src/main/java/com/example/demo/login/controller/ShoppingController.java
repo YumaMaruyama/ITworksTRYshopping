@@ -1390,6 +1390,13 @@ public class ShoppingController {
 
 		return getProductList(form, redirectAttributes, model);
 	}
+	
+	@GetMapping("/productEdit/{id}")
+	public String getProductEdit(@ModelAttribute PcDataForm form,@PathVariable("id") int productId,Model model) {
+		model.addAttribute("contents", "shopping/productEdit::productListLayout_contents");
+		
+		return "shopping/productListLayout";
+	}
 
 	@GetMapping("/news")
 	public String getNews(@ModelAttribute NewsForm form, Model model) {
@@ -4715,6 +4722,10 @@ public class ShoppingController {
 
 		PcDetailDataDTO pcdetaildatadto = customService.selectOne(id, select_id);
 
+		//商品編集のため、adminUserのみの情報を取得
+		String adminCheck = usersService.selectRole(select_id);
+		model.addAttribute("adminCheck",adminCheck);
+		
 		model.addAttribute("memory", pcdetaildatadto.getMemory());
 		model.addAttribute("hardDisc", pcdetaildatadto.getHardDisc());
 		model.addAttribute("cpu", pcdetaildatadto.getCpu());
