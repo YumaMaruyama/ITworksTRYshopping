@@ -1350,13 +1350,13 @@ public class ShoppingController {
 		}
 
 		if (!img1.startsWith("https://")) {
-			model.addAttribute("imgResult1", "商品画像3はhttps://から始まる画像アドレスを入力してください");
+			model.addAttribute("imgResult1", "商品画像1はhttps://から始まる画像アドレスを入力してください");
 			return getProductAdd(form, model);
 
 		}
 
 		if (!img2.startsWith("https://")) {
-			model.addAttribute("imgResult1", "商品画像3はhttps://から始まる画像アドレスを入力してください");
+			model.addAttribute("imgResult1", "商品画像2はhttps://から始まる画像アドレスを入力してください");
 			return getProductAdd(form, model);
 
 		}
@@ -1394,6 +1394,38 @@ public class ShoppingController {
 	@GetMapping("/productEdit/{id}")
 	public String getProductEdit(@ModelAttribute PcDataForm form,@PathVariable("id") int productId,Model model) {
 		model.addAttribute("contents", "shopping/productEdit::productListLayout_contents");
+		
+		//編集する商品のデータを取得
+		PcDataDTO pcdatadto = pcdataService.pcdataOne(productId);
+		
+		form.setId(pcdatadto.getId());
+		form.setCompany(pcdatadto.getCompany());
+		form.setOs(pcdatadto.getOs());
+		form.setPc_name(pcdatadto.getPc_name());
+		String pcSize = String.valueOf(pcdatadto.getPc_size());
+		form.setPc_size(pcSize);
+		String price = String.valueOf(pcdatadto.getPrice());
+		form.setPrice(price);
+		form.setDetail(pcdatadto.getDetail());
+		form.setPcImg(pcdatadto.getPcImg());
+		form.setPcImg2(pcdatadto.getPcImg2());
+		form.setPcImg3(pcdatadto.getPcImg3());
+		String productStock = String.valueOf(pcdatadto.getProduct_stock());
+		form.setProduct_stock(productStock);
+		
+		//編集するデータを画面表示するために渡す
+		model.addAttribute("pcDataForm",form);	
+		model.addAttribute("productId",form.getId());
+		
+		return "shopping/productListLayout";
+	}
+	
+	@PostMapping("/productEdit")
+	public String postProductEdit(@ModelAttribute PcDataForm form,@RequestParam("productId") int productId,Model model) {
+		model.addAttribute("contents", "shopping/productDetail::productListLayout_contents");
+		
+		//修正されたproductの内容にデータを更新する
+		pcdataService.productEditOne(productId,form);
 		
 		return "shopping/productListLayout";
 	}

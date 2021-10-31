@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.login.domail.model.PcDataDTO;
+import com.example.demo.login.domail.model.PcDataForm;
 import com.example.demo.login.domail.model.PurchaseDTO;
 import com.example.demo.login.domail.repository.PcDataDao;
 
@@ -109,6 +110,32 @@ public class PcDataDaoJdbcImpl implements PcDataDao {
 		int result = jdbc.update("update pcdata set product_stock = product_stock+? where id = ?", productStock,
 				purchasedto.getPcDataId());
 		return result;
+	}
+	
+	public PcDataDTO pcdataOne(int productId) {
+		Map<String,Object> map = jdbc.queryForMap("select * from pcdata where id = ?",productId);
+		
+		PcDataDTO pcdatadto = new PcDataDTO();
+		pcdatadto.setId((int)map.get("id"));
+		pcdatadto.setCompany((String)map.get("company"));
+		pcdatadto.setOs((String)map.get("os"));
+		pcdatadto.setPc_name((String)map.get("pc_name"));
+		pcdatadto.setPc_size((int)map.get("pc_size"));
+		pcdatadto.setPrice((int)map.get("price"));
+		pcdatadto.setDetail((String)map.get("detail"));
+		pcdatadto.setPcImg((String)map.get("pcimg"));
+		pcdatadto.setPcImg2((String)map.get("pcimg2"));
+		pcdatadto.setPcImg3((String)map.get("pcimg3"));
+		pcdatadto.setProduct_stock((int)map.get("product_stock"));
+		
+		return pcdatadto;
+		
+	}
+	
+	public int productEditOne(int productId,PcDataForm form) {
+		int updataCheck = jdbc.update("update pcdata set company = ? ,os = ? ,pc_name = ? ,pc_size = ? ,price = ? ,detail = ? ,pcimg = ? ,pcimg2 = ? ,pcimg3 = ? ,product_stock = ? where id = ?",form.getCompany(),form.getOs(),form.getPc_name(),form.getPc_size(),form.getPrice(),form.getDetail(),form.getPcImg(),form.getPcImg2(),form.getPcImg3(),form.getProduct_stock(),productId);
+		
+		return updataCheck;
 	}
 
 }

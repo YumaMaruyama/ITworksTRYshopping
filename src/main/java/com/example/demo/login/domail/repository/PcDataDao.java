@@ -3,6 +3,7 @@ package com.example.demo.login.domail.repository;
 import java.util.List;
 
 import com.example.demo.login.domail.model.PcDataDTO;
+import com.example.demo.login.domail.model.PcDataForm;
 import com.example.demo.login.domail.model.PurchaseDTO;
 
 public interface PcDataDao {
@@ -18,4 +19,8 @@ public interface PcDataDao {
 	public PcDataDTO selectPcName(int productId);
 
 	public int updateOne(PurchaseDTO purchasedto, int productStock);
+	
+	public PcDataDTO pcdataOne(int productId);
+	
+	public int productEditOne(int productId,PcDataForm form);
 }
