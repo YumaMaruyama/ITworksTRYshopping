@@ -6113,7 +6113,7 @@ public class ShoppingController {
 		int lastDay = calendar.get(Calendar.DATE);
 		
 		
-		int[] getDayList = new int[7];
+		String[] getDayList = new String[7];
 		for(int x = 1; x < 8; x++) {
 			
 			
@@ -6123,16 +6123,20 @@ public class ShoppingController {
 			for(int y = 1; y <= 7 - (x - 1); y++) {
 			oneMove = getDate + y;
 			x = x++;
-			System.out.println("move2"+oneMove);
-			getDayList [x - 1] = oneMove;
+			calendar.set(getYear, getMonth + 1,1);
+			int month = calendar.get(Calendar.MONTH);
+			getDayList [x - 1] = month + "月" + oneMove + "日";
 			}
 			x = 7;
 		}else {
-			getDayList [x - 1] = oneMove;
-			System.out.println("move"+oneMove);
+			calendar.set(getYear, getMonth + 1,1);
+			int month = calendar.get(Calendar.MONTH);
+			getDayList [x - 1] = month + "月" + oneMove + "日";
+			
 		}
 		
 		}
+		model.addAttribute("dayList",getDayList);
 		
 		
 		
