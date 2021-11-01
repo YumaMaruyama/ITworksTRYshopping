@@ -2,6 +2,9 @@
  * 
  */
 
+
+
+
 function getMyPlace() {
   var output = document.getElementById("result");
   if (!navigator.geolocation){//Geolocation apiがサポートされていない場合

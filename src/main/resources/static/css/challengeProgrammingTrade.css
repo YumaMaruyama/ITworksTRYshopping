@@ -16,7 +16,7 @@
 .challengeProgrammingTradeList {
 	display: auto !important;
 	overflow-y: scroll;
-	height: 526px;
+	height: 175px;
 	margin-right: 60px;
 	width:1100px;
 }

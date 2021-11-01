@@ -18,4 +18,6 @@ public interface ChallengeProgrammingContractDao {
 	public ChallengeProgrammingContractDTO tm3Mm3select(int productId);
 	
 	public int chatComplete(int productId);
+	
+	public int selectChatCheck(int productId);
 }

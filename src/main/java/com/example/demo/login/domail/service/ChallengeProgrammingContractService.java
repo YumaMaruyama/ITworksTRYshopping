@@ -40,4 +40,8 @@ public class ChallengeProgrammingContractService {
 	public int chatComplete(int productId) {
 		return dao.chatComplete(productId);
 	}
+	
+	public int selectChatCheck(int productId) {
+		return dao.selectChatCheck(productId);
+	}
 }

@@ -6059,24 +6059,85 @@ public class ShoppingController {
 		
 		//初めに表示されるメッセージを取得
 		ChallengeProgrammingContractDTO challengeProgrammingContractTeacherMessage = challengeProgrammingContractService.teacherMessege1Select(productId);
+		challengeProgrammingContractTeacherMessage.setProductId(productId);
 		model.addAttribute("chatContents",challengeProgrammingContractTeacherMessage);
+		model.addAttribute("chatCheck","no");
+		
+		//進行バーの初期表示設定(挨拶)
+		model.addAttribute("progressStatus",1);
 		
 		
 		return "shopping/productListLayout";
 	}
 	
 	@PostMapping("/challengeProgrammingTrade")
-	public String postChallengeProgrammingTrade(@ModelAttribute ChallengeProgrammingTradeForm form,@RequestParam("productId") int productId,HttpServletRequest request, HttpServletResponse response,Model model) {
+	public String postChallengeProgrammingTrade(@ModelAttribute ChallengeProgrammingTradeForm form,@RequestParam("productId") int productId,Model model) {
 		model.addAttribute("contents", "shopping/challengeProgrammingTrade::productListLayout_contents");
 		
 		
-		//初めに表示されるメッセージを取得
-				ChallengeProgrammingContractDTO challengeProgrammingContractTeacherMessage = challengeProgrammingContractService.teacherMessege1Select(productId);
-				model.addAttribute("chatContents",challengeProgrammingContractTeacherMessage);
-				
-				challengeProgrammingContractTeacherMessage.setProductId(productId);
-				
+		//チャットが完了しているか確認
+		int chatCheck = challengeProgrammingContractService.selectChatCheck(productId);
 		
+		
+		//チャットが完了していなければチャット機能を実施する
+		if(chatCheck == 1) {
+			//初めに表示されるメッセージを取得
+			ChallengeProgrammingContractDTO challengeProgrammingContractTeacherMessage = challengeProgrammingContractService.teacherMessege1Select(productId);
+			challengeProgrammingContractTeacherMessage.setProductId(productId);
+			model.addAttribute("chatContents",challengeProgrammingContractTeacherMessage);
+			model.addAttribute("chatCheck","no");
+			
+			//進行バーの初期表示設定(挨拶)
+			model.addAttribute("progressStatus",1);
+			
+		//チャットが完了している場合はチャット機能はさせない
+		}else if(chatCheck == 0) {
+			//チャットメッセージをすべて取得
+			ChallengeProgrammingContractDTO challengeProgrammingContractTmMm = challengeProgrammingContractService.tm3Mm3select(productId);
+			challengeProgrammingContractTmMm.setProductId(productId);
+			model.addAttribute("chatContents",challengeProgrammingContractTmMm);
+			model.addAttribute("chatCheck","yes");
+			
+			//進行バーの初期表示設定(日程設定)
+			model.addAttribute("progressStatus",2);
+		}
+		
+		//講座日程設定
+		Calendar calendar = Calendar.getInstance();
+		int getYear = calendar.get(Calendar.YEAR);
+		int getMonth = calendar.get(Calendar.MONTH);
+		int getDate = calendar.get(Calendar.DATE);
+		//今月の最終日を取得
+		calendar.set(getYear, getMonth + 1, 1);
+		calendar.add(Calendar.DATE, -1);
+		int lastDay = calendar.get(Calendar.DATE);
+		
+		
+		int[] getDayList = new int[7];
+		for(int x = 1; x < 8; x++) {
+			
+			
+		int oneMove = getDate + x;
+		if(oneMove > lastDay) {
+			getDate = 0;
+			for(int y = 1; y <= 7 - (x - 1); y++) {
+			oneMove = getDate + y;
+			x = x++;
+			System.out.println("move2"+oneMove);
+			getDayList [x - 1] = oneMove;
+			}
+			x = 7;
+		}else {
+			getDayList [x - 1] = oneMove;
+			System.out.println("move"+oneMove);
+		}
+		
+		}
+		
+		
+		
+		
+				
 		return "shopping/productListLayout";
 	}
 	
@@ -6086,7 +6147,11 @@ public class ShoppingController {
 		
 		ChallengeProgrammingContractDTO challengeProgrammingContractTmMm = challengeProgrammingContractService.tm1Mm1Select(productId);
 		model.addAttribute("chatContents",challengeProgrammingContractTmMm);
-	
+		model.addAttribute("chatCheck","no");
+		
+		//進行バーの初期表示設定(挨拶)
+		model.addAttribute("progressStatus",1);
+		
 		return "shopping/productListLayout";
 	}
 	
@@ -6096,7 +6161,11 @@ public class ShoppingController {
 		
 		ChallengeProgrammingContractDTO challengeProgrammingContractTmMm = challengeProgrammingContractService.tm2Mm2Select(productId);
 		model.addAttribute("chatContents",challengeProgrammingContractTmMm);
-	
+		model.addAttribute("chatCheck","no");
+		
+		//進行バーの初期表示設定(挨拶)
+		model.addAttribute("progressStatus",1);
+		
 		return "shopping/productListLayout";
 	}
 	
@@ -6106,17 +6175,21 @@ public class ShoppingController {
 		
 		ChallengeProgrammingContractDTO challengeProgrammingContractTmMm = challengeProgrammingContractService.tm3Mm3select(productId);
 		model.addAttribute("chatContents",challengeProgrammingContractTmMm);
-	
+		model.addAttribute("chatCheck","no");
+		
+		//進行バーの初期表示設定(挨拶)
+		model.addAttribute("progressStatus",1);
+		
 		return "shopping/productListLayout";
 	}
 	
 	@GetMapping("/progressStatus/{id}")
-	public String getProgressStatus(@PathVariable("id") int productId,Model model) {
+	public String getProgressStatus(@ModelAttribute ChallengeProgrammingTradeForm form,@PathVariable("id") int productId,Model model) {
 		model.addAttribute("contents", "shopping/challengeProgrammingTrade::productListLayout_contents");
 		challengeProgrammingContractService.chatComplete(productId);
 		
 		
-		return "shopping/productListLayout";
+		return postChallengeProgrammingTrade(form,productId,model);
 	}
 	
 
