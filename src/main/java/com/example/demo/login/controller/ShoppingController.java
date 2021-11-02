@@ -6084,6 +6084,7 @@ public class ShoppingController {
 			//初めに表示されるメッセージを取得
 			ChallengeProgrammingContractDTO challengeProgrammingContractTeacherMessage = challengeProgrammingContractService.teacherMessege1Select(productId);
 			challengeProgrammingContractTeacherMessage.setProductId(productId);
+			model.addAttribute("productId",challengeProgrammingContractTeacherMessage.getProductId());
 			model.addAttribute("chatContents",challengeProgrammingContractTeacherMessage);
 			model.addAttribute("chatCheck","no");
 			
@@ -6095,6 +6096,7 @@ public class ShoppingController {
 			//チャットメッセージをすべて取得
 			ChallengeProgrammingContractDTO challengeProgrammingContractTmMm = challengeProgrammingContractService.tm3Mm3select(productId);
 			challengeProgrammingContractTmMm.setProductId(productId);
+			model.addAttribute("productId",challengeProgrammingContractTmMm.getProductId());
 			model.addAttribute("chatContents",challengeProgrammingContractTmMm);
 			model.addAttribute("chatCheck","yes");
 			
@@ -6102,44 +6104,24 @@ public class ShoppingController {
 			model.addAttribute("progressStatus",2);
 		}
 		
-		//講座日程設定
-		Calendar calendar = Calendar.getInstance();
-		int getYear = calendar.get(Calendar.YEAR);
-		int getMonth = calendar.get(Calendar.MONTH);
-		int getDate = calendar.get(Calendar.DATE);
-		//今月の最終日を取得
-		calendar.set(getYear, getMonth + 1, 1);
-		calendar.add(Calendar.DATE, -1);
-		int lastDay = calendar.get(Calendar.DATE);
+		//日程設定を行っているかcheckする(行っていれば日付が取れるて行っていなければ「未設定」が取れる)
+		String lessonDay = challengeProgrammingContractService.lessonDaySelectOne(productId);
 		
-		
-		String[] getDayList = new String[7];
-		for(int x = 1; x < 8; x++) {
-			
-			
-		int oneMove = getDate + x;
-		if(oneMove > lastDay) {
-			getDate = 0;
-			for(int y = 1; y <= 7 - (x - 1); y++) {
-			oneMove = getDate + y;
-			x = x++;
-			calendar.set(getYear, getMonth + 1,1);
-			int month = calendar.get(Calendar.MONTH);
-			getDayList [x - 1] = month + "月" + oneMove + "日";
-			}
-			x = 7;
+		if(!lessonDay.equals("未設定")) {
+		//チャットメッセージをすべて取得
+		ChallengeProgrammingContractDTO challengeProgrammingContractTmMm = challengeProgrammingContractService.tm3Mm3select(productId);
+		challengeProgrammingContractTmMm.setProductId(productId);
+		model.addAttribute("productId",challengeProgrammingContractTmMm.getProductId());
+		model.addAttribute("chatContents",challengeProgrammingContractTmMm);
+		model.addAttribute("chatCheck","yes");
+		model.addAttribute("lessonDay",lessonDay);
+		model.addAttribute("lessonDayCheck","yes");
+		//進行バーの初期表示設定(日程設定)
+		model.addAttribute("progressStatus",3);
 		}else {
-			calendar.set(getYear, getMonth + 1,1);
-			int month = calendar.get(Calendar.MONTH);
-			getDayList [x - 1] = month + "月" + oneMove + "日";
-			
+			model.addAttribute("lessonDay",lessonDay);
+			model.addAttribute("lessonDayCheck","no");
 		}
-		
-		}
-		model.addAttribute("dayList",getDayList);
-		
-		
-		
 		
 				
 		return "shopping/productListLayout";
@@ -6192,8 +6174,62 @@ public class ShoppingController {
 		model.addAttribute("contents", "shopping/challengeProgrammingTrade::productListLayout_contents");
 		challengeProgrammingContractService.chatComplete(productId);
 		
+		return postChallengeProgrammingTrade(form,productId,model);
+	}
+	
+	@GetMapping("/scheduleAdjustment/{id}")
+	public String getScheduleAdjustment(@PathVariable("id") int productId,Model model) {
+		model.addAttribute("contents", "shopping/scheduleAdjustment::productListLayout_contents");
+		
+				//講座日程設定
+				Calendar calendar = Calendar.getInstance();
+				int getYear = calendar.get(Calendar.YEAR);
+				int getMonth = calendar.get(Calendar.MONTH);
+				int getDate = calendar.get(Calendar.DATE);
+				//今月の最終日を取得
+				calendar.set(getYear, getMonth + 1, 1);
+				calendar.add(Calendar.DATE, -1);
+				int lastDay = calendar.get(Calendar.DATE);
+				
+				//設定日を除いた一週間分から選択してもらう
+				String[] getDayList = new String[7];
+				for(int x = 1; x < 8; x++) {	
+				int oneMove = getDate + x;
+				//月最終日から次の月の頭になる場合に入る処理
+				if(oneMove > lastDay) {
+					getDate = 0;
+					for(int y = 1; y <= 7 - (x - 1); y++) {
+					oneMove = getDate + y;
+					x = x++;
+					calendar.set(getYear, getMonth + 1,1);
+					int month = calendar.get(Calendar.MONTH);
+					getDayList [x - 1] = month + "月" + oneMove + "日";
+					}
+					x = 7;
+				
+				}else {
+					calendar.set(getYear, getMonth + 1,1);
+					int month = calendar.get(Calendar.MONTH);
+					getDayList [x - 1] = month + "月" + oneMove + "日";	
+				}
+				
+				}
+				
+				model.addAttribute("dayList",getDayList);
+				model.addAttribute("productId",productId);
+		
+		return "shopping/productListLayout";
+	}
+	
+	@PostMapping("/acheduleAdjustment/{id}")
+	public String postAcheduleAdjustment(@PathVariable("id") int productId,@RequestParam("day") String lessonDay,Model model) {
+		
+		challengeProgrammingContractService.lessonDayInsertOne(lessonDay,productId);
+		
+		ChallengeProgrammingTradeForm form = new ChallengeProgrammingTradeForm();
 		
 		return postChallengeProgrammingTrade(form,productId,model);
+		
 	}
 	
 

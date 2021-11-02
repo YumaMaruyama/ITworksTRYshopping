@@ -71,74 +71,95 @@
 
 			<div class="item challengeProgrammingTradeCardDesign">
 				<h3>取引設定</h3>
+				<div th:if="${chatCheck} == 'no'">
 				<img class="guidancePersonImgSize" th:src="@{/css/javaicon.png}">
-				<a th:href="@{/scheduleAdjustment}">日程調整に進む</a>
-
+				<h3>あいさつをしよう</h3>
+				</div>
+				<div th:if="${chatCheck} == 'yes' and ${lessonDayCheck} == '未設定'">
+				<img class="guidancePersonImgSize" th:src="@{/css/javaicon.png}">
+				<a th:href="@{/scheduleAdjustment} + '/' + ${productId}">日程設定</a>
+				</div>
+				<div th:if="${chatCheck} == 'yes' and ${lessonDayCheck} != '未設定'">
+				<img class="guidancePersonImgSize" th:src="@{/css/javaicon.png}">
+				<a th:href="@{/belongingsCheck} + '/' + ${productId}">持ち物チェック</a>
+				</div>
 			</div>
 		</div>
+		
+		<div class="flex challengeProgrammingTradeNextList">
+			<div 
+				class="item challengeProgrammingTradeCardDesign"
+				>
+			</div>
+			<div 
+				class="item challengeProgrammingTradeCardDesign"
+				>
+			</div>
+		</div>
+		
 		<h3>進行状況</h3>
 		<ul th:if="${progressStatus} == 1" class="progressbar">
 			<li class="active">あいさつ</li>
 			<li>日程設定</li>
-			<li>目的地周辺郵便局へ輸送中</li>
-			<li>目的地周辺郵便局へ到着</li>
-			<li>目的地へ持ち出し中</li>
-			<li>目的地へ配達完了</li>
+			<li>持ち物チェック</li>
+			<li>場所確認</li>
+			<li>取引日当日ボタン</li>
+			<li>講座評価</li>
 		</ul>
 		
 		<ul th:if="${progressStatus} == 2" class="progressbar">
 			<li class="active">あいさつ</li>
 			<li class="active">日程設定</li>
-			<li>目的地周辺郵便局へ輸送中</li>
-			<li>目的地周辺郵便局へ到着</li>
-			<li>目的地へ持ち出し中</li>
-			<li>目的地へ配達完了</li>
+			<li>持ち物チェック</li>
+			<li>場所確認</li>
+			<li>取引日当日ボタン</li>
+			<li>講座評価</li>
 		</ul>
-
-
-	
-		<div th:each="dayList : ${dayList}">
-			<p th:text="${dayList}"></p>
-		</div>
-
+		
+		<ul th:if="${progressStatus} == 3" class="progressbar">
+			<li class="active">あいさつ</li>
+			<li class="active">日程設定</li>
+			<li class="active">持ち物チェック</li>
+			<li>場所確認</li>
+			<li>取引日当日ボタン</li>
+			<li>講座評価</li>
+		</ul>
 		
 
 
+		
+		<!-- Maps JavaScript API(地図)、Places API(入力場所検索ボックス)のapiキー作成し埋め込み　ロード時動作 -->
+		<script
+			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6gVVngdDmxOTy4il-r0utj51VfO0fRqw&libraries=places&callback=initMap&initAutocomplete&libraries=places&v=weekly" async>	
+		</script>
+		
+		
+		<!-- jsファイルアクセス -->
+		 <script th:src="@{/js/MapsJavaScriptCurrentLocationSearch.js}">
+		</script>
+		
+		<script th:src="@{/js/MapsJavaScriptGetAPI.js}">	
+		</script>
+		
+		<script th:src="@{/js/MapsJavaScriptApiSearchBox.js}">
+		</script>
 
+		
+		
 		<p>
 			<button onclick="getMyPlace()">現在位置を取得</button>
 		</p>
 		<div id="result"></div>
-		<p>
-			<button onclick="initAutocomplete()">検索</button>
-			<input id="pac-input" class="controls" type="text"
+		
+		<!-- 検索ボックス機能 -->	
+		<input id="pac-input" class="controls" type="text"
 				placeholder="Search Box">
-		</p>
-
-		<!-- 地図を表示する div 要素 -->
+		
+		<!-- マップ表示 -->
 		<div id="map"></div>
 
-
-
-
-
-
-		<!-- 地図の埋め込み表示 -->
-		<div id="map_canvas" style="height: 300px; width: 550px;"></div>
-		<script
-			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAdZSnAW89DpXllrN7Hxb198lIbUAp2Hqg&libraries=places&callback=initMap"
-			defer>
-			>
-		</script>
-		<script th:src="@{/js/MapsJavaScriptCurrentLocationSearch.js}">
-		</script>
 		
-		<script th:src="@{/js/MapsJavaScriptGetAPI.js}">
-			
-		</script>
-		<script th:src="@{/js/MapsJavaScriptApiSearchBox.js}">
-			
-		</script>
+		
 
 	</div>
 

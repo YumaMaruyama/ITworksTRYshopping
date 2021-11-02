@@ -44,4 +44,12 @@ public class ChallengeProgrammingContractService {
 	public int selectChatCheck(int productId) {
 		return dao.selectChatCheck(productId);
 	}
+	
+	public int lessonDayInsertOne(String lessonDay,int productId) {
+		return dao.lessonDayInsertOne(lessonDay,productId);
+	}
+	
+	public String lessonDaySelectOne(int productId) {
+		return dao.lessonDaySelectOne(productId);
+	}
 }

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<div th:fragment="productListLayout_contents">
+		<header>
+			<h1 class="titleDesign">日程設定</h1>
+		</header>
+		
+		<form method="post" th:action="@{/acheduleAdjustment} + '/' + ${productId}">
+		<table class="table table-bordered">
+		<div th:each="dayList : ${dayList}">
+			 <button type="submit" name="day" th:value="${dayList}" th:text="${dayList}"></button>
+		</div>
+		</table>
+		</form>
+		
+		
+	</div>
+
+</body>
+</html>

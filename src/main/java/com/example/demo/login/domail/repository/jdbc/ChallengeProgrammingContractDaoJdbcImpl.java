@@ -134,4 +134,24 @@ public class ChallengeProgrammingContractDaoJdbcImpl implements ChallengeProgram
 		
 		return chatCheckJudgement;
 	}
+	
+	public int lessonDayInsertOne(String lessonDay,int productId) {
+		int result = jdbc.update("update challenge_programming_contract set lesson_day = ? where contract_project_id = ?",lessonDay,productId);
+		
+		return result;
+	}
+	
+	public String lessonDaySelectOne(int productId) {
+		
+		String lessonDay;
+		
+		try {
+		lessonDay = jdbc.queryForObject("select challenge_programming_contract.lesson_day from challenge_programming_contract where contract_project_id = ?",String.class,productId);
+		}catch(EmptyResultDataAccessException e) {
+			System.out.println("キャッチ処理");
+			e.printStackTrace();
+			lessonDay = "未設定";
+		}
+		return lessonDay;
+	}
 }

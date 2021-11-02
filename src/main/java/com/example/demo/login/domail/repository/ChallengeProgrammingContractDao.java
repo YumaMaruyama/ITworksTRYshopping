@@ -20,4 +20,8 @@ public interface ChallengeProgrammingContractDao {
 	public int chatComplete(int productId);
 	
 	public int selectChatCheck(int productId);
+	
+	public int lessonDayInsertOne(String lessonDay,int productId);
+	
+	public String lessonDaySelectOne(int productId);
 }

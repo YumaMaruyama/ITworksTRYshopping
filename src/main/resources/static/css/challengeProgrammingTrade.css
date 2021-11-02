@@ -27,6 +27,14 @@
 	width:1100px;
 }
 
+.challengeProgrammingTradeNextList {
+		display: auto !important;
+	overflow-y: scroll;
+	height: 75px;
+	margin-right: 60px;
+	width:1100px;
+}	
+
 .chatTextDesign {
 	padding-left: 204px;
 }
