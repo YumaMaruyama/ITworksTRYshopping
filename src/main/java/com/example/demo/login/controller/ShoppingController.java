@@ -6057,17 +6057,20 @@ public class ShoppingController {
 		//契約された情報を更新
 		challengeProgrammingService.contractUpdate(userId,productId);
 		
+		//リターン先をmodelのコンテンツから変更
 		//初めに表示されるメッセージを取得
-		ChallengeProgrammingContractDTO challengeProgrammingContractTeacherMessage = challengeProgrammingContractService.teacherMessege1Select(productId);
-		challengeProgrammingContractTeacherMessage.setProductId(productId);
-		model.addAttribute("chatContents",challengeProgrammingContractTeacherMessage);
-		model.addAttribute("chatCheck","no");
+//		ChallengeProgrammingContractDTO challengeProgrammingContractTeacherMessage = challengeProgrammingContractService.teacherMessege1Select(productId);
+//		challengeProgrammingContractTeacherMessage.setProductId(productId);
+//		challengeProgrammingContractTeacherMessage.setMyMessage1("bloc");
+//		model.addAttribute("chatContents",challengeProgrammingContractTeacherMessage);
+//		model.addAttribute("chatCheck","no");
+//		
+//		
+//		//進行バーの初期表示設定(挨拶)
+//		model.addAttribute("progressStatus",1);
 		
-		//進行バーの初期表示設定(挨拶)
-		model.addAttribute("progressStatus",1);
-		
-		
-		return "shopping/productListLayout";
+		 ChallengeProgrammingTradeForm returnForm = new  ChallengeProgrammingTradeForm();
+		return postChallengeProgrammingTrade(returnForm,productId,model);
 	}
 	
 	@PostMapping("/challengeProgrammingTrade")
@@ -6108,6 +6111,7 @@ public class ShoppingController {
 		String lessonDay = challengeProgrammingContractService.lessonDaySelectOne(productId);
 		
 		if(!lessonDay.equals("未設定")) {
+			System.out.println("yes");
 		//チャットメッセージをすべて取得
 		ChallengeProgrammingContractDTO challengeProgrammingContractTmMm = challengeProgrammingContractService.tm3Mm3select(productId);
 		challengeProgrammingContractTmMm.setProductId(productId);
@@ -6116,12 +6120,29 @@ public class ShoppingController {
 		model.addAttribute("chatCheck","yes");
 		model.addAttribute("lessonDay",lessonDay);
 		model.addAttribute("lessonDayCheck","yes");
-		//進行バーの初期表示設定(日程設定)
+		//進行バーの初期表示設定(持ち物チェック)
 		model.addAttribute("progressStatus",3);
 		}else {
+			System.out.println("no");
 			model.addAttribute("lessonDay",lessonDay);
 			model.addAttribute("lessonDayCheck","no");
 		}
+		
+		//持ち物チェックを行っているかcheckする(行っていればが取れるて行っていなければ「未設定」が取れる)
+		String belongngs = challengeProgrammingContractService.belongngsSelectOne(productId);
+		
+		if(!belongngs.equals("持ち物チェック完了")) {
+			//チャットメッセージをすべて取得
+			ChallengeProgrammingContractDTO challengeProgrammingContractTmMm = challengeProgrammingContractService.tm3Mm3select(productId);
+			challengeProgrammingContractTmMm.setProductId(productId);
+			model.addAttribute("belongngs","yes");
+			//進行バーの初期表示設定(場所確認)
+			model.addAttribute("progressStatus",4);
+			
+		}else {
+			model.addAttribute("belongngs","no");
+		}
+			
 		
 				
 		return "shopping/productListLayout";
@@ -6232,7 +6253,47 @@ public class ShoppingController {
 		
 	}
 	
-
+	@GetMapping("/belongingsCheck/{id}")
+	public String getBelongingsCheck(@PathVariable("id") int productId,Model model) {
+		model.addAttribute("contents", "shopping/belongingsCheck::productListLayout_contents");
+		
+		ChallengeProgrammingDTO challengeprogrammingdto = challengeProgrammingService.selectBelongings(productId);
+		model.addAttribute("belongingsList",challengeprogrammingdto);
+		
+		model.addAttribute("productId",productId);
+		
+		return "shopping/productListLayout";
+	}
+	
+	@PostMapping("/belongingsCheck")
+	public String postBelongingsCheck(@RequestParam("id") int productId,Model model) {
+		model.addAttribute("productId",productId);
+		
+		//持ち物を確認した証拠をDBに格納
+		challengeProgrammingContractService.belongingsCheckInsertOne(productId);
+		
+		ChallengeProgrammingTradeForm form = new ChallengeProgrammingTradeForm();
+		return postChallengeProgrammingTrade(form,productId,model);
+	}
+	
+	@GetMapping("/locationConfirmation/{id}")
+	public String getLocationConfirmation(@ModelAttribute @PathVariable("id") int productId,Model model) {
+		model.addAttribute("contents", "shopping/locationConfirmation::productListLayout_contents");
+		
+		return "shopping/productListLayout";
+	}
+	
+	@PostMapping("/locationConfirmation")
+	public String postLocationConfirmation(@RequestParam("id") int productId,Model model) {
+		model.addAttribute("productId",productId);
+		
+		//持ち物を確認した証拠をDBに格納
+		//
+		challengeProgrammingContractService.locationConfirmationInsertOne(productId);
+		
+		ChallengeProgrammingTradeForm form = new ChallengeProgrammingTradeForm();
+		return postChallengeProgrammingTrade(form,productId,model);
+	}
 
 	@GetMapping("/purchaseHistory")
 	public String getPurchaseHistory(@ModelAttribute PcDataForm form, Model model) {

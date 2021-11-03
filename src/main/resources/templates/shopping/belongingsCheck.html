@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<div th:fragment="productListLayout_contents">
+		<header>
+			<h1 class="titleDesign">持ち物チェック</h1>
+		</header>
+
+		<form method="post" th:action="@{/belongingsCheck}">
+		<input type="hidden" name="id" th:value="${productId}">
+			<table class="table table-bordered">
+
+				<div th:each="belongingsList : ${belongingsList}">
+					<tr>
+						<th>持ち物</th>
+						<td th:text="${belongingsList.belongings}"></td>
+					</tr>
+
+					<tr>
+						<th>PC環境</th>
+						<td th:text="${belongingsList.steup}"></td>
+					</tr>
+				</div>
+			</table>
+
+			<div class="btn-wrapper">
+				<div class="check-box">
+					<label><input class="check" type="checkbox" name="check"
+						autocomplete="off" id="agree"><span>上記のことを確認し、理解しました。</span></label>
+				</div>
+				<input class="submit" type="submit" id="submit" value="送信" />
+			</div>
+
+		</form>
+
+		<script>
+			$(function() {
+
+				$('.submit').attr('disabled', 'disabled');
+
+				$('#agree').on('click', function() {
+					if ($(this).prop('checked') == false) {
+						$('.submit').attr('disabled', 'disabled');
+					} else {
+						$('.submit').removeAttr('disabled');
+					}
+				});
+
+			});
+		</script>
+
+
+	</div>
+
+</body>
+</html>

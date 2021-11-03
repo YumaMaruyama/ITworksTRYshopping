@@ -147,11 +147,50 @@ public class ChallengeProgrammingContractDaoJdbcImpl implements ChallengeProgram
 		
 		try {
 		lessonDay = jdbc.queryForObject("select challenge_programming_contract.lesson_day from challenge_programming_contract where contract_project_id = ?",String.class,productId);
-		}catch(EmptyResultDataAccessException e) {
+		
+		if(lessonDay == null) {
+			lessonDay = "未設定";
+		}
+		
+		}catch(EmptyResultDataAccessException  | NullPointerException e) {
 			System.out.println("キャッチ処理");
 			e.printStackTrace();
 			lessonDay = "未設定";
 		}
+
 		return lessonDay;
+	}
+	
+	public int belongingsCheckInsertOne(int productId) {
+		int result = jdbc.update("update challenge_programming_contract set belongngs_check = '持ち物チャック完了' where contract_project_id = ?",productId);
+		
+		return result;
+	}
+	
+	public String belongngsSelectOne(int productId) {
+		
+		String belongngs;
+		
+		try {
+		belongngs = jdbc.queryForObject("select challenge_programming_contract.belongngs_check from challenge_programming_contract where contract_project_id = ?",String.class,productId);
+		
+		if(belongngs == null) {
+			belongngs = "未確認";
+		}
+		
+		}catch(EmptyResultDataAccessException  | NullPointerException e) {
+			System.out.println("キャッチ処理");
+			e.printStackTrace();
+			belongngs = "未設定";
+		}
+		
+		return belongngs;
+	}
+	
+	public int locationConfirmationInsertOne(int productId) {
+		int result = jdbc.update("update callenge_programming_contract where id = ?",productId);
+		
+		return result;
+		
 	}
 }

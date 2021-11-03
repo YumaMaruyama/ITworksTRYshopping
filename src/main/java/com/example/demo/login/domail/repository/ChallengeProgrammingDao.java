@@ -11,4 +11,7 @@ public interface ChallengeProgrammingDao {
 	public ChallengeProgrammingDTO projectSelectOne(int projectId);
 	
 	public int contractUpdate(int userId,int productId);
+
+	public ChallengeProgrammingDTO selectBelongings(int productId);
+	
 }

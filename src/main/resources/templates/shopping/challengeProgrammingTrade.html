@@ -72,31 +72,34 @@
 			<div class="item challengeProgrammingTradeCardDesign">
 				<h3>取引設定</h3>
 				<div th:if="${chatCheck} == 'no'">
-				<img class="guidancePersonImgSize" th:src="@{/css/javaicon.png}">
-				<h3>あいさつをしよう</h3>
+					<img class="guidancePersonImgSize" th:src="@{/css/javaicon.png}">
+					<h3>あいさつをしよう</h3>
 				</div>
-				<div th:if="${chatCheck} == 'yes' and ${lessonDayCheck} == '未設定'">
-				<img class="guidancePersonImgSize" th:src="@{/css/javaicon.png}">
-				<a th:href="@{/scheduleAdjustment} + '/' + ${productId}">日程設定</a>
+				<div th:if="${chatCheck} == 'yes' and ${lessonDayCheck} == 'no'">
+					<img class="guidancePersonImgSize" th:src="@{/css/javaicon.png}">
+					<a th:href="@{/scheduleAdjustment} + '/' + ${productId}">日程設定</a>
 				</div>
-				<div th:if="${chatCheck} == 'yes' and ${lessonDayCheck} != '未設定'">
-				<img class="guidancePersonImgSize" th:src="@{/css/javaicon.png}">
-				<a th:href="@{/belongingsCheck} + '/' + ${productId}">持ち物チェック</a>
+				<div th:if="${lessonDayCheck} == 'yes' and ${belongngs} == 'no'">
+					<img class="guidancePersonImgSize" th:src="@{/css/javaicon.png}">
+					<a th:href="@{/belongingsCheck} + '/' + ${productId}">持ち物チェック</a>
+				</div>
+				<div th:if="${belongngs} == 'yes' and ${chatCheck} != 'no'">
+					<img class="guidancePersonImgSize" th:src="@{/css/javaicon.png}">
+					<a th:href="@{/locationConfirmation} + '/' + ${productId}">場所確認</a>
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="flex challengeProgrammingTradeNextList">
-			<div 
-				class="item challengeProgrammingTradeCardDesign"
-				>
+			<div class="item challengeProgrammingTradeCardDesign">
+				<h4>講座日程</h4>
+				<h5 th:if="${lessonDayCheck} != 'no'" th:text="${lessonDay}"></h5>
+			
 			</div>
-			<div 
-				class="item challengeProgrammingTradeCardDesign"
-				>
-			</div>
+			
+			<div class="item challengeProgrammingTradeCardDesign"></div>
 		</div>
-		
+
 		<h3>進行状況</h3>
 		<ul th:if="${progressStatus} == 1" class="progressbar">
 			<li class="active">あいさつ</li>
@@ -106,7 +109,7 @@
 			<li>取引日当日ボタン</li>
 			<li>講座評価</li>
 		</ul>
-		
+
 		<ul th:if="${progressStatus} == 2" class="progressbar">
 			<li class="active">あいさつ</li>
 			<li class="active">日程設定</li>
@@ -115,7 +118,7 @@
 			<li>取引日当日ボタン</li>
 			<li>講座評価</li>
 		</ul>
-		
+
 		<ul th:if="${progressStatus} == 3" class="progressbar">
 			<li class="active">あいさつ</li>
 			<li class="active">日程設定</li>
@@ -125,42 +128,14 @@
 			<li>講座評価</li>
 		</ul>
 		
-
-
-		
-		<!-- Maps JavaScript API(地図)、Places API(入力場所検索ボックス)のapiキー作成し埋め込み　ロード時動作 -->
-		<script
-			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6gVVngdDmxOTy4il-r0utj51VfO0fRqw&libraries=places&callback=initMap&initAutocomplete&libraries=places&v=weekly" async>	
-		</script>
-		
-		
-		<!-- jsファイルアクセス -->
-		 <script th:src="@{/js/MapsJavaScriptCurrentLocationSearch.js}">
-		</script>
-		
-		<script th:src="@{/js/MapsJavaScriptGetAPI.js}">	
-		</script>
-		
-		<script th:src="@{/js/MapsJavaScriptApiSearchBox.js}">
-		</script>
-
-		
-		
-		<p>
-			<button onclick="getMyPlace()">現在位置を取得</button>
-		</p>
-		<div id="result"></div>
-		
-		<!-- 検索ボックス機能 -->	
-		<input id="pac-input" class="controls" type="text"
-				placeholder="Search Box">
-		
-		<!-- マップ表示 -->
-		<div id="map"></div>
-
-		
-		
-
+		<ul th:if="${progressStatus} == 4" class="progressbar">
+			<li class="active">あいさつ</li>
+			<li class="active">日程設定</li>
+			<li class="active">持ち物チェック</li>
+			<li class="active">場所確認</li>
+			<li>取引日当日ボタン</li>
+			<li>講座評価</li>
+		</ul>
 	</div>
 
 </body>

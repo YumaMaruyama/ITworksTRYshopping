@@ -24,4 +24,10 @@ public interface ChallengeProgrammingContractDao {
 	public int lessonDayInsertOne(String lessonDay,int productId);
 	
 	public String lessonDaySelectOne(int productId);
+
+	public int belongingsCheckInsertOne(int productId);
+	
+	public String belongngsSelectOne(int productId);
+	
+	public int locationConfirmationInsertOne(int productId);
 }

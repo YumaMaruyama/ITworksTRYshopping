@@ -82,5 +82,18 @@ public class ChallengeProgrammingDaoJdbcImpl implements ChallengeProgrammingDao 
 		return result;
 	}
 	
+	public ChallengeProgrammingDTO selectBelongings(int productId) {
+		Map<String,Object> map = jdbc.queryForMap("select * from challenge_programming where id = ?",productId);
+		
+		ChallengeProgrammingDTO challengeprogrammingdto = new ChallengeProgrammingDTO();
+		
+		challengeprogrammingdto.setBelongings((String)map.get("belongings"));
+		challengeprogrammingdto.setSteup((String)map.get("steup"));
+		
+		return challengeprogrammingdto;
+	}
+	
+	
+	
 	
 }

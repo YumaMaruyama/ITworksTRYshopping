@@ -52,4 +52,16 @@ public class ChallengeProgrammingContractService {
 	public String lessonDaySelectOne(int productId) {
 		return dao.lessonDaySelectOne(productId);
 	}
+	
+	public int belongingsCheckInsertOne(int productId) {
+		return dao.belongingsCheckInsertOne(productId);
+	}
+	
+	public String belongngsSelectOne(int productId) {
+		return dao.belongngsSelectOne(productId);
+	}
+	
+	public int locationConfirmationInsertOne(int productId) {
+		return dao.locationConfirmationInsertOne(productId);
+	}
 }

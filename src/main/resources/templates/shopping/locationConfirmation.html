@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<div th:fragment="productListLayout_contents">
+		<header>
+			<h1 class="titleDesign">場所確認</h1>
+		</header>
+
+		<form method="post" th:action="@{/locationConfirmation}">
+			<input type="hidden" name="id" th:value="${productId}">
+
+
+
+			
+
+
+			<div class="btn-wrapper">
+				<div class="check-box">
+					<label><input class="check" type="checkbox" name="check"
+						autocomplete="off" id="agree"><span>場所を確認しました。</span></label>
+				</div>
+				<input class="submit" type="submit" id="submit" value="送信" />
+			</div>
+
+		</form>
+
+		<!-- Maps JavaScript API(地図)、Places API(入力場所検索ボックス)のapiキー作成し埋め込み　ロード時動作 -->
+		<script
+			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6gVVngdDmxOTy4il-r0utj51VfO0fRqw&libraries=places&callback=initMap&initAutocomplete&libraries=places&v=weekly"
+			async>
+			
+		</script>
+
+
+		<!-- jsファイルアクセス -->
+		<script th:src="@{/js/MapsJavaScriptCurrentLocationSearch.js}">
+			
+		</script>
+
+		<script th:src="@{/js/MapsJavaScriptGetAPI.js}">
+			
+		</script>
+
+		<script th:src="@{/js/MapsJavaScriptApiSearchBox.js}">
+			
+		</script>
+
+		
+		<!-- 現在位置取得機能機能 -->
+		<p>
+			<button onclick="getMyPlace()">現在位置を取得</button>
+		</p>
+		<div id="result"></div>
+
+		<!-- 検索ボックス機能 -->
+		<h5>検索機能は現在ご利用できません。</h5>
+		<a th:href="@{https://www.google.co.jp/maps/?hl=ja}">googleMap</a>
+		<input id="pac-input" class="controls" type="text"
+			placeholder="Search Box">
+
+		<!-- マップ表示 -->
+		<div id="map"></div>
+
+
+
+		<script>
+			$(function() {
+
+				$('.submit').attr('disabled', 'disabled');
+
+				$('#agree').on('click', function() {
+					if ($(this).prop('checked') == false) {
+						$('.submit').attr('disabled', 'disabled');
+					} else {
+						$('.submit').removeAttr('disabled');
+					}
+				});
+
+			});
+		</script>
+
+	</div>
+
+</body>
+</html>
