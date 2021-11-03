@@ -135,11 +135,18 @@
 				</tr>
 			</table>
 
-			<div th:each="pcdatadto : ${pcdatadtoOne}">
+			<div th:if="${adminCheck} != 'admin'" th:each="pcdatadto : ${pcdatadtoOne}">
 				<button class="btn btn-gradient cartAddBtn" name="cartAdd">
 					<span>カートに追加する</span>
 				</button>
-				<a th:if="${adminCheck} == 'admin'" th:href="@{/productEdit} + '/' + ${pcdatadto.id}">商品の編集</a>
+				<a class="btn btn-gradient cartAddBtn" th:if="${adminCheck} == 'admin'" th:href="@{/productEdit} + '/' + ${pcdatadto.id}">商品の編集</a>
+			</div>
+			
+			<div th:if="${adminCheck} == 'admin'" th:each="pcdatadto : ${pcdatadtoOne}">
+				<button class="btn btn-gradient cartAddBtnAdmin" name="cartAdd">
+					<span>カートに追加する</span>
+				</button>
+				<a class="btn btn-gradient cartAddBtnAdminNext"  th:href="@{/productEdit} + '/' + ${pcdatadto.id}">商品の編集</a>
 			</div>
 
 		</form>

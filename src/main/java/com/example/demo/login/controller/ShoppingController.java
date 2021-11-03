@@ -1421,15 +1421,16 @@ public class ShoppingController {
 	}
 	
 	@PostMapping("/productEdit")
-	public String postProductEdit(@ModelAttribute PcDataForm form,@RequestParam("productId") int productId,Model model) {
+	public String postProductEdit(@ModelAttribute PcDataForm form,RedirectAttributes redirectattributes,@RequestParam("productId") int productId,Model model) {
 		model.addAttribute("contents", "shopping/productDetail::productListLayout_contents");
 		
 		//修正されたproductの内容にデータを更新する
 		pcdataService.productEditOne(productId,form);
 		
-		return "shopping/productListLayout";
+		return getProductList(form,redirectattributes,model);
 	}
-
+	
+	
 	@GetMapping("/news")
 	public String getNews(@ModelAttribute NewsForm form, Model model) {
 		model.addAttribute("contents", "shopping/news::productListLayout_contents");
