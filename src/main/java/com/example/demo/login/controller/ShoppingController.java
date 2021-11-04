@@ -6319,20 +6319,58 @@ public class ShoppingController {
 	@GetMapping("/currentDayTrading/{id}")
 	public String getCurrentDayTrading(@PathVariable("id") int productId,Model model) {
 		model.addAttribute("contents", "shopping/currentDayTrading::productListLayout_contents");
+		//QRコード表示設定
+		model.addAttribute("qrcodeCreate","yes");
+		model.addAttribute("qrcodeCheck","no");
 		
 		
+		 
+		return "shopping/productListLayout";
+	}
+	
+	@GetMapping("/qrCodeCreate") 
+	public String getQrCodeCreate(Model model) {
+		model.addAttribute("contents", "shopping/currentDayTrading::productListLayout_contents");
+		
+				//QRコード生成処理(読み込み遷移先、横幅、縦幅、img名)
+				String content = "https://github.com/YumaMaruyama/ITworksTRYshopping/blob/main/src/main/resources/templates/shopping/qrcodeFormInfomation.txt";
+			    int width = 100;
+			    int height = 100;
+			    String output = "qrcode.png";
+
+			    try {
+			        QRCodeWriter qrWriter = new QRCodeWriter();
+
+			        //読み込み遷移先、横幅、縦幅、img名を格納
+			        BitMatrix bitMatrix = qrWriter.encode(content, BarcodeFormat.QR_CODE, width, height);
+			        //コンソール内で画像出力
+			        System.out.println("bitMatrix" + bitMatrix);
+			        
+			        BufferedImage image = MatrixToImageWriter.toBufferedImage(bitMatrix);
+			      
+			        //QRコード表示設定
+			        model.addAttribute("qrcodeCheck","yes");
+			        model.addAttribute("qrcodeCreate","no");
+			        
+			        //画像を画像ファイルに出力する
+			        ImageIO.write(image, "png", new File(output));
+			     
+			    } catch (WriterException | IOException e) {
+			        System.err.println("[" + content + "] error発生");
+			        e.printStackTrace();
+			    } 
+			    
+			    
 		return "shopping/productListLayout";
 	}
 	
 	@PostMapping("/currentDayTrading")
 	public String postCurrentDayTrading(@RequestParam("id") int productId,Model model) {
 		
-		
-		
 		//QRコード生成処理
-		String content = "https://develman.net";
-	    int width = 200;
-	    int height = 200;
+		String content = "https://github.com/YumaMaruyama/ITworksTRYshopping/blob/main/src/main/resources/templates/shopping/qrcodeFormInfomation.txt";
+	    int width = 100;
+	    int height = 100;
 	    String output = "qrcode.png";
 
 	    try {
@@ -6340,17 +6378,13 @@ public class ShoppingController {
 
 	        //QRWriter.encode()にエンコード対象の文字列、バーコードに埋め込みたい情報出力バーコード書式、画像のwidth、画像のheightを格納
 	        BitMatrix bitMatrix = qrWriter.encode(content, BarcodeFormat.QR_CODE, width, height);
-
+	        System.out.println(bitMatrix);
 	        BufferedImage image = MatrixToImageWriter.toBufferedImage(bitMatrix);
 
 	        //画像を画像ファイルに出力する
 	        ImageIO.write(image, "png", new File(output));
 
-	    } catch (WriterException e) {
-	        System.err.println("[" + content + "] をエンコードするときに例外発生.");
-	        e.printStackTrace();
-	    } catch (IOException e) {
-	        System.err.println("[" + output + "] を出力するときに例外発生.");
+	    } catch (WriterException | IOException e ) {
 	        e.printStackTrace();
 	    }
 	
