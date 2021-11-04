@@ -1,11 +1,15 @@
 package com.example.demo.login.controller;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -85,6 +89,11 @@ import com.example.demo.login.domail.service.PurchaseService;
 import com.example.demo.login.domail.service.ReviewService;
 import com.example.demo.login.domail.service.Usege_usersService;
 import com.example.demo.login.domail.service.UsersService;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
 
 @Controller
 public class ShoppingController {
@@ -6078,7 +6087,7 @@ public class ShoppingController {
 	public String postChallengeProgrammingTrade(@ModelAttribute ChallengeProgrammingTradeForm form,@RequestParam("productId") int productId,Model model) {
 		model.addAttribute("contents", "shopping/challengeProgrammingTrade::productListLayout_contents");
 		
-		
+	
 		//チャットが完了しているか確認
 		int chatCheck = challengeProgrammingContractService.selectChatCheck(productId);
 		
@@ -6108,11 +6117,10 @@ public class ShoppingController {
 			model.addAttribute("progressStatus",2);
 		}
 		
-		//日程設定を行っているかcheckする(行っていれば日付が取れるて行っていなければ「未設定」が取れる)
+		//日程設定を行っているかcheckする(行っていなければ「未設定」が取れる)
 		String lessonDay = challengeProgrammingContractService.lessonDaySelectOne(productId);
 		
 		if(!lessonDay.equals("未設定")) {
-			System.out.println("yes");
 		//チャットメッセージをすべて取得
 		ChallengeProgrammingContractDTO challengeProgrammingContractTmMm = challengeProgrammingContractService.tm3Mm3select(productId);
 		challengeProgrammingContractTmMm.setProductId(productId);
@@ -6124,15 +6132,14 @@ public class ShoppingController {
 		//進行バーの初期表示設定(持ち物チェック)
 		model.addAttribute("progressStatus",3);
 		}else {
-			System.out.println("no");
 			model.addAttribute("lessonDay",lessonDay);
 			model.addAttribute("lessonDayCheck","no");
 		}
 		
-		//持ち物チェックを行っているかcheckする(行っていればが取れるて行っていなければ「未設定」が取れる)
+		//持ち物チェックを行っているかcheckする(行っていなければ「未設定」が取れる)
 		String belongngs = challengeProgrammingContractService.belongngsSelectOne(productId);
 		
-		if(!belongngs.equals("持ち物チェック完了")) {
+		if(chatCheck == 0 & belongngs.equals("持ち物チェック完了")) {
 			//チャットメッセージをすべて取得
 			ChallengeProgrammingContractDTO challengeProgrammingContractTmMm = challengeProgrammingContractService.tm3Mm3select(productId);
 			challengeProgrammingContractTmMm.setProductId(productId);
@@ -6143,9 +6150,20 @@ public class ShoppingController {
 		}else {
 			model.addAttribute("belongngs","no");
 		}
-			
 		
-				
+		//場所確認を行っているかcheckする(行っていなければ「未設定」が取れる)
+		String location = challengeProgrammingContractService.locationSelectOne(productId);
+		
+		if(belongngs.equals("持ち物チェック完了") & location.equals("場所確認完了")) {
+			ChallengeProgrammingContractDTO challengeProgrammingContractTmMm = challengeProgrammingContractService.tm3Mm3select(productId);
+			challengeProgrammingContractTmMm.setProductId(productId);
+			model.addAttribute("location","yes");
+			//進行バーの初期表示設定(場所確認)
+			model.addAttribute("progressStatus",5);
+		}else {
+			model.addAttribute("location","no");
+		}
+		
 		return "shopping/productListLayout";
 	}
 	
@@ -6281,6 +6299,8 @@ public class ShoppingController {
 	public String getLocationConfirmation(@ModelAttribute @PathVariable("id") int productId,Model model) {
 		model.addAttribute("contents", "shopping/locationConfirmation::productListLayout_contents");
 		
+		model.addAttribute("productId",productId);
+		
 		return "shopping/productListLayout";
 	}
 	
@@ -6295,6 +6315,50 @@ public class ShoppingController {
 		ChallengeProgrammingTradeForm form = new ChallengeProgrammingTradeForm();
 		return postChallengeProgrammingTrade(form,productId,model);
 	}
+	
+	@GetMapping("/currentDayTrading/{id}")
+	public String getCurrentDayTrading(@PathVariable("id") int productId,Model model) {
+		model.addAttribute("contents", "shopping/currentDayTrading::productListLayout_contents");
+		
+		
+		return "shopping/productListLayout";
+	}
+	
+	@PostMapping("/currentDayTrading")
+	public String postCurrentDayTrading(@RequestParam("id") int productId,Model model) {
+		
+		
+		
+		//QRコード生成処理
+		String content = "https://develman.net";
+	    int width = 200;
+	    int height = 200;
+	    String output = "qrcode.png";
+
+	    try {
+	        QRCodeWriter qrWriter = new QRCodeWriter();
+
+	        //QRWriter.encode()にエンコード対象の文字列、バーコードに埋め込みたい情報出力バーコード書式、画像のwidth、画像のheightを格納
+	        BitMatrix bitMatrix = qrWriter.encode(content, BarcodeFormat.QR_CODE, width, height);
+
+	        BufferedImage image = MatrixToImageWriter.toBufferedImage(bitMatrix);
+
+	        //画像を画像ファイルに出力する
+	        ImageIO.write(image, "png", new File(output));
+
+	    } catch (WriterException e) {
+	        System.err.println("[" + content + "] をエンコードするときに例外発生.");
+	        e.printStackTrace();
+	    } catch (IOException e) {
+	        System.err.println("[" + output + "] を出力するときに例外発生.");
+	        e.printStackTrace();
+	    }
+	
+	
+		return "shopping/productListLayout";
+	}
+	
+	
 
 	@GetMapping("/purchaseHistory")
 	public String getPurchaseHistory(@ModelAttribute PcDataForm form, Model model) {

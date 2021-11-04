@@ -162,7 +162,7 @@ public class ChallengeProgrammingContractDaoJdbcImpl implements ChallengeProgram
 	}
 	
 	public int belongingsCheckInsertOne(int productId) {
-		int result = jdbc.update("update challenge_programming_contract set belongngs_check = '持ち物チャック完了' where contract_project_id = ?",productId);
+		int result = jdbc.update("update challenge_programming_contract set belongngs_check = '持ち物チェック完了' where contract_project_id = ?",productId);
 		
 		return result;
 	}
@@ -188,9 +188,14 @@ public class ChallengeProgrammingContractDaoJdbcImpl implements ChallengeProgram
 	}
 	
 	public int locationConfirmationInsertOne(int productId) {
-		int result = jdbc.update("update callenge_programming_contract where id = ?",productId);
+		int result = jdbc.update("update challenge_programming_contract set location_confirmation_check = '場所確認完了' where contract_project_id = ?",productId);
 		
 		return result;
+	}
+	
+	public String locationSelectOne(int productId) {
+		String location = jdbc.queryForObject("select challenge_programming_contract.location_confirmation_check from challenge_programming_contract where contract_project_id = ? ",String.class,productId);
 		
+		return location;
 	}
 }

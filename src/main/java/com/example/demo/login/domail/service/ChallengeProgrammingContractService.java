@@ -64,4 +64,8 @@ public class ChallengeProgrammingContractService {
 	public int locationConfirmationInsertOne(int productId) {
 		return dao.locationConfirmationInsertOne(productId);
 	}
+	
+	public String locationSelectOne(int productId) {
+		return dao.locationSelectOne(productId);
+	}
 }

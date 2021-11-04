@@ -30,4 +30,6 @@ public interface ChallengeProgrammingContractDao {
 	public String belongngsSelectOne(int productId);
 	
 	public int locationConfirmationInsertOne(int productId);
+	
+	public String locationSelectOne(int productId);
 }
