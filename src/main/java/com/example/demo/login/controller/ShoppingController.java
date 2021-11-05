@@ -53,6 +53,7 @@ import com.example.demo.login.domail.model.InquiryDTO;
 import com.example.demo.login.domail.model.InquiryForm;
 import com.example.demo.login.domail.model.InquiryReplyDTO;
 import com.example.demo.login.domail.model.InquiryReplyForm;
+import com.example.demo.login.domail.model.LessonStartForm;
 import com.example.demo.login.domail.model.MenberCouponDTO;
 import com.example.demo.login.domail.model.MenberCouponForm;
 import com.example.demo.login.domail.model.NewsDTO;
@@ -74,6 +75,7 @@ import com.example.demo.login.domail.model.UsersListForm;
 import com.example.demo.login.domail.service.CancelService;
 import com.example.demo.login.domail.service.CartService;
 import com.example.demo.login.domail.service.ChallengeProgrammingContractService;
+import com.example.demo.login.domail.service.ChallengeProgrammingLessonStartPassword;
 import com.example.demo.login.domail.service.ChallengeProgrammingMessageService;
 import com.example.demo.login.domail.service.ChallengeProgrammingService;
 import com.example.demo.login.domail.service.CouponService;
@@ -132,9 +134,10 @@ public class ShoppingController {
 	ChallengeProgrammingService challengeProgrammingService;
 	@Autowired
 	ChallengeProgrammingMessageService challengeProgrammingMessageService;
-	
 	@Autowired
 	ChallengeProgrammingContractService challengeProgrammingContractService;
+	@Autowired
+	ChallengeProgrammingLessonStartPassword challengeProgrammingLessonStartPassword; 
 
 	@Autowired // Sessionが使用できる
 	HttpSession session;
@@ -6390,6 +6393,36 @@ public class ShoppingController {
 	
 	
 		return "shopping/productListLayout";
+	}
+	
+	@GetMapping("/lessonStart/{id}")
+	public String getLessonStart(@ModelAttribute @PathVariable("id") int productId,LessonStartForm form,Model model) {
+		model.addAttribute("contents", "shopping/lessonStart::productListLayout_contents");
+		
+		model.addAttribute("productId",productId);
+		
+		return "shopping/productListLayout";
+	}
+	
+	@PostMapping("/lessonStart")
+	public String postLessonStart(@ModelAttribute @RequestParam("id") int productId,@Validated(GroupOrder.class) LessonStartForm form,BindingResult bindingResult,Model model) {
+		
+		if(bindingResult.hasErrors()) {
+			return getLessonStart(productId,form,model);
+		}
+		
+		
+		//パスワードが正しいかチェックする
+		boolean passwordCheck = challengeProgrammingLessonStartPassword.lessonStartPasswordCheck(form);
+		
+		//正しければ…
+		if(passwordCheck == true) {
+			ChallengeProgrammingTradeForm challengeprogrammingtradeform = new ChallengeProgrammingTradeForm();
+			return postChallengeProgrammingTrade(challengeprogrammingtradeform,productId,model);
+		}else {
+			return getLessonStart(productId,form,model);
+		}
+		
 	}
 	
 	

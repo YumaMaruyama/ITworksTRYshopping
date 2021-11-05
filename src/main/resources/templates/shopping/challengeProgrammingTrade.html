@@ -90,6 +90,7 @@
 				<div th:if="${location} == 'yes' and ${chatCheck} != 'no'">
 					<img class="guidancePersonImgSize" th:src="@{/css/javaicon.png}">
 					<a th:href="@{/currentDayTrading} + '/' + ${productId}">取引当日ボタン</a>
+					<a th:href="@{/lessonStart} + '/' + ${productId}">講座開始画面へ</a>
 				</div>
 			</div>
 		</div>
