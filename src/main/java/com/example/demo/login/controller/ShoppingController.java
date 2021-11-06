@@ -1433,9 +1433,13 @@ public class ShoppingController {
 	}
 	
 	@PostMapping("/productEdit")
-	public String postProductEdit(@ModelAttribute PcDataForm form,RedirectAttributes redirectattributes,@RequestParam("productId") int productId,Model model) {
+	public String postProductEdit(@ModelAttribute @Validated(GroupOrder.class) PcDataForm form,BindingResult bindingResult,RedirectAttributes redirectattributes,@RequestParam("productId") int productId,Model model) {
 		model.addAttribute("contents", "shopping/productDetail::productListLayout_contents");
 		
+		if(bindingResult.hasErrors()) {
+			getProductEdit(form,productId,model);
+		}
+
 		//修正されたproductの内容にデータを更新する
 		pcdataService.productEditOne(productId,form);
 		
