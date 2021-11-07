@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.imageio.ImageIO;
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -83,6 +84,7 @@ import com.example.demo.login.domail.service.CreditService;
 import com.example.demo.login.domail.service.CustomService;
 import com.example.demo.login.domail.service.InquiryReplyService;
 import com.example.demo.login.domail.service.InquiryService;
+import com.example.demo.login.domail.service.MailService;
 import com.example.demo.login.domail.service.MenberCouponService;
 import com.example.demo.login.domail.service.NewsService;
 import com.example.demo.login.domail.service.PcDataService;
@@ -138,6 +140,8 @@ public class ShoppingController {
 	ChallengeProgrammingContractService challengeProgrammingContractService;
 	@Autowired
 	ChallengeProgrammingLessonStartPassword challengeProgrammingLessonStartPassword; 
+	@Autowired
+	MailService mailService;
 
 	@Autowired // Sessionが使用できる
 	HttpSession session;
@@ -6409,7 +6413,9 @@ public class ShoppingController {
 	}
 	
 	@PostMapping("/lessonStart")
-	public String postLessonStart(@ModelAttribute @RequestParam("id") int productId,@Validated(GroupOrder.class) LessonStartForm form,BindingResult bindingResult,Model model) {
+	public String postLessonStart(@ModelAttribute @RequestParam("id") int productId,@Validated(GroupOrder.class) LessonStartForm form,BindingResult bindingResult,Model model) throws MessagingException {
+		
+		
 		
 		if(bindingResult.hasErrors()) {
 			return getLessonStart(productId,form,model);
@@ -6422,14 +6428,19 @@ public class ShoppingController {
 		//正しければ…
 		if(passwordCheck == true) {
 			ChallengeProgrammingTradeForm challengeprogrammingtradeform = new ChallengeProgrammingTradeForm();
+			
+			mailService.purchaseSendMail();
+			
 			return postChallengeProgrammingTrade(challengeprogrammingtradeform,productId,model);
 		}else {
+			
 			return getLessonStart(productId,form,model);
 		}
+	
+		
 		
 	}
-	
-	
+
 
 	@GetMapping("/purchaseHistory")
 	public String getPurchaseHistory(@ModelAttribute PcDataForm form, Model model) {
