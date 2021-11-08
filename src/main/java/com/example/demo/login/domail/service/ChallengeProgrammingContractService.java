@@ -68,4 +68,28 @@ public class ChallengeProgrammingContractService {
 	public String locationSelectOne(int productId) {
 		return dao.locationSelectOne(productId);
 	}
+	
+	public int lessonCheckInsertOne(int productId) {
+		return dao.lessonCheckInsertOne(productId);
+	}
+	
+	public String lessonCheckSelectOne(int productId) {
+		return dao.lessonCheckSelectOne(productId);
+	}
+	
+	public int lessonCheckUpdateOne(int productId) {
+		return dao.lessonCheckUpdateOne(productId);
+	}
+	
+	public int startDateInsertOne(int productId,String simpleDate) {
+		return dao.startDateInsertOne(productId,simpleDate);
+	}
+	
+	public int EndDateInsertOne(int productId,String simpleDate) {
+		return dao.EndDateInsertOne(productId,simpleDate);
+	}
+	
+	public ChallengeProgrammingContractDTO startAndEndDateSelectOne(int productId) {
+		return dao.startAndEndDateSelectOne(productId);
+	}
 }

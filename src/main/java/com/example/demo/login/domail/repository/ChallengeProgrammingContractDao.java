@@ -32,4 +32,16 @@ public interface ChallengeProgrammingContractDao {
 	public int locationConfirmationInsertOne(int productId);
 	
 	public String locationSelectOne(int productId);
+
+	public int lessonCheckInsertOne(int productId);
+	
+	public String lessonCheckSelectOne(int productId);
+	
+	public int lessonCheckUpdateOne(int productId);
+	
+	public int startDateInsertOne(int productId,String simpleDate);
+	
+	public int EndDateInsertOne(int productId,String simpleDate);
+	
+	public ChallengeProgrammingContractDTO startAndEndDateSelectOne(int productId);
 }

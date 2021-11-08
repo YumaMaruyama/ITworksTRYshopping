@@ -34,6 +34,10 @@ public class ChallengeProgrammingContractDTO {
 	
 	private String userName;
 	
+	private Date startDate;
+	
+	private Date endDate;
+	
 	
 	
 	

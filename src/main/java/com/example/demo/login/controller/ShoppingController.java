@@ -54,6 +54,8 @@ import com.example.demo.login.domail.model.InquiryDTO;
 import com.example.demo.login.domail.model.InquiryForm;
 import com.example.demo.login.domail.model.InquiryReplyDTO;
 import com.example.demo.login.domail.model.InquiryReplyForm;
+import com.example.demo.login.domail.model.LessonEndForm;
+import com.example.demo.login.domail.model.LessonEvaluationForm;
 import com.example.demo.login.domail.model.LessonStartForm;
 import com.example.demo.login.domail.model.MenberCouponDTO;
 import com.example.demo.login.domail.model.MenberCouponForm;
@@ -76,7 +78,7 @@ import com.example.demo.login.domail.model.UsersListForm;
 import com.example.demo.login.domail.service.CancelService;
 import com.example.demo.login.domail.service.CartService;
 import com.example.demo.login.domail.service.ChallengeProgrammingContractService;
-import com.example.demo.login.domail.service.ChallengeProgrammingLessonStartPassword;
+import com.example.demo.login.domail.service.ChallengeProgrammingLessonStartPasswordService;
 import com.example.demo.login.domail.service.ChallengeProgrammingMessageService;
 import com.example.demo.login.domail.service.ChallengeProgrammingService;
 import com.example.demo.login.domail.service.CouponService;
@@ -139,7 +141,7 @@ public class ShoppingController {
 	@Autowired
 	ChallengeProgrammingContractService challengeProgrammingContractService;
 	@Autowired
-	ChallengeProgrammingLessonStartPassword challengeProgrammingLessonStartPassword; 
+	ChallengeProgrammingLessonStartPasswordService challengeProgrammingLessonStartPasswordService; 
 	@Autowired
 	MailService mailService;
 
@@ -6098,7 +6100,7 @@ public class ShoppingController {
 	public String postChallengeProgrammingTrade(@ModelAttribute ChallengeProgrammingTradeForm form,@RequestParam("productId") int productId,Model model) {
 		model.addAttribute("contents", "shopping/challengeProgrammingTrade::productListLayout_contents");
 		
-	
+		
 		//チャットが完了しているか確認
 		int chatCheck = challengeProgrammingContractService.selectChatCheck(productId);
 		
@@ -6174,6 +6176,34 @@ public class ShoppingController {
 		}else {
 			model.addAttribute("location","no");
 		}
+		
+		String lessonCheck = challengeProgrammingContractService.lessonCheckSelectOne(productId);
+		
+		if(location.equals("場所確認完了") & lessonCheck.equals("講座中")) {
+			model.addAttribute("lessonCheck","yes");
+			model.addAttribute("lessonEnd","no");
+			//進行バーの初期表示設定(場所確認)
+			model.addAttribute("progressStatus",6);
+		}else if(location.equals("場所確認完了") & lessonCheck.equals("講座終了")) {
+			model.addAttribute("progressStatus",7);
+			model.addAttribute("lessonCheck","yes");
+			ChallengeProgrammingContractDTO challengeprogrammingcontractdto = new ChallengeProgrammingContractDTO();
+			challengeprogrammingcontractdto = challengeProgrammingContractService.startAndEndDateSelectOne(productId);
+			Date startDate = challengeprogrammingcontractdto.getStartDate();
+			Date endDate = challengeprogrammingcontractdto.getEndDate();
+			SimpleDateFormat simpleFormat = new SimpleDateFormat( "yyyy/MM/dd HH:mm:ss" );
+			String simpleStartDate = simpleFormat.format(startDate);
+			String simpleEndDate = simpleFormat.format(endDate);
+			model.addAttribute("startDate",simpleStartDate);
+			model.addAttribute("endDate",simpleEndDate);
+			
+			model.addAttribute("lessonEnd","yes");
+		}else {
+			model.addAttribute("lessonCheck","no");
+		}
+		
+		
+		
 		
 		return "shopping/productListLayout";
 	}
@@ -6423,22 +6453,69 @@ public class ShoppingController {
 		
 		
 		//パスワードが正しいかチェックする
-		boolean passwordCheck = challengeProgrammingLessonStartPassword.lessonStartPasswordCheck(form);
+		boolean passwordCheck = challengeProgrammingLessonStartPasswordService.lessonStartPasswordCheck(form);
 		
 		//正しければ…
 		if(passwordCheck == true) {
 			ChallengeProgrammingTradeForm challengeprogrammingtradeform = new ChallengeProgrammingTradeForm();
+			challengeProgrammingContractService.lessonCheckInsertOne(productId);
+			Date nowDate = new Date();
+			SimpleDateFormat format = new SimpleDateFormat( "yyyy/MM/dd HH:mm:ss" );
+			String simpleDate = format.format(nowDate);
+			challengeProgrammingContractService.startDateInsertOne(productId,simpleDate);
 			
 			mailService.purchaseSendMail();
-			
 			return postChallengeProgrammingTrade(challengeprogrammingtradeform,productId,model);
 		}else {
 			
 			return getLessonStart(productId,form,model);
-		}
+		}	
+	}
 	
+	@GetMapping("/lessonEnd/{id}")
+	public String getLessonEnd(@ModelAttribute LessonEndForm form,@PathVariable("id") int productId,Model model) {
+		model.addAttribute("contents", "shopping/lessonEnd::productListLayout_contents");
+		
+		model.addAttribute("productId",productId);
+		
+		return "shopping/productListLayout";
+	}
+	
+	@PostMapping("/lessonEnd")
+	public String postLessonEnd(@ModelAttribute @Validated(GroupOrder.class) LessonEndForm form,BindingResult bindingResult,@RequestParam("id") int productId,Model model) {
+		
+		if(bindingResult.hasErrors()) {
+			return getLessonEnd(form,productId,model);
+		}
 		
 		
+		//パスワードが正しいかチェックする
+		boolean passwordCheck = challengeProgrammingLessonStartPasswordService.lessonEndPasswordCheck(form);
+		
+		//正しければ…
+		if(passwordCheck == true) {
+			ChallengeProgrammingTradeForm challengeprogrammingtradeform = new ChallengeProgrammingTradeForm();
+			challengeProgrammingContractService.lessonCheckUpdateOne(productId);
+			
+			Date nowDate = new Date();
+			SimpleDateFormat format = new SimpleDateFormat( "yyyy/MM/dd HH:mm:ss" );
+			String simpleDate = format.format(nowDate);
+			challengeProgrammingContractService.EndDateInsertOne(productId,simpleDate);
+			
+			return postChallengeProgrammingTrade(challengeprogrammingtradeform,productId,model);
+		}else {
+			
+			return getLessonEnd(form,productId,model);
+		}	
+	}
+	
+	@GetMapping("/lessonEvaluation/{id}")
+	public String getLessonEvaluation(@ModelAttribute LessonEvaluationForm form,@PathVariable("id") int productId,Model model) {
+		model.addAttribute("contents", "shopping/lessonEvaluation::productListLayout_contents");
+		
+		
+		
+		return "shopping/productListLayout";
 	}
 
 

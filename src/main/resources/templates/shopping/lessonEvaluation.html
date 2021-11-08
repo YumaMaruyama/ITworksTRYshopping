@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	
+	<div th:fragment="productListLayout_contents">
+		<header>
+			<h1 class="titleDesign">講座評価</h1>
+		</header>
+		
+		<h3>お疲れ様でした。講座が終了したので評価をお願いします。(教師の態度や講座の質などの総合的な評価をお願いします。)</h3>
+		<form method="post" th:action="@{/lessonEvaluation}" th:object="${lessonEvaluationForm}">
+		<input type="hidden" name="id" th:value="${productId}">
+		<table class="table table-hover table-bordered ">
+		
+			<tr>
+						<th class="text-center ">評価</th>
+						<td class="text-center ">
+							<div class="text-center form-group"
+								th:classappend="${#fields.hasErrors('rating')} ? 'hasError'">
+								<select th:field="*{rating}">
+									<option value="5">5(とても素晴らしい)</option>
+									<option value="4">4(素晴らしい)</option>
+									<option value="3">3(良い)</option>
+									<option value="2">2(普通)</option>
+									<option value="1">1(悪い)</option>
+								</select>
+							</div> <span class="text-danger" th:if="${#fields.hasErrors('rating')}"
+							th:errors="*{rating}">rating error</span>
+						</td>
+					</tr>
+					
+				<tr>
+					<th class="text-center ">詳細</th>
+					<td th:classappend="${#fields.hasErrors('evaluatonDetail')}?'has-error'"
+						class="form-group "><input type="text"
+						class="form-control" th:field="*{evaluatonDetail}"> <span
+						class="text-danger" th:if="${#fields.hasErrors('evaluatonDetail')}"
+						th:errors="*{evaluatonDetail}">evaluatonDetail error</span></td>
+				</tr>
+		</table>
+		
+			<button class="btn btn-primary">投稿</button>
+		</form>
+	</div>
+</body>
+</html>

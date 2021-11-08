@@ -4,7 +4,6 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -21,7 +20,7 @@ import org.springframework.stereotype.Service;
 			  
 	        String typeText = "text.txt";
 	        //ファイルも一緒に送信するため指定
-	        FileSystemResource fileResource = new FileSystemResource("/Users/maruy/git/springBoot_shopping/src/main/resources/static/css/qrcode.png");
+	       // FileSystemResource fileResource = new FileSystemResource("/Users/maruy/git/springBoot_shopping/src/main/resources/static/css/qrcode.png");
 	        // メッセージクラス
 	        MimeMessage mimeMsg = mailSender.createMimeMessage();
 	        // ファイル対応ヘルパークラス
@@ -36,7 +35,7 @@ import org.springframework.stereotype.Service;
 	        //内容
 	        helper.setText("メール本文");
 	        //ファイル(※一つ)
-	        helper.addAttachment("qrcode.png", fileResource);
+	      //  helper.addAttachment("qrcode.png", fileResource);
 
 	        // sendでメール送信完了
 	        mailSender.send(mimeMsg);

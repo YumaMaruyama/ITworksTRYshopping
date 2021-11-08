@@ -87,10 +87,18 @@
 					<img class="guidancePersonImgSize" th:src="@{/css/javaicon.png}">
 					<a th:href="@{/locationConfirmation} + '/' + ${productId}">場所確認</a>
 				</div>
-				<div th:if="${location} == 'yes' and ${chatCheck} != 'no'">
+				<div th:if="${location} == 'yes' and ${lessonCheck} == 'no'">
 					<img class="guidancePersonImgSize" th:src="@{/css/javaicon.png}">
 					<a th:href="@{/currentDayTrading} + '/' + ${productId}">取引当日ボタン</a>
 					<a th:href="@{/lessonStart} + '/' + ${productId}">講座開始画面へ</a>
+				</div>
+				<div th:if="${lessonCheck} == 'yes' and ${lessonEnd} == 'no'">
+					<img class="guidancePersonImgSize" th:src="@{/css/javaicon.png}">
+					<a th:href="@{/lessonEnd} + '/' + ${productId}">講座完了</a>
+				</div>
+				<div th:if="${lessonCheck} == 'yes' and ${lessonEnd} == 'yes'">
+					<img class="guidancePersonImgSize" th:src="@{/css/javaicon.png}">
+					<a th:href="@{/lessonEvaluation} + '/' + ${productId}">講座評価</a>
 				</div>
 			</div>
 		</div>
@@ -98,8 +106,8 @@
 		<div class="flex challengeProgrammingTradeNextList">
 			<div class="item challengeProgrammingTradeCardDesign">
 				<h4>講座日程</h4>
-				<h5 th:if="${lessonDayCheck} != 'no'" th:text="${lessonDay}"></h5>
-			
+				<h5 th:if="${lessonDayCheck} != 'no' and ${lessonEnd} == 'no'" th:text="${lessonDay}"></h5>
+				<h5 th:if="${lessonEnd} == 'yes'" th:text="${startDate} + 'から' + ${endDate} + 'まで受講しました。'"></h5>
 			</div>
 			
 			<div class="item challengeProgrammingTradeCardDesign"></div>
@@ -112,6 +120,7 @@
 			<li>持ち物チェック</li>
 			<li>場所確認</li>
 			<li>当日用コード</li>
+			<li>講座中</li>
 			<li>講座評価</li>
 		</ul>
 
@@ -121,6 +130,7 @@
 			<li>持ち物チェック</li>
 			<li>場所確認</li>
 			<li>当日用コード</li>
+			<li>講座中</li>
 			<li>講座評価</li>
 		</ul>
 
@@ -129,7 +139,8 @@
 			<li class="active">日程設定</li>
 			<li class="active">持ち物チェック</li>
 			<li>場所確認</li>
-			<li>当日用コードン</li>
+			<li>当日用コード</li>
+			<li>講座中</li>
 			<li>講座評価</li>
 		</ul>
 		
@@ -139,6 +150,7 @@
 			<li class="active">持ち物チェック</li>
 			<li class="active">場所確認</li>
 			<li>当日用コード</li>
+			<li>講座中</li>
 			<li>講座評価</li>
 		</ul>
 		
@@ -148,7 +160,28 @@
 			<li class="active">持ち物チェック</li>
 			<li class="active">場所確認</li>
 			<li class="active">当日用コード</li>
+			<li>講座中</li>
 			<li>講座評価</li>
+		</ul>
+		
+		<ul th:if="${progressStatus} == 6" class="progressbar">
+			<li class="active">あいさつ</li>
+			<li class="active">日程設定</li>
+			<li class="active">持ち物チェック</li>
+			<li class="active">場所確認</li>
+			<li class="active">当日用コード</li>
+			<li class="active">講座中</li>
+			<li>講座評価</li>
+		</ul>
+		
+		<ul th:if="${progressStatus} == 7" class="progressbar">
+			<li class="active">あいさつ</li>
+			<li class="active">日程設定</li>
+			<li class="active">持ち物チェック</li>
+			<li class="active">場所確認</li>
+			<li class="active">当日用コード</li>
+			<li class="active">講座中</li>
+			<li class="active">講座評価</li>
 		</ul>
 	</div>
 
