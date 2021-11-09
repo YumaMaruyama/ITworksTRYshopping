@@ -44,6 +44,68 @@
 				</tr>
 		</table>
 		
+		<div class="swiper-container">
+    <div class="swiper-wrapper">              
+        <div class="swiper-slide">
+            <img src="画像">
+        </div> 
+        <div class="swiper-slide">
+            <img src="">
+        </div> 
+        <div class="swiper-slide">
+            <img src="">
+        </div> 
+        <div class="swiper-slide">
+            <img src="">
+        </div> 
+    </div>
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+</div>
+
+<script type="text/javascript">
+var Slider = new Swiper ('.swiper-container', {
+    loop: true, 
+    speed: 500, 
+    slidesPerView: 1, 
+    spaceBetween: 0,     
+    direction: 'horizontal', 
+    effect: 'slide', 
+  
+
+    autoplay: {
+      delay: 3000, 
+      stopOnLast: false, 
+      disableOnInteraction: true 
+    },
+  
+
+    pagination: {
+      el: '.swiper-pagination',　 
+    },
+  
+
+    navigation: {
+      nextEl: '.swiper-button-next', 
+      prevEl: '.swiper-button-prev', 
+    },
+  });
+</script>
+ 
+<style>
+.swiper-container {
+    width: 100%;
+}
+.swiper-container{
+    text-align: center;
+}
+.swiper-container .swiper-slide img{
+    max-width: 100%;
+    height: auto;
+}
+</style>
+		
 			<button class="btn btn-primary">投稿</button>
 		</form>
 	</div>

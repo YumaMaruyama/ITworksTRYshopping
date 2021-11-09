@@ -6517,6 +6517,15 @@ public class ShoppingController {
 		
 		return "shopping/productListLayout";
 	}
+	
+	@PostMapping("/lessonEvaluation")
+	public String postLessonEvaluation(@ModelAttribute LessonEvaluationForm form,@RequestParam("id") int productId,Model model) {
+		model.addAttribute("contents", "shopping/lessonEvaluation::productListLayout_contents");
+		
+		ChallengeProgrammingTradeForm challengeprogrammingtradeform = new ChallengeProgrammingTradeForm();
+		
+		return postChallengeProgrammingTrade(challengeprogrammingtradeform,productId,model);
+	}
 
 
 	@GetMapping("/purchaseHistory")
