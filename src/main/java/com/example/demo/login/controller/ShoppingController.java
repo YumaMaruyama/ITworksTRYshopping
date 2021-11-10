@@ -39,6 +39,7 @@ import com.example.demo.login.domail.model.CartForm;
 import com.example.demo.login.domail.model.ChallengeProgrammingContractDTO;
 import com.example.demo.login.domail.model.ChallengeProgrammingContractForm;
 import com.example.demo.login.domail.model.ChallengeProgrammingDTO;
+import com.example.demo.login.domail.model.ChallengeProgrammingEvaluationDTO;
 import com.example.demo.login.domail.model.ChallengeProgrammingForm;
 import com.example.demo.login.domail.model.ChallengeProgrammingMessageDTO;
 import com.example.demo.login.domail.model.ChallengeProgrammingTradeForm;
@@ -78,6 +79,7 @@ import com.example.demo.login.domail.model.UsersListForm;
 import com.example.demo.login.domail.service.CancelService;
 import com.example.demo.login.domail.service.CartService;
 import com.example.demo.login.domail.service.ChallengeProgrammingContractService;
+import com.example.demo.login.domail.service.ChallengeProgrammingEvaluationService;
 import com.example.demo.login.domail.service.ChallengeProgrammingLessonStartPasswordService;
 import com.example.demo.login.domail.service.ChallengeProgrammingMessageService;
 import com.example.demo.login.domail.service.ChallengeProgrammingService;
@@ -144,6 +146,8 @@ public class ShoppingController {
 	ChallengeProgrammingLessonStartPasswordService challengeProgrammingLessonStartPasswordService; 
 	@Autowired
 	MailService mailService;
+	@Autowired
+	ChallengeProgrammingEvaluationService challengeProgrammingEvaluationService;
 
 	@Autowired // Sessionが使用できる
 	HttpSession session;
@@ -6513,7 +6517,7 @@ public class ShoppingController {
 	public String getLessonEvaluation(@ModelAttribute LessonEvaluationForm form,@PathVariable("id") int productId,Model model) {
 		model.addAttribute("contents", "shopping/lessonEvaluation::productListLayout_contents");
 		
-		
+		model.addAttribute("productId",productId);
 		
 		return "shopping/productListLayout";
 	}
@@ -6522,8 +6526,17 @@ public class ShoppingController {
 	public String postLessonEvaluation(@ModelAttribute LessonEvaluationForm form,@RequestParam("id") int productId,Model model) {
 		model.addAttribute("contents", "shopping/lessonEvaluation::productListLayout_contents");
 		
-		ChallengeProgrammingTradeForm challengeprogrammingtradeform = new ChallengeProgrammingTradeForm();
+		//ユーザーのIDを取得
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String getName = auth.getName();
+		int userId = usersService.select_id(getName);
 		
+		//評価内容を評価テーブルに格納
+		ChallengeProgrammingEvaluationDTO challengeprogrammingevaluationDTO = new ChallengeProgrammingEvaluationDTO();
+		challengeProgrammingEvaluationService.evaluationInsertOne(userId,productId,challengeprogrammingevaluationDTO,form);
+		
+		
+		ChallengeProgrammingTradeForm challengeprogrammingtradeform = new ChallengeProgrammingTradeForm();
 		return postChallengeProgrammingTrade(challengeprogrammingtradeform,productId,model);
 	}
 

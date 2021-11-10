@@ -23,7 +23,6 @@
 							<div class="text-center form-group"
 								th:classappend="${#fields.hasErrors('rating')} ? 'hasError'">
 								<select th:field="*{rating}">
-									<option value="5">5(とても素晴らしい)</option>
 									<option value="4">4(素晴らしい)</option>
 									<option value="3">3(良い)</option>
 									<option value="2">2(普通)</option>
@@ -43,71 +42,38 @@
 						th:errors="*{evaluatonDetail}">evaluatonDetail error</span></td>
 				</tr>
 		</table>
-		
-		<div class="swiper-container">
-    <div class="swiper-wrapper">              
-        <div class="swiper-slide">
-            <img src="画像">
-        </div> 
-        <div class="swiper-slide">
-            <img src="">
-        </div> 
-        <div class="swiper-slide">
-            <img src="">
-        </div> 
-        <div class="swiper-slide">
-            <img src="">
-        </div> 
-    </div>
-    <div class="swiper-pagination"></div>
-    <div class="swiper-button-prev"></div>
-    <div class="swiper-button-next"></div>
-</div>
-
-<script type="text/javascript">
-var Slider = new Swiper ('.swiper-container', {
-    loop: true, 
-    speed: 500, 
-    slidesPerView: 1, 
-    spaceBetween: 0,     
-    direction: 'horizontal', 
-    effect: 'slide', 
-  
-
-    autoplay: {
-      delay: 3000, 
-      stopOnLast: false, 
-      disableOnInteraction: true 
-    },
-  
-
-    pagination: {
-      el: '.swiper-pagination',　 
-    },
-  
-
-    navigation: {
-      nextEl: '.swiper-button-next', 
-      prevEl: '.swiper-button-prev', 
-    },
+		<script type="text/javascript">
+(function($) {
+    $(function() {
+        $("#slider").simplyScroll();
   });
+})(jQuery);
 </script>
- 
-<style>
-.swiper-container {
-    width: 100%;
-}
-.swiper-container{
-    text-align: center;
-}
-.swiper-container .swiper-slide img{
-    max-width: 100%;
-    height: auto;
-}
-</style>
-		
+  
+  <!-- 
+  <ul id="slider">
+    <li>
+     <img class="guidancePersonImgSize" th:src="@{/css/javaicon.png}">
+    </li>
+    <li>
+      <img class="guidancePersonImgSize" th:src="@{/css/javaicon.png}">
+    </li>
+    <li>
+      <img class="guidancePersonImgSize" th:src="@{/css/javaicon.png}">
+    </li>
+    <li>
+     <img class="guidancePersonImgSize" th:src="@{/css/javaicon.png}">
+    </li>
+    <li>
+      <img class="guidancePersonImgSize" th:src="@{/css/javaicon.png}">
+    </li>   
+  </ul>
+		 -->
 			<button class="btn btn-primary">投稿</button>
 		</form>
 	</div>
+	
+	<script th:src="@{/js/jquery.simplyscroll.js}"></script>
+	
 </body>
 </html>
