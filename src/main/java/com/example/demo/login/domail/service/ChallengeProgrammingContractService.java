@@ -92,4 +92,8 @@ public class ChallengeProgrammingContractService {
 	public ChallengeProgrammingContractDTO startAndEndDateSelectOne(int productId) {
 		return dao.startAndEndDateSelectOne(productId);
 	}
+	
+	public int deleteOne(int productId) {
+		return dao.deleteOne(productId);
+	}
 }

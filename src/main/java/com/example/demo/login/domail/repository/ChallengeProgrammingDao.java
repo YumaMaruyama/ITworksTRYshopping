@@ -14,4 +14,6 @@ public interface ChallengeProgrammingDao {
 
 	public ChallengeProgrammingDTO selectBelongings(int productId);
 	
+	public int updateOne(int productId);
+	
 }

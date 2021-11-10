@@ -41,6 +41,7 @@ import com.example.demo.login.domail.model.ChallengeProgrammingContractForm;
 import com.example.demo.login.domail.model.ChallengeProgrammingDTO;
 import com.example.demo.login.domail.model.ChallengeProgrammingEvaluationDTO;
 import com.example.demo.login.domail.model.ChallengeProgrammingForm;
+import com.example.demo.login.domail.model.ChallengeProgrammingHistoryDTO;
 import com.example.demo.login.domail.model.ChallengeProgrammingMessageDTO;
 import com.example.demo.login.domail.model.ChallengeProgrammingTradeForm;
 import com.example.demo.login.domail.model.CouponDTO;
@@ -80,6 +81,7 @@ import com.example.demo.login.domail.service.CancelService;
 import com.example.demo.login.domail.service.CartService;
 import com.example.demo.login.domail.service.ChallengeProgrammingContractService;
 import com.example.demo.login.domail.service.ChallengeProgrammingEvaluationService;
+import com.example.demo.login.domail.service.ChallengeProgrammingHistoryService;
 import com.example.demo.login.domail.service.ChallengeProgrammingLessonStartPasswordService;
 import com.example.demo.login.domail.service.ChallengeProgrammingMessageService;
 import com.example.demo.login.domail.service.ChallengeProgrammingService;
@@ -148,6 +150,8 @@ public class ShoppingController {
 	MailService mailService;
 	@Autowired
 	ChallengeProgrammingEvaluationService challengeProgrammingEvaluationService;
+	@Autowired
+	ChallengeProgrammingHistoryService challengeProgrammingHistoryService;
 
 	@Autowired // Sessionが使用できる
 	HttpSession session;
@@ -6075,12 +6079,14 @@ public class ShoppingController {
 		
 		String mailAddress = form.getMailAddress();
 		String phoneNumber = form.getPhoneNumber();
-		
+		String digits3Code = form.getDigits_3_code();
+		String cardName = form.getCardName();
+		String cardNumber = form.getCardNumber();	
 		//チャットメッセージをすべて取得
 		ChallengeProgrammingMessageDTO challengeProgrammingMessagedto = challengeProgrammingMessageService.selectOne();
 		
 		//入力された情報と契約者情報をDBに格納
-		challengeProgrammingContractService.insertOne(challengeProgrammingContractdto,mailAddress,phoneNumber,userId,productId,challengeProgrammingMessagedto);
+		challengeProgrammingContractService.insertOne(challengeProgrammingContractdto,mailAddress,phoneNumber,digits3Code,cardName,cardNumber,userId,productId,challengeProgrammingMessagedto);
 		//契約された情報を更新
 		challengeProgrammingService.contractUpdate(userId,productId);
 		
@@ -6535,9 +6541,20 @@ public class ShoppingController {
 		ChallengeProgrammingEvaluationDTO challengeprogrammingevaluationDTO = new ChallengeProgrammingEvaluationDTO();
 		challengeProgrammingEvaluationService.evaluationInsertOne(userId,productId,challengeprogrammingevaluationDTO,form);
 		
+		//契約情報を取得
+		ChallengeProgrammingDTO challengeprogrammingDTO = challengeProgrammingService.projectSelectOne(productId);
+		//契約情報を履歴テーブルに格納
+		ChallengeProgrammingHistoryDTO challengeProgrammingHistoryDTO = new ChallengeProgrammingHistoryDTO();
+		challengeProgrammingHistoryService.historyInsertOne(challengeprogrammingDTO,challengeProgrammingHistoryDTO);
+		//契約情報を削除
+		challengeProgrammingContractService.deleteOne(productId);
+		//契約情報の上書き
+		challengeProgrammingService.updateOne(productId);
 		
-		ChallengeProgrammingTradeForm challengeprogrammingtradeform = new ChallengeProgrammingTradeForm();
-		return postChallengeProgrammingTrade(challengeprogrammingtradeform,productId,model);
+		ChallengeProgrammingForm challengeprogrammingForm = new ChallengeProgrammingForm();
+		return getChallengeProgramming(challengeprogrammingForm,model);
+//		ChallengeProgrammingTradeForm challengeprogrammingtradeform = new ChallengeProgrammingTradeForm();
+//		return postChallengeProgrammingTrade(challengeprogrammingtradeform,productId,model);
 	}
 
 

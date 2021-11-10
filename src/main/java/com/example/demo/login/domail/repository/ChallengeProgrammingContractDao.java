@@ -44,4 +44,8 @@ public interface ChallengeProgrammingContractDao {
 	public int EndDateInsertOne(int productId,String simpleDate);
 	
 	public ChallengeProgrammingContractDTO startAndEndDateSelectOne(int productId);
+	
+	public int deleteOne(int productId);
+	
+	
 }

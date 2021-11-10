@@ -29,4 +29,8 @@ public class ChallengeProgrammingService {
 	public ChallengeProgrammingDTO selectBelongings(int productId) {
 		return dao.selectBelongings(productId);
 	}
+	
+	public int updateOne(int productId) {
+		return dao.updateOne(productId);
+	}
 }

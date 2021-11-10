@@ -287,4 +287,10 @@ public class ChallengeProgrammingContractDaoJdbcImpl implements ChallengeProgram
 		
 		return challengeprogrammingcontractdto;
 	}
+	
+	public int deleteOne(int productId) {
+		int result = jdbc.update("delete from challenge_programming_contract where contract_project_id = ?",productId);
+		
+		return result;
+	}
 }

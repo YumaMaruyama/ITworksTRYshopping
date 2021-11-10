@@ -93,6 +93,12 @@ public class ChallengeProgrammingDaoJdbcImpl implements ChallengeProgrammingDao 
 		return challengeprogrammingdto;
 	}
 	
+	public int updateOne(int productId) {
+		int result = jdbc.update("update challenge_programming set contract_user_id = null where id = ?",productId);
+		
+		return result;
+	}
+	
 	
 	
 	
