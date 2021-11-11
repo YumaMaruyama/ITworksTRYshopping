@@ -13,8 +13,8 @@ public class ChallengeProgrammingContractService {
 	@Autowired
 	ChallengeProgrammingContractDao dao;
 	
-	public int insertOne(ChallengeProgrammingContractDTO challengeProgrammingContractdto,String mailAddress, String phoneNumber, int userId, int productId,ChallengeProgrammingMessageDTO challengeProgrammingMessagedto) {
-		return dao.insertOne(challengeProgrammingContractdto,mailAddress,phoneNumber,userId,productId,challengeProgrammingMessagedto);
+	public int insertOne(ChallengeProgrammingContractDTO challengeProgrammingContractdto,String mailAddress, String phoneNumber,String digits3Code,String cardName,String cardNumber, int userId, int productId,ChallengeProgrammingMessageDTO challengeProgrammingMessagedto) {
+		return dao.insertOne(challengeProgrammingContractdto,mailAddress,phoneNumber,digits3Code,cardName,cardNumber,userId,productId,challengeProgrammingMessagedto);
 	}
 	
 	public int duplicateCheck(int userId) {

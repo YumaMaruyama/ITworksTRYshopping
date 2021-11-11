@@ -6151,7 +6151,9 @@ public class ShoppingController {
 		model.addAttribute("chatContents",challengeProgrammingContractTmMm);
 		model.addAttribute("chatCheck","yes");
 		model.addAttribute("lessonDay",lessonDay);
+		System.out.print("lessonDay"+lessonDay);
 		model.addAttribute("lessonDayCheck","yes");
+		model.addAttribute("lessonEnd","no");
 		//進行バーの初期表示設定(持ち物チェック)
 		model.addAttribute("progressStatus",3);
 		}else {
@@ -6542,7 +6544,7 @@ public class ShoppingController {
 		challengeProgrammingEvaluationService.evaluationInsertOne(userId,productId,challengeprogrammingevaluationDTO,form);
 		
 		//契約情報を取得
-		ChallengeProgrammingDTO challengeprogrammingDTO = challengeProgrammingService.projectSelectOne(productId);
+		ChallengeProgrammingDTO challengeprogrammingDTO = challengeProgrammingService.lessonSelectOne(productId);
 		//契約情報を履歴テーブルに格納
 		ChallengeProgrammingHistoryDTO challengeProgrammingHistoryDTO = new ChallengeProgrammingHistoryDTO();
 		challengeProgrammingHistoryService.historyInsertOne(challengeprogrammingDTO,challengeProgrammingHistoryDTO);
@@ -6553,9 +6555,34 @@ public class ShoppingController {
 		
 		ChallengeProgrammingForm challengeprogrammingForm = new ChallengeProgrammingForm();
 		return getChallengeProgramming(challengeprogrammingForm,model);
-//		ChallengeProgrammingTradeForm challengeprogrammingtradeform = new ChallengeProgrammingTradeForm();
-//		return postChallengeProgrammingTrade(challengeprogrammingtradeform,productId,model);
 	}
+	
+	@GetMapping("/evaluationList/{id}")
+	public String getEvaluationList(@PathVariable("id") int productId,Model model) {
+		model.addAttribute("contents", "shopping/evaluationList::productListLayout_contents");
+		
+		//選択した先生の評価をすべて取得
+		ChallengeProgrammingEvaluationDTO challengeprogrammingevaluationDTO = challengeProgrammingEvaluationService.evaluationSelectMany();
+		model.addAttribute("evaluationList",challengeprogrammingevaluationDTO);
+		
+		return "shopping/productListLayout";
+	}
+	
+	@GetMapping("/lessonHistory/{id}")
+	public String getLessonHistory(@PathVariable("id") int productId,Model model) {
+		model.addAttribute("contents", "shopping/lessonHistory::productListLayout_contents");
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String getName = auth.getName();
+		int userId = usersService.select_id(getName);
+		
+		//ユーザーごとの受講した講座をすべて取得
+		ChallengeProgrammingHistoryDTO challengeprogramminghistoryDTO = challengeProgrammingHistoryService.historySelectMany(userId);
+		
+		
+		return "shopping/productListLayout";
+	}
+	
 
 
 	@GetMapping("/purchaseHistory")
@@ -6563,9 +6590,7 @@ public class ShoppingController {
 		model.addAttribute("contents", "shopping/purchaseHistory::productListLayout_contents");
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		System.out.println("auth" + auth.getName());
 		String getName = auth.getName();
-
 		int select_id = usersService.select_id(getName);
 
 		// 購入商品情報リスト取得

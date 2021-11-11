@@ -20,8 +20,10 @@ public class ChallengeProgrammingHistoryDaoJdbcImpl implements ChallengeProgramm
 				+ " price,"
 				+ " teacher_name,"
 				+ " title,"
-				+ " content)"
-				+ " value(?,?,?,?,?,?)",challengeProgrammingHistoryDTO.getId(),challengeprogrammingDTO.getContractUserId(),challengeprogrammingDTO.getPrice(),challengeprogrammingDTO.getMyName(),challengeprogrammingDTO.getTitle(),challengeprogrammingDTO.getContent());
+				+ " content,"
+				+ " start_date,"
+				+ " end_date)"
+				+ " value(?,?,?,?,?,?,?,?)",challengeProgrammingHistoryDTO.getId(),challengeprogrammingDTO.getContractUserId(),challengeprogrammingDTO.getPrice(),challengeprogrammingDTO.getMyName(),challengeprogrammingDTO.getTitle(),challengeprogrammingDTO.getContent(),challengeprogrammingDTO.getStartDate(),challengeprogrammingDTO.getEndDate());
 		
 		return result;
 	}

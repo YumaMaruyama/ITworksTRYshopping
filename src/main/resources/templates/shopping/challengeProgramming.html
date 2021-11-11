@@ -19,9 +19,12 @@
 </head>
 <body>
 	<div th:fragment="productListLayout_contents">
-		<header>
-			<h1 class="titleDesign">チャレンジプログラミング</h1>
-		</header>
+	<table>
+		<tr>
+			<th><h1 class="titleDesign">チャレンジプログラミング</h1></th>
+			<th><h1 class="titleDesign"><a th:href="@{/lessonHistory}">講座履歴</a></h1></th>
+		</tr>
+	</table>
 		<div class="flex challengeProgrammingList" style="width: 1100px;">
 			<div class="item cardDesign" th:each="productdto : ${challengeProgrammingList}">
 				<img class="productSize" th:src="${productdto.img}">

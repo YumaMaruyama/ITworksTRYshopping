@@ -19,14 +19,14 @@ public class ChallengeProgrammingContractDaoJdbcImpl implements ChallengeProgram
 	JdbcTemplate jdbc;
 
 	public int insertOne(ChallengeProgrammingContractDTO challengeProgrammingContractdto, String mailAddress,
-			String phoneNumber, int userId, int productId,
+			String phoneNumber, String digits3Code, String cardName, String cardNumber, int userId, int productId,
 			ChallengeProgrammingMessageDTO challengeProgrammingMessagedto) {
 
 		int result = jdbc.update(
 				"insert into challenge_programming_contract (id," + " user_id," + " mail_address," + " phone_number,"
-						+ " contract_project_id," + " teacher_message1," + " teacher_message2," + " teacher_message3,"
-						+ " my_message1," + " my_message2," + " my_message3)" + " value(?,?,?,?,?,?,?,?,?,?,?)",
-				challengeProgrammingContractdto.getId(), userId, mailAddress, phoneNumber, productId,
+						+ " digits_3_code," + " card_name," + "card_number," + " contract_project_id," + " teacher_message1," + " teacher_message2," + " teacher_message3,"
+						+ " my_message1," + " my_message2," + " my_message3)" + " value(?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+				challengeProgrammingContractdto.getId(), userId, mailAddress, phoneNumber,digits3Code,cardName,cardNumber,productId,
 				challengeProgrammingMessagedto.getTeacherMessage1(),
 				challengeProgrammingMessagedto.getTeacherMessage2(),
 				challengeProgrammingMessagedto.getTeacherMessage3(), challengeProgrammingMessagedto.getMyMessage1(),
@@ -257,7 +257,7 @@ public class ChallengeProgrammingContractDaoJdbcImpl implements ChallengeProgram
 		}
 		return lessonCheck;
 	}
-	
+
 	public int lessonCheckUpdateOne(int productId) {
 		int result = jdbc.update(
 				"update challenge_programming_contract set lesson_check = '講座終了' where contract_project_id = ?",
@@ -265,32 +265,36 @@ public class ChallengeProgrammingContractDaoJdbcImpl implements ChallengeProgram
 
 		return result;
 	}
-	
-	public int startDateInsertOne(int productId,String simpleDate) {
-		int result = jdbc.update("update challenge_programming_contract set start_date = ? where contract_project_id = ?",simpleDate,productId);
-		
+
+	public int startDateInsertOne(int productId, String simpleDate) {
+		int result = jdbc.update(
+				"update challenge_programming_contract set start_date = ? where contract_project_id = ?", simpleDate,
+				productId);
+
 		return result;
 	}
-	
-	public int EndDateInsertOne(int productId,String simpleDate) {
-		int result = jdbc.update("update challenge_programming_contract set end_date = ? where contract_project_id = ?",simpleDate,productId);
-		
+
+	public int EndDateInsertOne(int productId, String simpleDate) {
+		int result = jdbc.update("update challenge_programming_contract set end_date = ? where contract_project_id = ?",
+				simpleDate, productId);
+
 		return result;
 	}
-	
+
 	public ChallengeProgrammingContractDTO startAndEndDateSelectOne(int productId) {
-		Map<String,Object> map = jdbc.queryForMap("select * from challenge_programming_contract where contract_project_id = ?",productId);
-		
+		Map<String, Object> map = jdbc
+				.queryForMap("select * from challenge_programming_contract where contract_project_id = ?", productId);
+
 		ChallengeProgrammingContractDTO challengeprogrammingcontractdto = new ChallengeProgrammingContractDTO();
-		challengeprogrammingcontractdto.setStartDate((Date)map.get("start_date"));
-		challengeprogrammingcontractdto.setEndDate((Date)map.get("end_date"));
-		
+		challengeprogrammingcontractdto.setStartDate((Date) map.get("start_date"));
+		challengeprogrammingcontractdto.setEndDate((Date) map.get("end_date"));
+
 		return challengeprogrammingcontractdto;
 	}
-	
+
 	public int deleteOne(int productId) {
-		int result = jdbc.update("delete from challenge_programming_contract where contract_project_id = ?",productId);
-		
+		int result = jdbc.update("delete from challenge_programming_contract where contract_project_id = ?", productId);
+
 		return result;
 	}
 }

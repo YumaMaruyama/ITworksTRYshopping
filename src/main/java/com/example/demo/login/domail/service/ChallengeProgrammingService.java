@@ -33,4 +33,8 @@ public class ChallengeProgrammingService {
 	public int updateOne(int productId) {
 		return dao.updateOne(productId);
 	}
+	
+	public ChallengeProgrammingDTO lessonSelectOne(int productId) {
+		return dao.lessonSelectOne(productId);
+	}
 }

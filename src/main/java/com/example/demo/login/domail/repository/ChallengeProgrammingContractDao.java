@@ -5,7 +5,7 @@ import com.example.demo.login.domail.model.ChallengeProgrammingMessageDTO;
 
 public interface ChallengeProgrammingContractDao {
 
-	public int insertOne(ChallengeProgrammingContractDTO challengeProgrammingContractdto,String mailAddress, String phoneNumber, int userId, int productId,ChallengeProgrammingMessageDTO challengeProgrammingMessagedto);
+	public int insertOne(ChallengeProgrammingContractDTO challengeProgrammingContractdto,String mailAddress, String phoneNumber,String digits3Code,String cardName,String cardNumber, int userId, int productId,ChallengeProgrammingMessageDTO challengeProgrammingMessagedto);
 
 	public int duplicateCheck(int userId);
 

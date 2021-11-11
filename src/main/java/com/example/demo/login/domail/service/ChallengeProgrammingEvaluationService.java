@@ -16,4 +16,8 @@ public class ChallengeProgrammingEvaluationService {
 	public int evaluationInsertOne(int userId,int productId,ChallengeProgrammingEvaluationDTO challengeprogrammingevaluationDTO,LessonEvaluationForm form) {
 		return dao.evaluationInsertOne(userId,productId,challengeprogrammingevaluationDTO,form);
 	}
+	
+	public ChallengeProgrammingEvaluationDTO evaluationSelectMany() {
+		return dao.evaluationSelectMany();
+	}
 }

@@ -46,4 +46,8 @@ public class ChallengeProgrammingDTO {
 	private String fixableTimeToGetTime;
 	
 	private int  contractUserId;
+	
+	private Date startDate;
+	
+	private Date endDate;
 }

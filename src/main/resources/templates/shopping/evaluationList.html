@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	
+	<div th:fragment="productListLayout_contents">
+		<header>
+			<h1 class="titleDesign">評価一覧</h1>
+		</header>
+		
+		<table class="table table-bordered">
+		
+			<tr>
+				<th>講座教授</th>
+				<th>講座受講した方</th>
+				<th>評価</th>
+				<th>評価内容</th>
+				<th>評価日</th>
+			</tr>
+			
+			<tr th:each="evaluationList : ${evaluationList}">
+				<td th:text="${evaluationList.teacherName}"></td>
+				<td th:text="${evaluationList.userName}"></td>
+				<td th:text="${evaluationList.rate}"></td>
+				<td th:text="${evaluationList.evaluationDetail}"></td>
+				<td th:text="${#dates.format(evaluationList.registrationDate, 'yyyy-MM-dd ah:mm')}"></td>
+			</tr>
+		
+		</table>
+	</div>
+</body>
+</html>

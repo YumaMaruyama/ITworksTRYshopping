@@ -106,7 +106,7 @@
 		<div class="flex challengeProgrammingTradeNextList">
 			<div class="item challengeProgrammingTradeCardDesign">
 				<h4>講座日程</h4>
-				<h5 th:if="${lessonDayCheck} != 'no' and ${lessonEnd} == 'no'" th:text="${lessonDay}"></h5>
+				<h5 th:if="${lessonDayCheck} == 'yes' and ${lessonEnd} == 'no'" th:text="${lessonDay}"></h5>
 				<h5 th:if="${lessonEnd} == 'yes'" th:text="${startDate} + 'から' + ${endDate} + 'まで受講しました。'"></h5>
 			</div>
 			

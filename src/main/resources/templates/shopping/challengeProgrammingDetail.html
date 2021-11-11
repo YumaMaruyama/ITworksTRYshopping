@@ -23,19 +23,20 @@
 		<header>
 			<h1 class="titleDesign">プロジェクト詳細</h1>
 		</header>
-		
+
 		<div class="challengeProgrammingDetailScroll">
-		<table class="table table-bordered projectDetailTableDesigin ">
+			<table class="table table-bordered projectDetailTableDesigin ">
 				<tr class="challeProThDesign">
 					<th class="text-center challeProTitleThDesign">題名</th>
 					<th class="text-center challeProContentThDesign">内容</th>
 				</tr>
-				<tr th:each="product : ${challengeProgrammingOne}" class="challeProTdDesign">
+				<tr th:each="product : ${challengeProgrammingOne}"
+					class="challeProTdDesign">
 					<td class="text-center padding" th:text="${product.title}"></td>
 					<td class="text-center padding" th:text="${product.content}"></td>
 				</tr>
 			</table>
-			
+
 			<table class="table table-bordered projectDetailTwoTableDesigin">
 				<tr class="challeProThDesign">
 					<th class="text-center challeProLearnSpaceThDesign">学習場所</th>
@@ -43,15 +44,18 @@
 					<th class="text-center challeProFixableTimeFromToGetTimeThDesignng">勤務可能時間</th>
 					<th class="text-center challeProPriceThDesign">値段</th>
 				</tr>
-				<tr th:each="product : ${challengeProgrammingOne}" class="challeProTdDesign">
+				<tr th:each="product : ${challengeProgrammingOne}"
+					class="challeProTdDesign">
 					<td class="text-center padding" th:text="${product.learnSpace}"></td>
-					<td class="text-center padding" th:text="${product.workingTimes} + '時間'"></td>
-					<td class="text-center padding" th:text="${product.fixableTimeFromGetTime} + '-' + ${product.fixableTimeToGetTime}"></td>
+					<td class="text-center padding"
+						th:text="${product.workingTimes} + '時間'"></td>
+					<td class="text-center padding"
+						th:text="${product.fixableTimeFromGetTime} + '-' + ${product.fixableTimeToGetTime}"></td>
 					<td class="text-center padding" th:text="${product.price} + '円'"></td>
 				</tr>
 			</table>
-			
-		<table class="table table-bordered projectDetailThreeTableDesigin">
+
+			<table class="table table-bordered projectDetailThreeTableDesigin">
 				<tr class="challeProThDesign">
 					<th class="text-center challeProMyNameThDesign">ネーム</th>
 					<th class="text-center challeProBirthplaceThDesign">出身地</th>
@@ -59,36 +63,40 @@
 					<th class="text-center challeProEducationalBackgroundThDesign">学歴</th>
 					<th class="text-center challeProPositionThDesign">ポジション</th>
 				</tr>
-				<tr th:each="product : ${challengeProgrammingOne}" class="challeProTdDesign">
+				<tr th:each="product : ${challengeProgrammingOne}"
+					class="challeProTdDesign">
 					<td class="text-center padding" th:text="${product.myName}"></td>
 					<td class="text-center padding" th:text="${product.birthplace}"></td>
 					<td class="text-center padding" th:text="${product.nationality}"></td>
-					<td class="text-center padding" th:text="${product.educationalBackground} + '卒業'"></td>
+					<td class="text-center padding"
+						th:text="${product.educationalBackground} + '卒業'"></td>
 					<td class="text-center padding" th:text="${product.position}"></td>
 				</tr>
 			</table>
-			
+
 			<table class="table table-bordered projectDetailFourTableDesigin">
 				<tr class="challeProThDesign">
 					<th class="text-center challeProBelongingsThDesign">持ち物</th>
 					<th class="text-center challeProSteupThDesign">PC環境準備</th>
 				</tr>
-				<tr th:each="product : ${challengeProgrammingOne}" class="challeProTdDesign">
+				<tr th:each="product : ${challengeProgrammingOne}"
+					class="challeProTdDesign">
 					<td class="text-center padding" th:text="${product.belongings}"></td>
 					<td class="text-center padding" th:text="${product.steup}"></td>
 				</tr>
 			</table>
-			
+
 			<table class="table table-bordered projectDetailFiveTableDesigin">
 				<tr class="challeProThDesign">
 					<th class="text-center padding">教え主からのコメント</th>
 				</tr>
-				<tr th:each="product : ${challengeProgrammingOne}" class="challeProTdDesign">
+				<tr th:each="product : ${challengeProgrammingOne}"
+					class="challeProTdDesign">
 					<td class="text-center padding" th:text="${product.voiceTeacher}"></td>
 				</tr>
 			</table>
-			
-			<table class="table projectDetailSixTableDesigin">
+
+			<!-- 	<table class="table projectDetailSixTableDesigin">
 				<tr th:each="product : ${challengeProgrammingOne}">			
 					
 					<td><img class="productDetailImgSize text-center" th:src="${product.img}"></td>
@@ -100,8 +108,55 @@
 </a></td>			
 				</tr>
 			</table>
+			 -->
+			<div class="flex challengeProgrammingTradeList"
+				th:each="product : ${challengeProgrammingOne}">
+				
+				<div class="item challengeProgrammingTradeCardDesign">
+					<a th:href="@{/evaluationList} + '/' + ${product.id}">この人の評価一覧</a>
+				</div>
+				
+				<div class="item challengeProgrammingTradeCardDesign">
+					<img class="productDetailImgSize text-center"
+						th:src="${product.img}">
+
+				</div>
+
+
+				<div class="item challengeProgrammingTradeCardDesign"
+					th:if="${product.contractUserId} > 0 and ${product.contractUserId} != ${userId}">
+					<span>現在ほかの契約者がいます。</span>
+				</div>
+
+
+
+				<div class="item challengeProgrammingTradeCardDesign"
+					th:if="${product.contractUserId} > 0 and ${product.contractUserId} == ${userId}">
+					<form method="post" th:action="@{/challengeProgrammingTrade}">
+						<input type="hidden" name="productId" th:value="${productId}">
+						<button>取引画面へ</button>
+					</form>
+				</div>
+
+				<div class="item challengeProgrammingTradeCardDesign"
+					th:if="${product.contractUserId} lt 1">
+					<a
+						th:href="@{/challengeProgrammingBeforeContract} + '/' + ${product.id}"
+						class="Btn btn-coupon"><i class="fa fa-cut"></i>
+						<div class="left">
+							<span>早い人</span><br>勝ち!
+						</div>
+						<div class="right">
+							契約詳細は<br>こちらをクリック！<span>このボタンを押しても契約完了<br>ではありません。
+							</span>
+						</div> </a>
+				</div>
+
+			</div>
+
+
 		</div>
-		
+
 	</div>
 
 </body>

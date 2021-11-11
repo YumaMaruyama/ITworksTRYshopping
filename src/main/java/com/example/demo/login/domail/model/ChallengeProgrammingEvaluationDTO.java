@@ -11,7 +11,13 @@ public class ChallengeProgrammingEvaluationDTO {
 	
 	private int teacherId;
 	
+	private String teacherName;
+	
 	private int userId;
+	
+	private String userName;
+	
+	private int rate;
 	
 	private String evaluationDetail;
 	
