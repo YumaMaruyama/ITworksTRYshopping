@@ -1,6 +1,8 @@
 package com.example.demo.login.domail.repository.jdbc;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,17 +31,23 @@ public class ChallengeProgrammingEvaluationDaoJdbcImpl implements ChallengeProgr
 		return result;
 	}
 	
-	public ChallengeProgrammingEvaluationDTO evaluationSelectMany() {
-		Map<String,Object> map = jdbc.queryForMap("select challenge_programming_evaluation.id,challenge_programming_evaluation.rate,challenge_programming_evaluation.evaluation_detail,challenge_programming_evaluation.registration_date,challenge_programming.my_name,users.user_name from challenge_programming_evaluation join challenge_programming on challenge_programming.id = challenge_programming_evaluation.teacher_id join users on users.id = challenge_programming_evaluation.user_id");
+	public List<ChallengeProgrammingEvaluationDTO> evaluationSelectMany() {
+		List<Map<String,Object>> mapList = jdbc.queryForList("select challenge_programming_evaluation.id,challenge_programming_evaluation.rate,challenge_programming_evaluation.evaluation_detail,challenge_programming_evaluation.registration_date,challenge_programming.my_name,users.user_name from challenge_programming_evaluation join challenge_programming on challenge_programming.id = challenge_programming_evaluation.teacher_id join users on users.id = challenge_programming_evaluation.user_id");
+		
+		List<ChallengeProgrammingEvaluationDTO> challengeprogrammingevaluationDTOList = new ArrayList<>();
+		
+		for(Map<String,Object> oneMap : mapList) {
 		
 		ChallengeProgrammingEvaluationDTO challengeprogrammingevaluationDTO = new ChallengeProgrammingEvaluationDTO();
-		challengeprogrammingevaluationDTO.setId((int)map.get("id"));
-		challengeprogrammingevaluationDTO.setTeacherName((String)map.get("my_name"));
-		challengeprogrammingevaluationDTO.setUserName((String)map.get("user_name"));
-		challengeprogrammingevaluationDTO.setRate((int)map.get("rate"));
-		challengeprogrammingevaluationDTO.setEvaluationDetail((String)map.get("evaluation_detail"));
-		challengeprogrammingevaluationDTO.setRegistrationDate((Date)map.get("registration_date"));
+		challengeprogrammingevaluationDTO.setId((int)oneMap.get("id"));
+		challengeprogrammingevaluationDTO.setTeacherName((String)oneMap.get("my_name"));
+		challengeprogrammingevaluationDTO.setUserName((String)oneMap.get("user_name"));
+		challengeprogrammingevaluationDTO.setRate((int)oneMap.get("rate"));
+		challengeprogrammingevaluationDTO.setEvaluationDetail((String)oneMap.get("evaluation_detail"));
+		challengeprogrammingevaluationDTO.setRegistrationDate((Date)oneMap.get("registration_date"));
+		challengeprogrammingevaluationDTOList.add(challengeprogrammingevaluationDTO);
+		}
+		return challengeprogrammingevaluationDTOList;
 		
-		return challengeprogrammingevaluationDTO;
 	}
 }

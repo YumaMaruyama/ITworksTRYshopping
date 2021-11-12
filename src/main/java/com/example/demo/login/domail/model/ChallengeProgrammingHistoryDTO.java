@@ -1,5 +1,7 @@
 package com.example.demo.login.domail.model;
 
+import java.util.Date;
+
 import lombok.Data;
 
 @Data
@@ -15,5 +17,9 @@ public class ChallengeProgrammingHistoryDTO {
 	
 	private String title;
 	
-	private String ccontent;
+	private String content;
+	
+	private Date startDate;
+	
+	private Date endDate;
 }

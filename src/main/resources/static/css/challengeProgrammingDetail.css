@@ -3,7 +3,7 @@
 .productDetailImgSize {
 	width: 135px !important;
 	height: 135px !important;
-	margin-left: 240px;
+	
 }
 
 .challengeProgrammingDetailScroll {
@@ -11,6 +11,14 @@
 	overflow-y: scroll;
 	height: 530px;
     width: 1118px;
+}
+
+.challengeProgrammingDetailList {
+	display: auto !important;
+	overflow-y: scroll;
+	height: 122px;
+	margin-right: 60px;
+	width:1100px;
 }
 
 
@@ -110,6 +118,11 @@
 
 .challeProTdDesign {
 	background: aliceblue;
+}
+
+.challengeProgrammingDetailCardDesign {
+	margin-left:55px;
+	width: 150px !important;
 }
 
 
@@ -275,3 +288,105 @@ a.btn-coupon:hover .left {
 a.btn-coupon:hover .right {
   background: #f1e767;
 }
+
+
+
+
+a.btn--circle {
+  width: 135px;
+  height: 115px;
+  padding: 20px 0 0;
+  border-radius: 50%;
+  color: #fff;
+  background: #eb6877;
+  -webkit-box-shadow: 0 7px 0 #e53b4e;
+  box-shadow: 0 7px 0 #e53b4e;
+}
+
+a.btn--circle i {
+  font-size: 150%;
+}
+
+
+.challengeProgrammingDetail-fa-position-top {
+  position: absolute;
+    top: 1rem;
+    left: 55px;
+}
+
+.challengeProgrammingDetail-fa-position-bottom {
+  position: absolute;
+    bottom: 0rem;
+    left: 58px;
+}
+
+
+a.btn--circle:hover {
+  -webkit-transform: translate(0, 4px);
+  transform: translate(0, 4px);
+  color: #fff;
+  -webkit-box-shadow: 0 3px 0 #e53b4e;
+  box-shadow: 0 3px 0 #e53b4e;
+}
+
+button.btn {
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.5;
+  position: relative;
+  display: inline-block;
+  padding: 1rem 4rem;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  text-align: center;
+  vertical-align: middle;
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  color: #212529;
+  border-radius: 0.5rem;
+}
+
+button.btn-coupon {
+  line-height: 1.2;
+  border-radius: 0;
+  background: #ddf404;
+  width: 230px;
+  padding-top: 20px;
+}
+
+button.btn-coupon span {
+  font-family: "Roboto", sans-serif;
+  font-size: 3rem;
+}
+
+button.btn-coupon:before,
+button.btn-coupon:after {
+  position: absolute;
+  top: calc(50% - 15px);
+
+  width: 30px;
+  height: 30px;
+
+  content: "";
+
+  border-radius: 50%;
+  background: #fff;
+}
+
+button.btn-coupon:before {
+  left: -15px;
+}
+
+button.btn-coupon:after {
+  right: -15px;
+}
+
+button.btn-coupon:hover {
+  background: #e4fb0c;
+}
+

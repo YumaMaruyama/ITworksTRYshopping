@@ -96,49 +96,37 @@
 				</tr>
 			</table>
 
-			<!-- 	<table class="table projectDetailSixTableDesigin">
-				<tr th:each="product : ${challengeProgrammingOne}">			
-					
-					<td><img class="productDetailImgSize text-center" th:src="${product.img}"></td>
-					<td th:if="${product.contractUserId} > 0 and ${product.contractUserId} != ${userId}"><span>現在ほかの契約者がいます。</span></td>
-					<td th:if="${product.contractUserId} > 0 and ${product.contractUserId} == ${userId}"><form method="post" th:action="@{/challengeProgrammingTrade}"><input type="hidden" name="productId" th:value="${productId}"><button>取引画面へ</button></form></td>			
-					<td th:if="${product.contractUserId} lt 1"><a th:href="@{/challengeProgrammingBeforeContract} + '/' + ${product.id}" class="Btn btn-coupon"><i class="fa fa-cut"></i>
-  <div class="left"><span>早い人</span><br>勝ち!</div>
-  <div class="right">契約詳細は<br>こちらをクリック！<span>このボタンを押しても契約完了<br>ではありません。</span></div>
-</a></td>			
-				</tr>
-			</table>
-			 -->
-			<div class="flex challengeProgrammingTradeList"
+			
+			<div class="flex challengeProgrammingDetailList"
 				th:each="product : ${challengeProgrammingOne}">
 				
-				<div class="item challengeProgrammingTradeCardDesign">
-					<a th:href="@{/evaluationList} + '/' + ${product.id}">この人の評価一覧</a>
-				</div>
+				<a th:href="@{/evaluationList} + '/' + ${product.id}" class="btn btn--circle"><i class="fa fa-thumbs-up challengeProgrammingDetail-fa-position-top"></i><br>この人の評価<br>一覧<i class="fa fa-angle-down challengeProgrammingDetail-fa-position-bottom"></i></a>
 				
-				<div class="item challengeProgrammingTradeCardDesign">
+				<div class="item challengeProgrammingDetailCardDesign">
 					<img class="productDetailImgSize text-center"
 						th:src="${product.img}">
 
 				</div>
 
 
-				<div class="item challengeProgrammingTradeCardDesign"
+				<div class="item challengeProgrammingDetailCardDesign"
 					th:if="${product.contractUserId} > 0 and ${product.contractUserId} != ${userId}">
-					<span>現在ほかの契約者がいます。</span>
+					<img class="guidancePersonImgSize" th:src="@{/css/javaiconContract.png}">
 				</div>
 
 
 
-				<div class="item challengeProgrammingTradeCardDesign"
+				<div class="item challengeProgrammingDetailCardDesign"
 					th:if="${product.contractUserId} > 0 and ${product.contractUserId} == ${userId}">
 					<form method="post" th:action="@{/challengeProgrammingTrade}">
 						<input type="hidden" name="productId" th:value="${productId}">
-						<button>取引画面へ</button>
+						<button class="btn btn-coupon"><span>取引画面へ</span></button>
 					</form>
 				</div>
 
-				<div class="item challengeProgrammingTradeCardDesign"
+				
+
+				<div class="item challengeProgrammingDetailCardDesign"
 					th:if="${product.contractUserId} lt 1">
 					<a
 						th:href="@{/challengeProgrammingBeforeContract} + '/' + ${product.id}"

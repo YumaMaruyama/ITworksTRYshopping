@@ -1,0 +1,42 @@
+@charset "UTF-8";
+
+.lessonHistoryTable {
+	
+}
+
+.lessonHistoryListScroll {
+	display: block;
+	overflow-y: scroll;
+	height: 534px;
+	font-size:14px;
+	width:1100px;
+}
+
+
+.lessonHistoryTeacherNameDesign {
+	width:200px;
+}
+
+.lessonHistoryTitleDesign {
+	width:200px;
+}
+
+.lessonHistoryContentDesign {
+	width:425px;
+}
+
+.lessonHistoryPriceDesign {
+	width:80px;
+}
+
+.lessonHistoryDateDesign {
+	width:205px;
+}
+
+.lessonHistoryListBackColorTop { 
+	background: #e9e3b9;
+}
+
+.lessonHistoryListBackColorButtom {
+	background: #f2f7cb
+}

@@ -1,5 +1,7 @@
 package com.example.demo.login.domail.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,5 +17,9 @@ public class ChallengeProgrammingHistoryService {
 	
 	public int historyInsertOne(ChallengeProgrammingDTO challengeprogrammingDTO,ChallengeProgrammingHistoryDTO challengeProgrammingHistoryDTO) {
 		return dao.historyInsertOne(challengeprogrammingDTO,challengeProgrammingHistoryDTO);
+	}
+	
+	public List<ChallengeProgrammingHistoryDTO> historySelectMany(int userId) {
+		return dao.historySelectMany(userId);
 	}
 }

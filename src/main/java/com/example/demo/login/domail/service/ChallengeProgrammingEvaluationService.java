@@ -1,5 +1,7 @@
 package com.example.demo.login.domail.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +19,7 @@ public class ChallengeProgrammingEvaluationService {
 		return dao.evaluationInsertOne(userId,productId,challengeprogrammingevaluationDTO,form);
 	}
 	
-	public ChallengeProgrammingEvaluationDTO evaluationSelectMany() {
+	public List<ChallengeProgrammingEvaluationDTO> evaluationSelectMany() {
 		return dao.evaluationSelectMany();
 	}
 }

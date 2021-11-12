@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	
+	<div th:fragment="productListLayout_contents">
+		<header>
+			<h1 class="titleDesign">受講講座一覧</h1>
+		</header>
+		
+		<div class="lessonHistoryListScroll">
+		<table class="table table-bordered lessonHistoryTable">
+			<tr class="lessonHistoryListBackColorTop">
+				<th class="text-center lessonHistoryTeacherNameDesign">講座教授名</th>
+				<th class="text-center lessonHistoryTitleDesign">講座名</th>
+				<th class="text-center lessonHistoryContentDesign">講座内容</th>
+				<th class="text-center lessonHistoryPriceDesign">値段</th>
+				<th class="text-center lessonHistoryDateDesign">受講時間</th>
+			</tr>
+			
+			<tr class="lessonHistoryListBackColorButtom" th:each=" historyList : ${historyList}">
+				<td class="text-center lessonHistoryTeacherNameDesign" th:text="${historyList.teacherName}"></td>
+				<td class="text-center lessonHistoryTitleDesign" th:text="${historyList.title}"></td>
+				<td class="text-center lessonHistoryContentDesign" th:text="${historyList.content}"></td>
+				<td class="text-center lessonHistoryPriceDesign" th:text="${historyList.price} + '円'"></td>
+				<td class="text-center lessonHistoryDateDesign" th:text="${#dates.format(historyList.startDate,'yyyy-MM-dd ah:mm:ss')} + '～' + ${#dates.format(historyList.endDate,'yyyy-MM-dd ah:mm:ss')}"></td>
+			</tr>
+			
+		
+		</table>
+		</div>
+	</div>
+</body>
+</html>

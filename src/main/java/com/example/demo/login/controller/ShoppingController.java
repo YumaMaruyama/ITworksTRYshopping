@@ -5996,9 +5996,7 @@ public class ShoppingController {
 	public String getChallengeProgramming(@ModelAttribute ChallengeProgrammingForm form,Model model) {
 		model.addAttribute("contents", "shopping/challengeProgramming::productListLayout_contents");
 
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String getName = auth.getName();
-		int userId = usersService.select_id(getName);
+		
 		
 		List<ChallengeProgrammingDTO> challengeProgrammingdto = challengeProgrammingService.projectSelectMany();//商品の情報をすべて取得
 		
@@ -6562,14 +6560,14 @@ public class ShoppingController {
 		model.addAttribute("contents", "shopping/evaluationList::productListLayout_contents");
 		
 		//選択した先生の評価をすべて取得
-		ChallengeProgrammingEvaluationDTO challengeprogrammingevaluationDTO = challengeProgrammingEvaluationService.evaluationSelectMany();
-		model.addAttribute("evaluationList",challengeprogrammingevaluationDTO);
+		List<ChallengeProgrammingEvaluationDTO> challengeprogrammingevaluationDTOList = challengeProgrammingEvaluationService.evaluationSelectMany();
+		model.addAttribute("evaluationList",challengeprogrammingevaluationDTOList);
 		
 		return "shopping/productListLayout";
 	}
 	
-	@GetMapping("/lessonHistory/{id}")
-	public String getLessonHistory(@PathVariable("id") int productId,Model model) {
+	@GetMapping("/lessonHistory")
+	public String getLessonHistory(Model model) {
 		model.addAttribute("contents", "shopping/lessonHistory::productListLayout_contents");
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -6577,8 +6575,8 @@ public class ShoppingController {
 		int userId = usersService.select_id(getName);
 		
 		//ユーザーごとの受講した講座をすべて取得
-		ChallengeProgrammingHistoryDTO challengeprogramminghistoryDTO = challengeProgrammingHistoryService.historySelectMany(userId);
-		
+		List<ChallengeProgrammingHistoryDTO> challengeprogramminghistoryDTOList = challengeProgrammingHistoryService.historySelectMany(userId);
+		model.addAttribute("historyList",challengeprogramminghistoryDTOList);
 		
 		return "shopping/productListLayout";
 	}
