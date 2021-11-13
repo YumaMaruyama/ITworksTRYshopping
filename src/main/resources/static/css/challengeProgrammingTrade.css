@@ -47,6 +47,66 @@
 	padding-left: 77px;	
 }
 
+
+a.btn-flat {
+  overflow: hidden;
+
+  padding: 1.5rem 6rem;
+
+  color: #fff;
+  border-radius: 0;
+  background: #000;
+}
+
+a.btn-flat span {
+  position: relative;
+  z-index: 1;
+}
+
+a.btn-flat:before {
+  position: absolute;
+  top: 0;
+  left: calc(-150% + 50px);
+
+  width: 150%;
+  height: 500%;
+
+  content: '';
+  -webkit-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;
+  -webkit-transform: rotate(45deg) translateX(0) translateY(0);
+  transform: rotate(45deg) translateX(0) translateY(0);
+
+  background: #fff100;
+}
+
+a.btn-flat:after {
+  position: absolute;
+  top: -400%;
+  right: calc(-150% + 50px);
+
+  width: 150%;
+  height: 500%;
+
+  content: '';
+  -webkit-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;
+  -webkit-transform: rotate(45deg) translateX(0) translateY(0);
+  transform: rotate(45deg) translateX(0) translateY(0);
+
+  background: #fff100;
+}
+
+a.btn-flat:hover:before {
+  -webkit-transform: rotate(45deg) translateX(0) translateY(-50%);
+  transform: rotate(45deg) translateX(0) translateY(-50%);
+}
+
+a.btn-flat:hover:after {
+  -webkit-transform: rotate(45deg) translateX(0) translateY(50%);
+  transform: rotate(45deg) translateX(0) translateY(50%);
+}
+
 #map {
   height: 400px;
   width: 600px;

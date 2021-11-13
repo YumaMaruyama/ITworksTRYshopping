@@ -77,28 +77,28 @@
 				</div>
 				<div th:if="${chatCheck} == 'yes' and ${lessonDayCheck} == 'no'">
 					<img class="guidancePersonImgSize" th:src="@{/css/javaicon.png}">
-					<a th:href="@{/scheduleAdjustment} + '/' + ${productId}">日程設定</a>
+					<a th:href="@{/scheduleAdjustment} + '/' + ${productId}" class="btn btn-flat"><span>日程設定</span></a>
 				</div>
 				<div th:if="${lessonDayCheck} == 'yes' and ${belongngs} == 'no'">
 					<img class="guidancePersonImgSize" th:src="@{/css/javaicon.png}">
-					<a th:href="@{/belongingsCheck} + '/' + ${productId}">持ち物チェック</a>
+					<a th:href="@{/belongingsCheck} + '/' + ${productId}" class="btn btn-flat"><span>持物確認</span></a>
 				</div>
 				<div th:if="${belongngs} == 'yes' and ${location} == 'no'">
 					<img class="guidancePersonImgSize" th:src="@{/css/javaicon.png}">
-					<a th:href="@{/locationConfirmation} + '/' + ${productId}">場所確認</a>
+					<a th:href="@{/locationConfirmation} + '/' + ${productId}" class="btn btn-flat"><span>場所確認</span></a>
 				</div>
 				<div th:if="${location} == 'yes' and ${lessonCheck} == 'no'">
 					<img class="guidancePersonImgSize" th:src="@{/css/javaicon.png}">
-					<a th:href="@{/currentDayTrading} + '/' + ${productId}">取引当日ボタン</a>
-					<a th:href="@{/lessonStart} + '/' + ${productId}">講座開始画面へ</a>
+					<a th:href="@{/currentDayTrading} + '/' + ${productId}" class="btn btn-flat">取引日コード</a>
+					<a th:href="@{/lessonStart} + '/' + ${productId}" class="btn btn-flat">講座開始へ</a>
 				</div>
 				<div th:if="${lessonCheck} == 'yes' and ${lessonEnd} == 'no'">
 					<img class="guidancePersonImgSize" th:src="@{/css/javaicon.png}">
-					<a th:href="@{/lessonEnd} + '/' + ${productId}">講座完了</a>
+					<a th:href="@{/lessonEnd} + '/' + ${productId}" class="btn btn-flat">講座完了</a>
 				</div>
 				<div th:if="${lessonCheck} == 'yes' and ${lessonEnd} == 'yes'">
 					<img class="guidancePersonImgSize" th:src="@{/css/javaicon.png}">
-					<a th:href="@{/lessonEvaluation} + '/' + ${productId}">講座評価</a>
+					<a th:href="@{/lessonEvaluation} + '/' + ${productId}" class="btn btn-flat">講座評価</a>
 				</div>
 			</div>
 		</div>
