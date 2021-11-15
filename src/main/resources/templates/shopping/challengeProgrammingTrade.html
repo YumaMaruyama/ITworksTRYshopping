@@ -69,8 +69,8 @@
 					th:text="${chatContents.myMessage3} + '：' + '[' +  ${chatContents.userName} + ']'"></h4>
 			</div>
 
-			<div class="item challengeProgrammingTradeCardDesign">
-				<h3>取引設定</h3>
+			<div class="item challengeProgrammingTradeCardDesign" >
+				<h3 class="tradeTitle">取引設定</h3>
 				<div th:if="${chatCheck} == 'no'">
 					<img class="guidancePersonImgSize" th:src="@{/css/javaicon.png}">
 					<h3>あいさつをしよう</h3>
@@ -89,16 +89,16 @@
 				</div>
 				<div th:if="${location} == 'yes' and ${lessonCheck} == 'no'">
 					<img class="guidancePersonImgSize" th:src="@{/css/javaicon.png}">
-					<a th:href="@{/currentDayTrading} + '/' + ${productId}" class="btn btn-flat">取引日コード</a>
-					<a th:href="@{/lessonStart} + '/' + ${productId}" class="btn btn-flat">講座開始へ</a>
+					<a th:href="@{/currentDayTrading} + '/' + ${productId}" class="btn btn-flat"><span>当日用QRコード</span></a>
+					<a th:href="@{/lessonStart} + '/' + ${productId}" class="btn btn-flat btn-flatModify"><span>講座開始へ</span></a>
 				</div>
 				<div th:if="${lessonCheck} == 'yes' and ${lessonEnd} == 'no'">
 					<img class="guidancePersonImgSize" th:src="@{/css/javaicon.png}">
-					<a th:href="@{/lessonEnd} + '/' + ${productId}" class="btn btn-flat">講座完了</a>
+					<a th:href="@{/lessonEnd} + '/' + ${productId}" class="btn btn-flat"><span>講座完了</span></a>
 				</div>
 				<div th:if="${lessonCheck} == 'yes' and ${lessonEnd} == 'yes'">
 					<img class="guidancePersonImgSize" th:src="@{/css/javaicon.png}">
-					<a th:href="@{/lessonEvaluation} + '/' + ${productId}" class="btn btn-flat">講座評価</a>
+					<a th:href="@{/lessonEvaluation} + '/' + ${productId}" class="btn btn-flat"><span>講座評価</span></a>
 				</div>
 			</div>
 		</div>

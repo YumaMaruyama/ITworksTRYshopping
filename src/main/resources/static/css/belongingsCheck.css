@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+.belongingsCheckTh {
+	background: #dfc7a7;
+}
+
+.belongingsCheckTd {
+	background: #f5dfc1;
+}
+
+.belongingsCheckTable {
+	width:1100px;
+	font-size: 14px;
+}

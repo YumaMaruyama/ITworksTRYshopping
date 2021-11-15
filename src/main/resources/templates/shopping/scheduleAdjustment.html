@@ -15,12 +15,21 @@
 		<form method="post" th:action="@{/acheduleAdjustment} + '/' + ${productId}">
 		<table class="table table-bordered">
 		<div th:each="dayList : ${dayList}">
-			 <button type="submit" name="day" th:value="${dayList}" th:text="${dayList}"></button>
+			 <button type="submit" name="day" th:value="${dayList}" th:text="${dayList}" class="btn btn-border dayClick"></button>
 		</div>
 		</table>
 		</form>
 		
-		
+		<script>
+			$('.dayClick').click(function() {
+				if (confirm('選択した日付でよろしいですか？')) {
+
+					return true;
+				}
+				return false;
+			});
+		</script>
+				
 	</div>
 
 </body>

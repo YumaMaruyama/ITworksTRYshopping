@@ -14,17 +14,17 @@
 
 		<form method="post" th:action="@{/belongingsCheck}">
 		<input type="hidden" name="id" th:value="${productId}">
-			<table class="table table-bordered">
+			<table class="table table-bordered belongingsCheckTable">
 
 				<div th:each="belongingsList : ${belongingsList}">
-					<tr>
-						<th>持ち物</th>
-						<td th:text="${belongingsList.belongings}"></td>
+					<tr class="belongingsCheckTr">
+						<th class="belongingsCheckTh">持ち物</th>
+						<td class="belongingsCheckTd" th:text="${belongingsList.belongings}"></td>
 					</tr>
 
-					<tr>
-						<th>PC環境</th>
-						<td th:text="${belongingsList.steup}"></td>
+					<tr class="belongingsCheckTr">
+						<th class="belongingsCheckTh">PC環境</th>
+						<td class="belongingsCheckTd" th:text="${belongingsList.steup}"></td>
 					</tr>
 				</div>
 			</table>
@@ -34,7 +34,7 @@
 					<label><input class="check" type="checkbox" name="check"
 						autocomplete="off" id="agree"><span>上記のことを確認し、理解しました。</span></label>
 				</div>
-				<input class="submit" type="submit" id="submit" value="送信" />
+				<input class="submit" type="submit" id="submit" value="OK" />
 			</div>
 
 		</form>

@@ -6,6 +6,12 @@
 	
 }
 
+.contractGuidancePersonImgSize {
+	width: 135px !important;
+	height: 135px !important;
+	margin-left: 0px;
+}
+
 .challengeProgrammingDetailScroll {
 	display: auto !important;
 	overflow-y: scroll;
@@ -387,6 +393,6 @@ button.btn-coupon:after {
 }
 
 button.btn-coupon:hover {
-  background: #e4fb0c;
+  background: #eb6877;
 }
 

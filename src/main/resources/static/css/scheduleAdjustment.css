@@ -1,0 +1,12 @@
+@charset "UTF-8";
+
+button.btn-border {
+  border: 2px solid #000;
+  border-radius: 0;
+  background: #fff;
+}
+
+button.btn-border:hover {
+  color: #fff;
+  background: #000;
+}

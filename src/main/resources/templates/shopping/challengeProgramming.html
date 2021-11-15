@@ -45,7 +45,7 @@
 					th:text="'[講座時間]：' + ${productdto.workingTimes} + '時間'"></p>
 				<p class="card-text  fontdesign stock"
 					style="margin-bottom: 0px !important"
-					th:text="'[勤務可能時間]：' + ${productdto.fixableTimeFromGetTime} + '-' + ${productdto.fixableTimeToGetTime}"></p>
+					th:text="'[講座時間帯]：' + ${productdto.fixableTimeFromGetTime} + '-' + ${productdto.fixableTimeToGetTime}"></p>
 				<a class="text-center productDetailLync"
 					th:href="@{/challengeProgrammingDetail} + '/' + ${productdto.id}"><span
 					class="productDetailDesigin">詳細画面に行く</span></a>

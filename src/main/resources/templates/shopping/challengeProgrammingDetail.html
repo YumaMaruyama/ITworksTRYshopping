@@ -41,7 +41,7 @@
 				<tr class="challeProThDesign">
 					<th class="text-center challeProLearnSpaceThDesign">学習場所</th>
 					<th class="text-center challeProWorkingTimesThDesign">学習時間</th>
-					<th class="text-center challeProFixableTimeFromToGetTimeThDesignng">勤務可能時間</th>
+					<th class="text-center challeProFixableTimeFromToGetTimeThDesignng">講座時間帯</th>
 					<th class="text-center challeProPriceThDesign">値段</th>
 				</tr>
 				<tr th:each="product : ${challengeProgrammingOne}"
@@ -111,7 +111,7 @@
 
 				<div class="item challengeProgrammingDetailCardDesign"
 					th:if="${product.contractUserId} > 0 and ${product.contractUserId} != ${userId}">
-					<img class="guidancePersonImgSize" th:src="@{/css/javaiconContract.png}">
+					<img class="contractGuidancePersonImgSize" th:src="@{/css/javaRealContract.png}">
 				</div>
 
 

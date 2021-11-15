@@ -9,13 +9,13 @@
 	
 	<div th:fragment="productListLayout_contents">
 		<header>
-			<h1 class="titleDesign">当日用コード発行ボタン</h1>
+			<h1 class="titleDesign">当日用QRコード発行ボタン</h1>
 		</header>
 		
 		<h3>当日現地にて受付で下記のボタンから生成されたQRコードをみせてください。(スマホなどで写真を撮っておいてください)</h3>
 		<table class="table table-bordered">
 		
-		<a th:if="${qrcodeCreate} == yes" th:href="@{/qrCodeCreate}">現地パス生成</a>
+		<a th:if="${qrcodeCreate} == yes" th:href="@{/qrCodeCreate}" class="btn btn-rounded">QRコード<br>生成<i class="fa fa-angle-down fa-position-bottom"></i></a>
 		
 		<img th:if="${qrcodeCheck} == yes" th:src="@{/css/qrcode.png}"></img>
 		</table>

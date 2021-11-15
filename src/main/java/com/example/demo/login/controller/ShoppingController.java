@@ -6181,6 +6181,7 @@ public class ShoppingController {
 			ChallengeProgrammingContractDTO challengeProgrammingContractTmMm = challengeProgrammingContractService.tm3Mm3select(productId);
 			challengeProgrammingContractTmMm.setProductId(productId);
 			model.addAttribute("location","yes");
+			model.addAttribute("javaIconModify","yes");
 			//進行バーの初期表示設定(場所確認)
 			model.addAttribute("progressStatus",5);
 		}else {

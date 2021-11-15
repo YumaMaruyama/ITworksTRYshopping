@@ -14,7 +14,7 @@ function getMyPlace() {
   function success(position) {
     var latitude  = position.coords.latitude;//緯度
     var longitude = position.coords.longitude;//経度
-    output.innerHTML = '<p>緯度 ' + latitude + '° <br>経度 ' + longitude + '°</p>';
+   // output.innerHTML = '<p>緯度 ' + latitude + '° <br>経度 ' + longitude + '°</p>';
     // 位置情報
     var latlng = new google.maps.LatLng( latitude , longitude ) ;
     // Google Mapsに書き出し

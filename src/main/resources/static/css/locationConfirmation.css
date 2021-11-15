@@ -1,4 +1,44 @@
 @charset "UTF-8";
 
 
+.locationConfirmationTable {
+	width: 575px;
+    margin-left: 220px;
+    font-size:13px;
+}
 
+
+.locationConfirmationTrOn {
+	background: aquamarine;
+}
+
+.locationConfirmationTrButtom {
+    background: #d4f5ea;
+}
+
+
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: inherit;
+  box-sizing: inherit;
+}
+
+button.locationConfirmationbBtnSolid {
+  color: #fff;
+  border-top: 4px solid #48ecc4;
+  border-right: 4px solid #0a5f4a;
+  border-bottom: 4px solid #0f745b;
+  border-left: 4px solid #8cf9de;
+  border-radius: 0;
+  background: #11a37f;
+  font-size:13px !important;
+}
+
+button.locationConfirmationbBtnSolid {
+  color: #fff;
+  border-top: 4px solid #0f745b;
+  border-right: 4px solid #8cf9de;
+  border-bottom: 4px solid #48ecc4;
+  border-left: 4px solid #0a5f4a;
+}

@@ -1,8 +1,14 @@
 @charset "UTF-8";
 
 .guidancePersonImgSize {
-	width: 135px !important;
-	height: 135px !important;
+	width: 180px !important;
+	height: 180px !important;
+	margin-left: 0px;
+}
+
+.guidancePersonImgSizeModify {
+	width: 250px !important;
+	height: 180px !important;
 	margin-left: 0px;
 }
 
@@ -22,13 +28,15 @@
 .challengeProgrammingTradeList {
 	display: auto !important;
 	overflow-y: scroll;
-	height: 175px;
+	height: 290px;
 	margin-right: 60px;
 	width:1100px;
+	padding-top: 25px;
+;
 }
 
 .challengeProgrammingTradeNextList {
-		display: auto !important;
+	display: auto !important;
 	overflow-y: scroll;
 	height: 75px;
 	margin-right: 60px;
@@ -45,6 +53,10 @@
 
 .chatTitle {
 	padding-left: 77px;	
+}
+
+.tradeTitle {
+	padding-left: 160pxx;	
 }
 
 
@@ -107,9 +119,13 @@ a.btn-flat:hover:after {
   transform: rotate(45deg) translateX(0) translateY(50%);
 }
 
+a.btn-flatModify {
+margin-left: 181px !important;
+}
+
 #map {
-  height: 400px;
-  width: 600px;
+  height: 300px;
+  width: 1100px;
 }
 
 /*進行バー*/
@@ -177,4 +193,8 @@ a.btn-flat:hover:after {
 .progressbar li.active:after, .progressbar li.complete:after {
 	background-color: #0070BD;
 }
+
+
+
+
 
