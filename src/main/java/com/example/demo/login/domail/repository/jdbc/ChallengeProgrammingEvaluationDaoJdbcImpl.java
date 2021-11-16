@@ -31,8 +31,8 @@ public class ChallengeProgrammingEvaluationDaoJdbcImpl implements ChallengeProgr
 		return result;
 	}
 	
-	public List<ChallengeProgrammingEvaluationDTO> evaluationSelectMany() {
-		List<Map<String,Object>> mapList = jdbc.queryForList("select challenge_programming_evaluation.id,challenge_programming_evaluation.rate,challenge_programming_evaluation.evaluation_detail,challenge_programming_evaluation.registration_date,challenge_programming.my_name,users.user_name from challenge_programming_evaluation join challenge_programming on challenge_programming.id = challenge_programming_evaluation.teacher_id join users on users.id = challenge_programming_evaluation.user_id");
+	public List<ChallengeProgrammingEvaluationDTO> evaluationSelectMany(int productId) {
+		List<Map<String,Object>> mapList = jdbc.queryForList("select challenge_programming_evaluation.id,challenge_programming_evaluation.rate,challenge_programming_evaluation.evaluation_detail,challenge_programming_evaluation.registration_date,challenge_programming.my_name,users.user_name from challenge_programming_evaluation join challenge_programming on challenge_programming.id = challenge_programming_evaluation.teacher_id join users on users.id = challenge_programming_evaluation.user_id where challenge_programming_evaluation.teacher_id = ?",productId);
 		
 		List<ChallengeProgrammingEvaluationDTO> challengeprogrammingevaluationDTOList = new ArrayList<>();
 		

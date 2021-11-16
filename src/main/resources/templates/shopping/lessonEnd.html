@@ -15,18 +15,18 @@
 		<h3>講座が終われば講座担当者がいるときにこの画面を表示して、パスワードを打ってもらってください。<br>パスワードが認識されると講座が終了します。</h3>
 		<form method="post" th:action="@{/lessonEnd}" th:object="${lessonEndForm}">
 		<input type="hidden" name="id" th:value="${productId}">
-		<table class="table table-hover table-bordered ">
+		<table class="table table-hover table-bordered lessonEndTable">
 				<tr>
-					<th class="text-center ">講座完了パスワード</th>
+					<th class="text-center lessonEndTh">講座完了パスワード</th>
 					<td th:classappend="${#fields.hasErrors('password')}?'has-error'"
-						class="form-group "><input type="text"
+						class="form-group lessonEndTd"><input type="text"
 						class="form-control" th:field="*{password}"> <span
 						class="text-danger" th:if="${#fields.hasErrors('password')}"
 						th:errors="*{password}">password error</span></td>
 				</tr>
 		</table>
 		
-			<button class="btn btn-primary">完了</button>
+			<button class="btn lessonEndBtn">完了</button>
 		</form>
 	</div>
 </body>

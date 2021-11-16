@@ -6561,7 +6561,7 @@ public class ShoppingController {
 		model.addAttribute("contents", "shopping/evaluationList::productListLayout_contents");
 		
 		//選択した先生の評価をすべて取得
-		List<ChallengeProgrammingEvaluationDTO> challengeprogrammingevaluationDTOList = challengeProgrammingEvaluationService.evaluationSelectMany();
+		List<ChallengeProgrammingEvaluationDTO> challengeprogrammingevaluationDTOList = challengeProgrammingEvaluationService.evaluationSelectMany(productId);
 		model.addAttribute("evaluationList",challengeprogrammingevaluationDTOList);
 		
 		return "shopping/productListLayout";

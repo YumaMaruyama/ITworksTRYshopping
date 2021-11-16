@@ -19,7 +19,7 @@ public class ChallengeProgrammingEvaluationService {
 		return dao.evaluationInsertOne(userId,productId,challengeprogrammingevaluationDTO,form);
 	}
 	
-	public List<ChallengeProgrammingEvaluationDTO> evaluationSelectMany() {
-		return dao.evaluationSelectMany();
+	public List<ChallengeProgrammingEvaluationDTO> evaluationSelectMany(int productId) {
+		return dao.evaluationSelectMany(productId);
 	}
 }

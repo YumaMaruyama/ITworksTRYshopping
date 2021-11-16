@@ -9,6 +9,6 @@ public interface ChallengeProgrammingEvaluationDao {
 
 	public int evaluationInsertOne(int userId,int productId,ChallengeProgrammingEvaluationDTO challengeprogrammingevaluationDTO,LessonEvaluationForm form);
 
-	public List<ChallengeProgrammingEvaluationDTO> evaluationSelectMany();
+	public List<ChallengeProgrammingEvaluationDTO> evaluationSelectMany(int productId);
 
 }

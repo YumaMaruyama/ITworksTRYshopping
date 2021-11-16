@@ -17,7 +17,7 @@
 		
 		<a th:if="${qrcodeCreate} == yes" th:href="@{/qrCodeCreate}" class="btn btn-rounded">QRコード<br>生成<i class="fa fa-angle-down fa-position-bottom"></i></a>
 		
-		<img th:if="${qrcodeCheck} == yes" th:src="@{/css/qrcode.png}"></img>
+		<img th:if="${qrcodeCheck} == yes" th:src="@{/css/qrcode.png}" class="currentDayTradingQrCode"></img>
 		</table>
 		
 		<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/RJPL8oSYWGo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>

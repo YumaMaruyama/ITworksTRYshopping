@@ -1,0 +1,30 @@
+@charset "UTF-8";
+
+.lessonEndTable {
+	font-size:14px;
+	
+}
+	
+.lessonEndTh {
+	background: #ffa7a7;
+}
+
+.lessonEndTd {
+    background: #fdcece;
+}
+
+
+button.lessonEndBtn {
+  border: 2px solid #000;
+  border-radius: 0;
+  background: #fff;
+  -webkit-box-shadow: 4px 4px 0 #000;
+  box-shadow: 4px 4px 0 #000;
+  margin-left: 417px;
+  margin-top: 20px;
+}
+
+button.lessonEndBtn:hover {
+  -webkit-box-shadow: -4px -4px 0 #000;
+  box-shadow: -4px -4px 0 #000;
+}

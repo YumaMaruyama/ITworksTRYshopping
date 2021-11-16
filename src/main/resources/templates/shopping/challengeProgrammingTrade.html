@@ -105,15 +105,17 @@
 
 		<div class="flex challengeProgrammingTradeNextList">
 			<div class="item challengeProgrammingTradeCardDesign">
-				<h4>講座日程</h4>
-				<h5 th:if="${lessonDayCheck} == 'yes' and ${lessonEnd} == 'no'" th:text="${lessonDay}"></h5>
-				<h5 th:if="${lessonEnd} == 'yes'" th:text="${startDate} + 'から' + ${endDate} + 'まで受講しました。'"></h5>
+				<h3 class="lessonDay">講座日程</h3>
+				<h4 th:if="${lessonDayCheck} == 'yes' and ${lessonEnd} == 'no'" th:text="${lessonDay}"></h4>
+				<h4 th:if="${lessonEnd} == 'yes'" th:text="${startDate} + 'から' + ${endDate} + 'まで受講しました。'"></h4>
 			</div>
 			
-			<div class="item challengeProgrammingTradeCardDesign"></div>
+			<div class="item challengeProgrammingTradeCardDesign">
+			
+			</div>
 		</div>
 
-		<h3>進行状況</h3>
+		<h3 class="text-center">進行状況</h3>
 		<ul th:if="${progressStatus} == 1" class="progressbar">
 			<li class="active">あいさつ</li>
 			<li>日程設定</li>

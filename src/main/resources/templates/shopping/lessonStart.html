@@ -15,18 +15,18 @@
 		<h3>この画面は講座を受ける場所で講座で使うPCでこの画面を表示して講座担当者にパスワードを打ってもらってください。<br>パスワードが認識されると講座スタートになります。</h3>
 		<form method="post" th:action="@{/lessonStart}" th:object="${lessonStartForm}">
 		<input type="hidden" name="id" th:value="${productId}">
-		<table class="table table-hover table-bordered ">
+		<table class="table table-hover table-bordered lessonStartTable">
 				<tr>
-					<th class="text-center ">講座開始パスワード</th>
+					<th class="text-center lessonStartTh">講座開始パスワード</th>
 					<td th:classappend="${#fields.hasErrors('password')}?'has-error'"
-						class="form-group "><input type="text"
+						class="form-group lessonStartTd"><input type="text"
 						class="form-control" th:field="*{password}"> <span
 						class="text-danger" th:if="${#fields.hasErrors('password')}"
 						th:errors="*{password}">password error</span></td>
 				</tr>
 		</table>
 		
-			<button class="btn btn-primary">開始</button>
+			<button class="btn lessonStartBtn">開始</button>
 		</form>
 	</div>
 </body>
