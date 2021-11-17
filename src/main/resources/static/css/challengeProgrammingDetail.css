@@ -2,7 +2,7 @@
 
 .productDetailImgSize {
 	width: 135px !important;
-	height: 135px !important;
+	height: 120px !important;
 	
 }
 
@@ -24,7 +24,8 @@
 	overflow-y: scroll;
 	height: 122px;
 	margin-right: 60px;
-	width:1100px;
+	width:895px;
+	margin-left: 200px;
 }
 
 
@@ -131,6 +132,10 @@
 	width: 150px !important;
 }
 
+.contractBtn {
+	padding-top: 12px;
+}
+
 
 *,
 *:before,
@@ -169,7 +174,7 @@ a.Btn
   border-radius: 0.5rem;
 }
 
-a.btn-coupon {
+a.contract-btn-coupon {
   line-height: 1.2;
 
   display: -webkit-box;
@@ -185,7 +190,7 @@ a.btn-coupon {
   border-radius: 0;
 }
 
-a.btn-coupon:before {
+a.contract-btn-coupon:before {
   position: absolute;
   top: 0;
   left: 118px;
@@ -200,7 +205,7 @@ a.btn-coupon:before {
   background: #f8f8f8;
 }
 
-a.btn-coupon .left {
+a.contract-btn-coupon .left {
   font-size: 3rem;
   line-height: 1;
 
@@ -214,16 +219,18 @@ a.btn-coupon .left {
   color: #000;
   border-right: 2px dashed #fff;
   background: #d3bf2f;
+  padding-top: 19px;
+
 }
 
-a.btn-coupon .left span {
+a.contract-btn-coupon .left span {
   font-family: "Roboto", sans-serif;
   font-size: 3rem;
 
   color: #000;
 }
 
-a.btn-coupon .right {
+a.contract-btn-coupon .right {
   font-size: 1.5rem;
   line-height: 1.5;
 
@@ -243,7 +250,7 @@ a.btn-coupon .right {
   flex: 1;
 }
 
-a.btn-coupon .right span {
+a.contract-btn-coupon .right span {
   font-size: 1.1rem;
 
   display: inline-block;
@@ -257,7 +264,7 @@ a.btn-coupon .right span {
   background: #242211;;
 }
 
-a.btn-coupon i {
+a.contract-btn-coupon i {
   position: absolute;
   top: 0;
   left: calc(120px - 0.5rem);
@@ -274,31 +281,31 @@ a.btn-coupon i {
   color: #ff0c0c;
 }
 
-a.btn-coupon:hover {
+a.contract-btn-coupon:hover {
   color: #d3bf2f;
 }
 
-a.btn-coupon:hover:before {
+a.contract-btn-coupon:hover:before {
   height: calc(100% - 1rem);
 }
 
-a.btn-coupon:hover i {
+a.contract-btn-coupon:hover i {
   -webkit-transform: rotate(90deg) translateX(7rem) translateY(0);
   transform: rotate(90deg) translateX(7rem) translateY(0);
 }
 
-a.btn-coupon:hover .left {
+a.contract-btn-coupon:hover .left {
   background: #d3bf2f;
 }
 
-a.btn-coupon:hover .right {
+a.contract-btn-coupon:hover .right {
   background: #f1e767;
 }
 
 
 
 
-a.btn--circle {
+a.challengeProgrammingDetail-btn--circle {
   width: 135px;
   height: 115px;
   padding: 20px 0 0;
@@ -309,7 +316,7 @@ a.btn--circle {
   box-shadow: 0 7px 0 #e53b4e;
 }
 
-a.btn--circle i {
+a.challengeProgrammingDetail-btn--circle i {
   font-size: 150%;
 }
 
@@ -327,7 +334,7 @@ a.btn--circle i {
 }
 
 
-a.btn--circle:hover {
+a.challengeProgrammingDetail-btn--circle:hover {
   -webkit-transform: translate(0, 4px);
   transform: translate(0, 4px);
   color: #fff;
@@ -335,29 +342,9 @@ a.btn--circle:hover {
   box-shadow: 0 3px 0 #e53b4e;
 }
 
-button.btn {
-  font-size: 1.6rem;
-  font-weight: 700;
-  line-height: 1.5;
-  position: relative;
-  display: inline-block;
-  padding: 1rem 4rem;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-  text-align: center;
-  vertical-align: middle;
-  text-decoration: none;
-  letter-spacing: 0.1em;
-  color: #212529;
-  border-radius: 0.5rem;
-}
 
-button.btn-coupon {
+
+button.contracted-btn-coupon {
   line-height: 1.2;
   border-radius: 0;
   background: #eb6877;
@@ -365,13 +352,13 @@ button.btn-coupon {
   padding-top: 20px;
 }
 
-button.btn-coupon span {
+button.contracted-btn-coupon span {
   font-family: "Roboto", sans-serif;
   font-size: 3rem;
 }
 
-button.btn-coupon:before,
-button.btn-coupon:after {
+button.contracted-btn-coupon:before,
+button.contracted-btn-coupon:after {
   position: absolute;
   top: calc(50% - 15px);
 
@@ -384,15 +371,15 @@ button.btn-coupon:after {
   background: #fff;
 }
 
-button.btn-coupon:before {
+button.contracted-btn-coupon:before {
   left: -15px;
 }
 
-button.btn-coupon:after {
+button.contracted-btn-coupon:after {
   right: -15px;
 }
 
-button.btn-coupon:hover {
+button.contracted-btn-coupon:hover {
   background: #eb6877;
 }
 

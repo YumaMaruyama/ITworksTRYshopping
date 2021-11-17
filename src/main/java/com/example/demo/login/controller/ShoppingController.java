@@ -6478,7 +6478,7 @@ public class ShoppingController {
 			mailService.purchaseSendMail();
 			return postChallengeProgrammingTrade(challengeprogrammingtradeform,productId,model);
 		}else {
-			
+			model.addAttribute("errorMessage","開始パスワードが正しくありません");
 			return getLessonStart(productId,form,model);
 		}	
 	}
@@ -6515,7 +6515,7 @@ public class ShoppingController {
 			
 			return postChallengeProgrammingTrade(challengeprogrammingtradeform,productId,model);
 		}else {
-			
+			model.addAttribute("errorMessage","完了パスワードが正しくありません");
 			return getLessonEnd(form,productId,model);
 		}	
 	}
@@ -6530,8 +6530,12 @@ public class ShoppingController {
 	}
 	
 	@PostMapping("/lessonEvaluation")
-	public String postLessonEvaluation(@ModelAttribute LessonEvaluationForm form,@RequestParam("id") int productId,Model model) {
+	public String postLessonEvaluation(@ModelAttribute @Validated(GroupOrder.class) LessonEvaluationForm form,BindingResult bindingResult,@RequestParam("id") int productId,Model model) {
 		model.addAttribute("contents", "shopping/lessonEvaluation::productListLayout_contents");
+		
+		if(bindingResult.hasErrors()) {
+			return getLessonEvaluation(form,productId,model);
+		}
 		
 		//ユーザーのIDを取得
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -6562,6 +6566,50 @@ public class ShoppingController {
 		
 		//選択した先生の評価をすべて取得
 		List<ChallengeProgrammingEvaluationDTO> challengeprogrammingevaluationDTOList = challengeProgrammingEvaluationService.evaluationSelectMany(productId);
+		double totalRate = 0;
+		for(int i = 0; challengeprogrammingevaluationDTOList.size() > i; i++) {
+			ChallengeProgrammingEvaluationDTO challengeprogrammingevaluationDTOOne = challengeprogrammingevaluationDTOList.get(i);
+			int rate = challengeprogrammingevaluationDTOOne.getRate();
+			totalRate = totalRate + rate;
+			if(rate == 1) {
+				challengeprogrammingevaluationDTOOne.setConversionRate("悪い(1)");
+			}else if(rate == 2) {
+				challengeprogrammingevaluationDTOOne.setConversionRate("普通(2)");
+			}else if(rate == 3) {
+				challengeprogrammingevaluationDTOOne.setConversionRate("良い(3)");
+			}else {
+				challengeprogrammingevaluationDTOOne.setConversionRate("素晴らしい(4)");
+			}
+		}
+		
+		double averageRate = totalRate / challengeprogrammingevaluationDTOList.size();
+		if(averageRate >= 3.75) {
+			model.addAttribute("starRate","4");
+			model.addAttribute("starRateDetail","4");
+		}else if((averageRate >= 3.25) && (averageRate <= 3.74)) {
+			model.addAttribute("starRate","3.5");
+			model.addAttribute("starRateDetail","3.5");
+		}else if((averageRate >= 2.75) && (averageRate <= 3.24)) {
+			model.addAttribute("starRate","3");
+			model.addAttribute("starRateDetail","3");
+		}else if((averageRate >= 2.25) && (averageRate <= 2.74)) {
+			model.addAttribute("starRate","2.5");
+			model.addAttribute("starRateDetail","2.5");
+		}else if((averageRate >= 1.75) && (averageRate <= 2.24)) {
+			model.addAttribute("starRate","2");
+			model.addAttribute("starRateDetail","2");
+		}else if((averageRate >= 1.25) && (averageRate <= 1.74)) {
+			model.addAttribute("starRate","1.5");
+			model.addAttribute("starRateDetail","1.5");
+		}else {
+			model.addAttribute("starRate","1");
+			model.addAttribute("starRateDetail","1");
+		}
+		
+		System.out.println("averageRate" + averageRate);
+		System.out.println("totalRate"+totalRate);
+		System.out.println("dtoSize"+challengeprogrammingevaluationDTOList.size());
+		
 		model.addAttribute("evaluationList",challengeprogrammingevaluationDTOList);
 		
 		return "shopping/productListLayout";

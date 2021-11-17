@@ -48,13 +48,13 @@
 					th:text="${chatContents.myMessage3} + '：' + '[' +  ${chatContents.userName} + ']'"></h4>
 				<h4
 					th:if="${chatContents.teacherMessage3} != null and ${chatContents.myMessage3} != null">
-					<a th:href="@{/progressStatus} + '/' + ${chatContents.productId}">次に進む</a>
+					<a th:href="@{/progressStatus} + '/' + ${chatContents.productId}" class="btn trade-btn--red trade-btn--radius trade-btn--cubic">次に進む</a>
 				</h4>
 			</div>
 			<div th:if="${chatCheck} == 'yes'"
 				class="item challengeProgrammingTradeCardDesign"
 				th:each="chatContents : ${chatContents}">
-				<h3 class="chatTitle">契約相手とあいさつしましょう</h3>
+				<h3 class="chatTitle">[契約相手とあいさつしましょう]</h3>
 				<h4 class="text-primary"
 					th:text="'[' + ${chatContents.teacherName} + ']' + '：' + ${chatContents.teacherMessage1}"></h4>
 				<h4 class="text-danger chatTextDesign"
@@ -70,44 +70,45 @@
 			</div>
 
 			<div class="item challengeProgrammingTradeCardDesign" >
-				<h3 class="tradeTitle">取引設定</h3>
+				<h3 class="tradeTitle">[取引設定]</h3>
 				<div th:if="${chatCheck} == 'no'">
 					<img class="guidancePersonImgSize" th:src="@{/css/javaicon.png}">
-					<h3>あいさつをしよう</h3>
+					
 				</div>
 				<div th:if="${chatCheck} == 'yes' and ${lessonDayCheck} == 'no'">
 					<img class="guidancePersonImgSize" th:src="@{/css/javaicon.png}">
-					<a th:href="@{/scheduleAdjustment} + '/' + ${productId}" class="btn btn-flat"><span>日程設定</span></a>
+					<a th:href="@{/scheduleAdjustment} + '/' + ${productId}" class="btn trade-btn-flat"><span>日程設定</span></a>
 				</div>
 				<div th:if="${lessonDayCheck} == 'yes' and ${belongngs} == 'no'">
 					<img class="guidancePersonImgSize" th:src="@{/css/javaicon.png}">
-					<a th:href="@{/belongingsCheck} + '/' + ${productId}" class="btn btn-flat"><span>持物確認</span></a>
+					<a th:href="@{/belongingsCheck} + '/' + ${productId}" class="btn trade-btn-flat"><span>持物確認</span></a>
 				</div>
 				<div th:if="${belongngs} == 'yes' and ${location} == 'no'">
 					<img class="guidancePersonImgSize" th:src="@{/css/javaicon.png}">
-					<a th:href="@{/locationConfirmation} + '/' + ${productId}" class="btn btn-flat"><span>場所確認</span></a>
+					<a th:href="@{/locationConfirmation} + '/' + ${productId}" class="btn trade-btn-flat"><span>場所確認</span></a>
 				</div>
 				<div th:if="${location} == 'yes' and ${lessonCheck} == 'no'">
 					<img class="guidancePersonImgSize" th:src="@{/css/javaicon.png}">
-					<a th:href="@{/currentDayTrading} + '/' + ${productId}" class="btn btn-flat"><span>当日用QRコード</span></a>
-					<a th:href="@{/lessonStart} + '/' + ${productId}" class="btn btn-flat btn-flatModify"><span>講座開始へ</span></a>
+					<a th:href="@{/currentDayTrading} + '/' + ${productId}" class="btn trade-btn-flat"><span>当日用QRコード</span></a>
+					<a th:href="@{/lessonStart} + '/' + ${productId}" class="btn trade-btn-flat trade-btn-flatModify"><span>講座開始へ</span></a>
 				</div>
 				<div th:if="${lessonCheck} == 'yes' and ${lessonEnd} == 'no'">
 					<img class="guidancePersonImgSize" th:src="@{/css/javaicon.png}">
-					<a th:href="@{/lessonEnd} + '/' + ${productId}" class="btn btn-flat"><span>講座完了</span></a>
+					<a th:href="@{/lessonEnd} + '/' + ${productId}" class="btn trade-btn-flat"><span>講座完了</span></a>
 				</div>
 				<div th:if="${lessonCheck} == 'yes' and ${lessonEnd} == 'yes'">
 					<img class="guidancePersonImgSize" th:src="@{/css/javaicon.png}">
-					<a th:href="@{/lessonEvaluation} + '/' + ${productId}" class="btn btn-flat"><span>講座評価</span></a>
+					<a th:href="@{/lessonEvaluation} + '/' + ${productId}" class="btn trade-btn-flat"><span>講座評価</span></a>
 				</div>
 			</div>
 		</div>
 
 		<div class="flex challengeProgrammingTradeNextList">
-			<div class="item challengeProgrammingTradeCardDesign">
-				<h3 class="lessonDay">講座日程</h3>
-				<h4 th:if="${lessonDayCheck} == 'yes' and ${lessonEnd} == 'no'" th:text="${lessonDay}"></h4>
-				<h4 th:if="${lessonEnd} == 'yes'" th:text="${startDate} + 'から' + ${endDate} + 'まで受講しました。'"></h4>
+			<div class="item challengeProgrammingTradeCardDesignTwo">
+				<h3 th:if="${lessonDayCheck} == 'yes' and ${lessonEnd} == 'no'" class="lessonDay">[講座日程]</h3>
+				<h3 th:if="${lessonEnd} == 'yes'" class="lessonDay">[受講期間]</h3>
+				<h3 class="lessonDayContent" th:if="${lessonDayCheck} == 'yes' and ${lessonEnd} == 'no'" th:text="${lessonDay} + 'に受講します。'"></h3>
+				<h3 th:if="${lessonEnd} == 'yes'" th:text="${startDate} + 'から' + ${endDate} + 'まで受講しました。'"></h3>
 			</div>
 			
 			<div class="item challengeProgrammingTradeCardDesign">
@@ -115,7 +116,7 @@
 			</div>
 		</div>
 
-		<h3 class="text-center">進行状況</h3>
+		<h3 class="text-center">[進行状況]</h3>
 		<ul th:if="${progressStatus} == 1" class="progressbar">
 			<li class="active">あいさつ</li>
 			<li>日程設定</li>

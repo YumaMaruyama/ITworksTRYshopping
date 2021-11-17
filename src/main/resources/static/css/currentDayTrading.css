@@ -6,7 +6,7 @@
     margin-left: 400px;
 }
 
-a.btn-rounded {
+a.currentDayTrading-btn-rounded {
   display: block;
   width: 100px;
   height: 100px;
@@ -35,19 +35,19 @@ a.btn-rounded {
     0 6px 10px rgba(0, 0, 0, 0.2);
 }
 
-a.btn-rounded i {
+a.currentDayTrading-btn-rounded i {
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
 }
 
-a.btn-rounded:hover {
+a.currentDayTrading-btn-rounded:hover {
   -webkit-box-shadow: inset 15px 30px 40px rgba(255, 255, 255, 0.55),
     0 3px 7px rgba(0, 0, 0, 0.2);
   box-shadow: inset 15px 30px 40px rgba(255, 255, 255, 0.55),
     0 3px 7px rgba(0, 0, 0, 0.2);
 }
 
-a.btn-rounded:hover i {
+a.currentDayTrading-btn-rounded:hover i {
   bottom: 6px;
 }
 

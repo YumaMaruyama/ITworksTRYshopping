@@ -15,7 +15,7 @@
 		<form method="post" th:action="@{/acheduleAdjustment} + '/' + ${productId}">
 		<table class="table table-bordered">
 		<div th:each="dayList : ${dayList}">
-			 <button type="submit" name="day" th:value="${dayList}" th:text="${dayList}" class="btn btn-border dayClick"></button>
+			 <button type="submit" name="day" th:value="${dayList}" th:text="${dayList}" class="btn scheduleAdjustment-btn-border dayClick"></button>
 		</div>
 		</table>
 		</form>

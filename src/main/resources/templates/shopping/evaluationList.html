@@ -6,32 +6,52 @@
 <title>Insert title here</title>
 </head>
 <body>
-	
+
 	<div th:fragment="productListLayout_contents">
-		<header>
-			<h1 class="titleDesign">評価一覧</h1>
-		</header>
-		
-		<div class="evaluationListScroll">
-		<table class="table table-bordered">
-		
-			<tr class="evaluationListBackColorTop">
-				<th class="text-center evaluationTeacherNameDesign">講座教授</th>
-				<th class="text-center evaluationUserNameDesign">講座受講した方</th>
-				<th class="text-center evaluationRateDesign">評価</th>
-				<th class="text-center evaluationEvaluationDesign">評価内容</th>
-				<th class="text-center evaluationregistrationDateDesign">評価日</th>
+		<table>
+			<tr>
+				<th><h1 class="titleDesign">評価一覧</h1></th>
+				<th><h1 class="rateDetail">この方の平均は</h1></th>
+				<th><span th:if="${starRate} == '1'" class="star4_rating" data-rate="1"></span>
+					<span th:if="${starRate} == '1.5'" class="star4_rating" data-rate="1.5"></span>
+					<span th:if="${starRate} == '2'" class="star4_rating" data-rate="2"></span>
+					<span th:if="${starRate} == '2.5'" class="star4_rating" data-rate="2.5"></span>
+					<span th:if="${starRate} == '3'" class="star4_rating" data-rate="3"></span>
+					<span th:if="${starRate} == '3.5'" class="star4_rating" data-rate="3.5"></span>
+					<span th:if="${starRate} == '4'" class="star4_rating" data-rate="4"></span>
+				</th>
+				<th><h1  th:text="'(' + ${starRateDetail} + ')です'"></h1></th>
 			</tr>
-			
-			<tr class="evaluationListBackColorButtom" th:each="evaluationList : ${evaluationList}">
-				<td class="text-center evaluationTeacherNameDesign" th:text="${evaluationList.teacherName}"></td>
-				<td class="text-center evaluationUserNameDesign" th:text="${evaluationList.userName}"></td>
-				<td class="text-center evaluationRateDesign" th:text="${evaluationList.rate}"></td>
-				<td class="text-center evaluationEvaluationDetailDesign" th:text="${evaluationList.evaluationDetail}"></td>
-				<td class="text-center evaluationRegistrationDateDesign" th:text="${#dates.format(evaluationList.registrationDate, 'yyyy-MM-dd ah:mm')}"></td>
-			</tr>
-		
+
+
 		</table>
+
+		<div class="evaluationListScroll">
+			<table class="table table-bordered">
+
+				<tr class="evaluationListBackColorTop">
+					<th class="text-center evaluationTeacherNameDesign">講座教授</th>
+					<th class="text-center evaluationUserNameDesign">講座受講した方</th>
+					<th class="text-center evaluationRateDesign">評価</th>
+					<th class="text-center evaluationEvaluationDesign">評価内容</th>
+					<th class="text-center evaluationregistrationDateDesign">評価日</th>
+				</tr>
+
+				<tr class="evaluationListBackColorButtom"
+					th:each="evaluationList : ${evaluationList}">
+					<td class="text-center evaluationTeacherNameDesign"
+						th:text="${evaluationList.teacherName}"></td>
+					<td class="text-center evaluationUserNameDesign"
+						th:text="${evaluationList.userName}"></td>
+					<td class="text-center evaluationRateDesign"
+						th:text="${evaluationList.conversionRate}"></td>
+					<td class="text-center evaluationEvaluationDetailDesign"
+						th:text="${evaluationList.evaluationDetail}"></td>
+					<td class="text-center evaluationRegistrationDateDesign"
+						th:text="${#dates.format(evaluationList.registrationDate, 'yyyy-MM-dd ah:mm')}"></td>
+				</tr>
+
+			</table>
 		</div>
 	</div>
 </body>

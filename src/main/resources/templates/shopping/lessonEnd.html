@@ -19,8 +19,8 @@
 				<tr>
 					<th class="text-center lessonEndTh">講座完了パスワード</th>
 					<td th:classappend="${#fields.hasErrors('password')}?'has-error'"
-						class="form-group lessonEndTd"><input type="text"
-						class="form-control" th:field="*{password}"> <span
+						class="form-group lessonEndTd text-danger"><input type="text"
+						class="form-control" th:field="*{password}" th:text="${errorMessage}"> <span
 						class="text-danger" th:if="${#fields.hasErrors('password')}"
 						th:errors="*{password}">password error</span></td>
 				</tr>

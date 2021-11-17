@@ -9,15 +9,15 @@
 }
 
 .evaluationTeacherNameDesign {
-	width:200px;
+	width:220px;
 }
 
 .evaluationUserNameDesign {
-	width:190px;
+	width:230px;
 }
 
 .evaluationRateDesign {
-	width:110px
+	width:120px
 }
 
 .evaluationEvaluationDesign {
@@ -25,7 +25,7 @@
 }
 
 .evaluationregistrationDateDesign {
-	width:200px;
+	width:130px;
 }
 
 .evaluationListBackColorTop {
@@ -35,3 +35,42 @@
 .evaluationListBackColorButtom {
 	background: #dcefff;
 }
+
+.rateDetail {
+	padding-left: 190px;
+}
+
+
+
+/*star*/
+.star4_rating{
+	font-size: 28px;
+    position: relative;
+    z-index: 0;
+    display: inline-block;
+    white-space: nowrap;
+    color: #CCCCCC; /* グレーカラー 自由に設定化 */
+    /*font-size: 30px; フォントサイズ 自由に設定化 */
+}
+
+.star4_rating:before, .star4_rating:after{
+    content: '★★★★';
+}
+
+.star4_rating:after{
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    color: #ffcf32; /* イエローカラー 自由に設定化 */
+}
+
+.star4_rating[data-rate="4"]:after{ width: 100%; } /* 星4 */
+.star4_rating[data-rate="3.5"]:after{ width: 87.5%; } /* 星3.5 */
+.star4_rating[data-rate="3"]:after{ width: 75%; } /* 星3 */
+.star4_rating[data-rate="2.5"]:after{ width: 62.5%; } /* 星2.5 */
+.star4_rating[data-rate="2"]:after{ width: 50%; } /* 星2 */
+.star4_rating[data-rate="1.5"]:after{ width: 37.5%; } /* 星1.5 */
+.star4_rating[data-rate="1"]:after{ width: 25%; } /* 星1 */

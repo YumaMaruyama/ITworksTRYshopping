@@ -25,6 +25,11 @@
 	width: 450px !important;
 }
 
+.challengeProgrammingTradeCardDesignTwo {
+	margin-left:20px;
+	width: 500px !important;
+}
+
 .challengeProgrammingTradeList {
 	display: auto !important;
 	overflow-y: scroll;
@@ -63,8 +68,12 @@
 	padding-left:150px;
 }
 
+.lessonDayContent {
+	padding-left: 95px;
+}
 
-a.btn-flat {
+
+a.trade-btn-flat {
   overflow: hidden;
 
   padding: 1.5rem 6rem;
@@ -74,12 +83,12 @@ a.btn-flat {
   background: #000;
 }
 
-a.btn-flat span {
+a.trade-btn-flat span {
   position: relative;
   z-index: 1;
 }
 
-a.btn-flat:before {
+a.trade-btn-flat:before {
   position: absolute;
   top: 0;
   left: calc(-150% + 50px);
@@ -96,7 +105,7 @@ a.btn-flat:before {
   background: #fff100;
 }
 
-a.btn-flat:after {
+a.trade-btn-flat:after {
   position: absolute;
   top: -400%;
   right: calc(-150% + 50px);
@@ -113,17 +122,17 @@ a.btn-flat:after {
   background: #fff100;
 }
 
-a.btn-flat:hover:before {
+a.trade-btn-flat:hover:before {
   -webkit-transform: rotate(45deg) translateX(0) translateY(-50%);
   transform: rotate(45deg) translateX(0) translateY(-50%);
 }
 
-a.btn-flat:hover:after {
+a.trade-btn-flat:hover:after {
   -webkit-transform: rotate(45deg) translateX(0) translateY(50%);
   transform: rotate(45deg) translateX(0) translateY(50%);
 }
 
-a.btn-flatModify {
+a.trade-btn-flatModify {
 margin-left: 181px !important;
 }
 
@@ -200,5 +209,24 @@ margin-left: 181px !important;
 
 
 
+a.trade-btn--red.trade-btn--cubic {
+  border-bottom: 5px solid #9f000c;
+  background-color: #ff4351;
+  margin-left: 140px;
+}
 
+a.trade-btn--red.trade-btn--cubic:hover {
+  margin-top: 3px;
+  border-bottom: 2px solid #9f000c;
+}
+
+a.trade-btn--radius {
+  border-radius: 100vh;
+}
+
+.fa-position-right {
+  position: absolute;
+  top: calc(50% - .5em);
+  right: 1rem;
+}
 

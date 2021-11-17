@@ -100,7 +100,7 @@
 			<div class="flex challengeProgrammingDetailList"
 				th:each="product : ${challengeProgrammingOne}">
 				
-				<a th:href="@{/evaluationList} + '/' + ${product.id}" class="btn btn--circle"><i class="fa fa-thumbs-up challengeProgrammingDetail-fa-position-top"></i><br>この人の評価<br>一覧<i class="fa fa-angle-down challengeProgrammingDetail-fa-position-bottom"></i></a>
+				<a th:href="@{/evaluationList} + '/' + ${product.id}" class="btn challengeProgrammingDetail-btn--circle"><i class="fa fa-thumbs-up challengeProgrammingDetail-fa-position-top"></i><br>この人の評価<br>一覧<i class="fa fa-angle-down challengeProgrammingDetail-fa-position-bottom"></i></a>
 				
 				<div class="item challengeProgrammingDetailCardDesign">
 					<img class="productDetailImgSize text-center"
@@ -120,17 +120,17 @@
 					th:if="${product.contractUserId} > 0 and ${product.contractUserId} == ${userId}">
 					<form method="post" th:action="@{/challengeProgrammingTrade}">
 						<input type="hidden" name="productId" th:value="${productId}">
-						<button class="btn btn-coupon"><span>取引画面へ</span></button>
+						<button class="btn contracted-btn-coupon"><span>取引画面へ</span></button>
 					</form>
 				</div>
 
 				
 
-				<div class="item challengeProgrammingDetailCardDesign"
+				<div class="item challengeProgrammingDetailCardDesign contractBtn"
 					th:if="${product.contractUserId} lt 1">
 					<a
 						th:href="@{/challengeProgrammingBeforeContract} + '/' + ${product.id}"
-						class="Btn btn-coupon"><i class="fa fa-cut"></i>
+						class="Btn contract-btn-coupon"><i class="fa fa-cut"></i>
 						<div class="left">
 							<span>早い人</span><br>勝ち!
 						</div>

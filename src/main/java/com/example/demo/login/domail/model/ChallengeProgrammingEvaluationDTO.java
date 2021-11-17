@@ -19,6 +19,8 @@ public class ChallengeProgrammingEvaluationDTO {
 	
 	private int rate;
 	
+	private String conversionRate;
+	
 	private String evaluationDetail;
 	
 	private Date registrationDate;
