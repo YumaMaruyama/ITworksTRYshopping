@@ -236,5 +236,7 @@ public class PurchaseDaoJdbcImpl implements PurchaseDao {
 		}
 		return purchasePointList;
 	}
+	
+	
 
 }

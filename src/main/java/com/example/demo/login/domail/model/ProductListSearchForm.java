@@ -9,7 +9,7 @@ public class ProductListSearchForm {
 	
 	private String os;
 	
-	private int priceFrom;
+	private String priceFrom;
 	
-	private int priceTo;
+	private String priceTo;
 }

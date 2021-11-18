@@ -82,5 +82,6 @@ public class PurchaseService {
 	public List<PurchaseDTO> selectPoint(int userId) {
 		return dao.selectPoint(userId);
 	}
+	
 
 }

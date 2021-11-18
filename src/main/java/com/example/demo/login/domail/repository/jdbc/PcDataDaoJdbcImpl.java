@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.example.demo.login.domail.model.PcDataDTO;
 import com.example.demo.login.domail.model.PcDataForm;
+import com.example.demo.login.domail.model.ProductListSearchForm;
 import com.example.demo.login.domail.model.PurchaseDTO;
 import com.example.demo.login.domail.repository.PcDataDao;
 
@@ -136,6 +137,46 @@ public class PcDataDaoJdbcImpl implements PcDataDao {
 		int updataCheck = jdbc.update("update pcdata set company = ? ,os = ? ,pc_name = ? ,pc_size = ? ,price = ? ,detail = ? ,pcimg = ? ,pcimg2 = ? ,pcimg3 = ? ,product_stock = ? where id = ?",form.getCompany(),form.getOs(),form.getPc_name(),form.getPc_size(),form.getPrice(),form.getDetail(),form.getPcImg(),form.getPcImg2(),form.getPcImg3(),form.getProduct_stock(),productId);
 		
 		return updataCheck;
+	}
+	
+	public List<PcDataDTO>  searchProductSelectMany(ProductListSearchForm form) {
+		String product = form.getProduct();
+		String os = form.getOs();
+		
+		 StringBuilder sql = new StringBuilder();
+		 	sql.append("select * from pcdata where product_stock >= 1");
+
+		 	List<Object> list = new ArrayList<Object>();
+		 	
+		 	if((form.getProduct() != null) && (!form.getProduct().isEmpty())){
+				sql.append(" and pcdata.pc_name like ?");
+				list.add("%" + form.getProduct() + "%");
+			}
+			if((form.getOs() != null) && (!form.getOs().isEmpty())){
+				sql.append(" and pcdata.os like ?");
+				list.add("%" + form.getOs() + "%");
+			}
+			
+			if((form.getPriceFrom() != null) && (form.getPriceTo() != null)) {
+				sql.append(" and todo_items.registration_date between ? and ?");
+				list.add(form.getPriceFrom());
+				list.add(form.getPriceTo());
+			}else if((form.getPriceFrom() != null) && (form.getPriceTo() == null)) {
+				sql.append(" and todo_items.registration_date >= ?");
+				list.add(form.getPriceFrom());
+			}else if((form.getPriceFrom() == null) && (form.getPriceTo() != null)) {
+				sql.append(" and todo_items.registration_date <= ?");
+				list.add(form.getPriceTo());
+			}
+			Object[] addList = list.toArray(new Object[list.size()]);
+			String sqlNew = sql.toString();
+			List<Map<String,Object>> rowNumber = jdbc.queryForList(sqlNew,addList);
+			List<PcDataDTO> pcdataList = new ArrayList<>();
+			
+			
+			
+			
+			
 	}
 
 }

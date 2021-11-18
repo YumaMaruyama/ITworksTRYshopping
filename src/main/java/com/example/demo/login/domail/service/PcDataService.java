@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.login.domail.model.PcDataDTO;
 import com.example.demo.login.domail.model.PcDataForm;
+import com.example.demo.login.domail.model.ProductListSearchForm;
 import com.example.demo.login.domail.model.PurchaseDTO;
 import com.example.demo.login.domail.repository.PcDataDao;
 
@@ -56,6 +57,10 @@ public class PcDataService {
 	
 	public int productEditOne(int productId,PcDataForm form) {
 		return dao.productEditOne(productId,form);
+	}
+	
+	public List<PcDataDTO>  searchProductSelectMany(ProductListSearchForm form) {
+		return dao.searchProductSelectMany(form);
 	}
 
 }

@@ -4657,7 +4657,7 @@ public class ShoppingController {
 		String user_id = auth.getName();
 		// ログインユーザーのID取得
 		int selectId = usersService.select_id(user_id);
-		List<PurchaseDTO> purchasedtoList = purchaseService.selectHistory(selectId);// メソッドに入ったユーザーの購入情報を取得
+		List<PurchaseDTO> purchasedtoList = purchaseService.selectHistory(selectId);
 		
 		PurchaseDTO customList;
 		// 購入商品を一つづつ回して値を受け取る
@@ -4731,11 +4731,17 @@ public class ShoppingController {
 		return "shopping/productListLayout";
 	}
 	
-//	@PostMapping(value = "/productList",params = "search")
-//	public String postProductList(@ModelAttribute ProductListSearchForm form,Model model) {
-//		
-//		
-//	}
+	@PostMapping(value = "/productList",params = "search")
+	public String postProductList(@ModelAttribute ProductListSearchForm form,Model model) {
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String user_id = auth.getName();
+		// ログインユーザーのID取得
+		int userId = usersService.select_id(user_id);
+		List<PcDataDTO> productList = pcdataService.searchProductSelectMany(form);
+		
+		return "i";
+	}
 
 	@GetMapping("/productDetail/{id}")
 	public String getProductDetail(@ModelAttribute PcDetailDataForm form, PcDataForm pcdataform,
