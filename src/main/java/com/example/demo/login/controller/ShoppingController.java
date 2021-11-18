@@ -69,6 +69,7 @@ import com.example.demo.login.domail.model.PcDetailDataDTO;
 import com.example.demo.login.domail.model.PcDetailDataForm;
 import com.example.demo.login.domail.model.PointRateChangeForm;
 import com.example.demo.login.domail.model.PointUseForm;
+import com.example.demo.login.domail.model.ProductListSearchForm;
 import com.example.demo.login.domail.model.PurchaseDTO;
 import com.example.demo.login.domail.model.ReviewDTO;
 import com.example.demo.login.domail.model.ReviewForm;
@@ -4725,6 +4726,12 @@ public class ShoppingController {
 		}
 		return "shopping/productListLayout";
 	}
+	
+	@PostMapping(value = "/productList",params = "search")
+	public String postProductList(@ModelAttribute ProductListSearchForm form,Model model) {
+		
+		
+	}
 
 	@GetMapping("/productDetail/{id}")
 	public String getProductDetail(@ModelAttribute PcDetailDataForm form, PcDataForm pcdataform,
@@ -6352,6 +6359,9 @@ public class ShoppingController {
 		model.addAttribute("contents", "shopping/locationConfirmation::productListLayout_contents");
 		
 		model.addAttribute("productId",productId);
+		
+		String location = challengeProgrammingService.locationSelectOne(productId);
+		model.addAttribute("location",location);
 		
 		return "shopping/productListLayout";
 	}
