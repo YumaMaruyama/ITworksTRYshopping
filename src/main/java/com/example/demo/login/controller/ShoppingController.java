@@ -1415,7 +1415,8 @@ public class ShoppingController {
 			pcdataService.insertOne(pcdatadto);
 		}
 
-		return getProductList(form, redirectAttributes, model);
+		ProductListSearchForm productlistsearchform = new ProductListSearchForm();
+		return getProductList(form,productlistsearchform, redirectAttributes, model);
 	}
 	
 	@GetMapping("/productEdit/{id}")
@@ -1458,7 +1459,8 @@ public class ShoppingController {
 		//修正されたproductの内容にデータを更新する
 		pcdataService.productEditOne(productId,form);
 		
-		return getProductList(form,redirectattributes,model);
+		ProductListSearchForm productlistsearchform = new ProductListSearchForm();
+		return getProductList(form,productlistsearchform,redirectattributes,model);
 	}
 	
 	
@@ -4635,7 +4637,7 @@ public class ShoppingController {
 	}
 
 	@GetMapping("/productList")
-	public String getProductList(@ModelAttribute PcDataForm form, RedirectAttributes redirectAttributes, Model model) {
+	public String getProductList(@ModelAttribute PcDataForm form,ProductListSearchForm productlistsearchform, RedirectAttributes redirectAttributes, Model model) {
 
 		model.addAttribute("contents", "shopping/productList::productListLayout_contents");
 		List<PcDataDTO> productList = pcdataService.selectMany();
@@ -4724,14 +4726,16 @@ public class ShoppingController {
 		} else {
 			session.setAttribute("rankPoint", "アマチュアランク");
 		}
+		
+		
 		return "shopping/productListLayout";
 	}
 	
-	@PostMapping(value = "/productList",params = "search")
-	public String postProductList(@ModelAttribute ProductListSearchForm form,Model model) {
-		
-		
-	}
+//	@PostMapping(value = "/productList",params = "search")
+//	public String postProductList(@ModelAttribute ProductListSearchForm form,Model model) {
+//		
+//		
+//	}
 
 	@GetMapping("/productDetail/{id}")
 	public String getProductDetail(@ModelAttribute PcDetailDataForm form, PcDataForm pcdataform,
