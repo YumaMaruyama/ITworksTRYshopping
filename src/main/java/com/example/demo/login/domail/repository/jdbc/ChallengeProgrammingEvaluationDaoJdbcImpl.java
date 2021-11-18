@@ -26,7 +26,7 @@ public class ChallengeProgrammingEvaluationDaoJdbcImpl implements ChallengeProgr
 				+ " user_id,"
 				+ " rate,"
 				+ " evaluation_detail)"
-				+ " value(?,?,?,?,?)",challengeprogrammingevaluationDTO.getId(),productId,userId,form.getRating(),form.getEvaluatonDetail());
+				+ " value(?,?,?,?,?)",challengeprogrammingevaluationDTO.getId(),productId,userId,form.getRating(),form.getEvaluationDetail());
 				
 		return result;
 	}

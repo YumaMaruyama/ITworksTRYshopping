@@ -17,5 +17,6 @@ public interface ChallengeProgrammingDao {
 	public int updateOne(int productId);
 	
 	public ChallengeProgrammingDTO lessonSelectOne(int productId);
-	
+
+	public String locationSelectOne(int productId);
 }

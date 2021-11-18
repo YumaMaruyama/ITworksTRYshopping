@@ -37,4 +37,8 @@ public class ChallengeProgrammingService {
 	public ChallengeProgrammingDTO lessonSelectOne(int productId) {
 		return dao.lessonSelectOne(productId);
 	}
+	
+	public String locationSelectOne(int productId) {
+		return dao.locationSelectOne(productId);
+	}
 }

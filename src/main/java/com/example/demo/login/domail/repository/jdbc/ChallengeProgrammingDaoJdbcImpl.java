@@ -133,6 +133,11 @@ Map<String,Object> map = jdbc.queryForMap("select challenge_programming.id,chall
 		return result;
 	}
 	
+	public String locationSelectOne(int productId) {
+		String location = jdbc.queryForObject("select challenge_programming.learn_space from challenge_programming where id = ?",String.class,productId);
+		
+		return location;
+	}
 	
 	
 	

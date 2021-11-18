@@ -11,7 +11,7 @@ public class LessonEvaluationForm {
 
 	@NotBlank(groups = ValidGroup1.class)
 	@Length(min = 1, max = 100, groups = ValidGroup2.class)
-	private String evaluatonDetail;
+	private String evaluationDetail;
 	
 	private String rating;
 }

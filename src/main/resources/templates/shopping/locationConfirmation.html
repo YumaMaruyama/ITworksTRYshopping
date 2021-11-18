@@ -42,6 +42,7 @@
 				<th class="text-center">現在位置を取得して表示します</th>
 				<th class="text-center">検索機能は現在ご利用できません</th>
 				<th class="text-center">GoogleMapに行く</th>
+				<th class="text-center">講座会場</th>
 			
 			</tr>
 		
@@ -50,6 +51,7 @@
 				<td class="text-center"><input id="pac-input" class="controls" type="text"
 				placeholder="Search Box"></td>
 				<td class="text-center"><a th:href="@{https://www.google.co.jp/maps/?hl=ja}">googleMap</a></td>
+				<td class="text-center" th:text="${location}"></td>
 			</tr>
 		
 		</table>
@@ -77,7 +79,7 @@
 		</script>
 		<form method="post" th:action="@{/locationConfirmation}">
 			<input type="hidden" name="id" th:value="${productId}">
-			<div class="btn-wrapper">
+			<div class="btn-wrapper checkDesign">
 				<div class="check-box">
 					<label><input class="check" type="checkbox" name="check"
 						autocomplete="off" id="agree"><span>場所を確認しました。</span></label>

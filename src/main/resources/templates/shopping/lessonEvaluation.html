@@ -37,11 +37,11 @@
 				<tr>
 					<th class="text-center lessonEvaluationTh">詳細</th>
 					<td
-						th:classappend="${#fields.hasErrors('evaluatonDetail')}?'has-error'"
+						th:classappend="${#fields.hasErrors('evaluationDetail')}?'has-error'"
 						class="form-group lessonEvaluationTd"><input type="text" class="form-control"
-						th:field="*{evaluatonDetail}"> <span class="text-danger"
-						th:if="${#fields.hasErrors('evaluatonDetail')}"
-						th:errors="*{evaluatonDetail}">evaluatonDetail error</span></td>
+						th:field="*{evaluationDetail}"> <span class="text-danger"
+						th:if="${#fields.hasErrors('evaluationDetail')}"
+						th:errors="*{evaluationDetail}">evaluationDetail error</span></td>
 				</tr>
 			</table>
 			<script type="text/javascript">
