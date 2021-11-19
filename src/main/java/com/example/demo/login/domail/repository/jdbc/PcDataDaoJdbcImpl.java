@@ -140,8 +140,14 @@ public class PcDataDaoJdbcImpl implements PcDataDao {
 	}
 	
 	public List<PcDataDTO>  searchProductSelectMany(ProductListSearchForm form) {
-		String product = form.getProduct();
-		String os = form.getOs();
+	
+		
+		System.out.println("test1"+form.getProduct());
+		System.out.println("test2"+form.getOs());
+		System.out.println("test3"+form.getPriceFrom());
+		System.out.println("test4"+form.getPriceTo());
+		
+		
 		
 		 StringBuilder sql = new StringBuilder();
 		 	sql.append("select * from pcdata where product_stock >= 1");
@@ -149,31 +155,58 @@ public class PcDataDaoJdbcImpl implements PcDataDao {
 		 	List<Object> list = new ArrayList<Object>();
 		 	
 		 	if((form.getProduct() != null) && (!form.getProduct().isEmpty())){
-				sql.append(" and pcdata.pc_name like ?");
+		 		System.out.println("product");
+		 		sql.append(" and pcdata.pc_name like ?");
 				list.add("%" + form.getProduct() + "%");
 			}
 			if((form.getOs() != null) && (!form.getOs().isEmpty())){
+				System.out.println("os");
 				sql.append(" and pcdata.os like ?");
 				list.add("%" + form.getOs() + "%");
 			}
 			
-			if((form.getPriceFrom() != null) && (form.getPriceTo() != null)) {
-				sql.append(" and todo_items.registration_date between ? and ?");
-				list.add(form.getPriceFrom());
-				list.add(form.getPriceTo());
-			}else if((form.getPriceFrom() != null) && (form.getPriceTo() == null)) {
-				sql.append(" and todo_items.registration_date >= ?");
-				list.add(form.getPriceFrom());
-			}else if((form.getPriceFrom() == null) && (form.getPriceTo() != null)) {
-				sql.append(" and todo_items.registration_date <= ?");
-				list.add(form.getPriceTo());
+			if((!form.getPriceFrom().isEmpty()) && (!form.getPriceTo().isEmpty())) {
+				int priceFrom = Integer.parseInt(form.getPriceFrom());
+				int priceTo = Integer.parseInt(form.getPriceTo());
+				System.out.println("priceW");
+				sql.append(" and pcdata.price >= ? and pcdata.price <= ?");
+				list.add(priceFrom);
+				list.add(priceTo);
+			}else if((!form.getPriceFrom().isEmpty()) && (form.getPriceTo().isEmpty())) {
+				int priceFrom = Integer.parseInt(form.getPriceFrom());
+				System.out.println("priceFrom");
+				sql.append(" and pcdata.price >= ?");
+				list.add(priceFrom);
+			}else if((form.getPriceFrom().isEmpty()) && (!form.getPriceTo().isEmpty())) {
+				int priceTo = Integer.parseInt(form.getPriceTo());
+				System.out.println("priceTo");
+				sql.append(" and pcdata.price <= ?");
+				list.add(priceTo);
 			}
 			Object[] addList = list.toArray(new Object[list.size()]);
 			String sqlNew = sql.toString();
 			List<Map<String,Object>> rowNumber = jdbc.queryForList(sqlNew,addList);
 			List<PcDataDTO> pcdataList = new ArrayList<>();
 			
+			for(Map<String,Object> map : rowNumber) {
+				PcDataDTO pcdatadto = new PcDataDTO();
+				
+				pcdatadto.setId((int) map.get("id"));
+				pcdatadto.setCompany((String) map.get("company"));
+				pcdatadto.setOs((String) map.get("os"));
+				pcdatadto.setPc_name((String) map.get("pc_name"));
+				pcdatadto.setPc_size((int) map.get("pc_size"));
+				pcdatadto.setPrice((int) map.get("price"));
+				pcdatadto.setDetail((String) map.get("detail"));
+				pcdatadto.setProduct_stock((int) map.get("product_stock"));
+				pcdatadto.setPcImg((String) map.get("pcImg"));
+				pcdatadto.setPcImg2((String) map.get("pcImg2"));
+				pcdatadto.setPcImg3((String) map.get("pcImg3"));
+				
+				pcdataList.add(pcdatadto);
+			}
 			
+			return pcdataList;
 			
 			
 			

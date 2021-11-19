@@ -56,8 +56,8 @@
 			</div>
 		</div>
 		<form method="post" th:action="@{/productList}" th:object="${productListSearchForm}">
-		<table class="table">
-			<tr>
+		<table class="table productListSearchTable">
+			<tr class="searchTr">
 				<th class=" text-center">商品名</th>
 				<th class=" text-center">OS</th>
 				<th class=" text-center">値段(始まり)</th>
@@ -67,7 +67,7 @@
 
 			<tr>
 				<td><input id="textField1" type="text"
-					class="form-control text-center " name="product"
+					class="form-control text-center formDesign" name="product"
 					th:field="*{product}"> <span
 					class="text-danger" th:if="${#fields.hasErrors('product')}"
 					th:errors="*{product}">product error</span></td>
@@ -75,7 +75,7 @@
 
 
 				<td><input id="textField2" type="text"
-					class="form-control text-center" name="os"
+					class="form-control text-center formDesign" name="os"
 					th:field="*{os}"> <span
 					class="text-danger" th:if="${#fields.hasErrors('os')}"
 					th:errors="*{os}">os error</span></td>
@@ -83,11 +83,11 @@
 
 
 
-				<td><input id="textField3" type="text" class="form-control"
+				<td><input id="textField3" type="text" class="form-control formDesign"
 					 name="priceFrom"
 					th:field="*{priceFrom}"></td>
 					
-				<td><input id="textField4" type="text" class="form-control"
+				<td><input id="textField4" type="text" class="form-control formDesign"
 					 name="priceTo"
 					th:field="*{priceTo}"></td>
 				<td><button class="btn btn-info" type="submit" name="search">検索</button></td>
