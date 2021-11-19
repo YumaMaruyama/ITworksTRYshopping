@@ -61,4 +61,7 @@ public class PurchaseDTO {
 
 	private boolean pointUseCheck;
 
+	private String userName;
+	
+	private String Address;
 }

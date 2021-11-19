@@ -83,5 +83,9 @@ public class PurchaseService {
 		return dao.selectPoint(userId);
 	}
 	
+	public List<PurchaseDTO> deliverySelect() {
+		return dao.deliverySelect();
+	}
+	
 
 }

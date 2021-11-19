@@ -30,6 +30,15 @@
 					class="btn btn-radius-solidPointRate btn--shadow">ポイント倍率変更</a></td>
 			</tr>
 		</table>
+		
+		<table class="administratorTopTableDesign">
+
+
+			<tr>
+				<td class="text-center"><a th:href="@{/deliveryCheck}"
+					class="btn btn-radius-solid btn--shadow">発送管理</a></td>
+			</tr>
+		</table>
 
 		<h3>お問い合わせ内容</h3>
 		<form method="post" th:action="@{/inquiry}" th:object="${inquiryForm}">

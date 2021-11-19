@@ -153,6 +153,7 @@ public class ShoppingController {
 	ChallengeProgrammingEvaluationService challengeProgrammingEvaluationService;
 	@Autowired
 	ChallengeProgrammingHistoryService challengeProgrammingHistoryService;
+	
 
 	@Autowired // Sessionが使用できる
 	HttpSession session;
@@ -1529,6 +1530,125 @@ public class ShoppingController {
 		newsService.insertOne(newsdto);// 入力されたされたお知らせ内容をnewsテーブルに格納
 
 		return getNews(form, model);
+	}
+	
+	@GetMapping("/deliveryCheck")
+	public String getDeliveryCheck(@ModelAttribute PcDataForm form,Model model) {
+		model.addAttribute("contents", "shopping/deliveryCheck::productListLayout_contents");
+		//商品情報リストを取得 ※発送したものは取得してこないようにする
+		List<PurchaseDTO> purchasedtoList = purchaseService.deliverySelect();
+		
+		List<PurchaseDTO> allPurchaseList = new ArrayList<>();
+		PurchaseDTO customList;
+		// 購入商品を一つづつ回して値を受け取る
+		for (int i = 0; purchasedtoList.size() > i; i++) {
+			PurchaseDTO purchasedtoAdd = new PurchaseDTO();
+
+			PurchaseDTO purchaseOne = purchasedtoList.get(i);
+			purchasedtoAdd.setId(purchaseOne.getId());// カスタム情報取得に使用
+			purchasedtoAdd.setUser_id(purchaseOne.getUser_id());
+			purchasedtoAdd.setPurchaseId(purchaseOne.getPurchaseId());
+			purchasedtoAdd.setPurchase_date(purchaseOne.getPurchase_date());
+			purchasedtoAdd.setCancelCheck(purchaseOne.getCancelCheck());
+			purchasedtoAdd.setCouponId(purchaseOne.getCouponId());
+			purchasedtoAdd.setPcName(purchaseOne.getPcName());
+			purchasedtoAdd.setPrice(purchaseOne.getPrice());
+			purchasedtoAdd.setPcImg(purchaseOne.getPcImg());
+			purchasedtoAdd.setProduct_count(purchaseOne.getProduct_count());
+			purchasedtoAdd.setPurchaseCheck(purchaseOne.getPurchaseCheck());
+			purchasedtoAdd.setMenberCouponCheck(purchaseOne.getMenberCouponCheck());
+			purchasedtoAdd.setUserName(purchaseOne.getUserName());
+			purchasedtoAdd.setAddress(purchaseOne.getAddress());
+
+			// 購入商品ごとのカスタム情報も取り出す
+
+			int productId = purchasedtoAdd.getId();
+			String nullCheck = "null";
+			int getCustomId = customService.selectPurchaseCheck(purchasedtoAdd.getUser_id(), productId, purchasedtoAdd.getPurchaseCheck(),
+					nullCheck);
+			customList = customService.selectMany(getCustomId);
+
+			purchasedtoAdd.setMemory(customList.getMemory());
+			purchasedtoAdd.setHardDisc(customList.getHardDisc());
+			purchasedtoAdd.setCpu(customList.getCpu());
+			purchasedtoAdd.setCustomPrice(customList.getCustomPrice());
+			purchasedtoAdd.setTotalPrice(
+					purchaseOne.getProduct_count() * (customList.getCustomPrice() + purchaseOne.getPrice()));
+
+			if (purchasedtoAdd.getMenberCouponCheck().equals("会員クーポン使用")) {
+
+				int totalPrice = purchasedtoAdd.getTotalPrice();
+				MenberCouponDTO menbercoupondto = menberCouponService.selectOne(purchasedtoAdd.getCouponId());// 会員DBからとる
+				int disCount = menbercoupondto.getDiscount();// 割引率(%)
+				if (disCount >= 10) {
+					double disCountNew = Double.valueOf("0." + disCount);
+					double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+					purchasedtoAdd.setTotalPrice((int) (totalPrice - disCountPriceNew));
+				} else {
+					double disCountNew = Double.valueOf("0.0" + disCount);
+					double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+					purchasedtoAdd.setTotalPrice((int) (totalPrice - disCountPriceNew));
+				}
+			} else {
+
+				if (purchasedtoAdd.getCouponId() > 0) {
+					int totalPrice = purchasedtoAdd.getTotalPrice();
+					CouponDTO coupondto = couponService.selectOne(purchasedtoAdd.getCouponId());
+					int disCount = coupondto.getDiscount();// 割引率(%)
+					if (disCount >= 10) {
+						double disCountNew = Double.valueOf("0." + disCount);
+						double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+						purchasedtoAdd.setTotalPrice((int) (totalPrice - disCountPriceNew));
+					} else {
+						double disCountNew = Double.valueOf("0.0" + disCount);
+						double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+						purchasedtoAdd.setTotalPrice((int) (totalPrice - disCountPriceNew));
+					}
+				}
+			}
+
+			Calendar calendar = Calendar.getInstance();
+			Date now = calendar.getTime();
+			calendar.setTime(purchasedtoAdd.getPurchase_date());
+			Date purchaseDate = calendar.getTime();// 購入日付
+			model.addAttribute("purchaseCheck", purchaseDate);
+			calendar.add(Calendar.DATE, 10);
+			Date purchaseDateAddTen = calendar.getTime();// キャンセル期間外の購入日付から10日後の日付
+			model.addAttribute("result", purchaseDateAddTen);
+			System.out.println("pur" + purchaseDate.getTime());
+			System.out.println("now" + now.getTime());
+			long d = (purchaseDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24);// 購入日と現在の日付を比べる
+			int count = (int) -d;
+
+			if (count <= 10) {
+
+				purchasedtoAdd.setCancelResult("true");
+			} else {
+				purchasedtoAdd.setCancelResult("false");
+			}
+
+			CancelDTO canceldto = cancelService.selectCancelCheck(purchasedtoAdd.getPurchaseId());
+
+			if (canceldto.getCancelCheck() != null) {
+
+				purchasedtoAdd.setCancelResult("true");
+			}
+
+			allPurchaseList.add(purchasedtoAdd);
+
+		}
+
+		model.addAttribute("purchaseList", allPurchaseList);
+		model.addAttribute("confirmationPending", "返品商品確認待ち");
+		model.addAttribute("inTransaction", "キャンセル取引中");
+		return "shopping/productListLayout";
+		
+		
+	}
+	
+	@GetMapping("/deliveryCheck/{id}")
+	public String getDeliveryCheck(@ModelAttribute @PathVariable("id") int purchaseId,Model model) {
+		
 	}
 
 	@GetMapping("/userPurchaseHistory/{id}")
@@ -6013,9 +6133,7 @@ public class ShoppingController {
 		int pointminusTotalPrice = (int) session.getAttribute("pointminusTotalPrice");
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		System.out.println("auth" + auth.getName());
 		String getName = auth.getName();
-
 		int select_id = usersService.select_id(getName);
 		
 		boolean result = cartService.selectProductCount(select_id);// ユーザーが購入した、各商品の購入数を取得
@@ -6058,6 +6176,7 @@ public class ShoppingController {
 					//purchaseテーブルに購入データを格納(会員ランククーポンを利用して購入した場合)
 					purchaseService.insertMenberCoupon(purchasedto, productid, purchaseCount, select_id,
 							creditId, customId, couponId, point, pointminusTotalPrice);
+					
 				} else if (couponCheck > 0) {
 					System.out.println("クーポン使用");
 					
