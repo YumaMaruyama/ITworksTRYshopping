@@ -1548,6 +1548,7 @@ public class ShoppingController {
 			purchasedtoAdd.setId(purchaseOne.getId());// カスタム情報取得に使用
 			purchasedtoAdd.setUser_id(purchaseOne.getUser_id());
 			purchasedtoAdd.setPurchaseId(purchaseOne.getPurchaseId());
+			System.out.println(purchasedtoAdd.getPurchaseId());
 			purchasedtoAdd.setPurchase_date(purchaseOne.getPurchase_date());
 			purchasedtoAdd.setCancelCheck(purchaseOne.getCancelCheck());
 			purchasedtoAdd.setCouponId(purchaseOne.getCouponId());
@@ -1557,6 +1558,7 @@ public class ShoppingController {
 			purchasedtoAdd.setProduct_count(purchaseOne.getProduct_count());
 			purchasedtoAdd.setPurchaseCheck(purchaseOne.getPurchaseCheck());
 			purchasedtoAdd.setMenberCouponCheck(purchaseOne.getMenberCouponCheck());
+			purchasedtoAdd.setDeliveryCheck(purchaseOne.getDeliveryCheck());
 			purchasedtoAdd.setUserName(purchaseOne.getUserName());
 			purchasedtoAdd.setAddress(purchaseOne.getAddress());
 
@@ -1646,9 +1648,15 @@ public class ShoppingController {
 		
 	}
 	
-	@GetMapping("/deliveryCheck/{id}")
-	public String getDeliveryCheck(@ModelAttribute @PathVariable("id") int purchaseId,Model model) {
+	@PostMapping("/deliveryProcedureOK")
+	public String postDeliveryCheck(@ModelAttribute @RequestParam("id") int purchaseId,Model model) {
+		System.out.println("dfdfdfd");
+		System.out.println(purchaseId);
 		
+		purchaseService.deliveryProcedureCheckInsertOne(purchaseId);
+		
+		PcDataForm form = new PcDataForm();
+		return getDeliveryCheck(form,model);	
 	}
 
 	@GetMapping("/userPurchaseHistory/{id}")

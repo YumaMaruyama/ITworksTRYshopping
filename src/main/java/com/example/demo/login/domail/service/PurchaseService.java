@@ -87,5 +87,9 @@ public class PurchaseService {
 		return dao.deliverySelect();
 	}
 	
+	public int deliveryProcedureCheckInsertOne(int purchaseId) {
+		return dao.deliveryProcedureCheckInsertOne(purchaseId);
+	}
+	
 
 }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -11,7 +12,7 @@
 		<h1 class="titleDesign">商品購入履歴</h1>
 
 
-
+		<form method="post" th:action="@{/deliveryProcedureOK}">
 		<div class="flex purHisTable" style="width: 1100px;">
 			<div class="item" th:each="purchasedto : ${purchaseList}">
 				<form>
@@ -42,10 +43,24 @@
 					<p class="card-text purHisfontdesign cartcpu"
 						style="margin-bottom: 0px !important"
 						th:text="'購入数：' + ${purchasedto.product_count}"></p>
-					<h4><a th:href="@{/deliveryOk} + '/' + ${purchasedto.purchaseId}">発送しました</a></h4>
+					<input type="hidden" name="id" th:value="${purchasedto.purchaseId}">
+					<button th:if="${purchasedto.deliveryCheck} == '発送前'" class="text-center deliveryProcedureOK">発送後押す</button>
+					<h4 class="text-danger text-center" th:if="${purchasedto.deliveryCheck} == '発送済み'"><a>発送済</a></h4>
 			</div>
 			</form>
 		</div>
+		<script>
+			$('.deliveryProcedureOK').click(function() {
+				if (confirm('発送が完了しましたか？')) {
+
+					return true;
+				}
+				return false;
+			});
+	</script>
 	</div>
+	
+	
+		
 </body>
 </html>

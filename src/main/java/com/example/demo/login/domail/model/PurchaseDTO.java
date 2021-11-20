@@ -60,6 +60,8 @@ public class PurchaseDTO {
 	private int pointRepayment;
 
 	private boolean pointUseCheck;
+	
+	private String deliveryCheck;
 
 	private String userName;
 	

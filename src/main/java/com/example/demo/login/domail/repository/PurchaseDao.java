@@ -42,4 +42,6 @@ public interface PurchaseDao {
 	public List<PurchaseDTO> selectPoint(int userId);
 
 	public List<PurchaseDTO> deliverySelect();
+	
+	public int deliveryProcedureCheckInsertOne(int purchaseId);
 }
