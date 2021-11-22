@@ -6986,6 +6986,134 @@ public class ShoppingController {
 		return "shopping/productListLayout";
 
 	}
+	
+	@GetMapping("/gacha")
+	public String getGacha(Model model) {
+		model.addAttribute("contents", "shopping/dailyGacha::productListLayout_contents");
+		
+		
+		return "shopping/productListLayout";
+	}
+	
+	@PostMapping("/dailyGacha")
+	public String postGacha(Model model) {
+		model.addAttribute("contents", "shopping/dailyGacha::productListLayout_contents");
+		
+		//十連ガチャ
+		for(int i = 0; 10 > i; i++) {
+		int rundomNumber = ((int)Math.ceil(Math.random() * 100));
+		
+		//確率1%(星5)
+		//星5の1
+		if(rundomNumber < 1) {
+					
+		}
+
+		//確率2％(星4)
+		//星4の1
+		if(rundomNumber >= 1 && rundomNumber <= 2) {
+			
+		}
+		//星4の2
+		if(rundomNumber >= 3 && rundomNumber <= 4) {
+			
+		}
+		//星4の3
+		if(rundomNumber >= 5 && rundomNumber <= 6) {
+			
+		}
+		//星4の4
+		if(rundomNumber >= 7 && rundomNumber <= 8) {
+	
+		}
+		//星4の5
+		if(rundomNumber >= 9 && rundomNumber <= 10) {
+		
+		}
+		
+		//確率4％(星3)
+		//星3の1
+		if(rundomNumber >= 11 && rundomNumber <= 14) {
+					
+		}
+		
+		//星3の2
+		if(rundomNumber >= 15 && rundomNumber <= 18) {
+							
+		}
+		
+		//星3の3
+		if(rundomNumber >= 19 && rundomNumber <= 22) {
+							
+		}
+		
+		//星3の4
+		if(rundomNumber >= 23 && rundomNumber <= 26) {
+							
+		}
+		//星3の5
+		if(rundomNumber >= 27 && rundomNumber <= 30) {
+			
+		}
+		
+		
+		//確率6％(星2)
+		//星2の1
+		if(rundomNumber >= 31 && rundomNumber <= 36) {
+							
+		}
+		
+		//星2の2
+		if(rundomNumber >= 37 && rundomNumber <= 42) {
+			
+		}
+		
+		//星2の3
+		if(rundomNumber >= 43 && rundomNumber <= 48) {
+			
+		}
+		
+		//星2の4
+		if(rundomNumber >= 49 && rundomNumber <= 54) {
+			
+		}
+		
+		//星2の5
+		if(rundomNumber >= 55 && rundomNumber <= 60) {
+			
+		}
+		
+		//確率8％(星1)
+		//星1の1
+		if(rundomNumber >= 61 && rundomNumber <= 68) {
+									
+		}
+		
+		//星1の2
+		if(rundomNumber >= 69 && rundomNumber <= 76) {
+			
+		}
+
+		//星1の3
+		if(rundomNumber >= 77 && rundomNumber <= 84) {
+			
+		}
+		
+		//星1の4
+		if(rundomNumber >= 85 && rundomNumber <= 92) {
+			
+		}
+		
+		//星1の5
+		if(rundomNumber >= 93 && rundomNumber <= 100) {
+			
+			
+		}
+		}
+		
+		
+		return "shopping/productListLayout";
+	}
 
 	// ログアウト用メソッド
 	@GetMapping("logout")

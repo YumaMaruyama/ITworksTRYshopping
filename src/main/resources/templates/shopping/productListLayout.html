@@ -98,7 +98,7 @@
 <body>
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container-fluid headerDesign">
-			<div class="navbar-header col-sm-4">
+			<div class="navbar-header">
 				<i th:if="${session.rankPoint} == 'アマチュアランク'"
 					class="fa fa-glass rank1 fa-spin"></i> <i
 					th:if="${session.rankPoint} == 'プロランク'"
@@ -127,11 +127,16 @@
 
 
 			</div>
+			
+			<div class="">
+				<h3 style="color: #fff;  font-size: 20px; margin: 6px 0px 0px 0px;"><a th:href="@{/gacha}">ログインガチャ</a></h3>
+			</div>
+			
 			<div class="col-sm-6">
 				<h3 th:text="${session.sessionGetUser_name} + 'さん、こんにちは'"
 					style="color: #fff; padding: 0px 0px !important; margin: 6px 0px 0px 70px; font-size: 20px;"></h3>
 			</div>
-
+			
 			<div class="col-sm-2">
 				<h4 style="margin: 15px 0px !important;">
 					<a th:href="@{'/logout'}"><span

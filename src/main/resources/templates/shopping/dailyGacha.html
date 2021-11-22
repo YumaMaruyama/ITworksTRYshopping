@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	
+	<div th:fragment="productListLayout_contents">
+
+		<h1 class="titleDesign">デイリーガチャ</h1>
+		
+		<form method="post" th:action="@{/dailyGacha}">
+		<table>
+			<tr>
+				<img class="productSize" th:src="@{/css/gacha.png}">
+				<img class="productSize" th:src="@{/css/gachaAnimation.gif}">
+			</tr>
+		</table>
+		</form>
+		
+		
+	</div>
+</body>
+</html>
