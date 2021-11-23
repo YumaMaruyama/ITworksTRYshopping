@@ -146,14 +146,13 @@ public class ShoppingController {
 	@Autowired
 	ChallengeProgrammingContractService challengeProgrammingContractService;
 	@Autowired
-	ChallengeProgrammingLessonStartPasswordService challengeProgrammingLessonStartPasswordService; 
+	ChallengeProgrammingLessonStartPasswordService challengeProgrammingLessonStartPasswordService;
 	@Autowired
 	MailService mailService;
 	@Autowired
 	ChallengeProgrammingEvaluationService challengeProgrammingEvaluationService;
 	@Autowired
 	ChallengeProgrammingHistoryService challengeProgrammingHistoryService;
-	
 
 	@Autowired // Sessionが使用できる
 	HttpSession session;
@@ -207,7 +206,6 @@ public class ShoppingController {
 	@GetMapping("/usersListDetail/{id}")
 	public String GetUsersListDetail(@ModelAttribute UsersListForm form, @PathVariable("id") int id, Model model) {
 		model.addAttribute("contents", "shopping/usersListDetail::productListLayout_contents");
-
 
 		UsersListDTO getUsers = usersService.selectOne(id);// 管理者以外のusersテーブル情報取得
 		UsersListDTO getUsegeUsers = usegeService.selectOne(id);
@@ -375,7 +373,7 @@ public class ShoppingController {
 			int allTotalPrice = 0;
 
 			List<PurchaseDTO> purchasedtoList = purchaseService.selectHistory(userId);// メソッドに入ったユーザーの購入情報を取得
-		
+
 			PurchaseDTO customList;
 			// 購入商品を一つづつ回して値を受け取る
 			if (purchasedtoList.size() > 0) {
@@ -996,7 +994,6 @@ public class ShoppingController {
 			@PathVariable("id") int id, Model model) {
 		model.addAttribute("contents", "shopping/editYourDetail::productListLayout_contents");
 
-
 		UsersDTO usersdto = usersService.userInformationSelectOne(id);// usersテーブルから情報を取得
 		Usege_usersDTO usegeusersdto = usegeService.userInformationSelectOne(id);// usege_usersテーブルから情報を取得
 
@@ -1099,18 +1096,17 @@ public class ShoppingController {
 
 		return "shopping/loginLayout";
 	}
-	
+
 	@GetMapping("/productListBeforeLogin")
-		public String getProductListBeforeLogin(Model model) {
-			model.addAttribute("contents", "shopping/productListBeforeLogin::loginLayout_contents");
-			
-			List<PcDataDTO> productList = pcdataService.selectMany();
-			model.addAttribute("productList", productList);
-			model.addAttribute("productListCheck","yes");
-			
-			return "shopping/loginLayout";
-		}
-	
+	public String getProductListBeforeLogin(Model model) {
+		model.addAttribute("contents", "shopping/productListBeforeLogin::loginLayout_contents");
+
+		List<PcDataDTO> productList = pcdataService.selectMany();
+		model.addAttribute("productList", productList);
+		model.addAttribute("productListCheck", "yes");
+
+		return "shopping/loginLayout";
+	}
 
 	@GetMapping("/appDetail")
 	public String getAppDetail(Model model) {
@@ -1239,19 +1235,18 @@ public class ShoppingController {
 	@GetMapping("/inquiryDetail/{id}")
 	public String getInquiryDetail(@ModelAttribute InquiryForm form, @PathVariable("id") int inquiryId, Model model) {
 		model.addAttribute("contents", "shopping/inquiryDetail::productListLayout_contents");
-		
+
 		try {
-		InquiryDTO inquirydto = inquiryService.selectOne(inquiryId);// inquiryテーブルのIdをもとにinquiryテーブルの情報を取得
-		model.addAttribute("id", inquirydto.getId());
-		model.addAttribute("inquiryList", inquirydto);
-		}catch(EmptyResultDataAccessException e) {
+			InquiryDTO inquirydto = inquiryService.selectOne(inquiryId);// inquiryテーブルのIdをもとにinquiryテーブルの情報を取得
+			model.addAttribute("id", inquirydto.getId());
+			model.addAttribute("inquiryList", inquirydto);
+		} catch (EmptyResultDataAccessException e) {
 			e.printStackTrace();
-		InquiryDTO inquiryBeforeLoginDTO = inquiryService.beforeLoginSelectOne(inquiryId);	
-		inquiryBeforeLoginDTO.setUserName("ログイン前ユーザーから");
-		model.addAttribute("id", inquiryBeforeLoginDTO.getId());
-		model.addAttribute("inquiryList", inquiryBeforeLoginDTO);
+			InquiryDTO inquiryBeforeLoginDTO = inquiryService.beforeLoginSelectOne(inquiryId);
+			inquiryBeforeLoginDTO.setUserName("ログイン前ユーザーから");
+			model.addAttribute("id", inquiryBeforeLoginDTO.getId());
+			model.addAttribute("inquiryList", inquiryBeforeLoginDTO);
 		}
-		
 
 		return "shopping/productListLayout";
 	}
@@ -1324,16 +1319,16 @@ public class ShoppingController {
 
 			inquirynewdtolist.add(inquirydto);
 		}
-		
+
 		List<InquiryDTO> inquiryBeforeLoginList = inquiryService.beforeLoginSelectMany("-1");
-		for(int y = 0; inquiryBeforeLoginList.size() > y; y++) {
+		for (int y = 0; inquiryBeforeLoginList.size() > y; y++) {
 			InquiryDTO inquirydtoNext = inquiryBeforeLoginList.get(y);
 			int userId = inquirydtoNext.getUser_id();
 			String userIdNew = String.valueOf(userId);
 			inquirydtoNext.setUserName(userIdNew);
 			inquirynewdtolist.add(inquirydtoNext);
-			}
-		
+		}
+
 		model.addAttribute("inquiryList", inquirynewdtolist);
 
 		return "shopping/productListLayout";
@@ -1417,16 +1412,16 @@ public class ShoppingController {
 		}
 
 		ProductListSearchForm productlistsearchform = new ProductListSearchForm();
-		return getProductList(form,productlistsearchform, redirectAttributes, model);
+		return getProductList(form, productlistsearchform, redirectAttributes, model);
 	}
-	
+
 	@GetMapping("/productEdit/{id}")
-	public String getProductEdit(@ModelAttribute PcDataForm form,@PathVariable("id") int productId,Model model) {
+	public String getProductEdit(@ModelAttribute PcDataForm form, @PathVariable("id") int productId, Model model) {
 		model.addAttribute("contents", "shopping/productEdit::productListLayout_contents");
-		
-		//編集する商品のデータを取得
+
+		// 編集する商品のデータを取得
 		PcDataDTO pcdatadto = pcdataService.pcdataOne(productId);
-		
+
 		form.setId(pcdatadto.getId());
 		form.setCompany(pcdatadto.getCompany());
 		form.setOs(pcdatadto.getOs());
@@ -1441,30 +1436,31 @@ public class ShoppingController {
 		form.setPcImg3(pcdatadto.getPcImg3());
 		String productStock = String.valueOf(pcdatadto.getProduct_stock());
 		form.setProduct_stock(productStock);
-		
-		//編集するデータを画面表示するために渡す
-		model.addAttribute("pcDataForm",form);	
-		model.addAttribute("productId",form.getId());
-		
+
+		// 編集するデータを画面表示するために渡す
+		model.addAttribute("pcDataForm", form);
+		model.addAttribute("productId", form.getId());
+
 		return "shopping/productListLayout";
 	}
-	
+
 	@PostMapping("/productEdit")
-	public String postProductEdit(@ModelAttribute @Validated(GroupOrder.class) PcDataForm form,BindingResult bindingResult,RedirectAttributes redirectattributes,@RequestParam("productId") int productId,Model model) {
+	public String postProductEdit(@ModelAttribute @Validated(GroupOrder.class) PcDataForm form,
+			BindingResult bindingResult, RedirectAttributes redirectattributes,
+			@RequestParam("productId") int productId, Model model) {
 		model.addAttribute("contents", "shopping/productDetail::productListLayout_contents");
-		
-		if(bindingResult.hasErrors()) {
-			getProductEdit(form,productId,model);
+
+		if (bindingResult.hasErrors()) {
+			getProductEdit(form, productId, model);
 		}
 
-		//修正されたproductの内容にデータを更新する
-		pcdataService.productEditOne(productId,form);
-		
+		// 修正されたproductの内容にデータを更新する
+		pcdataService.productEditOne(productId, form);
+
 		ProductListSearchForm productlistsearchform = new ProductListSearchForm();
-		return getProductList(form,productlistsearchform,redirectattributes,model);
+		return getProductList(form, productlistsearchform, redirectattributes, model);
 	}
-	
-	
+
 	@GetMapping("/news")
 	public String getNews(@ModelAttribute NewsForm form, Model model) {
 		model.addAttribute("contents", "shopping/news::productListLayout_contents");
@@ -1531,13 +1527,13 @@ public class ShoppingController {
 
 		return getNews(form, model);
 	}
-	
+
 	@GetMapping("/deliveryCheck")
-	public String getDeliveryCheck(@ModelAttribute PcDataForm form,Model model) {
+	public String getDeliveryCheck(@ModelAttribute PcDataForm form, Model model) {
 		model.addAttribute("contents", "shopping/deliveryCheck::productListLayout_contents");
-		//商品情報リストを取得 ※発送したものは取得してこないようにする
+		// 商品情報リストを取得 ※発送したものは取得してこないようにする
 		List<PurchaseDTO> purchasedtoList = purchaseService.deliverySelect();
-		
+
 		List<PurchaseDTO> allPurchaseList = new ArrayList<>();
 		PurchaseDTO customList;
 		// 購入商品を一つづつ回して値を受け取る
@@ -1548,7 +1544,7 @@ public class ShoppingController {
 			purchasedtoAdd.setId(purchaseOne.getId());// カスタム情報取得に使用
 			purchasedtoAdd.setUser_id(purchaseOne.getUser_id());
 			purchasedtoAdd.setPurchaseId(purchaseOne.getPurchaseId());
-			System.out.println(purchasedtoAdd.getPurchaseId());
+			System.out.println("purchaseId" + purchasedtoAdd.getPurchaseId());
 			purchasedtoAdd.setPurchase_date(purchaseOne.getPurchase_date());
 			purchasedtoAdd.setCancelCheck(purchaseOne.getCancelCheck());
 			purchasedtoAdd.setCouponId(purchaseOne.getCouponId());
@@ -1566,8 +1562,8 @@ public class ShoppingController {
 
 			int productId = purchasedtoAdd.getId();
 			String nullCheck = "null";
-			int getCustomId = customService.selectPurchaseCheck(purchasedtoAdd.getUser_id(), productId, purchasedtoAdd.getPurchaseCheck(),
-					nullCheck);
+			int getCustomId = customService.selectPurchaseCheck(purchasedtoAdd.getUser_id(), productId,
+					purchasedtoAdd.getPurchaseCheck(), nullCheck);
 			customList = customService.selectMany(getCustomId);
 
 			purchasedtoAdd.setMemory(customList.getMemory());
@@ -1640,23 +1636,139 @@ public class ShoppingController {
 
 		}
 
+		System.out.println("allPurchaseList" + allPurchaseList);
 		model.addAttribute("purchaseList", allPurchaseList);
 		model.addAttribute("confirmationPending", "返品商品確認待ち");
 		model.addAttribute("inTransaction", "キャンセル取引中");
 		return "shopping/productListLayout";
-		
-		
 	}
-	
-	@PostMapping("/deliveryProcedureOK")
-	public String postDeliveryCheck(@ModelAttribute @RequestParam("id") int purchaseId,Model model) {
+
+	@GetMapping("/deliveryProcedureOK/{id}")
+	public String postDeliveryCheck(@ModelAttribute @PathVariable("id") int purchaseId, Model model) {
 		System.out.println("dfdfdfd");
 		System.out.println(purchaseId);
-		
+
 		purchaseService.deliveryProcedureCheckInsertOne(purchaseId);
-		
+
 		PcDataForm form = new PcDataForm();
-		return getDeliveryCheck(form,model);	
+		return getDeliveryCheck(form, model);
+	}
+
+	@GetMapping("/cancelCheck")
+	public String getCancelCheck(Model model) {
+		model.addAttribute("contents", "shopping/cancelCheck::productListLayout_contents");
+
+		// 商品情報リストを取得 ※キャンセル取引中のものだけとる
+		List<PurchaseDTO> purchasedtoList = purchaseService.cancelCheckSelectMany();
+
+		List<PurchaseDTO> allPurchaseList = new ArrayList<>();
+		PurchaseDTO customList;
+		// 購入商品を一つづつ回して値を受け取る
+		for (int i = 0; purchasedtoList.size() > i; i++) {
+			PurchaseDTO purchasedtoAdd = new PurchaseDTO();
+
+			PurchaseDTO purchaseOne = purchasedtoList.get(i);
+			purchasedtoAdd.setId(purchaseOne.getId());// カスタム情報取得に使用
+			purchasedtoAdd.setUser_id(purchaseOne.getUser_id());
+			purchasedtoAdd.setPurchaseId(purchaseOne.getPurchaseId());
+			System.out.println("purchaseId" + purchasedtoAdd.getPurchaseId());
+			purchasedtoAdd.setPurchase_date(purchaseOne.getPurchase_date());
+			purchasedtoAdd.setCancelCheck(purchaseOne.getCancelCheck());
+			purchasedtoAdd.setCouponId(purchaseOne.getCouponId());
+			purchasedtoAdd.setPcName(purchaseOne.getPcName());
+			purchasedtoAdd.setPrice(purchaseOne.getPrice());
+			purchasedtoAdd.setPcImg(purchaseOne.getPcImg());
+			purchasedtoAdd.setProduct_count(purchaseOne.getProduct_count());
+			purchasedtoAdd.setPurchaseCheck(purchaseOne.getPurchaseCheck());
+			purchasedtoAdd.setMenberCouponCheck(purchaseOne.getMenberCouponCheck());
+			purchasedtoAdd.setDeliveryCheck(purchaseOne.getDeliveryCheck());
+			purchasedtoAdd.setUserName(purchaseOne.getUserName());
+			purchasedtoAdd.setAddress(purchaseOne.getAddress());
+
+			// 購入商品ごとのカスタム情報も取り出す
+
+			int productId = purchasedtoAdd.getId();
+			String nullCheck = "null";
+			int getCustomId = customService.selectPurchaseCheck(purchasedtoAdd.getUser_id(), productId,
+					purchasedtoAdd.getPurchaseCheck(), nullCheck);
+			customList = customService.selectMany(getCustomId);
+
+			purchasedtoAdd.setMemory(customList.getMemory());
+			purchasedtoAdd.setHardDisc(customList.getHardDisc());
+			purchasedtoAdd.setCpu(customList.getCpu());
+			purchasedtoAdd.setCustomPrice(customList.getCustomPrice());
+			purchasedtoAdd.setTotalPrice(
+					purchaseOne.getProduct_count() * (customList.getCustomPrice() + purchaseOne.getPrice()));
+
+			if (purchasedtoAdd.getMenberCouponCheck().equals("会員クーポン使用")) {
+
+				int totalPrice = purchasedtoAdd.getTotalPrice();
+				MenberCouponDTO menbercoupondto = menberCouponService.selectOne(purchasedtoAdd.getCouponId());// 会員DBからとる
+				int disCount = menbercoupondto.getDiscount();// 割引率(%)
+				if (disCount >= 10) {
+					double disCountNew = Double.valueOf("0." + disCount);
+					double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+					purchasedtoAdd.setTotalPrice((int) (totalPrice - disCountPriceNew));
+				} else {
+					double disCountNew = Double.valueOf("0.0" + disCount);
+					double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+					purchasedtoAdd.setTotalPrice((int) (totalPrice - disCountPriceNew));
+				}
+			} else {
+
+				if (purchasedtoAdd.getCouponId() > 0) {
+					int totalPrice = purchasedtoAdd.getTotalPrice();
+					CouponDTO coupondto = couponService.selectOne(purchasedtoAdd.getCouponId());
+					int disCount = coupondto.getDiscount();// 割引率(%)
+					if (disCount >= 10) {
+						double disCountNew = Double.valueOf("0." + disCount);
+						double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+						purchasedtoAdd.setTotalPrice((int) (totalPrice - disCountPriceNew));
+					} else {
+						double disCountNew = Double.valueOf("0.0" + disCount);
+						double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+						purchasedtoAdd.setTotalPrice((int) (totalPrice - disCountPriceNew));
+					}
+				}
+			}
+
+			Calendar calendar = Calendar.getInstance();
+			Date now = calendar.getTime();
+			calendar.setTime(purchasedtoAdd.getPurchase_date());
+			Date purchaseDate = calendar.getTime();// 購入日付
+			model.addAttribute("purchaseCheck", purchaseDate);
+			calendar.add(Calendar.DATE, 10);
+			Date purchaseDateAddTen = calendar.getTime();// キャンセル期間外の購入日付から10日後の日付
+			model.addAttribute("result", purchaseDateAddTen);
+			System.out.println("pur" + purchaseDate.getTime());
+			System.out.println("now" + now.getTime());
+			long d = (purchaseDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24);// 購入日と現在の日付を比べる
+			int count = (int) -d;
+
+			if (count <= 10) {
+
+				purchasedtoAdd.setCancelResult("true");
+			} else {
+				purchasedtoAdd.setCancelResult("false");
+			}
+
+			CancelDTO canceldto = cancelService.selectCancelCheck(purchasedtoAdd.getPurchaseId());
+
+			if (canceldto.getCancelCheck() != null) {
+
+				purchasedtoAdd.setCancelResult("true");
+			}
+
+			allPurchaseList.add(purchasedtoAdd);
+
+		}
+
+		System.out.println("allPurchaseList" + allPurchaseList);
+		model.addAttribute("purchaseList", allPurchaseList);
+		model.addAttribute("confirmationPending", "返品商品確認待ち");
+		model.addAttribute("inTransaction", "キャンセル取引中");
+		return "shopping/productListLayout";
+
 	}
 
 	@GetMapping("/userPurchaseHistory/{id}")
@@ -2341,7 +2453,7 @@ public class ShoppingController {
 			int maxId = cancelService.selectCancelCheck(purchaseId, select_id);
 			if (maxId != 0) {
 				CancelDTO canceldtoNext = cancelService.cancelCheckSelect(maxId);
-				
+
 				if (canceldtoNext.getCancelCheck() != "null") {
 					return postCancelDeliveredDetail(form, model);
 				}
@@ -2967,7 +3079,6 @@ public class ShoppingController {
 		purchasedto.setPurchaseCheck(purchasedtoList.getPurchaseCheck());
 
 		PurchaseDTO customList = customService.selectMany(customId);// 購入した商品のcustomテーブル情報を取得
-		
 
 		purchasedto.setCustom_id(customId);
 		purchasedto.setMemory(customList.getMemory());
@@ -3032,8 +3143,8 @@ public class ShoppingController {
 			CancelInTransactionForm intransactionform, @RequestParam("id") int purchaseId,
 			@RequestParam("customId") int customId, Model model) {
 
-		cancelService.deleteOne(purchaseId);//キャンセル取りやめのためcancelテーブルを購入したpurchaseIDをもとに削除
-		purchaseService.cancelCheckUpdate(purchaseId);//purchaseテーブルのcancel_checkを初期に戻す
+		cancelService.deleteOne(purchaseId);// キャンセル取りやめのためcancelテーブルを購入したpurchaseIDをもとに削除
+		purchaseService.cancelCheckUpdate(purchaseId);// purchaseテーブルのcancel_checkを初期に戻す
 
 		PcDataForm pcdataForm = new PcDataForm();
 		return getPurchaseHistory(pcdataForm, model);
@@ -3414,13 +3525,13 @@ public class ShoppingController {
 				double disCountNew = Double.valueOf("0." + disCount);
 				double disCountPriceNew = totalPrice * disCountNew;// 割引価格
 				int totalPriceAll = (int) (totalPrice - disCountPriceNew);
-				
+
 				purchasedto.setTotalPrice(totalPriceAll);
 			} else {
 				double disCountNew = Double.valueOf("0.0" + disCount);
 				double disCountPriceNew = totalPrice * disCountNew;// 割引価格
 				int totalPriceAll = (int) (totalPrice - disCountPriceNew);
-	
+
 				purchasedto.setTotalPrice(totalPriceAll);
 			}
 		} else {
@@ -3545,7 +3656,7 @@ public class ShoppingController {
 					}
 					beforeUseCouponId = dummyBeforeUseCouponId;
 				}
-				
+
 			}
 
 			List<CouponDTO> coupondtoList = new ArrayList<>();
@@ -3587,7 +3698,6 @@ public class ShoppingController {
 				if (count < 0) {
 					coupondtoListAdd.add(coupondtoOne);
 				}
-				
 
 			}
 
@@ -3607,10 +3717,10 @@ public class ShoppingController {
 				calendar.setTime(coupondtoOne.getExpirationDate());
 				Date expirationDate = calendar.getTime();// 購入日付
 				model.addAttribute("expirationDate", expirationDate);
-				
+
 				long d = (expirationDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24);// 購入日と現在の日付を比べる
 				int count = (int) -d;
-				
+
 				boolean countCheck = false;
 				boolean priceCheck = false;
 
@@ -3630,7 +3740,7 @@ public class ShoppingController {
 
 					coupondtoListAdd.add(coupondtoOne);
 				}
-			
+
 				model.addAttribute("couponList", coupondtoListAdd);
 
 			}
@@ -3656,7 +3766,6 @@ public class ShoppingController {
 		int rankNumber = 0;
 
 		List<PurchaseDTO> purchasedtoList = purchaseService.selectHistory(userId);// メソッドに入ったユーザーの購入情報を取得
-		
 
 		List<Integer> menberCouponUsedId = new ArrayList<>();// 使用済みmenberCouponIDを格納
 		PurchaseDTO customList;
@@ -3682,7 +3791,6 @@ public class ShoppingController {
 
 				// 購入商品ごとのカスタム情報も取り出す
 				int productId = purchasedtoAdd.getId();
-				
 
 				String nullCheck = "null";
 				int getCustomId = customService.selectPurchaseCheck(userId, productId,
@@ -3699,7 +3807,7 @@ public class ShoppingController {
 
 			}
 
-			//購入金額でランクを決定
+			// 購入金額でランクを決定
 			if ((allTotalPrice >= 0) && (allTotalPrice < 50000)) {
 				rankNumber = 1;
 				model.addAttribute("rank", "アマチュアランク");
@@ -3740,7 +3848,7 @@ public class ShoppingController {
 			model.addAttribute("rank", "アマチュアランク");
 		}
 
-		//ランクが確定したらランクによって使用できるクーポンのチェックを行う
+		// ランクが確定したらランクによって使用できるクーポンのチェックを行う
 		List<MenberCouponDTO> menbercoupondtoList = menberCouponService.selectMany();// ここですべて取ってきて自分のrankNumberより上のやつはDTO新規作成変数に違う値を入れる
 
 		List<MenberCouponDTO> menbercoupondtoListNew = new ArrayList<>();
@@ -4082,7 +4190,7 @@ public class ShoppingController {
 
 		int allProductCount = 0;
 		int allTotalPrice = 0;
-		List<PurchaseDTO> purchasedtoList = purchaseService.selectHistory(userId);//メソッドに入ったユーザーの購入情報を取得
+		List<PurchaseDTO> purchasedtoList = purchaseService.selectHistory(userId);// メソッドに入ったユーザーの購入情報を取得
 		List<PurchaseDTO> allPurchaseList = new ArrayList<>();
 		List<Integer> couponUsedId = new ArrayList<>();// 使用済みクーポンIDを格納
 		List<Integer> menberCouponUsedId = new ArrayList<>();// 使用済みmenberCouponIDを格納
@@ -4180,7 +4288,7 @@ public class ShoppingController {
 				model.addAttribute("expirationDate", expirationDate);
 				long d = (expirationDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24);// 購入日と現在の日付を比べる
 				int count = (int) -d;
-				
+
 				boolean countCheck = false;
 				boolean priceCheck = false;
 
@@ -4248,7 +4356,6 @@ public class ShoppingController {
 					model.addAttribute("notCoupon", "no");
 				}
 
-				
 				model.addAttribute("couponList", coupondtoListAdd);
 			}
 			model.addAttribute("purchaseCount", 0);
@@ -4273,7 +4380,7 @@ public class ShoppingController {
 		int rankNumber = 0;
 
 		List<PurchaseDTO> purchasedtoList = purchaseService.selectHistory(userId);// メソッドに入ったユーザーの購入情報を取得
-		
+
 		List<Integer> menberCouponUsedId = new ArrayList<>();// 使用済みmenberCouponIDを格納
 		PurchaseDTO customList;
 		// 購入商品を一つづつ回して値を受け取る
@@ -4295,7 +4402,6 @@ public class ShoppingController {
 					menberCouponUsedId.add(couponId);// menberCouponリスト
 
 				}
-			
 
 				// 購入商品ごとのカスタム情報も取り出す
 				int productId = purchasedtoAdd.getId();
@@ -4453,14 +4559,14 @@ public class ShoppingController {
 				coupondtoListAdd.add(coupondtoOne);
 
 				model.addAttribute("couponList", coupondtoListAdd);
-				
+
 			}
 			if (coupondtoList.size() == 0) {
 				model.addAttribute("notCoupon", "yes");
 			}
 		} catch (IndexOutOfBoundsException e) {
 			e.printStackTrace();
-			
+
 			List<MenberCouponDTO> coupondtoListAdd = new ArrayList<>();
 			List<MenberCouponDTO> coupondtoList = menberCouponService.selectRankNumberCheckMany(rankNumber);
 			for (int i = 0; coupondtoList.size() > i; i++) {// クーポン情報を一つづつ取り出す
@@ -4509,7 +4615,6 @@ public class ShoppingController {
 	@GetMapping("/couponCancel")
 	public String getCouponCancel(@ModelAttribute CouponForm form, RedirectAttributes redirectattributes, Model model) {
 
-		
 		return "redirect:/cart";
 	}
 
@@ -4580,7 +4685,7 @@ public class ShoppingController {
 	public String getMenberCouponUse(@ModelAttribute MenberCouponForm form, CartForm cartform,
 			@PathVariable("couponId") int couponId, @PathVariable("productId") int productId, Model model) {
 		model.addAttribute("contents", "shopping/cart::productListLayout_contents");
-		
+
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 		String getUserId = auth.getName();
@@ -4678,7 +4783,6 @@ public class ShoppingController {
 		String user_id = auth.getName();
 		// ログインユーザーのみのカートの情報を取得
 		List<PcDataDTO> cartList = cartService.selectMany(user_id);
-		
 
 		model.addAttribute("cartList", cartList);
 		model.addAttribute("couponId", couponId);
@@ -4697,7 +4801,6 @@ public class ShoppingController {
 		String user_id = auth.getName();
 		// ログインユーザーのみのカートの情報を取得
 		List<PcDataDTO> cartList = cartService.selectMany(user_id);
-		
 
 		model.addAttribute("cartList", cartList);
 		model.addAttribute("couponId", menberCouponId);
@@ -4765,15 +4868,15 @@ public class ShoppingController {
 	}
 
 	@GetMapping("/productList")
-	public String getProductList(@ModelAttribute PcDataForm form,ProductListSearchForm productlistsearchform, RedirectAttributes redirectAttributes, Model model) {
+	public String getProductList(@ModelAttribute PcDataForm form, ProductListSearchForm productlistsearchform,
+			RedirectAttributes redirectAttributes, Model model) {
 		model.addAttribute("contents", "shopping/productList::productListLayout_contents");
-		
-		//商品情報をすべて取得
+
+		// 商品情報をすべて取得
 		List<PcDataDTO> productList = pcdataService.selectMany();
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-		
 		UsersDTO headerName = usersService.getUser_name(auth.getName());
 		session.setAttribute("sessionGetUser_name", headerName.getUser_name());
 		session.setAttribute("sessionGetRole", headerName.getRole());
@@ -4786,7 +4889,7 @@ public class ShoppingController {
 		// ログインユーザーのID取得
 		int selectId = usersService.select_id(user_id);
 		List<PurchaseDTO> purchasedtoList = purchaseService.selectHistory(selectId);
-		
+
 		PurchaseDTO customList;
 		// 購入商品を一つづつ回して値を受け取る
 		if (purchasedtoList.size() > 0) {
@@ -4800,7 +4903,6 @@ public class ShoppingController {
 				purchasedtoAdd.setPurchaseCheck(purchaseOne.getPurchaseCheck());
 				// 購入商品ごとのカスタム情報も取り出す
 				int productId = purchasedtoAdd.getId();
-			
 
 				String nullCheck = "null";
 				int getCustomId = customService.selectPurchaseCheck(selectId, productId,
@@ -4854,36 +4956,34 @@ public class ShoppingController {
 		} else {
 			session.setAttribute("rankPoint", "アマチュアランク");
 		}
-		
-		
+
 		return "shopping/productListLayout";
 	}
-	
-	@PostMapping(value = "/productList",params = "search")
-	public String postProductList(@ModelAttribute ProductListSearchForm form,Model model) {
+
+	@PostMapping(value = "/productList", params = "search")
+	public String postProductList(@ModelAttribute ProductListSearchForm form, Model model) {
 		model.addAttribute("contents", "shopping/productList::productListLayout_contents");
-		
+
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String user_id = auth.getName();
 		// ログインユーザーのID取得
 		int userId = usersService.select_id(user_id);
-		
-		//ユーザーが検索した内容の商品情報を取得
+
+		// ユーザーが検索した内容の商品情報を取得
 		List<PcDataDTO> productList = pcdataService.searchProductSelectMany(form);
 		model.addAttribute("productList", productList);
-		
-		
+
 		UsersDTO headerName = usersService.getUser_name(auth.getName());
 		session.setAttribute("sessionGetUser_name", headerName.getUser_name());
 		session.setAttribute("sessionGetRole", headerName.getRole());
 
 		int allProductCount = 0;
 		int allTotalPrice = 0;
-		
+
 		// ログインユーザーのID取得
 		int selectId = usersService.select_id(user_id);
 		List<PurchaseDTO> purchasedtoList = purchaseService.selectHistory(selectId);
-		
+
 		PurchaseDTO customList;
 		// 購入商品を一つづつ回して値を受け取る
 		if (purchasedtoList.size() > 0) {
@@ -4897,7 +4997,6 @@ public class ShoppingController {
 				purchasedtoAdd.setPurchaseCheck(purchaseOne.getPurchaseCheck());
 				// 購入商品ごとのカスタム情報も取り出す
 				int productId = purchasedtoAdd.getId();
-			
 
 				String nullCheck = "null";
 				int getCustomId = customService.selectPurchaseCheck(selectId, productId,
@@ -4951,12 +5050,9 @@ public class ShoppingController {
 		} else {
 			session.setAttribute("rankPoint", "アマチュアランク");
 		}
-		
-		
+
 		return "shopping/productListLayout";
-		
-		
-		
+
 	}
 
 	@GetMapping("/productDetail/{id}")
@@ -4964,22 +5060,21 @@ public class ShoppingController {
 			HttpServletRequest request, Model model, @PathVariable("id") int id) {
 		model.addAttribute("contents", "shopping/productDetail::productListLayout_contents");
 
-		
 		try {
-			List<ReviewDTO> reviewList = reviewService.selectRating(id);//商品IDをもとにその商品の口コミをすべて取得
+			List<ReviewDTO> reviewList = reviewService.selectRating(id);// 商品IDをもとにその商品の口コミをすべて取得
 			if (reviewList.size() != 0) {
 				System.out.println("reviewList" + reviewList);
 				double totalRating = 0;
 				for (int i = 0; reviewList.size() > i; i++) {
 					ReviewDTO reviewdto = reviewList.get(i);
 					totalRating = totalRating + reviewdto.getRating();
-					
+
 				}
 
-				double evaluation = totalRating / reviewList.size();//５段階評価の平均点を出す
-				
+				double evaluation = totalRating / reviewList.size();// ５段階評価の平均点を出す
+
 				model.addAttribute("reviews", reviewList.size());
-				
+
 				model.addAttribute("evaluation", evaluation);
 			} else {
 
@@ -5012,16 +5107,16 @@ public class ShoppingController {
 			String defaultCpu = "CORE3";
 			int customPrice = 0;
 
-			customService.insertCustomData(id, select_id, defaultMemory, defaultHardDisc, defaultCpu,//デフォルトカスタムデータを格納
+			customService.insertCustomData(id, select_id, defaultMemory, defaultHardDisc, defaultCpu, // デフォルトカスタムデータを格納
 					customPrice);
 		}
 
 		PcDetailDataDTO pcdetaildatadto = customService.selectOne(id, select_id);
 
-		//商品編集のため、adminUserのみの情報を取得
+		// 商品編集のため、adminUserのみの情報を取得
 		String adminCheck = usersService.selectRole(select_id);
-		model.addAttribute("adminCheck",adminCheck);
-		
+		model.addAttribute("adminCheck", adminCheck);
+
 		model.addAttribute("memory", pcdetaildatadto.getMemory());
 		model.addAttribute("hardDisc", pcdetaildatadto.getHardDisc());
 		model.addAttribute("cpu", pcdetaildatadto.getCpu());
@@ -5038,13 +5133,13 @@ public class ShoppingController {
 		String hardDisc = form.getHardDisc();
 		String cpu = form.getCpu();
 
-		PcDataDTO pcdatadtoOne = pcdataService.selectOne(id);//商品Idをもとにその商品の情報を取得
+		PcDataDTO pcdatadtoOne = pcdataService.selectOne(id);// 商品Idをもとにその商品の情報を取得
 		System.out.println("pcdatadtoOne" + pcdatadtoOne);
 		model.addAttribute("pcdatadtoOne", pcdatadtoOne);
 
 		int getPrice = pcdatadtoOne.getPrice();
 
-		//カスタムデータによって商品の金額を変更する
+		// カスタムデータによって商品の金額を変更する
 		if (memory.equals("8GB")) {
 			getPrice = getPrice + 5000;
 		}
@@ -5106,7 +5201,7 @@ public class ShoppingController {
 	public String getPointUse(@ModelAttribute PointUseForm form, @PathVariable("id") int couponId, Model model) {
 		model.addAttribute("contents", "shopping/pointUse::productListLayout_contents");
 
-		model.addAttribute("couponId", couponId);//遷移先へhiddenで渡す
+		model.addAttribute("couponId", couponId);// 遷移先へhiddenで渡す
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth" + auth.getName());
 		String user_id = auth.getName();
@@ -5126,7 +5221,7 @@ public class ShoppingController {
 			purchasePoint = pointAll - pointUseAll;// 購入時付与ポイント - 購入時利用ポイントで現在保持しているポイントを出す
 		}
 
-		List<CancelDTO> cancelPointList = cancelService.selectPoint(userId);//cancelテーブルからキャンセルによる利用したポイントの返却分と購入後付与ポイントの回収値を取得
+		List<CancelDTO> cancelPointList = cancelService.selectPoint(userId);// cancelテーブルからキャンセルによる利用したポイントの返却分と購入後付与ポイントの回収値を取得
 
 		int cancelPoint = 0;
 		for (int y = 0; cancelPointList.size() > y; y++) {
@@ -5157,7 +5252,7 @@ public class ShoppingController {
 			try {
 				if (pcdatadto.getMenberCouponCheck().equals("会員ランク特典使用")) {
 					System.out.println("会員ランク特典使用");
-					MenberCouponDTO menbercoupondto = menberCouponService.selectOne(couponId);//menber_couponテーブルから会員ランククーポン情報を取得
+					MenberCouponDTO menbercoupondto = menberCouponService.selectOne(couponId);// menber_couponテーブルから会員ランククーポン情報を取得
 					int menberCouponDisCount = menbercoupondto.getDiscount();
 					double disCountNew = 0;
 					if (menberCouponDisCount < 10) {
@@ -5232,7 +5327,6 @@ public class ShoppingController {
 						double disCountNew = Double.valueOf("0.0" + disCount);
 						disCountPrice = totalPriceOne * disCountNew;// クーポンを使用した商品の割引数取得
 
-						
 						// ここから割引分の値が入っているのでそれをトータルからひく、小数点以下も切り捨てる
 						totalPriceAll = (int) (totalPriceAll - disCountPrice);
 						model.addAttribute("totalPrice", totalPriceAll);
@@ -5259,9 +5353,9 @@ public class ShoppingController {
 		if (bindingResult.hasErrors()) {
 			return getPointUse(form, couponId, model);
 		}
-		
-		if(form.getPointUse().equals("0")) {
-			model.addAttribute("errormessage","0のみは入力できません");
+
+		if (form.getPointUse().equals("0")) {
+			model.addAttribute("errormessage", "0のみは入力できません");
 			return getPointUse(form, couponId, model);
 		}
 
@@ -5381,7 +5475,7 @@ public class ShoppingController {
 						disCountPrice = totalPriceOne * disCountNew;// クーポンを使用した商品の割引数取得
 
 						// ここから割引分の値が入っているのでそれをトータルからひく、小数点以下も切り捨てる
-						
+
 						totalPriceAll = (int) (totalPriceAll - disCountPrice);
 						model.addAttribute("totalPrice", totalPriceAll);
 					}
@@ -5443,7 +5537,7 @@ public class ShoppingController {
 
 			totalPriceAll = totalPriceAll + pcdatadto.getProduct_count() * pcdatadto.getAfterCustomPrice();// カート内の合計金額
 
-			totalPriceOne = pcdatadto.getProduct_count() * pcdatadto.getAfterCustomPrice();//各商品の金額
+			totalPriceOne = pcdatadto.getProduct_count() * pcdatadto.getAfterCustomPrice();// 各商品の金額
 
 			try {
 				if (pcdatadto.getMenberCouponCheck().equals("会員ランク特典使用")) {
@@ -5549,7 +5643,7 @@ public class ShoppingController {
 		String getName = auth.getName();
 
 		model.addAttribute("pointUse", 0);
-		List<PcDataDTO> cartList = cartService.selectMany(getName);//ログインユーザーのカート情報をすべて取得
+		List<PcDataDTO> cartList = cartService.selectMany(getName);// ログインユーザーのカート情報をすべて取得
 		int totalPriceAll = 0;// カート全体価格
 		int totalPriceOne = 0;// 各商品価格
 		double disCountPrice = 0;
@@ -5571,7 +5665,7 @@ public class ShoppingController {
 					int menberCouponDisCount = menbercoupondto.getDiscount();
 					double disCountNew = 0;
 					if (menberCouponDisCount < 10) {
-						
+
 						disCountNew = Double.valueOf("0.0" + menberCouponDisCount);
 
 						double disCountPriceNew = totalPriceOne * disCountNew;// 割引価格
@@ -5659,12 +5753,12 @@ public class ShoppingController {
 			@RequestParam("cardName") String cardName, @RequestParam("cardNumber") String cardNumber,
 			@PathVariable("couponId") int couponId, @RequestParam("pointUse") int pointUse, HttpServletRequest request,
 			HttpServletResponse response, Model model) {
-		
+
 		if (bindingResult.hasErrors()) {
 			return getCardClearing(form, couponId, model);
 		}
 
-		//クレジット情報をsessionに格納
+		// クレジット情報をsessionに格納
 		HttpSession session = request.getSession();
 		session.setAttribute("digits_3_code", digits_3_code);
 		session.setAttribute("cardName", cardName);
@@ -5680,8 +5774,7 @@ public class ShoppingController {
 			@PathVariable("couponId") int couponId, @RequestParam("pointUse") int pointUse, HttpServletRequest request,
 			HttpServletResponse response, Model model) {
 
-
-		//ポイントだけですべて支払った場合は、クレジット情報がいらないので下記の情報が格納される
+		// ポイントだけですべて支払った場合は、クレジット情報がいらないので下記の情報が格納される
 		HttpSession session = request.getSession();
 		session.setAttribute("digits_3_code", "000");
 		session.setAttribute("cardName", "noClearing");
@@ -5702,10 +5795,9 @@ public class ShoppingController {
 		// ログインユーザーのID取得
 		int select_id = usersService.select_id(user_id);
 
-		
-		int creditId = purchaseService.selectCreditId(select_id);//purchaseテーブルからcreditIdを取得
+		int creditId = purchaseService.selectCreditId(select_id);// purchaseテーブルからcreditIdを取得
 
-		List<PcDataDTO> purchaseList = purchaseService.selectMany(select_id, creditId);//purchaseテーブルから購入情報を取得
+		List<PcDataDTO> purchaseList = purchaseService.selectMany(select_id, creditId);// purchaseテーブルから購入情報を取得
 		System.out.println("purchaseList" + purchaseList);
 		PcDataDTO pcdatadto = new PcDataDTO();
 
@@ -5718,11 +5810,11 @@ public class ShoppingController {
 		}
 		model.addAttribute("purchaseList", purchaseList);
 
-		String receivingAddress = usegeService.selectAddress(select_id);//ログインユーザーの住所を取得
+		String receivingAddress = usegeService.selectAddress(select_id);// ログインユーザーの住所を取得
 		model.addAttribute("receivingAddress", receivingAddress);
 
 		// 購入日取得
-		Date purchaseDate = purchaseService.selectPurchaseDate(creditId);//ログインユーザーの購入日を取得
+		Date purchaseDate = purchaseService.selectPurchaseDate(creditId);// ログインユーザーの購入日を取得
 
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(purchaseDate);
@@ -5752,7 +5844,7 @@ public class ShoppingController {
 		cartService.couponCancelUpdate();// クーポンを不使用に変更
 
 		// ログインユーザーのみのカートの情報を取得
-		List<PcDataDTO> cartList = cartService.selectMany(user_id);//ログインユーザーのカート情報を取得
+		List<PcDataDTO> cartList = cartService.selectMany(user_id);// ログインユーザーのカート情報を取得
 		if (cartList == null || cartList.size() == 0) {
 			model.addAttribute("totalPrice", 0);
 			model.addAttribute("notProduct", "yes");
@@ -5786,7 +5878,7 @@ public class ShoppingController {
 		pcdetaildatadto.setHardDisc(form.getHardDisc());
 		pcdetaildatadto.setMemory(form.getCpu());
 
-		PcDataDTO pcdatadto = pcdataService.selectOne(id);//カスタム更新をした商品情報を取得
+		PcDataDTO pcdatadto = pcdataService.selectOne(id);// カスタム更新をした商品情報を取得
 		int getPrice = pcdatadto.getPrice();
 		int priceSumCustom = pcdatadto.getPrice();
 
@@ -5872,10 +5964,10 @@ public class ShoppingController {
 	public String getReview(@ModelAttribute ReviewForm form, @PathVariable("id") int productId, Model model) {
 		model.addAttribute("contents", "shopping/reviewSee::productListLayout_contents");
 
-		List<ReviewDTO> reviewList = reviewService.selectMany(productId);//クリックした商品の口コミ情報を取得
+		List<ReviewDTO> reviewList = reviewService.selectMany(productId);// クリックした商品の口コミ情報を取得
 		model.addAttribute("reviewList", reviewList);
 
-		PcDataDTO pcdatadto = pcdataService.selectPcName(productId);//クリックした商品の商品名を取得
+		PcDataDTO pcdatadto = pcdataService.selectPcName(productId);// クリックした商品の商品名を取得
 		model.addAttribute("productId", productId);
 		model.addAttribute("pcName", pcdatadto.getPc_name());
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -5891,10 +5983,10 @@ public class ShoppingController {
 			@PathVariable("productId") int productId, Model model) {
 		model.addAttribute("contents", "shopping/reviewSeeDetail::productListLayout_contents");
 
-		ReviewDTO reviewdto = reviewService.selectReviewDetailOne(reviewId);//クリックした商品の口コミのうち、一つの情報を取得
+		ReviewDTO reviewdto = reviewService.selectReviewDetailOne(reviewId);// クリックした商品の口コミのうち、一つの情報を取得
 		model.addAttribute("reviewList", reviewdto);
 
-		PcDataDTO pcdatadto = pcdataService.selectPcName(productId);////クリックした商品の口コミのうち、一つの商品名を取得
+		PcDataDTO pcdatadto = pcdataService.selectPcName(productId);//// クリックした商品の口コミのうち、一つの商品名を取得
 		model.addAttribute("pcName", pcdatadto.getPc_name());
 
 		model.addAttribute("productId", productId);
@@ -5906,7 +5998,7 @@ public class ShoppingController {
 	public String postReviewSeeDetailDelete(@ModelAttribute ReviewForm form, @RequestParam("reviewId") int reviewId,
 			@RequestParam("productId") int productId, Model model) {
 
-		reviewService.deleteOne(reviewId);//選択した口コミ一つを削除
+		reviewService.deleteOne(reviewId);// 選択した口コミ一つを削除
 
 		return getReview(form, productId, model);
 	}
@@ -5961,19 +6053,18 @@ public class ShoppingController {
 
 		int getId = usersService.select_id(getName);
 
-		cartService.deleteOne(id, getId);//クリックした商品をcartテーブルから削除
+		cartService.deleteOne(id, getId);// クリックした商品をcartテーブルから削除
 
-		customService.deleteCustomOne(id, getId);//クリックした商品のカスタム情報をcustomテーブルから削除
+		customService.deleteCustomOne(id, getId);// クリックした商品のカスタム情報をcustomテーブルから削除
 
 		return "redirect:/cart";
 	}
-
 
 	@PostMapping(value = "/cart/{id}", params = "countUpdate")
 	public String postCartCountUpdate(@ModelAttribute @Validated(GroupOrder.class) CartForm form,
 			BindingResult bindingResult, Model model, RedirectAttributes redirectattributes,
 			@PathVariable("id") int productId) {
-		
+
 		if (bindingResult.hasErrors()) {
 			return cart(form, model);
 		}
@@ -5990,7 +6081,7 @@ public class ShoppingController {
 		String getName = auth.getName();
 
 		int userId = usersService.select_id(getName);
-		cartService.updateOne(productId, newProductCount, userId);//購入数を入力された数に更新
+		cartService.updateOne(productId, newProductCount, userId);// 購入数を入力された数に更新
 
 		return "redirect:/cart";
 
@@ -6007,7 +6098,7 @@ public class ShoppingController {
 		System.out.println("auth" + auth.getName());
 		String getName = auth.getName();
 
-		List<PcDataDTO> cartList = cartService.selectMany(getName);//ログインユーザーのカート情報をすべて取得
+		List<PcDataDTO> cartList = cartService.selectMany(getName);// ログインユーザーのカート情報をすべて取得
 		int totalPriceAll = 0;// カート全体価格
 		int totalPriceOne = 0;// 各商品価格
 		for (int i = 0; i < cartList.size(); i++) {
@@ -6019,7 +6110,7 @@ public class ShoppingController {
 			try {
 				if (pcdatadto.getMenberCouponCheck().equals("会員ランク特典使用")) {
 					System.out.println("会員ランク特典使用");
-					MenberCouponDTO menbercoupondto = menberCouponService.selectOne(pcdatadto.getCouponId());//カート情報のクーポンIDをもとに利用クーポン情報を取得
+					MenberCouponDTO menbercoupondto = menberCouponService.selectOne(pcdatadto.getCouponId());// カート情報のクーポンIDをもとに利用クーポン情報を取得
 					int menberCouponDisCount = menbercoupondto.getDiscount();
 					double disCountNew = 0;
 					pcdatadto.setCouponCheck(true);
@@ -6143,7 +6234,7 @@ public class ShoppingController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String getName = auth.getName();
 		int select_id = usersService.select_id(getName);
-		
+
 		boolean result = cartService.selectProductCount(select_id);// ユーザーが購入した、各商品の購入数を取得
 
 		int point = (int) session.getAttribute("point");
@@ -6158,43 +6249,42 @@ public class ShoppingController {
 		creditdto.setCardName(cardName);
 		creditdto.setCardNumber(cardNumber);
 
-		creditService.clearingInsertOne(creditdto, select_id, totalPrice);//creditテーブルにクレジット情報を格納
+		creditService.clearingInsertOne(creditdto, select_id, totalPrice);// creditテーブルにクレジット情報を格納
 
-		int creditId = creditService.selectMaxId();//上記で格納した情報のクレジットIDを取得
+		int creditId = creditService.selectMaxId();// 上記で格納した情報のクレジットIDを取得
 
-		List<CartDTO> cartList = cartService.purchaseSelectMany(select_id);//ログインユーザーのカート情報を取得
+		List<CartDTO> cartList = cartService.purchaseSelectMany(select_id);// ログインユーザーのカート情報を取得
 
 		PurchaseDTO purchasedto = new PurchaseDTO();
 
 		for (int i = 0; i < cartList.size(); i++) {
 
 			CartDTO cartdto = cartList.get(i);
-					
+
 			int productId = cartdto.getProduct_id();
-			int productid = cartdto.getProduct_id();	
+			int productid = cartdto.getProduct_id();
 			int customId = customService.selectCustomId(productId, select_id);
 			int purchaseCount = cartdto.getProduct_count();
 			int couponCheck = cartdto.getCouponId();
 
-		
 			try {
 
 				if (cartdto.getMenberCouponCheck().equals("会員ランク特典使用")) {
 
-					//purchaseテーブルに購入データを格納(会員ランククーポンを利用して購入した場合)
-					purchaseService.insertMenberCoupon(purchasedto, productid, purchaseCount, select_id,
-							creditId, customId, couponId, point, pointminusTotalPrice);
-					
+					// purchaseテーブルに購入データを格納(会員ランククーポンを利用して購入した場合)
+					purchaseService.insertMenberCoupon(purchasedto, productid, purchaseCount, select_id, creditId,
+							customId, couponId, point, pointminusTotalPrice);
+
 				} else if (couponCheck > 0) {
 					System.out.println("クーポン使用");
-					
-					//purchaseテーブルに購入データを格納(期間限定クーポンを利用して購入した場合)
+
+					// purchaseテーブルに購入データを格納(期間限定クーポンを利用して購入した場合)
 					purchaseService.insert(purchasedto, productid, purchaseCount, select_id, creditId, customId,
 							couponId, point, pointminusTotalPrice);
 				} else {
 					System.out.println("クーポン未使用");
-					
-					//purchaseテーブルに購入データを格納(クーポンを利用せず購入した場合)
+
+					// purchaseテーブルに購入データを格納(クーポンを利用せず購入した場合)
 					purchaseService.insertNotCoupon(purchasedto, productid, purchaseCount, select_id, creditId,
 							customId, point, pointminusTotalPrice);
 				}
@@ -6202,126 +6292,130 @@ public class ShoppingController {
 				e.printStackTrace();
 				if (couponCheck > 0) {
 					System.out.println("クーポン使用");
-					
-					//purchaseテーブルに購入データを格納(期間限定クーポンを利用して購入した場合)
+
+					// purchaseテーブルに購入データを格納(期間限定クーポンを利用して購入した場合)
 					purchaseService.insert(purchasedto, productid, purchaseCount, select_id, creditId, customId,
 							couponId, point, pointminusTotalPrice);
 				} else {
 					System.out.println("クーポン未使用");
-					
-					//purchaseテーブルに購入データを格納(クーポンを利用せず購入した場合)
+
+					// purchaseテーブルに購入データを格納(クーポンを利用せず購入した場合)
 					purchaseService.insertNotCoupon(purchasedto, productid, purchaseCount, select_id, creditId,
 							customId, point, pointminusTotalPrice);
 				}
 			}
-			int purchaseId = purchaseService.selectMaxPurchaseId();//上記で格納した購入データのIDを取得
-			customService.pruchaseIdUpdate(purchaseId, productId, select_id);//customテーブルの購入チェックをアップデート
-			cartService.idInsertOne(purchaseId, productId, select_id);//cartテーブルの購入チェックをアップデート
+			int purchaseId = purchaseService.selectMaxPurchaseId();// 上記で格納した購入データのIDを取得
+			customService.pruchaseIdUpdate(purchaseId, productId, select_id);// customテーブルの購入チェックをアップデート
+			cartService.idInsertOne(purchaseId, productId, select_id);// cartテーブルの購入チェックをアップデート
 		}
-
 
 		return getAfter_purchase(model);
 	}
-	
-	
+
 	@GetMapping("/challengeProgramming")
-	public String getChallengeProgramming(@ModelAttribute ChallengeProgrammingForm form,Model model) {
+	public String getChallengeProgramming(@ModelAttribute ChallengeProgrammingForm form, Model model) {
 		model.addAttribute("contents", "shopping/challengeProgramming::productListLayout_contents");
 
-		
-		
-		List<ChallengeProgrammingDTO> challengeProgrammingdto = challengeProgrammingService.projectSelectMany();//商品の情報をすべて取得
-		
-		//時間をhh:mm表記に変更する
-		for(int x = 0; challengeProgrammingdto.size() > x; x++) {
+		List<ChallengeProgrammingDTO> challengeProgrammingdto = challengeProgrammingService.projectSelectMany();// 商品の情報をすべて取得
+
+		// 時間をhh:mm表記に変更する
+		for (int x = 0; challengeProgrammingdto.size() > x; x++) {
 			ChallengeProgrammingDTO challengeProgrammingOne = challengeProgrammingdto.get(x);
-			System.out.println("test" +challengeProgrammingOne);
-			String fixableTimeFromGetTime = new SimpleDateFormat("ah:mm").format(challengeProgrammingOne.getFixableTimeFrom());
-			String fixableTimeToGetTime = new SimpleDateFormat("ah:mm").format(challengeProgrammingOne.getFixableTimeTo());
+			System.out.println("test" + challengeProgrammingOne);
+			String fixableTimeFromGetTime = new SimpleDateFormat("ah:mm")
+					.format(challengeProgrammingOne.getFixableTimeFrom());
+			String fixableTimeToGetTime = new SimpleDateFormat("ah:mm")
+					.format(challengeProgrammingOne.getFixableTimeTo());
 			challengeProgrammingOne.setFixableTimeFromGetTime(fixableTimeFromGetTime);
 			challengeProgrammingOne.setFixableTimeToGetTime(fixableTimeToGetTime);
-			
+
 		}
-		
-		
-		model.addAttribute("challengeProgrammingList",challengeProgrammingdto);
-		
+
+		model.addAttribute("challengeProgrammingList", challengeProgrammingdto);
+
 		return "shopping/productListLayout";
 	}
-	
+
 	@GetMapping("/challengeProgrammingDetail/{id}")
-	public String getChallengeProgrammingDetail(@ModelAttribute ChallengeProgrammingForm form,@PathVariable("id") int productId,Model model) {
+	public String getChallengeProgrammingDetail(@ModelAttribute ChallengeProgrammingForm form,
+			@PathVariable("id") int productId, Model model) {
 		model.addAttribute("contents", "shopping/challengeProgrammingDetail::productListLayout_contents");
-				
-		ChallengeProgrammingDTO challengeProgrammingdtoOne = challengeProgrammingService.projectSelectOne(productId);//選択した商品の情報をすべて取得
-		
-		//時間をhh:mm表記に変更する
-		String fixableTimeFromGetTime = new SimpleDateFormat("ah:mm").format(challengeProgrammingdtoOne.getFixableTimeFrom());
-		String fixableTimeToGetTime = new SimpleDateFormat("ah:mm").format(challengeProgrammingdtoOne.getFixableTimeTo());
+
+		ChallengeProgrammingDTO challengeProgrammingdtoOne = challengeProgrammingService.projectSelectOne(productId);// 選択した商品の情報をすべて取得
+
+		// 時間をhh:mm表記に変更する
+		String fixableTimeFromGetTime = new SimpleDateFormat("ah:mm")
+				.format(challengeProgrammingdtoOne.getFixableTimeFrom());
+		String fixableTimeToGetTime = new SimpleDateFormat("ah:mm")
+				.format(challengeProgrammingdtoOne.getFixableTimeTo());
 		challengeProgrammingdtoOne.setFixableTimeFromGetTime(fixableTimeFromGetTime);
 		challengeProgrammingdtoOne.setFixableTimeToGetTime(fixableTimeToGetTime);
-		model.addAttribute("challengeProgrammingOne",challengeProgrammingdtoOne);	
-		
-		//契約productIdを取得
-		model.addAttribute("productId",challengeProgrammingdtoOne.getId());
-		
-		//html(challengeProgrammingDetail)に契約productIDを渡す
+		model.addAttribute("challengeProgrammingOne", challengeProgrammingdtoOne);
+
+		// 契約productIdを取得
+		model.addAttribute("productId", challengeProgrammingdtoOne.getId());
+
+		// html(challengeProgrammingDetail)に契約productIDを渡す
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String getName = auth.getName();
 		int userId = usersService.select_id(getName);
-		//契約したユーザーのDBのuserIDを取得
-		model.addAttribute("userId",userId);
-		
+		// 契約したユーザーのDBのuserIDを取得
+		model.addAttribute("userId", userId);
+
 		return "shopping/productListLayout";
 	}
-	
+
 	@GetMapping("/challengeProgrammingBeforeContract/{id}")
-	public String getChallengeProgrammingBeforeContract(@ModelAttribute ChallengeProgrammingContractForm form,@PathVariable("id") int productId,Model model) {
+	public String getChallengeProgrammingBeforeContract(@ModelAttribute ChallengeProgrammingContractForm form,
+			@PathVariable("id") int productId, Model model) {
 		model.addAttribute("contents", "shopping/challengeProgrammingBeforeContract::productListLayout_contents");
-		
-		model.addAttribute("productId",productId);
-		
+
+		model.addAttribute("productId", productId);
+
 		return "shopping/productListLayout";
 	}
-	
+
 	@PostMapping("/challenge_programmingContract")
-	public String postChallenge_programmingContract(@ModelAttribute @Validated(GroupOrder.class) ChallengeProgrammingContractForm form, BindingResult bindingResult,@RequestParam("productId") int productId,Model model) {
+	public String postChallenge_programmingContract(
+			@ModelAttribute @Validated(GroupOrder.class) ChallengeProgrammingContractForm form,
+			BindingResult bindingResult, @RequestParam("productId") int productId, Model model) {
 		model.addAttribute("contents", "shopping/challengeProgrammingContract::productListLayout_contents");
-		
-		//バリデーションに引っかかると前のページに戻る
-		if(bindingResult.hasErrors()) {
-			return getChallengeProgrammingBeforeContract(form,productId,model);
+
+		// バリデーションに引っかかると前のページに戻る
+		if (bindingResult.hasErrors()) {
+			return getChallengeProgrammingBeforeContract(form, productId, model);
 		}
-		
-		//契約したユーザーのDBのuserIDを取得
+
+		// 契約したユーザーのDBのuserIDを取得
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String getName = auth.getName();
 		int userId = usersService.select_id(getName);
-		
-		//すでに契約していないかチェックする
+
+		// すでに契約していないかチェックする
 		int duplicateCheck = challengeProgrammingContractService.duplicateCheck(userId);
-		if(duplicateCheck > 0) {
-			model.addAttribute("errorMessage","すでに何らかの契約をされています。同時進行は１つの契約までになります。");
-			return getChallengeProgrammingBeforeContract(form,productId,model);
+		if (duplicateCheck > 0) {
+			model.addAttribute("errorMessage", "すでに何らかの契約をされています。同時進行は１つの契約までになります。");
+			return getChallengeProgrammingBeforeContract(form, productId, model);
 		}
-		
+
 		ChallengeProgrammingContractDTO challengeProgrammingContractdto = new ChallengeProgrammingContractDTO();
-		
+
 		String mailAddress = form.getMailAddress();
 		String phoneNumber = form.getPhoneNumber();
 		String digits3Code = form.getDigits_3_code();
 		String cardName = form.getCardName();
-		String cardNumber = form.getCardNumber();	
-		//チャットメッセージをすべて取得
+		String cardNumber = form.getCardNumber();
+		// チャットメッセージをすべて取得
 		ChallengeProgrammingMessageDTO challengeProgrammingMessagedto = challengeProgrammingMessageService.selectOne();
-		
-		//入力された情報と契約者情報をDBに格納
-		challengeProgrammingContractService.insertOne(challengeProgrammingContractdto,mailAddress,phoneNumber,digits3Code,cardName,cardNumber,userId,productId,challengeProgrammingMessagedto);
-		//契約された情報を更新
-		challengeProgrammingService.contractUpdate(userId,productId);
-		
-		//リターン先をmodelのコンテンツから変更
-		//初めに表示されるメッセージを取得
+
+		// 入力された情報と契約者情報をDBに格納
+		challengeProgrammingContractService.insertOne(challengeProgrammingContractdto, mailAddress, phoneNumber,
+				digits3Code, cardName, cardNumber, userId, productId, challengeProgrammingMessagedto);
+		// 契約された情報を更新
+		challengeProgrammingService.contractUpdate(userId, productId);
+
+		// リターン先をmodelのコンテンツから変更
+		// 初めに表示されるメッセージを取得
 //		ChallengeProgrammingContractDTO challengeProgrammingContractTeacherMessage = challengeProgrammingContractService.teacherMessege1Select(productId);
 //		challengeProgrammingContractTeacherMessage.setProductId(productId);
 //		challengeProgrammingContractTeacherMessage.setMyMessage1("bloc");
@@ -6331,541 +6425,549 @@ public class ShoppingController {
 //		
 //		//進行バーの初期表示設定(挨拶)
 //		model.addAttribute("progressStatus",1);
-		
-		 ChallengeProgrammingTradeForm returnForm = new  ChallengeProgrammingTradeForm();
-		return postChallengeProgrammingTrade(returnForm,productId,model);
+
+		ChallengeProgrammingTradeForm returnForm = new ChallengeProgrammingTradeForm();
+		return postChallengeProgrammingTrade(returnForm, productId, model);
 	}
-	
+
 	@PostMapping("/challengeProgrammingTrade")
-	public String postChallengeProgrammingTrade(@ModelAttribute ChallengeProgrammingTradeForm form,@RequestParam("productId") int productId,Model model) {
+	public String postChallengeProgrammingTrade(@ModelAttribute ChallengeProgrammingTradeForm form,
+			@RequestParam("productId") int productId, Model model) {
 		model.addAttribute("contents", "shopping/challengeProgrammingTrade::productListLayout_contents");
-		
-		
-		//チャットが完了しているか確認
+
+		// チャットが完了しているか確認
 		int chatCheck = challengeProgrammingContractService.selectChatCheck(productId);
-		
-		
-		//チャットが完了していなければチャット機能を実施する
-		if(chatCheck == 1) {
-			//初めに表示されるメッセージを取得
-			ChallengeProgrammingContractDTO challengeProgrammingContractTeacherMessage = challengeProgrammingContractService.teacherMessege1Select(productId);
+
+		// チャットが完了していなければチャット機能を実施する
+		if (chatCheck == 1) {
+			// 初めに表示されるメッセージを取得
+			ChallengeProgrammingContractDTO challengeProgrammingContractTeacherMessage = challengeProgrammingContractService
+					.teacherMessege1Select(productId);
 			challengeProgrammingContractTeacherMessage.setProductId(productId);
-			model.addAttribute("productId",challengeProgrammingContractTeacherMessage.getProductId());
-			model.addAttribute("chatContents",challengeProgrammingContractTeacherMessage);
-			model.addAttribute("chatCheck","no");
-			
-			//進行バーの初期表示設定(挨拶)
-			model.addAttribute("progressStatus",1);
-			
-		//チャットが完了している場合はチャット機能はさせない
-		}else if(chatCheck == 0) {
-			//チャットメッセージをすべて取得
-			ChallengeProgrammingContractDTO challengeProgrammingContractTmMm = challengeProgrammingContractService.tm3Mm3select(productId);
+			model.addAttribute("productId", challengeProgrammingContractTeacherMessage.getProductId());
+			model.addAttribute("chatContents", challengeProgrammingContractTeacherMessage);
+			model.addAttribute("chatCheck", "no");
+
+			// 進行バーの初期表示設定(挨拶)
+			model.addAttribute("progressStatus", 1);
+
+			// チャットが完了している場合はチャット機能はさせない
+		} else if (chatCheck == 0) {
+			// チャットメッセージをすべて取得
+			ChallengeProgrammingContractDTO challengeProgrammingContractTmMm = challengeProgrammingContractService
+					.tm3Mm3select(productId);
 			challengeProgrammingContractTmMm.setProductId(productId);
-			model.addAttribute("productId",challengeProgrammingContractTmMm.getProductId());
-			model.addAttribute("chatContents",challengeProgrammingContractTmMm);
-			model.addAttribute("chatCheck","yes");
-			
-			//進行バーの初期表示設定(日程設定)
-			model.addAttribute("progressStatus",2);
+			model.addAttribute("productId", challengeProgrammingContractTmMm.getProductId());
+			model.addAttribute("chatContents", challengeProgrammingContractTmMm);
+			model.addAttribute("chatCheck", "yes");
+
+			// 進行バーの初期表示設定(日程設定)
+			model.addAttribute("progressStatus", 2);
 		}
-		
-		//日程設定を行っているかcheckする(行っていなければ「未設定」が取れる)
+
+		// 日程設定を行っているかcheckする(行っていなければ「未設定」が取れる)
 		String lessonDay = challengeProgrammingContractService.lessonDaySelectOne(productId);
-		
-		if(!lessonDay.equals("未設定")) {
-		//チャットメッセージをすべて取得
-		ChallengeProgrammingContractDTO challengeProgrammingContractTmMm = challengeProgrammingContractService.tm3Mm3select(productId);
-		challengeProgrammingContractTmMm.setProductId(productId);
-		model.addAttribute("productId",challengeProgrammingContractTmMm.getProductId());
-		model.addAttribute("chatContents",challengeProgrammingContractTmMm);
-		model.addAttribute("chatCheck","yes");
-		model.addAttribute("lessonDay",lessonDay);
-		System.out.print("lessonDay"+lessonDay);
-		model.addAttribute("lessonDayCheck","yes");
-		model.addAttribute("lessonEnd","no");
-		//進行バーの初期表示設定(持ち物チェック)
-		model.addAttribute("progressStatus",3);
-		}else {
-			model.addAttribute("lessonDay",lessonDay);
-			model.addAttribute("lessonDayCheck","no");
+
+		if (!lessonDay.equals("未設定")) {
+			// チャットメッセージをすべて取得
+			ChallengeProgrammingContractDTO challengeProgrammingContractTmMm = challengeProgrammingContractService
+					.tm3Mm3select(productId);
+			challengeProgrammingContractTmMm.setProductId(productId);
+			model.addAttribute("productId", challengeProgrammingContractTmMm.getProductId());
+			model.addAttribute("chatContents", challengeProgrammingContractTmMm);
+			model.addAttribute("chatCheck", "yes");
+			model.addAttribute("lessonDay", lessonDay);
+			System.out.print("lessonDay" + lessonDay);
+			model.addAttribute("lessonDayCheck", "yes");
+			model.addAttribute("lessonEnd", "no");
+			// 進行バーの初期表示設定(持ち物チェック)
+			model.addAttribute("progressStatus", 3);
+		} else {
+			model.addAttribute("lessonDay", lessonDay);
+			model.addAttribute("lessonDayCheck", "no");
 		}
-		
-		//持ち物チェックを行っているかcheckする(行っていなければ「未設定」が取れる)
+
+		// 持ち物チェックを行っているかcheckする(行っていなければ「未設定」が取れる)
 		String belongngs = challengeProgrammingContractService.belongngsSelectOne(productId);
-		
-		if(chatCheck == 0 & belongngs.equals("持ち物チェック完了")) {
-			//チャットメッセージをすべて取得
-			ChallengeProgrammingContractDTO challengeProgrammingContractTmMm = challengeProgrammingContractService.tm3Mm3select(productId);
+
+		if (chatCheck == 0 & belongngs.equals("持ち物チェック完了")) {
+			// チャットメッセージをすべて取得
+			ChallengeProgrammingContractDTO challengeProgrammingContractTmMm = challengeProgrammingContractService
+					.tm3Mm3select(productId);
 			challengeProgrammingContractTmMm.setProductId(productId);
-			model.addAttribute("belongngs","yes");
-			//進行バーの初期表示設定(場所確認)
-			model.addAttribute("progressStatus",4);
-			
-		}else {
-			model.addAttribute("belongngs","no");
+			model.addAttribute("belongngs", "yes");
+			// 進行バーの初期表示設定(場所確認)
+			model.addAttribute("progressStatus", 4);
+
+		} else {
+			model.addAttribute("belongngs", "no");
 		}
-		
-		//場所確認を行っているかcheckする(行っていなければ「未設定」が取れる)
+
+		// 場所確認を行っているかcheckする(行っていなければ「未設定」が取れる)
 		String location = challengeProgrammingContractService.locationSelectOne(productId);
-		
-		if(belongngs.equals("持ち物チェック完了") & location.equals("場所確認完了")) {
-			ChallengeProgrammingContractDTO challengeProgrammingContractTmMm = challengeProgrammingContractService.tm3Mm3select(productId);
+
+		if (belongngs.equals("持ち物チェック完了") & location.equals("場所確認完了")) {
+			ChallengeProgrammingContractDTO challengeProgrammingContractTmMm = challengeProgrammingContractService
+					.tm3Mm3select(productId);
 			challengeProgrammingContractTmMm.setProductId(productId);
-			model.addAttribute("location","yes");
-			model.addAttribute("javaIconModify","yes");
-			//進行バーの初期表示設定(場所確認)
-			model.addAttribute("progressStatus",5);
-		}else {
-			model.addAttribute("location","no");
+			model.addAttribute("location", "yes");
+			model.addAttribute("javaIconModify", "yes");
+			// 進行バーの初期表示設定(場所確認)
+			model.addAttribute("progressStatus", 5);
+		} else {
+			model.addAttribute("location", "no");
 		}
-		
+
 		String lessonCheck = challengeProgrammingContractService.lessonCheckSelectOne(productId);
-		
-		if(location.equals("場所確認完了") & lessonCheck.equals("講座中")) {
-			model.addAttribute("lessonCheck","yes");
-			model.addAttribute("lessonEnd","no");
-			//進行バーの初期表示設定(場所確認)
-			model.addAttribute("progressStatus",6);
-		}else if(location.equals("場所確認完了") & lessonCheck.equals("講座終了")) {
-			model.addAttribute("progressStatus",7);
-			model.addAttribute("lessonCheck","yes");
+
+		if (location.equals("場所確認完了") & lessonCheck.equals("講座中")) {
+			model.addAttribute("lessonCheck", "yes");
+			model.addAttribute("lessonEnd", "no");
+			// 進行バーの初期表示設定(場所確認)
+			model.addAttribute("progressStatus", 6);
+		} else if (location.equals("場所確認完了") & lessonCheck.equals("講座終了")) {
+			model.addAttribute("progressStatus", 7);
+			model.addAttribute("lessonCheck", "yes");
 			ChallengeProgrammingContractDTO challengeprogrammingcontractdto = new ChallengeProgrammingContractDTO();
 			challengeprogrammingcontractdto = challengeProgrammingContractService.startAndEndDateSelectOne(productId);
 			Date startDate = challengeprogrammingcontractdto.getStartDate();
 			Date endDate = challengeprogrammingcontractdto.getEndDate();
-			SimpleDateFormat simpleFormat = new SimpleDateFormat( "yyyy/MM/dd HH:mm:ss" );
+			SimpleDateFormat simpleFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			String simpleStartDate = simpleFormat.format(startDate);
 			String simpleEndDate = simpleFormat.format(endDate);
-			model.addAttribute("startDate",simpleStartDate);
-			model.addAttribute("endDate",simpleEndDate);
-			
-			model.addAttribute("lessonEnd","yes");
-		}else {
-			model.addAttribute("lessonCheck","no");
+			model.addAttribute("startDate", simpleStartDate);
+			model.addAttribute("endDate", simpleEndDate);
+
+			model.addAttribute("lessonEnd", "yes");
+		} else {
+			model.addAttribute("lessonCheck", "no");
 		}
-		
-		
-		
-		
+
 		return "shopping/productListLayout";
 	}
-	
+
 	@GetMapping("/chatReturn1/{id}")
-	public String getChatReturn(@PathVariable("id") int productId,HttpServletRequest request, HttpServletResponse response,Model model) {
+	public String getChatReturn(@PathVariable("id") int productId, HttpServletRequest request,
+			HttpServletResponse response, Model model) {
 		model.addAttribute("contents", "shopping/challengeProgrammingTrade::productListLayout_contents");
-		
-		ChallengeProgrammingContractDTO challengeProgrammingContractTmMm = challengeProgrammingContractService.tm1Mm1Select(productId);
-		model.addAttribute("chatContents",challengeProgrammingContractTmMm);
-		model.addAttribute("chatCheck","no");
-		
-		//進行バーの初期表示設定(挨拶)
-		model.addAttribute("progressStatus",1);
-		
+
+		ChallengeProgrammingContractDTO challengeProgrammingContractTmMm = challengeProgrammingContractService
+				.tm1Mm1Select(productId);
+		model.addAttribute("chatContents", challengeProgrammingContractTmMm);
+		model.addAttribute("chatCheck", "no");
+
+		// 進行バーの初期表示設定(挨拶)
+		model.addAttribute("progressStatus", 1);
+
 		return "shopping/productListLayout";
 	}
-	
+
 	@GetMapping("/chatReturn2/{id}")
-	public String getChatReturn2(@PathVariable("id") int productId,HttpServletRequest request, HttpServletResponse response,Model model) {
+	public String getChatReturn2(@PathVariable("id") int productId, HttpServletRequest request,
+			HttpServletResponse response, Model model) {
 		model.addAttribute("contents", "shopping/challengeProgrammingTrade::productListLayout_contents");
-		
-		ChallengeProgrammingContractDTO challengeProgrammingContractTmMm = challengeProgrammingContractService.tm2Mm2Select(productId);
-		model.addAttribute("chatContents",challengeProgrammingContractTmMm);
-		model.addAttribute("chatCheck","no");
-		
-		//進行バーの初期表示設定(挨拶)
-		model.addAttribute("progressStatus",1);
-		
+
+		ChallengeProgrammingContractDTO challengeProgrammingContractTmMm = challengeProgrammingContractService
+				.tm2Mm2Select(productId);
+		model.addAttribute("chatContents", challengeProgrammingContractTmMm);
+		model.addAttribute("chatCheck", "no");
+
+		// 進行バーの初期表示設定(挨拶)
+		model.addAttribute("progressStatus", 1);
+
 		return "shopping/productListLayout";
 	}
-	
+
 	@GetMapping("/chatReturn3/{id}")
-	public String getChatReturn3(@PathVariable("id") int productId,HttpServletRequest request, HttpServletResponse response,Model model) {
+	public String getChatReturn3(@PathVariable("id") int productId, HttpServletRequest request,
+			HttpServletResponse response, Model model) {
 		model.addAttribute("contents", "shopping/challengeProgrammingTrade::productListLayout_contents");
-		
-		ChallengeProgrammingContractDTO challengeProgrammingContractTmMm = challengeProgrammingContractService.tm3Mm3select(productId);
-		model.addAttribute("chatContents",challengeProgrammingContractTmMm);
-		model.addAttribute("chatCheck","no");
-		
-		//進行バーの初期表示設定(挨拶)
-		model.addAttribute("progressStatus",1);
-		
+
+		ChallengeProgrammingContractDTO challengeProgrammingContractTmMm = challengeProgrammingContractService
+				.tm3Mm3select(productId);
+		model.addAttribute("chatContents", challengeProgrammingContractTmMm);
+		model.addAttribute("chatCheck", "no");
+
+		// 進行バーの初期表示設定(挨拶)
+		model.addAttribute("progressStatus", 1);
+
 		return "shopping/productListLayout";
 	}
-	
+
 	@GetMapping("/progressStatus/{id}")
-	public String getProgressStatus(@ModelAttribute ChallengeProgrammingTradeForm form,@PathVariable("id") int productId,Model model) {
+	public String getProgressStatus(@ModelAttribute ChallengeProgrammingTradeForm form,
+			@PathVariable("id") int productId, Model model) {
 		model.addAttribute("contents", "shopping/challengeProgrammingTrade::productListLayout_contents");
 		challengeProgrammingContractService.chatComplete(productId);
-		
-		return postChallengeProgrammingTrade(form,productId,model);
+
+		return postChallengeProgrammingTrade(form, productId, model);
 	}
-	
+
 	@GetMapping("/scheduleAdjustment/{id}")
-	public String getScheduleAdjustment(@PathVariable("id") int productId,Model model) {
+	public String getScheduleAdjustment(@PathVariable("id") int productId, Model model) {
 		model.addAttribute("contents", "shopping/scheduleAdjustment::productListLayout_contents");
-		
-				//講座日程設定
-				Calendar calendar = Calendar.getInstance();
-				int getYear = calendar.get(Calendar.YEAR);
-				int getMonth = calendar.get(Calendar.MONTH);
-				int getDate = calendar.get(Calendar.DATE);
-				//今月の最終日を取得
-				calendar.set(getYear, getMonth + 1, 1);
-				calendar.add(Calendar.DATE, -1);
-				int lastDay = calendar.get(Calendar.DATE);
-				
-				//設定日を除いた一週間分から選択してもらう
-				String[] getDayList = new String[7];
-				for(int x = 1; x < 8; x++) {	
-				int oneMove = getDate + x;
-				//月最終日から次の月の頭になる場合に入る処理
-				if(oneMove > lastDay) {
-					getDate = 0;
-					for(int y = 1; y <= 7 - (x - 1); y++) {
+
+		// 講座日程設定
+		Calendar calendar = Calendar.getInstance();
+		int getYear = calendar.get(Calendar.YEAR);
+		int getMonth = calendar.get(Calendar.MONTH);
+		int getDate = calendar.get(Calendar.DATE);
+		// 今月の最終日を取得
+		calendar.set(getYear, getMonth + 1, 1);
+		calendar.add(Calendar.DATE, -1);
+		int lastDay = calendar.get(Calendar.DATE);
+
+		// 設定日を除いた一週間分から選択してもらう
+		String[] getDayList = new String[7];
+		for (int x = 1; x < 8; x++) {
+			int oneMove = getDate + x;
+			// 月最終日から次の月の頭になる場合に入る処理
+			if (oneMove > lastDay) {
+				getDate = 0;
+				for (int y = 1; y <= 7 - (x - 1); y++) {
 					oneMove = getDate + y;
 					x = x++;
-					calendar.set(getYear, getMonth + 1,1);
+					calendar.set(getYear, getMonth + 1, 1);
 					int month = calendar.get(Calendar.MONTH);
-					getDayList [x - 1] = month + "月" + oneMove + "日";
-					}
-					x = 7;
-				
-				}else {
-					calendar.set(getYear, getMonth + 1,1);
-					int month = calendar.get(Calendar.MONTH);
-					getDayList [x - 1] = month + "月" + oneMove + "日";	
+					getDayList[x - 1] = month + "月" + oneMove + "日";
 				}
-				
-				}
-				
-				model.addAttribute("dayList",getDayList);
-				model.addAttribute("productId",productId);
-		
+				x = 7;
+
+			} else {
+				calendar.set(getYear, getMonth + 1, 1);
+				int month = calendar.get(Calendar.MONTH);
+				getDayList[x - 1] = month + "月" + oneMove + "日";
+			}
+
+		}
+
+		model.addAttribute("dayList", getDayList);
+		model.addAttribute("productId", productId);
+
 		return "shopping/productListLayout";
 	}
-	
+
 	@PostMapping("/acheduleAdjustment/{id}")
-	public String postAcheduleAdjustment(@PathVariable("id") int productId,@RequestParam("day") String lessonDay,Model model) {
-		
-		challengeProgrammingContractService.lessonDayInsertOne(lessonDay,productId);
-		
+	public String postAcheduleAdjustment(@PathVariable("id") int productId, @RequestParam("day") String lessonDay,
+			Model model) {
+
+		challengeProgrammingContractService.lessonDayInsertOne(lessonDay, productId);
+
 		ChallengeProgrammingTradeForm form = new ChallengeProgrammingTradeForm();
-		
-		return postChallengeProgrammingTrade(form,productId,model);
-		
+
+		return postChallengeProgrammingTrade(form, productId, model);
+
 	}
-	
+
 	@GetMapping("/belongingsCheck/{id}")
-	public String getBelongingsCheck(@PathVariable("id") int productId,Model model) {
+	public String getBelongingsCheck(@PathVariable("id") int productId, Model model) {
 		model.addAttribute("contents", "shopping/belongingsCheck::productListLayout_contents");
-		
+
 		ChallengeProgrammingDTO challengeprogrammingdto = challengeProgrammingService.selectBelongings(productId);
-		model.addAttribute("belongingsList",challengeprogrammingdto);
-		
-		model.addAttribute("productId",productId);
-		
+		model.addAttribute("belongingsList", challengeprogrammingdto);
+
+		model.addAttribute("productId", productId);
+
 		return "shopping/productListLayout";
 	}
-	
+
 	@PostMapping("/belongingsCheck")
-	public String postBelongingsCheck(@RequestParam("id") int productId,Model model) {
-		model.addAttribute("productId",productId);
-		
-		//持ち物を確認した証拠をDBに格納
+	public String postBelongingsCheck(@RequestParam("id") int productId, Model model) {
+		model.addAttribute("productId", productId);
+
+		// 持ち物を確認した証拠をDBに格納
 		challengeProgrammingContractService.belongingsCheckInsertOne(productId);
-		
+
 		ChallengeProgrammingTradeForm form = new ChallengeProgrammingTradeForm();
-		return postChallengeProgrammingTrade(form,productId,model);
+		return postChallengeProgrammingTrade(form, productId, model);
 	}
-	
+
 	@GetMapping("/locationConfirmation/{id}")
-	public String getLocationConfirmation(@ModelAttribute @PathVariable("id") int productId,Model model) {
+	public String getLocationConfirmation(@ModelAttribute @PathVariable("id") int productId, Model model) {
 		model.addAttribute("contents", "shopping/locationConfirmation::productListLayout_contents");
-		
-		model.addAttribute("productId",productId);
-		
+
+		model.addAttribute("productId", productId);
+
 		String location = challengeProgrammingService.locationSelectOne(productId);
-		model.addAttribute("location",location);
-		
+		model.addAttribute("location", location);
+
 		return "shopping/productListLayout";
 	}
-	
+
 	@PostMapping("/locationConfirmation")
-	public String postLocationConfirmation(@RequestParam("id") int productId,Model model) {
-		model.addAttribute("productId",productId);
-		
-		//持ち物を確認した証拠をDBに格納
+	public String postLocationConfirmation(@RequestParam("id") int productId, Model model) {
+		model.addAttribute("productId", productId);
+
+		// 持ち物を確認した証拠をDBに格納
 		//
 		challengeProgrammingContractService.locationConfirmationInsertOne(productId);
-		
+
 		ChallengeProgrammingTradeForm form = new ChallengeProgrammingTradeForm();
-		return postChallengeProgrammingTrade(form,productId,model);
+		return postChallengeProgrammingTrade(form, productId, model);
 	}
-	
+
 	@GetMapping("/currentDayTrading/{id}")
-	public String getCurrentDayTrading(@PathVariable("id") int productId,Model model) {
+	public String getCurrentDayTrading(@PathVariable("id") int productId, Model model) {
 		model.addAttribute("contents", "shopping/currentDayTrading::productListLayout_contents");
-		//QRコード表示設定
-		model.addAttribute("qrcodeCreate","yes");
-		model.addAttribute("qrcodeCheck","no");
-		
-		
-		 
+		// QRコード表示設定
+		model.addAttribute("qrcodeCreate", "yes");
+		model.addAttribute("qrcodeCheck", "no");
+
 		return "shopping/productListLayout";
 	}
-	
-	@GetMapping("/qrCodeCreate") 
+
+	@GetMapping("/qrCodeCreate")
 	public String getQrCodeCreate(Model model) {
 		model.addAttribute("contents", "shopping/currentDayTrading::productListLayout_contents");
-		
-				//QRコード生成処理(読み込み遷移先、横幅、縦幅、img名)
-				String content = "https://github.com/YumaMaruyama/ITworksTRYshopping/blob/main/src/main/resources/templates/shopping/qrcodeFormInfomation.txt";
-			    int width = 100;
-			    int height = 100;
-			    String output = "qrcode.png";
 
-			    try {
-			        QRCodeWriter qrWriter = new QRCodeWriter();
-
-			        //読み込み遷移先、横幅、縦幅、img名を格納
-			        BitMatrix bitMatrix = qrWriter.encode(content, BarcodeFormat.QR_CODE, width, height);
-			        //コンソール内で画像出力
-			        System.out.println("bitMatrix" + bitMatrix);
-			        
-			        BufferedImage image = MatrixToImageWriter.toBufferedImage(bitMatrix);
-			      
-			        //QRコード表示設定
-			        model.addAttribute("qrcodeCheck","yes");
-			        model.addAttribute("qrcodeCreate","no");
-			        
-			        //画像を画像ファイルに出力する
-			        ImageIO.write(image, "png", new File(output));
-			     
-			    } catch (WriterException | IOException e) {
-			        System.err.println("[" + content + "] error発生");
-			        e.printStackTrace();
-			    } 
-			    
-			    
-		return "shopping/productListLayout";
-	}
-	
-	@PostMapping("/currentDayTrading")
-	public String postCurrentDayTrading(@RequestParam("id") int productId,Model model) {
-		
-		//QRコード生成処理
+		// QRコード生成処理(読み込み遷移先、横幅、縦幅、img名)
 		String content = "https://github.com/YumaMaruyama/ITworksTRYshopping/blob/main/src/main/resources/templates/shopping/qrcodeFormInfomation.txt";
-	    int width = 100;
-	    int height = 100;
-	    String output = "qrcode.png";
+		int width = 100;
+		int height = 100;
+		String output = "qrcode.png";
 
-	    try {
-	        QRCodeWriter qrWriter = new QRCodeWriter();
+		try {
+			QRCodeWriter qrWriter = new QRCodeWriter();
 
-	        //QRWriter.encode()にエンコード対象の文字列、バーコードに埋め込みたい情報出力バーコード書式、画像のwidth、画像のheightを格納
-	        BitMatrix bitMatrix = qrWriter.encode(content, BarcodeFormat.QR_CODE, width, height);
-	        System.out.println(bitMatrix);
-	        BufferedImage image = MatrixToImageWriter.toBufferedImage(bitMatrix);
+			// 読み込み遷移先、横幅、縦幅、img名を格納
+			BitMatrix bitMatrix = qrWriter.encode(content, BarcodeFormat.QR_CODE, width, height);
+			// コンソール内で画像出力
+			System.out.println("bitMatrix" + bitMatrix);
 
-	        //画像を画像ファイルに出力する
-	        ImageIO.write(image, "png", new File(output));
+			BufferedImage image = MatrixToImageWriter.toBufferedImage(bitMatrix);
 
-	    } catch (WriterException | IOException e ) {
-	        e.printStackTrace();
-	    }
-	
-	
-		return "shopping/productListLayout";
-	}
-	
-	@GetMapping("/lessonStart/{id}")
-	public String getLessonStart(@ModelAttribute @PathVariable("id") int productId,LessonStartForm form,Model model) {
-		model.addAttribute("contents", "shopping/lessonStart::productListLayout_contents");
-		
-		model.addAttribute("productId",productId);
-		
-		return "shopping/productListLayout";
-	}
-	
-	@PostMapping("/lessonStart")
-	public String postLessonStart(@ModelAttribute @RequestParam("id") int productId,@Validated(GroupOrder.class) LessonStartForm form,BindingResult bindingResult,Model model) throws MessagingException {
-		
-		
-		
-		if(bindingResult.hasErrors()) {
-			return getLessonStart(productId,form,model);
+			// QRコード表示設定
+			model.addAttribute("qrcodeCheck", "yes");
+			model.addAttribute("qrcodeCreate", "no");
+
+			// 画像を画像ファイルに出力する
+			ImageIO.write(image, "png", new File(output));
+
+		} catch (WriterException | IOException e) {
+			System.err.println("[" + content + "] error発生");
+			e.printStackTrace();
 		}
-		
-		
-		//パスワードが正しいかチェックする
+
+		return "shopping/productListLayout";
+	}
+
+	@PostMapping("/currentDayTrading")
+	public String postCurrentDayTrading(@RequestParam("id") int productId, Model model) {
+
+		// QRコード生成処理
+		String content = "https://github.com/YumaMaruyama/ITworksTRYshopping/blob/main/src/main/resources/templates/shopping/qrcodeFormInfomation.txt";
+		int width = 100;
+		int height = 100;
+		String output = "qrcode.png";
+
+		try {
+			QRCodeWriter qrWriter = new QRCodeWriter();
+
+			// QRWriter.encode()にエンコード対象の文字列、バーコードに埋め込みたい情報出力バーコード書式、画像のwidth、画像のheightを格納
+			BitMatrix bitMatrix = qrWriter.encode(content, BarcodeFormat.QR_CODE, width, height);
+			System.out.println(bitMatrix);
+			BufferedImage image = MatrixToImageWriter.toBufferedImage(bitMatrix);
+
+			// 画像を画像ファイルに出力する
+			ImageIO.write(image, "png", new File(output));
+
+		} catch (WriterException | IOException e) {
+			e.printStackTrace();
+		}
+
+		return "shopping/productListLayout";
+	}
+
+	@GetMapping("/lessonStart/{id}")
+	public String getLessonStart(@ModelAttribute @PathVariable("id") int productId, LessonStartForm form, Model model) {
+		model.addAttribute("contents", "shopping/lessonStart::productListLayout_contents");
+
+		model.addAttribute("productId", productId);
+
+		return "shopping/productListLayout";
+	}
+
+	@PostMapping("/lessonStart")
+	public String postLessonStart(@ModelAttribute @RequestParam("id") int productId,
+			@Validated(GroupOrder.class) LessonStartForm form, BindingResult bindingResult, Model model)
+			throws MessagingException {
+
+		if (bindingResult.hasErrors()) {
+			return getLessonStart(productId, form, model);
+		}
+
+		// パスワードが正しいかチェックする
 		boolean passwordCheck = challengeProgrammingLessonStartPasswordService.lessonStartPasswordCheck(form);
-		
-		//正しければ…
-		if(passwordCheck == true) {
+
+		// 正しければ…
+		if (passwordCheck == true) {
 			ChallengeProgrammingTradeForm challengeprogrammingtradeform = new ChallengeProgrammingTradeForm();
 			challengeProgrammingContractService.lessonCheckInsertOne(productId);
 			Date nowDate = new Date();
-			SimpleDateFormat format = new SimpleDateFormat( "yyyy/MM/dd HH:mm:ss" );
+			SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			String simpleDate = format.format(nowDate);
-			challengeProgrammingContractService.startDateInsertOne(productId,simpleDate);
-			
+			challengeProgrammingContractService.startDateInsertOne(productId, simpleDate);
+
 			mailService.purchaseSendMail();
-			return postChallengeProgrammingTrade(challengeprogrammingtradeform,productId,model);
-		}else {
-			model.addAttribute("errorMessage","開始パスワードが正しくありません");
-			return getLessonStart(productId,form,model);
-		}	
+			return postChallengeProgrammingTrade(challengeprogrammingtradeform, productId, model);
+		} else {
+			model.addAttribute("errorMessage", "開始パスワードが正しくありません");
+			return getLessonStart(productId, form, model);
+		}
 	}
-	
+
 	@GetMapping("/lessonEnd/{id}")
-	public String getLessonEnd(@ModelAttribute LessonEndForm form,@PathVariable("id") int productId,Model model) {
+	public String getLessonEnd(@ModelAttribute LessonEndForm form, @PathVariable("id") int productId, Model model) {
 		model.addAttribute("contents", "shopping/lessonEnd::productListLayout_contents");
-		
-		model.addAttribute("productId",productId);
-		
+
+		model.addAttribute("productId", productId);
+
 		return "shopping/productListLayout";
 	}
-	
+
 	@PostMapping("/lessonEnd")
-	public String postLessonEnd(@ModelAttribute @Validated(GroupOrder.class) LessonEndForm form,BindingResult bindingResult,@RequestParam("id") int productId,Model model) {
-		
-		if(bindingResult.hasErrors()) {
-			return getLessonEnd(form,productId,model);
+	public String postLessonEnd(@ModelAttribute @Validated(GroupOrder.class) LessonEndForm form,
+			BindingResult bindingResult, @RequestParam("id") int productId, Model model) {
+
+		if (bindingResult.hasErrors()) {
+			return getLessonEnd(form, productId, model);
 		}
-		
-		
-		//パスワードが正しいかチェックする
+
+		// パスワードが正しいかチェックする
 		boolean passwordCheck = challengeProgrammingLessonStartPasswordService.lessonEndPasswordCheck(form);
-		
-		//正しければ…
-		if(passwordCheck == true) {
+
+		// 正しければ…
+		if (passwordCheck == true) {
 			ChallengeProgrammingTradeForm challengeprogrammingtradeform = new ChallengeProgrammingTradeForm();
 			challengeProgrammingContractService.lessonCheckUpdateOne(productId);
-			
+
 			Date nowDate = new Date();
-			SimpleDateFormat format = new SimpleDateFormat( "yyyy/MM/dd HH:mm:ss" );
+			SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			String simpleDate = format.format(nowDate);
-			challengeProgrammingContractService.EndDateInsertOne(productId,simpleDate);
-			
-			return postChallengeProgrammingTrade(challengeprogrammingtradeform,productId,model);
-		}else {
-			model.addAttribute("errorMessage","完了パスワードが正しくありません");
-			return getLessonEnd(form,productId,model);
-		}	
+			challengeProgrammingContractService.EndDateInsertOne(productId, simpleDate);
+
+			return postChallengeProgrammingTrade(challengeprogrammingtradeform, productId, model);
+		} else {
+			model.addAttribute("errorMessage", "完了パスワードが正しくありません");
+			return getLessonEnd(form, productId, model);
+		}
 	}
-	
+
 	@GetMapping("/lessonEvaluation/{id}")
-	public String getLessonEvaluation(@ModelAttribute LessonEvaluationForm form,@PathVariable("id") int productId,Model model) {
+	public String getLessonEvaluation(@ModelAttribute LessonEvaluationForm form, @PathVariable("id") int productId,
+			Model model) {
 		model.addAttribute("contents", "shopping/lessonEvaluation::productListLayout_contents");
-		
-		model.addAttribute("productId",productId);
-		
+
+		model.addAttribute("productId", productId);
+
 		return "shopping/productListLayout";
 	}
-	
+
 	@PostMapping("/lessonEvaluation")
-	public String postLessonEvaluation(@ModelAttribute @Validated(GroupOrder.class) LessonEvaluationForm form,BindingResult bindingResult,@RequestParam("id") int productId,Model model) {
+	public String postLessonEvaluation(@ModelAttribute @Validated(GroupOrder.class) LessonEvaluationForm form,
+			BindingResult bindingResult, @RequestParam("id") int productId, Model model) {
 		model.addAttribute("contents", "shopping/lessonEvaluation::productListLayout_contents");
-		
-		if(bindingResult.hasErrors()) {
-			return getLessonEvaluation(form,productId,model);
+
+		if (bindingResult.hasErrors()) {
+			return getLessonEvaluation(form, productId, model);
 		}
-		
-		//ユーザーのIDを取得
+
+		// ユーザーのIDを取得
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String getName = auth.getName();
 		int userId = usersService.select_id(getName);
-		
-		//評価内容を評価テーブルに格納
+
+		// 評価内容を評価テーブルに格納
 		ChallengeProgrammingEvaluationDTO challengeprogrammingevaluationDTO = new ChallengeProgrammingEvaluationDTO();
-		challengeProgrammingEvaluationService.evaluationInsertOne(userId,productId,challengeprogrammingevaluationDTO,form);
-		
-		//契約情報を取得
+		challengeProgrammingEvaluationService.evaluationInsertOne(userId, productId, challengeprogrammingevaluationDTO,
+				form);
+
+		// 契約情報を取得
 		ChallengeProgrammingDTO challengeprogrammingDTO = challengeProgrammingService.lessonSelectOne(productId);
-		//契約情報を履歴テーブルに格納
+		// 契約情報を履歴テーブルに格納
 		ChallengeProgrammingHistoryDTO challengeProgrammingHistoryDTO = new ChallengeProgrammingHistoryDTO();
-		challengeProgrammingHistoryService.historyInsertOne(challengeprogrammingDTO,challengeProgrammingHistoryDTO);
-		//契約情報を削除
+		challengeProgrammingHistoryService.historyInsertOne(challengeprogrammingDTO, challengeProgrammingHistoryDTO);
+		// 契約情報を削除
 		challengeProgrammingContractService.deleteOne(productId);
-		//契約情報の上書き
+		// 契約情報の上書き
 		challengeProgrammingService.updateOne(productId);
-		
+
 		ChallengeProgrammingForm challengeprogrammingForm = new ChallengeProgrammingForm();
-		return getChallengeProgramming(challengeprogrammingForm,model);
+		return getChallengeProgramming(challengeprogrammingForm, model);
 	}
-	
+
 	@GetMapping("/evaluationList/{id}")
-	public String getEvaluationList(@PathVariable("id") int productId,Model model) {
+	public String getEvaluationList(@PathVariable("id") int productId, Model model) {
 		model.addAttribute("contents", "shopping/evaluationList::productListLayout_contents");
-		
-		//選択した先生の評価をすべて取得
-		List<ChallengeProgrammingEvaluationDTO> challengeprogrammingevaluationDTOList = challengeProgrammingEvaluationService.evaluationSelectMany(productId);
+
+		// 選択した先生の評価をすべて取得
+		List<ChallengeProgrammingEvaluationDTO> challengeprogrammingevaluationDTOList = challengeProgrammingEvaluationService
+				.evaluationSelectMany(productId);
 		double totalRate = 0;
-		for(int i = 0; challengeprogrammingevaluationDTOList.size() > i; i++) {
-			ChallengeProgrammingEvaluationDTO challengeprogrammingevaluationDTOOne = challengeprogrammingevaluationDTOList.get(i);
+		for (int i = 0; challengeprogrammingevaluationDTOList.size() > i; i++) {
+			ChallengeProgrammingEvaluationDTO challengeprogrammingevaluationDTOOne = challengeprogrammingevaluationDTOList
+					.get(i);
 			int rate = challengeprogrammingevaluationDTOOne.getRate();
 			totalRate = totalRate + rate;
-			if(rate == 1) {
+			if (rate == 1) {
 				challengeprogrammingevaluationDTOOne.setConversionRate("悪い(1)");
-			}else if(rate == 2) {
+			} else if (rate == 2) {
 				challengeprogrammingevaluationDTOOne.setConversionRate("普通(2)");
-			}else if(rate == 3) {
+			} else if (rate == 3) {
 				challengeprogrammingevaluationDTOOne.setConversionRate("良い(3)");
-			}else {
+			} else {
 				challengeprogrammingevaluationDTOOne.setConversionRate("素晴らしい(4)");
 			}
 		}
-		
+
 		double averageRate = totalRate / challengeprogrammingevaluationDTOList.size();
-		if(averageRate >= 3.75) {
-			model.addAttribute("starRate","4");
-			model.addAttribute("starRateDetail","4");
-		}else if((averageRate >= 3.25) && (averageRate <= 3.74)) {
-			model.addAttribute("starRate","3.5");
-			model.addAttribute("starRateDetail","3.5");
-		}else if((averageRate >= 2.75) && (averageRate <= 3.24)) {
-			model.addAttribute("starRate","3");
-			model.addAttribute("starRateDetail","3");
-		}else if((averageRate >= 2.25) && (averageRate <= 2.74)) {
-			model.addAttribute("starRate","2.5");
-			model.addAttribute("starRateDetail","2.5");
-		}else if((averageRate >= 1.75) && (averageRate <= 2.24)) {
-			model.addAttribute("starRate","2");
-			model.addAttribute("starRateDetail","2");
-		}else if((averageRate >= 1.25) && (averageRate <= 1.74)) {
-			model.addAttribute("starRate","1.5");
-			model.addAttribute("starRateDetail","1.5");
-		}else {
-			model.addAttribute("starRate","1");
-			model.addAttribute("starRateDetail","1");
+		if (averageRate >= 3.75) {
+			model.addAttribute("starRate", "4");
+			model.addAttribute("starRateDetail", "4");
+		} else if ((averageRate >= 3.25) && (averageRate <= 3.74)) {
+			model.addAttribute("starRate", "3.5");
+			model.addAttribute("starRateDetail", "3.5");
+		} else if ((averageRate >= 2.75) && (averageRate <= 3.24)) {
+			model.addAttribute("starRate", "3");
+			model.addAttribute("starRateDetail", "3");
+		} else if ((averageRate >= 2.25) && (averageRate <= 2.74)) {
+			model.addAttribute("starRate", "2.5");
+			model.addAttribute("starRateDetail", "2.5");
+		} else if ((averageRate >= 1.75) && (averageRate <= 2.24)) {
+			model.addAttribute("starRate", "2");
+			model.addAttribute("starRateDetail", "2");
+		} else if ((averageRate >= 1.25) && (averageRate <= 1.74)) {
+			model.addAttribute("starRate", "1.5");
+			model.addAttribute("starRateDetail", "1.5");
+		} else {
+			model.addAttribute("starRate", "1");
+			model.addAttribute("starRateDetail", "1");
 		}
-		
+
 		System.out.println("averageRate" + averageRate);
-		System.out.println("totalRate"+totalRate);
-		System.out.println("dtoSize"+challengeprogrammingevaluationDTOList.size());
-		
-		model.addAttribute("evaluationList",challengeprogrammingevaluationDTOList);
-		
+		System.out.println("totalRate" + totalRate);
+		System.out.println("dtoSize" + challengeprogrammingevaluationDTOList.size());
+
+		model.addAttribute("evaluationList", challengeprogrammingevaluationDTOList);
+
 		return "shopping/productListLayout";
 	}
-	
+
 	@GetMapping("/lessonHistory")
 	public String getLessonHistory(Model model) {
 		model.addAttribute("contents", "shopping/lessonHistory::productListLayout_contents");
-		
+
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String getName = auth.getName();
 		int userId = usersService.select_id(getName);
-		
-		//ユーザーごとの受講した講座をすべて取得
-		List<ChallengeProgrammingHistoryDTO> challengeprogramminghistoryDTOList = challengeProgrammingHistoryService.historySelectMany(userId);
-		model.addAttribute("historyList",challengeprogramminghistoryDTOList);
-		
+
+		// ユーザーごとの受講した講座をすべて取得
+		List<ChallengeProgrammingHistoryDTO> challengeprogramminghistoryDTOList = challengeProgrammingHistoryService
+				.historySelectMany(userId);
+		model.addAttribute("historyList", challengeprogramminghistoryDTOList);
+
 		return "shopping/productListLayout";
 	}
-	
-
 
 	@GetMapping("/purchaseHistory")
 	public String getPurchaseHistory(@ModelAttribute PcDataForm form, Model model) {
@@ -6876,8 +6978,7 @@ public class ShoppingController {
 		int select_id = usersService.select_id(getName);
 
 		// 購入商品情報リスト取得
-		List<PurchaseDTO> purchasedtoList = purchaseService.selectHistory(select_id);//ログインユーザーの購入商品情報をすべて取得
-
+		List<PurchaseDTO> purchasedtoList = purchaseService.selectHistory(select_id);// ログインユーザーの購入商品情報をすべて取得
 
 		List<PurchaseDTO> allPurchaseList = new ArrayList<>();
 		PurchaseDTO customList;
@@ -6906,9 +7007,9 @@ public class ShoppingController {
 			// 購入商品ごとのカスタム情報も取り出す
 			int productId = purchasedtoAdd.getId();
 			String nullCheck = "null";
-			int getCustomId = customService.selectPurchaseCheck(select_id, productId, purchasedtoAdd.getPurchaseCheck(),//ログインユーザーが購入した商品のカスタム情報の入ったカスタムIDを取得
+			int getCustomId = customService.selectPurchaseCheck(select_id, productId, purchasedtoAdd.getPurchaseCheck(), // ログインユーザーが購入した商品のカスタム情報の入ったカスタムIDを取得
 					nullCheck);
-			customList = customService.selectMany(getCustomId);//カスタムIDに基づいてcustomテーブルから
+			customList = customService.selectMany(getCustomId);// カスタムIDに基づいてcustomテーブルから
 
 			purchasedtoAdd.setMemory(customList.getMemory());
 			purchasedtoAdd.setHardDisc(customList.getHardDisc());
@@ -6920,7 +7021,7 @@ public class ShoppingController {
 			if (purchasedtoAdd.getMenberCouponCheck().equals("会員クーポン使用")) {
 				System.out.println("クーポン使用！");
 				int totalPrice = purchasedtoAdd.getTotalPrice();
-				MenberCouponDTO menbercoupondto = menberCouponService.selectOne(purchasedtoAdd.getCouponId());//会員ランククーポンのIDをもとにmenber_couponテーブルから会員ランククーポン情報を取得
+				MenberCouponDTO menbercoupondto = menberCouponService.selectOne(purchasedtoAdd.getCouponId());// 会員ランククーポンのIDをもとにmenber_couponテーブルから会員ランククーポン情報を取得
 				int disCount = menbercoupondto.getDiscount();// 割引率(%)
 				if (disCount >= 10) {
 					double disCountNew = Double.valueOf("0." + disCount);
@@ -6938,7 +7039,7 @@ public class ShoppingController {
 				if (purchasedtoAdd.getCouponId() > 0) {
 					System.out.println("クーポン使用！");
 					int totalPrice = purchasedtoAdd.getTotalPrice();
-					CouponDTO coupondto = couponService.selectOne(purchasedtoAdd.getCouponId());//期間限定クーポンのIDをもとにcouponテーブルから期間限定クーポン情報を取得
+					CouponDTO coupondto = couponService.selectOne(purchasedtoAdd.getCouponId());// 期間限定クーポンのIDをもとにcouponテーブルから期間限定クーポン情報を取得
 					int disCount = coupondto.getDiscount();// 割引率(%)
 					if (disCount >= 10) {
 						double disCountNew = Double.valueOf("0." + disCount);
@@ -6973,7 +7074,7 @@ public class ShoppingController {
 				purchasedtoAdd.setCancelResult("false");
 			}
 
-			CancelDTO canceldto = cancelService.selectCancelCheck(purchasedtoAdd.getPurchaseId());//購入IDをもとにcancelテーブルからcancelCheck
+			CancelDTO canceldto = cancelService.selectCancelCheck(purchasedtoAdd.getPurchaseId());// 購入IDをもとにcancelテーブルからcancelCheck
 			if (canceldto.getCancelCheck() != null) {
 				purchasedtoAdd.setCancelResult("true");
 			}
@@ -6986,132 +7087,128 @@ public class ShoppingController {
 		return "shopping/productListLayout";
 
 	}
-	
+
 	@GetMapping("/gacha")
 	public String getGacha(Model model) {
 		model.addAttribute("contents", "shopping/dailyGacha::productListLayout_contents");
-		
-		
+
 		return "shopping/productListLayout";
 	}
-	
+
 	@PostMapping("/dailyGacha")
 	public String postGacha(Model model) {
 		model.addAttribute("contents", "shopping/dailyGacha::productListLayout_contents");
-		
-		//十連ガチャ
-		for(int i = 0; 10 > i; i++) {
-		int rundomNumber = ((int)Math.ceil(Math.random() * 100));
-		
-		//確率1%(星5)
-		//星5の1
-		if(rundomNumber < 1) {
-					
+
+		// 十連ガチャ
+		for (int i = 0; 10 > i; i++) {
+			int rundomNumber = ((int) Math.ceil(Math.random() * 100));
+
+			// 確率1%(星5)
+			// 星5の1
+			if (rundomNumber < 1) {
+
+			}
+
+			// 確率2％(星4)
+			// 星4の1
+			if (rundomNumber >= 1 && rundomNumber <= 2) {
+
+			}
+			// 星4の2
+			if (rundomNumber >= 3 && rundomNumber <= 4) {
+
+			}
+			// 星4の3
+			if (rundomNumber >= 5 && rundomNumber <= 6) {
+
+			}
+			// 星4の4
+			if (rundomNumber >= 7 && rundomNumber <= 8) {
+
+			}
+			// 星4の5
+			if (rundomNumber >= 9 && rundomNumber <= 10) {
+
+			}
+
+			// 確率4％(星3)
+			// 星3の1
+			if (rundomNumber >= 11 && rundomNumber <= 14) {
+
+			}
+
+			// 星3の2
+			if (rundomNumber >= 15 && rundomNumber <= 18) {
+
+			}
+
+			// 星3の3
+			if (rundomNumber >= 19 && rundomNumber <= 22) {
+
+			}
+
+			// 星3の4
+			if (rundomNumber >= 23 && rundomNumber <= 26) {
+
+			}
+			// 星3の5
+			if (rundomNumber >= 27 && rundomNumber <= 30) {
+
+			}
+
+			// 確率6％(星2)
+			// 星2の1
+			if (rundomNumber >= 31 && rundomNumber <= 36) {
+
+			}
+
+			// 星2の2
+			if (rundomNumber >= 37 && rundomNumber <= 42) {
+
+			}
+
+			// 星2の3
+			if (rundomNumber >= 43 && rundomNumber <= 48) {
+
+			}
+
+			// 星2の4
+			if (rundomNumber >= 49 && rundomNumber <= 54) {
+
+			}
+
+			// 星2の5
+			if (rundomNumber >= 55 && rundomNumber <= 60) {
+
+			}
+
+			// 確率8％(星1)
+			// 星1の1
+			if (rundomNumber >= 61 && rundomNumber <= 68) {
+
+			}
+
+			// 星1の2
+			if (rundomNumber >= 69 && rundomNumber <= 76) {
+
+			}
+
+			// 星1の3
+			if (rundomNumber >= 77 && rundomNumber <= 84) {
+
+			}
+
+			// 星1の4
+			if (rundomNumber >= 85 && rundomNumber <= 92) {
+
+			}
+
+			// 星1の5
+			if (rundomNumber >= 93 && rundomNumber <= 100) {
+
+			}
 		}
 
-		//確率2％(星4)
-		//星4の1
-		if(rundomNumber >= 1 && rundomNumber <= 2) {
-			
-		}
-		//星4の2
-		if(rundomNumber >= 3 && rundomNumber <= 4) {
-			
-		}
-		//星4の3
-		if(rundomNumber >= 5 && rundomNumber <= 6) {
-			
-		}
-		//星4の4
-		if(rundomNumber >= 7 && rundomNumber <= 8) {
-	
-		}
-		//星4の5
-		if(rundomNumber >= 9 && rundomNumber <= 10) {
-		
-		}
-		
-		//確率4％(星3)
-		//星3の1
-		if(rundomNumber >= 11 && rundomNumber <= 14) {
-					
-		}
-		
-		//星3の2
-		if(rundomNumber >= 15 && rundomNumber <= 18) {
-							
-		}
-		
-		//星3の3
-		if(rundomNumber >= 19 && rundomNumber <= 22) {
-							
-		}
-		
-		//星3の4
-		if(rundomNumber >= 23 && rundomNumber <= 26) {
-							
-		}
-		//星3の5
-		if(rundomNumber >= 27 && rundomNumber <= 30) {
-			
-		}
-		
-		
-		//確率6％(星2)
-		//星2の1
-		if(rundomNumber >= 31 && rundomNumber <= 36) {
-							
-		}
-		
-		//星2の2
-		if(rundomNumber >= 37 && rundomNumber <= 42) {
-			
-		}
-		
-		//星2の3
-		if(rundomNumber >= 43 && rundomNumber <= 48) {
-			
-		}
-		
-		//星2の4
-		if(rundomNumber >= 49 && rundomNumber <= 54) {
-			
-		}
-		
-		//星2の5
-		if(rundomNumber >= 55 && rundomNumber <= 60) {
-			
-		}
-		
-		//確率8％(星1)
-		//星1の1
-		if(rundomNumber >= 61 && rundomNumber <= 68) {
-									
-		}
-		
-		//星1の2
-		if(rundomNumber >= 69 && rundomNumber <= 76) {
-			
-		}
-
-		//星1の3
-		if(rundomNumber >= 77 && rundomNumber <= 84) {
-			
-		}
-		
-		//星1の4
-		if(rundomNumber >= 85 && rundomNumber <= 92) {
-			
-		}
-		
-		//星1の5
-		if(rundomNumber >= 93 && rundomNumber <= 100) {
-			
-			
-		}
-		}
-		
-		
 		return "shopping/productListLayout";
 	}
 

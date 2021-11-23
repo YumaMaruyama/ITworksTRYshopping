@@ -44,4 +44,6 @@ public interface PurchaseDao {
 	public List<PurchaseDTO> deliverySelect();
 	
 	public int deliveryProcedureCheckInsertOne(int purchaseId);
+	
+	public List<PurchaseDTO> cancelCheckSelectMany();
 }

@@ -3,13 +3,13 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title></title>
 </head>
 <body>
 	
 	<div th:fragment="productListLayout_contents">
 
-		<h1 class="titleDesign">商品購入履歴</h1>
+		<h1 class="titleDesign">キャンセル管理</h1>
 
 
 		
@@ -43,23 +43,12 @@
 					<p class="card-text purHisfontdesign cartcpu"
 						style="margin-bottom: 0px !important"
 						th:text="'購入数：' + ${purchasedto.product_count}"></p>
-					<a th:if="${purchasedto.deliveryCheck} == '発送前'" th:href="@{/deliveryProcedureOK} + '/' + ${purchasedto.purchaseId}" class="text-center deliveryProcedureOK">発送後押す</a>
-					<h4 class="text-danger text-center" th:if="${purchasedto.deliveryCheck} == '発送済み'"><a>発送済</a></h4>
+					<!-- キャンセル手続きボタン表示 -->
 			</div>
 			
 		</div>
-		<script>
-			$('.deliveryProcedureOK').click(function() {
-				if (confirm('発送が完了しましたか？')) {
-
-					return true;
-				}
-				return false;
-			});
-	</script>
+		
 	</div>
 	
-	
-		
 </body>
 </html>

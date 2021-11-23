@@ -91,5 +91,9 @@ public class PurchaseService {
 		return dao.deliveryProcedureCheckInsertOne(purchaseId);
 	}
 	
+	public List<PurchaseDTO> cancelCheckSelectMany() {
+		return dao.cancelCheckSelectMany();
+	}
+	
 
 }

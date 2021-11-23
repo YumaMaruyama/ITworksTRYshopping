@@ -216,7 +216,7 @@ public class PurchaseDaoJdbcImpl implements PurchaseDao {
 			int purchaseCreditId, int customId, int point, int pointminusTotalPrice) {
 		int result = jdbc.update(
 				"insert into purchase (id," + " user_id," + " product_id," + " product_count," + " credit_id,"
-						+ " custom_id," + " menber_coupon_check," + " coupon_id," + " point," + " point_use" + " delivery_check)"
+						+ " custom_id," + " menber_coupon_check," + " coupon_id," + " point," + " point_use," + " delivery_check)"
 						+ " value(?,?,?,?,?,?,?,?,?,?,?)",
 				purchasedto.getId(), select_id, purchaseId, purchaseCount, purchaseCreditId, customId, "クーポン不使用", -1,
 				point, pointminusTotalPrice,"発送前");
@@ -273,6 +273,39 @@ public class PurchaseDaoJdbcImpl implements PurchaseDao {
 		int result = jdbc.update("update purchase set delivery_check = '発送済み' where id = ?",purchaseId);
 		
 		return result;
+	}
+	
+	public List<PurchaseDTO> cancelCheckSelectMany() {
+		List<Map<String, Object>> map = jdbc.queryForList(
+				"select purchase.id,purchase.user_id,purchase.product_id,purchase.purchase_date,purchase.product_count,purchase.cancel_check,purchase.coupon_id,purchase.menber_coupon_check,purchase.point_use,purchase.delivery_check,pcdata.pc_name,pcdata.price,pcdata.pcImg,cart.purchase_check as cartPurchaseCheck,users.user_name,usege_users.address from purchase join pcdata on purchase.product_id = pcdata.id join cart on purchase.id = cart.purchase_check join users on users.id = purchase.user_id join usege_users on usege_users.user_id = purchase.user_id"
+				);
+
+		List<PurchaseDTO> purchaseList = new ArrayList<>();
+		for (Map<String, Object> oneMap : map) {
+			PurchaseDTO purchasedto = new PurchaseDTO();
+
+			purchasedto.setId((int) oneMap.get("product_id"));
+			purchasedto.setPurchaseId((int) oneMap.get("id"));
+			purchasedto.setUser_id((int)oneMap.get("user_id"));
+			purchasedto.setPurchase_date((Date) oneMap.get("purchase_date"));
+			purchasedto.setCancelCheck((String) oneMap.get("cancel_check"));
+			purchasedto.setPointUse((int) oneMap.get("point_use"));
+			purchasedto.setCouponId((int) oneMap.get("coupon_id"));
+			purchasedto.setPcName((String) oneMap.get("pc_name"));
+			purchasedto.setPrice((int) oneMap.get("price"));
+			purchasedto.setPcImg((String) oneMap.get("pcImg"));
+			purchasedto.setProduct_count((int) oneMap.get("product_count"));
+			purchasedto.setPurchaseCheck((int) oneMap.get("cartPurchaseCheck"));
+			purchasedto.setMenberCouponCheck((String) oneMap.get("menber_coupon_check"));
+			purchasedto.setDeliveryCheck((String)oneMap.get("delivery_check"));
+			purchasedto.setUserName((String)oneMap.get("user_name"));
+			purchasedto.setAddress((String)oneMap.get("address"));
+			
+
+			purchaseList.add(purchasedto);
+		}
+
+		return purchaseList;
 	}
 	
 
