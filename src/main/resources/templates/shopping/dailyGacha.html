@@ -14,13 +14,24 @@
 		<form method="post" th:action="@{/dailyGacha}">
 		<table>
 			<tr>
-				<img class="gachaSize" th:src="@{/css/gacha.png}">
-				<img class="gachaSize" th:src="@{/css/gachaAnimation.gif}">
+		
+				<img th:if="${gachaTurn} == 'no'" class="gachaSize" th:src="@{/css/gacha.png}">
+				<img th:if="${gachaTurn} == 'yes'" class="gachaSize" th:src="@{/css/gachaAnimation.gif}">
 			</tr>
 		</table>
-		<button class="text-center btn btn-primary">ガチャを引く</button>
+		<button th:if="${gachaTurn} == 'no'" class="text-center btn btn-primary">ガチャを引く</button>
+		<button th:if="${gachaTurn} == 'yes'" class="text-center btn btn-primary fadeIn">結果を見る</button>
+		
 		</form>
 		
+		
+ 
+		<script>
+		
+		$(function() {
+		    $('.fadeIn').hide().fadeIn(7000);
+		});
+		</script>
 		
 	</div>
 </body>
