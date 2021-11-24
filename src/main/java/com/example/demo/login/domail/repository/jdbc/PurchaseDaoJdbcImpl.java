@@ -277,7 +277,7 @@ public class PurchaseDaoJdbcImpl implements PurchaseDao {
 	
 	public List<PurchaseDTO> cancelCheckSelectMany() {
 		List<Map<String, Object>> map = jdbc.queryForList(
-				"select purchase.id,purchase.user_id,purchase.product_id,purchase.purchase_date,purchase.product_count,purchase.cancel_check,purchase.coupon_id,purchase.menber_coupon_check,purchase.point_use,purchase.delivery_check,pcdata.pc_name,pcdata.price,pcdata.pcImg,cart.purchase_check as cartPurchaseCheck,users.user_name,usege_users.address from purchase join pcdata on purchase.product_id = pcdata.id join cart on purchase.id = cart.purchase_check join users on users.id = purchase.user_id join usege_users on usege_users.user_id = purchase.user_id"
+				"select purchase.id,purchase.user_id,purchase.product_id,purchase.purchase_date,purchase.product_count,purchase.cancel_check,purchase.coupon_id,purchase.menber_coupon_check,purchase.point_use,purchase.delivery_check,pcdata.pc_name,pcdata.price,pcdata.pcImg,cart.purchase_check as cartPurchaseCheck,users.user_name,usege_users.address from purchase join pcdata on purchase.product_id = pcdata.id join cart on purchase.id = cart.purchase_check join users on users.id = purchase.user_id join usege_users on usege_users.user_id = purchase.user_id where purchase.cancel_check != 'null'"
 				);
 
 		List<PurchaseDTO> purchaseList = new ArrayList<>();

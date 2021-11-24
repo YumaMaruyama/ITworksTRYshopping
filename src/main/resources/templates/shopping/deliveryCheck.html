@@ -28,9 +28,23 @@
 					<p th:if="${purchasedto.couponId} == -1"
 						class="card-title purHisfontdesign"
 						th:text="'値段：' + ${purchasedto.totalPrice}"></p>
-					<p th:if="${purchasedto.couponId} gt 0"
+					<p
+						th:if="${purchasedto.couponId} == -1 and ${purchasedto.pointUse} == 0"
 						class="card-title purHisfontdesign"
-						th:text="'値段：' + ${purchasedto.totalPrice} + '(クーポン適用)'"></p>
+						th:text="'支払い：' + ${purchasedto.totalPrice} + '円'"></p>
+					<p
+						th:if="${purchasedto.couponId} gt 0 and ${purchasedto.pointUse} == 0"
+						class="card-title purHisfontdesign"
+						th:text="'支払い：' + ${purchasedto.totalPrice} + '円' + '(クーポン適用)'"></p>
+					<p
+						th:if="${purchasedto.couponId} == -1 and ${purchasedto.pointUse} gt 0"
+						class="card-title purHisfontdesign"
+						th:text="'支払い：' + ${purchasedto.totalPrice} + '円' + '(ポイント適用)'"></p>
+					<p
+						th:if="${purchasedto.couponId} gt 0 and ${purchasedto.pointUse} gt 0"
+						class="card-title purHisfontdesign"
+						title="Cはクーポン、Pはポイントです"
+						th:text="'支払い：' + ${purchasedto.totalPrice} + '円' + '(C&P適用)'"></p>
 					<p class="card-text purHisfontdesign cartmemory"
 						style="margin-bottom: 0px !important"
 						th:text="'メモリー：' + ${purchasedto.memory}"></p>

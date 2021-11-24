@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
@@ -6,13 +7,13 @@
 <title></title>
 </head>
 <body>
-	
+
 	<div th:fragment="productListLayout_contents">
 
 		<h1 class="titleDesign">キャンセル管理</h1>
 
 
-		
+
 		<div class="flex purHisTable" style="width: 1100px;">
 			<div class="item" th:each="purchasedto : ${purchaseList}">
 				<form>
@@ -28,9 +29,23 @@
 					<p th:if="${purchasedto.couponId} == -1"
 						class="card-title purHisfontdesign"
 						th:text="'値段：' + ${purchasedto.totalPrice}"></p>
-					<p th:if="${purchasedto.couponId} gt 0"
+					<p
+						th:if="${purchasedto.couponId} == -1 and ${purchasedto.pointUse} == 0"
 						class="card-title purHisfontdesign"
-						th:text="'値段：' + ${purchasedto.totalPrice} + '(クーポン適用)'"></p>
+						th:text="'支払い：' + ${purchasedto.totalPrice} + '円'"></p>
+					<p
+						th:if="${purchasedto.couponId} gt 0 and ${purchasedto.pointUse} == 0"
+						class="card-title purHisfontdesign"
+						th:text="'支払い：' + ${purchasedto.totalPrice} + '円' + '(クーポン適用)'"></p>
+					<p
+						th:if="${purchasedto.couponId} == -1 and ${purchasedto.pointUse} gt 0"
+						class="card-title purHisfontdesign"
+						th:text="'支払い：' + ${purchasedto.totalPrice} + '円' + '(ポイント適用)'"></p>
+					<p
+						th:if="${purchasedto.couponId} gt 0 and ${purchasedto.pointUse} gt 0"
+						class="card-title purHisfontdesign"
+						title="Cはクーポン、Pはポイントです"
+						th:text="'支払い：' + ${purchasedto.totalPrice} + '円' + '(C&P適用)'"></p>
 					<p class="card-text purHisfontdesign cartmemory"
 						style="margin-bottom: 0px !important"
 						th:text="'メモリー：' + ${purchasedto.memory}"></p>
@@ -43,12 +58,16 @@
 					<p class="card-text purHisfontdesign cartcpu"
 						style="margin-bottom: 0px !important"
 						th:text="'購入数：' + ${purchasedto.product_count}"></p>
+					<p class="card-text text-danger purHisfontdesign cartcpu"
+						style="margin-bottom: 0px !important"
+						th:text="${purchasedto.cancelCheck}"></p>
+						
 					<!-- キャンセル手続きボタン表示 -->
 			</div>
-			
+
 		</div>
-		
+
 	</div>
-	
+
 </body>
 </html>

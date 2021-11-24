@@ -1554,6 +1554,7 @@ public class ShoppingController {
 			purchasedtoAdd.setProduct_count(purchaseOne.getProduct_count());
 			purchasedtoAdd.setPurchaseCheck(purchaseOne.getPurchaseCheck());
 			purchasedtoAdd.setMenberCouponCheck(purchaseOne.getMenberCouponCheck());
+			purchasedtoAdd.setPointUse(purchaseOne.getPointUse());
 			purchasedtoAdd.setDeliveryCheck(purchaseOne.getDeliveryCheck());
 			purchasedtoAdd.setUserName(purchaseOne.getUserName());
 			purchasedtoAdd.setAddress(purchaseOne.getAddress());
@@ -1604,6 +1605,8 @@ public class ShoppingController {
 					}
 				}
 			}
+			
+			purchasedtoAdd.setTotalPrice((purchasedtoAdd.getTotalPrice() - purchasedtoAdd.getPointUse()));
 
 			Calendar calendar = Calendar.getInstance();
 			Date now = calendar.getTime();
@@ -1680,6 +1683,7 @@ public class ShoppingController {
 			purchasedtoAdd.setPcImg(purchaseOne.getPcImg());
 			purchasedtoAdd.setProduct_count(purchaseOne.getProduct_count());
 			purchasedtoAdd.setPurchaseCheck(purchaseOne.getPurchaseCheck());
+			purchasedtoAdd.setPointUse(purchaseOne.getPointUse());
 			purchasedtoAdd.setMenberCouponCheck(purchaseOne.getMenberCouponCheck());
 			purchasedtoAdd.setDeliveryCheck(purchaseOne.getDeliveryCheck());
 			purchasedtoAdd.setUserName(purchaseOne.getUserName());
@@ -1732,6 +1736,8 @@ public class ShoppingController {
 				}
 			}
 
+			purchasedtoAdd.setTotalPrice((purchasedtoAdd.getTotalPrice() - purchasedtoAdd.getPointUse()));
+			
 			Calendar calendar = Calendar.getInstance();
 			Date now = calendar.getTime();
 			calendar.setTime(purchasedtoAdd.getPurchase_date());
@@ -7092,13 +7098,17 @@ public class ShoppingController {
 	public String getGacha(Model model) {
 		model.addAttribute("contents", "shopping/dailyGacha::productListLayout_contents");
 
+		model.addAttribute("gachaTurn","no");
+		
 		return "shopping/productListLayout";
 	}
 
 	@PostMapping("/dailyGacha")
 	public String postGacha(Model model) {
 		model.addAttribute("contents", "shopping/dailyGacha::productListLayout_contents");
-
+		
+		model.addAttribute("gachaTurn","yes");
+		
 		// 十連ガチャ
 		for (int i = 0; 10 > i; i++) {
 			int rundomNumber = ((int) Math.ceil(Math.random() * 100));
