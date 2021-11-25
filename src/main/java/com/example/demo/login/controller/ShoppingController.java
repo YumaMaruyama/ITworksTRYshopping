@@ -49,6 +49,7 @@ import com.example.demo.login.domail.model.CouponForm;
 import com.example.demo.login.domail.model.CreditDTO;
 import com.example.demo.login.domail.model.CreditForm;
 import com.example.demo.login.domail.model.CustomDTO;
+import com.example.demo.login.domail.model.GachaDTO;
 import com.example.demo.login.domail.model.GroupOrder;
 import com.example.demo.login.domail.model.InquiryAllDTO;
 import com.example.demo.login.domail.model.InquiryBeforeLoginForm;
@@ -89,6 +90,7 @@ import com.example.demo.login.domail.service.ChallengeProgrammingService;
 import com.example.demo.login.domail.service.CouponService;
 import com.example.demo.login.domail.service.CreditService;
 import com.example.demo.login.domail.service.CustomService;
+import com.example.demo.login.domail.service.GachaService;
 import com.example.demo.login.domail.service.InquiryReplyService;
 import com.example.demo.login.domail.service.InquiryService;
 import com.example.demo.login.domail.service.MailService;
@@ -153,6 +155,8 @@ public class ShoppingController {
 	ChallengeProgrammingEvaluationService challengeProgrammingEvaluationService;
 	@Autowired
 	ChallengeProgrammingHistoryService challengeProgrammingHistoryService;
+	@Autowired
+	GachaService gachaService;
 
 	@Autowired // Sessionが使用できる
 	HttpSession session;
@@ -7097,18 +7101,63 @@ public class ShoppingController {
 	@GetMapping("/gacha")
 	public String getGacha(Model model) {
 		model.addAttribute("contents", "shopping/dailyGacha::productListLayout_contents");
-
 		model.addAttribute("gachaTurn","no");
+		
+		//現在の日付とユーザーIDを取得
+		Date nowDate = new Date();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String getName = auth.getName();
+		int userId = usersService.select_id(getName);
+		GachaDTO gachadto = new GachaDTO();
+
+		
+		//本日ガチャを回したかチェック
+		//直近に回したガチャの日付を取得
+		Date gachaTurnDate = gachaService.gachaTurnedCheck(userId);
+		//本日の日付と取得した日付を見比べる
+		//日付がないなら一回もガチャを回していないことになるので回させる
+		if(gachaTurnDate != null) {
+		String newGachaTurnDate = new SimpleDateFormat("yyyy-MM-dd").format(gachaTurnDate);
+		String newNowDate = new SimpleDateFormat("yyyy-MM-dd").format(nowDate);
+			//直近に回したガチャの日付を現在の日付が一致すれば回させない
+			if(newGachaTurnDate.equals(newNowDate)) {
+				model.addAttribute("gachaTurnCheck","no");
+			}else {
+				model.addAttribute("gachaTurnCheck","yes");
+			}
+		}else {
+			model.addAttribute("gachaTurnCheck","yes");
+		}
+		
+		
 		
 		return "shopping/productListLayout";
 	}
 
-	@PostMapping("/dailyGacha")
-	public String postGacha(Model model) {
+	@PostMapping(value = "/dailyGacha", params="gachaTurn")
+	public String postGachaTurn(Model model) {
 		model.addAttribute("contents", "shopping/dailyGacha::productListLayout_contents");
-		
 		model.addAttribute("gachaTurn","yes");
 		
+		return "shopping/productListLayout";
+	}
+	
+	@PostMapping(value = "/dailyGacha", params = "gachaResult")
+	public String postGacha(Model model) {
+		model.addAttribute("contents", "shopping/dailyGacha::productListLayout_contents");
+		model.addAttribute("gachaTurn","yes");
+		
+		//現在の日付とユーザーIDを取得
+		Date nowDate = new Date();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String getName = auth.getName();
+		int userId = usersService.select_id(getName);
+		GachaDTO gachadto = new GachaDTO();
+		
+		
+		//ガチャを回したユーザーと日付を格納
+		gachaService.gachaTurnInsertOne(gachadto,userId,nowDate);
+				
 		// 十連ガチャ
 		for (int i = 0; 10 > i; i++) {
 			int rundomNumber = ((int) Math.ceil(Math.random() * 100));
