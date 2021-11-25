@@ -49,6 +49,7 @@ import com.example.demo.login.domail.model.CouponForm;
 import com.example.demo.login.domail.model.CreditDTO;
 import com.example.demo.login.domail.model.CreditForm;
 import com.example.demo.login.domail.model.CustomDTO;
+import com.example.demo.login.domail.model.GachaContentDTO;
 import com.example.demo.login.domail.model.GachaDTO;
 import com.example.demo.login.domail.model.GroupOrder;
 import com.example.demo.login.domail.model.InquiryAllDTO;
@@ -90,6 +91,7 @@ import com.example.demo.login.domail.service.ChallengeProgrammingService;
 import com.example.demo.login.domail.service.CouponService;
 import com.example.demo.login.domail.service.CreditService;
 import com.example.demo.login.domail.service.CustomService;
+import com.example.demo.login.domail.service.GachaContentService;
 import com.example.demo.login.domail.service.GachaService;
 import com.example.demo.login.domail.service.InquiryReplyService;
 import com.example.demo.login.domail.service.InquiryService;
@@ -157,6 +159,8 @@ public class ShoppingController {
 	ChallengeProgrammingHistoryService challengeProgrammingHistoryService;
 	@Autowired
 	GachaService gachaService;
+	@Autowired
+	GachaContentService gachaContentService;
 
 	@Autowired // Sessionが使用できる
 	HttpSession session;
@@ -7159,112 +7163,134 @@ public class ShoppingController {
 		gachaService.gachaTurnInsertOne(gachadto,userId,nowDate);
 				
 		// 十連ガチャ
+		List<GachaContentDTO> gachaResultList = new ArrayList<>();
 		for (int i = 0; 10 > i; i++) {
 			int rundomNumber = ((int) Math.ceil(Math.random() * 100));
-
+			GachaContentDTO gachacontentdto = new GachaContentDTO();
 			// 確率1%(星5)
 			// 星5の1
 			if (rundomNumber < 1) {
-
+				gachacontentdto = gachaContentService.selectFiveSS();
+				gachaResultList.add(gachacontentdto);
 			}
 
 			// 確率2％(星4)
 			// 星4の1
 			if (rundomNumber >= 1 && rundomNumber <= 2) {
-
+				gachacontentdto = gachaContentService.selectFourSS();
+				gachaResultList.add(gachacontentdto);
 			}
 			// 星4の2
 			if (rundomNumber >= 3 && rundomNumber <= 4) {
-
+				gachacontentdto = gachaContentService.selectFourS();
+				gachaResultList.add(gachacontentdto);
 			}
 			// 星4の3
 			if (rundomNumber >= 5 && rundomNumber <= 6) {
-
+				gachacontentdto = gachaContentService.selectFourA();
+				gachaResultList.add(gachacontentdto);
 			}
 			// 星4の4
 			if (rundomNumber >= 7 && rundomNumber <= 8) {
-
+				gachacontentdto = gachaContentService.selectFourB();
+				gachaResultList.add(gachacontentdto);
 			}
 			// 星4の5
 			if (rundomNumber >= 9 && rundomNumber <= 10) {
-
+				gachacontentdto = gachaContentService.selectFourC();
+				gachaResultList.add(gachacontentdto);
 			}
 
 			// 確率4％(星3)
 			// 星3の1
 			if (rundomNumber >= 11 && rundomNumber <= 14) {
-
+				gachacontentdto = gachaContentService.selectThreeSS();
+				gachaResultList.add(gachacontentdto);
 			}
 
 			// 星3の2
 			if (rundomNumber >= 15 && rundomNumber <= 18) {
-
+				gachacontentdto = gachaContentService.selectThreeS();
+				gachaResultList.add(gachacontentdto);
 			}
 
 			// 星3の3
 			if (rundomNumber >= 19 && rundomNumber <= 22) {
-
+				gachacontentdto = gachaContentService.selectThreeA();
+				gachaResultList.add(gachacontentdto);
 			}
 
 			// 星3の4
 			if (rundomNumber >= 23 && rundomNumber <= 26) {
-
+				gachacontentdto = gachaContentService.selectThreeB();
+				gachaResultList.add(gachacontentdto);
 			}
 			// 星3の5
 			if (rundomNumber >= 27 && rundomNumber <= 30) {
-
+				gachacontentdto = gachaContentService.selectThreeC();
+				gachaResultList.add(gachacontentdto);
 			}
 
 			// 確率6％(星2)
 			// 星2の1
 			if (rundomNumber >= 31 && rundomNumber <= 36) {
-
+				gachacontentdto = gachaContentService.selectTwoSS();
+				gachaResultList.add(gachacontentdto);
 			}
 
 			// 星2の2
 			if (rundomNumber >= 37 && rundomNumber <= 42) {
-
+				gachacontentdto = gachaContentService.selectTwoS();
+				gachaResultList.add(gachacontentdto);
 			}
 
 			// 星2の3
 			if (rundomNumber >= 43 && rundomNumber <= 48) {
-
+				gachacontentdto = gachaContentService.selectTwoA();
+				gachaResultList.add(gachacontentdto);
 			}
 
 			// 星2の4
 			if (rundomNumber >= 49 && rundomNumber <= 54) {
-
+				gachacontentdto = gachaContentService.selectTwoB();
+				gachaResultList.add(gachacontentdto);
 			}
 
 			// 星2の5
 			if (rundomNumber >= 55 && rundomNumber <= 60) {
-
+				gachacontentdto = gachaContentService.selectTwoC();
+				gachaResultList.add(gachacontentdto);
 			}
 
 			// 確率8％(星1)
 			// 星1の1
 			if (rundomNumber >= 61 && rundomNumber <= 68) {
-
+				gachacontentdto = gachaContentService.selectOneSS();
+				gachaResultList.add(gachacontentdto);
 			}
 
 			// 星1の2
 			if (rundomNumber >= 69 && rundomNumber <= 76) {
-
+				gachacontentdto = gachaContentService.selectOneS();
+				gachaResultList.add(gachacontentdto);
 			}
 
 			// 星1の3
 			if (rundomNumber >= 77 && rundomNumber <= 84) {
-
+				gachacontentdto = gachaContentService.selectOneA();
+				gachaResultList.add(gachacontentdto);
 			}
 
 			// 星1の4
 			if (rundomNumber >= 85 && rundomNumber <= 92) {
-
+				gachacontentdto = gachaContentService.selectOneB();
+				gachaResultList.add(gachacontentdto);
 			}
 
 			// 星1の5
 			if (rundomNumber >= 93 && rundomNumber <= 100) {
-
+				gachacontentdto = gachaContentService.selectOneC();
+				gachaResultList.add(gachacontentdto);
 			}
 		}
 
