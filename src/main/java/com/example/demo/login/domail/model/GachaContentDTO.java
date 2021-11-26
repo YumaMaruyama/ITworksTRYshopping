@@ -10,4 +10,6 @@ public class GachaContentDTO {
 	private String rarity;
 	
 	private String content;
+	
+	private String img;
 }

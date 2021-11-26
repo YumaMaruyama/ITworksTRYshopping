@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	
+	<div th:fragment="productListLayout_contents">
+
+		<h1 class="titleDesign">デイリーガチャ結果</h1>
+		
+		<div class="flex challengeProgrammingList" style="width: 1100px;">
+			<div class="item cardDesign" th:each="gachaResultList : ${gachaResultList}">
+			<img th:if="${gachaResultList.img} == 'star1'" class="productSize" th:src="@{/css/point_coin_L5.png}">
+			<img th:if="${gachaResultList.img} == 'star2'" class="productSize" th:src="@{/css/point_coin_L2.jpg}">
+			<img th:if="${gachaResultList.img} == 'star3'" class="productSize" th:src="@{/css/point_coin_L5.png}">
+			<img th:if="${gachaResultList.img} == 'star4'" class="productSize" th:src="@{/css/point_coin_L4.jpg}">
+			<img th:if="${gachaResultList.img} == 'star5'" class="productSize" th:src="@{/css/point_coin_L5.jpg}">
+				<h4 class="card-title  fontdesign"
+					style="margin-bottom: 0px !important"
+					th:text="'[レア度]：' + ${gachaResultList.rarity}"></h4>
+				<p class="card-text  fontdesign os"
+					style="margin-bottom: 0px !important"
+					th:text="'[内容]：' + ${gachaResultList.content}"></p>
+			</div>
+		</div>
+	
+	</div>
+</body>
+</html>

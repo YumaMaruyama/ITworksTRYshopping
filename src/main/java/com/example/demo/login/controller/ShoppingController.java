@@ -7148,7 +7148,7 @@ public class ShoppingController {
 	
 	@PostMapping(value = "/dailyGacha", params = "gachaResult")
 	public String postGacha(Model model) {
-		model.addAttribute("contents", "shopping/dailyGacha::productListLayout_contents");
+		model.addAttribute("contents", "shopping/dailyGachaResult::productListLayout_contents");
 		model.addAttribute("gachaTurn","yes");
 		
 		//現在の日付とユーザーIDを取得
@@ -7163,7 +7163,9 @@ public class ShoppingController {
 		gachaService.gachaTurnInsertOne(gachadto,userId,nowDate);
 				
 		// 十連ガチャ
+		//十連の結果を格納するリスト
 		List<GachaContentDTO> gachaResultList = new ArrayList<>();
+		//ガチャを10回回す処理
 		for (int i = 0; 10 > i; i++) {
 			int rundomNumber = ((int) Math.ceil(Math.random() * 100));
 			GachaContentDTO gachacontentdto = new GachaContentDTO();
@@ -7171,6 +7173,7 @@ public class ShoppingController {
 			// 星5の1
 			if (rundomNumber < 1) {
 				gachacontentdto = gachaContentService.selectFiveSS();
+				gachacontentdto.setImg("star5");
 				gachaResultList.add(gachacontentdto);
 			}
 
@@ -7178,26 +7181,31 @@ public class ShoppingController {
 			// 星4の1
 			if (rundomNumber >= 1 && rundomNumber <= 2) {
 				gachacontentdto = gachaContentService.selectFourSS();
+				gachacontentdto.setImg("star4");
 				gachaResultList.add(gachacontentdto);
 			}
 			// 星4の2
 			if (rundomNumber >= 3 && rundomNumber <= 4) {
 				gachacontentdto = gachaContentService.selectFourS();
+				gachacontentdto.setImg("star4");
 				gachaResultList.add(gachacontentdto);
 			}
 			// 星4の3
 			if (rundomNumber >= 5 && rundomNumber <= 6) {
 				gachacontentdto = gachaContentService.selectFourA();
+				gachacontentdto.setImg("star4");
 				gachaResultList.add(gachacontentdto);
 			}
 			// 星4の4
 			if (rundomNumber >= 7 && rundomNumber <= 8) {
 				gachacontentdto = gachaContentService.selectFourB();
+				gachacontentdto.setImg("star4");
 				gachaResultList.add(gachacontentdto);
 			}
 			// 星4の5
 			if (rundomNumber >= 9 && rundomNumber <= 10) {
 				gachacontentdto = gachaContentService.selectFourC();
+				gachacontentdto.setImg("star4");
 				gachaResultList.add(gachacontentdto);
 			}
 
@@ -7205,29 +7213,34 @@ public class ShoppingController {
 			// 星3の1
 			if (rundomNumber >= 11 && rundomNumber <= 14) {
 				gachacontentdto = gachaContentService.selectThreeSS();
+				gachacontentdto.setImg("star3");
 				gachaResultList.add(gachacontentdto);
 			}
 
 			// 星3の2
 			if (rundomNumber >= 15 && rundomNumber <= 18) {
 				gachacontentdto = gachaContentService.selectThreeS();
+				gachacontentdto.setImg("star3");
 				gachaResultList.add(gachacontentdto);
 			}
 
 			// 星3の3
 			if (rundomNumber >= 19 && rundomNumber <= 22) {
 				gachacontentdto = gachaContentService.selectThreeA();
+				gachacontentdto.setImg("star3");
 				gachaResultList.add(gachacontentdto);
 			}
 
 			// 星3の4
 			if (rundomNumber >= 23 && rundomNumber <= 26) {
 				gachacontentdto = gachaContentService.selectThreeB();
+				gachacontentdto.setImg("star3");
 				gachaResultList.add(gachacontentdto);
 			}
 			// 星3の5
 			if (rundomNumber >= 27 && rundomNumber <= 30) {
 				gachacontentdto = gachaContentService.selectThreeC();
+				gachacontentdto.setImg("star3");
 				gachaResultList.add(gachacontentdto);
 			}
 
@@ -7235,30 +7248,35 @@ public class ShoppingController {
 			// 星2の1
 			if (rundomNumber >= 31 && rundomNumber <= 36) {
 				gachacontentdto = gachaContentService.selectTwoSS();
+				gachacontentdto.setImg("star2");
 				gachaResultList.add(gachacontentdto);
 			}
 
 			// 星2の2
 			if (rundomNumber >= 37 && rundomNumber <= 42) {
 				gachacontentdto = gachaContentService.selectTwoS();
+				gachacontentdto.setImg("star2");
 				gachaResultList.add(gachacontentdto);
 			}
 
 			// 星2の3
 			if (rundomNumber >= 43 && rundomNumber <= 48) {
 				gachacontentdto = gachaContentService.selectTwoA();
+				gachacontentdto.setImg("star2");
 				gachaResultList.add(gachacontentdto);
 			}
 
 			// 星2の4
 			if (rundomNumber >= 49 && rundomNumber <= 54) {
 				gachacontentdto = gachaContentService.selectTwoB();
+				gachacontentdto.setImg("star2");
 				gachaResultList.add(gachacontentdto);
 			}
 
 			// 星2の5
 			if (rundomNumber >= 55 && rundomNumber <= 60) {
 				gachacontentdto = gachaContentService.selectTwoC();
+				gachacontentdto.setImg("star2");
 				gachaResultList.add(gachacontentdto);
 			}
 
@@ -7266,33 +7284,41 @@ public class ShoppingController {
 			// 星1の1
 			if (rundomNumber >= 61 && rundomNumber <= 68) {
 				gachacontentdto = gachaContentService.selectOneSS();
+				gachacontentdto.setImg("star1");
 				gachaResultList.add(gachacontentdto);
 			}
 
 			// 星1の2
 			if (rundomNumber >= 69 && rundomNumber <= 76) {
 				gachacontentdto = gachaContentService.selectOneS();
+				gachacontentdto.setImg("star1");
 				gachaResultList.add(gachacontentdto);
 			}
 
 			// 星1の3
 			if (rundomNumber >= 77 && rundomNumber <= 84) {
 				gachacontentdto = gachaContentService.selectOneA();
+				gachacontentdto.setImg("star1");
 				gachaResultList.add(gachacontentdto);
 			}
 
 			// 星1の4
 			if (rundomNumber >= 85 && rundomNumber <= 92) {
 				gachacontentdto = gachaContentService.selectOneB();
+				gachacontentdto.setImg("star1");
 				gachaResultList.add(gachacontentdto);
 			}
 
 			// 星1の5
 			if (rundomNumber >= 93 && rundomNumber <= 100) {
 				gachacontentdto = gachaContentService.selectOneC();
+				gachacontentdto.setImg("star1");
 				gachaResultList.add(gachacontentdto);
 			}
 		}
+		
+		model.addAttribute("gachaResultList",gachaResultList);
+		
 
 		return "shopping/productListLayout";
 	}
