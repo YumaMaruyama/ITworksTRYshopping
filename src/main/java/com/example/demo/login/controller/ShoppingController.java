@@ -7322,6 +7322,36 @@ public class ShoppingController {
 
 		return "shopping/productListLayout";
 	}
+	
+	@PostMapping(value = "/dailyGacha" , params = "probability")
+	public String postDailyGachaProbability(Model model) {
+		model.addAttribute("contents", "shopping/dailyGachaProbability::productListLayout_contents");
+		
+		model.addAttribute("star5SS","1");
+		model.addAttribute("star4SS","2");
+		model.addAttribute("star4S","2");
+		model.addAttribute("star4A","2");
+		model.addAttribute("star4B","2");
+		model.addAttribute("star4C","2");
+		model.addAttribute("star3SS","4");
+		model.addAttribute("star3S","4");
+		model.addAttribute("star3A","4");
+		model.addAttribute("star3B","4");
+		model.addAttribute("star3C","4");
+		model.addAttribute("star2SS","6");
+		model.addAttribute("star2S","6");
+		model.addAttribute("star2A","6");
+		model.addAttribute("star2B","6");
+		model.addAttribute("star2C","6");
+		model.addAttribute("star1SS","8");
+		model.addAttribute("star1S","8");
+		model.addAttribute("star1A","8");
+		model.addAttribute("star1B","8");
+		model.addAttribute("star1C","8");
+		
+		
+		return "shopping/productListLayout";
+	}
 
 	// ログアウト用メソッド
 	@GetMapping("logout")

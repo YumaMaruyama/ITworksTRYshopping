@@ -22,11 +22,10 @@
 		<button th:if="${gachaTurn} == 'no' and ${gachaTurnCheck} == 'yes'" name="gachaTurn" class="text-center btn btn-primary">ガチャを引く</button>
 		<h3 th:if="${gachaTurn} == 'no' and ${gachaTurnCheck} == 'no'" class="text-center">本日はガチャを回しています</h3>
 		<button th:if="${gachaTurn} == 'yes'" name="gachaResult" class="text-center btn btn-primary fadeIn">結果を見る</button>
-		
+		<button  name="probability" class="text-center btn btn-primary">確率を見る</button>
 		</form>
 		
 		
- 
 		<script>
 		
 		$(function() {

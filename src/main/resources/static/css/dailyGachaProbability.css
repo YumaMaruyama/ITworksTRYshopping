@@ -1,0 +1,52 @@
+@charset "UTF-8";
+
+.dailyGachaProbabilityTable {
+	width:290px;
+	font-size:13px;
+	margin-left: 373px;
+	
+}
+
+.dailyGachaProbabilitySize {
+	width:50px;
+	height:50px;
+	margin-left: 12px;
+}
+
+.coin-icon-th-design {
+	width:90px;
+}
+
+.dailyGachaProbability-th-design {
+	width:150px;
+}
+
+.dailyGachaProbability-td-design {
+	width:50px;
+}
+
+.dailyGachaProbabilityList {
+	display: auto;
+	overflow-y: scroll;
+	height: 560px;
+}
+
+.star1 {
+	background: #c9dff1;
+}
+
+.star2 {
+	background: #86c9ff;
+}
+
+.star3 {
+	background: #fec4ff;
+}
+
+.star4 {
+	background: #ffd59c;
+}
+
+.star5 {
+	background: #ff0e30;
+}
