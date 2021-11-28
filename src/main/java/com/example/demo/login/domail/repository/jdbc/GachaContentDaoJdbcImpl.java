@@ -1,5 +1,7 @@
 package com.example.demo.login.domail.repository.jdbc;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.login.domail.model.GachaContentDTO;
+import com.example.demo.login.domail.model.GachaProbabilityDTO;
 import com.example.demo.login.domail.repository.GachaContentDao;
 
 @Repository
@@ -247,6 +250,21 @@ public class GachaContentDaoJdbcImpl implements GachaContentDao {
 		return gachacontentdto;
 	}
 	
+	public List<GachaProbabilityDTO> pointSelectMany() {
+		List<Map<String,Object>> map = jdbc.queryForList("select * from gacha_content");
+		
+		List<GachaProbabilityDTO> gachaPointList = new ArrayList<>();
+		
+		for(Map <String,Object> oneMap : map) {
+			GachaProbabilityDTO gachaprobabilitydto = new GachaProbabilityDTO();
+			gachaprobabilitydto.setAllStarPoints((String)oneMap.get("content"));
+			gachaPointList.add(gachaprobabilitydto);
+		}
+		
+		return gachaPointList;
+		
+		
+	}
 	
 	
 }

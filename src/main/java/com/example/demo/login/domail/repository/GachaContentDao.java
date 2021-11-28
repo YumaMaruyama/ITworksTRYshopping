@@ -1,6 +1,9 @@
 package com.example.demo.login.domail.repository;
 
+import java.util.List;
+
 import com.example.demo.login.domail.model.GachaContentDTO;
+import com.example.demo.login.domail.model.GachaProbabilityDTO;
 
 public interface GachaContentDao {
 
@@ -46,4 +49,5 @@ public interface GachaContentDao {
 	
 	public GachaContentDTO selectOneC();
 	
+	public List<GachaProbabilityDTO> pointSelectMany();
 }

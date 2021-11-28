@@ -51,6 +51,7 @@ import com.example.demo.login.domail.model.CreditForm;
 import com.example.demo.login.domail.model.CustomDTO;
 import com.example.demo.login.domail.model.GachaContentDTO;
 import com.example.demo.login.domail.model.GachaDTO;
+import com.example.demo.login.domail.model.GachaProbabilityDTO;
 import com.example.demo.login.domail.model.GroupOrder;
 import com.example.demo.login.domail.model.InquiryAllDTO;
 import com.example.demo.login.domail.model.InquiryBeforeLoginForm;
@@ -7326,6 +7327,119 @@ public class ShoppingController {
 	@PostMapping(value = "/dailyGacha" , params = "probability")
 	public String postDailyGachaProbability(Model model) {
 		model.addAttribute("contents", "shopping/dailyGachaProbability::productListLayout_contents");
+		
+		List<GachaProbabilityDTO> gachaPointList = gachaContentService.pointSelectMany();
+		
+		GachaProbabilityDTO gachaprobatilitysetdto = new GachaProbabilityDTO();
+		for(int x = 0; gachaPointList.size() > x; x++) {
+			GachaProbabilityDTO gachaprobatilitydto = gachaPointList.get(x);
+			if(x == 0) {
+			gachaprobatilitysetdto.setStarFiveSS(gachaprobatilitydto.getAllStarPoints());
+			model.addAttribute("starFiveSSpoint",gachaprobatilitysetdto.getStarFiveSS());
+			}
+			
+			if(x == 1) {
+				gachaprobatilitysetdto.setStarFourSS(gachaprobatilitydto.getAllStarPoints());
+				model.addAttribute("starFourSSpoint",gachaprobatilitysetdto.getStarFourSS());
+				}
+			
+			if(x == 2) {
+				gachaprobatilitysetdto.setStarFourS(gachaprobatilitydto.getAllStarPoints());
+				model.addAttribute("starFourSpoint",gachaprobatilitysetdto.getStarFourS());
+				}
+			
+			if(x == 3) {
+				gachaprobatilitysetdto.setStarFourA(gachaprobatilitydto.getAllStarPoints());
+				model.addAttribute("starFourApoint",gachaprobatilitysetdto.getStarFourA());
+				}
+			
+			if(x == 4) {
+				gachaprobatilitysetdto.setStarFourB(gachaprobatilitydto.getAllStarPoints());
+				model.addAttribute("starFourBpoint",gachaprobatilitysetdto.getStarFourB());
+				}
+			
+			if(x == 5) {
+				gachaprobatilitysetdto.setStarFourC(gachaprobatilitydto.getAllStarPoints());
+				model.addAttribute("starFourCpoint",gachaprobatilitysetdto.getStarFourC());
+				}
+			
+			if(x == 6) {
+				gachaprobatilitysetdto.setStarThreeSS(gachaprobatilitydto.getAllStarPoints());
+				model.addAttribute("starThreeSSpoint",gachaprobatilitysetdto.getStarThreeSS());
+				}
+			
+			if(x == 7) {
+				gachaprobatilitysetdto.setStarThreeS(gachaprobatilitydto.getAllStarPoints());
+				model.addAttribute("starThreeSpoint",gachaprobatilitysetdto.getStarThreeS());
+				}
+			
+			if(x == 8) {
+				gachaprobatilitysetdto.setStarThreeA(gachaprobatilitydto.getAllStarPoints());
+				model.addAttribute("starThreeApoint",gachaprobatilitysetdto.getStarThreeA());
+				}
+			
+			if(x == 9) {
+				gachaprobatilitysetdto.setStarThreeB(gachaprobatilitydto.getAllStarPoints());
+				model.addAttribute("starThreeBpoint",gachaprobatilitysetdto.getStarThreeB());
+				}
+			
+			if(x == 10) {
+				gachaprobatilitysetdto.setStarThreeC(gachaprobatilitydto.getAllStarPoints());
+				model.addAttribute("starThreeCpoint",gachaprobatilitysetdto.getStarThreeC());
+				}
+			
+			if(x == 11) {
+				gachaprobatilitysetdto.setStarTwoSS(gachaprobatilitydto.getAllStarPoints());
+				model.addAttribute("starTwoSSpoint",gachaprobatilitysetdto.getStarTwoSS());
+				}
+			
+			if(x == 12) {
+				gachaprobatilitysetdto.setStarTwoS(gachaprobatilitydto.getAllStarPoints());
+				model.addAttribute("starTwoSpoint",gachaprobatilitysetdto.getStarTwoS());
+				}
+			
+			if(x == 13) {
+				gachaprobatilitysetdto.setStarTwoA(gachaprobatilitydto.getAllStarPoints());
+				model.addAttribute("starTwoApoint",gachaprobatilitysetdto.getStarTwoA());
+				}
+			
+			if(x == 14) {
+				gachaprobatilitysetdto.setStarTwoB(gachaprobatilitydto.getAllStarPoints());
+				model.addAttribute("starTwoBpoint",gachaprobatilitysetdto.getStarTwoB());
+				}
+			
+			if(x == 15) {
+				gachaprobatilitysetdto.setStarTwoC(gachaprobatilitydto.getAllStarPoints());
+				model.addAttribute("starTwoCpoint",gachaprobatilitysetdto.getStarTwoC());
+				}
+			
+			if(x == 16) {
+				gachaprobatilitysetdto.setStarOneSS(gachaprobatilitydto.getAllStarPoints());
+				model.addAttribute("starOneSSpoint",gachaprobatilitysetdto.getStarOneSS());
+				}
+			
+			if(x == 17) {
+				gachaprobatilitysetdto.setStarOneS(gachaprobatilitydto.getAllStarPoints());
+				model.addAttribute("starOneSpoint",gachaprobatilitysetdto.getStarOneS());
+				}
+			
+			if(x == 18) {
+				gachaprobatilitysetdto.setStarOneA(gachaprobatilitydto.getAllStarPoints());
+				model.addAttribute("starOneApoint",gachaprobatilitysetdto.getStarOneA());
+				}
+			
+			if(x == 19) {
+				gachaprobatilitysetdto.setStarOneB(gachaprobatilitydto.getAllStarPoints());
+				model.addAttribute("starOneBpoint",gachaprobatilitysetdto.getStarOneB());
+				}
+			
+			if(x == 20) {
+				gachaprobatilitysetdto.setStarOneC(gachaprobatilitydto.getAllStarPoints());
+				model.addAttribute("starOneCpoint",gachaprobatilitysetdto.getStarOneC());
+				}
+		}
+		
+		
 		
 		model.addAttribute("star5SS","1");
 		model.addAttribute("star4SS","2");

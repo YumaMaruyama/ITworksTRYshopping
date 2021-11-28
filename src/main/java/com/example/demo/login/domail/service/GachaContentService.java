@@ -1,9 +1,12 @@
 package com.example.demo.login.domail.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.login.domail.model.GachaContentDTO;
+import com.example.demo.login.domail.model.GachaProbabilityDTO;
 import com.example.demo.login.domail.repository.GachaContentDao;
 
 @Service
@@ -94,5 +97,9 @@ public class GachaContentService {
 	
 	public GachaContentDTO selectOneC() {
 		return dao.selectOneC();
+	}
+	
+	public List<GachaProbabilityDTO> pointSelectMany() {
+		return dao.pointSelectMany();
 	}
 }
