@@ -14,4 +14,8 @@ public class GachaPointsService {
 	public int dailyGachaGetPointAdd(int userId,int totalPoint) {
 		return dao.dailyGachaGetPointAdd(userId,totalPoint);
 	}
+	
+	public int selectPointOne(int userId) {
+		return dao.selectPointOne(userId);
+	}
 }

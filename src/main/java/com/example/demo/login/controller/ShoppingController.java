@@ -7133,7 +7133,9 @@ public class ShoppingController {
 			model.addAttribute("gachaTurnCheck","yes");
 		}
 		
-		
+		//現在のユーザーのポイントを取得
+		int nowPoint = gachaPointsService.selectPointOne(userId);
+		model.addAttribute("nowPoint",nowPoint);
 		
 		return "shopping/productListLayout";
 	}

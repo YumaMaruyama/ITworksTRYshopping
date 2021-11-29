@@ -29,4 +29,11 @@ public class GachaPointsDaoJdbcImpl implements GachaPointsDao {
 		
 		return 0;
 	}
+	
+	public int selectPointOne(int userId) {
+		int point = jdbc.queryForObject("select gacha_points.point from gacha_points where user_id = ?",Integer.class,userId);
+		
+		return point;
+	}
+	
 }
