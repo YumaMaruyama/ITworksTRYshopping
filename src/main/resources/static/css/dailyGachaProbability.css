@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 .dailyGachaProbabilityTable {
-	width:290px;
+	width:360px;
 	font-size:13px;
 	margin-left: 373px;
 	
@@ -18,11 +18,15 @@
 }
 
 .dailyGachaProbability-th-design {
-	width:150px;
+	width:120px;
 }
 
 .dailyGachaProbability-td-design {
 	width:50px;
+}
+
+.dailyGachaProbability-point {
+	width:100px;
 }
 
 .dailyGachaProbabilityList {

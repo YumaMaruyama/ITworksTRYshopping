@@ -93,6 +93,7 @@ import com.example.demo.login.domail.service.CouponService;
 import com.example.demo.login.domail.service.CreditService;
 import com.example.demo.login.domail.service.CustomService;
 import com.example.demo.login.domail.service.GachaContentService;
+import com.example.demo.login.domail.service.GachaPointsService;
 import com.example.demo.login.domail.service.GachaService;
 import com.example.demo.login.domail.service.InquiryReplyService;
 import com.example.demo.login.domail.service.InquiryService;
@@ -162,6 +163,8 @@ public class ShoppingController {
 	GachaService gachaService;
 	@Autowired
 	GachaContentService gachaContentService;
+	@Autowired
+	GachaPointsService gachaPointsService;
 
 	@Autowired // Sessionが使用できる
 	HttpSession session;
@@ -1657,8 +1660,6 @@ public class ShoppingController {
 
 	@GetMapping("/deliveryProcedureOK/{id}")
 	public String postDeliveryCheck(@ModelAttribute @PathVariable("id") int purchaseId, Model model) {
-		System.out.println("dfdfdfd");
-		System.out.println(purchaseId);
 
 		purchaseService.deliveryProcedureCheckInsertOne(purchaseId);
 
@@ -4981,13 +4982,11 @@ public class ShoppingController {
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String user_id = auth.getName();
-		// ログインユーザーのID取得
-		int userId = usersService.select_id(user_id);
 
 		// ユーザーが検索した内容の商品情報を取得
 		List<PcDataDTO> productList = pcdataService.searchProductSelectMany(form);
 		model.addAttribute("productList", productList);
-
+		
 		UsersDTO headerName = usersService.getUser_name(auth.getName());
 		session.setAttribute("sessionGetUser_name", headerName.getUser_name());
 		session.setAttribute("sessionGetRole", headerName.getRole());
@@ -7159,6 +7158,13 @@ public class ShoppingController {
 		int userId = usersService.select_id(getName);
 		GachaDTO gachadto = new GachaDTO();
 		
+		//結果をロードで変更できないように回したらロード不可にする
+		Date gachaTurnDate = gachaService.gachaTurnedCheck(userId);
+		String newGachaTurnDate = new SimpleDateFormat("yyyy-MM-dd").format(gachaTurnDate);
+		String newNowDate = new SimpleDateFormat("yyyy-MM-dd").format(nowDate);
+		if(newGachaTurnDate.equals(newNowDate)) {
+			return getGacha(model);
+		}
 		
 		//ガチャを回したユーザーと日付を格納
 		gachaService.gachaTurnInsertOne(gachadto,userId,nowDate);
@@ -7166,6 +7172,8 @@ public class ShoppingController {
 		// 十連ガチャ
 		//十連の結果を格納するリスト
 		List<GachaContentDTO> gachaResultList = new ArrayList<>();
+		int totalPoint = 0;
+		
 		//ガチャを10回回す処理
 		for (int i = 0; 10 > i; i++) {
 			int rundomNumber = ((int) Math.ceil(Math.random() * 100));
@@ -7175,6 +7183,7 @@ public class ShoppingController {
 			if (rundomNumber < 1) {
 				gachacontentdto = gachaContentService.selectFiveSS();
 				gachacontentdto.setImg("star5");
+				totalPoint = totalPoint + gachacontentdto.getPoint();
 				gachaResultList.add(gachacontentdto);
 			}
 
@@ -7183,30 +7192,35 @@ public class ShoppingController {
 			if (rundomNumber >= 1 && rundomNumber <= 2) {
 				gachacontentdto = gachaContentService.selectFourSS();
 				gachacontentdto.setImg("star4");
+				totalPoint = totalPoint + gachacontentdto.getPoint();
 				gachaResultList.add(gachacontentdto);
 			}
 			// 星4の2
 			if (rundomNumber >= 3 && rundomNumber <= 4) {
 				gachacontentdto = gachaContentService.selectFourS();
 				gachacontentdto.setImg("star4");
+				totalPoint = totalPoint + gachacontentdto.getPoint();
 				gachaResultList.add(gachacontentdto);
 			}
 			// 星4の3
 			if (rundomNumber >= 5 && rundomNumber <= 6) {
 				gachacontentdto = gachaContentService.selectFourA();
 				gachacontentdto.setImg("star4");
+				totalPoint = totalPoint + gachacontentdto.getPoint();
 				gachaResultList.add(gachacontentdto);
 			}
 			// 星4の4
 			if (rundomNumber >= 7 && rundomNumber <= 8) {
 				gachacontentdto = gachaContentService.selectFourB();
 				gachacontentdto.setImg("star4");
+				totalPoint = totalPoint + gachacontentdto.getPoint();
 				gachaResultList.add(gachacontentdto);
 			}
 			// 星4の5
 			if (rundomNumber >= 9 && rundomNumber <= 10) {
 				gachacontentdto = gachaContentService.selectFourC();
 				gachacontentdto.setImg("star4");
+				totalPoint = totalPoint + gachacontentdto.getPoint();
 				gachaResultList.add(gachacontentdto);
 			}
 
@@ -7215,6 +7229,7 @@ public class ShoppingController {
 			if (rundomNumber >= 11 && rundomNumber <= 14) {
 				gachacontentdto = gachaContentService.selectThreeSS();
 				gachacontentdto.setImg("star3");
+				totalPoint = totalPoint + gachacontentdto.getPoint();
 				gachaResultList.add(gachacontentdto);
 			}
 
@@ -7222,6 +7237,7 @@ public class ShoppingController {
 			if (rundomNumber >= 15 && rundomNumber <= 18) {
 				gachacontentdto = gachaContentService.selectThreeS();
 				gachacontentdto.setImg("star3");
+				totalPoint = totalPoint + gachacontentdto.getPoint();
 				gachaResultList.add(gachacontentdto);
 			}
 
@@ -7229,6 +7245,7 @@ public class ShoppingController {
 			if (rundomNumber >= 19 && rundomNumber <= 22) {
 				gachacontentdto = gachaContentService.selectThreeA();
 				gachacontentdto.setImg("star3");
+				totalPoint = totalPoint + gachacontentdto.getPoint();
 				gachaResultList.add(gachacontentdto);
 			}
 
@@ -7236,12 +7253,14 @@ public class ShoppingController {
 			if (rundomNumber >= 23 && rundomNumber <= 26) {
 				gachacontentdto = gachaContentService.selectThreeB();
 				gachacontentdto.setImg("star3");
+				totalPoint = totalPoint + gachacontentdto.getPoint();
 				gachaResultList.add(gachacontentdto);
 			}
 			// 星3の5
 			if (rundomNumber >= 27 && rundomNumber <= 30) {
 				gachacontentdto = gachaContentService.selectThreeC();
 				gachacontentdto.setImg("star3");
+				totalPoint = totalPoint + gachacontentdto.getPoint();
 				gachaResultList.add(gachacontentdto);
 			}
 
@@ -7250,6 +7269,7 @@ public class ShoppingController {
 			if (rundomNumber >= 31 && rundomNumber <= 36) {
 				gachacontentdto = gachaContentService.selectTwoSS();
 				gachacontentdto.setImg("star2");
+				totalPoint = totalPoint + gachacontentdto.getPoint();
 				gachaResultList.add(gachacontentdto);
 			}
 
@@ -7257,6 +7277,7 @@ public class ShoppingController {
 			if (rundomNumber >= 37 && rundomNumber <= 42) {
 				gachacontentdto = gachaContentService.selectTwoS();
 				gachacontentdto.setImg("star2");
+				totalPoint = totalPoint + gachacontentdto.getPoint();
 				gachaResultList.add(gachacontentdto);
 			}
 
@@ -7264,6 +7285,7 @@ public class ShoppingController {
 			if (rundomNumber >= 43 && rundomNumber <= 48) {
 				gachacontentdto = gachaContentService.selectTwoA();
 				gachacontentdto.setImg("star2");
+				totalPoint = totalPoint + gachacontentdto.getPoint();
 				gachaResultList.add(gachacontentdto);
 			}
 
@@ -7271,6 +7293,7 @@ public class ShoppingController {
 			if (rundomNumber >= 49 && rundomNumber <= 54) {
 				gachacontentdto = gachaContentService.selectTwoB();
 				gachacontentdto.setImg("star2");
+				totalPoint = totalPoint + gachacontentdto.getPoint();
 				gachaResultList.add(gachacontentdto);
 			}
 
@@ -7278,6 +7301,7 @@ public class ShoppingController {
 			if (rundomNumber >= 55 && rundomNumber <= 60) {
 				gachacontentdto = gachaContentService.selectTwoC();
 				gachacontentdto.setImg("star2");
+				totalPoint = totalPoint + gachacontentdto.getPoint();
 				gachaResultList.add(gachacontentdto);
 			}
 
@@ -7286,6 +7310,7 @@ public class ShoppingController {
 			if (rundomNumber >= 61 && rundomNumber <= 68) {
 				gachacontentdto = gachaContentService.selectOneSS();
 				gachacontentdto.setImg("star1");
+				totalPoint = totalPoint + gachacontentdto.getPoint();
 				gachaResultList.add(gachacontentdto);
 			}
 
@@ -7293,6 +7318,7 @@ public class ShoppingController {
 			if (rundomNumber >= 69 && rundomNumber <= 76) {
 				gachacontentdto = gachaContentService.selectOneS();
 				gachacontentdto.setImg("star1");
+				totalPoint = totalPoint + gachacontentdto.getPoint();
 				gachaResultList.add(gachacontentdto);
 			}
 
@@ -7300,6 +7326,7 @@ public class ShoppingController {
 			if (rundomNumber >= 77 && rundomNumber <= 84) {
 				gachacontentdto = gachaContentService.selectOneA();
 				gachacontentdto.setImg("star1");
+				totalPoint = totalPoint + gachacontentdto.getPoint();
 				gachaResultList.add(gachacontentdto);
 			}
 
@@ -7307,6 +7334,7 @@ public class ShoppingController {
 			if (rundomNumber >= 85 && rundomNumber <= 92) {
 				gachacontentdto = gachaContentService.selectOneB();
 				gachacontentdto.setImg("star1");
+				totalPoint = totalPoint + gachacontentdto.getPoint();
 				gachaResultList.add(gachacontentdto);
 			}
 
@@ -7314,9 +7342,14 @@ public class ShoppingController {
 			if (rundomNumber >= 93 && rundomNumber <= 100) {
 				gachacontentdto = gachaContentService.selectOneC();
 				gachacontentdto.setImg("star1");
+				totalPoint = totalPoint + gachacontentdto.getPoint();
 				gachaResultList.add(gachacontentdto);
 			}
+			
+			
 		}
+		gachaPointsService.dailyGachaGetPointAdd(userId,totalPoint);
+		
 		
 		model.addAttribute("gachaResultList",gachaResultList);
 		

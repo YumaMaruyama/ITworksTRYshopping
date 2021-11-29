@@ -11,5 +11,7 @@ public class GachaContentDTO {
 	
 	private String content;
 	
+	private int point;
+	
 	private String img;
 }

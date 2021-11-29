@@ -25,6 +25,8 @@ public class GachaContentDaoJdbcImpl implements GachaContentDao {
 		gachacontentdto.setId((int)map.get("id"));
 		gachacontentdto.setRarity((String)map.get("rarity"));
 		gachacontentdto.setContent((String)map.get("content"));
+		gachacontentdto.setPoint((int)map.get("point"));
+		
 		
 		return gachacontentdto;
 	}
@@ -37,6 +39,7 @@ public class GachaContentDaoJdbcImpl implements GachaContentDao {
 		gachacontentdto.setId((int)map.get("id"));
 		gachacontentdto.setRarity((String)map.get("rarity"));
 		gachacontentdto.setContent((String)map.get("content"));
+		gachacontentdto.setPoint((int)map.get("point"));
 		
 		return gachacontentdto;
 	}
@@ -48,6 +51,7 @@ public class GachaContentDaoJdbcImpl implements GachaContentDao {
 		gachacontentdto.setId((int)map.get("id"));
 		gachacontentdto.setRarity((String)map.get("rarity"));
 		gachacontentdto.setContent((String)map.get("content"));
+		gachacontentdto.setPoint((int)map.get("point"));
 		
 		return gachacontentdto;
 	}
@@ -59,6 +63,7 @@ public class GachaContentDaoJdbcImpl implements GachaContentDao {
 		gachacontentdto.setId((int)map.get("id"));
 		gachacontentdto.setRarity((String)map.get("rarity"));
 		gachacontentdto.setContent((String)map.get("content"));
+		gachacontentdto.setPoint((int)map.get("point"));
 		
 		return gachacontentdto;
 	}
@@ -70,6 +75,7 @@ public class GachaContentDaoJdbcImpl implements GachaContentDao {
 		gachacontentdto.setId((int)map.get("id"));
 		gachacontentdto.setRarity((String)map.get("rarity"));
 		gachacontentdto.setContent((String)map.get("content"));
+		gachacontentdto.setPoint((int)map.get("point"));
 		
 		return gachacontentdto;
 	}
@@ -81,6 +87,7 @@ public class GachaContentDaoJdbcImpl implements GachaContentDao {
 		gachacontentdto.setId((int)map.get("id"));
 		gachacontentdto.setRarity((String)map.get("rarity"));
 		gachacontentdto.setContent((String)map.get("content"));
+		gachacontentdto.setPoint((int)map.get("point"));
 		
 		return gachacontentdto;
 	}
@@ -92,6 +99,7 @@ public class GachaContentDaoJdbcImpl implements GachaContentDao {
 		gachacontentdto.setId((int)map.get("id"));
 		gachacontentdto.setRarity((String)map.get("rarity"));
 		gachacontentdto.setContent((String)map.get("content"));
+		gachacontentdto.setPoint((int)map.get("point"));
 		
 		return gachacontentdto;
 	}
@@ -103,6 +111,7 @@ public class GachaContentDaoJdbcImpl implements GachaContentDao {
 		gachacontentdto.setId((int)map.get("id"));
 		gachacontentdto.setRarity((String)map.get("rarity"));
 		gachacontentdto.setContent((String)map.get("content"));
+		gachacontentdto.setPoint((int)map.get("point"));
 		
 		return gachacontentdto;
 	}
@@ -114,6 +123,7 @@ public class GachaContentDaoJdbcImpl implements GachaContentDao {
 		gachacontentdto.setId((int)map.get("id"));
 		gachacontentdto.setRarity((String)map.get("rarity"));
 		gachacontentdto.setContent((String)map.get("content"));
+		gachacontentdto.setPoint((int)map.get("point"));
 		
 		return gachacontentdto;
 	}
@@ -125,6 +135,7 @@ public class GachaContentDaoJdbcImpl implements GachaContentDao {
 		gachacontentdto.setId((int)map.get("id"));
 		gachacontentdto.setRarity((String)map.get("rarity"));
 		gachacontentdto.setContent((String)map.get("content"));
+		gachacontentdto.setPoint((int)map.get("point"));
 		
 		return gachacontentdto;
 	}
@@ -136,6 +147,7 @@ public class GachaContentDaoJdbcImpl implements GachaContentDao {
 		gachacontentdto.setId((int)map.get("id"));
 		gachacontentdto.setRarity((String)map.get("rarity"));
 		gachacontentdto.setContent((String)map.get("content"));
+		gachacontentdto.setPoint((int)map.get("point"));
 		
 		return gachacontentdto;
 	}
@@ -147,6 +159,7 @@ public class GachaContentDaoJdbcImpl implements GachaContentDao {
 		gachacontentdto.setId((int)map.get("id"));
 		gachacontentdto.setRarity((String)map.get("rarity"));
 		gachacontentdto.setContent((String)map.get("content"));
+		gachacontentdto.setPoint((int)map.get("point"));
 		
 		return gachacontentdto;
 	}
@@ -158,6 +171,7 @@ public class GachaContentDaoJdbcImpl implements GachaContentDao {
 		gachacontentdto.setId((int)map.get("id"));
 		gachacontentdto.setRarity((String)map.get("rarity"));
 		gachacontentdto.setContent((String)map.get("content"));
+		gachacontentdto.setPoint((int)map.get("point"));
 		
 		return gachacontentdto;
 	}
@@ -169,6 +183,7 @@ public class GachaContentDaoJdbcImpl implements GachaContentDao {
 		gachacontentdto.setId((int)map.get("id"));
 		gachacontentdto.setRarity((String)map.get("rarity"));
 		gachacontentdto.setContent((String)map.get("content"));
+		gachacontentdto.setPoint((int)map.get("point"));
 		
 		return gachacontentdto;
 	}
@@ -180,6 +195,7 @@ public class GachaContentDaoJdbcImpl implements GachaContentDao {
 		gachacontentdto.setId((int)map.get("id"));
 		gachacontentdto.setRarity((String)map.get("rarity"));
 		gachacontentdto.setContent((String)map.get("content"));
+		gachacontentdto.setPoint((int)map.get("point"));
 		
 		return gachacontentdto;
 	}
@@ -191,6 +207,7 @@ public class GachaContentDaoJdbcImpl implements GachaContentDao {
 		gachacontentdto.setId((int)map.get("id"));
 		gachacontentdto.setRarity((String)map.get("rarity"));
 		gachacontentdto.setContent((String)map.get("content"));
+		gachacontentdto.setPoint((int)map.get("point"));
 		
 		return gachacontentdto;
 	}
@@ -202,6 +219,7 @@ public class GachaContentDaoJdbcImpl implements GachaContentDao {
 		gachacontentdto.setId((int)map.get("id"));
 		gachacontentdto.setRarity((String)map.get("rarity"));
 		gachacontentdto.setContent((String)map.get("content"));
+		gachacontentdto.setPoint((int)map.get("point"));
 		
 		return gachacontentdto;
 	}
@@ -213,6 +231,7 @@ public class GachaContentDaoJdbcImpl implements GachaContentDao {
 		gachacontentdto.setId((int)map.get("id"));
 		gachacontentdto.setRarity((String)map.get("rarity"));
 		gachacontentdto.setContent((String)map.get("content"));
+		gachacontentdto.setPoint((int)map.get("point"));
 		
 		return gachacontentdto;
 	}
@@ -224,6 +243,7 @@ public class GachaContentDaoJdbcImpl implements GachaContentDao {
 		gachacontentdto.setId((int)map.get("id"));
 		gachacontentdto.setRarity((String)map.get("rarity"));
 		gachacontentdto.setContent((String)map.get("content"));
+		gachacontentdto.setPoint((int)map.get("point"));
 		
 		return gachacontentdto;
 	}
@@ -235,6 +255,7 @@ public class GachaContentDaoJdbcImpl implements GachaContentDao {
 		gachacontentdto.setId((int)map.get("id"));
 		gachacontentdto.setRarity((String)map.get("rarity"));
 		gachacontentdto.setContent((String)map.get("content"));
+		gachacontentdto.setPoint((int)map.get("point"));
 		
 		return gachacontentdto;
 	}
@@ -246,6 +267,7 @@ public class GachaContentDaoJdbcImpl implements GachaContentDao {
 		gachacontentdto.setId((int)map.get("id"));
 		gachacontentdto.setRarity((String)map.get("rarity"));
 		gachacontentdto.setContent((String)map.get("content"));
+		gachacontentdto.setPoint((int)map.get("point"));
 		
 		return gachacontentdto;
 	}
