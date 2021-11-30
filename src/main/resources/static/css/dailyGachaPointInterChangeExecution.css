@@ -1,0 +1,60 @@
+@charset "UTF-8";
+
+.dailyGachaPointInterChangeExecution-h4 {
+	margin-bottom: 0pxpx !important;
+    margin-left: 76px;
+}
+
+.dailyGachaPointInterChangeExecution-p {
+	margin-bottom: 0pxpx !important;
+    margin-left: 76px;
+}
+
+.gachaPointInterChangeExecution-productSize {
+	width: 200px !important;
+    height: 200px !important;
+    margin-left: 60px;
+}
+
+.gachaPointInterChangeExecution-cardDesign-one {
+	margin-left: 55px;
+    width: 260px !important;
+    font-size: 13px;
+}
+
+.gachaPointInterChangeExecution-cardDesign-two {
+	margin-left: 55px;
+	margin-top: 30px;
+    width: 550px !important;
+    font-size: 13px;
+}
+
+.gachaPointInterChangeExecution-th {
+	background: #ffd2fc;
+}
+
+.gachaPointInterChangeExecution-td {
+	background: #ffefff;
+}
+
+.gachaPointInterChangeExecution-card-mail {
+	margin-top: 35px;
+}
+
+.gachaPointInterChangeExecution-h3 {
+	margin: 25px 0px 30px 0px;
+}
+
+.gachaPointInterChangeExecution-table {
+	font-size: 13px;
+	margin: 20px 0px 0px 264px;
+	width:500px;
+}
+
+.gachaPointInterChangeExecution-point-th {
+	background: #bcff73;
+}
+
+.gachaPointInterChangeExecution-point-td {
+	background: #ddffd6;
+}

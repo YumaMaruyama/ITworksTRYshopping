@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	
+	<div th:fragment="productListLayout_contents">
+		<h1 class="titleDesign">デイポイント交換所</h1>
+	
+	<div class="flex challengeProgrammingList" style="width: 1100px;">
+			<div class="item cardDesign" th:each=" gachaPointInterChangeProductList : ${gachaPointInterChangeProductList}">
+				<img class="productSize" th:src="${gachaPointInterChangeProductList.img}">
+				<h4 class="card-title  fontdesign dailyGachaPointInterchange-h4"
+					th:text="'[商品名] ' + ${gachaPointInterChangeProductList.title}"></h4>
+				<p class="card-text  fontdesign dailyGachaPointInterchange-p"
+					th:text="'[交換ポイント] ' + ${gachaPointInterChangeProductList.point} + 'ポイント'"></p>
+				
+				<a class="text-center dailyGachaPointInterchange-productDetailLync"
+					th:href="@{/gachaPointInterChangeExecution} + '/' + ${gachaPointInterChangeProductList.id}"><span
+					class="productDetailDesigin">交換する</span></a>
+			</div>
+		</div>
+	
+	</div>
+	
+</body>
+</html>

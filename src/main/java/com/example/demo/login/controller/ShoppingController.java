@@ -51,6 +51,7 @@ import com.example.demo.login.domail.model.CreditForm;
 import com.example.demo.login.domail.model.CustomDTO;
 import com.example.demo.login.domail.model.GachaContentDTO;
 import com.example.demo.login.domail.model.GachaDTO;
+import com.example.demo.login.domail.model.GachaPointInterChangeDTO;
 import com.example.demo.login.domail.model.GachaProbabilityDTO;
 import com.example.demo.login.domail.model.GroupOrder;
 import com.example.demo.login.domail.model.InquiryAllDTO;
@@ -93,6 +94,7 @@ import com.example.demo.login.domail.service.CouponService;
 import com.example.demo.login.domail.service.CreditService;
 import com.example.demo.login.domail.service.CustomService;
 import com.example.demo.login.domail.service.GachaContentService;
+import com.example.demo.login.domail.service.GachaPointInterChangeService;
 import com.example.demo.login.domail.service.GachaPointsService;
 import com.example.demo.login.domail.service.GachaService;
 import com.example.demo.login.domail.service.InquiryReplyService;
@@ -165,6 +167,8 @@ public class ShoppingController {
 	GachaContentService gachaContentService;
 	@Autowired
 	GachaPointsService gachaPointsService;
+	@Autowired
+	GachaPointInterChangeService gachaPointInterChangeService;
 
 	@Autowired // Sessionが使用できる
 	HttpSession session;
@@ -7350,6 +7354,8 @@ public class ShoppingController {
 			
 			
 		}
+		
+		//ガチャで獲得したポイントを加える
 		gachaPointsService.dailyGachaGetPointAdd(userId,totalPoint);
 		
 		
@@ -7363,8 +7369,10 @@ public class ShoppingController {
 	public String postDailyGachaProbability(Model model) {
 		model.addAttribute("contents", "shopping/dailyGachaProbability::productListLayout_contents");
 		
+		//ガチャのアイテムをすべて取得
 		List<GachaProbabilityDTO> gachaPointList = gachaContentService.pointSelectMany();
 		
+		//ガチャの詳細をDTOに渡して画面に表示する
 		GachaProbabilityDTO gachaprobatilitysetdto = new GachaProbabilityDTO();
 		for(int x = 0; gachaPointList.size() > x; x++) {
 			GachaProbabilityDTO gachaprobatilitydto = gachaPointList.get(x);
@@ -7501,6 +7509,43 @@ public class ShoppingController {
 		
 		return "shopping/productListLayout";
 	}
+	
+	@PostMapping(value= "/dailyGacha",params = "dailyGachaPointInterchange")
+	public String getDailyGachaDailyGachaPointUse(Model model) {
+		model.addAttribute("contents", "shopping/dailyGachaPointInterchange::productListLayout_contents");
+		
+		//ポイントで交換する商品をすべて取得
+		List<GachaPointInterChangeDTO> gachaPointInterChangeProductList = gachaPointInterChangeService.selectMany();
+		model.addAttribute("gachaPointInterChangeProductList",gachaPointInterChangeProductList);
+		
+		return "shopping/productListLayout";
+	}
+	
+	@GetMapping("/gachaPointInterChangeExecution/{id}")
+	public String getGachaPointInterChangeExecution(@PathVariable("id") int gachaPointProductId,Model model) {
+		model.addAttribute("contents", "shopping/gachaPointInterChangeExecution::productListLayout_contents");
+		
+		//選択したポイントで交換する商品を取得
+		GachaPointInterChangeDTO gachaPointInterChangeProductList = gachaPointInterChangeService.selectOne(gachaPointProductId);
+		model.addAttribute("gachaPointInterChangeProductList",gachaPointInterChangeProductList);
+		
+		//ユーザーIDを取得
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String getName = auth.getName();
+		int userId = usersService.select_id(getName);
+		
+		//ユーザーの現在のポイントを取得
+		int totalPoint = gachaPointsService.selectPointOne(userId);
+		model.addAttribute("totalPoint",totalPoint);
+		//交換後のポイントを取得
+		int afterExchangeTotalPoint = totalPoint - gachaPointInterChangeProductList.getPoint();
+		model.addAttribute("afterExchangeTotalPoint",afterExchangeTotalPoint);
+		
+		return "shopping/productListLayout";
+	}
+	
+	
+	
 
 	// ログアウト用メソッド
 	@GetMapping("logout")

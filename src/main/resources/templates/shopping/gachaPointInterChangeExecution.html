@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<div th:fragment="productListLayout_contents">
+		<h1 class="titleDesign">デイポイント交換</h1>
+
+		<form method="post" th:action="@{gachaPointInterChangeExecution}">
+			<div class="flex gachaPointInterChangeExecution-card-mail">
+				<div class="item gachaPointInterChangeExecution-cardDesign-one"
+					th:each=" gachaPointInterChangeProductList : ${gachaPointInterChangeProductList}">
+					<img class="gachaPointInterChangeExecution-productSize"
+						th:src="${gachaPointInterChangeProductList.img}">
+					<h4 class="card-title  fontdesign dailyGachaPointInterChangeExecution-h4"
+						style="margin-bottom: 0px !important"
+						th:text="'[商品名] ' + ${gachaPointInterChangeProductList.title}"></h4>
+					<p class="card-text  fontdesign dailyGachaPointInterChangeExecution-p"
+						style="margin-bottom: 0px !important"
+						th:text="'[交換ポイント] ' + ${gachaPointInterChangeProductList.point} + 'ポイント'"></p>
+				</div>
+
+				<div class="item gachaPointInterChangeExecution-cardDesign-two">
+					<table class="table table-bordered">
+						<tr>
+							<th class="text-center gachaPointInterChangeExecution-th">商品詳細</th>
+						</tr>
+						<tr>
+							<td class="text-center gachaPointInterChangeExecution-td"
+								th:text="${gachaPointInterChangeProductList.content}"></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			
+			<table class="table table-bordered gachaPointInterChangeExecution-table">
+				<tr>
+					<th class="text-center gachaPointInterChangeExecution-point-th">現在のデイポイント</th>
+					<th class="text-center gachaPointInterChangeExecution-point-th">交換後のデイポイント</th>
+				</tr>
+				
+				<tr>
+					<td class="text-center gachaPointInterChangeExecution-point-td" th:text="${totalPoint}"></td>
+					<td class="text-center gachaPointInterChangeExecution-point-td" th:text="${afterExchangeTotalPoint}"></td>
+				</tr>
+			</table>
+			
+			<h3 class="text-danger text-center gachaPointInterChangeExecution-h3">デイポイントを利用した交換につきましては、キャンセルや商品選び直しは出来かねます。</h3>
+			
+			<div class="btn-wrapper">
+				<div class="check-box">
+					<label><input class="check" type="checkbox" name="check"
+						autocomplete="off" id="agree"><span>この商品の詳細を確認し、条件に同意して交換します</span></label>
+				</div>
+				<input class="submit" type="submit" id="submit" value="交換する" />
+			</div>
+
+		</form>
+
+
+		<script>
+			$(function() {
+
+				$('.submit').attr('disabled', 'disabled');
+
+				$('#agree').on('click', function() {
+					if ($(this).prop('checked') == false) {
+						$('.submit').attr('disabled', 'disabled');
+					} else {
+						$('.submit').removeAttr('disabled');
+					}
+				});
+
+			});
+		</script>
+
+	</div>
+</body>
+</html>
