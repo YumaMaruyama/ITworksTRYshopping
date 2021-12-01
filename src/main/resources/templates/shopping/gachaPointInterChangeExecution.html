@@ -10,7 +10,7 @@
 	<div th:fragment="productListLayout_contents">
 		<h1 class="titleDesign">デイポイント交換</h1>
 
-		<form method="post" th:action="@{gachaPointInterChangeExecution}">
+		<form method="post" th:action="@{/gachaPointInterChangeExecution}">
 			<div class="flex gachaPointInterChangeExecution-card-mail">
 				<div class="item gachaPointInterChangeExecution-cardDesign-one"
 					th:each=" gachaPointInterChangeProductList : ${gachaPointInterChangeProductList}">
@@ -57,6 +57,7 @@
 						autocomplete="off" id="agree"><span>この商品の詳細を確認し、条件に同意して交換します</span></label>
 				</div>
 				<input class="submit" type="submit" id="submit" value="交換する" />
+				<input type="hidden" name="id" th:value="${gachaPointProductId}">
 			</div>
 
 		</form>

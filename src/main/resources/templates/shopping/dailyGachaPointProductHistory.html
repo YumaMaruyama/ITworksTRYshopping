@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	
+	<div th:fragment="productListLayout_contents">
+		<h1 class="titleDesign">デイポイント交換履歴</h1>
+		
+		<div class="flex gachaPointInterChangeExecution-card-mail">
+				<div class="item gachaPointInterChangeExecution-cardDesign-one"
+					th:each=" gachaPointProductHistorydtoList : ${gachaPointProductHistorydtoList}">
+					<img class="gachaPointInterChangeExecution-productSize"
+						th:src="${gachaPointProductHistorydtoList.img}">
+					<h4 class="card-title  fontdesign dailyGachaPointInterChangeExecution-h4"
+						style="margin-bottom: 0px !important"
+						th:text="'[商品名] ' + ${gachaPointProductHistorydtoList.title}"></h4>
+					<p class="card-text  fontdesign dailyGachaPointInterChangeExecution-p"
+						style="margin-bottom: 0px !important"
+						th:text="'[交換日] ' + ${#dates.format(gachaPointProductHistorydtoList.purchaseDate,'yyyy-MM-dd hh-mm')}"></p>
+					<p class="text-center text-danger card-text  fontdesign dailyGachaPointInterChangeExecution-p"
+						style="margin-bottom: 0px !important"
+						th:text="${gachaPointProductHistorydtoList.deliveryCheck}"></p>
+				</div>
+		</div>
+		
+	</div>
+	
+</body>
+</html>

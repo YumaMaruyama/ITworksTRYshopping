@@ -52,6 +52,7 @@ import com.example.demo.login.domail.model.CustomDTO;
 import com.example.demo.login.domail.model.GachaContentDTO;
 import com.example.demo.login.domail.model.GachaDTO;
 import com.example.demo.login.domail.model.GachaPointInterChangeDTO;
+import com.example.demo.login.domail.model.GachaPointProductHistoryDTO;
 import com.example.demo.login.domail.model.GachaProbabilityDTO;
 import com.example.demo.login.domail.model.GroupOrder;
 import com.example.demo.login.domail.model.InquiryAllDTO;
@@ -95,6 +96,7 @@ import com.example.demo.login.domail.service.CreditService;
 import com.example.demo.login.domail.service.CustomService;
 import com.example.demo.login.domail.service.GachaContentService;
 import com.example.demo.login.domail.service.GachaPointInterChangeService;
+import com.example.demo.login.domail.service.GachaPointProductHistoryService;
 import com.example.demo.login.domail.service.GachaPointsService;
 import com.example.demo.login.domail.service.GachaService;
 import com.example.demo.login.domail.service.InquiryReplyService;
@@ -169,6 +171,8 @@ public class ShoppingController {
 	GachaPointsService gachaPointsService;
 	@Autowired
 	GachaPointInterChangeService gachaPointInterChangeService;
+	@Autowired
+	GachaPointProductHistoryService gachaPointProductHistoryService;
 
 	@Autowired // Sessionが使用できる
 	HttpSession session;
@@ -7511,7 +7515,7 @@ public class ShoppingController {
 	}
 	
 	@PostMapping(value= "/dailyGacha",params = "dailyGachaPointInterchange")
-	public String getDailyGachaDailyGachaPointUse(Model model) {
+	public String postDailyGachaDailyGachaPointUse(Model model) {
 		model.addAttribute("contents", "shopping/dailyGachaPointInterchange::productListLayout_contents");
 		
 		//ポイントで交換する商品をすべて取得
@@ -7521,6 +7525,24 @@ public class ShoppingController {
 		return "shopping/productListLayout";
 	}
 	
+	@PostMapping(value= "/dailyGacha",params = "dailyGachaPointProductHistory")
+	public String postDailyGachaPointProductHistory(Model model) {
+		model.addAttribute("contents", "shopping/dailyGachaPointProductHistory::productListLayout_contents");
+		
+		//ユーザーIDを取得
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String getName = auth.getName();
+		int userId = usersService.select_id(getName);
+		
+		//ユーザーのポイント交換履歴をすべて取得
+		List<GachaPointProductHistoryDTO> gachaPointProductHistorydtoList = gachaPointProductHistoryService.productHistorySelectOne(userId);	
+		model.addAttribute("gachaPointProductHistorydtoList",gachaPointProductHistorydtoList);
+		
+		return "shopping/productListLayout";
+	}
+	
+	
+	
 	@GetMapping("/gachaPointInterChangeExecution/{id}")
 	public String getGachaPointInterChangeExecution(@PathVariable("id") int gachaPointProductId,Model model) {
 		model.addAttribute("contents", "shopping/gachaPointInterChangeExecution::productListLayout_contents");
@@ -7528,6 +7550,7 @@ public class ShoppingController {
 		//選択したポイントで交換する商品を取得
 		GachaPointInterChangeDTO gachaPointInterChangeProductList = gachaPointInterChangeService.selectOne(gachaPointProductId);
 		model.addAttribute("gachaPointInterChangeProductList",gachaPointInterChangeProductList);
+		model.addAttribute("gachaPointProductId",gachaPointProductId);
 		
 		//ユーザーIDを取得
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -7542,6 +7565,20 @@ public class ShoppingController {
 		model.addAttribute("afterExchangeTotalPoint",afterExchangeTotalPoint);
 		
 		return "shopping/productListLayout";
+	}
+	
+	@PostMapping("/gachaPointInterChangeExecution")
+	public String postGachaPointInterChangeExecution(@RequestParam("id") int gachaPointProductId,Model model) {
+		
+		//ユーザーIDを取得
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String getName = auth.getName();
+		int userId = usersService.select_id(getName);
+		
+		gachaPointProductHistoryService.productHistoryInsertOne(userId,gachaPointProductId);
+		
+		
+		return postDailyGachaPointProductHistory(model);
 	}
 	
 	
