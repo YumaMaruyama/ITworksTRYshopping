@@ -18,9 +18,12 @@
 				<p class="card-text  fontdesign dailyGachaPointInterchange-p"
 					th:text="'[交換ポイント] ' + ${gachaPointInterChangeProductList.point} + 'ポイント'"></p>
 				
-				<a class="text-center dailyGachaPointInterchange-productDetailLync"
+				<a th:if="${gachaPointInterChangeProductList.pointCheck} == '交換可能'" class="text-center dailyGachaPointInterchange-productDetailLync"
 					th:href="@{/gachaPointInterChangeExecution} + '/' + ${gachaPointInterChangeProductList.id}"><span
 					class="productDetailDesigin">交換する</span></a>
+				<a th:if="${gachaPointInterChangeProductList.pointCheck} == '交換不可'" class="text-center dailyGachaPointInterchange-productDetailLync"
+					><span
+					class="text-danger productDetailDesigin-New">ポイントが足りません</span></a>
 			</div>
 		</div>
 	

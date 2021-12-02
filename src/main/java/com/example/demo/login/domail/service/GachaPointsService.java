@@ -18,4 +18,8 @@ public class GachaPointsService {
 	public int selectPointOne(int userId) {
 		return dao.selectPointOne(userId);
 	}
+	
+	public int update(int consumptionNowPoint,int userId) {
+		return dao.update(consumptionNowPoint,userId);
+	}
 }

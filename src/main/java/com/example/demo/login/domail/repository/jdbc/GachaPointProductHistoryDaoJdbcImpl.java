@@ -46,4 +46,5 @@ public class GachaPointProductHistoryDaoJdbcImpl implements GachaPointProductHis
 		
 		return gachapointproducthistorydtoList;
 	}
+	
 }

@@ -16,4 +16,6 @@ public class GachaPointInterChangeDTO {
 	private String img;
 	
 	private String category;
+	
+	private String pointCheck;
 }

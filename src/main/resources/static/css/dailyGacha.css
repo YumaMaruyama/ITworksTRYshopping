@@ -6,8 +6,16 @@
     margin-left: 330px;
 }
 
-.dailyGacha-table {
-	margin: 30px 0px 0px 307px;
+.dailyGacha-one-table {
+	margin: 0px 0px 0px 170px;
+}
+
+.dailyGacha-two-table {
+	margin: 30px 0px 0px 439px;
+}
+
+.dailyGacha-three-table {
+	margin: 30px 0px 0px 410px;
 }
 
 button.dailyGacha-btn-border {
@@ -28,7 +36,6 @@ button.dailyGacha-btn-border {
 }
 
 button.dailyGacha-btn-border {
-  margin-bottom: 12px;
   padding: 0;
 
   -webkit-transition: all 0.3s;

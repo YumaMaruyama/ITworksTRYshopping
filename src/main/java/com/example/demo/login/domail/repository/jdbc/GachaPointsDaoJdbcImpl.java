@@ -36,4 +36,10 @@ public class GachaPointsDaoJdbcImpl implements GachaPointsDao {
 		return point;
 	}
 	
+	public int update(int consumptionNowPoint,int userId) {
+		int result = jdbc.update("update gacha_points set point = ? where user_id = ?",consumptionNowPoint,userId);
+		
+		return result;
+	}
+	
 }

@@ -5,4 +5,6 @@ public interface GachaPointsDao {
 	public int dailyGachaGetPointAdd(int userId,int totalPoint);
 	
 	public int selectPointOne(int userId);
+	
+	public int update(int consumptionNowPoint,int userId);
 }

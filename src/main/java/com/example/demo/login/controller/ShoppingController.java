@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -6629,40 +6630,75 @@ public class ShoppingController {
 	public String getScheduleAdjustment(@PathVariable("id") int productId, Model model) {
 		model.addAttribute("contents", "shopping/scheduleAdjustment::productListLayout_contents");
 
-		// 講座日程設定
+		// 講座日程設定	
 		Calendar calendar = Calendar.getInstance();
 		int getYear = calendar.get(Calendar.YEAR);
 		int getMonth = calendar.get(Calendar.MONTH);
 		int getDate = calendar.get(Calendar.DATE);
-		// 今月の最終日を取得
+		
+		// 今月の最終日を取得\
 		calendar.set(getYear, getMonth + 1, 1);
 		calendar.add(Calendar.DATE, -1);
 		int lastDay = calendar.get(Calendar.DATE);
 
+		calendar.set(getYear, getMonth,getDate);
+		
 		// 設定日を除いた一週間分から選択してもらう
 		String[] getDayList = new String[7];
 		for (int x = 1; x < 8; x++) {
+			int ifX = x;
 			int oneMove = getDate + x;
 			// 月最終日から次の月の頭になる場合に入る処理
 			if (oneMove > lastDay) {
+				System.out.println("月初め");
 				getDate = 0;
-				for (int y = 1; y <= 7 - (x - 1); y++) {
-					oneMove = getDate + y;
-					x = x++;
-					calendar.set(getYear, getMonth + 1, 1);
+				int z = 1;
+				for (int y = 1; y <= 7 - ifX; ifX++) {
+
+					oneMove = getDate + z++;
+					calendar.set(getYear, getMonth +2, 1);
 					int month = calendar.get(Calendar.MONTH);
+					if(month == 0) {
+						month = 12;
+					}
+ 					getDayList[ifX - 1] = month + "月" + oneMove + "日";
+ 					
+				}
+				
+				for (int y = 0; y <= 7 - ifX;) {	
+					oneMove = getDate + z++;
+					calendar.set(getYear, getMonth +2, 1);
+					int month = calendar.get(Calendar.MONTH);
+					if(month == 0) {
+						month = 12;
+					}
+ 					getDayList[ifX - 1] = month + "月" + oneMove + "日";
+ 					System.out.println(Arrays.toString(getDayList));
+ 					model.addAttribute("dayList", getDayList);
+ 					model.addAttribute("productId", productId);
+
+ 					return "shopping/productListLayout";
+				}
+				
+			if(ifX == 7) {
+				System.out.println(Arrays.toString(getDayList));
+				model.addAttribute("dayList", getDayList);
+				model.addAttribute("productId", productId);
+
+				return "shopping/productListLayout";
+				}
+			}else {
+					System.out.println("月初めなし");
+					calendar.set(getYear, getMonth +1, 1);
+					int month = calendar.get(Calendar.MONTH);
+					if(month == 0) {
+						month = 12;
+					}
 					getDayList[x - 1] = month + "月" + oneMove + "日";
 				}
-				x = 7;
-
-			} else {
-				calendar.set(getYear, getMonth + 1, 1);
-				int month = calendar.get(Calendar.MONTH);
-				getDayList[x - 1] = month + "月" + oneMove + "日";
-			}
-
+			
 		}
-
+		System.out.println(Arrays.toString(getDayList));
 		model.addAttribute("dayList", getDayList);
 		model.addAttribute("productId", productId);
 
@@ -7153,6 +7189,16 @@ public class ShoppingController {
 		model.addAttribute("contents", "shopping/dailyGacha::productListLayout_contents");
 		model.addAttribute("gachaTurn","yes");
 		
+		//ユーザーIDを取得
+		Authentication auth
+		= SecurityContextHolder.getContext().getAuthentication();
+		String getName = auth.getName();
+		int userId = usersService.select_id(getName);
+		
+		//現在のユーザーのポイントを取得
+		int nowPoint = gachaPointsService.selectPointOne(userId);
+		model.addAttribute("nowPoint",nowPoint);
+		
 		return "shopping/productListLayout";
 	}
 	
@@ -7518,8 +7564,26 @@ public class ShoppingController {
 	public String postDailyGachaDailyGachaPointUse(Model model) {
 		model.addAttribute("contents", "shopping/dailyGachaPointInterchange::productListLayout_contents");
 		
+		//ユーザーIDを取得
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String getName = auth.getName();
+		int userId = usersService.select_id(getName);
+				
+		//現在のユーザーのポイントを取得
+		int nowPoint = gachaPointsService.selectPointOne(userId);
+		
 		//ポイントで交換する商品をすべて取得
 		List<GachaPointInterChangeDTO> gachaPointInterChangeProductList = gachaPointInterChangeService.selectMany();
+		//交換画面でユーザーのポイントが各交換商品のポイントよりも少なければ交換できないようにする
+		for(int x = 0; gachaPointInterChangeProductList.size() > x; x++) {
+			GachaPointInterChangeDTO gachaPointInterChangeProductOne = gachaPointInterChangeProductList.get(x);
+			if(nowPoint < gachaPointInterChangeProductOne.getPoint()) {
+				gachaPointInterChangeProductOne.setPointCheck("交換不可");
+			}else {
+				gachaPointInterChangeProductOne.setPointCheck("交換可能");
+			}
+		}
+		
 		model.addAttribute("gachaPointInterChangeProductList",gachaPointInterChangeProductList);
 		
 		return "shopping/productListLayout";
@@ -7575,6 +7639,17 @@ public class ShoppingController {
 		String getName = auth.getName();
 		int userId = usersService.select_id(getName);
 		
+		//選択したポイントで交換する商品を取得
+		GachaPointInterChangeDTO gachaPointInterChangeProductList = gachaPointInterChangeService.selectOne(gachaPointProductId);
+		int consumptionPoint = gachaPointInterChangeProductList.getPoint();
+		
+		//現在のユーザーのポイントを取得
+		int nowPoint = gachaPointsService.selectPointOne(userId);
+		//交換後のポイント取得し更新
+		int consumptionNowPoint = nowPoint - consumptionPoint;
+		gachaPointsService.update(consumptionNowPoint,userId);
+		
+		//ユーザーが交換した商品の情報を格納
 		gachaPointProductHistoryService.productHistoryInsertOne(userId,gachaPointProductId);
 		
 		
