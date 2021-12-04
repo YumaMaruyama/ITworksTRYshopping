@@ -7656,6 +7656,16 @@ public class ShoppingController {
 		return postDailyGachaPointProductHistory(model);
 	}
 	
+	@GetMapping("/interChangeProductManagement") 
+	public String getInterChangeProductManagement(Model model) {
+		model.addAttribute("contents", "shopping/interChangeProductManagement::productListLayout_contents");
+		
+		List<GachaPointProductHistoryDTO> gachapointproducthistorydto = gachaPointProductHistoryService.productHistorySelectMany();
+		model.addAttribute("gachaPointProductHistoryList",gachapointproducthistorydto);
+		
+		return "shopping/productListLayout";
+	}
+	
 	
 	
 

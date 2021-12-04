@@ -9,4 +9,6 @@ public interface GachaPointProductHistoryDao {
 	public int productHistoryInsertOne(int userId,int gachaPointProductId);
 	
 	public List<GachaPointProductHistoryDTO> gachaPointProductHistorydtoList(int userId);
+	
+	public List<GachaPointProductHistoryDTO> productHistorySelectMany();
 }

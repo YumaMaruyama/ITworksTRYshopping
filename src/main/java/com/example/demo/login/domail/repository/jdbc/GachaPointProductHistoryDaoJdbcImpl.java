@@ -47,4 +47,23 @@ public class GachaPointProductHistoryDaoJdbcImpl implements GachaPointProductHis
 		return gachapointproducthistorydtoList;
 	}
 	
+	public List<GachaPointProductHistoryDTO> productHistorySelectMany() {
+		List<Map<String,Object>> map = jdbc.queryForList("select * from gacha_point_product_history");
+		
+		List<GachaPointProductHistoryDTO> gachaPointProductHistoryDTOList = new ArrayList<>();
+		
+		for(Map<String,Object> oneMap : map) {
+			GachaPointProductHistoryDTO gachapointproducthistorydto= new GachaPointProductHistoryDTO();
+			gachapointproducthistorydto.setId((int)oneMap.get("id"));
+			gachapointproducthistorydto.setUserId((int)oneMap.get("user_id"));
+			gachapointproducthistorydto.setPointInterchangeId((int)oneMap.get("point_interchange_id"));
+			gachapointproducthistorydto.setPurchaseDate((Date)oneMap.get("purchase_date"));
+			gachapointproducthistorydto.setDeliveryCheck((String)oneMap.get("delivery_check"));
+			
+			gachaPointProductHistoryDTOList.add(gachapointproducthistorydto);
+		}
+		
+		return gachaPointProductHistoryDTOList;
+	}
+	
 }
