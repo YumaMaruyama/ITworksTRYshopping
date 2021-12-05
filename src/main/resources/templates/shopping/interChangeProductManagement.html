@@ -10,6 +10,23 @@
 	<div th:fragment="productListLayout_contents">
 		<h1 class="titleDesign">交換商品管理</h1>
 		
+		<div class="flex purHisTable" style="width: 1100px;">
+			<div class="item" th:each="gachaPointProductHistoryList : ${gachaPointProductHistoryList}">
+				<form>
+					<img class="size" th:src="${gachaPointProductHistoryList.img}">
+					<h5 class="card-title purHisfontdesign"
+						th:text="'購入日：' + ${#dates.format(gachaPointProductHistoryList.purchaseDate, 'yyyy/MM/dd HH:mm')}"></h5>
+				<!-- 	<p class="card-title purHisfontdesign"
+						th:text="'購入者：' + ${gachaPointProductHistoryList.userName}"></p>
+					<p class="card-title purHisfontdesign"
+						th:text="'発送先住所：' + ${gachaPointProductHistoryList.Address}"></p>
+					<p class="card-title purHisfontdesign"
+						th:text="'商品名：' + ${gachaPointProductHistoryList.title}"></p>-->
+					<a th:if="${gachaPointProductHistoryList.deliveryCheck} == '発送前'" th:href="@{/deliveryProcedureOK} + '/' + ${purchasedto.purchaseId}" class="text-center deliveryProcedureOK">発送後押す</a>
+					<h4 class="text-danger text-center" th:if="${gachaPointProductHistoryList.deliveryCheck} == '発送済み'"><a>発送済</a></h4>
+			</div>
+			
+		</div>
 		
 		
 	</div>
