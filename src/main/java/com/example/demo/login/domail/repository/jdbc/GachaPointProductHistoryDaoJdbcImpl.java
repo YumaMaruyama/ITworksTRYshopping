@@ -48,7 +48,7 @@ public class GachaPointProductHistoryDaoJdbcImpl implements GachaPointProductHis
 	}
 	
 	public List<GachaPointProductHistoryDTO> productHistorySelectMany() {
-		List<Map<String,Object>> map = jdbc.queryForList("select * from gacha_point_product_history");
+		List<Map<String,Object>> map = jdbc.queryForList("select gacha_point_product_history.id,gacha_point_product_history.user_id,gacha_point_product_history.point_interchange_id,gacha_point_product_history.purchase_date,gacha_point_product_history.delivery_check,users.user_name,usege_users.address,gacha_point_interchange.img,gacha_point_interchange.title,gacha_point_interchange.content from gacha_point_product_history join gacha_point_interchange on gacha_point_interchange.id = gacha_point_product_history.point_interchange_id join users on gacha_point_product_history.user_id = users.id join usege_users on gacha_point_product_history.user_id = usege_users.user_id");
 		
 		List<GachaPointProductHistoryDTO> gachaPointProductHistoryDTOList = new ArrayList<>();
 		
@@ -59,11 +59,21 @@ public class GachaPointProductHistoryDaoJdbcImpl implements GachaPointProductHis
 			gachapointproducthistorydto.setPointInterchangeId((int)oneMap.get("point_interchange_id"));
 			gachapointproducthistorydto.setPurchaseDate((Date)oneMap.get("purchase_date"));
 			gachapointproducthistorydto.setDeliveryCheck((String)oneMap.get("delivery_check"));
+			gachapointproducthistorydto.setImg((String)oneMap.get("img"));
+			gachapointproducthistorydto.setTitle((String)oneMap.get("title"));
+			gachapointproducthistorydto.setUserName((String)oneMap.get("user_name"));
+			gachapointproducthistorydto.setAddress((String)oneMap.get("address"));
 			
 			gachaPointProductHistoryDTOList.add(gachapointproducthistorydto);
 		}
 		
 		return gachaPointProductHistoryDTOList;
+	}
+	
+	public int deriveryUpdateOne(int gachaPointProductId) {
+		int result = jdbc.update("update gacha_point_product_history set delivery_check = '発送済み' where id = ?",gachaPointProductId);
+		
+		return result;
 	}
 	
 }

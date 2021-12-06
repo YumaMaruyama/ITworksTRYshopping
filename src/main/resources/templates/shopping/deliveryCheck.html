@@ -57,7 +57,7 @@
 					<p class="card-text purHisfontdesign cartcpu"
 						style="margin-bottom: 0px !important"
 						th:text="'購入数：' + ${purchasedto.product_count}"></p>
-					<a th:if="${purchasedto.deliveryCheck} == '発送前'" th:href="@{/deliveryProcedureOK} + '/' + ${purchasedto.purchaseId}" class="text-center deliveryProcedureOK">発送後押す</a>
+					<a th:if="${purchasedto.deliveryCheck} == '発送前'" th:href="@{/deliveryProcedureOK} + '/' + ${purchasedto.purchaseId}" class="text-center deliveryProcedureOK deliveryCheckProcedure">発送後押す</a>
 					<h4 class="text-danger text-center" th:if="${purchasedto.deliveryCheck} == '発送済み'"><a>発送済</a></h4>
 			</div>
 			

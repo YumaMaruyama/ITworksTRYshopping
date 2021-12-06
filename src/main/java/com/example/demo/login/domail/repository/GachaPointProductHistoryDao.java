@@ -11,4 +11,6 @@ public interface GachaPointProductHistoryDao {
 	public List<GachaPointProductHistoryDTO> gachaPointProductHistorydtoList(int userId);
 	
 	public List<GachaPointProductHistoryDTO> productHistorySelectMany();
+	
+	public int deriveryUpdateOne(int gachaPointProductId);
 }

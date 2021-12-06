@@ -29,17 +29,16 @@
 			</tr>
 		</table>
 		
-		<table th:if="${gachaTurn} == 'no' and ${gachaTurnCheck} == 'yes'" class="text-center dailyGacha-two-table">
+		<table th:if="${gachaTurnCheck} == 'yes'" class="text-center dailyGacha-two-table">
 		<tr>
-			<th><button th:if="${gachaTurn} == 'no' and ${gachaTurnCheck} == 'yes'" name="gachaTurn" class="text-center btn btn-primary btn dailyGacha-btn-border"><span>ガチャを引く</span></button></th>
-			<th><h3 th:if="${gachaTurn} == 'no' and ${gachaTurnCheck} == 'no'" class="text-center">本日はガチャを回しています</h3></th>
-			<th><button th:if="${gachaTurn} == 'yes'" name="gachaResult" class="text-center btn btn-primary fadeIn btn dailyGacha-btn-border"><span>結果を見る</span></button></th>
+			<th><button th:if="${gachaTurn} == 'yes'" name="gachaTurn" class="text-center btn btn-primary btn dailyGacha-btn-border"><span>ガチャを引く</span></button></th>
+			<th><button th:if="${gachaTurn} == 'no'" name="gachaResult" class="text-center btn btn-primary fadeIn btn dailyGacha-btn-border"><span>結果を見る</span></button></th>
 		</tr>
 		</table>
 		
-		<table th:if="${gachaTurn} == 'no' and ${gachaTurnCheck} == 'no'" class="text-center dailyGacha-three-table">
+		<table th:if="${gachaTurnCheck} == 'no'" class="text-center dailyGacha-three-table">
 		<tr>
-			<th><h3 th:if="${gachaTurn} == 'no' and ${gachaTurnCheck} == 'no'" class="text-center">本日はガチャを回しています</h3></th>
+			<th><h3  class="text-center">本日はガチャを回しています</h3></th>
 		</tr>
 		</table>
 		</form>

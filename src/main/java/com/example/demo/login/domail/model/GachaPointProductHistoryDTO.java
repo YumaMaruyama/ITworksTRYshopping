@@ -22,4 +22,8 @@ public class GachaPointProductHistoryDTO {
 	private String title;
 	
 	private String content;
+	
+	private String userName;
+	
+	private String address;
 }

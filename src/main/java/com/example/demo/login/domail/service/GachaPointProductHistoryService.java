@@ -25,4 +25,8 @@ public class GachaPointProductHistoryService {
 	public List<GachaPointProductHistoryDTO> productHistorySelectMany() {
 		return dao.productHistorySelectMany();
 	}
+	
+	public int deriveryUpdateOne(int gachaPointProductId) {
+		return dao.deriveryUpdateOne(gachaPointProductId);
+	}
 }
