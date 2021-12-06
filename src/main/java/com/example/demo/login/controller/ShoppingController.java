@@ -7149,8 +7149,7 @@ public class ShoppingController {
 	@GetMapping("/gacha")
 	public String getGacha(Model model) {
 		model.addAttribute("contents", "shopping/dailyGacha::productListLayout_contents");
-		model.addAttribute("gachaTurn","no");
-		
+		model.addAttribute("gachaTurn","yes");
 		//現在の日付とユーザーIDを取得
 		Date nowDate = new Date();
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -7187,7 +7186,8 @@ public class ShoppingController {
 	@PostMapping(value = "/dailyGacha", params="gachaTurn")
 	public String postGachaTurn(Model model) {
 		model.addAttribute("contents", "shopping/dailyGacha::productListLayout_contents");
-		model.addAttribute("gachaTurn","yes");
+		model.addAttribute("gachaTurnCheck","yes");
+		model.addAttribute("gachaTurn","no");
 		
 		//ユーザーIDを取得
 		Authentication auth
@@ -7666,7 +7666,113 @@ public class ShoppingController {
 		return "shopping/productListLayout";
 	}
 	
+	@GetMapping("/interChangeProductDeliveryProcedureOK/{id}")
+	public String getInterChangeProductDeliveryProcedureOK(@PathVariable("id") int gachaPointProductId,Model model) {
+		
+		gachaPointProductHistoryService.deriveryUpdateOne(gachaPointProductId);
+		
+		return getInterChangeProductManagement(model);
+	}
 	
+	@GetMapping("/salesManagement")
+	public String getSalesManagement(Model model) {
+		model.addAttribute("contents", "shopping/salesManagement::productListLayout_contents");
+		
+		//ユーザーIDを取得
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String getName = auth.getName();
+		int userId = usersService.select_id(getName);
+
+		PurchaseDTO purchasedto = new PurchaseDTO();
+
+		int salesProductTotalPrice = 0;
+		
+		// 購入商品情報取得
+		List<PurchaseDTO> salesList = purchaseService.productSalesSelectMany();
+		for(int x = 0; salesList.size() > x; x++) {
+			PurchaseDTO purchasedtoList = salesList.get(x); 
+			purchasedto.setId(purchasedtoList.getId());
+			purchasedto.setPurchaseId(purchasedtoList.getPurchaseId());
+			purchasedto.setProduct_id(purchasedtoList.getProduct_id());
+			purchasedto.setPurchase_date(purchasedtoList.getPurchase_date());
+			purchasedto.setPcDataId(purchasedtoList.getPcDataId());
+			purchasedto.setPcName(purchasedtoList.getPcName());
+			purchasedto.setPrice(purchasedtoList.getPrice());
+			purchasedto.setProduct_count(purchasedtoList.getProduct_count());
+			purchasedto.setPointUse(purchasedtoList.getPointUse());
+			purchasedto.setCouponId(purchasedtoList.getCouponId());
+			purchasedto.setMenberCouponCheck(purchasedtoList.getMenberCouponCheck());
+			purchasedto.setPurchaseCheck(purchasedtoList.getPurchaseCheck());
+		
+		System.out.println(Arrays.asList("purchasedto"+purchasedto));
+		String nullCheck = "null";
+		int getCustomId = customService.selectPurchaseCheck(userId, purchasedto.getProduct_id(),
+				purchasedto.getPurchaseCheck(), nullCheck); // 購入した商品のcustomテーブルIDを取得
+		PurchaseDTO customList = customService.selectMany(getCustomId);// 購入した商品のcustomテーブル情報を取得
+		System.out.println("costomList" + customList);
+		purchasedto.setCustom_id(getCustomId);
+		purchasedto.setMemory(customList.getMemory());
+		purchasedto.setHardDisc(customList.getHardDisc());
+		purchasedto.setCpu(customList.getCpu());
+		purchasedto.setCustomPrice(customList.getCustomPrice());
+
+		purchasedto.setTotalPrice(
+				(purchasedto.getProduct_count() * (purchasedto.getPrice() + purchasedto.getCustomPrice())));
+
+		if (purchasedto.getMenberCouponCheck().equals("会員クーポン使用")) {
+			System.out.println("クーポン使用！");
+			int totalPrice = purchasedto.getTotalPrice();
+			MenberCouponDTO menbercoupondto = menberCouponService.selectOne(purchasedto.getCouponId());// 会員DBからとる
+			int disCount = menbercoupondto.getDiscount();// 割引率(%)
+			if (disCount >= 10) {
+				double disCountNew = Double.valueOf("0." + disCount);
+				double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+				int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+				System.out.println("totalPriceAll" + totalPriceAll);
+				System.out.println("purchasedtoAdd.getPointUse" + purchasedto.getPointUse());
+				purchasedto.setTotalPrice(totalPriceAll);
+			} else {
+				double disCountNew = Double.valueOf("0.0" + disCount);
+				double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+				int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+				System.out.println("totalPriceAll" + totalPriceAll);
+				System.out.println("purchasedtoAdd.getPointUse" + purchasedto.getPointUse());
+				purchasedto.setTotalPrice(totalPriceAll);
+			}
+		} else {
+
+			if (purchasedto.getCouponId() > 0) {
+				System.out.println("クーポン使用！");
+				int totalPrice = purchasedto.getTotalPrice();
+				CouponDTO coupondto = couponService.selectOne(purchasedto.getCouponId());
+				int disCount = coupondto.getDiscount();// 割引率(%)
+				if (disCount >= 10) {
+					double disCountNew = Double.valueOf("0." + disCount);
+					double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+					System.out.println("totalPrice" + totalPrice);
+					int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+					System.out.println("totalPriceAll" + totalPriceAll);
+					purchasedto.setTotalPrice(totalPriceAll);
+					System.out.println("setTotalPrice" + purchasedto.getTotalPrice());
+				} else {
+					double disCountNew = Double.valueOf("0.0" + disCount);
+					double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+					int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+					purchasedto.setTotalPrice(totalPriceAll);
+				}
+			}
+		}
+		salesProductTotalPrice = salesProductTotalPrice + (purchasedto.getTotalPrice() - purchasedto.getPointUse());
+		}
+		model.addAttribute("totalPrice", purchasedto.getTotalPrice() - purchasedto.getPointUse());
+		
+		salesProductTotalPrice = salesProductTotalPrice + (purchasedto.getTotalPrice() - purchasedto.getPointUse());
+		model.addAttribute("salesProductTotalPrice",salesProductTotalPrice);
+		
+		model.addAttribute("purchaseList", purchasedto);
+		
+		return "shopping/productListLayout";
+	}
 	
 
 	// ログアウト用メソッド

@@ -189,6 +189,39 @@ public class PurchaseDaoJdbcImpl implements PurchaseDao {
 			return purchasedto;
 		}
 	}
+	
+	public List<PurchaseDTO> productSalesSelectMany() {
+		try {
+			List<Map<String, Object>> map = jdbc.queryForList("select purchase.id,purchase.product_id,purchase.purchase_date,purchase.product_count,purchase.coupon_id,purchase.menber_coupon_check,purchase.point_use,purchase.point,pcdata.id as pcDataId,pcdata.pc_name,pcdata.price,cart.purchase_check as cartPurchaseCheck from purchase join pcdata on purchase.product_id = pcdata.id join cart on purchase.id = cart.purchase_check");
+			
+			List<PurchaseDTO> salesList = new ArrayList<>();
+			
+			for(Map<String,Object> oneMap : map) {
+			PurchaseDTO purchasedto = new PurchaseDTO();
+			purchasedto.setId((int) oneMap.get("id"));
+			purchasedto.setProduct_id((int) oneMap.get("product_id"));
+			purchasedto.setPurchase_date((Date) oneMap.get("purchase_date"));
+			purchasedto.setPcDataId((int) oneMap.get("pcDataId"));
+			purchasedto.setPcName((String) oneMap.get("pc_name"));
+			purchasedto.setPrice((int) oneMap.get("price"));
+			purchasedto.setProduct_count((int) oneMap.get("product_count"));
+			purchasedto.setCouponId((int) oneMap.get("coupon_id"));
+			purchasedto.setMenberCouponCheck((String) oneMap.get("menber_coupon_check"));
+			purchasedto.setPointRepayment((int) oneMap.get("point"));
+			purchasedto.setPointUse((int) oneMap.get("point_use"));
+			purchasedto.setPurchaseCheck((int) oneMap.get("cartPurchaseCheck"));
+			
+			salesList.add(purchasedto);
+			}
+			return salesList;
+		} catch (EmptyResultDataAccessException e) {
+			e.printStackTrace();
+			List<PurchaseDTO> salesList = new ArrayList<>();
+			PurchaseDTO purchasedto = new PurchaseDTO();
+			purchasedto.setId(0);
+			return salesList;
+		}
+	}
 
 	public int deleteOne(int purchaseId) {
 		int result = jdbc.update("delete from purchase where id = ?", purchaseId);

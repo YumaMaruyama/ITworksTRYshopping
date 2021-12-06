@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<div th:fragment="productListLayout_contents">
+		<header>
+			<h1 class="titleDesign">売上管理</h1>
+		</header>
+
+		<table>
+			<tr>
+				<th>総売り上げ</th>
+			</tr>
+
+			<tr>
+				<td th:text="${salesProductTotalPrice}"></td>
+			</tr>
+
+		</table>
+
+	</div>
+
+</body>
+</html>

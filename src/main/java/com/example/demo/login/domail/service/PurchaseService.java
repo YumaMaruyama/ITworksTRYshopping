@@ -95,5 +95,9 @@ public class PurchaseService {
 		return dao.cancelCheckSelectMany();
 	}
 	
+	public List<PurchaseDTO> productSalesSelectMany() {
+		return dao.productSalesSelectMany();
+	}
+	
 
 }
