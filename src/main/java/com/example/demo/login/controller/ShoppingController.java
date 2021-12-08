@@ -7686,6 +7686,7 @@ public class ShoppingController {
 		PurchaseDTO purchasedto = new PurchaseDTO();
 
 		int salesProductTotalPrice = 0;
+		int totalCost = 0;
 		
 		// 購入商品情報取得
 		List<PurchaseDTO> salesList = purchaseService.productSalesSelectMany();
@@ -7698,6 +7699,7 @@ public class ShoppingController {
 			purchasedto.setPcDataId(purchasedtoList.getPcDataId());
 			purchasedto.setPcName(purchasedtoList.getPcName());
 			purchasedto.setPrice(purchasedtoList.getPrice());
+			purchasedto.setCost(purchasedtoList.getCost());
 			purchasedto.setProduct_count(purchasedtoList.getProduct_count());
 			purchasedto.setPointUse(purchasedtoList.getPointUse());
 			purchasedto.setCouponId(purchasedtoList.getCouponId());
@@ -7762,13 +7764,18 @@ public class ShoppingController {
 				}
 			}
 		}
+		//総売上
 		salesProductTotalPrice = salesProductTotalPrice + (purchasedto.getTotalPrice() - purchasedto.getPointUse());
+		//コスト
+		totalCost = totalCost + purchasedto.getCost();
 		}
+		//利益
+		int revenue = salesProductTotalPrice - totalCost;
+		
 		model.addAttribute("totalPrice", purchasedto.getTotalPrice() - purchasedto.getPointUse());
-		
-		salesProductTotalPrice = salesProductTotalPrice + (purchasedto.getTotalPrice() - purchasedto.getPointUse());
 		model.addAttribute("salesProductTotalPrice",salesProductTotalPrice);
-		
+		model.addAttribute("totalCost",totalCost);
+		model.addAttribute("revenue",revenue);
 		model.addAttribute("purchaseList", purchasedto);
 		
 		return "shopping/productListLayout";

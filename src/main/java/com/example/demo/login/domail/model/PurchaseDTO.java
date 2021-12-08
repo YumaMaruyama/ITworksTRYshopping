@@ -30,6 +30,8 @@ public class PurchaseDTO {
 	private String pcName;
 
 	private int price;
+	
+	private int cost;
 
 	private String pcImg;
 
