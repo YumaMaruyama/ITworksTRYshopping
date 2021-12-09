@@ -7683,18 +7683,20 @@ public class ShoppingController {
 		String getName = auth.getName();
 		int userId = usersService.select_id(getName);
 
-		PurchaseDTO purchasedto = new PurchaseDTO();
-
 		int salesProductTotalPrice = 0;
 		int totalCost = 0;
+		
+		List<PurchaseDTO> purchasedtoAllList = new ArrayList<>();
 		
 		// 購入商品情報取得
 		List<PurchaseDTO> salesList = purchaseService.productSalesSelectMany();
 		for(int x = 0; salesList.size() > x; x++) {
+			PurchaseDTO purchasedto = new PurchaseDTO();
 			PurchaseDTO purchasedtoList = salesList.get(x); 
 			purchasedto.setId(purchasedtoList.getId());
 			purchasedto.setPurchaseId(purchasedtoList.getPurchaseId());
 			purchasedto.setProduct_id(purchasedtoList.getProduct_id());
+			purchasedto.setUserName(purchasedtoList.getUserName());
 			purchasedto.setPurchase_date(purchasedtoList.getPurchase_date());
 			purchasedto.setPcDataId(purchasedtoList.getPcDataId());
 			purchasedto.setPcName(purchasedtoList.getPcName());
@@ -7768,15 +7770,23 @@ public class ShoppingController {
 		salesProductTotalPrice = salesProductTotalPrice + (purchasedto.getTotalPrice() - purchasedto.getPointUse());
 		//コスト
 		totalCost = totalCost + purchasedto.getCost();
+		
+		purchasedto.setTotalPrice(purchasedto.getTotalPrice() - purchasedto.getPointUse());
+		purchasedto.setRevenue((purchasedto.getTotalPrice() - purchasedto.getPointUse()) - purchasedto.getCost());
+		purchasedtoAllList.add(purchasedto);
+		model.addAttribute("purchaseList", purchasedto);
+		System.out.println("1"+Arrays.asList(purchasedtoAllList));
 		}
+		System.out.println("2"+Arrays.asList(purchasedtoAllList));
+		
 		//利益
 		int revenue = salesProductTotalPrice - totalCost;
 		
-		model.addAttribute("totalPrice", purchasedto.getTotalPrice() - purchasedto.getPointUse());
+	
 		model.addAttribute("salesProductTotalPrice",salesProductTotalPrice);
 		model.addAttribute("totalCost",totalCost);
 		model.addAttribute("revenue",revenue);
-		model.addAttribute("purchaseList", purchasedto);
+		model.addAttribute("purchasedtoAllList",purchasedtoAllList);
 		
 		return "shopping/productListLayout";
 	}

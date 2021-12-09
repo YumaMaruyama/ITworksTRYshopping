@@ -32,6 +32,8 @@ public class PurchaseDTO {
 	private int price;
 	
 	private int cost;
+	
+	private int revenue;
 
 	private String pcImg;
 

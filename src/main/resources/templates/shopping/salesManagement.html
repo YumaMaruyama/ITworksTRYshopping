@@ -12,32 +12,49 @@
 			<h1 class="titleDesign">売上管理</h1>
 		</header>
 
-		<table>
+		<table class="table table-bordered salesManagement-number-table">
+			<tr class="salesManagement-number-th">
+				<th class="text-center">総売り上げ</th>
+				<th class="text-center">総コスト</th>
+				<th class="text-center">総利益</th>
 			<tr>
-				<th>総売り上げ</th>
-			</tr>
-
-			<tr>
-				<td th:text="${salesProductTotalPrice}"></td>
-			</tr>
 			
-			<tr>
-				<th>コスト</th>
+			<tr class="salesManagement-number-td">
+				<td class="text-center" th:text="${salesProductTotalPrice} + '円'"></td>
+				<td class="text-center" th:text="${totalCost}  + '円'"></td>
+				<td class="text-center" th:text="${revenue}  + '円'"></td>
 			</tr>
-
-			<tr>
-				<td th:text="${totalCost}"></td>
-			</tr>
-			
-			<tr>
-				<th>利益</th>
-			</tr>
-
-			<tr>
-				<td th:text="${revenue}"></td>
-			</tr>
-
 		</table>
+		
+		<div class="administratorTable">
+				<table class="table  table-bordered salesManagement-table"
+					th:each="purchasedtoAllList : ${purchasedtoAllList}">
+					<tr class="salesManagement-th-design">
+						<th class="text-center salesManagement-productName">商品名</th>
+						<th class="text-center salesManagement-PurchaseName">購入者</th>
+						<th class="text-center salesManagement-purchaseDate">購入日</th>
+						<th class="text-center salesManagement-price">売値</th>
+						<th class="text-center salesManagement-cost">コスト</th>
+						<th class="text-center salesManagement-revenue">利益</th>
+					</tr>
+
+					<tr class="salesManagement-td-design">
+						<th  class="text-center salesManagement-productName"
+							th:text="${purchasedtoAllList.pcName}"></th>
+						<th  class="text-center salesManagement-PurchaseName"
+							th:text="${purchasedtoAllList.userName} + ' 様'"></th>
+						<th  class="text-center salesManagement-purchaseDate"
+							th:text="${#dates.format(purchasedtoAllList.purchase_date,'yyyy/MM/dd ah:mm:ss')}"></th>	
+						<th  class="text-center salesManagement-price"
+							th:text="${purchasedtoAllList.totalPrice} + '円'"></th>
+						<th  class="text-center salesManagement-cost"
+							th:text="${purchasedtoAllList.cost} + '円'"></th>
+						<th  class="text-center salesManagement-revenue"
+							th:text="${purchasedtoAllList.revenue} + '円'"></th>
+					</tr>
+
+				</table>
+			</div>
 
 	</div>
 

@@ -192,7 +192,7 @@ public class PurchaseDaoJdbcImpl implements PurchaseDao {
 	
 	public List<PurchaseDTO> productSalesSelectMany() {
 		try {
-			List<Map<String, Object>> map = jdbc.queryForList("select purchase.id,purchase.product_id,purchase.purchase_date,purchase.product_count,purchase.coupon_id,purchase.menber_coupon_check,purchase.point_use,purchase.point,pcdata.id as pcDataId,pcdata.pc_name,pcdata.price,pcdata.cost,cart.purchase_check as cartPurchaseCheck from purchase join pcdata on purchase.product_id = pcdata.id join cart on purchase.id = cart.purchase_check");
+			List<Map<String, Object>> map = jdbc.queryForList("select purchase.id,purchase.product_id,purchase.user_id,purchase.purchase_date,purchase.product_count,purchase.coupon_id,purchase.menber_coupon_check,purchase.point_use,purchase.point,pcdata.id as pcDataId,pcdata.pc_name,pcdata.price,pcdata.cost,cart.purchase_check as cartPurchaseCheck,users.user_name from purchase join pcdata on purchase.product_id = pcdata.id join cart on purchase.id = cart.purchase_check join users on users.id = purchase.user_id");
 			
 			List<PurchaseDTO> salesList = new ArrayList<>();
 			
@@ -200,6 +200,7 @@ public class PurchaseDaoJdbcImpl implements PurchaseDao {
 			PurchaseDTO purchasedto = new PurchaseDTO();
 			purchasedto.setId((int) oneMap.get("id"));
 			purchasedto.setProduct_id((int) oneMap.get("product_id"));
+			purchasedto.setUserName((String)oneMap.get("user_name"));
 			purchasedto.setPurchase_date((Date) oneMap.get("purchase_date"));
 			purchasedto.setPcDataId((int) oneMap.get("pcDataId"));
 			purchasedto.setPcName((String) oneMap.get("pc_name"));
