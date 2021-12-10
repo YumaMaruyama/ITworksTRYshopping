@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.example.demo.login.domail.model.PcDataDTO;
 import com.example.demo.login.domail.model.PurchaseDTO;
+import com.example.demo.login.domail.model.SalesManagementForm;
 
 public interface PurchaseDao {
 
@@ -48,4 +49,6 @@ public interface PurchaseDao {
 	public List<PurchaseDTO> cancelCheckSelectMany();
 	
 	public List<PurchaseDTO> productSalesSelectMany();
+	
+	public List<PurchaseDTO> productSalesSearchSelectMany(SalesManagementForm form,String newPurchaseDateFrom,String newPurchaseDateTo);
 }

@@ -50,3 +50,21 @@
 .salesManagement-revenue {
 	 width: 80px;
 }
+
+button.salesManagement-btn-radius-solid {
+  background: #f1e767;
+  background: -webkit-gradient(linear, left top, left bottom, from(#f1e767), to(#feb645));
+  background: -webkit-linear-gradient(top, #f1e767 0%, #feb645 100%);
+  background: linear-gradient(to bottom, #f1e767 0%, #feb645 100%);
+  margin-left: 107px;
+}
+
+button.salesManagement-btn-radius-solid:hover {
+  background: -webkit-gradient(linear, left bottom, left top, from(#f1e767), to(#feb645));
+  background: -webkit-linear-gradient(bottom, #f1e767 0%, #feb645 100%);
+  background: linear-gradient(to top, #f1e767 0%, #feb645 100%);
+}
+
+.salesManagement-btn {
+	margin-left: 15px !important;
+}

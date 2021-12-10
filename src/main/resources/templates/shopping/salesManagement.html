@@ -18,44 +18,73 @@
 				<th class="text-center">総コスト</th>
 				<th class="text-center">総利益</th>
 			<tr>
-			
 			<tr class="salesManagement-number-td">
 				<td class="text-center" th:text="${salesProductTotalPrice} + '円'"></td>
 				<td class="text-center" th:text="${totalCost}  + '円'"></td>
 				<td class="text-center" th:text="${revenue}  + '円'"></td>
 			</tr>
 		</table>
-		
+
 		<div class="administratorTable">
-				<table class="table  table-bordered salesManagement-table"
-					th:each="purchasedtoAllList : ${purchasedtoAllList}">
-					<tr class="salesManagement-th-design">
-						<th class="text-center salesManagement-productName">商品名</th>
-						<th class="text-center salesManagement-PurchaseName">購入者</th>
-						<th class="text-center salesManagement-purchaseDate">購入日</th>
-						<th class="text-center salesManagement-price">売値</th>
-						<th class="text-center salesManagement-cost">コスト</th>
-						<th class="text-center salesManagement-revenue">利益</th>
-					</tr>
+			<table class="table  table-bordered salesManagement-table"
+				th:each="purchasedtoAllList : ${purchasedtoAllList}">
+				<tr class="salesManagement-th-design">
+					<th class="text-center salesManagement-productName">商品名</th>
+					<th class="text-center salesManagement-PurchaseName">購入者</th>
+					<th class="text-center salesManagement-purchaseDate">購入日</th>
+					<th class="text-center salesManagement-price">売値</th>
+					<th class="text-center salesManagement-cost">コスト</th>
+					<th class="text-center salesManagement-revenue">利益</th>
+				</tr>
 
-					<tr class="salesManagement-td-design">
-						<th  class="text-center salesManagement-productName"
-							th:text="${purchasedtoAllList.pcName}"></th>
-						<th  class="text-center salesManagement-PurchaseName"
-							th:text="${purchasedtoAllList.userName} + ' 様'"></th>
-						<th  class="text-center salesManagement-purchaseDate"
-							th:text="${#dates.format(purchasedtoAllList.purchase_date,'yyyy/MM/dd ah:mm:ss')}"></th>	
-						<th  class="text-center salesManagement-price"
-							th:text="${purchasedtoAllList.totalPrice} + '円'"></th>
-						<th  class="text-center salesManagement-cost"
-							th:text="${purchasedtoAllList.cost} + '円'"></th>
-						<th  class="text-center salesManagement-revenue"
-							th:text="${purchasedtoAllList.revenue} + '円'"></th>
-					</tr>
+				<tr class="salesManagement-td-design">
+					<th class="text-center salesManagement-productName"
+						th:text="${purchasedtoAllList.pcName}"></th>
+					<th class="text-center salesManagement-PurchaseName"
+						th:text="${purchasedtoAllList.userName} + ' 様'"></th>
+					<th class="text-center salesManagement-purchaseDate"
+						th:text="${#dates.format(purchasedtoAllList.purchase_date,'yyyy/MM/dd ah:mm:ss')}"></th>
+					<th class="text-center salesManagement-price"
+						th:text="${purchasedtoAllList.totalPrice} + '円'"></th>
+					<th class="text-center salesManagement-cost"
+						th:text="${purchasedtoAllList.cost} + '円'"></th>
+					<th class="text-center salesManagement-revenue"
+						th:text="${purchasedtoAllList.revenue} + '円'"></th>
+				</tr>
 
-				</table>
-			</div>
+			</table>
+		</div>
 
+
+		<form method="post" th:action="@{/salesManagement}"
+			th:object="${salesManagementForm}">
+
+			<table class="table table-borderd productListSearchTable">
+				<tr>
+					
+					<th class="text-center">購入者</th>
+					<th class="text-center">購入日～</th>
+					<th class="text-center">～購入日</th>
+					<th class="text-center">検索ボタン</th>
+				</tr>
+
+				<tr>
+					<td><input id="textField1" type="text"
+						class="form-control formDesign" name="purchaseName"
+						th:field="*{purchaseName}"><span
+						class="text-danger" th:if="${#fields.hasErrors('purchaseName')}"
+						th:errors="*{purchaseName}">purchaseName error</span></td>
+						
+					<td><input id="dateField1" type="date" class="form-control formDesign"
+						name="purchaseDateFrom" th:field="*{purchaseDateFrom}"></td>
+						
+					<td><input id="purchaseDateTo" type="date" class="form-control formDesign"
+						name="purchaseDateTo" th:field="*{purchaseDateTo}"></td>
+					<td class="salesManagement-btn"><button class="btn salesManagement-btn-radius-solid" type="submit" name="search">検索</button></td>
+				</tr>
+			</table>
+
+		</form>
 	</div>
 
 </body>

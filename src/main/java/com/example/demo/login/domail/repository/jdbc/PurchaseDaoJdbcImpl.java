@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.example.demo.login.domail.model.PcDataDTO;
 import com.example.demo.login.domail.model.PurchaseDTO;
+import com.example.demo.login.domail.model.SalesManagementForm;
 import com.example.demo.login.domail.repository.PurchaseDao;
 
 @Repository
@@ -224,6 +225,57 @@ public class PurchaseDaoJdbcImpl implements PurchaseDao {
 			return salesList;
 		}
 	}
+	
+	public List<PurchaseDTO> productSalesSearchSelectMany(SalesManagementForm form,String newPurchaseDateFrom,String newPurchaseDateTo) {
+		System.out.println("test"+form);
+		
+		StringBuilder sql = new StringBuilder();
+	 	sql.append("select purchase.id,purchase.product_id,purchase.user_id,purchase.purchase_date,purchase.product_count,purchase.coupon_id,purchase.menber_coupon_check,purchase.point_use,purchase.point,pcdata.id as pcDataId,pcdata.pc_name,pcdata.price,pcdata.cost,cart.purchase_check as cartPurchaseCheck,users.user_name from purchase join pcdata on purchase.product_id = pcdata.id join cart on purchase.id = cart.purchase_check join users on users.id = purchase.user_id where id >= 1");
+
+	 	List<Object> list = new ArrayList<Object>();
+	 	
+	 	if((form.getPurchaseName() != null) && (!form.getPurchaseName().isEmpty())){
+	 		sql.append(" and users.user_name like ?");
+			list.add("%" + form.getPurchaseName() + "%");
+		}
+	 	
+	 	if((newPurchaseDateFrom != null) && (newPurchaseDateTo != null)) {
+			sql.append(" and purchase.purchase_date between ? and ?");
+			list.add(newPurchaseDateFrom);
+			list.add(newPurchaseDateTo);
+		}else if((newPurchaseDateFrom != null) && (newPurchaseDateTo == null)) {
+			sql.append(" and purchase.purchase_date >= ?");
+		}else if((newPurchaseDateFrom == null) && (form.getPurchaseDateTo() != null)) {
+			sql.append(" and purchase.purchase_date <= ?");
+			list.add(newPurchaseDateTo);
+		}
+		
+	 	Object[] addList = list.toArray(new Object[list.size()]);
+		String sqlNew = sql.toString();
+		List<Map<String,Object>> rowNumber = jdbc.queryForList(sqlNew,addList);
+		List<PurchaseDTO> salesList = new ArrayList<>();
+		
+		for(Map<String,Object> oneMap : rowNumber) {
+		PurchaseDTO purchasedto = new PurchaseDTO();
+		purchasedto.setId((int) oneMap.get("id"));
+		purchasedto.setProduct_id((int) oneMap.get("product_id"));
+		purchasedto.setUserName((String)oneMap.get("user_name"));
+		purchasedto.setPurchase_date((Date) oneMap.get("purchase_date"));
+		purchasedto.setPcDataId((int) oneMap.get("pcDataId"));
+		purchasedto.setPcName((String) oneMap.get("pc_name"));
+		purchasedto.setPrice((int) oneMap.get("price"));
+		purchasedto.setCost((int)oneMap.get("cost"));
+		purchasedto.setProduct_count((int) oneMap.get("product_count"));
+		purchasedto.setCouponId((int) oneMap.get("coupon_id"));
+		purchasedto.setMenberCouponCheck((String) oneMap.get("menber_coupon_check"));
+		purchasedto.setPointRepayment((int) oneMap.get("point"));
+		purchasedto.setPointUse((int) oneMap.get("point_use"));
+		purchasedto.setPurchaseCheck((int) oneMap.get("cartPurchaseCheck"));
+		
+		salesList.add(purchasedto);
+		}
+		return salesList;
+	}
 
 	public int deleteOne(int purchaseId) {
 		int result = jdbc.update("delete from purchase where id = ?", purchaseId);
@@ -343,6 +395,8 @@ public class PurchaseDaoJdbcImpl implements PurchaseDao {
 
 		return purchaseList;
 	}
+	
+	
 	
 
 }

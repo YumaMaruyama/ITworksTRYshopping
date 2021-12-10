@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.login.domail.model.PcDataDTO;
 import com.example.demo.login.domail.model.PurchaseDTO;
+import com.example.demo.login.domail.model.SalesManagementForm;
 import com.example.demo.login.domail.repository.PurchaseDao;
 
 @Service
@@ -97,6 +98,10 @@ public class PurchaseService {
 	
 	public List<PurchaseDTO> productSalesSelectMany() {
 		return dao.productSalesSelectMany();
+	}
+	
+	public List<PurchaseDTO> productSalesSearchSelectMany(SalesManagementForm form,String newPurchaseDateFrom,String newPurchaseDateTo) {
+		return dao.productSalesSearchSelectMany(form,newPurchaseDateFrom,newPurchaseDateTo);
 	}
 	
 
