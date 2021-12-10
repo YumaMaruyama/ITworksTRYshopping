@@ -245,6 +245,7 @@ public class PurchaseDaoJdbcImpl implements PurchaseDao {
 			list.add(newPurchaseDateTo);
 		}else if((newPurchaseDateFrom != null) && (newPurchaseDateTo == null)) {
 			sql.append(" and purchase.purchase_date >= ?");
+			list.add(newPurchaseDateFrom);
 		}else if((newPurchaseDateFrom == null) && (form.getPurchaseDateTo() != null)) {
 			sql.append(" and purchase.purchase_date <= ?");
 			list.add(newPurchaseDateTo);
