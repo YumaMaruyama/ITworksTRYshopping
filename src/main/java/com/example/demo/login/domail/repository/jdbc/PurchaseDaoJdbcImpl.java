@@ -226,11 +226,11 @@ public class PurchaseDaoJdbcImpl implements PurchaseDao {
 		}
 	}
 	
-	public List<PurchaseDTO> productSalesSearchSelectMany(SalesManagementForm form,String newPurchaseDateFrom,String newPurchaseDateTo) {
+	public List<PurchaseDTO> productSalesSearchSelectMany(SalesManagementForm form) {
 		System.out.println("test"+form);
 		
 		StringBuilder sql = new StringBuilder();
-	 	sql.append("select purchase.id,purchase.product_id,purchase.user_id,purchase.purchase_date,purchase.product_count,purchase.coupon_id,purchase.menber_coupon_check,purchase.point_use,purchase.point,pcdata.id as pcDataId,pcdata.pc_name,pcdata.price,pcdata.cost,cart.purchase_check as cartPurchaseCheck,users.user_name from purchase join pcdata on purchase.product_id = pcdata.id join cart on purchase.id = cart.purchase_check join users on users.id = purchase.user_id where id >= 1");
+	 	sql.append("select purchase.id,purchase.product_id,purchase.user_id,purchase.purchase_date,purchase.product_count,purchase.coupon_id,purchase.menber_coupon_check,purchase.point_use,purchase.point,pcdata.id as pcDataId,pcdata.pc_name,pcdata.price,pcdata.cost,cart.purchase_check as cartPurchaseCheck,users.user_name from purchase join pcdata on purchase.product_id = pcdata.id join cart on purchase.id = cart.purchase_check join users on users.id = purchase.user_id where purchase.id >= 1");
 
 	 	List<Object> list = new ArrayList<Object>();
 	 	
@@ -239,16 +239,16 @@ public class PurchaseDaoJdbcImpl implements PurchaseDao {
 			list.add("%" + form.getPurchaseName() + "%");
 		}
 	 	
-	 	if((newPurchaseDateFrom != null) && (newPurchaseDateTo != null)) {
+	 	if((form.getPurchaseDateFrom() != null) && (form.getPurchaseDateTo() != null)) {
 			sql.append(" and purchase.purchase_date between ? and ?");
-			list.add(newPurchaseDateFrom);
-			list.add(newPurchaseDateTo);
-		}else if((newPurchaseDateFrom != null) && (newPurchaseDateTo == null)) {
+			list.add(form.getPurchaseDateFrom());
+			list.add(form.getPurchaseDateTo());
+		}else if((form.getPurchaseDateFrom() != null) && (form.getPurchaseDateTo() == null)) {
 			sql.append(" and purchase.purchase_date >= ?");
-			list.add(newPurchaseDateFrom);
-		}else if((newPurchaseDateFrom == null) && (form.getPurchaseDateTo() != null)) {
+			list.add(form.getPurchaseDateFrom());
+		}else if((form.getPurchaseDateFrom() == null) && (form.getPurchaseDateTo() != null)) {
 			sql.append(" and purchase.purchase_date <= ?");
-			list.add(newPurchaseDateTo);
+			list.add(form.getPurchaseDateTo());
 		}
 		
 	 	Object[] addList = list.toArray(new Object[list.size()]);

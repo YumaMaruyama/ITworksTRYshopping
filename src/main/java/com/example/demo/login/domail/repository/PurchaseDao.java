@@ -50,5 +50,5 @@ public interface PurchaseDao {
 	
 	public List<PurchaseDTO> productSalesSelectMany();
 	
-	public List<PurchaseDTO> productSalesSearchSelectMany(SalesManagementForm form,String newPurchaseDateFrom,String newPurchaseDateTo);
+	public List<PurchaseDTO> productSalesSearchSelectMany(SalesManagementForm form);
 }

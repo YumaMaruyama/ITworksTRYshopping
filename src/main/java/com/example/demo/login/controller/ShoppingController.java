@@ -7808,20 +7808,22 @@ public class ShoppingController {
 		
 		List<PurchaseDTO> purchasedtoAllList = new ArrayList<>();
 		
-		String newPurchaseDateFrom = null;
-		String newPurchaseDateTo = null;
+		System.out.println("datecheck"+form.getPurchaseDateFrom());
 		
-		if(form.getPurchaseDateFrom() != null) {
-        newPurchaseDateFrom = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(form.getPurchaseDateFrom());
-		}
-		if(form.getPurchaseDateTo() != null) {
-        newPurchaseDateTo = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(form.getPurchaseDateTo());
-		}
+//		String newPurchaseDateFrom = null;
+//		String newPurchaseDateTo = null;
+//		
+//		if(form.getPurchaseDateFrom() != null) {
+//        newPurchaseDateFrom = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(form.getPurchaseDateFrom());
+//		}
+//		if(form.getPurchaseDateTo() != null) {
+//        newPurchaseDateTo = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(form.getPurchaseDateTo());
+//		}
 		
 		
 		// 購入商品情報取得
 		System.out.println("!!1");
-		List<PurchaseDTO> salesList = purchaseService.productSalesSearchSelectMany(form,newPurchaseDateFrom,newPurchaseDateTo);
+		List<PurchaseDTO> salesList = purchaseService.productSalesSearchSelectMany(form);
 		System.out.println("!!2");
 		for(int x = 0; salesList.size() > x; x++) {
 			PurchaseDTO purchasedto = new PurchaseDTO();

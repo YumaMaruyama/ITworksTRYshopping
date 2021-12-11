@@ -100,8 +100,8 @@ public class PurchaseService {
 		return dao.productSalesSelectMany();
 	}
 	
-	public List<PurchaseDTO> productSalesSearchSelectMany(SalesManagementForm form,String newPurchaseDateFrom,String newPurchaseDateTo) {
-		return dao.productSalesSearchSelectMany(form,newPurchaseDateFrom,newPurchaseDateTo);
+	public List<PurchaseDTO> productSalesSearchSelectMany(SalesManagementForm form) {
+		return dao.productSalesSearchSelectMany(form);
 	}
 	
 
