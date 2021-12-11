@@ -26,4 +26,6 @@ public interface PcDataDao {
 	public int productEditOne(int productId,PcDataForm form);
 	
 	public List<PcDataDTO>  searchProductSelectMany(ProductListSearchForm form);
+	
+	public List<PcDataDTO> stockOutProductSelectMany();
 }

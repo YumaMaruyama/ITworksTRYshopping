@@ -207,9 +207,33 @@ public class PcDataDaoJdbcImpl implements PcDataDao {
 			}
 			
 			return pcdataList;
-			
-			
-			
+	}
+	
+	public List<PcDataDTO> stockOutProductSelectMany() {
+		List<Map<String, Object>> productList = jdbc.queryForList("select * from pcdata where product_stock = 0");
+
+		List<PcDataDTO> pcdatadtoList = new ArrayList<>();
+
+		for (Map<String, Object> map : productList) {
+			PcDataDTO pcdatadto = new PcDataDTO();
+
+			pcdatadto.setId((int) map.get("id"));
+			pcdatadto.setCompany((String) map.get("company"));
+			pcdatadto.setOs((String) map.get("os"));
+			pcdatadto.setPc_name((String) map.get("pc_name"));
+			pcdatadto.setPc_size((int) map.get("pc_size"));
+			pcdatadto.setPrice((int) map.get("price"));
+			pcdatadto.setDetail((String) map.get("detail"));
+			pcdatadto.setProduct_stock((int) map.get("product_stock"));
+			pcdatadto.setPcImg((String) map.get("pcImg"));
+			pcdatadto.setPcImg2((String) map.get("pcImg2"));
+			pcdatadto.setPcImg3((String) map.get("pcImg3"));
+
+			pcdatadtoList.add(pcdatadto);
+		}
+
+		return pcdatadtoList;
+
 	}
 
 }

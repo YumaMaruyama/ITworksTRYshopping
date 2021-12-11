@@ -63,4 +63,7 @@ public class PcDataService {
 		return dao.searchProductSelectMany(form);
 	}
 
+	public List<PcDataDTO> stockOutProductSelectMany() {
+		return dao.stockOutProductSelectMany();
+	}
 }
