@@ -89,11 +89,15 @@
 
 				<td><input id="textField3" type="text" class="form-control formDesign"
 					 name="priceFrom"
-					th:field="*{priceFrom}"></td>
+					th:field="*{priceFrom}"><span
+					class="text-danger" th:if="${#fields.hasErrors('priceFrom')}"
+					th:errors="*{priceFrom}">priceFrom error</span></td>
 					
 				<td><input id="textField4" type="text" class="form-control formDesign"
-					 name="priceTo"
-					th:field="*{priceTo}"></td>
+					 name="price"
+					th:field="*{priceTo}"><span
+					class="text-danger" th:if="${#fields.hasErrors('priceTo')}"
+					th:errors="*{priceTo}">priceTo error</span></td>
 				<td><button class="btn productList-btn-radius-solid productList-btn--shadow" type="submit" name="search">検索</button></td>
 			</tr>
 		</table>

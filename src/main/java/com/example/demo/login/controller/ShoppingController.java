@@ -4987,9 +4987,15 @@ public class ShoppingController {
 	}
 
 	@PostMapping(value = "/productList", params = "search")
-	public String postProductList(@ModelAttribute ProductListSearchForm form, Model model) {
+	public String postProductList(@ModelAttribute @Validated(GroupOrder.class) ProductListSearchForm form,BindingResult bindingResult, Model model) {
 		model.addAttribute("contents", "shopping/productList::productListLayout_contents");
 
+		if(bindingResult.hasErrors()) {
+			PcDataForm pcdataform = new PcDataForm();
+			RedirectAttributes redirectAttributes = null;
+			return getProductList(pcdataform,form,redirectAttributes,model);
+		}
+		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String user_id = auth.getName();
 
@@ -7893,9 +7899,13 @@ public class ShoppingController {
 	}
 	
 	@PostMapping(value = "/salesManagement", params = "search")
-	public String postSalesManagement(@ModelAttribute SalesManagementForm form,Model model) {
+	public String postSalesManagement(@ModelAttribute @Validated(GroupOrder.class) SalesManagementForm form,BindingResult bindingResult,Model model) {
 		model.addAttribute("contents", "shopping/salesManagement::productListLayout_contents");
 
+		if(bindingResult.hasErrors()) {
+			return getSalesManagement(form,model);
+		}
+		
 		//ユーザーIDを取得
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String getName = auth.getName();
@@ -7906,23 +7916,9 @@ public class ShoppingController {
 		
 		List<PurchaseDTO> purchasedtoAllList = new ArrayList<>();
 		
-		System.out.println("datecheck"+form.getPurchaseDateFrom());
-		
-//		String newPurchaseDateFrom = null;
-//		String newPurchaseDateTo = null;
-//		
-//		if(form.getPurchaseDateFrom() != null) {
-//        newPurchaseDateFrom = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(form.getPurchaseDateFrom());
-//		}
-//		if(form.getPurchaseDateTo() != null) {
-//        newPurchaseDateTo = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(form.getPurchaseDateTo());
-//		}
-		
 		
 		// 購入商品情報取得
-		System.out.println("!!1");
 		List<PurchaseDTO> salesList = purchaseService.productSalesSearchSelectMany(form);
-		System.out.println("!!2");
 		for(int x = 0; salesList.size() > x; x++) {
 			PurchaseDTO purchasedto = new PurchaseDTO();
 			PurchaseDTO purchasedtoList = salesList.get(x); 
