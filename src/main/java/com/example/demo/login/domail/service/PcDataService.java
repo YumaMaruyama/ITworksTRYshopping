@@ -66,4 +66,16 @@ public class PcDataService {
 	public List<PcDataDTO> stockOutProductSelectMany() {
 		return dao.stockOutProductSelectMany();
 	}
-}
+	
+	public List<PcDataDTO> listingStopProductSelectMany() {
+		return dao.listingStopProductSelectMany();
+	}
+	
+	public int listingStopUpdateOne(int productId) {
+		return dao.listingStopUpdateOne(productId);
+	}
+	
+	public int listingRestartUpdateOne(int productId) {
+		return dao.listingRestartUpdateOne(productId);
+	}
+} 

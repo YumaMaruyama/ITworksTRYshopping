@@ -8016,11 +8016,120 @@ public class ShoppingController {
 		model.addAttribute("totalCost",totalCost);
 		model.addAttribute("revenue",revenue);
 		model.addAttribute("purchasedtoAllList",purchasedtoAllList);
+		return "shopping/productListLayout";
+	}
+	
+	@GetMapping("/listingProductStop")
+	public String getListingProductStop(Model model) {
+		model.addAttribute("contents", "shopping/listingProductStop::productListLayout_contents");
 		
+		// 商品情報をすべて取得
+		//List<PcDataDTO> productList = pcdataService.listingStopProductSelectMany();
+		List<PcDataDTO> productList = pcdataService.selectMany();
 		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+		UsersDTO headerName = usersService.getUser_name(auth.getName());
+		session.setAttribute("sessionGetUser_name", headerName.getUser_name());
+		session.setAttribute("sessionGetRole", headerName.getRole());
+
+		model.addAttribute("productList", productList);
+
+		int allProductCount = 0;
+		int allTotalPrice = 0;
+		String user_id = auth.getName();
+		// ログインユーザーのID取得
+		int selectId = usersService.select_id(user_id);
+		List<PurchaseDTO> purchasedtoList = purchaseService.selectHistory(selectId);
+
+		PurchaseDTO customList;
+		// 購入商品を一つづつ回して値を受け取る
+		if (purchasedtoList.size() > 0) {
+			for (int i = 0; purchasedtoList.size() > i; i++) {
+				PurchaseDTO purchasedtoAdd = new PurchaseDTO();
+				PurchaseDTO purchaseOne = purchasedtoList.get(i);
+				purchasedtoAdd.setId(purchaseOne.getId());// カスタム情報取得に使用
+				purchasedtoAdd.setCancelCheck(purchaseOne.getCancelCheck());
+				purchasedtoAdd.setPrice(purchaseOne.getPrice());
+				purchasedtoAdd.setProduct_count(purchaseOne.getProduct_count());
+				purchasedtoAdd.setPurchaseCheck(purchaseOne.getPurchaseCheck());
+				// 購入商品ごとのカスタム情報も取り出す
+				int productId = purchasedtoAdd.getId();
+
+				String nullCheck = "null";
+				int getCustomId = customService.selectPurchaseCheck(selectId, productId,
+						purchasedtoAdd.getPurchaseCheck(), nullCheck);
+
+				customList = customService.selectMany(getCustomId);// customテーブルのIDでカスタム情報を取得
+				purchasedtoAdd.setCustomPrice(customList.getCustomPrice());
+				purchasedtoAdd.setTotalPrice(
+						purchaseOne.getProduct_count() * (customList.getCustomPrice() + purchaseOne.getPrice()));
+				allTotalPrice = allTotalPrice + purchasedtoAdd.getTotalPrice();// ユーザーの購入した商品の合計金額を取得
+				allProductCount = allProductCount + purchasedtoAdd.getProduct_count();// ユーザーの購入した商品の数を取得
+				model.addAttribute("purchaseCount", allProductCount);
+				model.addAttribute("allTotalPrice", allTotalPrice);
+
+				System.out.println("allTotalPrice" + allTotalPrice);
+				if ((allTotalPrice > 0) && (allTotalPrice < 50000)) {
+
+					session.setAttribute("rankPoint", "アマチュアランク");
+				} else if ((allTotalPrice >= 50000) && (allTotalPrice < 100000)) {
+
+					session.setAttribute("rankPoint", "プロランク");
+				} else if ((allTotalPrice >= 100000) && (allTotalPrice < 200000)) {
+
+					session.setAttribute("rankPoint", "ブロンズランク");
+				} else if ((allTotalPrice >= 200000) && (allTotalPrice < 400000)) {
+
+					session.setAttribute("rankPoint", "シルバーランク");
+				} else if ((allTotalPrice >= 400000) && (allTotalPrice < 800000)) {
+
+					session.setAttribute("rankPoint", "ゴールドランク");
+				} else if ((allTotalPrice >= 800000) && (allTotalPrice < 1000000)) {
+
+					session.setAttribute("rankPoint", "ダイヤモンドランク");
+				} else if ((allTotalPrice >= 1000000) && (allTotalPrice < 1500000)) {
+
+					session.setAttribute("rankPoint", "プラチナランク");
+				} else if ((allTotalPrice >= 1500000) && (allTotalPrice < 3000000)) {
+
+					session.setAttribute("rankPoint", "エイリアンランク");
+				} else if ((allTotalPrice >= 3000000) && (allTotalPrice < 5000000)) {
+
+					session.setAttribute("rankPoint", "ゴッドフォックスランク");
+				} else if ((allTotalPrice >= 5000000) && (allTotalPrice < 8000000)) {
+
+					session.setAttribute("rankPoint", "プレミアムゴッドランク");
+				} else if ((allTotalPrice >= 8000000)) {
+
+					session.setAttribute("rankPoint", "InductedIntoTheHalOfFameRank");
+				}
+			}
+		} else {
+			session.setAttribute("rankPoint", "アマチュアランク");
+		}
+
 		
 		return "shopping/productListLayout";
 	}
+	
+	@GetMapping("/listingStop/{id}")
+	public String getListingStop(@PathVariable("id") int productId,Model model) {
+		
+		pcdataService.listingStopUpdateOne(productId);
+		
+		return getListingProductStop(model);
+	}
+	
+	@GetMapping("/listingRestart/{id}")
+	public String getListingRestart(@PathVariable("id") int productId,Model model) {
+		
+		pcdataService.listingRestartUpdateOne(productId);
+		
+		return getListingProductStop(model);
+	}
+	
+	
 	// ログアウト用メソッド
 	@GetMapping("logout")
 	public String getLogout() {

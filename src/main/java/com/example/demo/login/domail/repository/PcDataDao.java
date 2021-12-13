@@ -28,4 +28,10 @@ public interface PcDataDao {
 	public List<PcDataDTO>  searchProductSelectMany(ProductListSearchForm form);
 	
 	public List<PcDataDTO> stockOutProductSelectMany();
+	
+	public List<PcDataDTO> listingStopProductSelectMany();
+	
+	public int listingStopUpdateOne(int productId);
+	
+	public int listingRestartUpdateOne(int productId);
 }

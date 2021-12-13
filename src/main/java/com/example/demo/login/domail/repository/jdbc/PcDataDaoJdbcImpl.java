@@ -53,6 +53,7 @@ public class PcDataDaoJdbcImpl implements PcDataDao {
 			pcdatadto.setPcImg((String) map.get("pcImg"));
 			pcdatadto.setPcImg2((String) map.get("pcImg2"));
 			pcdatadto.setPcImg3((String) map.get("pcImg3"));
+			pcdatadto.setListingStopCheck((String)map.get("listing_stop_check"));
 
 			pcdatadtoList.add(pcdatadto);
 		}
@@ -234,6 +235,46 @@ public class PcDataDaoJdbcImpl implements PcDataDao {
 
 		return pcdatadtoList;
 
+	}
+	
+	public List<PcDataDTO> listingStopProductSelectMany() {
+		List<Map<String, Object>> productList = jdbc.queryForList("select * from pcdata where listing_stop_check is null");
+
+		List<PcDataDTO> pcdatadtoList = new ArrayList<>();
+
+		for (Map<String, Object> map : productList) {
+			PcDataDTO pcdatadto = new PcDataDTO();
+
+			pcdatadto.setId((int) map.get("id"));
+			pcdatadto.setCompany((String) map.get("company"));
+			pcdatadto.setOs((String) map.get("os"));
+			pcdatadto.setPc_name((String) map.get("pc_name"));
+			pcdatadto.setPc_size((int) map.get("pc_size"));
+			pcdatadto.setPrice((int) map.get("price"));
+			pcdatadto.setDetail((String) map.get("detail"));
+			pcdatadto.setProduct_stock((int) map.get("product_stock"));
+			pcdatadto.setPcImg((String) map.get("pcImg"));
+			pcdatadto.setPcImg2((String) map.get("pcImg2"));
+			pcdatadto.setPcImg3((String) map.get("pcImg3"));
+			pcdatadto.setListingStopCheck((String)map.get("listing_stop_check"));
+
+			pcdatadtoList.add(pcdatadto);
+		}
+
+		return pcdatadtoList;
+
+	}
+	
+	public int listingStopUpdateOne(int productId) {
+		int result = jdbc.update("update pcdata set listing_stop_check = '出品停止' where id = ?",productId);
+		
+		return result;
+	}
+	
+	public int listingRestartUpdateOne(int productId) {
+		int result = jdbc.update("update pcdata set listing_stop_check = null where id = ?",productId);
+		
+		return result;
 	}
 
 }

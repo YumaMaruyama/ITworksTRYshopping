@@ -58,5 +58,7 @@ public class PcDataDTO {
 	private int totalPriceOne;
 
 	private boolean couponCheck;
+	
+	private String listingStopCheck;
 
 }
