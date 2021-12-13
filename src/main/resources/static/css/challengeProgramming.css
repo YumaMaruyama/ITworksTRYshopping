@@ -37,6 +37,10 @@
 	margin-right: 60px;
 }
 
+.lessonHistoryBtn {
+	margin-left: 30px !important;
+}
+
 a.btn-radius-solid-history {
 	background: #f1e767;
 	background: -webkit-gradient(linear, left top, left bottom, from(#f1e767),
