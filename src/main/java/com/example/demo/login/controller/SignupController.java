@@ -1,6 +1,10 @@
 package com.example.demo.login.controller;
 
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,6 +17,7 @@ import com.example.demo.login.domail.model.GroupOrder;
 import com.example.demo.login.domail.model.SignupForm;
 import com.example.demo.login.domail.model.Usege_usersDTO;
 import com.example.demo.login.domail.model.UsersDTO;
+import com.example.demo.login.domail.service.MailService;
 import com.example.demo.login.domail.service.Usege_usersService;
 import com.example.demo.login.domail.service.UsersService;
 
@@ -23,6 +28,8 @@ public class SignupController {
 	UsersService usersService;
 	@Autowired
 	Usege_usersService usegeService;
+	@Autowired
+	MailService mailService;
 
 	@GetMapping("/signup")
 	public String getSignup(@ModelAttribute SignupForm form,Model model) {
@@ -32,7 +39,7 @@ public class SignupController {
 	}
 
 	@PostMapping("/signup")
-	public String postSignup(@ModelAttribute @Validated(GroupOrder.class) SignupForm form, BindingResult bindingResult,Model model) {
+	public String postSignup(@ModelAttribute @Validated(GroupOrder.class) SignupForm form, BindingResult bindingResult,Model model) throws MessagingException {
 		System.out.println("PostSignup到達");
 		model.addAttribute("contents", "shopping/login::loginLayout_contents");
 
@@ -68,6 +75,12 @@ public class SignupController {
 		usegedto.setAddress(form.getAddress());
 
 		usegeService.insertOne(usegedto);
+		
+		//新規ユーザー登録完了メールを送信
+		mailService.signupSendMail();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String mailAddress = auth.getName();
+		mailService.adminSendMail(mailAddress);
 
 		return "shopping/loginLayout";
 	}

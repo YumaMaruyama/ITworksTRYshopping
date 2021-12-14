@@ -64,5 +64,9 @@ public class UsersService {
 	public String selectRole(int userId) {
 		return dao.selectRole(userId);
 	}
+	
+	public String mailAddressSelectOne(int userId) {
+		return dao.mailAddressSelectOne(userId);
+	}
 
 }

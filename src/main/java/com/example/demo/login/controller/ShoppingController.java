@@ -1629,7 +1629,7 @@ public class ShoppingController {
 					}
 				}
 			}
-			
+
 			purchasedtoAdd.setTotalPrice((purchasedtoAdd.getTotalPrice() - purchasedtoAdd.getPointUse()));
 
 			Calendar calendar = Calendar.getInstance();
@@ -1670,11 +1670,15 @@ public class ShoppingController {
 		return "shopping/productListLayout";
 	}
 
-	@GetMapping("/deliveryProcedureOK/{id}")
-	public String postDeliveryCheck(@ModelAttribute @PathVariable("id") int purchaseId, Model model) {
+	@GetMapping("/deliveryProcedureOK/{id}/{userId}")
+	public String postDeliveryCheck(@ModelAttribute @PathVariable("id") int purchaseId,@PathVariable("userId") int userId, Model model) throws MessagingException {
 
 		purchaseService.deliveryProcedureCheckInsertOne(purchaseId);
-
+		
+		String mailAddress = usersService.mailAddressSelectOne(userId);
+		
+		mailService.deliverySendMail(mailAddress);
+		
 		PcDataForm form = new PcDataForm();
 		return getDeliveryCheck(form, model);
 	}
@@ -1759,7 +1763,7 @@ public class ShoppingController {
 			}
 
 			purchasedtoAdd.setTotalPrice((purchasedtoAdd.getTotalPrice() - purchasedtoAdd.getPointUse()));
-			
+
 			Calendar calendar = Calendar.getInstance();
 			Date now = calendar.getTime();
 			calendar.setTime(purchasedtoAdd.getPurchase_date());
@@ -1953,8 +1957,8 @@ public class ShoppingController {
 		purchasedto.setCustomPrice(customList.getCustomPrice());
 		purchasedto.setTotalPrice(
 				(purchasedto.getProduct_count() * (purchasedto.getPrice() + purchasedto.getCustomPrice())));// 商品購入数 *
-																											// 商品価格 *
-																											// カスタム値段
+																																		// 商品価格 *
+																																		// カスタム値段
 
 		// クーポンを使用しているならtotalPriceから引く
 		if (purchasedto.getMenberCouponCheck().equals("会員クーポン使用")) {
@@ -4989,22 +4993,23 @@ public class ShoppingController {
 	}
 
 	@PostMapping(value = "/productList", params = "search")
-	public String postProductList(@ModelAttribute @Validated(GroupOrder.class) ProductListSearchForm form,BindingResult bindingResult, Model model) {
+	public String postProductList(@ModelAttribute @Validated(GroupOrder.class) ProductListSearchForm form,
+			BindingResult bindingResult, Model model) {
 		model.addAttribute("contents", "shopping/productList::productListLayout_contents");
 
-		if(bindingResult.hasErrors()) {
+		if (bindingResult.hasErrors()) {
 			PcDataForm pcdataform = new PcDataForm();
 			RedirectAttributes redirectAttributes = null;
-			return getProductList(pcdataform,form,redirectAttributes,model);
+			return getProductList(pcdataform, form, redirectAttributes, model);
 		}
-		
+
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String user_id = auth.getName();
 
 		// ユーザーが検索した内容の商品情報を取得
 		List<PcDataDTO> productList = pcdataService.searchProductSelectMany(form);
 		model.addAttribute("productList", productList);
-		
+
 		UsersDTO headerName = usersService.getUser_name(auth.getName());
 		session.setAttribute("sessionGetUser_name", headerName.getUser_name());
 		session.setAttribute("sessionGetRole", headerName.getRole());
@@ -5086,20 +5091,20 @@ public class ShoppingController {
 		return "shopping/productListLayout";
 
 	}
-	
+
 	@GetMapping("productStockOut")
 	public String getProductStockOut(@ModelAttribute PcDataForm form, ProductListSearchForm productlistsearchform,
 			RedirectAttributes redirectAttributes, Model model) {
 		model.addAttribute("contents", "shopping/productStockOut::productListLayout_contents");
-		
+
 		// 在庫がない商品情報をすべて取得
 		List<PcDataDTO> productList = pcdataService.stockOutProductSelectMany();
-		if(productList.size() > 0) {
-			model.addAttribute("subText","また入荷次第購入可能になる可能性があります");
-		}else {
-			model.addAttribute("subText","在庫なしの商品は現在ありません");
+		if (productList.size() > 0) {
+			model.addAttribute("subText", "また入荷次第購入可能になる可能性があります");
+		} else {
+			model.addAttribute("subText", "在庫なしの商品は現在ありません");
 		}
-		
+
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
 		UsersDTO headerName = usersService.getUser_name(auth.getName());
@@ -6357,12 +6362,13 @@ public class ShoppingController {
 			@RequestParam("digits_3_code") String digits_3_code, @RequestParam("cardName") String cardName,
 			@RequestParam("cardNumber") String cardNumber, @RequestParam("totalPrice") int totalPrice,
 			@RequestParam("couponId") int couponId, HttpServletRequest request, HttpServletResponse response,
-			Model model) {
+			Model model) throws MessagingException {
 
 		int pointminusTotalPrice = (int) session.getAttribute("pointminusTotalPrice");
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String getName = auth.getName();
+		System.out.println("getname" + getName);
 		int select_id = usersService.select_id(getName);
 
 		boolean result = cartService.selectProductCount(select_id);// ユーザーが購入した、各商品の購入数を取得
@@ -6438,6 +6444,9 @@ public class ShoppingController {
 			customService.pruchaseIdUpdate(purchaseId, productId, select_id);// customテーブルの購入チェックをアップデート
 			cartService.idInsertOne(purchaseId, productId, select_id);// cartテーブルの購入チェックをアップデート
 		}
+		//各ユーザーに購入完了mail送信
+		mailService.purchaseSendMail(getName);
+		mailService.adminSendMail(getName);
 
 		return getAfter_purchase(model);
 	}
@@ -6546,15 +6555,15 @@ public class ShoppingController {
 
 		// リターン先をmodelのコンテンツから変更
 		// 初めに表示されるメッセージを取得
-//		ChallengeProgrammingContractDTO challengeProgrammingContractTeacherMessage = challengeProgrammingContractService.teacherMessege1Select(productId);
-//		challengeProgrammingContractTeacherMessage.setProductId(productId);
-//		challengeProgrammingContractTeacherMessage.setMyMessage1("bloc");
-//		model.addAttribute("chatContents",challengeProgrammingContractTeacherMessage);
-//		model.addAttribute("chatCheck","no");
-//		
-//		
-//		//進行バーの初期表示設定(挨拶)
-//		model.addAttribute("progressStatus",1);
+		//		ChallengeProgrammingContractDTO challengeProgrammingContractTeacherMessage = challengeProgrammingContractService.teacherMessege1Select(productId);
+		//		challengeProgrammingContractTeacherMessage.setProductId(productId);
+		//		challengeProgrammingContractTeacherMessage.setMyMessage1("bloc");
+		//		model.addAttribute("chatContents",challengeProgrammingContractTeacherMessage);
+		//		model.addAttribute("chatCheck","no");
+		//		
+		//		
+		//		//進行バーの初期表示設定(挨拶)
+		//		model.addAttribute("progressStatus",1);
 
 		ChallengeProgrammingTradeForm returnForm = new ChallengeProgrammingTradeForm();
 		return postChallengeProgrammingTrade(returnForm, productId, model);
@@ -6742,14 +6751,14 @@ public class ShoppingController {
 		int getYear = calendar.get(Calendar.YEAR);
 		int getMonth = calendar.get(Calendar.MONTH);
 		int getDate = calendar.get(Calendar.DATE);
-		
+
 		// 今月の最終日を取得\
 		calendar.set(getYear, getMonth + 1, 1);
 		calendar.add(Calendar.DATE, -1);
 		int lastDay = calendar.get(Calendar.DATE);
 
-		calendar.set(getYear, getMonth,getDate);
-		
+		calendar.set(getYear, getMonth, getDate);
+
 		// 設定日を除いた一週間分から選択してもらう
 		String[] getDayList = new String[7];
 		for (int x = 1; x < 8; x++) {
@@ -6763,47 +6772,47 @@ public class ShoppingController {
 				for (int y = 1; y <= 7 - ifX; ifX++) {
 
 					oneMove = getDate + z++;
-					calendar.set(getYear, getMonth +2, 1);
+					calendar.set(getYear, getMonth + 2, 1);
 					int month = calendar.get(Calendar.MONTH);
-					if(month == 0) {
+					if (month == 0) {
 						month = 12;
 					}
- 					getDayList[ifX - 1] = month + "月" + oneMove + "日";
- 					
+					getDayList[ifX - 1] = month + "月" + oneMove + "日";
+
 				}
-				
-				for (int y = 0; y <= 7 - ifX;) {	
+
+				for (int y = 0; y <= 7 - ifX;) {
 					oneMove = getDate + z++;
-					calendar.set(getYear, getMonth +2, 1);
+					calendar.set(getYear, getMonth + 2, 1);
 					int month = calendar.get(Calendar.MONTH);
-					if(month == 0) {
+					if (month == 0) {
 						month = 12;
 					}
- 					getDayList[ifX - 1] = month + "月" + oneMove + "日";
- 					System.out.println(Arrays.toString(getDayList));
- 					model.addAttribute("dayList", getDayList);
- 					model.addAttribute("productId", productId);
+					getDayList[ifX - 1] = month + "月" + oneMove + "日";
+					System.out.println(Arrays.toString(getDayList));
+					model.addAttribute("dayList", getDayList);
+					model.addAttribute("productId", productId);
 
- 					return "shopping/productListLayout";
+					return "shopping/productListLayout";
 				}
-				
-			if(ifX == 7) {
-				System.out.println(Arrays.toString(getDayList));
-				model.addAttribute("dayList", getDayList);
-				model.addAttribute("productId", productId);
 
-				return "shopping/productListLayout";
+				if (ifX == 7) {
+					System.out.println(Arrays.toString(getDayList));
+					model.addAttribute("dayList", getDayList);
+					model.addAttribute("productId", productId);
+
+					return "shopping/productListLayout";
 				}
-			}else {
-					System.out.println("月初めなし");
-					calendar.set(getYear, getMonth +1, 1);
-					int month = calendar.get(Calendar.MONTH);
-					if(month == 0) {
-						month = 12;
-					}
-					getDayList[x - 1] = month + "月" + oneMove + "日";
+			} else {
+				System.out.println("月初めなし");
+				calendar.set(getYear, getMonth + 1, 1);
+				int month = calendar.get(Calendar.MONTH);
+				if (month == 0) {
+					month = 12;
 				}
-			
+				getDayList[x - 1] = month + "月" + oneMove + "日";
+			}
+
 		}
 		System.out.println(Arrays.toString(getDayList));
 		model.addAttribute("dayList", getDayList);
@@ -6973,7 +6982,6 @@ public class ShoppingController {
 			String simpleDate = format.format(nowDate);
 			challengeProgrammingContractService.startDateInsertOne(productId, simpleDate);
 
-			mailService.purchaseSendMail();
 			return postChallengeProgrammingTrade(challengeprogrammingtradeform, productId, model);
 		} else {
 			model.addAttribute("errorMessage", "開始パスワードが正しくありません");
@@ -7256,7 +7264,7 @@ public class ShoppingController {
 	@GetMapping("/gacha")
 	public String getGacha(Model model) {
 		model.addAttribute("contents", "shopping/dailyGacha::productListLayout_contents");
-		model.addAttribute("gachaTurn","yes");
+		model.addAttribute("gachaTurn", "yes");
 		//現在の日付とユーザーIDを取得
 		Date nowDate = new Date();
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -7264,79 +7272,77 @@ public class ShoppingController {
 		int userId = usersService.select_id(getName);
 		GachaDTO gachadto = new GachaDTO();
 
-		
 		//本日ガチャを回したかチェック
 		//直近に回したガチャの日付を取得
 		Date gachaTurnDate = gachaService.gachaTurnedCheck(userId);
 		//本日の日付と取得した日付を見比べる
 		//日付がないなら一回もガチャを回していないことになるので回させる
-		if(gachaTurnDate != null) {
-		String newGachaTurnDate = new SimpleDateFormat("yyyy-MM-dd").format(gachaTurnDate);
-		String newNowDate = new SimpleDateFormat("yyyy-MM-dd").format(nowDate);
+		if (gachaTurnDate != null) {
+			String newGachaTurnDate = new SimpleDateFormat("yyyy-MM-dd").format(gachaTurnDate);
+			String newNowDate = new SimpleDateFormat("yyyy-MM-dd").format(nowDate);
 			//直近に回したガチャの日付を現在の日付が一致すれば回させない
-			if(newGachaTurnDate.equals(newNowDate)) {
-				model.addAttribute("gachaTurnCheck","no");
-			}else {
-				model.addAttribute("gachaTurnCheck","yes");
+			if (newGachaTurnDate.equals(newNowDate)) {
+				model.addAttribute("gachaTurnCheck", "no");
+			} else {
+				model.addAttribute("gachaTurnCheck", "yes");
 			}
-		}else {
-			model.addAttribute("gachaTurnCheck","yes");
+		} else {
+			model.addAttribute("gachaTurnCheck", "yes");
 		}
-		
+
 		//現在のユーザーのポイントを取得
 		int nowPoint = gachaPointsService.selectPointOne(userId);
-		model.addAttribute("nowPoint",nowPoint);
-		
+		model.addAttribute("nowPoint", nowPoint);
+
 		return "shopping/productListLayout";
 	}
 
-	@PostMapping(value = "/dailyGacha", params="gachaTurn")
+	@PostMapping(value = "/dailyGacha", params = "gachaTurn")
 	public String postGachaTurn(Model model) {
 		model.addAttribute("contents", "shopping/dailyGacha::productListLayout_contents");
-		model.addAttribute("gachaTurnCheck","yes");
-		model.addAttribute("gachaTurn","no");
-		
+		model.addAttribute("gachaTurnCheck", "yes");
+		model.addAttribute("gachaTurn", "no");
+
 		//ユーザーIDを取得
-		Authentication auth
-		= SecurityContextHolder.getContext().getAuthentication();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String getName = auth.getName();
 		int userId = usersService.select_id(getName);
-		
+
 		//現在のユーザーのポイントを取得
 		int nowPoint = gachaPointsService.selectPointOne(userId);
-		model.addAttribute("nowPoint",nowPoint);
-		
+		model.addAttribute("nowPoint", nowPoint);
+
 		return "shopping/productListLayout";
 	}
-	
+
 	@PostMapping(value = "/dailyGacha", params = "gachaResult")
 	public String postGacha(Model model) {
 		model.addAttribute("contents", "shopping/dailyGachaResult::productListLayout_contents");
-		model.addAttribute("gachaTurn","yes");
-		
+		model.addAttribute("gachaTurn", "yes");
+
 		//現在の日付とユーザーIDを取得
 		Date nowDate = new Date();
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String getName = auth.getName();
 		int userId = usersService.select_id(getName);
 		GachaDTO gachadto = new GachaDTO();
-		
+
 		//結果をロードで変更できないように回したらロード不可にする
 		Date gachaTurnDate = gachaService.gachaTurnedCheck(userId);
 		String newGachaTurnDate = new SimpleDateFormat("yyyy-MM-dd").format(gachaTurnDate);
 		String newNowDate = new SimpleDateFormat("yyyy-MM-dd").format(nowDate);
-		if(newGachaTurnDate.equals(newNowDate)) {
+		if (newGachaTurnDate.equals(newNowDate)) {
 			return getGacha(model);
 		}
-		
+
 		//ガチャを回したユーザーと日付を格納
-		gachaService.gachaTurnInsertOne(gachadto,userId,nowDate);
-				
+		gachaService.gachaTurnInsertOne(gachadto, userId, nowDate);
+
 		// 十連ガチャ
 		//十連の結果を格納するリスト
 		List<GachaContentDTO> gachaResultList = new ArrayList<>();
 		int totalPoint = 0;
-		
+
 		//ガチャを10回回す処理
 		for (int i = 0; 10 > i; i++) {
 			int rundomNumber = ((int) Math.ceil(Math.random() * 100));
@@ -7508,283 +7514,278 @@ public class ShoppingController {
 				totalPoint = totalPoint + gachacontentdto.getPoint();
 				gachaResultList.add(gachacontentdto);
 			}
-			
-			
+
 		}
-		
+
 		//ガチャで獲得したポイントを加える
-		gachaPointsService.dailyGachaGetPointAdd(userId,totalPoint);
-		
-		
-		model.addAttribute("gachaResultList",gachaResultList);
-		
+		gachaPointsService.dailyGachaGetPointAdd(userId, totalPoint);
+
+		model.addAttribute("gachaResultList", gachaResultList);
 
 		return "shopping/productListLayout";
 	}
-	
-	@PostMapping(value = "/dailyGacha" , params = "probability")
+
+	@PostMapping(value = "/dailyGacha", params = "probability")
 	public String postDailyGachaProbability(Model model) {
 		model.addAttribute("contents", "shopping/dailyGachaProbability::productListLayout_contents");
-		
+
 		//ガチャのアイテムをすべて取得
 		List<GachaProbabilityDTO> gachaPointList = gachaContentService.pointSelectMany();
-		
+
 		//ガチャの詳細をDTOに渡して画面に表示する
 		GachaProbabilityDTO gachaprobatilitysetdto = new GachaProbabilityDTO();
-		for(int x = 0; gachaPointList.size() > x; x++) {
+		for (int x = 0; gachaPointList.size() > x; x++) {
 			GachaProbabilityDTO gachaprobatilitydto = gachaPointList.get(x);
-			if(x == 0) {
-			gachaprobatilitysetdto.setStarFiveSS(gachaprobatilitydto.getAllStarPoints());
-			model.addAttribute("starFiveSSpoint",gachaprobatilitysetdto.getStarFiveSS());
+			if (x == 0) {
+				gachaprobatilitysetdto.setStarFiveSS(gachaprobatilitydto.getAllStarPoints());
+				model.addAttribute("starFiveSSpoint", gachaprobatilitysetdto.getStarFiveSS());
 			}
-			
-			if(x == 1) {
+
+			if (x == 1) {
 				gachaprobatilitysetdto.setStarFourSS(gachaprobatilitydto.getAllStarPoints());
-				model.addAttribute("starFourSSpoint",gachaprobatilitysetdto.getStarFourSS());
-				}
-			
-			if(x == 2) {
+				model.addAttribute("starFourSSpoint", gachaprobatilitysetdto.getStarFourSS());
+			}
+
+			if (x == 2) {
 				gachaprobatilitysetdto.setStarFourS(gachaprobatilitydto.getAllStarPoints());
-				model.addAttribute("starFourSpoint",gachaprobatilitysetdto.getStarFourS());
-				}
-			
-			if(x == 3) {
+				model.addAttribute("starFourSpoint", gachaprobatilitysetdto.getStarFourS());
+			}
+
+			if (x == 3) {
 				gachaprobatilitysetdto.setStarFourA(gachaprobatilitydto.getAllStarPoints());
-				model.addAttribute("starFourApoint",gachaprobatilitysetdto.getStarFourA());
-				}
-			
-			if(x == 4) {
+				model.addAttribute("starFourApoint", gachaprobatilitysetdto.getStarFourA());
+			}
+
+			if (x == 4) {
 				gachaprobatilitysetdto.setStarFourB(gachaprobatilitydto.getAllStarPoints());
-				model.addAttribute("starFourBpoint",gachaprobatilitysetdto.getStarFourB());
-				}
-			
-			if(x == 5) {
+				model.addAttribute("starFourBpoint", gachaprobatilitysetdto.getStarFourB());
+			}
+
+			if (x == 5) {
 				gachaprobatilitysetdto.setStarFourC(gachaprobatilitydto.getAllStarPoints());
-				model.addAttribute("starFourCpoint",gachaprobatilitysetdto.getStarFourC());
-				}
-			
-			if(x == 6) {
+				model.addAttribute("starFourCpoint", gachaprobatilitysetdto.getStarFourC());
+			}
+
+			if (x == 6) {
 				gachaprobatilitysetdto.setStarThreeSS(gachaprobatilitydto.getAllStarPoints());
-				model.addAttribute("starThreeSSpoint",gachaprobatilitysetdto.getStarThreeSS());
-				}
-			
-			if(x == 7) {
+				model.addAttribute("starThreeSSpoint", gachaprobatilitysetdto.getStarThreeSS());
+			}
+
+			if (x == 7) {
 				gachaprobatilitysetdto.setStarThreeS(gachaprobatilitydto.getAllStarPoints());
-				model.addAttribute("starThreeSpoint",gachaprobatilitysetdto.getStarThreeS());
-				}
-			
-			if(x == 8) {
+				model.addAttribute("starThreeSpoint", gachaprobatilitysetdto.getStarThreeS());
+			}
+
+			if (x == 8) {
 				gachaprobatilitysetdto.setStarThreeA(gachaprobatilitydto.getAllStarPoints());
-				model.addAttribute("starThreeApoint",gachaprobatilitysetdto.getStarThreeA());
-				}
-			
-			if(x == 9) {
+				model.addAttribute("starThreeApoint", gachaprobatilitysetdto.getStarThreeA());
+			}
+
+			if (x == 9) {
 				gachaprobatilitysetdto.setStarThreeB(gachaprobatilitydto.getAllStarPoints());
-				model.addAttribute("starThreeBpoint",gachaprobatilitysetdto.getStarThreeB());
-				}
-			
-			if(x == 10) {
+				model.addAttribute("starThreeBpoint", gachaprobatilitysetdto.getStarThreeB());
+			}
+
+			if (x == 10) {
 				gachaprobatilitysetdto.setStarThreeC(gachaprobatilitydto.getAllStarPoints());
-				model.addAttribute("starThreeCpoint",gachaprobatilitysetdto.getStarThreeC());
-				}
-			
-			if(x == 11) {
+				model.addAttribute("starThreeCpoint", gachaprobatilitysetdto.getStarThreeC());
+			}
+
+			if (x == 11) {
 				gachaprobatilitysetdto.setStarTwoSS(gachaprobatilitydto.getAllStarPoints());
-				model.addAttribute("starTwoSSpoint",gachaprobatilitysetdto.getStarTwoSS());
-				}
-			
-			if(x == 12) {
+				model.addAttribute("starTwoSSpoint", gachaprobatilitysetdto.getStarTwoSS());
+			}
+
+			if (x == 12) {
 				gachaprobatilitysetdto.setStarTwoS(gachaprobatilitydto.getAllStarPoints());
-				model.addAttribute("starTwoSpoint",gachaprobatilitysetdto.getStarTwoS());
-				}
-			
-			if(x == 13) {
+				model.addAttribute("starTwoSpoint", gachaprobatilitysetdto.getStarTwoS());
+			}
+
+			if (x == 13) {
 				gachaprobatilitysetdto.setStarTwoA(gachaprobatilitydto.getAllStarPoints());
-				model.addAttribute("starTwoApoint",gachaprobatilitysetdto.getStarTwoA());
-				}
-			
-			if(x == 14) {
+				model.addAttribute("starTwoApoint", gachaprobatilitysetdto.getStarTwoA());
+			}
+
+			if (x == 14) {
 				gachaprobatilitysetdto.setStarTwoB(gachaprobatilitydto.getAllStarPoints());
-				model.addAttribute("starTwoBpoint",gachaprobatilitysetdto.getStarTwoB());
-				}
-			
-			if(x == 15) {
+				model.addAttribute("starTwoBpoint", gachaprobatilitysetdto.getStarTwoB());
+			}
+
+			if (x == 15) {
 				gachaprobatilitysetdto.setStarTwoC(gachaprobatilitydto.getAllStarPoints());
-				model.addAttribute("starTwoCpoint",gachaprobatilitysetdto.getStarTwoC());
-				}
-			
-			if(x == 16) {
+				model.addAttribute("starTwoCpoint", gachaprobatilitysetdto.getStarTwoC());
+			}
+
+			if (x == 16) {
 				gachaprobatilitysetdto.setStarOneSS(gachaprobatilitydto.getAllStarPoints());
-				model.addAttribute("starOneSSpoint",gachaprobatilitysetdto.getStarOneSS());
-				}
-			
-			if(x == 17) {
+				model.addAttribute("starOneSSpoint", gachaprobatilitysetdto.getStarOneSS());
+			}
+
+			if (x == 17) {
 				gachaprobatilitysetdto.setStarOneS(gachaprobatilitydto.getAllStarPoints());
-				model.addAttribute("starOneSpoint",gachaprobatilitysetdto.getStarOneS());
-				}
-			
-			if(x == 18) {
+				model.addAttribute("starOneSpoint", gachaprobatilitysetdto.getStarOneS());
+			}
+
+			if (x == 18) {
 				gachaprobatilitysetdto.setStarOneA(gachaprobatilitydto.getAllStarPoints());
-				model.addAttribute("starOneApoint",gachaprobatilitysetdto.getStarOneA());
-				}
-			
-			if(x == 19) {
+				model.addAttribute("starOneApoint", gachaprobatilitysetdto.getStarOneA());
+			}
+
+			if (x == 19) {
 				gachaprobatilitysetdto.setStarOneB(gachaprobatilitydto.getAllStarPoints());
-				model.addAttribute("starOneBpoint",gachaprobatilitysetdto.getStarOneB());
-				}
-			
-			if(x == 20) {
+				model.addAttribute("starOneBpoint", gachaprobatilitysetdto.getStarOneB());
+			}
+
+			if (x == 20) {
 				gachaprobatilitysetdto.setStarOneC(gachaprobatilitydto.getAllStarPoints());
-				model.addAttribute("starOneCpoint",gachaprobatilitysetdto.getStarOneC());
-				}
+				model.addAttribute("starOneCpoint", gachaprobatilitysetdto.getStarOneC());
+			}
 		}
-		
-		
-		
-		model.addAttribute("star5SS","1");
-		model.addAttribute("star4SS","2");
-		model.addAttribute("star4S","2");
-		model.addAttribute("star4A","2");
-		model.addAttribute("star4B","2");
-		model.addAttribute("star4C","2");
-		model.addAttribute("star3SS","4");
-		model.addAttribute("star3S","4");
-		model.addAttribute("star3A","4");
-		model.addAttribute("star3B","4");
-		model.addAttribute("star3C","4");
-		model.addAttribute("star2SS","6");
-		model.addAttribute("star2S","6");
-		model.addAttribute("star2A","6");
-		model.addAttribute("star2B","6");
-		model.addAttribute("star2C","6");
-		model.addAttribute("star1SS","8");
-		model.addAttribute("star1S","8");
-		model.addAttribute("star1A","8");
-		model.addAttribute("star1B","8");
-		model.addAttribute("star1C","8");
-		
-		
+
+		model.addAttribute("star5SS", "1");
+		model.addAttribute("star4SS", "2");
+		model.addAttribute("star4S", "2");
+		model.addAttribute("star4A", "2");
+		model.addAttribute("star4B", "2");
+		model.addAttribute("star4C", "2");
+		model.addAttribute("star3SS", "4");
+		model.addAttribute("star3S", "4");
+		model.addAttribute("star3A", "4");
+		model.addAttribute("star3B", "4");
+		model.addAttribute("star3C", "4");
+		model.addAttribute("star2SS", "6");
+		model.addAttribute("star2S", "6");
+		model.addAttribute("star2A", "6");
+		model.addAttribute("star2B", "6");
+		model.addAttribute("star2C", "6");
+		model.addAttribute("star1SS", "8");
+		model.addAttribute("star1S", "8");
+		model.addAttribute("star1A", "8");
+		model.addAttribute("star1B", "8");
+		model.addAttribute("star1C", "8");
+
 		return "shopping/productListLayout";
 	}
-	
-	@PostMapping(value= "/dailyGacha",params = "dailyGachaPointInterchange")
+
+	@PostMapping(value = "/dailyGacha", params = "dailyGachaPointInterchange")
 	public String postDailyGachaDailyGachaPointUse(Model model) {
 		model.addAttribute("contents", "shopping/dailyGachaPointInterchange::productListLayout_contents");
-		
+
 		//ユーザーIDを取得
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String getName = auth.getName();
 		int userId = usersService.select_id(getName);
-				
+
 		//現在のユーザーのポイントを取得
 		int nowPoint = gachaPointsService.selectPointOne(userId);
-		
+
 		//ポイントで交換する商品をすべて取得
 		List<GachaPointInterChangeDTO> gachaPointInterChangeProductList = gachaPointInterChangeService.selectMany();
 		//交換画面でユーザーのポイントが各交換商品のポイントよりも少なければ交換できないようにする
-		for(int x = 0; gachaPointInterChangeProductList.size() > x; x++) {
+		for (int x = 0; gachaPointInterChangeProductList.size() > x; x++) {
 			GachaPointInterChangeDTO gachaPointInterChangeProductOne = gachaPointInterChangeProductList.get(x);
-			if(nowPoint < gachaPointInterChangeProductOne.getPoint()) {
+			if (nowPoint < gachaPointInterChangeProductOne.getPoint()) {
 				gachaPointInterChangeProductOne.setPointCheck("交換不可");
-			}else {
+			} else {
 				gachaPointInterChangeProductOne.setPointCheck("交換可能");
 			}
 		}
-		
-		model.addAttribute("gachaPointInterChangeProductList",gachaPointInterChangeProductList);
-		
+
+		model.addAttribute("gachaPointInterChangeProductList", gachaPointInterChangeProductList);
+
 		return "shopping/productListLayout";
 	}
-	
-	@PostMapping(value= "/dailyGacha",params = "dailyGachaPointProductHistory")
+
+	@PostMapping(value = "/dailyGacha", params = "dailyGachaPointProductHistory")
 	public String postDailyGachaPointProductHistory(Model model) {
 		model.addAttribute("contents", "shopping/dailyGachaPointProductHistory::productListLayout_contents");
-		
+
 		//ユーザーIDを取得
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String getName = auth.getName();
 		int userId = usersService.select_id(getName);
-		
+
 		//ユーザーのポイント交換履歴をすべて取得
-		List<GachaPointProductHistoryDTO> gachaPointProductHistorydtoList = gachaPointProductHistoryService.productHistorySelectOne(userId);	
-		model.addAttribute("gachaPointProductHistorydtoList",gachaPointProductHistorydtoList);
-		
+		List<GachaPointProductHistoryDTO> gachaPointProductHistorydtoList = gachaPointProductHistoryService
+				.productHistorySelectOne(userId);
+		model.addAttribute("gachaPointProductHistorydtoList", gachaPointProductHistorydtoList);
+
 		return "shopping/productListLayout";
 	}
-	
-	
-	
+
 	@GetMapping("/gachaPointInterChangeExecution/{id}")
-	public String getGachaPointInterChangeExecution(@PathVariable("id") int gachaPointProductId,Model model) {
+	public String getGachaPointInterChangeExecution(@PathVariable("id") int gachaPointProductId, Model model) {
 		model.addAttribute("contents", "shopping/gachaPointInterChangeExecution::productListLayout_contents");
-		
+
 		//選択したポイントで交換する商品を取得
-		GachaPointInterChangeDTO gachaPointInterChangeProductList = gachaPointInterChangeService.selectOne(gachaPointProductId);
-		model.addAttribute("gachaPointInterChangeProductList",gachaPointInterChangeProductList);
-		model.addAttribute("gachaPointProductId",gachaPointProductId);
-		
+		GachaPointInterChangeDTO gachaPointInterChangeProductList = gachaPointInterChangeService
+				.selectOne(gachaPointProductId);
+		model.addAttribute("gachaPointInterChangeProductList", gachaPointInterChangeProductList);
+		model.addAttribute("gachaPointProductId", gachaPointProductId);
+
 		//ユーザーIDを取得
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String getName = auth.getName();
 		int userId = usersService.select_id(getName);
-		
+
 		//ユーザーの現在のポイントを取得
 		int totalPoint = gachaPointsService.selectPointOne(userId);
-		model.addAttribute("totalPoint",totalPoint);
+		model.addAttribute("totalPoint", totalPoint);
 		//交換後のポイントを取得
 		int afterExchangeTotalPoint = totalPoint - gachaPointInterChangeProductList.getPoint();
-		model.addAttribute("afterExchangeTotalPoint",afterExchangeTotalPoint);
-		
+		model.addAttribute("afterExchangeTotalPoint", afterExchangeTotalPoint);
+
 		return "shopping/productListLayout";
 	}
-	
+
 	@PostMapping("/gachaPointInterChangeExecution")
-	public String postGachaPointInterChangeExecution(@RequestParam("id") int gachaPointProductId,Model model) {
-		
+	public String postGachaPointInterChangeExecution(@RequestParam("id") int gachaPointProductId, Model model) {
+
 		//ユーザーIDを取得
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String getName = auth.getName();
 		int userId = usersService.select_id(getName);
-		
+
 		//選択したポイントで交換する商品を取得
-		GachaPointInterChangeDTO gachaPointInterChangeProductList = gachaPointInterChangeService.selectOne(gachaPointProductId);
+		GachaPointInterChangeDTO gachaPointInterChangeProductList = gachaPointInterChangeService
+				.selectOne(gachaPointProductId);
 		int consumptionPoint = gachaPointInterChangeProductList.getPoint();
-		
+
 		//現在のユーザーのポイントを取得
 		int nowPoint = gachaPointsService.selectPointOne(userId);
 		//交換後のポイント取得し更新
 		int consumptionNowPoint = nowPoint - consumptionPoint;
-		gachaPointsService.update(consumptionNowPoint,userId);
-		
+		gachaPointsService.update(consumptionNowPoint, userId);
+
 		//ユーザーが交換した商品の情報を格納
-		gachaPointProductHistoryService.productHistoryInsertOne(userId,gachaPointProductId);
-		
-		
+		gachaPointProductHistoryService.productHistoryInsertOne(userId, gachaPointProductId);
+
 		return postDailyGachaPointProductHistory(model);
 	}
-	
-	@GetMapping("/interChangeProductManagement") 
+
+	@GetMapping("/interChangeProductManagement")
 	public String getInterChangeProductManagement(Model model) {
 		model.addAttribute("contents", "shopping/interChangeProductManagement::productListLayout_contents");
-		
-		List<GachaPointProductHistoryDTO> gachapointproducthistorydto = gachaPointProductHistoryService.productHistorySelectMany();
-		model.addAttribute("gachaPointProductHistoryList",gachapointproducthistorydto);
-		
+
+		List<GachaPointProductHistoryDTO> gachapointproducthistorydto = gachaPointProductHistoryService
+				.productHistorySelectMany();
+		model.addAttribute("gachaPointProductHistoryList", gachapointproducthistorydto);
+
 		return "shopping/productListLayout";
 	}
-	
+
 	@GetMapping("/interChangeProductDeliveryProcedureOK/{id}")
-	public String getInterChangeProductDeliveryProcedureOK(@PathVariable("id") int gachaPointProductId,Model model) {
-		
+	public String getInterChangeProductDeliveryProcedureOK(@PathVariable("id") int gachaPointProductId, Model model) {
+
 		gachaPointProductHistoryService.deriveryUpdateOne(gachaPointProductId);
-		
+
 		return getInterChangeProductManagement(model);
 	}
-	
+
 	@GetMapping("/salesManagement")
-	public String getSalesManagement(@ModelAttribute SalesManagementForm form,Model model) {
+	public String getSalesManagement(@ModelAttribute SalesManagementForm form, Model model) {
 		model.addAttribute("contents", "shopping/salesManagement::productListLayout_contents");
-		
+
 		//ユーザーIDを取得
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String getName = auth.getName();
@@ -7792,14 +7793,14 @@ public class ShoppingController {
 
 		int salesProductTotalPrice = 0;
 		int totalCost = 0;
-		
+
 		List<PurchaseDTO> purchasedtoAllList = new ArrayList<>();
-		
+
 		// 購入商品情報取得
 		List<PurchaseDTO> salesList = purchaseService.productSalesSelectMany();
-		for(int x = 0; salesList.size() > x; x++) {
+		for (int x = 0; salesList.size() > x; x++) {
 			PurchaseDTO purchasedto = new PurchaseDTO();
-			PurchaseDTO purchasedtoList = salesList.get(x); 
+			PurchaseDTO purchasedtoList = salesList.get(x);
 			purchasedto.setId(purchasedtoList.getId());
 			purchasedto.setPurchaseId(purchasedtoList.getPurchaseId());
 			purchasedto.setProduct_id(purchasedtoList.getProduct_id());
@@ -7814,100 +7815,98 @@ public class ShoppingController {
 			purchasedto.setCouponId(purchasedtoList.getCouponId());
 			purchasedto.setMenberCouponCheck(purchasedtoList.getMenberCouponCheck());
 			purchasedto.setPurchaseCheck(purchasedtoList.getPurchaseCheck());
-		
-		System.out.println(Arrays.asList("purchasedto"+purchasedto));
-		String nullCheck = "null";
-		int getCustomId = customService.selectPurchaseCheck(userId, purchasedto.getProduct_id(),
-				purchasedto.getPurchaseCheck(), nullCheck); // 購入した商品のcustomテーブルIDを取得
-		PurchaseDTO customList = customService.selectMany(getCustomId);// 購入した商品のcustomテーブル情報を取得
-		System.out.println("costomList" + customList);
-		purchasedto.setCustom_id(getCustomId);
-		purchasedto.setMemory(customList.getMemory());
-		purchasedto.setHardDisc(customList.getHardDisc());
-		purchasedto.setCpu(customList.getCpu());
-		purchasedto.setCustomPrice(customList.getCustomPrice());
 
-		purchasedto.setTotalPrice(
-				(purchasedto.getProduct_count() * (purchasedto.getPrice() + purchasedto.getCustomPrice())));
+			System.out.println(Arrays.asList("purchasedto" + purchasedto));
+			String nullCheck = "null";
+			int getCustomId = customService.selectPurchaseCheck(userId, purchasedto.getProduct_id(),
+					purchasedto.getPurchaseCheck(), nullCheck); // 購入した商品のcustomテーブルIDを取得
+			PurchaseDTO customList = customService.selectMany(getCustomId);// 購入した商品のcustomテーブル情報を取得
+			System.out.println("costomList" + customList);
+			purchasedto.setCustom_id(getCustomId);
+			purchasedto.setMemory(customList.getMemory());
+			purchasedto.setHardDisc(customList.getHardDisc());
+			purchasedto.setCpu(customList.getCpu());
+			purchasedto.setCustomPrice(customList.getCustomPrice());
 
-		if (purchasedto.getMenberCouponCheck().equals("会員クーポン使用")) {
-			System.out.println("クーポン使用！");
-			int totalPrice = purchasedto.getTotalPrice();
-			MenberCouponDTO menbercoupondto = menberCouponService.selectOne(purchasedto.getCouponId());// 会員DBからとる
-			int disCount = menbercoupondto.getDiscount();// 割引率(%)
-			if (disCount >= 10) {
-				double disCountNew = Double.valueOf("0." + disCount);
-				double disCountPriceNew = totalPrice * disCountNew;// 割引価格
-				int totalPriceAll = (int) (totalPrice - disCountPriceNew);
-				System.out.println("totalPriceAll" + totalPriceAll);
-				System.out.println("purchasedtoAdd.getPointUse" + purchasedto.getPointUse());
-				purchasedto.setTotalPrice(totalPriceAll);
-			} else {
-				double disCountNew = Double.valueOf("0.0" + disCount);
-				double disCountPriceNew = totalPrice * disCountNew;// 割引価格
-				int totalPriceAll = (int) (totalPrice - disCountPriceNew);
-				System.out.println("totalPriceAll" + totalPriceAll);
-				System.out.println("purchasedtoAdd.getPointUse" + purchasedto.getPointUse());
-				purchasedto.setTotalPrice(totalPriceAll);
-			}
-		} else {
+			purchasedto.setTotalPrice(
+					(purchasedto.getProduct_count() * (purchasedto.getPrice() + purchasedto.getCustomPrice())));
 
-			if (purchasedto.getCouponId() > 0) {
+			if (purchasedto.getMenberCouponCheck().equals("会員クーポン使用")) {
 				System.out.println("クーポン使用！");
 				int totalPrice = purchasedto.getTotalPrice();
-				CouponDTO coupondto = couponService.selectOne(purchasedto.getCouponId());
-				int disCount = coupondto.getDiscount();// 割引率(%)
+				MenberCouponDTO menbercoupondto = menberCouponService.selectOne(purchasedto.getCouponId());// 会員DBからとる
+				int disCount = menbercoupondto.getDiscount();// 割引率(%)
 				if (disCount >= 10) {
 					double disCountNew = Double.valueOf("0." + disCount);
 					double disCountPriceNew = totalPrice * disCountNew;// 割引価格
-					System.out.println("totalPrice" + totalPrice);
 					int totalPriceAll = (int) (totalPrice - disCountPriceNew);
 					System.out.println("totalPriceAll" + totalPriceAll);
+					System.out.println("purchasedtoAdd.getPointUse" + purchasedto.getPointUse());
 					purchasedto.setTotalPrice(totalPriceAll);
-					System.out.println("setTotalPrice" + purchasedto.getTotalPrice());
 				} else {
 					double disCountNew = Double.valueOf("0.0" + disCount);
 					double disCountPriceNew = totalPrice * disCountNew;// 割引価格
 					int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+					System.out.println("totalPriceAll" + totalPriceAll);
+					System.out.println("purchasedtoAdd.getPointUse" + purchasedto.getPointUse());
 					purchasedto.setTotalPrice(totalPriceAll);
 				}
+			} else {
+
+				if (purchasedto.getCouponId() > 0) {
+					System.out.println("クーポン使用！");
+					int totalPrice = purchasedto.getTotalPrice();
+					CouponDTO coupondto = couponService.selectOne(purchasedto.getCouponId());
+					int disCount = coupondto.getDiscount();// 割引率(%)
+					if (disCount >= 10) {
+						double disCountNew = Double.valueOf("0." + disCount);
+						double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+						System.out.println("totalPrice" + totalPrice);
+						int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+						System.out.println("totalPriceAll" + totalPriceAll);
+						purchasedto.setTotalPrice(totalPriceAll);
+						System.out.println("setTotalPrice" + purchasedto.getTotalPrice());
+					} else {
+						double disCountNew = Double.valueOf("0.0" + disCount);
+						double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+						int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+						purchasedto.setTotalPrice(totalPriceAll);
+					}
+				}
 			}
+			//総売上
+			salesProductTotalPrice = salesProductTotalPrice + (purchasedto.getTotalPrice() - purchasedto.getPointUse());
+			//コスト
+			totalCost = totalCost + purchasedto.getCost();
+
+			purchasedto.setTotalPrice(purchasedto.getTotalPrice() - purchasedto.getPointUse());
+			purchasedto.setRevenue((purchasedto.getTotalPrice() - purchasedto.getPointUse()) - purchasedto.getCost());
+			purchasedtoAllList.add(purchasedto);
+			model.addAttribute("purchaseList", purchasedto);
+			System.out.println("1" + Arrays.asList(purchasedtoAllList));
 		}
-		//総売上
-		salesProductTotalPrice = salesProductTotalPrice + (purchasedto.getTotalPrice() - purchasedto.getPointUse());
-		//コスト
-		totalCost = totalCost + purchasedto.getCost();
-		
-		purchasedto.setTotalPrice(purchasedto.getTotalPrice() - purchasedto.getPointUse());
-		purchasedto.setRevenue((purchasedto.getTotalPrice() - purchasedto.getPointUse()) - purchasedto.getCost());
-		purchasedtoAllList.add(purchasedto);
-		model.addAttribute("purchaseList", purchasedto);
-		System.out.println("1"+Arrays.asList(purchasedtoAllList));
-		}
-		System.out.println("2"+Arrays.asList(purchasedtoAllList));
-		
+		System.out.println("2" + Arrays.asList(purchasedtoAllList));
+
 		//利益
 		int revenue = salesProductTotalPrice - totalCost;
-		
-	
-		model.addAttribute("salesProductTotalPrice",salesProductTotalPrice);
-		model.addAttribute("totalCost",totalCost);
-		model.addAttribute("revenue",revenue);
-		model.addAttribute("purchasedtoAllList",purchasedtoAllList);
-		
-		
-		
+
+		model.addAttribute("salesProductTotalPrice", salesProductTotalPrice);
+		model.addAttribute("totalCost", totalCost);
+		model.addAttribute("revenue", revenue);
+		model.addAttribute("purchasedtoAllList", purchasedtoAllList);
+
 		return "shopping/productListLayout";
 	}
-	
+
 	@PostMapping(value = "/salesManagement", params = "search")
-	public String postSalesManagement(@ModelAttribute @Validated(GroupOrder.class) SalesManagementForm form,BindingResult bindingResult,Model model) {
+	public String postSalesManagement(@ModelAttribute @Validated(GroupOrder.class) SalesManagementForm form,
+			BindingResult bindingResult, Model model) {
 		model.addAttribute("contents", "shopping/salesManagement::productListLayout_contents");
 
-		if(bindingResult.hasErrors()) {
-			return getSalesManagement(form,model);
+		if (bindingResult.hasErrors()) {
+			return getSalesManagement(form, model);
 		}
-		
+
 		//ユーザーIDを取得
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String getName = auth.getName();
@@ -7915,15 +7914,14 @@ public class ShoppingController {
 
 		int salesProductTotalPrice = 0;
 		int totalCost = 0;
-		
+
 		List<PurchaseDTO> purchasedtoAllList = new ArrayList<>();
-		
-		
+
 		// 購入商品情報取得
 		List<PurchaseDTO> salesList = purchaseService.productSalesSearchSelectMany(form);
-		for(int x = 0; salesList.size() > x; x++) {
+		for (int x = 0; salesList.size() > x; x++) {
 			PurchaseDTO purchasedto = new PurchaseDTO();
-			PurchaseDTO purchasedtoList = salesList.get(x); 
+			PurchaseDTO purchasedtoList = salesList.get(x);
 			purchasedto.setId(purchasedtoList.getId());
 			purchasedto.setPurchaseId(purchasedtoList.getPurchaseId());
 			purchasedto.setProduct_id(purchasedtoList.getProduct_id());
@@ -7938,97 +7936,95 @@ public class ShoppingController {
 			purchasedto.setCouponId(purchasedtoList.getCouponId());
 			purchasedto.setMenberCouponCheck(purchasedtoList.getMenberCouponCheck());
 			purchasedto.setPurchaseCheck(purchasedtoList.getPurchaseCheck());
-		
-		System.out.println(Arrays.asList("purchasedto"+purchasedto));
-		String nullCheck = "null";
-		int getCustomId = customService.selectPurchaseCheck(userId, purchasedto.getProduct_id(),
-				purchasedto.getPurchaseCheck(), nullCheck); // 購入した商品のcustomテーブルIDを取得
-		PurchaseDTO customList = customService.selectMany(getCustomId);// 購入した商品のcustomテーブル情報を取得
-		System.out.println("costomList" + customList);
-		purchasedto.setCustom_id(getCustomId);
-		purchasedto.setMemory(customList.getMemory());
-		purchasedto.setHardDisc(customList.getHardDisc());
-		purchasedto.setCpu(customList.getCpu());
-		purchasedto.setCustomPrice(customList.getCustomPrice());
 
-		purchasedto.setTotalPrice(
-				(purchasedto.getProduct_count() * (purchasedto.getPrice() + purchasedto.getCustomPrice())));
+			System.out.println(Arrays.asList("purchasedto" + purchasedto));
+			String nullCheck = "null";
+			int getCustomId = customService.selectPurchaseCheck(userId, purchasedto.getProduct_id(),
+					purchasedto.getPurchaseCheck(), nullCheck); // 購入した商品のcustomテーブルIDを取得
+			PurchaseDTO customList = customService.selectMany(getCustomId);// 購入した商品のcustomテーブル情報を取得
+			System.out.println("costomList" + customList);
+			purchasedto.setCustom_id(getCustomId);
+			purchasedto.setMemory(customList.getMemory());
+			purchasedto.setHardDisc(customList.getHardDisc());
+			purchasedto.setCpu(customList.getCpu());
+			purchasedto.setCustomPrice(customList.getCustomPrice());
 
-		if (purchasedto.getMenberCouponCheck().equals("会員クーポン使用")) {
-			System.out.println("クーポン使用！");
-			int totalPrice = purchasedto.getTotalPrice();
-			MenberCouponDTO menbercoupondto = menberCouponService.selectOne(purchasedto.getCouponId());// 会員DBからとる
-			int disCount = menbercoupondto.getDiscount();// 割引率(%)
-			if (disCount >= 10) {
-				double disCountNew = Double.valueOf("0." + disCount);
-				double disCountPriceNew = totalPrice * disCountNew;// 割引価格
-				int totalPriceAll = (int) (totalPrice - disCountPriceNew);
-				System.out.println("totalPriceAll" + totalPriceAll);
-				System.out.println("purchasedtoAdd.getPointUse" + purchasedto.getPointUse());
-				purchasedto.setTotalPrice(totalPriceAll);
-			} else {
-				double disCountNew = Double.valueOf("0.0" + disCount);
-				double disCountPriceNew = totalPrice * disCountNew;// 割引価格
-				int totalPriceAll = (int) (totalPrice - disCountPriceNew);
-				System.out.println("totalPriceAll" + totalPriceAll);
-				System.out.println("purchasedtoAdd.getPointUse" + purchasedto.getPointUse());
-				purchasedto.setTotalPrice(totalPriceAll);
-			}
-		} else {
+			purchasedto.setTotalPrice(
+					(purchasedto.getProduct_count() * (purchasedto.getPrice() + purchasedto.getCustomPrice())));
 
-			if (purchasedto.getCouponId() > 0) {
+			if (purchasedto.getMenberCouponCheck().equals("会員クーポン使用")) {
 				System.out.println("クーポン使用！");
 				int totalPrice = purchasedto.getTotalPrice();
-				CouponDTO coupondto = couponService.selectOne(purchasedto.getCouponId());
-				int disCount = coupondto.getDiscount();// 割引率(%)
+				MenberCouponDTO menbercoupondto = menberCouponService.selectOne(purchasedto.getCouponId());// 会員DBからとる
+				int disCount = menbercoupondto.getDiscount();// 割引率(%)
 				if (disCount >= 10) {
 					double disCountNew = Double.valueOf("0." + disCount);
 					double disCountPriceNew = totalPrice * disCountNew;// 割引価格
-					System.out.println("totalPrice" + totalPrice);
 					int totalPriceAll = (int) (totalPrice - disCountPriceNew);
 					System.out.println("totalPriceAll" + totalPriceAll);
+					System.out.println("purchasedtoAdd.getPointUse" + purchasedto.getPointUse());
 					purchasedto.setTotalPrice(totalPriceAll);
-					System.out.println("setTotalPrice" + purchasedto.getTotalPrice());
 				} else {
 					double disCountNew = Double.valueOf("0.0" + disCount);
 					double disCountPriceNew = totalPrice * disCountNew;// 割引価格
 					int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+					System.out.println("totalPriceAll" + totalPriceAll);
+					System.out.println("purchasedtoAdd.getPointUse" + purchasedto.getPointUse());
 					purchasedto.setTotalPrice(totalPriceAll);
 				}
+			} else {
+
+				if (purchasedto.getCouponId() > 0) {
+					System.out.println("クーポン使用！");
+					int totalPrice = purchasedto.getTotalPrice();
+					CouponDTO coupondto = couponService.selectOne(purchasedto.getCouponId());
+					int disCount = coupondto.getDiscount();// 割引率(%)
+					if (disCount >= 10) {
+						double disCountNew = Double.valueOf("0." + disCount);
+						double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+						System.out.println("totalPrice" + totalPrice);
+						int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+						System.out.println("totalPriceAll" + totalPriceAll);
+						purchasedto.setTotalPrice(totalPriceAll);
+						System.out.println("setTotalPrice" + purchasedto.getTotalPrice());
+					} else {
+						double disCountNew = Double.valueOf("0.0" + disCount);
+						double disCountPriceNew = totalPrice * disCountNew;// 割引価格
+						int totalPriceAll = (int) (totalPrice - disCountPriceNew);
+						purchasedto.setTotalPrice(totalPriceAll);
+					}
+				}
 			}
+			//総売上
+			salesProductTotalPrice = salesProductTotalPrice + (purchasedto.getTotalPrice() - purchasedto.getPointUse());
+			//コスト
+			totalCost = totalCost + purchasedto.getCost();
+
+			purchasedto.setTotalPrice(purchasedto.getTotalPrice() - purchasedto.getPointUse());
+			purchasedto.setRevenue((purchasedto.getTotalPrice() - purchasedto.getPointUse()) - purchasedto.getCost());
+			purchasedtoAllList.add(purchasedto);
+			model.addAttribute("purchaseList", purchasedto);
+			System.out.println("1" + Arrays.asList(purchasedtoAllList));
 		}
-		//総売上
-		salesProductTotalPrice = salesProductTotalPrice + (purchasedto.getTotalPrice() - purchasedto.getPointUse());
-		//コスト
-		totalCost = totalCost + purchasedto.getCost();
-		
-		purchasedto.setTotalPrice(purchasedto.getTotalPrice() - purchasedto.getPointUse());
-		purchasedto.setRevenue((purchasedto.getTotalPrice() - purchasedto.getPointUse()) - purchasedto.getCost());
-		purchasedtoAllList.add(purchasedto);
-		model.addAttribute("purchaseList", purchasedto);
-		System.out.println("1"+Arrays.asList(purchasedtoAllList));
-		}
-		System.out.println("2"+Arrays.asList(purchasedtoAllList));
-		
+		System.out.println("2" + Arrays.asList(purchasedtoAllList));
+
 		//利益
 		int revenue = salesProductTotalPrice - totalCost;
-		
-	
-		model.addAttribute("salesProductTotalPrice",salesProductTotalPrice);
-		model.addAttribute("totalCost",totalCost);
-		model.addAttribute("revenue",revenue);
-		model.addAttribute("purchasedtoAllList",purchasedtoAllList);
+
+		model.addAttribute("salesProductTotalPrice", salesProductTotalPrice);
+		model.addAttribute("totalCost", totalCost);
+		model.addAttribute("revenue", revenue);
+		model.addAttribute("purchasedtoAllList", purchasedtoAllList);
 		return "shopping/productListLayout";
 	}
-	
+
 	@GetMapping("/listingProductStop")
 	public String getListingProductStop(Model model) {
 		model.addAttribute("contents", "shopping/listingProductStop::productListLayout_contents");
-		
+
 		// 商品情報をすべて取得
-		//List<PcDataDTO> productList = pcdataService.listingStopProductSelectMany();
-		List<PcDataDTO> productList = pcdataService.selectMany();
-		
+		List<PcDataDTO> productList = pcdataService.listingStopProductSelectMany();
+
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
 		UsersDTO headerName = usersService.getUser_name(auth.getName());
@@ -8111,27 +8107,25 @@ public class ShoppingController {
 			session.setAttribute("rankPoint", "アマチュアランク");
 		}
 
-		
 		return "shopping/productListLayout";
 	}
-	
+
 	@GetMapping("/listingStop/{id}")
-	public String getListingStop(@PathVariable("id") int productId,Model model) {
-		
+	public String getListingStop(@PathVariable("id") int productId, Model model) {
+
 		pcdataService.listingStopUpdateOne(productId);
-		
+
 		return getListingProductStop(model);
 	}
-	
+
 	@GetMapping("/listingRestart/{id}")
-	public String getListingRestart(@PathVariable("id") int productId,Model model) {
-		
+	public String getListingRestart(@PathVariable("id") int productId, Model model) {
+
 		pcdataService.listingRestartUpdateOne(productId);
-		
+
 		return getListingProductStop(model);
 	}
-	
-	
+
 	// ログアウト用メソッド
 	@GetMapping("logout")
 	public String getLogout() {

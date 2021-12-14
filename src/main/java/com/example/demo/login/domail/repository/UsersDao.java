@@ -30,5 +30,7 @@ public interface UsersDao {
 	public List<UsersDTO> selectMany();
 
 	public String selectRole(int userId);
+	
+	public String mailAddressSelectOne(int userId);
 
 }
