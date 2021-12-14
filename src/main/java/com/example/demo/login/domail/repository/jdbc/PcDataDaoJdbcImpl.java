@@ -25,17 +25,17 @@ public class PcDataDaoJdbcImpl implements PcDataDao {
 
 		int rowNumber = jdbc.update(
 				"insert into pcdata (id," + "company," + "os," + "pc_name," + "pc_size," + "price," + "detail,"
-						+ "product_stock," + "pcImg," + "pcImg2," + "pcImg3)" + "value(?,?,?,?,?,?,?,?,?,?,?)",
+						+ "product_stock," + "cost," + "pcImg," + "pcImg2," + "pcImg3)" + "value(?,?,?,?,?,?,?,?,?,?,?,?)",
 				pcdatadto.getId(), pcdatadto.getCompany(), pcdatadto.getOs(), pcdatadto.getPc_name(),
 				pcdatadto.getPc_size(), pcdatadto.getPrice(), pcdatadto.getDetail(), pcdatadto.getProduct_stock(),
-				pcdatadto.getPcImg(), pcdatadto.getPcImg2(), pcdatadto.getPcImg3());
+				pcdatadto.getCost(),pcdatadto.getPcImg(), pcdatadto.getPcImg2(), pcdatadto.getPcImg3());
 
 		return rowNumber;
 	}
 
 	public List<PcDataDTO> selectMany() {
 
-		List<Map<String, Object>> productList = jdbc.queryForList("select * from pcdata where product_stock >= 1");
+		List<Map<String, Object>> productList = jdbc.queryForList("select * from pcdata where product_stock >= 1 and listing_stop_check is null");
 
 		List<PcDataDTO> pcdatadtoList = new ArrayList<>();
 

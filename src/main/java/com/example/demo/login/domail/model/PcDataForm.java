@@ -42,6 +42,11 @@ public class PcDataForm {
 	@Pattern(regexp = "[0-9]+$", groups = ValidGroup2.class)
 	@Length(min = 1, max = 2, groups = ValidGroup3.class)
 	private String product_stock;
+	
+	@NotBlank(groups = ValidGroup1.class)
+	@Pattern(regexp = "[0-9]+$", groups = ValidGroup2.class)
+	@Length(min = 1, max = 9, groups = ValidGroup3.class)
+	private String cost;
 
 	@NotBlank(groups = ValidGroup1.class)
 	@Length(min = 10, max = 200, groups = ValidGroup2.class)

@@ -88,6 +88,17 @@
 						class="text-danger" th:if="${#fields.hasErrors('product_stock')}"
 						th:errors="*{product_stock}">product_stock error</span></td>
 
+				<th class="text-center pcdataAddThDesign">商品仕入れ値</th>
+					<td
+						th:classappend="${#fields.hasErrors('cost')}?'has-error'"
+						class="form-group pcdataAddTdDesign"><input type="text"
+						class="form-control" th:field="*{cost}"> <span
+						class="text-danger" th:if="${#fields.hasErrors('cost')}"
+						th:errors="*{cost}">cost error</span></td>
+			</table>
+
+			<table class="table table-bordered table-hover tableDesign">
+				<tr>
 					<th class="text-center pcdataAddThDesign">商品画像1(JPEG形式)</th>
 					<td th:classappend="${#fields.hasErrors('pcImg')}?'has-error'"
 						class="form-group pcdataAddTdDesign"><input type="text"
@@ -95,19 +106,26 @@
 						class="text-danger" th:if="${#fields.hasErrors('pcImg')}"
 						th:errors="*{pcImg}">pcImg error</span> <span
 						class="errorFontDesign" th:text="${imgResult1}"></span></td>
+				
 				</tr>
+					
 			</table>
-
+			
 			<table class="table table-bordered table-hover tableDesign">
 				<tr>
-					<th class="text-center pcdataAddThDesign">商品画像2(JPEG形式)</th>
+				
+			<th class="text-center pcdataAddThDesign">商品画像2(JPEG形式)</th>
 					<td th:classappend="${#fields.hasErrors('pcImg2')}?'has-error'"
 						class="form-group pcdataAddTdDesign"><input type="text"
 						class="form-control" th:field="*{pcImg2}"> <span
 						class="text-danger" th:if="${#fields.hasErrors('pcImg2')}"
 						th:errors="*{pcImg2}">pcImg2 error</span> <span
 						class="errorFontDesign" th:text="${imgResult2}"></span></td>
-
+			</tr>
+			</table>
+			
+			<table class="table table-bordered table-hover tableDesign">
+				<tr>
 					<th class="text-center pcdataAddThDesign">商品画像3(JPEG形式)</th>
 					<td th:classappend="${#fields.hasErrors('pcImg3')}?'has-error'"
 						class="form-group pcdataAddTdDesign"><input type="text"

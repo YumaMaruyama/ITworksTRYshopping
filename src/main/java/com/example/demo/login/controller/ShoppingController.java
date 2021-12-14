@@ -1424,6 +1424,8 @@ public class ShoppingController {
 		pcdatadto.setDetail(form.getDetail());
 		int productStock = Integer.parseInt(form.getProduct_stock());
 		pcdatadto.setProduct_stock(productStock);
+		int cost = Integer.parseInt(form.getCost());
+		pcdatadto.setCost(cost);
 		pcdatadto.setPcImg(form.getPcImg());
 		pcdatadto.setPcImg2(form.getPcImg2());
 		pcdatadto.setPcImg3(form.getPcImg3());

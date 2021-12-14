@@ -22,6 +22,8 @@ public class PcDataDTO {
 	private String detail;
 
 	private int product_stock;
+	
+	private int cost;
 
 	private int product_count;
 
