@@ -13,6 +13,7 @@ import com.example.demo.login.domail.model.PcDataDTO;
 import com.example.demo.login.domail.model.PcDataForm;
 import com.example.demo.login.domail.model.ProductListSearchForm;
 import com.example.demo.login.domail.model.PurchaseDTO;
+import com.example.demo.login.domail.model.StockInputForm;
 import com.example.demo.login.domail.repository.PcDataDao;
 
 @Repository
@@ -237,6 +238,8 @@ public class PcDataDaoJdbcImpl implements PcDataDao {
 
 	}
 	
+	
+	
 	public List<PcDataDTO> listingStopProductSelectMany() {
 		List<Map<String, Object>> productList = jdbc.queryForList("select * from pcdata where product_stock >= 1");
 
@@ -274,6 +277,11 @@ public class PcDataDaoJdbcImpl implements PcDataDao {
 	public int listingRestartUpdateOne(int productId) {
 		int result = jdbc.update("update pcdata set listing_stop_check = null where id = ?",productId);
 		
+		return result;
+	}
+	
+	public int productStockUpdate(int pcdataId,StockInputForm form) {
+		int result = jdbc.update("update pcdata set product_stock = ? where id = ?",form.getProductStock(),pcdataId);
 		return result;
 	}
 

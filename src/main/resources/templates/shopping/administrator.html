@@ -45,6 +45,8 @@
 				class="btn btn-radius-solid btn--shadow">売上管理</a></td>
 				<td class="text-center"><a th:href="@{/listingProductStop}"
 				class="btn btn-radius-solid btn--shadow">出品停止</a></td>
+				<td class="text-center"><a th:href="@{/stockOutProductResurrection}"
+				class="btn btn-radius-solid btn--shadow">在庫復活</a></td>
 					
 			</tr>
 		</table>
@@ -90,7 +92,6 @@
 							name="id" th:value=${inquirydto.id}><a
 							th:href="@{'/inquiryDetail' + '/' + ${inquirydto.id}}"
 							class="btn btnAdministrator-border">編集</a><a>返信用↓</a><h5 th:text="${inquirydto.mailAddress}"></h5></th>
-
 					</tr>
 
 				</table>
