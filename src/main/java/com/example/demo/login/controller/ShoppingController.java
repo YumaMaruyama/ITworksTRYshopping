@@ -5297,8 +5297,16 @@ public class ShoppingController {
 	}
 	
 	@PostMapping("/stockInput")
-	public String postStockInput(@RequestParam("id") int pcdataId,StockInputForm form,Model model) {
-		pcdataService.productStockUpdate(pcdataId,form);
+	public String postStockInput(@RequestParam("id") int pcdataId,@Validated(GroupOrder.class) StockInputForm form,BindingResult bindingResult,Model model) {
+		
+		if(bindingResult.hasErrors()) {
+			return getStockInput(pcdataId,form,model);
+			
+		}
+		
+		int productStock = Integer.valueOf(form.getProductStock());
+		//入力された在庫数に変更
+		pcdataService.productStockUpdate(pcdataId,productStock);
 		
 		return getStockOutProductResurrection(model);
 	}
@@ -8237,6 +8245,13 @@ public class ShoppingController {
 		pcdataService.listingRestartUpdateOne(productId);
 
 		return getListingProductStop(model);
+	}
+	
+	@GetMapping("/auction")
+	public String getAuction(Model model) {
+		model.addAttribute("contents", "shopping/auction::productListLayout_contents");
+		
+		return "shopping/productList";
 	}
 
 	// ログアウト用メソッド

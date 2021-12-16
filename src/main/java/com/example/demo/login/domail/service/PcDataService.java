@@ -9,7 +9,6 @@ import com.example.demo.login.domail.model.PcDataDTO;
 import com.example.demo.login.domail.model.PcDataForm;
 import com.example.demo.login.domail.model.ProductListSearchForm;
 import com.example.demo.login.domail.model.PurchaseDTO;
-import com.example.demo.login.domail.model.StockInputForm;
 import com.example.demo.login.domail.repository.PcDataDao;
 
 @Service
@@ -80,7 +79,7 @@ public class PcDataService {
 		return dao.listingRestartUpdateOne(productId);
 	}
 	
-	public int productStockUpdate(int pcdataId,StockInputForm form) {
-		return dao.productStockUpdate(pcdataId,form);
+	public int productStockUpdate(int pcdataId,int productStock) {
+		return dao.productStockUpdate(pcdataId,productStock);
 	}
 } 

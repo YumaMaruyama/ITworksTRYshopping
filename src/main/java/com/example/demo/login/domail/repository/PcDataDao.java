@@ -6,7 +6,6 @@ import com.example.demo.login.domail.model.PcDataDTO;
 import com.example.demo.login.domail.model.PcDataForm;
 import com.example.demo.login.domail.model.ProductListSearchForm;
 import com.example.demo.login.domail.model.PurchaseDTO;
-import com.example.demo.login.domail.model.StockInputForm;
 
 public interface PcDataDao {
 
@@ -36,5 +35,5 @@ public interface PcDataDao {
 	
 	public int listingRestartUpdateOne(int productId);
 	
-	public int productStockUpdate(int pcdataId,StockInputForm form);
+	public int productStockUpdate(int pcdataId,int productStock);
 }

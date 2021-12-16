@@ -11,10 +11,10 @@
 		<header>
 			<h1 class="titleDesign">在庫数入力</h1>
 		</header>
-		<h3>こちらの商品は在庫数0のため、現在は出品されておりません。このフォームで1以上の在庫数を入力することで出品を再開できます。</h3>
+		<h3>こちらの商品は在庫数0のため、現在は出品されておりません。<br>このフォームで1以上の在庫数を入力することで出品を再開できます。</h3>
 		
 		<form method="post" th:action="@{/stockInput}" th:object="${stockInputForm}">
-		<table class="table productListSearchTable">
+		<table class="table stockInput-table">
 			<tr class="searchTr">
 				<th class=" text-center">在庫数</th>
 			</tr>
@@ -25,12 +25,10 @@
 					th:field="*{productStock}"> <span
 					class="text-danger" th:if="${#fields.hasErrors('productStock')}"
 					th:errors="*{productStock}">productStock error</span></td>
-
-
-				<input type="hidden" name="id" th:value="${pcdataId}">
-				<td><button class="btn productList-btn-radius-solid productList-btn--shadow" type="submit" name="search">この在庫数で出品</button></td>
 			</tr>
 		</table>
+		<input type="hidden" name="id" th:value="${pcdataId}">
+				<td><button class="btn productList-btn-radius-solid productList-btn--shadow stockInput-btn" type="submit" name="search">この在庫数で出品</button></td>
 		</form>
 	</div>
 	

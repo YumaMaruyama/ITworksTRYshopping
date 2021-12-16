@@ -13,7 +13,6 @@ import com.example.demo.login.domail.model.PcDataDTO;
 import com.example.demo.login.domail.model.PcDataForm;
 import com.example.demo.login.domail.model.ProductListSearchForm;
 import com.example.demo.login.domail.model.PurchaseDTO;
-import com.example.demo.login.domail.model.StockInputForm;
 import com.example.demo.login.domail.repository.PcDataDao;
 
 @Repository
@@ -280,8 +279,8 @@ public class PcDataDaoJdbcImpl implements PcDataDao {
 		return result;
 	}
 	
-	public int productStockUpdate(int pcdataId,StockInputForm form) {
-		int result = jdbc.update("update pcdata set product_stock = ? where id = ?",form.getProductStock(),pcdataId);
+	public int productStockUpdate(int pcdataId,int productStock) {
+		int result = jdbc.update("update pcdata set product_stock = ? where id = ?",productStock,pcdataId);
 		return result;
 	}
 
