@@ -31,6 +31,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.demo.login.domail.model.AuctionDataDTO;
+import com.example.demo.login.domail.model.AuctionListingForm;
 import com.example.demo.login.domail.model.CancelDTO;
 import com.example.demo.login.domail.model.CancelForm;
 import com.example.demo.login.domail.model.CancelInTransactionForm;
@@ -86,6 +88,7 @@ import com.example.demo.login.domail.model.UserEditForm;
 import com.example.demo.login.domail.model.UsersDTO;
 import com.example.demo.login.domail.model.UsersListDTO;
 import com.example.demo.login.domail.model.UsersListForm;
+import com.example.demo.login.domail.service.AuctionDataService;
 import com.example.demo.login.domail.service.CancelService;
 import com.example.demo.login.domail.service.CartService;
 import com.example.demo.login.domail.service.ChallengeProgrammingContractService;
@@ -176,6 +179,8 @@ public class ShoppingController {
 	GachaPointInterChangeService gachaPointInterChangeService;
 	@Autowired
 	GachaPointProductHistoryService gachaPointProductHistoryService;
+	@Autowired
+	AuctionDataService auctionDataService;
 
 	@Autowired // Sessionが使用できる
 	HttpSession session;
@@ -8251,7 +8256,58 @@ public class ShoppingController {
 	public String getAuction(Model model) {
 		model.addAttribute("contents", "shopping/auction::productListLayout_contents");
 		
-		return "shopping/productList";
+		List<AuctionDataDTO> auctiondatadtoList = auctionDataService.selectMany();
+		model.addAttribute("auctionDataDTOList",auctiondatadtoList);
+		
+		
+		return "shopping/productListLayout";
+	}
+	
+	@GetMapping("/auctionListing")
+	public String getAuctionListing(AuctionListingForm form,Model model) {
+		model.addAttribute("contents", "shopping/auctionListing::productListLayout_contents");
+		
+		return "shopping/productListLayout";
+	}
+	
+	@PostMapping("auctionListing")
+	public String postAuctionListing(AuctionListingForm form,Model model) {
+		model.addAttribute("contents", "shopping/auctionListing::productListLayout_contents");
+
+		String img1 = form.getImg();// 画像アドレスを変数に入れる
+		String img2 = form.getImg2();
+
+		String imgCheck1 = img1.substring(img1.length() - 4);// 画像アドレスが.jpgか確かめるため最後に4文字を取得
+		String imgCheck2 = img2.substring(img2.length() - 4);
+		String jpg = ".jpg";
+		
+		if (!imgCheck1.equals(jpg)) {
+			model.addAttribute("imgResult1", "商品画像1はJPEG形式（最後が「.jpg」のもの）で入力してください");
+			return getAuctionListing(form, model);
+		}
+
+		if (!imgCheck2.equals(jpg)) {
+			model.addAttribute("imgResult2", "商品画像2はJPEG形式（最後が「.jpg」のもの）で入力してください");
+			return getAuctionListing(form, model);
+		}
+
+
+		if (!img1.startsWith("https://")) {
+			model.addAttribute("imgResult1", "商品画像1はhttps://から始まる画像アドレスを入力してください");
+			return getAuctionListing(form, model);
+
+		}
+
+		if (!img2.startsWith("https://")) {
+			model.addAttribute("imgResult1", "商品画像2はhttps://から始まる画像アドレスを入力してください");
+			return getAuctionListing(form, model);
+		}
+		
+		//入力されたオークション出品商品情報を格納
+		AuctionDataDTO auctiondatadto = new AuctionDataDTO();
+		auctionDataService.auctionDataInsertOne(auctiondatadto,form);
+		
+		return getAuction(model);
 	}
 
 	// ログアウト用メソッド

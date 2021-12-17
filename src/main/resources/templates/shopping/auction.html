@@ -13,33 +13,26 @@
 		</header>
 		
 		<div class="flex productList" style="width: 1100px;">
-			<div class="item" th:each="pcdatadto : ${productList}">
-				<img class="size" th:src="${pcdatadto.pcImg}">
+			<div class="item" th:each="auctionData : ${auctionDataDTOList}">
+				<img class="size" th:src="${auctionData.img}">
 				<h4 class="card-title text-center fontdesign"
 					style="margin-bottom: 0px !important"
-					th:text="'商品名：' + ${pcdatadto.pc_name}"></h4>
+					th:text="'商品名：' + ${auctionData.productName}"></h4>
 				<p class="card-text text-center fontdesign"
 					style="margin-bottom: 0px !important"
-					th:text="'会社名：' + ${pcdatadto.company}"></p>
+					th:text="'会社名：' + ${auctionData.company}"></p>
 				<p class="card-text text-center fontdesign os"
 					style="margin-bottom: 0px !important"
-					th:text="'OS：' + ${pcdatadto.os}"></p>
-				<p th:if="${pcdatadto.pc_size} neq 0"
-					class="card-text text-center fontdesign pcsize"
-					style="margin-bottom: 0px !important"
-					th:text="'画面サイズ：' + ${pcdatadto.pc_size} + '型'"></p>
-				<p th:if="${pcdatadto.pc_size} == 0"
-					class="card-text text-center fontdesign pcsize"
-					style="margin-bottom: 0px !important" th:text="'画面サイズ： 画面なし'"></p>
+					th:text="'OS：' + ${auctionData.os}"></p>
 				<p class="card-text text-center fontdesign price"
 					style="margin-bottom: 0px !important"
-					th:text="'値段：' + ${pcdatadto.price} + '円'"></p>
+					th:text="'開始値段：' + ${auctionData.initialPrice} + '円'"></p>
 				<p class="card-text text-center fontdesign stock"
 					style="margin-bottom: 0px !important"
-					th:text="'在庫数：' + ${pcdatadto.product_stock} + '個'"></p>
+					th:text="'在庫数：' + ${auctionData.productStock} + '個'"></p>
 				<a class="text-center productListGo"
-					th:href="@{/productDetail} + '/' + ${pcdatadto.id}"><span
-					class="DetailRyncDesigin">詳細画面に行く</span></a>
+					th:href="@{/auctionProductDetail} + '/' + ${auctionData.id}"><span
+					class="DetailRyncDesigin">商品詳細へ</span></a>
 			</div>
 		</div>
 		

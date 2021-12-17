@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	
+	<div th:fragment="productListLayout_contents">
+		<header>
+			<h1 class="titleDesign">オークション商品追加</h1>
+		</header>
+
+		<form method="post" th:action="@{/auctionListing}"
+			th:object="${auctionListingForm}" class="adminFormDesign">
+			<table class="table table-bordered table-hover tableDesign">
+				<tr>
+					<th class="text-center pcdataAddThDesign">会社名</th>
+					<td th:classappend="${#fields.hasErrors('company')}?'has-error'"
+						class="form-group pcdataAddTdDesign"><input type="text"
+						class="form-control" th:field="*{company}"> <span
+						class="text-danger" th:if="${#fields.hasErrors('company')}"
+						th:errors="*{company}">company error</span></td>
+
+					<th class="text-center pcdataAddThDesign">OS</th>
+					<td th:classappend="${#fields.hasErrors('os')}?'has-error'"
+						class="form-group pcdataAddTdDesign"><input type="text"
+						class="form-control" th:field="*{os}"> <span
+						class="text-danger" th:if="${#fields.hasErrors('os')}"
+						th:errors="*{os}">os error</span></td>
+				</tr>
+			</table>
+			<table class="table table-bordered table-hover tableDesign">
+				<tr>
+					<th class="text-center pcdataAddThDesign">商品名</th>
+					<td th:classappend="${#fields.hasErrors('productName')}?'has-error'"
+						class="form-group pcdataAddTdDesign"><input type="text"
+						class="form-control" th:field="*{productName}"> <span
+						class="text-danger" th:if="${#fields.hasErrors('productName')}"
+						th:errors="*{productName}">productName error</span></td>
+					<th class="text-center pcdataAddThDesign">initialPrice</th>
+					<td th:classappend="${#fields.hasErrors('initialPrice')}?'has-error'"
+						class="form-group pcdataAddTdDesign"><input type="text"
+						class="form-control" th:field="*{initialPrice}"> <span
+						class="text-danger" th:if="${#fields.hasErrors('initialPrice')}"
+						th:errors="*{initialPrice}">initialPrice error</span></td>
+				</tr>
+			</table>
+
+			<table class="table table-bordered table-hover tableDesign">
+				<tr>
+					<th class="text-center pcdataAddThDesign">在庫数</th>
+					<td th:classappend="${#fields.hasErrors('productStock')}?'has-error'"
+						class="form-group pcdataAddTdDesign"><input type="text"
+						class="form-control" th:field="*{productStock}"> <span
+						class="text-danger" th:if="${#fields.hasErrors('productStock')}"
+						th:errors="*{productStock}">productStock error</span></td>
+
+					<th class="text-center pcdataAddThDesign">仕入れ値</th>
+					<td th:classappend="${#fields.hasErrors('cost')}?'has-error'"
+						class="form-group pcdataAddTdDesign"><input type="text"
+						class="form-control" th:field="*{cost}"> <span
+						class="text-danger" th:if="${#fields.hasErrors('cost')}"
+						th:errors="*{cost}">cost error</span></td>
+				</tr>
+			</table>
+
+			<table class="table table-bordered table-hover tableDesign">
+				<tr>
+					<th class="text-center pcdataAddThDesign">商品詳細</th>
+					<td th:classappend="${#fields.hasErrors('detail')}?'has-error'"
+						class="form-group pcdataAddTdDesign"><input type="text"
+						class="form-control" th:field="*{detail}"> <span
+						class="text-danger" th:if="${#fields.hasErrors('detail')}"
+						th:errors="*{detail}">detail error</span> <span
+						class="errorFontDesign" th:text="${imgResult3}"></span></td>
+				</tr>
+			</table>
+
+			<table class="table table-bordered table-hover tableDesign">
+				<tr>
+					<th class="text-center pcdataAddThDesign">商品画像1(JPEG形式)</th>
+					<td th:classappend="${#fields.hasErrors('img')}?'has-error'"
+						class="form-group pcdataAddTdDesign"><input type="text"
+						class="form-control" th:field="*{img}"> <span
+						class="text-danger" th:if="${#fields.hasErrors('img')}"
+						th:errors="*{img}">img error</span> <span
+						class="errorFontDesign" th:text="${imgResult1}"></span></td>
+				
+				</tr>
+					
+			</table>
+			
+			<table class="table table-bordered table-hover tableDesign">
+				<tr>
+				
+			<th class="text-center pcdataAddThDesign">商品画像2(JPEG形式)</th>
+					<td th:classappend="${#fields.hasErrors('img2')}?'has-error'"
+						class="form-group pcdataAddTdDesign"><input type="text"
+						class="form-control" th:field="*{img2}"> <span
+						class="text-danger" th:if="${#fields.hasErrors('img2')}"
+						th:errors="*{img2}">img2 error</span> <span
+						class="errorFontDesign" th:text="${imgResult2}"></span></td>
+			</tr>
+			</table>
+
+
+			<button
+				class="btn btn-radius-solidProductAdd btn--shadow productAddBtnDesign"
+				type="submit">商品追加決定</button>
+		</form>
+
+		<script>
+			$('.productAddBtnDesign').click(function() {
+				if (confirm('本当にこの内容で追加しますか？')) {
+
+					return true;
+				}
+				return false;
+			});
+		</script>
+	</div>
+	
+</body>
+</html>
