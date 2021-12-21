@@ -10,4 +10,6 @@ public interface AuctionDataDao {
 	public int auctionDataInsertOne(AuctionDataDTO auctiondatadto,AuctionListingForm form);
 	
 	public List<AuctionDataDTO> selectMany();
+	
+	public AuctionDataDTO selectOne(int auctionId);
 }

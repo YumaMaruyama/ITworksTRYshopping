@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	
+	<div th:fragment="productListLayout_contents">
+		<header>
+			<h1 class="titleDesign">オークション商品詳細</h1>
+		</header>
+		
+		<form style="width: 1090px;" th:each="auctiondatadto : ${auctionDataDTOList}"
+			method="get" th:action="@{/productTender} + '/' + ${auctiondatadto.id}"
+			th:object="${auctionTenderForm}">
+			<table class="table table-bordered productDetailTableDesigin">
+				<tr class="pcdataTableDesigna">
+					<th class="text-center padding">会社名</th>
+					<th class="text-center padding">OS</th>
+					<th class="text-center padding">商品名</th>
+					<th class="text-center padding">在庫数</th>
+				</tr>
+				<tr th:each="auctiondatadto : ${auctionDataDTOList}">
+					<td class="text-center padding" th:text="${auctiondatadto.company}"></td>
+					<td class="text-center padding" th:text="${auctiondatadto.os}"></td>
+					<td class="text-center padding" th:text="${auctiondatadto.productName}"></td>
+					<td class="text-center padding"
+						th:text="${auctiondatadto.productStock} + '個'"></td>
+				</tr>
+			</table>
+
+			<table class="table table-bordered productDetailTableDesigin">
+				<tr class="pcdataDetailTableDesigna">
+					<th class="text-center padding">商品詳細説明</th>
+				</tr>
+				<tr th:each="auctiondatadto : ${auctionDataDTOList}"
+					class="pcdataDetailTableDesignb">
+					<td class="text-center padding" th:text="${auctiondatadto.detail}"></td>
+				</tr>
+			</table>
+
+			<table class="table table-bordered imageTableDesign">
+				<tr>
+					<td style="padding-left: 120px;"
+						th:each="auctiondatadto : ${auctionDataDTOList}"><img class="imgSize"
+						th:src="${auctiondatadto.img}"> <img class="imgSize"
+						th:src="${auctiondatadto.img2}">
+				</tr>
+			</table>
+			
+			<table class="table table-bordered productDetailTableDesigin">
+				<tr class="pcdataTableDesigna">
+					<th class="text-center padding">開始価格</th>
+					<th class="text-center padding">現在価格</th>
+					<th class="text-center padding">入札数</th>
+				</tr>
+				<tr th:each="auctiondatadto : ${auctionDataDTOList}">
+					<td class="text-center padding" th:text="${auctiondatadto.initialPrice} + '円'"></td>
+					<td th:if="${auctiondatadto.tenderPrice} != 0" class="text-center padding" th:text="${auctiondatadto.tenderPrice} + '円'"></td>
+					<td th:if="${auctiondatadto.tenderPrice} == 0" class="text-center padding">入札者はいません</td>
+					<td class="text-center padding" th:text="${auctiondatadto.tenderNumber} + '回'"></td>
+				</tr>
+			</table>
+			
+		</form>
+		
+	</div>
+	
+</body>
+</html>

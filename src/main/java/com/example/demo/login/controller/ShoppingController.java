@@ -8263,6 +8263,15 @@ public class ShoppingController {
 		return "shopping/productListLayout";
 	}
 	
+	@GetMapping("/auctionProductDetail/{id}")
+	public String getAuctionProductDetail(@PathVariable("id") int auctionId,Model model) {
+		model.addAttribute("contents", "shopping/auctionProductDetail::productListLayout_contents");
+		
+		AuctionDataDTO auctiondatadtoList = auctionDataService.selectOne(auctionId);
+		model.addAttribute("auctionDataDTOList",auctiondatadtoList);
+		return "shopping/productListLayout";
+	}
+	
 	@GetMapping("/auctionListing")
 	public String getAuctionListing(AuctionListingForm form,Model model) {
 		model.addAttribute("contents", "shopping/auctionListing::productListLayout_contents");

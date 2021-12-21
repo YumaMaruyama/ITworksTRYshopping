@@ -22,4 +22,8 @@ public class AuctionDataService {
 	public List<AuctionDataDTO> selectMany() {
 		return dao.selectMany();
 	}
+	
+	public AuctionDataDTO selectOne(int auctionId) {
+		return dao.selectOne(auctionId);
+	}
 }

@@ -42,10 +42,41 @@ public class AuctionDataDaoJdbcImpl implements AuctionDataDao {
 			auctiondatadto.setProductStock((int)oneMap.get("product_stock"));
 			auctiondatadto.setCost((int)oneMap.get("cost"));
 			auctiondatadto.setListingStopCheck((String)oneMap.get("listing_stop_check"));
+			auctiondatadto.setTenderPrice((int)oneMap.get("tender_price"));
+			auctiondatadto.setTenderNumber((int)oneMap.get("tender_number"));
 			
 			auctiondatadtoList.add(auctiondatadto);
 		}
 		
 		return auctiondatadtoList;
+	}
+	
+	public AuctionDataDTO selectOne(int auctionId) {
+		
+		Map<String,Object> map = jdbc.queryForMap("select * from auction_data where id = ?",auctionId);
+		
+		
+			AuctionDataDTO auctiondatadto = new AuctionDataDTO();
+			auctiondatadto.setId((int)map.get("id"));
+			auctiondatadto.setCompany((String)map.get("company"));
+			auctiondatadto.setOs((String)map.get("os"));
+			auctiondatadto.setProductName((String)map.get("product_name"));
+			auctiondatadto.setInitialPrice((int)map.get("initial_price"));
+			auctiondatadto.setDetail((String)map.get("detail"));
+			auctiondatadto.setImg((String)map.get("img"));
+			auctiondatadto.setImg2((String)map.get("img2"));
+			auctiondatadto.setProductStock((int)map.get("product_stock"));
+			auctiondatadto.setCost((int)map.get("cost"));
+			auctiondatadto.setListingStopCheck((String)map.get("listing_stop_check"));
+			try {
+			auctiondatadto.setTenderPrice((int)map.get("tender_price"));
+			}catch(NullPointerException e) {
+				e.printStackTrace();
+				auctiondatadto.setTenderPrice(0);
+			}
+			
+			auctiondatadto.setTenderNumber((int)map.get("tender_number"));
+			
+		return auctiondatadto;
 	}
 }
