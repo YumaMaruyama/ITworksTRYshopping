@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.example.demo.login.domail.model.AuctionDataDTO;
 import com.example.demo.login.domail.model.AuctionListingForm;
+import com.example.demo.login.domail.model.AuctionTenderForm;
 import com.example.demo.login.domail.repository.AuctionDataDao;
 
 @Repository
@@ -42,7 +43,13 @@ public class AuctionDataDaoJdbcImpl implements AuctionDataDao {
 			auctiondatadto.setProductStock((int)oneMap.get("product_stock"));
 			auctiondatadto.setCost((int)oneMap.get("cost"));
 			auctiondatadto.setListingStopCheck((String)oneMap.get("listing_stop_check"));
-			auctiondatadto.setTenderPrice((int)oneMap.get("tender_price"));
+			try {
+				auctiondatadto.setTenderPrice((int)oneMap.get("tender_price"));
+				}catch(NullPointerException e) {
+					e.printStackTrace();
+					auctiondatadto.setTenderPrice(0);
+				}
+			
 			auctiondatadto.setTenderNumber((int)oneMap.get("tender_number"));
 			
 			auctiondatadtoList.add(auctiondatadto);
@@ -78,5 +85,26 @@ public class AuctionDataDaoJdbcImpl implements AuctionDataDao {
 			auctiondatadto.setTenderNumber((int)map.get("tender_number"));
 			
 		return auctiondatadto;
+	}
+	
+	public int tenderUpdateOne(AuctionTenderForm form,int auctiondataId) {
+		jdbc.update("update auction_data set tender_price = ? where id = ?",form.getTenderPrice(),auctiondataId);
+		int tenderNumber = jdbc.queryForObject("select auction_data.tender_number from auction_data where id = ?",Integer.class,auctiondataId);
+		int tenderNumberUpdate = tenderNumber + 1;
+		jdbc.update("update auction_data set tender_number = ? where id = ?",tenderNumberUpdate,auctiondataId);
+		
+		
+		return tenderNumberUpdate;
+	}
+	
+	public AuctionDataDTO priceSelectOne(int auctiondataId) {
+		Map<String,Object> map = jdbc.queryForMap("select * from auction_data where id = ?",auctiondataId);
+		
+		AuctionDataDTO auctiondatadto = new AuctionDataDTO();
+		auctiondatadto.setInitialPrice((int)map.get("initial_price"));
+		auctiondatadto.setTenderPrice((int)map.get("tender_price"));
+		
+		return auctiondatadto;
+		
 	}
 }

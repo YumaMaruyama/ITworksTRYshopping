@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.example.demo.login.domail.model.AuctionDataDTO;
 import com.example.demo.login.domail.model.AuctionListingForm;
+import com.example.demo.login.domail.model.AuctionTenderForm;
 
 public interface AuctionDataDao {
 
@@ -12,4 +13,8 @@ public interface AuctionDataDao {
 	public List<AuctionDataDTO> selectMany();
 	
 	public AuctionDataDTO selectOne(int auctionId);
+	
+	public int tenderUpdateOne(AuctionTenderForm form,int auctiondataId);
+	
+	public AuctionDataDTO priceSelectOne(int auctiondataId);
 }

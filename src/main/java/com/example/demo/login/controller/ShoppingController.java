@@ -33,6 +33,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.login.domail.model.AuctionDataDTO;
 import com.example.demo.login.domail.model.AuctionListingForm;
+import com.example.demo.login.domail.model.AuctionTenderForm;
 import com.example.demo.login.domail.model.CancelDTO;
 import com.example.demo.login.domail.model.CancelForm;
 import com.example.demo.login.domail.model.CancelInTransactionForm;
@@ -8264,12 +8265,45 @@ public class ShoppingController {
 	}
 	
 	@GetMapping("/auctionProductDetail/{id}")
-	public String getAuctionProductDetail(@PathVariable("id") int auctionId,Model model) {
+	public String getAuctionProductDetail(@PathVariable("id") int auctionId,AuctionTenderForm form,Model model) {
 		model.addAttribute("contents", "shopping/auctionProductDetail::productListLayout_contents");
 		
 		AuctionDataDTO auctiondatadtoList = auctionDataService.selectOne(auctionId);
 		model.addAttribute("auctionDataDTOList",auctiondatadtoList);
 		return "shopping/productListLayout";
+	}
+	
+	@PostMapping("/productTender")
+	public String postProductTender(AuctionTenderForm form,@RequestParam("id") int auctiondataId,Model model) {
+		model.addAttribute("contents", "shopping/tenderFinish::productListLayout_contents");
+		
+		//入札額が適切な額かチェック
+		AuctionDataDTO auctiondatadto = auctionDataService.priceSelectOne(auctiondataId);
+		if(auctiondatadto.getTenderPrice() != 0) {
+	
+			if(auctiondatadto.getInitialPrice() <= form.getTenderPrice()) {
+			//入札額と入札数を更新
+			int tenderNumber = auctionDataService.tenderUpdateOne(form,auctiondataId);
+			model.addAttribute("tenderPrice",form.getTenderPrice());
+			model.addAttribute("tenderNumber",tenderNumber);
+			} else {
+				model.addAttribute("errorText","開始価格以上の金額を入力してください");
+				return getAuctionProductDetail(auctiondataId,form,model);
+			}
+		}else {
+			if(auctiondatadto.getTenderPrice() < form.getTenderPrice()) {
+				//入札額と入札数を更新
+				int tenderNumber = auctionDataService.tenderUpdateOne(form,auctiondataId);
+				model.addAttribute("tenderPrice",form.getTenderPrice());
+				model.addAttribute("tenderNumber",tenderNumber);
+			}else  {
+				model.addAttribute("errorText","現在入札価格よりも上の金額を入力してください");
+				return getAuctionProductDetail(auctiondataId,form,model);
+				
+			}
+		}
+		
+		return "shopping/productListLayout"; 
 	}
 	
 	@GetMapping("/auctionListing")

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	
+	<div th:fragment="productListLayout_contents">
+		<header>
+			<h1 class="titleDesign">入札完了</h1>
+		</header>
+		
+		<table class="table table-bordered tenderFinish-table">
+			<tr>
+				<th class="text-center">入札金額</th>
+				<td class="text-center" th:text="'あなたは現在' + ${tenderPrice} + '円で入札者トップに立っています'"></td>
+			</tr>
+			
+			<tr>
+				<th class="text-center">入札回数</th>
+				<td class="text-center" th:text="'あなたはこの商品の' + ${tenderNumber} + '回目の入札者です'"></td>
+			</tr>
+		
+		</table>
+		
+	</div>
+	
+</body>
+</html>

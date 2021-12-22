@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class AuctionDataDTO {
 
-private int id;
+	private int id;
 	
 	private String company;
 	

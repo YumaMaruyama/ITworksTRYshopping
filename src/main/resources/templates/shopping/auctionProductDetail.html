@@ -13,8 +13,9 @@
 		</header>
 		
 		<form style="width: 1090px;" th:each="auctiondatadto : ${auctionDataDTOList}"
-			method="get" th:action="@{/productTender} + '/' + ${auctiondatadto.id}"
+			method="post" th:action="@{/productTender}"
 			th:object="${auctionTenderForm}">
+			<input type="hidden" name="id" th:value="${auctiondatadto.id}">
 			<table class="table table-bordered productDetailTableDesigin">
 				<tr class="pcdataTableDesigna">
 					<th class="text-center padding">会社名</th>
@@ -53,7 +54,7 @@
 			<table class="table table-bordered productDetailTableDesigin">
 				<tr class="pcdataTableDesigna">
 					<th class="text-center padding">開始価格</th>
-					<th class="text-center padding">現在価格</th>
+					<th class="text-center padding">現在入札価格</th>
 					<th class="text-center padding">入札数</th>
 				</tr>
 				<tr th:each="auctiondatadto : ${auctionDataDTOList}">
@@ -64,8 +65,48 @@
 				</tr>
 			</table>
 			
+				<table 
+					class="col-sm-5 auctionProductDetail-table table table-bordered table-hover cardTable">
+					<h3 class="tender-detail-text">入札者がいない場合は開始価格以上、いる場合は入札価格より上の金額を指定できます</h3>
+					<tr>
+						<th class=" text-center">入札額</th>
+						<td><input id="textField1" type="text"
+					class="form-control text-center formDesign" name="tenderPrice"
+					th:field="*{tenderPrice}"> <span
+					class="text-danger" th:if="${#fields.hasErrors('tenderPrice')}"
+					th:errors="*{tenderPrice}">tenderPrice error</span><span th:text="${errorText}"></span></td>
+					</tr>
+				
+				</table>
+			
+				
+				<div class="btn-wrapper auctionProductDetail-wrapper">
+					<br>
+					<br>
+					<div class="check-box auctionProductDetail-check">
+						<label class="text-danger"><input class="check"
+							type="checkbox" name="check" autocomplete="off" id="agree"><span
+							class="confirmation_statement"><a></a>入力入札金額で落札が決まれば金額分の支払いを行うことに同意します</span></label>
+					</div>
+					<input class="submit clearing" type="submit" id="submit" value="入札" />
+				</div>
 		</form>
 		
+		<script>
+			$(function() {
+
+				$('.submit').attr('disabled', 'disabled');
+
+				$('#agree').on('click', function() {
+					if ($(this).prop('checked') == false) {
+						$('.submit').attr('disabled', 'disabled');
+					} else {
+						$('.submit').removeAttr('disabled');
+					}
+				});
+
+			});
+		</script>
 	</div>
 	
 </body>
