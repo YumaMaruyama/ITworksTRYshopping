@@ -102,7 +102,7 @@ public class AuctionDataDaoJdbcImpl implements AuctionDataDao {
 		
 		AuctionDataDTO auctiondatadto = new AuctionDataDTO();
 		auctiondatadto.setInitialPrice((int)map.get("initial_price"));
-		auctiondatadto.setTenderPrice((int)map.get("tender_price"));
+		auctiondatadto.setNewTenderPrice((int)map.get("tender_price"));
 		
 		return auctiondatadto;
 		

@@ -29,5 +29,7 @@ public class AuctionDataDTO {
 	
 	private int tenderPrice;
 	
+	private int newTenderPrice;
+	
 	private int tenderNumber;
 }

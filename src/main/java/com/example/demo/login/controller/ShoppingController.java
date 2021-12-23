@@ -8274,14 +8274,22 @@ public class ShoppingController {
 	}
 	
 	@PostMapping("/productTender")
-	public String postProductTender(AuctionTenderForm form,@RequestParam("id") int auctiondataId,Model model) {
+	public String postProductTender(@Validated(GroupOrder.class) AuctionTenderForm form,BindingResult bindingResult,@RequestParam("id") int auctiondataId,Model model) {
 		model.addAttribute("contents", "shopping/tenderFinish::productListLayout_contents");
+		
+		if(bindingResult.hasErrors()) {
+			return getAuctionProductDetail(auctiondataId,form,model);
+		}
+		
+		int tenderPrice = Integer.valueOf(form.getTenderPrice());
+		form.setNewTenderPrice(tenderPrice);
 		
 		//入札額が適切な額かチェック
 		AuctionDataDTO auctiondatadto = auctionDataService.priceSelectOne(auctiondataId);
-		if(auctiondatadto.getTenderPrice() != 0) {
+		if(auctiondatadto.getNewTenderPrice() != 0) {
 	
-			if(auctiondatadto.getInitialPrice() <= form.getTenderPrice()) {
+			
+			if(auctiondatadto.getInitialPrice() <= form.getNewTenderPrice()) {
 			//入札額と入札数を更新
 			int tenderNumber = auctionDataService.tenderUpdateOne(form,auctiondataId);
 			model.addAttribute("tenderPrice",form.getTenderPrice());
@@ -8291,7 +8299,7 @@ public class ShoppingController {
 				return getAuctionProductDetail(auctiondataId,form,model);
 			}
 		}else {
-			if(auctiondatadto.getTenderPrice() < form.getTenderPrice()) {
+			if(auctiondatadto.getTenderPrice() < form.getNewTenderPrice()) {
 				//入札額と入札数を更新
 				int tenderNumber = auctionDataService.tenderUpdateOne(form,auctiondataId);
 				model.addAttribute("tenderPrice",form.getTenderPrice());
