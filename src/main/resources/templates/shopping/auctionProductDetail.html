@@ -8,9 +8,12 @@
 <body>
 	
 	<div th:fragment="productListLayout_contents">
-		<header>
-			<h1 class="titleDesign">オークション商品詳細</h1>
-		</header>
+		<table>
+		<tr>
+			<th><h1 class="titleDesign">オークション商品詳細</h1></th>
+			<th><h1 class="titleDesign"><a class="btn btn-radius-solid-history btn--shadow-history productStockOutBtn" th:href="@{/auctionDetail} + '/' + ${auctionProductId}">入札詳細</a></h1></th>
+		</tr>
+		</table>
 		
 		<form style="width: 1090px;" th:each="auctiondatadto : ${auctionDataDTOList}"
 			method="post" th:action="@{/productTender}"

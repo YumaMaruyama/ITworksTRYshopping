@@ -90,6 +90,7 @@ import com.example.demo.login.domail.model.UsersDTO;
 import com.example.demo.login.domail.model.UsersListDTO;
 import com.example.demo.login.domail.model.UsersListForm;
 import com.example.demo.login.domail.service.AuctionDataService;
+import com.example.demo.login.domail.service.AuctionTenderDataService;
 import com.example.demo.login.domail.service.CancelService;
 import com.example.demo.login.domail.service.CartService;
 import com.example.demo.login.domail.service.ChallengeProgrammingContractService;
@@ -182,6 +183,8 @@ public class ShoppingController {
 	GachaPointProductHistoryService gachaPointProductHistoryService;
 	@Autowired
 	AuctionDataService auctionDataService;
+	@Autowired
+	AuctionTenderDataService auctionTenderDataService;
 
 	@Autowired // Sessionが使用できる
 	HttpSession session;
@@ -8270,12 +8273,28 @@ public class ShoppingController {
 		
 		AuctionDataDTO auctiondatadtoList = auctionDataService.selectOne(auctionId);
 		model.addAttribute("auctionDataDTOList",auctiondatadtoList);
+		model.addAttribute("auctionProductId",auctionId);
 		return "shopping/productListLayout";
 	}
+	
+	@GetMapping("/auctionDetail/{id}")
+	public String getAuctionDetail(@PathVariable("id") int auctionId,Model model) {
+		model.addAttribute("contents", "shopping/auctionDetail::productListLayout_contents");
+		
+		return "shopping/productListLayout";
+	}
+	
+	
+	
 	
 	@PostMapping("/productTender")
 	public String postProductTender(@Validated(GroupOrder.class) AuctionTenderForm form,BindingResult bindingResult,@RequestParam("id") int auctiondataId,Model model) {
 		model.addAttribute("contents", "shopping/tenderFinish::productListLayout_contents");
+		
+		//ユーザーIDを取得
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String getName = auth.getName();
+		int userId = usersService.select_id(getName);
 		
 		if(bindingResult.hasErrors()) {
 			return getAuctionProductDetail(auctiondataId,form,model);
@@ -8286,26 +8305,31 @@ public class ShoppingController {
 		
 		//入札額が適切な額かチェック
 		AuctionDataDTO auctiondatadto = auctionDataService.priceSelectOne(auctiondataId);
+		//入札が一回でもされていれば入る
 		if(auctiondatadto.getNewTenderPrice() != 0) {
-	
-			
-			if(auctiondatadto.getInitialPrice() <= form.getNewTenderPrice()) {
+			//現在の入札価格と入力入札価格を比べる
+			if(auctiondatadto.getInitialPrice() < form.getNewTenderPrice()) {
 			//入札額と入札数を更新
 			int tenderNumber = auctionDataService.tenderUpdateOne(form,auctiondataId);
+			//誰が何回目の入札かを格納
+			auctionTenderDataService.insertOne(form,auctiondataId,userId);
 			model.addAttribute("tenderPrice",form.getTenderPrice());
 			model.addAttribute("tenderNumber",tenderNumber);
 			} else {
-				model.addAttribute("errorText","開始価格以上の金額を入力してください");
+				model.addAttribute("errorText","現在入札価格よりも上の金額を入力してください");
 				return getAuctionProductDetail(auctiondataId,form,model);
 			}
 		}else {
-			if(auctiondatadto.getTenderPrice() < form.getNewTenderPrice()) {
+			//入札がされていないので開始価格と入力入札価格を比べる
+			if(auctiondatadto.getInitialPrice() <= form.getNewTenderPrice()) {
 				//入札額と入札数を更新
 				int tenderNumber = auctionDataService.tenderUpdateOne(form,auctiondataId);
+				//誰が何回目の入札かを格納
+				auctionTenderDataService.insertOne(form,auctiondataId,userId);
 				model.addAttribute("tenderPrice",form.getTenderPrice());
 				model.addAttribute("tenderNumber",tenderNumber);
 			}else  {
-				model.addAttribute("errorText","現在入札価格よりも上の金額を入力してください");
+				model.addAttribute("errorText","開始価格以上の金額を入力してください");
 				return getAuctionProductDetail(auctiondataId,form,model);
 				
 			}
