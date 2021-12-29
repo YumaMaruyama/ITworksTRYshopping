@@ -32,5 +32,7 @@ public interface UsersDao {
 	public String selectRole(int userId);
 	
 	public String mailAddressSelectOne(int userId);
+	
+	public String userNameSelectOne(int userId);
 
 }

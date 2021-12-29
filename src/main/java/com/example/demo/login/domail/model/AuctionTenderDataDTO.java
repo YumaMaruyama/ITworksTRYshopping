@@ -13,6 +13,8 @@ public class AuctionTenderDataDTO {
 	
 	private int userId;
 	
+	private String userName;
+	
 	private int tenderPrice;
 	
 	private Date auctionTenderDate;

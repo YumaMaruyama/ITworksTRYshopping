@@ -33,6 +33,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.login.domail.model.AuctionDataDTO;
 import com.example.demo.login.domail.model.AuctionListingForm;
+import com.example.demo.login.domail.model.AuctionTenderDataDTO;
 import com.example.demo.login.domail.model.AuctionTenderForm;
 import com.example.demo.login.domail.model.CancelDTO;
 import com.example.demo.login.domail.model.CancelForm;
@@ -8280,6 +8281,16 @@ public class ShoppingController {
 	@GetMapping("/auctionDetail/{id}")
 	public String getAuctionDetail(@PathVariable("id") int auctionId,Model model) {
 		model.addAttribute("contents", "shopping/auctionDetail::productListLayout_contents");
+		
+		List<AuctionTenderDataDTO> auctiontenderdatadto = auctionTenderDataService.selectMany();
+		System.out.println(Arrays.asList("dtotest"+auctiontenderdatadto));
+		for(int x = 0;auctiontenderdatadto.size() > x;x++) {
+			AuctionTenderDataDTO auctiontenderdatadtoOne = auctiontenderdatadto.get(x);
+			int userId = auctiontenderdatadtoOne.getUserId();
+			String userName = usersService.userNameSelectOne(userId);
+			auctiontenderdatadtoOne.setUserName(userName);
+		}
+		model.addAttribute("auctionTenderDataList",auctiontenderdatadto);
 		
 		return "shopping/productListLayout";
 	}

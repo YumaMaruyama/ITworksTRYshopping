@@ -151,5 +151,11 @@ public class UsersDaoJdbcImpl implements UsersDao {
 		String mailAddress = jdbc.queryForObject("select users.user_id from users where id = ?",String.class,userId);
 		return mailAddress;
 	}
+	
+	public String userNameSelectOne(int userId) {
+		String userName = jdbc.queryForObject("select users.user_name from users where id = ?",String.class,userId);
+		
+		return userName;
+	}
 
 }

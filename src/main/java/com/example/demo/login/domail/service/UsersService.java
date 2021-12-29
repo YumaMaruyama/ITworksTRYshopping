@@ -68,5 +68,9 @@ public class UsersService {
 	public String mailAddressSelectOne(int userId) {
 		return dao.mailAddressSelectOne(userId);
 	}
+	
+	public String userNameSelectOne(int userId) {
+		return dao.userNameSelectOne(userId);
+	}
 
 }

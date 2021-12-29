@@ -12,6 +12,26 @@
 			<h1 class="titleDesign">入札詳細</h1>
 		</header>
 		
+		<table class="table table-bordered"
+				th:each="auctionTenderDataList : ${auctionTenderDataList}">
+
+				
+					<tr class="">
+						<th class="text-center ">入札者</th>
+						<th class="text-center ">入札金額</th>
+						<th class="text-center ">入札日時</th>
+					</tr>
+
+					<tr class="">
+						<td class="text-center " th:text="${auctionTenderDataList.userName}"></td>
+						<td class="text-center "
+							th:text="${auctionTenderDataList.tenderPrice}"></td>
+						<td class="text-center "
+							th:text="${#dates.format(auctionTenderDataList.auctionTenderDate,'yyyy/MM/dd ah:mm')}"></td>
+					</tr>
+				
+			</table>
+		
 	</div>	
 </body>
 </html>
