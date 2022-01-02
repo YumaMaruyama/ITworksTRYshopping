@@ -16,18 +16,23 @@
 				th:each="auctionTenderDataList : ${auctionTenderDataList}">
 
 				
-					<tr class="">
+					<tr class="auctionDetail-tr-top">
 						<th class="text-center ">入札者</th>
 						<th class="text-center ">入札金額</th>
 						<th class="text-center ">入札日時</th>
+						<th class="text-center ">入札状況</th>
 					</tr>
 
-					<tr class="">
+					<tr class="auctionDetail-tr-buttom">
 						<td class="text-center " th:text="${auctionTenderDataList.userName}"></td>
 						<td class="text-center "
-							th:text="${auctionTenderDataList.tenderPrice}"></td>
+							th:text="${auctionTenderDataList.tenderPrice} + '円'"></td>
 						<td class="text-center "
 							th:text="${#dates.format(auctionTenderDataList.auctionTenderDate,'yyyy/MM/dd ah:mm')}"></td>
+						<td th:if="${auctionTenderDataList.status} == '抜かされました'" class="text-center "
+							th:text="${auctionTenderDataList.status}"></td>
+						<td th:if="${auctionTenderDataList.status} != '抜かされました'" class="text-center text-danger"
+							th:text="${auctionTenderDataList.status}"></td>
 					</tr>
 				
 			</table>

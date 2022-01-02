@@ -18,4 +18,6 @@ public class AuctionTenderDataDTO {
 	private int tenderPrice;
 	
 	private Date auctionTenderDate;
+	
+	private String status;
 }

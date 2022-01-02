@@ -19,7 +19,11 @@ public class AuctionTenderDataService {
 		return dao.insertOne(form,auctiondataId,userId);
 	}
 	
-	public List<AuctionTenderDataDTO> selectMany() {
-		return dao.selectMany();
+	public List<AuctionTenderDataDTO> selectMany(int auctionId) {
+		return dao.selectMany(auctionId);
+	}
+	
+	public int statusUpdate(int auctiondataId) {
+		return dao.statusUpdate(auctiondataId);
 	}
 }

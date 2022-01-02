@@ -9,5 +9,7 @@ public interface AuctionTenderDataDao {
 
 	public int insertOne(AuctionTenderForm form,int auctiondataId,int userId);
 	
-	public List<AuctionTenderDataDTO> selectMany();
+	public List<AuctionTenderDataDTO> selectMany(int auctionId);
+	
+	public int statusUpdate(int auctiondataId);
 }

@@ -8282,8 +8282,8 @@ public class ShoppingController {
 	public String getAuctionDetail(@PathVariable("id") int auctionId,Model model) {
 		model.addAttribute("contents", "shopping/auctionDetail::productListLayout_contents");
 		
-		List<AuctionTenderDataDTO> auctiontenderdatadto = auctionTenderDataService.selectMany();
-		System.out.println(Arrays.asList("dtotest"+auctiontenderdatadto));
+		List<AuctionTenderDataDTO> auctiontenderdatadto = auctionTenderDataService.selectMany(auctionId);
+		
 		for(int x = 0;auctiontenderdatadto.size() > x;x++) {
 			AuctionTenderDataDTO auctiontenderdatadtoOne = auctiontenderdatadto.get(x);
 			int userId = auctiontenderdatadtoOne.getUserId();
@@ -8322,6 +8322,8 @@ public class ShoppingController {
 			if(auctiondatadto.getInitialPrice() < form.getNewTenderPrice()) {
 			//入札額と入札数を更新
 			int tenderNumber = auctionDataService.tenderUpdateOne(form,auctiondataId);
+			//最新入札情報を入れる前に、落札者情報を入れ替えのために情報更新
+			auctionTenderDataService.statusUpdate(auctiondataId);
 			//誰が何回目の入札かを格納
 			auctionTenderDataService.insertOne(form,auctiondataId,userId);
 			model.addAttribute("tenderPrice",form.getTenderPrice());
@@ -8335,6 +8337,8 @@ public class ShoppingController {
 			if(auctiondatadto.getInitialPrice() <= form.getNewTenderPrice()) {
 				//入札額と入札数を更新
 				int tenderNumber = auctionDataService.tenderUpdateOne(form,auctiondataId);
+				//最新入札情報を入れる前に、落札者情報を入れ替えのために情報更新
+				auctionTenderDataService.statusUpdate(auctiondataId);
 				//誰が何回目の入札かを格納
 				auctionTenderDataService.insertOne(form,auctiondataId,userId);
 				model.addAttribute("tenderPrice",form.getTenderPrice());
