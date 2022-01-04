@@ -9,3 +9,27 @@
 .auctionDetail-tr-buttom {
 	background: #ffffe6;
 }
+
+.auctionDetail-tenderName {
+	width: 300px;
+}
+
+.auctionDetail-tenderPrice {
+	width: 200px;
+}
+
+.auctionDetail-tenderDate {
+	width: 275px;
+}
+
+.auctionDetail-tenderStatus {
+	width: 275px;
+}
+
+.auctionDetail-table {
+	font-size: 13px;
+	width: 1100px;
+	display: block;
+    overflow-y: scroll;
+	
+}

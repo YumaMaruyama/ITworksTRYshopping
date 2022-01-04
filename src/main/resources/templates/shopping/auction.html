@@ -27,6 +27,12 @@
 				<p class="card-text text-center fontdesign price"
 					style="margin-bottom: 0px !important"
 					th:text="'開始値段：' + ${auctionData.initialPrice} + '円'"></p>
+				<p th:if="${auctionData.tenderPrice} != 0" class="card-text text-center text-danger fontdesign price"
+					style="margin-bottom: 0px !important"
+					th:text="'現最大入札価格：' + ${auctionData.tenderPrice} + '円'"></p>
+				<p th:if="${auctionData.tenderPrice} == 0" class="card-text text-center text-danger fontdesign price"
+					style="margin-bottom: 0px !important"
+					th:text="'現最大入札価格：' + '未入札です'"></p>
 				<p class="card-text text-center fontdesign stock"
 					style="margin-bottom: 0px !important"
 					th:text="'在庫数：' + ${auctionData.productStock} + '個'"></p>

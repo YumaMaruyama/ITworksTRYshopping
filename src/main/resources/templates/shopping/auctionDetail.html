@@ -12,31 +12,32 @@
 			<h1 class="titleDesign">入札詳細</h1>
 		</header>
 		
+		<div class="auctionDetail-table">
 		<table class="table table-bordered"
 				th:each="auctionTenderDataList : ${auctionTenderDataList}">
 
 				
 					<tr class="auctionDetail-tr-top">
-						<th class="text-center ">入札者</th>
-						<th class="text-center ">入札金額</th>
-						<th class="text-center ">入札日時</th>
-						<th class="text-center ">入札状況</th>
+						<th class="text-center auctionDetail-tenderName">入札者</th>
+						<th class="text-center auctionDetail-tenderPrice">入札金額</th>
+						<th class="text-center auctionDetail-tenderDate">入札日時</th>
+						<th class="text-center auctionDetail-tenderStatus">入札状況</th>
 					</tr>
 
 					<tr class="auctionDetail-tr-buttom">
-						<td class="text-center " th:text="${auctionTenderDataList.userName}"></td>
-						<td class="text-center "
+						<td class="text-center auctionDetail-tenderName" th:text="${auctionTenderDataList.userName}"></td>
+						<td class="text-center auctionDetail-tenderPrice"
 							th:text="${auctionTenderDataList.tenderPrice} + '円'"></td>
-						<td class="text-center "
-							th:text="${#dates.format(auctionTenderDataList.auctionTenderDate,'yyyy/MM/dd ah:mm')}"></td>
-						<td th:if="${auctionTenderDataList.status} == '抜かされました'" class="text-center "
+						<td class="text-center auctionDetail-tenderDate"
+							th:text="${#dates.format(auctionTenderDataList.auctionTenderDate,'yyyy/MM/dd ah:mm:ss')}"></td>
+						<td th:if="${auctionTenderDataList.status} == '抜かされました'" class="text-center auctionDetail-tenderStatus"
 							th:text="${auctionTenderDataList.status}"></td>
-						<td th:if="${auctionTenderDataList.status} != '抜かされました'" class="text-center text-danger"
+						<td th:if="${auctionTenderDataList.status} != '抜かされました'" class="text-center text-danger auctionDetail-tenderStatus"
 							th:text="${auctionTenderDataList.status}"></td>
 					</tr>
 				
 			</table>
-		
+			</div>
 	</div>	
 </body>
 </html>

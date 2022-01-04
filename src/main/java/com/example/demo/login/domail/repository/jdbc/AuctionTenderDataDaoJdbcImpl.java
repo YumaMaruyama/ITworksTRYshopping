@@ -27,7 +27,7 @@ public class AuctionTenderDataDaoJdbcImpl implements AuctionTenderDataDao {
 	}
 	
 	public List<AuctionTenderDataDTO> selectMany(int auctionId) {
-		List<Map<String,Object>> map = jdbc.queryForList("select * from auction_tender_data where auction_data_id = ?",auctionId);
+		List<Map<String,Object>> map = jdbc.queryForList("select * from auction_tender_data where auction_data_id = ? order by auction_tender_date desc",auctionId);
 		
 		List<AuctionTenderDataDTO> auctiontenderdatadtoList = new ArrayList<>();
 		
