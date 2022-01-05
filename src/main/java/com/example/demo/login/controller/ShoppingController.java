@@ -8393,6 +8393,16 @@ public class ShoppingController {
 			return getAuctionListing(form, model);
 		}
 		
+		System.out.println("datetest"+form.getTenderEndDate());
+		
+		SimpleDateFormat simpleFormat = new SimpleDateFormat("yyyy/MM/dd");
+		Date tenderEndDate = form.getTenderEndDate();
+		String newTenderEndDate = simpleFormat.format(tenderEndDate);
+		System.out.println("newTenderEndDate"+newTenderEndDate);
+		String cutTenderendDate = newTenderEndDate.substring(0,10);
+		System.out.println("cutTenderendDate"+cutTenderendDate);
+		form.setNewTenderEndDate(cutTenderendDate);
+		
 		//入力されたオークション出品商品情報を格納
 		AuctionDataDTO auctiondatadto = new AuctionDataDTO();
 		auctionDataService.auctionDataInsertOne(auctiondatadto,form);

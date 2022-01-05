@@ -1,5 +1,9 @@
 package com.example.demo.login.domail.model;
 
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Data;
 
 @Data
@@ -26,4 +30,8 @@ public class AuctionListingForm {
 	private int cost;
 	
 	private String listingStopCheck;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date tenderEndDate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private String newTenderEndDate;
 }

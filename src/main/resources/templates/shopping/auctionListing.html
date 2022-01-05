@@ -63,6 +63,13 @@
 						class="form-control" th:field="*{cost}"> <span
 						class="text-danger" th:if="${#fields.hasErrors('cost')}"
 						th:errors="*{cost}">cost error</span></td>
+						
+					<th class="text-center pcdataAddThDesign">入札終了日</th>
+					<td th:classappend="${#fields.hasErrors('tenderEndDate')}?'has-error'"
+						class="form-group pcdataAddTdDesign"><input type="date"
+						class="form-control" th:field="*{tenderEndDate}"> <span
+						class="text-danger" th:if="${#fields.hasErrors('tenderEndDate')}"
+						th:errors="*{tenderEndDate}">tenderEndDate error</span></td>
 				</tr>
 			</table>
 

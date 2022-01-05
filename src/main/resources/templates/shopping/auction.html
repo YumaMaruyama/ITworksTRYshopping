@@ -36,6 +36,9 @@
 				<p class="card-text text-center fontdesign stock"
 					style="margin-bottom: 0px !important"
 					th:text="'在庫数：' + ${auctionData.productStock} + '個'"></p>
+				<p class="card-text text-center fontdesign stock"
+					style="margin-bottom: 0px !important"
+					th:text="'終了日 : ' + ${auctionData.tenderEndDate} + 'になると終了'"></p>
 				<a class="text-center productListGo"
 					th:href="@{/auctionProductDetail} + '/' + ${auctionData.id}"><span
 					class="DetailRyncDesigin">商品詳細へ</span></a>

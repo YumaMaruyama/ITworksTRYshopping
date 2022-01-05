@@ -32,4 +32,6 @@ public class AuctionDataDTO {
 	private int newTenderPrice;
 	
 	private int tenderNumber;
+	
+	private String tenderEndDate;
 }

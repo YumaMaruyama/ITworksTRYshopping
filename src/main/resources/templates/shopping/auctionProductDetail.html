@@ -59,12 +59,14 @@
 					<th class="text-center padding">開始価格</th>
 					<th class="text-center padding">現在入札価格</th>
 					<th class="text-center padding">入札数</th>
+					<th class="text-center padding">終了日</th>
 				</tr>
 				<tr th:each="auctiondatadto : ${auctionDataDTOList}">
 					<td class="text-center padding" th:text="${auctiondatadto.initialPrice} + '円'"></td>
 					<td th:if="${auctiondatadto.tenderPrice} != 0" class="text-center padding" th:text="${auctiondatadto.tenderPrice} + '円'"></td>
 					<td th:if="${auctiondatadto.tenderPrice} == 0" class="text-center padding">入札者はいません</td>
 					<td class="text-center padding" th:text="${auctiondatadto.tenderNumber} + '回'"></td>
+					<td class="text-center padding" th:text="${auctiondatadto.tenderEndDate} + 'になると終了'"></td>
 				</tr>
 			</table>
 			

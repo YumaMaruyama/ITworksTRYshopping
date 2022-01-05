@@ -20,8 +20,8 @@ public class AuctionDataDaoJdbcImpl implements AuctionDataDao {
 	JdbcTemplate jdbc;
 	
 	public int auctionDataInsertOne(AuctionDataDTO auctiondatadto,AuctionListingForm form) {
-		int result = jdbc.update("insert into auction_data (company,os,product_name,initial_price,detail,img,img2,product_stock,cost)" 
-				+ " value(?,?,?,?,?,?,?,?,?)",form.getCompany(),form.getOs(),form.getProductName(),form.getInitialPrice(),form.getDetail(),form.getImg(),form.getImg2(),form.getProductStock(),form.getCost());
+		int result = jdbc.update("insert into auction_data (company,os,product_name,initial_price,detail,img,img2,product_stock,cost,tender_number,tender_end_date)" 
+				+ " value(?,?,?,?,?,?,?,?,?,?,?)",form.getCompany(),form.getOs(),form.getProductName(),form.getInitialPrice(),form.getDetail(),form.getImg(),form.getImg2(),form.getProductStock(),form.getCost(),0,form.getNewTenderEndDate());
 		
 		return result;
 	}
@@ -51,6 +51,7 @@ public class AuctionDataDaoJdbcImpl implements AuctionDataDao {
 				}
 			
 			auctiondatadto.setTenderNumber((int)oneMap.get("tender_number"));
+			auctiondatadto.setTenderEndDate((String)oneMap.get("tender_end_date"));
 			
 			auctiondatadtoList.add(auctiondatadto);
 		}
@@ -83,6 +84,7 @@ public class AuctionDataDaoJdbcImpl implements AuctionDataDao {
 			}
 			
 			auctiondatadto.setTenderNumber((int)map.get("tender_number"));
+			auctiondatadto.setTenderEndDate((String)map.get("tender_end_date"));
 			
 		return auctiondatadto;
 	}
