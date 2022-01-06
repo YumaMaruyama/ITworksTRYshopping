@@ -8262,6 +8262,19 @@ public class ShoppingController {
 		model.addAttribute("contents", "shopping/auction::productListLayout_contents");
 		
 		List<AuctionDataDTO> auctiondatadtoList = auctionDataService.selectMany();
+		for(int x = 0; x < auctiondatadtoList.size(); x++) {
+			AuctionDataDTO auctiondatadtoOne = auctiondatadtoList.get(x);
+			String tenderEndDate = auctiondatadtoOne.getTenderEndDate();
+			Date nowDate = new Date();
+			SimpleDateFormat simpleFormat = new SimpleDateFormat("yyyy/MM/dd");
+			String newNowDate = simpleFormat.format(nowDate);
+			System.out.println("newNowDate"+newNowDate);
+			System.out.println("tenderEndDate"+tenderEndDate);
+			int endDateCheck = tenderEndDate.compareTo(newNowDate);
+			if(endDateCheck != 1) {
+				
+			}
+		}
 		model.addAttribute("auctionDataDTOList",auctiondatadtoList);
 		
 		
