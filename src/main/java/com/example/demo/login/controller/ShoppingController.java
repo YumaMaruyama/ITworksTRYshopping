@@ -115,6 +115,7 @@ import com.example.demo.login.domail.service.MenberCouponService;
 import com.example.demo.login.domail.service.NewsService;
 import com.example.demo.login.domail.service.PcDataService;
 import com.example.demo.login.domail.service.PointRateService;
+import com.example.demo.login.domail.service.ProductGoodService;
 import com.example.demo.login.domail.service.PurchaseService;
 import com.example.demo.login.domail.service.ReviewService;
 import com.example.demo.login.domail.service.Usege_usersService;
@@ -186,6 +187,8 @@ public class ShoppingController {
 	AuctionDataService auctionDataService;
 	@Autowired
 	AuctionTenderDataService auctionTenderDataService;
+	@Autowired
+	ProductGoodService productGoodService;
 
 	@Autowired // Sessionが使用できる
 	HttpSession session;
@@ -5326,6 +5329,7 @@ public class ShoppingController {
 			HttpServletRequest request, Model model, @PathVariable("id") int id) {
 		model.addAttribute("contents", "shopping/productDetail::productListLayout_contents");
 
+		
 		try {
 			List<ReviewDTO> reviewList = reviewService.selectRating(id);// 商品IDをもとにその商品の口コミをすべて取得
 			if (reviewList.size() != 0) {
@@ -5355,6 +5359,7 @@ public class ShoppingController {
 		PcDataDTO pcdatadtoOne = pcdataService.selectOne(id);
 		String pcName = pcdatadtoOne.getPc_name();
 		model.addAttribute("pcName", pcName);
+		model.addAttribute("productId",id);
 		model.addAttribute("pcdatadtoOne", pcdatadtoOne);
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -5364,6 +5369,13 @@ public class ShoppingController {
 		// ログインユーザーのID取得
 		int select_id = usersService.select_id(user_id);
 
+		int goodResult = productGoodService.goodCheck(select_id,id);
+		if(goodResult == 0) {
+			model.addAttribute("goodCheck","ok");
+		}else {
+			model.addAttribute("goodCheck","no");
+		}
+		
 		CustomDTO customdto = customService.selectCustomProduct_id(id, select_id);
 		System.out.println("test" + customdto.getProductId());
 		System.out.println("test2" + id);
@@ -8421,6 +8433,65 @@ public class ShoppingController {
 		auctionDataService.auctionDataInsertOne(auctiondatadto,form);
 		
 		return getAuction(model);
+	}
+	
+	@GetMapping("/good")
+	public String getGood(Model model) {
+	model.addAttribute("contents", "shopping/good::productListLayout_contents");
+	
+	//ユーザーIDを取得
+	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	String getName = auth.getName();
+	int userId = usersService.select_id(getName);
+	
+	List<Integer> productGoodId = new ArrayList<>();
+	List<PcDataDTO> productList = new ArrayList<>();
+	
+	//ユーザーがいいねした商品IDを取得
+	productGoodId = productGoodService.selectMany(userId);
+	for(int x = 0; x < productGoodId.size(); x++) {
+		int productId = productGoodId.get(x);
+		PcDataDTO productListOne = pcdataService.selectOne(productId);
+		productList.add(productListOne);
+	}
+	
+	model.addAttribute("productList", productList);
+	
+	
+	return "shopping/productListLayout";
+	
+	}
+	
+	@GetMapping("/productGood/{id}")
+	public String getProductGoot(@PathVariable("id") int productId,Model model) {
+	model.addAttribute("contents", "shopping/good::productListLayout_contents");
+	
+	//ユーザーIDを取得
+	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	String getName = auth.getName();
+	int userId = usersService.select_id(getName);
+	
+	//いいねボタンを押した商品を格納
+	productGoodService.insertOne(userId,productId);
+	
+	return getGood(model);
+	
+	}
+	
+	@GetMapping("/productGoodRemove/{id}")
+	public String getProductGootRemove(@PathVariable("id") int productId,Model model) {
+	model.addAttribute("contents", "shopping/good::productListLayout_contents");
+	
+	//ユーザーIDを取得
+	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	String getName = auth.getName();
+	int userId = usersService.select_id(getName);
+	
+	//いいねボタンを押した商品を削除
+	productGoodService.deleteOne(userId,productId);
+	
+	return getGood(model);
+	
 	}
 
 	// ログアウト用メソッド

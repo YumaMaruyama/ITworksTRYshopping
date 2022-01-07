@@ -82,4 +82,5 @@ public class PcDataService {
 	public int productStockUpdate(int pcdataId,int productStock) {
 		return dao.productStockUpdate(pcdataId,productStock);
 	}
+	
 } 

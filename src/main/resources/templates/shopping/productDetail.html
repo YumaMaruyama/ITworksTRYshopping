@@ -20,9 +20,14 @@
 </head>
 <body>
 	<div th:fragment="productListLayout_contents">
-		<header>
-			<h1 class="titleDesign">商品詳細</h1>
-		</header>
+	<table>
+		<tr>
+			<th><h1 class="titleDesign">商品詳細</h1></th>
+			<th th:if="${goodCheck} eq ok"><h1 class="titleDesign"><a class="btn btn-radius-solid-history btn--shadow-history productStockOutBtn" th:href="@{/productGood} + '/' + ${productId}">この商品をいいねする</a></h1></th>
+			<th th:if="${goodCheck} eq no"><h1 class="titleDesign"><a class="btn btn-radius-solid-history btn--shadow-history productStockOutBtn" th:href="@{/productGoodRemove} + '/' + ${productId}">この商品のいいねを外す</a></h1></th>
+			
+		</tr>
+	</table>		
 
 		<form style="width: 1090px;" th:each="pcdatadto : ${pcdatadtoOne}"
 			method="get" th:action="@{/cart} + '/' + ${pcdatadto.id}"
