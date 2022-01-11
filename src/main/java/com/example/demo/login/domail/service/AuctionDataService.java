@@ -35,4 +35,16 @@ public class AuctionDataService {
 	public AuctionDataDTO priceSelectOne(int auctiondataId) {
 		return dao.priceSelectOne(auctiondataId);
 	}
+	
+	public int noTenderUpdateOne(int auctionId) {
+		return dao.noTenderUpdateOne(auctionId);
+	}
+
+	public List<AuctionDataDTO> withinTimeLimitSelectMany() {
+		return dao.withinTimeLimitSelectMany();
+	}
+	
+	public int noTenderCheckSelectOne(int auctiondataId) {
+		return dao.noTenderCheckSelectOne(auctiondataId);
+	}
 }

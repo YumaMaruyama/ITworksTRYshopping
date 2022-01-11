@@ -17,4 +17,10 @@ public interface AuctionDataDao {
 	public int tenderUpdateOne(AuctionTenderForm form,int auctiondataId);
 	
 	public AuctionDataDTO priceSelectOne(int auctiondataId);
+	
+	public int noTenderUpdateOne(int auctionId);
+	
+	public List<AuctionDataDTO> withinTimeLimitSelectMany();
+	
+	public int noTenderCheckSelectOne(int auctiondataId);
 }

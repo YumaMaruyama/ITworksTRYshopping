@@ -12,6 +12,8 @@
 			<h1 class="titleDesign">オークション</h1>
 		</header>
 		
+		<h3 class="text-danger" th:text="${error}"></h3>
+		
 		<div class="flex productList" style="width: 1100px;">
 			<div class="item" th:each="auctionData : ${auctionDataDTOList}">
 				<img class="size" th:src="${auctionData.img}">

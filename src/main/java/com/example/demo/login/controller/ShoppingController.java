@@ -8273,21 +8273,26 @@ public class ShoppingController {
 	public String getAuction(Model model) {
 		model.addAttribute("contents", "shopping/auction::productListLayout_contents");
 		
+		//出品期限内商品更新処理
 		List<AuctionDataDTO> auctiondatadtoList = auctionDataService.selectMany();
 		for(int x = 0; x < auctiondatadtoList.size(); x++) {
 			AuctionDataDTO auctiondatadtoOne = auctiondatadtoList.get(x);
 			String tenderEndDate = auctiondatadtoOne.getTenderEndDate();
+			int auctionId = auctiondatadtoOne.getId();
 			Date nowDate = new Date();
 			SimpleDateFormat simpleFormat = new SimpleDateFormat("yyyy/MM/dd");
 			String newNowDate = simpleFormat.format(nowDate);
-			System.out.println("newNowDate"+newNowDate);
-			System.out.println("tenderEndDate"+tenderEndDate);
 			int endDateCheck = tenderEndDate.compareTo(newNowDate);
-			if(endDateCheck != 1) {
-				
-			}
+			System.out.println("enddatacheck"+endDateCheck);
+			//ここで入札なし期限終了チェックを入れる(出品期限が過ぎているかその当日)
+			if(endDateCheck < 1) {
+				auctionDataService.noTenderUpdateOne(auctionId);
+			}			
 		}
-		model.addAttribute("auctionDataDTOList",auctiondatadtoList);
+		
+		//出品期限内商品のみ取得
+		List<AuctionDataDTO> auctiondatadtoListWithinTimeLimit = auctionDataService.withinTimeLimitSelectMany();
+		model.addAttribute("auctionDataDTOList",auctiondatadtoListWithinTimeLimit);
 		
 		
 		return "shopping/productListLayout";
@@ -8326,12 +8331,35 @@ public class ShoppingController {
 	@PostMapping("/productTender")
 	public String postProductTender(@Validated(GroupOrder.class) AuctionTenderForm form,BindingResult bindingResult,@RequestParam("id") int auctiondataId,Model model) {
 		model.addAttribute("contents", "shopping/tenderFinish::productListLayout_contents");
+	
+		//出品期限内商品更新処理
+		List<AuctionDataDTO> auctiondatadtoList = auctionDataService.selectMany();
+		for(int x = 0; x < auctiondatadtoList.size(); x++) {
+			AuctionDataDTO auctiondatadtoOne = auctiondatadtoList.get(x);
+			String tenderEndDate = auctiondatadtoOne.getTenderEndDate();
+			int auctionId = auctiondatadtoOne.getId();
+			Date nowDate = new Date();
+			SimpleDateFormat simpleFormat = new SimpleDateFormat("yyyy/MM/dd");
+			String newNowDate = simpleFormat.format(nowDate);
+			int endDateCheck = tenderEndDate.compareTo(newNowDate);
+			//ここで入札なし期限終了チェックを入れる(出品期限が過ぎているかその当日)
+			if(endDateCheck < 1) {
+				auctionDataService.noTenderUpdateOne(auctionId);
+			}			
+		}
+		//商品出品期限内かチェック
+		int result = auctionDataService.noTenderCheckSelectOne(auctiondataId);
+		if(result != 0) {
+			model.addAttribute("error","先ほど入札を行おうとした商品の期間が終了しました");
+			return getAuction(model);
+		}
 		
 		//ユーザーIDを取得
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String getName = auth.getName();
 		int userId = usersService.select_id(getName);
 		
+		//バリデーション
 		if(bindingResult.hasErrors()) {
 			return getAuctionProductDetail(auctiondataId,form,model);
 		}
