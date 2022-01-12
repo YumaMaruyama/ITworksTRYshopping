@@ -47,4 +47,20 @@ public class AuctionDataService {
 	public int noTenderCheckSelectOne(int auctiondataId) {
 		return dao.noTenderCheckSelectOne(auctiondataId);
 	}
+	
+	public int yesTenderUpdateOne(int auctionId) {
+		return dao.yesTenderUpdateOne(auctionId);
+	}
+	
+	public List<Integer> getSuccessfulBIdProductIdSelectMany() {
+		return dao.getSuccessfulBIdProductIdSelectMany();
+	}
+	
+	public List<Integer> getSuccessfulBIdUserProductIdSelectMany(int successfulBidProductIdOne,int userId) {
+		return dao.getSuccessfulBIdUserProductIdSelectMany(successfulBidProductIdOne,userId);
+	}
+	
+	public AuctionDataDTO getSuccessfulBIdUserProductSelectMany(int successfulBidUserProductIdOne) {
+		return dao.getSuccessfulBIdUserProductSelectMany(successfulBidUserProductIdOne);
+	}
 }

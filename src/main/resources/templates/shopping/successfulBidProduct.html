@@ -10,12 +10,9 @@
 	<div th:fragment="productListLayout_contents">
 		<table>
 			<tr>
-				<th><h1 class="titleDesign">オークション</h1></th>
-				<th><h1 class="titleDesign"><a class="btn btn-radius-solid-history btn--shadow-history productStockOutBtn" th:href="@{/successfulBidProduct}">落札商品があります</a></h1></th>
+				<th><h1 class="titleDesign">落札商品</h1></th>
 			</tr>
 		</table>
-		
-		<h3 class="text-danger" th:text="${error}"></h3>
 		
 		<div class="flex productList" style="width: 1100px;">
 			<div class="item" th:each="auctionData : ${auctionDataDTOList}">
@@ -49,6 +46,7 @@
 					class="DetailRyncDesigin">商品詳細へ</span></a>
 			</div>
 		</div>
+		
 		
 	</div>
 	

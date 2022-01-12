@@ -118,7 +118,7 @@ public class AuctionDataDaoJdbcImpl implements AuctionDataDao {
 	}
 	
 	public List<AuctionDataDTO> withinTimeLimitSelectMany() {
-		List<Map<String,Object>> map = jdbc.queryForList("select * from auction_data where end_no_tender is null");
+		List<Map<String,Object>> map = jdbc.queryForList("select * from auction_data where concat(ifnull(end_no_tender,''), ifnull(end_yes_tender,'')) not like '終了'");
 		
 		List<AuctionDataDTO> auctiondatadtoList = new ArrayList<>();
 		for(Map<String,Object> oneMap : map) {
@@ -161,5 +161,66 @@ public class AuctionDataDaoJdbcImpl implements AuctionDataDao {
 		}
 		return result;
 		
+	}
+	
+	public int yesTenderUpdateOne(int auctionId) {
+		int result = jdbc.update("update auction_data set end_yes_tender = '終了' where id = ?",auctionId);
+		
+		return result;
+	}
+	
+	public List<Integer> getSuccessfulBIdProductIdSelectMany() {
+		List<Map<String,Object>> map = jdbc.queryForList("select auction_data.id from auction_data where end_yes_tender = '終了'");
+		
+		List<Integer> successfulBIdProductId = new ArrayList<>();
+		
+		for(Map<String,Object> oneMap : map) {
+			int i = (int) oneMap.get("id");
+			successfulBIdProductId.add(i);
+		}
+		
+		return successfulBIdProductId;
+	}
+	
+	public List<Integer> getSuccessfulBIdUserProductIdSelectMany(int successfulBidProductIdOne,int userId) {
+		List<Map<String,Object>> map = jdbc.queryForList("select auction_tender_data.auction_data_id from auction_tender_data where auction_data_id = ? and user_id = ? and status = '現在の落札者です'",successfulBidProductIdOne,userId);
+		
+		List<Integer> successfulBIdProductId = new ArrayList<>();
+		
+		for(Map<String,Object> oneMap : map) {
+			int i = (int) oneMap.get("auction_data_id");
+			successfulBIdProductId.add(i);
+		}
+		
+		return successfulBIdProductId;
+	}
+	
+	public AuctionDataDTO getSuccessfulBIdUserProductSelectMany(int successfulBidUserProductIdOne) {
+		
+		Map<String,Object> map = jdbc.queryForMap("select * from auction_data where id = ?",successfulBidUserProductIdOne);
+		
+			AuctionDataDTO auctiondatadto = new AuctionDataDTO();
+			auctiondatadto.setId((int)map.get("id"));
+			auctiondatadto.setCompany((String)map.get("company"));
+			auctiondatadto.setOs((String)map.get("os"));
+			auctiondatadto.setProductName((String)map.get("product_name"));
+			auctiondatadto.setInitialPrice((int)map.get("initial_price"));
+			auctiondatadto.setDetail((String)map.get("detail"));
+			auctiondatadto.setImg((String)map.get("img"));
+			auctiondatadto.setImg2((String)map.get("img2"));
+			auctiondatadto.setProductStock((int)map.get("product_stock"));
+			auctiondatadto.setCost((int)map.get("cost"));
+			auctiondatadto.setListingStopCheck((String)map.get("listing_stop_check"));
+			try {
+				auctiondatadto.setTenderPrice((int)map.get("tender_price"));
+				}catch(NullPointerException e) {
+					e.printStackTrace();
+					auctiondatadto.setTenderPrice(0);
+				}
+			
+			auctiondatadto.setTenderNumber((int)map.get("tender_number"));
+			auctiondatadto.setTenderEndDate((String)map.get("tender_end_date"));
+		
+		return auctiondatadto;
 	}
 }

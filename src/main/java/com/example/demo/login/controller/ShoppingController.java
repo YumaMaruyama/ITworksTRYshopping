@@ -8279,21 +8279,66 @@ public class ShoppingController {
 			AuctionDataDTO auctiondatadtoOne = auctiondatadtoList.get(x);
 			String tenderEndDate = auctiondatadtoOne.getTenderEndDate();
 			int auctionId = auctiondatadtoOne.getId();
+			int tenderPrice = auctiondatadtoOne.getTenderPrice();
 			Date nowDate = new Date();
 			SimpleDateFormat simpleFormat = new SimpleDateFormat("yyyy/MM/dd");
 			String newNowDate = simpleFormat.format(nowDate);
 			int endDateCheck = tenderEndDate.compareTo(newNowDate);
 			System.out.println("enddatacheck"+endDateCheck);
-			//ここで入札なし期限終了チェックを入れる(出品期限が過ぎているかその当日)
-			if(endDateCheck < 1) {
-				auctionDataService.noTenderUpdateOne(auctionId);
-			}			
+			//入札があるかどうか調べる
+			if(tenderPrice > 0) {
+				//ここで入札あり期限終了チェックを入れる(出品期限が過ぎているかその当日)
+				if(endDateCheck < 1) {
+					auctionDataService.yesTenderUpdateOne(auctionId);
+				}	
+			}else {
+				//ここで入札なし期限終了チェックを入れる(出品期限が過ぎているかその当日)
+				if(endDateCheck < 1) {
+					auctionDataService.noTenderUpdateOne(auctionId);
+				}		
+			}
 		}
 		
 		//出品期限内商品のみ取得
 		List<AuctionDataDTO> auctiondatadtoListWithinTimeLimit = auctionDataService.withinTimeLimitSelectMany();
 		model.addAttribute("auctionDataDTOList",auctiondatadtoListWithinTimeLimit);
 		
+		
+		
+		return "shopping/productListLayout";
+	}
+	
+	@GetMapping("/successfulBidProduct")
+	public String getSuccessfulBid(Model model) {
+		model.addAttribute("contents", "shopping/successfulBidProduct::productListLayout_contents");
+		
+		//落札済みの商品IDを取得
+		List<Integer> successfulBidProductId = new ArrayList<>();
+		successfulBidProductId = auctionDataService.getSuccessfulBIdProductIdSelectMany();
+		
+		//ユーザーIDを取得
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String getName = auth.getName();
+		int userId = usersService.select_id(getName);
+		
+		//自分が落札した商品IDを取得
+		List<Integer> successfulBidUserProductId = new ArrayList<>();
+		for(int x = 0; successfulBidProductId.size() > x; x++) {
+		int successfulBidProductIdOne = successfulBidProductId.get(x);
+		successfulBidUserProductId = auctionDataService.getSuccessfulBIdUserProductIdSelectMany(successfulBidProductIdOne,userId);
+		System.out.println("succcessfilIdmany"+ successfulBidUserProductId);
+		}
+		
+		//自分が落札した商品情報を取得
+		List<AuctionDataDTO> auctiondatadtoList = new ArrayList<>();
+		for(int x = 0;successfulBidUserProductId.size() > x; x++) {
+			int successfulBidUserProductIdOne = successfulBidUserProductId.get(x);
+			AuctionDataDTO auctiondatadtoListOne = auctionDataService.getSuccessfulBIdUserProductSelectMany(successfulBidUserProductIdOne);
+			auctiondatadtoList.add(auctiondatadtoListOne);
+			System.out.println("aaaaa"+auctiondatadtoList);
+		}
+		
+		model.addAttribute("auctionDataDTOList",auctiondatadtoList);
 		
 		return "shopping/productListLayout";
 	}

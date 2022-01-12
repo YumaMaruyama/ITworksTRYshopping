@@ -23,4 +23,12 @@ public interface AuctionDataDao {
 	public List<AuctionDataDTO> withinTimeLimitSelectMany();
 	
 	public int noTenderCheckSelectOne(int auctiondataId);
+	
+	public int yesTenderUpdateOne(int auctionId);
+	
+	public List<Integer> getSuccessfulBIdProductIdSelectMany();
+	
+	public List<Integer> getSuccessfulBIdUserProductIdSelectMany(int successfulBidProductIdOne,int userId);
+	
+	public AuctionDataDTO getSuccessfulBIdUserProductSelectMany(int successfulBidUserProductIdOne);
 }
