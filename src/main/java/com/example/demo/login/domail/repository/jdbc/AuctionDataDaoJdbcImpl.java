@@ -182,17 +182,14 @@ public class AuctionDataDaoJdbcImpl implements AuctionDataDao {
 		return successfulBIdProductId;
 	}
 	
-	public List<Integer> getSuccessfulBIdUserProductIdSelectMany(int successfulBidProductIdOne,int userId) {
-		List<Map<String,Object>> map = jdbc.queryForList("select auction_tender_data.auction_data_id from auction_tender_data where auction_data_id = ? and user_id = ? and status = '現在の落札者です'",successfulBidProductIdOne,userId);
+	public int getSuccessfulBIdUserProductIdSelectOne(int successfulBidProductIdOne,int userId) {
+		Map<String,Object> map = jdbc.queryForMap("select auction_tender_data.auction_data_id from auction_tender_data where auction_data_id = ? and user_id = ? and status = '現在の落札者です'",successfulBidProductIdOne,userId);
 		
-		List<Integer> successfulBIdProductId = new ArrayList<>();
 		
-		for(Map<String,Object> oneMap : map) {
-			int i = (int) oneMap.get("auction_data_id");
-			successfulBIdProductId.add(i);
-		}
+			int i = (int) map.get("auction_data_id");
 		
-		return successfulBIdProductId;
+		
+		return i;
 	}
 	
 	public AuctionDataDTO getSuccessfulBIdUserProductSelectMany(int successfulBidUserProductIdOne) {

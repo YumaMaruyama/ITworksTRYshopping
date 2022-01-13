@@ -8325,8 +8325,8 @@ public class ShoppingController {
 		List<Integer> successfulBidUserProductId = new ArrayList<>();
 		for(int x = 0; successfulBidProductId.size() > x; x++) {
 		int successfulBidProductIdOne = successfulBidProductId.get(x);
-		successfulBidUserProductId = auctionDataService.getSuccessfulBIdUserProductIdSelectMany(successfulBidProductIdOne,userId);
-		System.out.println("succcessfilIdmany"+ successfulBidUserProductId);
+		int getId = auctionDataService.getSuccessfulBIdUserProductIdSelectOne(successfulBidProductIdOne,userId);
+		successfulBidUserProductId.add(getId);
 		}
 		
 		//自分が落札した商品情報を取得
@@ -8341,6 +8341,13 @@ public class ShoppingController {
 		model.addAttribute("auctionDataDTOList",auctiondatadtoList);
 		
 		return "shopping/productListLayout";
+	}
+	
+	@GetMapping("/auctionPaymentProduct/{id}")
+	public String getAuctionPaymentProduct(@PathVariable("id") int auctionId,Model model) {
+		model.addAttribute("contents", "shopping/auctionPaymentProduct::productListLayout_contents");
+		
+		return "shopping/ProductListLayout";
 	}
 	
 	@GetMapping("/auctionProductDetail/{id}")

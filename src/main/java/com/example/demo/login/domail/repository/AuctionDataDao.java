@@ -28,7 +28,7 @@ public interface AuctionDataDao {
 	
 	public List<Integer> getSuccessfulBIdProductIdSelectMany();
 	
-	public List<Integer> getSuccessfulBIdUserProductIdSelectMany(int successfulBidProductIdOne,int userId);
+	public int getSuccessfulBIdUserProductIdSelectOne(int successfulBidProductIdOne,int userId);
 	
 	public AuctionDataDTO getSuccessfulBIdUserProductSelectMany(int successfulBidUserProductIdOne);
 }

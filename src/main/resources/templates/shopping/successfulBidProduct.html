@@ -31,7 +31,7 @@
 					th:text="'開始値段：' + ${auctionData.initialPrice} + '円'"></p>
 				<p th:if="${auctionData.tenderPrice} != 0" class="card-text text-center text-danger fontdesign price"
 					style="margin-bottom: 0px !important"
-					th:text="'現最大入札価格：' + ${auctionData.tenderPrice} + '円'"></p>
+					th:text="'支払価格：' + ${auctionData.tenderPrice} + '円'"></p>
 				<p th:if="${auctionData.tenderPrice} == 0" class="card-text text-center text-danger fontdesign price"
 					style="margin-bottom: 0px !important"
 					th:text="'現最大入札価格：' + '未入札です'"></p>
@@ -40,10 +40,10 @@
 					th:text="'在庫数：' + ${auctionData.productStock} + '個'"></p>
 				<p class="card-text text-center fontdesign stock"
 					style="margin-bottom: 0px !important"
-					th:text="'終了日 : ' + ${auctionData.tenderEndDate} + 'になると終了'"></p>
+					th:text="'終了日 : ' + ${auctionData.tenderEndDate} + 'に落札'"></p>
 				<a class="text-center productListGo"
-					th:href="@{/auctionProductDetail} + '/' + ${auctionData.id}"><span
-					class="DetailRyncDesigin">商品詳細へ</span></a>
+					th:href="@{/auctionPaymentProduct} + '/' + ${auctionData.id}"><span
+					class="DetailRyncDesigin">支払へ</span></a>
 			</div>
 		</div>
 		

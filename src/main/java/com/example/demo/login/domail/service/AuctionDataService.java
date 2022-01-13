@@ -56,8 +56,8 @@ public class AuctionDataService {
 		return dao.getSuccessfulBIdProductIdSelectMany();
 	}
 	
-	public List<Integer> getSuccessfulBIdUserProductIdSelectMany(int successfulBidProductIdOne,int userId) {
-		return dao.getSuccessfulBIdUserProductIdSelectMany(successfulBidProductIdOne,userId);
+	public int getSuccessfulBIdUserProductIdSelectOne(int successfulBidProductIdOne,int userId) {
+		return dao.getSuccessfulBIdUserProductIdSelectOne(successfulBidProductIdOne,userId);
 	}
 	
 	public AuctionDataDTO getSuccessfulBIdUserProductSelectMany(int successfulBidUserProductIdOne) {
