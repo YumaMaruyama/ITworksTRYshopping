@@ -1,4 +1,6 @@
 # ITworksTRYshopping
+![iOS の画像New](https://user-images.githubusercontent.com/83486993/149527184-521387c2-e880-41c9-b7a1-deb86ec6c55c.png)
+
 
 ## [アプリ概要]
 管理者がオンラインでPCを販売できるシステムです。  
