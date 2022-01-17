@@ -31,4 +31,6 @@ public interface AuctionDataDao {
 	public int getSuccessfulBIdUserProductIdSelectOne(int successfulBidProductIdOne,int userId);
 	
 	public AuctionDataDTO getSuccessfulBIdUserProductSelectMany(int successfulBidUserProductIdOne);
+	
+	public AuctionDataDTO tenderSelectOne(int auctionId);
 }

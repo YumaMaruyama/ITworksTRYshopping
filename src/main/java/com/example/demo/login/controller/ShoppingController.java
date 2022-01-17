@@ -90,6 +90,7 @@ import com.example.demo.login.domail.model.UserEditForm;
 import com.example.demo.login.domail.model.UsersDTO;
 import com.example.demo.login.domail.model.UsersListDTO;
 import com.example.demo.login.domail.model.UsersListForm;
+import com.example.demo.login.domail.model.auctionPaymentProductForm;
 import com.example.demo.login.domail.service.AuctionDataService;
 import com.example.demo.login.domail.service.AuctionTenderDataService;
 import com.example.demo.login.domail.service.CancelService;
@@ -8344,8 +8345,11 @@ public class ShoppingController {
 	}
 	
 	@GetMapping("/auctionPaymentProduct/{id}")
-	public String getAuctionPaymentProduct(@PathVariable("id") int auctionId,Model model) {
+	public String getAuctionPaymentProduct(@PathVariable("id") int auctionId,auctionPaymentProductForm form,Model model) {
 		model.addAttribute("contents", "shopping/auctionPaymentProduct::productListLayout_contents");
+		
+		AuctionDataDTO auctiondatadtoList = auctionDataService.tenderSelectOne(auctionId);
+		model.addAttribute("auctionDataDTOList",auctiondatadtoList);
 		
 		return "shopping/ProductListLayout";
 	}

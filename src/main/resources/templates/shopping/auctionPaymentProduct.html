@@ -14,6 +14,128 @@
 			</tr>
 		</table>
 		
+		<form style="width: 1090px;" th:each="auctiondatadto : ${auctionDataDTOList}"
+			>
+			<table class="table table-bordered productDetailTableDesigin">
+				<tr class="pcdataTableDesigna">
+					<th class="text-center padding">会社名</th>
+					<th class="text-center padding">OS</th>
+					<th class="text-center padding">商品名</th>
+					<th class="text-center padding">終了日</th>
+					<th class="text-center padding">落札価格</th>
+					
+				</tr>
+				<tr th:each="auctiondatadto : ${auctionDataDTOList}" class="pcdataTableDesignb">
+					<td class="text-center padding" th:text="${auctiondatadto.company}"></td>
+					<td class="text-center padding" th:text="${auctiondatadto.os}"></td>
+					<td class="text-center padding" th:text="${auctiondatadto.productName}"></td>
+					<td class="text-center padding"
+						th:text="${auctiondatadto.tenderEndDate}"></td>
+					<td class="text-center padding" th:text="${auctiondatadto.tenderPrice} + '円'"></td>
+				</tr>
+			</table>
+
+			<table class="table table-bordered productDetailTableDesigin">
+				<tr class="pcdataDetailTableDesigna">
+					<th class="text-center padding">商品詳細</th>
+				</tr>
+				<tr th:each="auctiondatadto : ${auctionDataDTOList}"
+					class="pcdataDetailTableDesignb">
+					<td class="text-center padding" th:text="${auctiondatadto.detail}"></td>
+				</tr>
+			</table>
+
+			<table class="table table-bordered imageTableDesign">
+				<tr>
+					<td style="padding-left: 120px;"
+						th:each="auctiondatadto : ${auctionDataDTOList}"><img class="imgSize"
+						th:src="${auctiondatadto.img}"> <img class="imgSize"
+						th:src="${auctiondatadto.img2}">
+				</tr>
+			</table>
+			
+		</form>
+		
+		<form method="post" th:action="@{/clearing}"
+			th:object="${auctionPaymentProductForm}">
+			
+			<div>
+				<h4 class="clearingTitle">JCBカードの情報を入力してください。</h4>
+			</div>
+			<table class="table table-bordered table-hover clearingTableDesign">
+
+
+
+				<tr>
+					<th class="form-group text-center thTitleDesign clearingBackColora">クレジット三桁コード</th>
+					<td class="clearingBackColorb">
+						<div class="form-group"
+							th:classappend="${#fields.hasErrors('digits_3_code')} ? 'hasError'">
+							<input type="text" class="form-control inputDesign"
+								th:field="*{digits_3_code}" placeholder="カードの3桁コードを入力してください">
+						</div> <span class="text-danger"
+						th:if="${#fields.hasErrors('digits_3_code')}"
+						th:errors="*{digits_3_code}">digits_3_code error</span>
+					</td>
+
+				</tr>
+
+				<tr>
+					<th class="form-group text-center thTitleDesign clearingBackColora">クレジット記載名義</th>
+					<td class="clearingBackColorb"><div class="form-group"
+							th:classappend="${#fields.hasErrors('cardName')} ? 'hasError'">
+							<input type="text" class="form-control inputDesign"
+								th:field="*{cardName}" placeholder="ローマ字記載のカード名義を入力してください。">
+						</div> <span class="text-danger"
+						th:if="${#fields.hasErrors('cardName')}" th:errors="*{cardName}">cardName
+							error</span></td>
+				</tr>
+
+				<tr>
+					<th class="form-group text-center thTitleDesign clearingBackColora">クレジット番号</th>
+					<td class="clearingBackColorb"><div class="form-group"
+							th:classappend="${#fields.hasErrors('cardNumber')} ? 'hasError'">
+							<input type="tel" class="form-control inputDesign"
+								th:field="*{cardNumber}" placeholder="16桁のカード番号を入力してください。">
+						</div> <span class="text-danger"
+						th:if="${#fields.hasErrors('cardNumber')}"
+						th:errors="*{cardNumber}">cardNumber error</span></td>
+				</tr>
+
+			<div class="btn-wrapper">
+					<br>
+					<br>
+					<div class="check-box">
+						<label class="text-danger"><input class="check"
+							type="checkbox" name="check" autocomplete="off" id="agree"><span
+							class="confirmation_statement"><a></a>このチェックを入れて支払いを押して購入完了してください</span></label>
+					</div>
+					<input type="hidden" name="digits_3_code"
+						th:value="${digits_3_code}"> <input type="hidden"
+						name="cardName" th:value="${cardName}"> <input
+						type="hidden" name="cardNumber" th:value="${cardNumber}">
+					<input type="hidden" name="couponId" th:value="${couponId}">
+					<input type="hidden" name="totalPrice" th:value="${totalPrice}">
+					<input class="submit clearing" type="submit" id="submit" value="支払う" />
+				</div>
+			</table>
+
+		</form>
+		<script>
+			$(function() {
+
+				$('.submit').attr('disabled', 'disabled');
+
+				$('#agree').on('click', function() {
+					if ($(this).prop('checked') == false) {
+						$('.submit').attr('disabled', 'disabled');
+					} else {
+						$('.submit').removeAttr('disabled');
+					}
+				});
+
+			});
+		</script>
 	</div>
 	
 </body>
