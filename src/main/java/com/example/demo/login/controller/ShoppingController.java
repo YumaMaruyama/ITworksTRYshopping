@@ -92,6 +92,7 @@ import com.example.demo.login.domail.model.UsersListDTO;
 import com.example.demo.login.domail.model.UsersListForm;
 import com.example.demo.login.domail.model.auctionPaymentProductForm;
 import com.example.demo.login.domail.service.AuctionDataService;
+import com.example.demo.login.domail.service.AuctionProductHistoryService;
 import com.example.demo.login.domail.service.AuctionTenderDataService;
 import com.example.demo.login.domail.service.CancelService;
 import com.example.demo.login.domail.service.CartService;
@@ -190,6 +191,8 @@ public class ShoppingController {
 	AuctionTenderDataService auctionTenderDataService;
 	@Autowired
 	ProductGoodService productGoodService;
+	@Autowired
+	AuctionProductHistoryService auctionProductHistoryService;
 
 	@Autowired // Sessionが使用できる
 	HttpSession session;
@@ -8350,8 +8353,24 @@ public class ShoppingController {
 		
 		AuctionDataDTO auctiondatadtoList = auctionDataService.tenderSelectOne(auctionId);
 		model.addAttribute("auctionDataDTOList",auctiondatadtoList);
+		model.addAttribute("auctionId",auctionId);
 		
-		return "shopping/ProductListLayout";
+		return "shopping/productListLayout";
+	}
+	
+	@PostMapping("auctionPayment")
+	public String postAuctionPayment(@RequestParam("id") int auctionId,auctionPaymentProductForm form,Model model) {
+		model.addAttribute("contents", "shopping/auctionPayment::productListLayout_contents");
+		
+		//ユーザーIDを取得
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String getName = auth.getName();
+		int userId = usersService.select_id(getName);
+		//落札商品の情報を格納
+		auctionProductHistoryService.insertOne(auctionId,userId,form);
+		
+		return "shopping/productListLayout";
+		
 	}
 	
 	@GetMapping("/auctionProductDetail/{id}")

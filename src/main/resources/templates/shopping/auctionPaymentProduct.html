@@ -56,7 +56,7 @@
 			
 		</form>
 		
-		<form method="post" th:action="@{/clearing}"
+		<form method="post" th:action="@{/auctionPayment}"
 			th:object="${auctionPaymentProductForm}">
 			
 			<div>
@@ -101,7 +101,8 @@
 						th:if="${#fields.hasErrors('cardNumber')}"
 						th:errors="*{cardNumber}">cardNumber error</span></td>
 				</tr>
-
+			</table>
+			
 			<div class="btn-wrapper">
 					<br>
 					<br>
@@ -118,8 +119,8 @@
 					<input type="hidden" name="totalPrice" th:value="${totalPrice}">
 					<input class="submit clearing" type="submit" id="submit" value="支払う" />
 				</div>
-			</table>
 
+				<input type="hidden" name="id" th:value="${auctionId}">
 		</form>
 		<script>
 			$(function() {
