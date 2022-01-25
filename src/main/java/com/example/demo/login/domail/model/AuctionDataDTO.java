@@ -34,4 +34,6 @@ public class AuctionDataDTO {
 	private int tenderNumber;
 	
 	private String tenderEndDate;
+	
+	private String deliveryElement;
 }

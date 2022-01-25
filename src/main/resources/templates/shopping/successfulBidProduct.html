@@ -41,9 +41,11 @@
 				<p class="card-text text-center fontdesign stock"
 					style="margin-bottom: 0px !important"
 					th:text="'終了日 : ' + ${auctionData.tenderEndDate} + 'に落札'"></p>
-				<a class="text-center productListGo"
+				<a th:if="${auctionData.deliveryElement} eq '支払い前'" class="text-center productListGo"
 					th:href="@{/auctionPaymentProduct} + '/' + ${auctionData.id}"><span
 					class="DetailRyncDesigin">支払へ</span></a>
+				<p th:if="${auctionData.deliveryElement} neq '支払い前'" class="text-center" ><span
+					class="DetailRyncDesigin text-info" th:text="${auctionData.deliveryElement}"></span></p>
 			</div>
 		</div>
 		

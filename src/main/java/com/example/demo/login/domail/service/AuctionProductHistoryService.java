@@ -15,4 +15,8 @@ public class AuctionProductHistoryService {
 	public int insertOne(int auctionId,int userId,auctionPaymentProductForm form) {
 		return dao.insertOne(auctionId,userId,form); 
 	}
+	
+	public int getSelectDeliveryProductIdOne(int auctionIdOne, int userId) {
+		return dao.getSelectDeliveryProductIdOne(auctionIdOne,userId);
+	}
 }

@@ -8338,6 +8338,13 @@ public class ShoppingController {
 		for(int x = 0;successfulBidUserProductId.size() > x; x++) {
 			int successfulBidUserProductIdOne = successfulBidUserProductId.get(x);
 			AuctionDataDTO auctiondatadtoListOne = auctionDataService.getSuccessfulBIdUserProductSelectMany(successfulBidUserProductIdOne);
+			int auctionIdOne = auctiondatadtoListOne.getId();
+			int deliveryCheck = auctionProductHistoryService.getSelectDeliveryProductIdOne(auctionIdOne,userId);
+			if(deliveryCheck == 1) {
+				auctiondatadtoListOne.setDeliveryElement("支払い完了・発送前");
+			}else {
+				auctiondatadtoListOne.setDeliveryElement("支払い前");
+			}
 			auctiondatadtoList.add(auctiondatadtoListOne);
 			System.out.println("aaaaa"+auctiondatadtoList);
 		}
@@ -8368,6 +8375,7 @@ public class ShoppingController {
 		int userId = usersService.select_id(getName);
 		//落札商品の情報を格納
 		auctionProductHistoryService.insertOne(auctionId,userId,form);
+		
 		
 		return "shopping/productListLayout";
 		
