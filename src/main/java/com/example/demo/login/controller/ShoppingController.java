@@ -33,6 +33,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.login.domail.model.AuctionDataDTO;
 import com.example.demo.login.domail.model.AuctionListingForm;
+import com.example.demo.login.domail.model.AuctionProductHistoryDTO;
 import com.example.demo.login.domail.model.AuctionTenderDataDTO;
 import com.example.demo.login.domail.model.AuctionTenderForm;
 import com.example.demo.login.domail.model.CancelDTO;
@@ -8346,12 +8347,41 @@ public class ShoppingController {
 				auctiondatadtoListOne.setDeliveryElement("支払い前");
 			}
 			auctiondatadtoList.add(auctiondatadtoListOne);
-			System.out.println("aaaaa"+auctiondatadtoList);
 		}
 		
 		model.addAttribute("auctionDataDTOList",auctiondatadtoList);
 		
 		return "shopping/productListLayout";
+	}
+	
+	@GetMapping("/auctionProductManagement")
+	public String getAuctionProductManagement(Model model) {
+		model.addAttribute("contents", "shopping/auctionProductManagement::productListLayout_contents");
+		
+		//落札済みの商品をすべて取得
+		List<AuctionProductHistoryDTO> auctionProductHistoryDtoList =  auctionProductHistoryService.selectAuctionProductMany();
+		for(int x = 0; auctionProductHistoryDtoList.size() > x; x++) {
+			AuctionProductHistoryDTO auctionProductHistoryOne = auctionProductHistoryDtoList.get(x);
+			String deliveryCheck = auctionProductHistoryOne.getDeliveryCheck();
+				if(deliveryCheck.equals("発送前")) {
+					auctionProductHistoryOne.setDeliveryCheckOk("no");
+				} else {
+					auctionProductHistoryOne.setDeliveryCheckOk("yes");
+				}
+		}
+		
+		model.addAttribute("auctionProduct",auctionProductHistoryDtoList);
+		
+		return "shopping/productListLayout";
+	}
+	
+	@GetMapping("/auctionProductDeliveryFinish/{id}")
+	public String getAuctionProductDeliveryFinish(@PathVariable("id") int auctionProductHistoryId,Model model) {
+		
+		auctionProductHistoryService.deliveryUpdateOne(auctionProductHistoryId);
+		
+		return getAuctionProductManagement(model);
+		
 	}
 	
 	@GetMapping("/auctionPaymentProduct/{id}")
