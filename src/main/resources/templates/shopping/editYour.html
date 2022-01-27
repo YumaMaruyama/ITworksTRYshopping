@@ -95,6 +95,20 @@
 
 			</tr>
 		</table>
+		
+		<h2>あなたのプラン</h2>
+		
+		<table class="table userRankTableDesign" th:each="usersList : ${usersList}">
+			<tr th:if="${usersList.plan} eq '無課金'">
+				<td>
+					<h3 class="text-center">現在のプランを表示</h3></td>
+				<td><a th:href="@{/pandPlan}"
+					class="btn btn--blue btn--border-double rankDetailBtnDesing">有料プランに変更</a></td>
+
+			</tr>
+		</table>
+		
+		
 
 
 	</div>

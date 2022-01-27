@@ -12,6 +12,8 @@ public class UsersListDTO {
 	private String userId;
 
 	private String userName;
+	
+	private String plan;
 
 	private Date birthday;
 

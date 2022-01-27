@@ -115,6 +115,8 @@ public class UsersDaoJdbcImpl implements UsersDao {
 		usersdto.setId((int) map.get("id"));
 		usersdto.setUser_id((String) map.get("user_id"));
 		usersdto.setUser_name((String) map.get("user_name"));
+		usersdto.setPlan((String)map.get("plan"));
+		
 
 		return usersdto;
 	}

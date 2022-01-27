@@ -285,8 +285,10 @@ public class ShoppingController {
 		userslistdto.setId(usersdto.getId());
 		userslistdto.setUserId(usersdto.getUser_id());
 		userslistdto.setUserName(usersdto.getUser_name());
+		userslistdto.setPlan(usersdto.getPlan());
 		userslistdto.setBirthday(usegeusersdto.getBirthday());
 		userslistdto.setAddress(usegeusersdto.getAddress());
+		
 
 		model.addAttribute("usersList", userslistdto);
 		model.addAttribute("id", userslistdto.getId());
@@ -386,6 +388,14 @@ public class ShoppingController {
 
 		return "shopping/productListLayout";
 	}
+	
+	@GetMapping("/pandPlan")
+	public String getPandPlan(Model model) {
+		model.addAttribute("contents", "shopping/pandPlan::productListLayout_contents");
+		
+		return "shopping/productListLayout";
+	}
+	
 
 	@GetMapping("/userRankDetail")
 	public String getUserRankDetail(@ModelAttribute UserEditForm form, Model model) {
@@ -8383,6 +8393,8 @@ public class ShoppingController {
 		return getAuctionProductManagement(model);
 		
 	}
+	
+	
 	
 	@GetMapping("/auctionPaymentProduct/{id}")
 	public String getAuctionPaymentProduct(@PathVariable("id") int auctionId,auctionPaymentProductForm form,Model model) {

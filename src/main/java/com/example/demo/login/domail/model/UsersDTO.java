@@ -12,6 +12,8 @@ public class UsersDTO {
 	private String password;
 
 	private String user_name;
+	
+	private String plan;
 
 	private String role;
 }
