@@ -74,6 +74,7 @@ import com.example.demo.login.domail.model.MenberCouponDTO;
 import com.example.demo.login.domail.model.MenberCouponForm;
 import com.example.demo.login.domail.model.NewsDTO;
 import com.example.demo.login.domail.model.NewsForm;
+import com.example.demo.login.domail.model.PandPlanExecutionForm;
 import com.example.demo.login.domail.model.PcDataDTO;
 import com.example.demo.login.domail.model.PcDataForm;
 import com.example.demo.login.domail.model.PcDetailDataDTO;
@@ -392,6 +393,20 @@ public class ShoppingController {
 	@GetMapping("/pandPlan")
 	public String getPandPlan(Model model) {
 		model.addAttribute("contents", "shopping/pandPlan::productListLayout_contents");
+		
+		return "shopping/productListLayout";
+	}
+	
+	@GetMapping("/pandPlanExecution")
+	public String getPandPlanExecution(PandPlanExecutionForm form,Model model) {
+		model.addAttribute("contents", "shopping/pandPlanExecution::productListLayout_contents");
+		
+		//ユーザーIDを取得
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String getName = auth.getName();
+		int userId = usersService.select_id(getName);
+		
+		model.addAttribute("userId",userId);
 		
 		return "shopping/productListLayout";
 	}

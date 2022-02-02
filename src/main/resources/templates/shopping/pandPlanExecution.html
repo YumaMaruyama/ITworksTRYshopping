@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	
+	<div th:fragment="productListLayout_contents">
+		<table>
+			<tr>
+				<th><h1 class="titleDesign">有料プラン変更手続き</h1></th>
+			</tr>
+		</table>
+		
+		
+		<h3>有料プランになるための金額を</h3>
+		
+		<form method="post" th:action="@{/pandPlanExecutionPayment}"
+			th:object="${pandPlanExecutionForm}">
+			
+			<div>
+				<h4 class="clearingTitle">JCBカードの情報を入力してください。</h4>
+			</div>
+			<table class="table table-bordered table-hover clearingTableDesign">
+
+
+
+				<tr>
+					<th class="form-group text-center thTitleDesign clearingBackColora">クレジット三桁コード</th>
+					<td class="clearingBackColorb">
+						<div class="form-group"
+							th:classappend="${#fields.hasErrors('digits_3_code')} ? 'hasError'">
+							<input type="text" class="form-control inputDesign"
+								th:field="*{digits_3_code}" placeholder="カードの3桁コードを入力してください">
+						</div> <span class="text-danger"
+						th:if="${#fields.hasErrors('digits_3_code')}"
+						th:errors="*{digits_3_code}">digits_3_code error</span>
+					</td>
+
+				</tr>
+
+				<tr>
+					<th class="form-group text-center thTitleDesign clearingBackColora">クレジット記載名義</th>
+					<td class="clearingBackColorb"><div class="form-group"
+							th:classappend="${#fields.hasErrors('cardName')} ? 'hasError'">
+							<input type="text" class="form-control inputDesign"
+								th:field="*{cardName}" placeholder="ローマ字記載のカード名義を入力してください。">
+						</div> <span class="text-danger"
+						th:if="${#fields.hasErrors('cardName')}" th:errors="*{cardName}">cardName
+							error</span></td>
+				</tr>
+
+				<tr>
+					<th class="form-group text-center thTitleDesign clearingBackColora">クレジット番号</th>
+					<td class="clearingBackColorb"><div class="form-group"
+							th:classappend="${#fields.hasErrors('cardNumber')} ? 'hasError'">
+							<input type="tel" class="form-control inputDesign"
+								th:field="*{cardNumber}" placeholder="16桁のカード番号を入力してください。">
+						</div> <span class="text-danger"
+						th:if="${#fields.hasErrors('cardNumber')}"
+						th:errors="*{cardNumber}">cardNumber error</span></td>
+				</tr>
+			</table>
+			
+			<div class="btn-wrapper">
+					<br>
+					<br>
+					<div class="check-box">
+						<label class="text-danger"><input class="check"
+							type="checkbox" name="check" autocomplete="off" id="agree"><span
+							class="confirmation_statement"><a></a>このチェックを入れて支払いを押して購入完了してください</span></label>
+					</div>
+					<input type="hidden" name="digits_3_code"
+						th:value="${digits_3_code}"> <input type="hidden"
+						name="cardName" th:value="${cardName}"> <input
+						type="hidden" name="cardNumber" th:value="${cardNumber}">
+					<input type="hidden" name="couponId" th:value="${couponId}">
+					<input type="hidden" name="totalPrice" th:value="${totalPrice}">
+					<input class="submit clearing" type="submit" id="submit" value="支払う" />
+				</div>
+
+				<input type="hidden" name="id" th:value="${userId}">
+		</form>
+		<script>
+			$(function() {
+
+				$('.submit').attr('disabled', 'disabled');
+
+				$('#agree').on('click', function() {
+					if ($(this).prop('checked') == false) {
+						$('.submit').attr('disabled', 'disabled');
+					} else {
+						$('.submit').removeAttr('disabled');
+					}
+				});
+
+			});
+		</script>
+		
+	</div>
+</body>
+</html>
