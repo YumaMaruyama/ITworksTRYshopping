@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2022-02-04T13:14:29.405Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.80 Safari/537.36 Edg/98.0.1108.43" etag="POvpx4YKNA8xOOWpyWGU" version="16.5.2" type="github" pages="33">
+<mxfile host="app.diagrams.net" modified="2022-02-04T13:14:39.417Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.80 Safari/537.36 Edg/98.0.1108.43" etag="xDJr0wzzMnbFx9DekLiq" version="16.5.2" type="github" pages="33">
   <diagram id="3dSM1hKOwx3oM_8oYQWr" name="ログイン画面">
     <mxGraphModel dx="1438" dy="579" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -191,9 +191,6 @@
         </mxCell>
         <mxCell id="YE0-t5lSEBY2NvHewNqS-1" value="&lt;font color=&quot;#ff6666&quot;&gt;空白又は決められた表記、文字数を超えていれば、&lt;br&gt;各フォームの下にエラーメッセージを表示する&lt;br&gt;&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontColor=#FFE6CC;strokeColor=#FF9999;strokeWidth=2;" parent="1" vertex="1">
           <mxGeometry x="660" y="100" width="340" height="50" as="geometry" />
-        </mxCell>
-        <mxCell id="ikjrVWv6kI5GEncycHog-1" value="" style="shape=xor;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="148" y="315" width="60" height="80" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
