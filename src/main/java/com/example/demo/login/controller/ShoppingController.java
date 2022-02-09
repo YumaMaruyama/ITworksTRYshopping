@@ -411,6 +411,14 @@ public class ShoppingController {
 		return "shopping/productListLayout";
 	}
 	
+	@PostMapping("pandPlanExecutionPayment") 
+	public String getPandPlanExecutionPayment(@RequestParam("id") int userId,PandPlanExecutionForm form,Model model) {
+		model.addAttribute("contents", "shopping/pandPlanExecutionPayment::productListLayout_contents");
+		
+		
+		return "shopping/productListLayout";
+	}
+	
 
 	@GetMapping("/userRankDetail")
 	public String getUserRankDetail(@ModelAttribute UserEditForm form, Model model) {
