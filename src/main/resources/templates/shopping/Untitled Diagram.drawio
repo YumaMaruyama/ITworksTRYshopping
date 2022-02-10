@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2022-02-04T13:14:39.417Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.80 Safari/537.36 Edg/98.0.1108.43" etag="xDJr0wzzMnbFx9DekLiq" version="16.5.2" type="github" pages="33">
+<mxfile host="app.diagrams.net" modified="2022-02-10T13:42:54.357Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.80 Safari/537.36 Edg/98.0.1108.43" etag="E8lI_FJYpaRi7Rr1ssgj" version="16.5.3" type="github" pages="33">
   <diagram id="3dSM1hKOwx3oM_8oYQWr" name="ログイン画面">
-    <mxGraphModel dx="1438" dy="579" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1440" dy="579" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -120,7 +120,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="K4ZF2bze5S8InXpFApi2-1" value="" style="rounded=0;whiteSpace=wrap;html=1;direction=south;align=center;strokeWidth=2;" parent="1" vertex="1">
-          <mxGeometry x="-40" y="70" width="100" height="430" as="geometry" />
+          <mxGeometry x="110" y="10" width="100" height="430" as="geometry" />
         </mxCell>
         <mxCell id="K4ZF2bze5S8InXpFApi2-2" value="新規ユーザー登録" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="-40" y="90" width="100" height="20" as="geometry" />
