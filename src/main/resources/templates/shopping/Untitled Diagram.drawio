@@ -1,17 +1,14 @@
-<mxfile host="app.diagrams.net" modified="2023-01-12T14:56:10.594Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36 Edg/108.0.1462.76" etag="cH4J_KvJvFtwmojEiOPM" version="20.2.3" type="github" pages="34">
+<mxfile host="app.diagrams.net" modified="2023-01-12T15:11:10.874Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36 Edg/108.0.1462.76" etag="YNuQ12bR4LP6lb90bVD3" version="20.2.3" type="github" pages="34">
   <diagram id="GfWfryZrFfA8DlHSKQ3g" name="バトルフィールド">
-    <mxGraphModel dx="1819" dy="579" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1819" dy="579" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#FFBAF6" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="AwrSLIiRnOt9zdSPdo7S-1" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;" vertex="1" parent="1">
+        <mxCell id="AwrSLIiRnOt9zdSPdo7S-1" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;fillColor=#60a917;fontColor=#ffffff;strokeColor=#2D7600;" vertex="1" parent="1">
           <mxGeometry x="-40" y="10" width="840" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="AwrSLIiRnOt9zdSPdo7S-2" value="" style="rounded=0;whiteSpace=wrap;html=1;direction=south;align=center;strokeWidth=2;" vertex="1" parent="1">
+        <mxCell id="AwrSLIiRnOt9zdSPdo7S-2" value="" style="rounded=0;whiteSpace=wrap;html=1;direction=south;align=center;strokeWidth=2;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="1">
           <mxGeometry x="-40" y="70" width="100" height="430" as="geometry" />
-        </mxCell>
-        <mxCell id="AwrSLIiRnOt9zdSPdo7S-3" value="敵のイラスト(動かす)" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="308.5" y="122.5" width="210" height="90" as="geometry" />
         </mxCell>
         <mxCell id="AwrSLIiRnOt9zdSPdo7S-4" value="敵の体力" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#60a917;strokeColor=#2D7600;fontColor=#ffffff;" vertex="1" parent="1">
           <mxGeometry x="567" y="113" width="110" height="20" as="geometry" />
@@ -68,7 +65,34 @@
           <mxGeometry x="125" y="480" width="110" height="20" as="geometry" />
         </mxCell>
         <mxCell id="AwrSLIiRnOt9zdSPdo7S-38" value="フロア&lt;br&gt;(1/3形式)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
-          <mxGeometry x="80" y="92.5" width="60" height="30" as="geometry" />
+          <mxGeometry x="80" y="148" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="AwrSLIiRnOt9zdSPdo7S-39" value="リタイア(警告入れる)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="660" y="25" width="130" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="AwrSLIiRnOt9zdSPdo7S-40" value="クエスト名" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="75" y="103" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="AwrSLIiRnOt9zdSPdo7S-41" value="" style="verticalLabelPosition=bottom;verticalAlign=top;html=1;shape=mxgraph.basic.smiley;fillColor=#60a917;fontColor=#ffffff;strokeColor=#2D7600;" vertex="1" parent="1">
+          <mxGeometry x="365" y="113" width="100" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="AwrSLIiRnOt9zdSPdo7S-42" value="" style="verticalLabelPosition=bottom;verticalAlign=top;html=1;shape=mxgraph.basic.frame_corner;dx=10;fillColor=#60a917;fontColor=#ffffff;strokeColor=#2D7600;" vertex="1" parent="1">
+          <mxGeometry x="290" y="140" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="AwrSLIiRnOt9zdSPdo7S-43" value="" style="verticalLabelPosition=bottom;verticalAlign=top;html=1;shape=mxgraph.basic.diag_stripe;dx=10;fillColor=#60a917;fontColor=#ffffff;strokeColor=#2D7600;" vertex="1" parent="1">
+          <mxGeometry x="465" y="118" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="AwrSLIiRnOt9zdSPdo7S-45" value="" style="verticalLabelPosition=bottom;verticalAlign=top;html=1;shape=mxgraph.basic.rect;fillColor2=none;strokeWidth=1;size=20;indent=5;fillColor=#f0a30a;fontColor=#000000;strokeColor=#BD7000;" vertex="1" parent="1">
+          <mxGeometry x="720" y="320" width="80" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="AwrSLIiRnOt9zdSPdo7S-46" value="ダメージ&lt;br&gt;などのログ" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="725" y="337" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="AwrSLIiRnOt9zdSPdo7S-47" value="" style="verticalLabelPosition=bottom;verticalAlign=top;html=1;shape=mxgraph.basic.rect;fillColor2=none;strokeWidth=1;size=20;indent=5;fillColor=#e3c800;fontColor=#000000;strokeColor=#B09500;" vertex="1" parent="1">
+          <mxGeometry x="718" y="100" width="80" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="AwrSLIiRnOt9zdSPdo7S-48" value="ダメージ&lt;br&gt;などのログ" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="723" y="127" width="70" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
