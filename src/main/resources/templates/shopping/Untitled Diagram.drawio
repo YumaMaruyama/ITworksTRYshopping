@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-04-25T06:06:21.461Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36 Edg/112.0.1722.58" etag="QNMw7ChxVOBSn6PXMlSC" version="20.8.5" type="github" pages="35">
+<mxfile host="app.diagrams.net" modified="2023-04-25T06:54:24.012Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36 Edg/112.0.1722.58" etag="8e5Ayz_t5gOx_pBTmGTq" version="20.8.5" type="github" pages="35">
   <diagram id="GfWfryZrFfA8DlHSKQ3g" name="バトルフィールド">
     <mxGraphModel dx="1820" dy="581" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#FFBAF6" math="0" shadow="0">
       <root>
@@ -5896,7 +5896,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="TWlf73bChqIS5cOnDga-" name="ページ35">
-    <mxGraphModel dx="993" dy="581" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1418" dy="724" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -5928,19 +5928,43 @@
           <mxGeometry x="40" y="1080" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="ANIbdtcuZpoOsoGnwScy-12" value="特徴" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;fontSize=29;" vertex="1" parent="1">
-          <mxGeometry x="190" y="20" width="120" height="60" as="geometry" />
+          <mxGeometry x="190" y="10" width="120" height="70" as="geometry" />
         </mxCell>
         <mxCell id="ANIbdtcuZpoOsoGnwScy-13" value="影響&lt;br&gt;関係" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;fontSize=29;" vertex="1" parent="1">
-          <mxGeometry x="500" y="20" width="120" height="60" as="geometry" />
+          <mxGeometry x="500" y="10" width="120" height="70" as="geometry" />
         </mxCell>
         <mxCell id="ANIbdtcuZpoOsoGnwScy-14" value="相互&lt;br&gt;関係" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;fontSize=29;" vertex="1" parent="1">
-          <mxGeometry x="340" y="20" width="120" height="60" as="geometry" />
+          <mxGeometry x="340" y="10" width="120" height="70" as="geometry" />
         </mxCell>
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-15" value="トピック" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;fontSize=29;" vertex="1" parent="1">
-          <mxGeometry x="660" y="20" width="150" height="60" as="geometry" />
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-15" value="重要&lt;br&gt;ワード" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;fontSize=29;" vertex="1" parent="1">
+          <mxGeometry x="660" y="10" width="150" height="70" as="geometry" />
         </mxCell>
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-16" value="韓国や台湾にも&lt;br&gt;類似音楽がある" style="ellipse;whiteSpace=wrap;html=1;fontSize=15;" vertex="1" parent="1">
-          <mxGeometry x="185" y="120" width="130" height="60" as="geometry" />
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-19" value="&lt;font color=&quot;#000000&quot;&gt;外国人に&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;推奨される&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#3333FF;" vertex="1" parent="1">
+          <mxGeometry x="190" y="120" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-24" value="&lt;font style=&quot;border-color: var(--border-color);&quot; color=&quot;#3333ff&quot;&gt;三味線音楽&lt;/font&gt;同等の代表的音楽" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="340" y="120" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-25" value="&lt;font style=&quot;border-color: var(--border-color);&quot;&gt;&lt;font color=&quot;#3333ff&quot;&gt;雅楽&lt;/font&gt;の影響で&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;&lt;font color=&quot;#3333ff&quot;&gt;声楽&lt;/font&gt;の&lt;font color=&quot;#ff0000&quot;&gt;朗詠&lt;/font&gt;が誕生&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="500" y="120" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-26" value="レポートで説明������" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontSize=15;fontColor=#3333FF;" vertex="1" parent="1">
+          <mxGeometry x="650" y="90" width="170" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-27" value="&lt;font color=&quot;#3333ff&quot;&gt;「案国学」「康国学」「疎勒楽」&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="660" y="120" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-28" value="&lt;font color=&quot;#000000&quot;&gt;起源から日本独自の音楽へ発展&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#3333FF;" vertex="1" parent="1">
+          <mxGeometry x="190" y="240" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-29" value="雅楽&lt;font color=&quot;#000000&quot;&gt;と共に盛んな時期を歩んだ&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#3333FF;" vertex="1" parent="1">
+          <mxGeometry x="340" y="240" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-31" value="仏教音楽&lt;font color=&quot;#000000&quot;&gt;を基に&lt;/font&gt;&lt;br&gt;能楽&lt;font color=&quot;#000000&quot;&gt;が誕生&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#3333FF;" vertex="1" parent="1">
+          <mxGeometry x="500" y="240" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-32" value="&lt;font color=&quot;#3333ff&quot;&gt;「声明」&lt;br&gt;「御詠歌」&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="660" y="240" width="130" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
