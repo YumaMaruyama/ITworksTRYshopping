@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2023-04-25T13:33:03.262Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36 Edg/112.0.1722.58" etag="vft-0i8jOYZuTKrO-_P8" version="20.8.5" type="github" pages="35">
+<mxfile host="app.diagrams.net" modified="2023-04-25T14:07:11.919Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36 Edg/112.0.1722.58" etag="OA5Xt0x0nYjihMT0MrpF" version="21.2.1" type="github" pages="35">
   <diagram id="GfWfryZrFfA8DlHSKQ3g" name="バトルフィールド">
-    <mxGraphModel dx="1820" dy="581" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#FFBAF6" math="0" shadow="0">
+    <mxGraphModel dx="2060" dy="581" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#FFBAF6" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -5896,167 +5896,167 @@
     </mxGraphModel>
   </diagram>
   <diagram id="TWlf73bChqIS5cOnDga-" name="ページ35">
-    <mxGraphModel dx="1418" dy="724" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1233" dy="581" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-1" value="&lt;font style=&quot;font-size: 30px;&quot;&gt;雅楽&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-1" value="&lt;font style=&quot;font-size: 30px;&quot;&gt;雅楽&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
           <mxGeometry x="40" y="120" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-2" value="&lt;span style=&quot;font-size: 29px;&quot;&gt;大衆邦楽&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-2" value="&lt;span style=&quot;font-size: 29px;&quot;&gt;大衆邦楽&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
           <mxGeometry x="40" y="960" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-3" value="&lt;span style=&quot;font-size: 23px;&quot;&gt;三味線音楽&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-3" value="&lt;span style=&quot;font-size: 23px;&quot;&gt;三味線音楽&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
           <mxGeometry x="40" y="840" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-4" value="&lt;span style=&quot;font-size: 29px;&quot;&gt;琴の音楽&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-4" value="&lt;span style=&quot;font-size: 29px;&quot;&gt;琴の音楽&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
           <mxGeometry x="40" y="720" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-5" value="&lt;span style=&quot;font-size: 29px;&quot;&gt;尺八音楽&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-5" value="&lt;span style=&quot;font-size: 29px;&quot;&gt;尺八音楽&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
           <mxGeometry x="40" y="600" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-6" value="&lt;span style=&quot;font-size: 29px;&quot;&gt;能の音楽&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-6" value="&lt;span style=&quot;font-size: 29px;&quot;&gt;能の音楽&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
           <mxGeometry x="40" y="480" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-7" value="&lt;span style=&quot;font-size: 30px;&quot;&gt;琵琶楽&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-7" value="&lt;span style=&quot;font-size: 30px;&quot;&gt;琵琶楽&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
           <mxGeometry x="40" y="360" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-8" value="&lt;span style=&quot;font-size: 28px;&quot;&gt;仏教音楽&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-8" value="&lt;span style=&quot;font-size: 28px;&quot;&gt;仏教音楽&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
           <mxGeometry x="40" y="240" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-10" value="&lt;span style=&quot;font-size: 29px;&quot;&gt;現代音楽&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-10" value="&lt;span style=&quot;font-size: 29px;&quot;&gt;現代音楽&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
           <mxGeometry x="40" y="1080" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-12" value="特徴" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;fontSize=29;fontColor=#FFE599;" vertex="1" parent="1">
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-12" value="特徴" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;fontSize=29;fontColor=#FFE599;" parent="1" vertex="1">
           <mxGeometry x="190" y="10" width="120" height="70" as="geometry" />
         </mxCell>
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-13" value="影響&lt;br&gt;関係" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;fontSize=29;fontColor=#FFE599;" vertex="1" parent="1">
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-13" value="影響&lt;br&gt;関係" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;fontSize=29;fontColor=#FFE599;" parent="1" vertex="1">
           <mxGeometry x="500" y="10" width="120" height="70" as="geometry" />
         </mxCell>
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-14" value="相互&lt;br&gt;関係" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;fontSize=29;fontColor=#FFE599;" vertex="1" parent="1">
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-14" value="相互&lt;br&gt;関係" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;fontSize=29;fontColor=#FFE599;" parent="1" vertex="1">
           <mxGeometry x="340" y="10" width="120" height="70" as="geometry" />
         </mxCell>
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-15" value="重要&lt;br&gt;ワード" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;fontSize=29;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-15" value="重要&lt;br&gt;ワード" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;fontSize=29;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
           <mxGeometry x="660" y="10" width="150" height="70" as="geometry" />
         </mxCell>
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-19" value="&lt;font color=&quot;#000000&quot;&gt;外国人によく&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;推奨された音楽&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#3333FF;" vertex="1" parent="1">
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-19" value="&lt;font color=&quot;#000000&quot;&gt;外国人によく&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;推奨された音楽&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#3333FF;" parent="1" vertex="1">
           <mxGeometry x="190" y="120" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-24" value="&lt;font style=&quot;border-color: var(--border-color);&quot; color=&quot;#3333ff&quot;&gt;三味線音楽&lt;/font&gt;同等の代表的音楽" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#000000;" vertex="1" parent="1">
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-24" value="&lt;font style=&quot;border-color: var(--border-color);&quot; color=&quot;#3333ff&quot;&gt;三味線音楽&lt;/font&gt;同等の代表的音楽" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#000000;" parent="1" vertex="1">
           <mxGeometry x="340" y="120" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-25" value="&lt;font style=&quot;border-color: var(--border-color);&quot;&gt;&lt;font color=&quot;#3333ff&quot;&gt;雅楽&lt;/font&gt;の影響で&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;&lt;font color=&quot;#3333ff&quot;&gt;声楽&lt;/font&gt;の&lt;font color=&quot;#ff0000&quot;&gt;朗詠&lt;/font&gt;が誕生&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#000000;" vertex="1" parent="1">
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-25" value="&lt;font style=&quot;border-color: var(--border-color);&quot;&gt;&lt;font color=&quot;#3333ff&quot;&gt;雅楽&lt;/font&gt;の影響で&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;&lt;font color=&quot;#3333ff&quot;&gt;声楽&lt;/font&gt;の&lt;font color=&quot;#ff0000&quot;&gt;朗詠&lt;/font&gt;が誕生&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#000000;" parent="1" vertex="1">
           <mxGeometry x="500" y="120" width="130" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-27" value="&lt;font color=&quot;#3333ff&quot;&gt;「案国楽」「康国楽」「疎勒楽」&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#000000;" vertex="1" parent="1">
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-27" value="&lt;font color=&quot;#3333ff&quot;&gt;「安国楽」「康国楽」「疎勒楽」&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#000000;" parent="1" vertex="1">
           <mxGeometry x="650" y="120" width="160" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-28" value="&lt;font color=&quot;#000000&quot;&gt;起源のものから日本独自の音楽へと発展&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#3333FF;" vertex="1" parent="1">
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-28" value="&lt;font color=&quot;#000000&quot;&gt;起源のものから日本独自の音楽へと発展&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#3333FF;" parent="1" vertex="1">
           <mxGeometry x="190" y="240" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-29" value="雅楽&lt;font color=&quot;#000000&quot;&gt;と共に盛んな時期を歩んだ&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#3333FF;" vertex="1" parent="1">
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-29" value="雅楽&lt;font color=&quot;#000000&quot;&gt;と共に盛んな時期を歩んだ&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#3333FF;" parent="1" vertex="1">
           <mxGeometry x="340" y="240" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-31" value="仏教音楽&lt;font color=&quot;#000000&quot;&gt;を基に&lt;/font&gt;&lt;br&gt;能楽&lt;font color=&quot;#000000&quot;&gt;が誕生&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#3333FF;" vertex="1" parent="1">
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-31" value="仏教音楽&lt;font color=&quot;#000000&quot;&gt;を基に&lt;/font&gt;&lt;br&gt;能楽&lt;font color=&quot;#000000&quot;&gt;が誕生&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#3333FF;" parent="1" vertex="1">
           <mxGeometry x="500" y="240" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-32" value="&lt;font color=&quot;#ff0000&quot;&gt;「声明」&lt;br&gt;「御詠歌」&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#000000;" vertex="1" parent="1">
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-32" value="&lt;font color=&quot;#ff0000&quot;&gt;「声明」&lt;br&gt;「御詠歌」&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#000000;" parent="1" vertex="1">
           <mxGeometry x="660" y="240" width="130" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-69" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=15;fontColor=#FF0000;" edge="1" parent="1" source="ANIbdtcuZpoOsoGnwScy-33" target="ANIbdtcuZpoOsoGnwScy-34">
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-69" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=15;fontColor=#FF0000;" parent="1" source="ANIbdtcuZpoOsoGnwScy-33" target="ANIbdtcuZpoOsoGnwScy-34" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-33" value="&lt;font color=&quot;#000000&quot;&gt;当時の学生に&lt;br&gt;好まれていた&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#3333FF;" vertex="1" parent="1">
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-33" value="&lt;font color=&quot;#000000&quot;&gt;当時の学生に&lt;br&gt;好まれていた&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#3333FF;" parent="1" vertex="1">
           <mxGeometry x="190" y="360" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-34" value="&lt;font color=&quot;#ff0000&quot;&gt;「薩摩琵琶」&lt;/font&gt;&lt;font color=&quot;#000000&quot;&gt;と&lt;/font&gt;&lt;font color=&quot;#ff0000&quot;&gt;「筑前琵琶」&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#3333FF;" vertex="1" parent="1">
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-34" value="&lt;font color=&quot;#ff0000&quot;&gt;「薩摩琵琶」&lt;/font&gt;&lt;font color=&quot;#000000&quot;&gt;と&lt;/font&gt;&lt;font color=&quot;#ff0000&quot;&gt;「筑前琵琶」&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#3333FF;" parent="1" vertex="1">
           <mxGeometry x="340" y="360" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-36" value="&lt;font color=&quot;#000000&quot;&gt;インドで流行り&lt;/font&gt;&lt;br&gt;&lt;font color=&quot;#ff0000&quot;&gt;「盲憎琵琶」&lt;/font&gt;&lt;font color=&quot;#000000&quot;&gt;が日本に上陸した&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#3333FF;" vertex="1" parent="1">
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-36" value="&lt;font color=&quot;#000000&quot;&gt;インドで流行り&lt;/font&gt;&lt;br&gt;&lt;font color=&quot;#ff0000&quot;&gt;「盲憎琵琶」&lt;/font&gt;&lt;font color=&quot;#000000&quot;&gt;が日本に上陸した&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#3333FF;" parent="1" vertex="1">
           <mxGeometry x="505" y="360" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-37" value="&lt;font color=&quot;#ff0000&quot;&gt;「日本琵琶楽大系」「琵琶」&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#3333FF;" vertex="1" parent="1">
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-37" value="&lt;font color=&quot;#ff0000&quot;&gt;「日本琵琶楽大系」「琵琶」&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#3333FF;" parent="1" vertex="1">
           <mxGeometry x="660" y="360" width="140" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-39" value="指揮者がおらず&lt;br&gt;仏教思考がある" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#000000;" vertex="1" parent="1">
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-39" value="指揮者がおらず&lt;br&gt;仏教思考がある" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#000000;" parent="1" vertex="1">
           <mxGeometry x="190" y="480" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-40" value="仏教音楽&lt;font color=&quot;#000000&quot;&gt;の&lt;/font&gt;&lt;font color=&quot;#ff0000&quot;&gt;声明&lt;/font&gt;&lt;font color=&quot;#000000&quot;&gt;と関係が深い&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#3333FF;" vertex="1" parent="1">
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-40" value="仏教音楽&lt;font color=&quot;#000000&quot;&gt;の&lt;/font&gt;&lt;font color=&quot;#ff0000&quot;&gt;声明&lt;/font&gt;&lt;font color=&quot;#000000&quot;&gt;と関係が深い&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#3333FF;" parent="1" vertex="1">
           <mxGeometry x="340" y="480" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-41" value="&lt;font color=&quot;#000000&quot;&gt;武家政権の発展に貢献&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#3333FF;" vertex="1" parent="1">
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-41" value="&lt;font color=&quot;#000000&quot;&gt;武家政権の発展に貢献&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#3333FF;" parent="1" vertex="1">
           <mxGeometry x="500" y="480" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-42" value="&lt;font color=&quot;#ff0000&quot;&gt;「講式」&lt;br&gt;&lt;/font&gt;&lt;font color=&quot;#000000&quot;&gt;「論義」&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#3333FF;" vertex="1" parent="1">
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-42" value="&lt;font color=&quot;#ff0000&quot;&gt;「地拍子」&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#3333FF;" parent="1" vertex="1">
           <mxGeometry x="665" y="480" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-43" value="独特で特徴的な音楽で有名" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#000000;" vertex="1" parent="1">
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-43" value="独特で特徴的な音楽で有名" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#000000;" parent="1" vertex="1">
           <mxGeometry x="190" y="600" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-44" value="&lt;font color=&quot;#ff0000&quot;&gt;三曲合奏&lt;/font&gt;で新たに&lt;font color=&quot;#ff0000&quot;&gt;尺八&lt;/font&gt;が扱われた" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#000000;" vertex="1" parent="1">
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-44" value="&lt;font color=&quot;#ff0000&quot;&gt;三曲合奏&lt;/font&gt;で新たに&lt;font color=&quot;#ff0000&quot;&gt;尺八&lt;/font&gt;が扱われた" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#000000;" parent="1" vertex="1">
           <mxGeometry x="500" y="600" width="130" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-45" value="&lt;font color=&quot;#3333ff&quot;&gt;三味線音楽&lt;/font&gt;と&lt;br&gt;同時演奏していた" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#000000;" vertex="1" parent="1">
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-45" value="&lt;font color=&quot;#3333ff&quot;&gt;三味線音楽&lt;/font&gt;と&lt;br&gt;同時演奏していた" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#000000;" parent="1" vertex="1">
           <mxGeometry x="340" y="600" width="130" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-46" value="&lt;font color=&quot;#ff0000&quot;&gt;「お箏」「三味線」「胡弓」&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#000000;" vertex="1" parent="1">
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-46" value="&lt;font color=&quot;#ff0000&quot;&gt;「お箏」「三味線」「胡弓」&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#000000;" parent="1" vertex="1">
           <mxGeometry x="660" y="600" width="140" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-47" value="盲人社会で発展" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#000000;" vertex="1" parent="1">
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-47" value="盲人社会で発展" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#000000;" parent="1" vertex="1">
           <mxGeometry x="190" y="720" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-48" value="&lt;font color=&quot;#3333ff&quot;&gt;室内楽&lt;/font&gt;と&lt;font color=&quot;#ff0000&quot;&gt;筑柴琴&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#000000;" vertex="1" parent="1">
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-48" value="&lt;font color=&quot;#3333ff&quot;&gt;室内楽&lt;/font&gt;と&lt;font color=&quot;#ff0000&quot;&gt;筑柴琴&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#000000;" parent="1" vertex="1">
           <mxGeometry x="340" y="720" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-49" value="&lt;font color=&quot;#3333ff&quot;&gt;琴曲&lt;/font&gt;で盲人に&lt;br&gt;活力を与えた" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#000000;" vertex="1" parent="1">
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-49" value="&lt;font color=&quot;#3333ff&quot;&gt;琴曲&lt;/font&gt;で盲人に&lt;br&gt;活力を与えた" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#000000;" parent="1" vertex="1">
           <mxGeometry x="500" y="720" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-50" value="「盲人」「&lt;font color=&quot;#3333ff&quot;&gt;室内楽」&lt;/font&gt;&lt;br&gt;&lt;font color=&quot;#ff0000&quot;&gt;「筑柴琴」&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#000000;" vertex="1" parent="1">
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-50" value="「盲人」「&lt;font color=&quot;#3333ff&quot;&gt;室内楽」&lt;/font&gt;&lt;br&gt;&lt;font color=&quot;#ff0000&quot;&gt;「筑柴琴」&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#000000;" parent="1" vertex="1">
           <mxGeometry x="660" y="720" width="140" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-51" value="日本を代表する最高峰の音楽" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#000000;" vertex="1" parent="1">
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-51" value="日本を代表する最高峰の音楽" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#000000;" parent="1" vertex="1">
           <mxGeometry x="190" y="840" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-52" value="&lt;font color=&quot;#ff0000&quot;&gt;&amp;nbsp; &amp;nbsp;「浄瑠璃」　「かたりもの」 &lt;br&gt;「豊後節」&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#000000;" vertex="1" parent="1">
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-52" value="&lt;font color=&quot;#ff0000&quot;&gt;&amp;nbsp; &amp;nbsp;「浄瑠璃」　「かたりもの」 &lt;br&gt;「豊後節」&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#000000;" parent="1" vertex="1">
           <mxGeometry x="660" y="840" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-53" value="&lt;font color=&quot;#ff0000&quot;&gt;浄瑠璃(かたりもの)&lt;/font&gt;が日本の音楽と共に発展" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#000000;" vertex="1" parent="1">
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-53" value="&lt;font color=&quot;#ff0000&quot;&gt;浄瑠璃(かたりもの)&lt;/font&gt;が日本の音楽と共に発展" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#000000;" parent="1" vertex="1">
           <mxGeometry x="495" y="840" width="140" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-54" value="&lt;font color=&quot;#ff0000&quot;&gt;浄瑠璃&lt;/font&gt;と&lt;font color=&quot;#ff0000&quot;&gt;豊後節&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#000000;" vertex="1" parent="1">
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-54" value="&lt;font color=&quot;#ff0000&quot;&gt;浄瑠璃&lt;/font&gt;と&lt;font color=&quot;#ff0000&quot;&gt;豊後節&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#000000;" parent="1" vertex="1">
           <mxGeometry x="340" y="840" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-55" value="特徴" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;fontSize=29;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-55" value="特徴" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;fontSize=29;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
           <mxGeometry x="190" y="10" width="120" height="70" as="geometry" />
         </mxCell>
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-56" value="相互&lt;br&gt;関係" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;fontSize=29;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-56" value="相互&lt;br&gt;関係" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;fontSize=29;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
           <mxGeometry x="340" y="10" width="120" height="70" as="geometry" />
         </mxCell>
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-57" value="影響&lt;br&gt;関係" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;fontSize=29;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-57" value="影響&lt;br&gt;関係" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;fontSize=29;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
           <mxGeometry x="500" y="10" width="120" height="70" as="geometry" />
         </mxCell>
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-60" value="庶民の間で&lt;br&gt;大流行した邦楽" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#000000;" vertex="1" parent="1">
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-60" value="庶民の間で&lt;br&gt;大流行した邦楽" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#000000;" parent="1" vertex="1">
           <mxGeometry x="190" y="960" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-61" value="&lt;font color=&quot;#ff0000&quot;&gt;「俗曲」&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#000000;" vertex="1" parent="1">
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-61" value="&lt;font color=&quot;#ff0000&quot;&gt;「俗曲」&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#000000;" parent="1" vertex="1">
           <mxGeometry x="660" y="960" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-62" value="江戸から明治の時代を熱狂させた" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#000000;" vertex="1" parent="1">
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-62" value="江戸から明治の時代を熱狂させた" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#000000;" parent="1" vertex="1">
           <mxGeometry x="500" y="960" width="130" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-63" value="&lt;font color=&quot;#ff0000&quot;&gt;うた沢&lt;/font&gt;と&lt;font color=&quot;#ff0000&quot;&gt;小唄&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#000000;" vertex="1" parent="1">
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-63" value="&lt;font color=&quot;#ff0000&quot;&gt;うた沢&lt;/font&gt;と&lt;font color=&quot;#ff0000&quot;&gt;小唄&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#000000;" parent="1" vertex="1">
           <mxGeometry x="340" y="960" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-64" value="日本人や日本を表す邦楽" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#000000;" vertex="1" parent="1">
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-64" value="日本人や日本を表す邦楽" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#000000;" parent="1" vertex="1">
           <mxGeometry x="190" y="1080" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-65" value="「&lt;font color=&quot;#3333ff&quot;&gt;現代邦楽&lt;/font&gt;の&lt;br&gt;課題」" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#000000;" vertex="1" parent="1">
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-65" value="「&lt;font color=&quot;#3333ff&quot;&gt;現代邦楽&lt;/font&gt;の&lt;br&gt;課題」" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#000000;" parent="1" vertex="1">
           <mxGeometry x="665" y="1080" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-66" value="日本の芸術を発掘し、世に出した" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#000000;" vertex="1" parent="1">
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-66" value="日本の芸術を発掘し、世に出した" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#000000;" parent="1" vertex="1">
           <mxGeometry x="505" y="1080" width="130" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="ANIbdtcuZpoOsoGnwScy-67" value="&lt;font color=&quot;#3333ff&quot;&gt;古典音楽&lt;/font&gt;と&lt;br&gt;&lt;font color=&quot;#3333ff&quot;&gt;現代音楽&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#000000;" vertex="1" parent="1">
+        <mxCell id="ANIbdtcuZpoOsoGnwScy-67" value="&lt;font color=&quot;#3333ff&quot;&gt;古典音楽&lt;/font&gt;と&lt;br&gt;&lt;font color=&quot;#3333ff&quot;&gt;現代音楽&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;fontColor=#000000;" parent="1" vertex="1">
           <mxGeometry x="340" y="1080" width="120" height="60" as="geometry" />
         </mxCell>
       </root>
