@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-05-20T13:45:55.768Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36" etag="j8mismPzVl2CXmorhsLs" version="21.2.1" type="github" pages="36">
+<mxfile host="app.diagrams.net" modified="2023-05-20T13:53:17.082Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36" etag="xDRmIwJ9n-O_OhCWJDsQ" version="21.2.1" type="github" pages="37">
   <diagram id="GfWfryZrFfA8DlHSKQ3g" name="バトルフィールド">
     <mxGraphModel dx="1877" dy="549" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#FFBAF6" math="0" shadow="0">
       <root>
@@ -6085,6 +6085,14 @@
         <mxCell id="hmV9HMjY1Xqsyx9eY6Zc-9" value="おいしいよ" style="whiteSpace=wrap;html=1;shape=mxgraph.basic.oval_callout" vertex="1" parent="1">
           <mxGeometry x="435" y="210" width="110" height="60" as="geometry" />
         </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="B-gqpo4qn-Oqq5VfCowJ" name="ページ37">
+    <mxGraphModel dx="1050" dy="549" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
       </root>
     </mxGraphModel>
   </diagram>
